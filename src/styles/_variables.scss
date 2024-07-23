@@ -1,0 +1,23 @@
+// Color variables
+$black-color: #303334;
+$white-color: #fbf9f6;
+$grey-light-color: #f5f6fa;
+$grey-color: #ebebeb;
+$blue-color: #1748ef;
+
+// Size variables
+$max-width: 1200px;
+
+// Font-face definitions
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+@font-face {
+  font-family: 'NeueMachina';
+  src: url('../assets/fonts/NeueMachina-Ultrabold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+// Font variables
+$font-text: 'Roboto Mono', monospace;
+$font-special: 'NeueMachina', sans-serif;

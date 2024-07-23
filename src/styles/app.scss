@@ -1,0 +1,75 @@
+@import './_variables.scss';
+@import './_mixins.scss';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: $grey-color;
+  margin: 2rem 4rem;
+  font-family: $font-text;
+  color: $blue-color;
+}
+
+ul {
+  list-style: none;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .page {
+    display: flex;
+    height: calc(100vh - 4rem);
+    justify-content: space-between;
+    flex-direction: column;
+
+    header {
+      border-bottom: 1px solid $blue-color;
+      padding: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    footer {
+      font-size: 0.75rem;
+
+      h3 {
+        line-height: 2;
+      }
+
+      .information {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+
+        .location,
+        .hours,
+        .deliver {
+          padding: 1rem;
+          border: 1px solid $blue-color;
+        }
+
+        .hours {
+          border-left: none;
+          border-right: none;
+        }
+      }
+
+      .copyrights {
+        text-align: right;
+        font-weight: 200;
+        padding: 0.5rem 0;
+      }
+    }
+
+    .main {
+      .temp {
+        font-family: $font-special;
+        font-size: 15rem;
+      }
+    }
+  }
+}
