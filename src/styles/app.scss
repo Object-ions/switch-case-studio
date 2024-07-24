@@ -34,10 +34,13 @@ a {
     flex-direction: column;
 
     header {
+      position: sticky;
+      top: 0;
+      padding: 0.5rem;
+      background: $grey-color;
+
       .header {
         @include underline-a;
-        position: sticky;
-        top: 0px;
         background: $grey-color;
         text-transform: uppercase;
         margin-bottom: 1rem;
@@ -93,16 +96,20 @@ a {
 
       .information {
         display: grid;
-        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
 
         .location,
         .hours,
-        .deliver {
+        .services,
+        .map {
           padding: 1rem;
           border: 1px solid $blue-color;
         }
 
         .hours {
+          border-left: none;
+        }
+        .services {
           border-left: none;
           border-right: none;
         }

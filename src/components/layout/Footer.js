@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import FooterCopyrights from './FooterCopyrights';
 
 const Footer = () => {
@@ -18,13 +19,30 @@ const Footer = () => {
             Sunday - Closed
           </p>
         </div>
-        <div className="deliver">
-          <h3>WE DELIVER:</h3>
+        <div className="services">
+          <h3>SERVICES:</h3>
           <ul>
             <li>Web Design and Development</li>
             <li>SEO and Web Hosting</li>
             <li>Graphic Design</li>
             <li>Email Marketing</li>
+          </ul>
+        </div>
+        <div className="map">
+          <h3>QUICK LINKS:</h3>
+          <ul>
+            <li>
+              <Link to="/">Privacy Policy </Link>
+            </li>
+            <li>
+              <Link to="/">General Policies </Link>
+            </li>
+            <li>
+              <Link to="/">About </Link>
+            </li>
+            <li>
+              <Link to="/">Contact </Link>
+            </li>
           </ul>
         </div>
       </div>
