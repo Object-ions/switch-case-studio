@@ -1,19 +1,23 @@
+import { Link } from 'react-router-dom';
+
 const Home = () => {
   return (
     <div className="home">
-      <p className="grid-item p-hello">hello</p>
-      <div className="grid-item hero">
-        <h1>lorem ipsum dolor</h1>
+      <p className="p-hello">Hello</p>
+      <div className="hero">
+        <h1>Adaptable Solutions in a Digital Age</h1>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl
-          eros, pulvinar facilisis justo mollis, auctor consequat urna.
+          Discover innovation and expertise in software development tailored for
+          dynamic needs.
+          <br />
+          At Switch Case, we harness the power of technology to deliver
+          versatile, efficient solutions. Dive into a world where your digital
+          challenges meet agile responses.
         </p>
+        <Link to="/">[Explore Our Services]</Link>
+        <Link to="/">[Get In Touch]</Link>
       </div>
-      <img
-        className="grid-item img"
-        src="path/to/your/image.jpg"
-        alt="Description"
-      />
+      <img className="img" src="" alt="hero" />
     </div>
   );
 };
