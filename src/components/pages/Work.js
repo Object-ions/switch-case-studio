@@ -10,15 +10,22 @@ const Work = () => {
               <img src={item.image} alt={item.name} />
             </div>
             <div className="details">
-              <h3>{item.name}</h3>
+              <h3>{item.name.toUpperCase()}</h3>
               <p>
                 Service: <br /> {item.service}
               </p>
               <p>
                 Type: <br /> {item.type}
               </p>
-              <p>{item.description}</p>
-              <a href={item.link} className="button">
+              <p>
+                What is {item.name}: <br /> {item.description}
+              </p>
+              <a
+                href={item.link}
+                target="_blank"
+                rel="noreferrer"
+                className="button"
+              >
                 Visit
               </a>
             </div>
