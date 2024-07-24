@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import preview from '../assets/images/prview.png';
 
 const Home = () => {
   return (
@@ -17,7 +18,7 @@ const Home = () => {
         <Link to="/">[Explore Our Services]</Link>
         <Link to="/">[Get In Touch]</Link>
       </div>
-      <img className="img" src="" alt="hero" />
+      <img className="img" src={preview} alt="hero" />
     </div>
   );
 };
