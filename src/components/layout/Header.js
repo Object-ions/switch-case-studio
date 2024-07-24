@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const Header = () => {
   return (
     <header className="header">
-      <p>
+      <p className="brand">
         {'<'} Switch Case Studio {'/>'}
       </p>
 
@@ -13,7 +13,9 @@ const Header = () => {
         <Link to={'/'}>Testimonials</Link>
       </div>
 
-      <Link to={'/'}>Contact</Link>
+      <div className="contact">
+        <Link to={'/'}>Contact</Link>
+      </div>
     </header>
   );
 };

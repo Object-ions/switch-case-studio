@@ -35,22 +35,51 @@ a {
 
     header {
       @include underline-a;
-      border-bottom: 1px solid $blue-color;
+      position: sticky;
+      top: 0px;
+      background: $grey-color;
+      border: 1px solid $blue-color;
       padding: 0.5rem;
       text-transform: uppercase;
       margin-bottom: 1rem;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 1rem;
 
       a:hover {
         color: $orange-color;
       }
 
+      .brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-right: 1px solid $blue-color;
+        padding-right: 1rem;
+      }
+
       .navbar {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        border-left: 1px solid $blue-color;
+        border-right: 1px solid $blue-color;
+        padding: 0 1rem;
+
         a {
           margin-right: 1.5rem;
+          &:last-child {
+            margin-right: 0;
+          }
         }
+      }
+
+      .contact {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-left: 1px solid $blue-color;
+        padding-left: 1rem;
       }
     }
 
@@ -108,6 +137,7 @@ a {
         }
 
         .hero {
+          @include underline-a;
           display: flex;
           align-items: flex-start;
           flex-direction: column;
@@ -118,6 +148,14 @@ a {
 
           p {
             margin: 1rem 0;
+          }
+
+          a {
+            margin: 0;
+
+            &:hover {
+              color: $orange-color;
+            }
           }
         }
 
