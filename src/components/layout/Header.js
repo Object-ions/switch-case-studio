@@ -6,7 +6,7 @@ const Header = () => {
       <div className="header">
         <div className="brand">
           <Link to="/">
-            {'<'} Switch Case Studio {'/>'}
+            {'<'} SC {'/>'}
           </Link>
         </div>
 

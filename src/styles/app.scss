@@ -36,7 +36,6 @@ a {
     header {
       position: sticky;
       top: 0;
-      padding: 0.5rem;
       background: $grey-color;
 
       .header {
@@ -123,6 +122,24 @@ a {
     }
 
     .main {
+      p {
+        font-weight: 200;
+      }
+
+      a {
+        font-weight: 400;
+        margin: 0 !important;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: 500;
+      }
+
       .home {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -171,6 +188,38 @@ a {
           @include fit-image-with-adjustment;
           grid-row: 2 / 5;
           grid-column: 2 / 5;
+        }
+      }
+
+      .work {
+        a,
+        p {
+          font-size: 0.8rem;
+        }
+
+        .work-item {
+          margin: 1rem 0;
+
+          .work-content {
+            @include underline-a;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 1rem;
+
+            a:hover {
+              color: $orange-color;
+            }
+
+            .details {
+              border: 1px solid $blue-color;
+              // border-left: none;
+              padding: 2rem;
+            }
+
+            .image-wrapper {
+              border: 1px solid $blue-color;
+            }
+          }
         }
       }
     }
