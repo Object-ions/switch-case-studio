@@ -1,0 +1,68 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+.pricing-table {
+  width: 100%;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    // margin: 0 auto;
+    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    th,
+    td {
+      // border: 1px solid #e0e0e0;
+      padding: 1rem;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f4f4f4;
+      color: #333;
+      font-weight: bold;
+    }
+
+    td {
+      background-color: #fff;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f9f9f9;
+    }
+
+    ul {
+      // list-style: none;
+      // padding: 0;
+      // margin: 0;
+
+      li {
+        margin-bottom: 0.5rem;
+        padding-left: 1rem;
+        position: relative;
+
+        &::before {
+          content: '•';
+          position: absolute;
+          left: 0;
+          color: #333;
+        }
+      }
+    }
+  }
+
+  tbody {
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 1fr;
+    gap: 1rem;
+
+    tr {
+      display: contents; // Allows tr to adopt the grid layout of tbody
+
+      td,
+      th {
+        display: block; // Each cell takes the full height of its respective column
+      }
+    }
+  }
+}
