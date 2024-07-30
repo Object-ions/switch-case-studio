@@ -8,11 +8,10 @@
   .package {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    border: 1px solid $blue-color;
     border-collapse: collapse;
+    border: 1px solid $blue-color;
 
     & > div {
-      border: 1px solid $blue-color;
       padding: 1rem;
     }
 
