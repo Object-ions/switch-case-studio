@@ -1,0 +1,42 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+footer {
+  font-size: 0.75rem;
+
+  h3 {
+    line-height: 2;
+  }
+
+  .information {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    .location,
+    .hours,
+    .services,
+    .map {
+      padding: 1rem;
+      border: 1px solid $blue-color;
+
+      &:hover {
+        background: $orange-color;
+        color: $black-color;
+      }
+    }
+
+    .hours {
+      border-left: none;
+    }
+    .services {
+      border-left: none;
+      border-right: none;
+    }
+  }
+
+  .copyrights {
+    text-align: right;
+    font-weight: 200;
+    padding: 0.5rem 0;
+  }
+}

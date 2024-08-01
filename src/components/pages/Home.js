@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import preview from '../../assets/images/prev2.png';
+import '../../styles/components/home.scss';
 
 const Home = () => {
   return (

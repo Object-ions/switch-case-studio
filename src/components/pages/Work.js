@@ -1,4 +1,5 @@
 import work from '../../data/work.json';
+import '../../styles/components/work.scss';
 
 const Work = () => {
   return (

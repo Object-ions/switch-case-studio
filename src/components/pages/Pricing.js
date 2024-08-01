@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/components/_pricing.scss';
+import '../../styles/components/pricing.scss';
 
 const Pricing = () => {
   const packages = [
