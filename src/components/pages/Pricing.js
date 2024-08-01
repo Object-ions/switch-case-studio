@@ -79,7 +79,9 @@ const Pricing = () => {
               </ul>
             </div>
           </div>
-          <div className="package-price">Price: {pkg.price}</div>
+          <div className="package-price">
+            <p>Price: {pkg.price}</p>
+          </div>
         </div>
       ))}
     </div>

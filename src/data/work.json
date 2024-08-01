@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Kamea",
-    "image": "",
+    "image": "/images/kamea.png",
     "service": "Web Design and Development",
     "type": "Corporate Website",
     "description": "Kamea, a premier spa located in Santa Fe, NM, offers advanced anti-aging treatments and skincare services for its clients.",
@@ -11,7 +11,7 @@
   {
     "id": 2,
     "name": "Kamea",
-    "image": "",
+    "image": "/images/kamea.png",
     "service": "Web Design and Development",
     "type": "Corporate Website",
     "description": "Kamea, a premier spa located in Santa Fe, NM, offers advanced anti-aging treatments and skincare services for its clients.",
@@ -20,7 +20,7 @@
   {
     "id": 3,
     "name": "Kamea",
-    "image": "",
+    "image": "/images/kamea.png",
     "service": "Web Design and Development",
     "type": "Corporate Website",
     "description": "Kamea, a premier spa located in Santa Fe, NM, offers advanced anti-aging treatments and skincare services for its clients.",

@@ -12,6 +12,11 @@
     border-collapse: collapse;
     border: 1px solid $blue-color;
 
+    &:hover {
+      background: $orange-color;
+      color: $black-color;
+    }
+
     &:last-child {
       border-bottom: 2px solid $blue-color;
     }
@@ -26,7 +31,6 @@
     }
 
     .package-price {
-      color: $orange-color;
       text-align: center;
     }
 

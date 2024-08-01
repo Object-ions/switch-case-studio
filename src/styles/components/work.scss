@@ -4,17 +4,16 @@
 .work {
   a,
   p {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 
-  .work-item {
-    margin: 1rem 0;
+  margin-bottom: 1rem;
 
+  .work-item {
     .work-content {
       @include underline-a;
       display: grid;
-      grid-template-columns: 1fr 3fr;
-      gap: 1rem;
+      grid-template-columns: 1fr 1fr 2fr;
 
       a:hover {
         color: $orange-color;
@@ -23,10 +22,37 @@
       .details {
         border: 1px solid $blue-color;
         padding: 2rem;
+
+        &:hover {
+          background: $orange-color;
+          color: $black-color;
+        }
       }
 
       .image-wrapper {
         border: 1px solid $blue-color;
+
+        img {
+          @include fit-image-with-adjustment;
+        }
+      }
+
+      .link {
+        padding: 2rem;
+        border: 1px solid $blue-color;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+
+        a {
+          font-size: 2rem;
+          text-transform: uppercase;
+        }
+
+        &:hover {
+          background: $orange-color;
+          color: $black-color;
+        }
       }
     }
   }

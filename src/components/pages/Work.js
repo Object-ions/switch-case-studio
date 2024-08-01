@@ -10,6 +10,18 @@ const Work = () => {
             <div className="image-wrapper">
               <img src={item.image} alt={item.name} />
             </div>
+
+            <div className="link">
+              <a
+                href={item.link}
+                target="_blank"
+                rel="noreferrer"
+                className="button"
+              >
+                Visit
+              </a>
+            </div>
+
             <div className="details">
               <h3>{item.name.toUpperCase()}</h3>
               <p>
@@ -21,14 +33,6 @@ const Work = () => {
               <p>
                 What is {item.name}: <br /> {item.description}
               </p>
-              <a
-                href={item.link}
-                target="_blank"
-                rel="noreferrer"
-                className="button"
-              >
-                Visit
-              </a>
             </div>
           </div>
         </div>
