@@ -5,7 +5,7 @@ const Pricing = () => {
   const packages = [
     {
       title: 'Landing Page',
-      price: '$700',
+      price: '$800',
       description:
         'Perfect for professional events and promotions. This package offers a sleek, simple one-pager that makes an instant impact. Ideal for events, product launches, or personal branding.',
       includes: [
@@ -18,7 +18,7 @@ const Pricing = () => {
     },
     {
       title: 'Simple Website',
-      price: '$1,200',
+      price: '$1,500',
       description:
         'Ideal for small businesses and personal portfolios. Expand your digital footprint with a website designed to grow with your needs.',
       includes: [
@@ -70,7 +70,7 @@ const Pricing = () => {
         <div className="package" key={index}>
           <div className="package-title">{pkg.title}</div>
           <div className="package-main">
-            <div className="package-description">{pkg.description}</div>
+            <div>{pkg.description}</div>
             <div className="package-includes">
               <ul>
                 {pkg.includes.map((item, idx) => (
@@ -79,7 +79,7 @@ const Pricing = () => {
               </ul>
             </div>
           </div>
-          <div className="package-price">{pkg.price}</div>
+          <div className="package-price">Price: {pkg.price}</div>
         </div>
       ))}
     </div>

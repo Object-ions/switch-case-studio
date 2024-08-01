@@ -3,7 +3,8 @@
 
 .pricing {
   display: grid;
-  gap: 2rem;
+  font-weight: 300;
+  margin-bottom: 2rem;
 
   .package {
     display: grid;
@@ -11,28 +12,29 @@
     border-collapse: collapse;
     border: 1px solid $blue-color;
 
+    &:last-child {
+      border-bottom: 2px solid $blue-color;
+    }
+
     & > div {
       padding: 1rem;
     }
 
     .package-title {
       font-weight: bold;
+      text-transform: uppercase;
     }
 
     .package-price {
-      font-weight: bold;
       color: $orange-color;
-      text-align: right;
-    }
-
-    .package-description {
+      text-align: center;
     }
 
     .package-includes {
-      grid-column: 2 / 3;
+      margin-top: 1rem;
 
       ul {
-        padding-left: 20px;
+        padding-left: 15px;
         li {
           list-style-type: disc;
         }
