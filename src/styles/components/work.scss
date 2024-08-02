@@ -15,10 +15,6 @@
       display: grid;
       grid-template-columns: 1fr 1fr 2fr;
 
-      a:hover {
-        color: $orange-color;
-      }
-
       .details {
         border: 1px solid $blue-color;
         padding: 2rem;
