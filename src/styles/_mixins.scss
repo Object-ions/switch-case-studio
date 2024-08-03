@@ -40,3 +40,10 @@
   object-fit: cover;
   object-position: center calc(50% + #{$vertical-adjustment});
 }
+
+@mixin color-hover {
+  &:hover {
+    background: $orange-color;
+    color: $black-color;
+  }
+}
