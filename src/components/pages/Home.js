@@ -19,7 +19,9 @@ const Home = () => {
         <Link to="/">[Explore Our Services]</Link>
         <Link to="/">[Get In Touch]</Link>
       </div>
-      <img className="img" src={preview} alt="hero" />
+      <div className="image-wrapper">
+        <img className="img" src={preview} alt="hero" />
+      </div>
     </div>
   );
 };
