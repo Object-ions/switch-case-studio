@@ -11,18 +11,13 @@
 
   .work-item {
     .work-content {
-      @include underline-a;
       display: grid;
       grid-template-columns: 1fr 1fr 2fr;
 
       .details {
+        @include color-hover;
         border: 1px solid $blue-color;
         padding: 2rem;
-
-        &:hover {
-          background: $orange-color;
-          color: $black-color;
-        }
       }
 
       .image-wrapper {
@@ -34,6 +29,7 @@
       }
 
       .link {
+        @include color-hover;
         padding: 2rem;
         border: 1px solid $blue-color;
         display: flex;
@@ -43,11 +39,6 @@
         a {
           font-size: 2rem;
           text-transform: uppercase;
-        }
-
-        &:hover {
-          background: $orange-color;
-          color: $black-color;
         }
       }
     }

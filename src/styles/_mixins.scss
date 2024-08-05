@@ -1,32 +1,3 @@
-@mixin underline-a {
-  a {
-    text-decoration: none;
-    position: relative;
-    display: inline-block;
-    color: inherit;
-    margin-left: 0.2rem;
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -0.1rem;
-      width: 0;
-      height: 0.1rem;
-      background-color: $orange-color;
-      transition: width 0.3s linear;
-    }
-
-    &:hover::before {
-      width: 100%;
-    }
-
-    &.active::before {
-      width: 100%;
-    }
-  }
-}
-
 @mixin fit-bg-image($vertical-adjustment: 0%) {
   background-position: center calc(50% + #{$vertical-adjustment}) !important;
   background-size: cover !important;
@@ -45,5 +16,6 @@
   &:hover {
     background: $orange-color;
     color: $black-color;
+    transition: background 0.3s ease, color 0.3s ease;
   }
 }

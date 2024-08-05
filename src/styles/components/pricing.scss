@@ -7,15 +7,11 @@
   margin-bottom: 1rem;
 
   .package {
+    @include color-hover;
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     border-collapse: collapse;
     border: 1px solid $blue-color;
-
-    &:hover {
-      background: $orange-color;
-      color: $black-color;
-    }
 
     &:last-child {
       border-bottom: 2px solid $blue-color;

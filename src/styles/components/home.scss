@@ -23,7 +23,6 @@
   }
 
   .hero {
-    @include underline-a;
     display: flex;
     align-items: flex-start;
     flex-direction: column;
@@ -37,16 +36,14 @@
     }
 
     a {
+      @include color-hover;
       margin: 0;
-
-      &:hover {
-        color: $orange-color;
-      }
     }
   }
 
   .img {
     @include fit-image-with-adjustment;
+    @include blue-tint;
     grid-row: 2 / 5;
     grid-column: 2 / 5;
   }

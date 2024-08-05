@@ -16,13 +16,9 @@ footer {
     .hours,
     .services,
     .map {
+      @include color-hover;
       padding: 1rem;
       border: 1px solid $blue-color;
-
-      &:hover {
-        background: $orange-color;
-        color: $black-color;
-      }
     }
 
     .hours {
