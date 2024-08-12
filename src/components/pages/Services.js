@@ -15,7 +15,7 @@ const Services = () => {
     <div id="services">
       <div className="services-content">
         <div className="title">
-          <h1>SERVICES</h1>
+          <h1>Services</h1>
           <p>
             At Switch Case, we're not just about coding—we're about creating
             solutions that elevate your digital presence. Here's how we can help

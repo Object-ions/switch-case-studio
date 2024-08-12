@@ -21,6 +21,7 @@ const ScrollingText = () => {
           Unlock Your Digital Potential. {'   '}
           Unlock Your Digital Potential. {'   '}
           Unlock Your Digital Potential. {'   '}
+          Unlock Your Digital Potential. {'   '}
         </p>
       </div>
     </div>
