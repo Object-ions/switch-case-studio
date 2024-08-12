@@ -1,0 +1,31 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+.scrolling-container {
+  margin-top: 5rem;
+  grid-column: 1 / 4;
+
+  .scrolling-text {
+    display: inline-block;
+    white-space: nowrap;
+    position: absolute;
+    right: 0;
+    animation: scroll-left 500s linear infinite;
+    padding: 10px 0;
+
+    p {
+      display: inline-block;
+      font-family: $font-special;
+      font-size: 15rem;
+    }
+  }
+}
+
+@keyframes scroll-left {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}

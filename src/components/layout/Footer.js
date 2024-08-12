@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import FooterCopyrights from './FooterCopyrights';
 import '../../styles/components/footer.scss';
 
@@ -32,18 +31,10 @@ const Footer = () => {
         <div className="map">
           <h3>QUICK LINKS:</h3>
           <ul>
-            <li>
-              <Link to="/">Privacy Policy </Link>
-            </li>
-            <li>
-              <Link to="/">General Policies </Link>
-            </li>
-            <li>
-              <Link to="/">About </Link>
-            </li>
-            <li>
-              <Link to="/">Contact </Link>
-            </li>
+            <li>Privacy Policy</li>
+            <li>General Policies</li>
+            <li>About</li>
+            <li>Contact</li>
           </ul>
         </div>
       </div>

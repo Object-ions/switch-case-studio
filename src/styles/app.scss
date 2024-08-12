@@ -7,9 +7,12 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: $grey-color;
-  margin: 2rem 4rem;
   font-family: $font-text;
   color: $blue-color;
 }
@@ -21,36 +24,17 @@ ul {
 a {
   text-decoration: none;
   color: inherit;
+  font-weight: 200;
 }
 
-.app {
-  max-width: 1200px;
-  margin: 0 auto;
-
-  .page {
-    display: flex;
-    height: calc(100vh - 4rem);
-    justify-content: space-between;
-    flex-direction: column;
-
-    .main {
-      p {
-        font-weight: 200;
-      }
-
-      a {
-        font-weight: 400;
-        margin: 0 !important;
-      }
-
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        font-weight: 500;
-      }
-    }
-  }
+p {
+  font-weight: 200;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
 }

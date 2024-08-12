@@ -1,4 +1,3 @@
-import React from 'react';
 import '../../styles/components/pricing.scss';
 
 const Pricing = () => {
@@ -65,7 +64,7 @@ const Pricing = () => {
   ];
 
   return (
-    <div className="pricing">
+    <div id="pricing">
       {packages.map((pkg, index) => (
         <div className="package" key={index}>
           <div className="package-title">{pkg.title}</div>

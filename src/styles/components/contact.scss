@@ -1,0 +1,90 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+#contact {
+  height: 100vh;
+  max-width: 600px;
+  margin: 0 auto;
+  padding-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  h1 {
+    color: $blue-color;
+    font-size: 3rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+  }
+
+  p {
+    color: #000;
+  }
+
+  form {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      label {
+        font-weight: 400;
+
+        span {
+          font-size: 0.8rem;
+          color: #888;
+        }
+      }
+
+      input,
+      textarea {
+        padding: 1rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+
+        &::placeholder {
+          color: #ccc;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: #333;
+        }
+      }
+
+      textarea {
+        resize: vertical;
+        height: 10rem;
+      }
+
+      .name-fields {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+
+        input {
+          flex: 1;
+        }
+      }
+    }
+
+    button {
+      width: 7rem;
+      padding: 1.5rem;
+      font-size: 1rem;
+      color: #fff;
+      background-color: #000;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #333;
+      }
+    }
+  }
+}

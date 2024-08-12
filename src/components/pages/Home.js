@@ -1,13 +1,17 @@
-import { Link } from 'react-router-dom';
-import preview from '../../assets/images/prev2.png';
+import preview from '../../assets/images/IMG_2987blue.png';
+import WelcomeTyped from '../WelcomeTyped';
+
 import '../../styles/components/home.scss';
 
 const Home = () => {
   return (
-    <div className="home">
-      <p className="p-hello">Hello</p>
+    <div id="home">
+      {/* <p className="p-hello">Hello...</p> */}
+      <WelcomeTyped />
       <div className="hero">
-        <h1>Adaptable Solutions in a Digital Age</h1>
+        <h1>
+          <strong>Adaptable Solutions</strong> in a Digital Age
+        </h1>
         <p>
           Discover innovation and expertise in software development tailored for
           dynamic needs.
@@ -16,12 +20,12 @@ const Home = () => {
           versatile, efficient solutions. Dive into a world where your digital
           challenges meet agile responses.
         </p>
-        <Link to="/">[Explore Our Services]</Link>
-        <Link to="/">[Get In Touch]</Link>
+        <div className="links">
+          <a href="#services">[Explore Our Services]</a>
+          <a href="#contact">[Get In Touch]</a>
+        </div>
       </div>
-      <div className="image-wrapper">
-        <img className="img" src={preview} alt="hero" />
-      </div>
+      <div className="img" style={{ backgroundImage: `url(${preview})` }}></div>
     </div>
   );
 };

@@ -1,0 +1,22 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+#about {
+  height: 100vh;
+  padding-top: 5rem;
+  background: $blue-color;
+  color: #000;
+
+  .about-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .image-wrapper {
+      img {
+        width: 100%;
+      }
+    }
+  }
+}

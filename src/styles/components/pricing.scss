@@ -1,13 +1,14 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
-.pricing {
+#pricing {
+  padding-top: 5rem;
+  min-height: calc(100vh - 5rem);
   display: grid;
   font-weight: 300;
   margin-bottom: 1rem;
 
   .package {
-    @include color-hover;
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     border-collapse: collapse;

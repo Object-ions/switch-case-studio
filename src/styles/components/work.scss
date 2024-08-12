@@ -1,13 +1,13 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
-.work {
+#work {
+  padding-top: 5rem;
+
   a,
   p {
     font-size: 0.9rem;
   }
-
-  margin-bottom: 1rem;
 
   .work-item {
     .work-content {
@@ -15,7 +15,6 @@
       grid-template-columns: 1fr 1fr 2fr;
 
       .details {
-        @include color-hover;
         border: 1px solid $blue-color;
         padding: 2rem;
       }
@@ -29,7 +28,6 @@
       }
 
       .link {
-        @include color-hover;
         padding: 2rem;
         border: 1px solid $blue-color;
         display: flex;

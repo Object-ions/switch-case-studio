@@ -1,0 +1,25 @@
+.custom-cursor {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 10rem;
+  font-family: 'NeueMachina', sans-serif;
+  line-height: 0.5;
+  display: flex;
+  align-items: flex-end;
+}
+
+.cursor {
+  animation: blink 0.7s infinite;
+  padding-left: 0.2rem;
+  margin-bottom: -5em; /* Adjust this value to position the cursor as needed */
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}

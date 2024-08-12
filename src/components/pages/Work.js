@@ -3,7 +3,7 @@ import '../../styles/components/work.scss';
 
 const Work = () => {
   return (
-    <div className="work">
+    <div id="work">
       {work.map((item) => (
         <div className="work-item" key={item.id}>
           <div className="work-content">
