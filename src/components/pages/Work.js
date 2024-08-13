@@ -1,5 +1,6 @@
 import work from '../../data/work.json';
-import { ReactComponent as HalfcircleIcon } from '../../assets/images/halfcircle.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import { ReactComponent as TrianglesIcon } from '../../assets/images/triangles.svg';
 
 import '../../styles/components/work.scss';
@@ -30,7 +31,12 @@ const Work = () => {
               ></div>
 
               <div className="details">
-                <h3>{item.name.toUpperCase()}</h3>
+                <h3>
+                  {item.name}{' '}
+                  <a href={item.link} target="_blank" rel="noreferrer">
+                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                  </a>
+                </h3>
                 <p>{item.service}</p>
                 <p>{item.type}</p>
                 <p>{item.description}</p>

@@ -45,12 +45,22 @@
         .details {
           padding: 2rem;
           color: #fff;
+
+          h3 {
+            font-size: 2rem;
+          }
         }
 
         .image-wrapper {
           background-position: top top !important;
           background-size: cover !important;
           background-repeat: no-repeat !important;
+          filter: grayscale(100%);
+          transition: filter 0.3s ease;
+
+          &:hover {
+            filter: grayscale(0%);
+          }
         }
 
         .link {
