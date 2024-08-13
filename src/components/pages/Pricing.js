@@ -85,14 +85,12 @@ const Pricing = () => {
           <div className="package-image">
             <img src={pkg.gif} alt={pkg.title} />
           </div>
-          <div className="package-title-price">
+          <div className="package-title-price-desc">
             <p className="package-title">{pkg.title}</p>
+            <p className="package-description">{pkg.description}</p>
             <p className="package-price">{pkg.price}</p>
           </div>
           <div className="package-main">
-            <div>
-              <p>{pkg.description}</p>
-            </div>
             <div className="package-includes">
               <ul>
                 {pkg.includes.map((item, idx) => (
