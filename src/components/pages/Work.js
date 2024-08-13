@@ -1,4 +1,7 @@
 import work from '../../data/work.json';
+import { ReactComponent as HalfcircleIcon } from '../../assets/images/halfcircle.svg';
+import { ReactComponent as TrianglesIcon } from '../../assets/images/triangles.svg';
+
 import '../../styles/components/work.scss';
 
 const Work = () => {
@@ -6,7 +9,10 @@ const Work = () => {
     <div id="work">
       <div className="work-meta">
         <div className="work-text">
-          <h1>Innovating the means of production.</h1>
+          <h1>
+            <TrianglesIcon style={{ width: '170px' }} />
+            Innovating the means of production<span>...</span>
+          </h1>
           <p>
             We have developed a robust set of processes that ensure all
             solutions are implemented appropriately for us to push culture

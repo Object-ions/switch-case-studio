@@ -16,6 +16,7 @@
     }
 
     .work-text {
+      position: relative;
       margin-bottom: 5rem;
 
       h1 {
@@ -27,6 +28,10 @@
       p {
         font-size: 2rem;
         color: $light-blue-color;
+      }
+
+      span {
+        color: $orange-color;
       }
     }
 
