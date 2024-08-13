@@ -4,39 +4,35 @@ import '../../styles/components/work.scss';
 const Work = () => {
   return (
     <div id="work">
-      {work.map((item) => (
-        <div className="work-item" key={item.id}>
-          <div className="work-content">
-            <div className="image-wrapper">
-              <img src={item.image} alt={item.name} />
-            </div>
+      <div className="work-meta">
+        <div className="work-text">
+          <h1>Innovating the means of production.</h1>
+          <p>
+            We have developed a robust set of processes that ensure all
+            solutions are implemented appropriately for us to push culture
+            forward in a timely manner that achieves both the quality we aspire
+            to, and the quality you deserve.
+          </p>
+        </div>
 
-            <div className="link">
-              <a
-                href={item.link}
-                target="_blank"
-                rel="noreferrer"
-                className="button"
-              >
-                Visit
-              </a>
-            </div>
+        {work.map((item) => (
+          <div className="work-item" key={item.id}>
+            <div className="work-content">
+              <div
+                className="image-wrapper"
+                style={{ backgroundImage: `url(${item.image})` }}
+              ></div>
 
-            <div className="details">
-              <h3>{item.name.toUpperCase()}</h3>
-              <p>
-                Service: <br /> {item.service}
-              </p>
-              <p>
-                Type: <br /> {item.type}
-              </p>
-              <p>
-                What is {item.name}: <br /> {item.description}
-              </p>
+              <div className="details">
+                <h3>{item.name.toUpperCase()}</h3>
+                <p>{item.service}</p>
+                <p>{item.type}</p>
+                <p>{item.description}</p>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
