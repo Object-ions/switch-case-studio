@@ -1,5 +1,5 @@
-import '../../styles/components/contact.scss';
 import Triangles from '../Triangles';
+import '../../styles/components/contact.scss';
 
 const Contact = () => {
   return (

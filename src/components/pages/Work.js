@@ -31,15 +31,15 @@ const Work = () => {
               ></div>
 
               <div className="details">
-                <h3>
-                  {item.name}{' '}
-                  <a href={item.link} target="_blank" rel="noreferrer">
-                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-                  </a>
-                </h3>
+                <h3>{item.name} </h3>
                 <p>{item.service}</p>
                 <p>{item.type}</p>
                 <p>{item.description}</p>
+
+                <a href={item.link} target="_blank" rel="noreferrer">
+                  View Project{' '}
+                  <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                </a>
               </div>
             </div>
           </div>
