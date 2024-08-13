@@ -1,4 +1,8 @@
 import Star from '../../assets/images/star.png';
+import gif1 from '../../assets/gifs/1.gif';
+import gif2 from '../../assets/gifs/2.gif';
+import gif3 from '../../assets/gifs/3.gif';
+import gif4 from '../../assets/gifs/4.gif';
 
 import '../../styles/components/pricing.scss';
 
@@ -6,6 +10,7 @@ const Pricing = () => {
   const packages = [
     {
       title: 'Landing Page',
+      gif: gif1,
       price: '$800',
       description:
         'Perfect for professional events and promotions. This package offers a sleek, simple one-pager that makes an instant impact. Ideal for events, product launches, or personal branding.',
@@ -19,6 +24,7 @@ const Pricing = () => {
     },
     {
       title: 'Simple Website',
+      gif: gif2,
       price: '$1,500',
       description:
         'Ideal for small businesses and personal portfolios. Expand your digital footprint with a website designed to grow with your needs.',
@@ -33,6 +39,7 @@ const Pricing = () => {
     },
     {
       title: 'Standard Website',
+      gif: gif3,
       price: '$2,500',
       description:
         'Great for growing businesses needing more functionality. A robust website with comprehensive features to facilitate interaction and management.',
@@ -48,6 +55,7 @@ const Pricing = () => {
     },
     {
       title: 'Professional Website',
+      gif: gif4,
       price: '$5,000',
       description:
         'A complete solution for e-commerce and complex business needs. For businesses aiming for the top with advanced functionality like e-commerce and detailed user interaction.',
@@ -74,7 +82,9 @@ const Pricing = () => {
       </div>
       {packages.map((pkg, index) => (
         <div className="package" key={index}>
-          <div className="package-image">image</div>
+          <div className="package-image">
+            <img src={pkg.gif} alt={pkg.title} />
+          </div>
           <div className="package-title-price">
             <p className="package-title">{pkg.title}</p>
             <p className="package-price">{pkg.price}</p>

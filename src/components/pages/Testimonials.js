@@ -1,4 +1,4 @@
-import InvertStar from '../../assets/images/invert-star.png';
+import gif5 from '../../assets/gifs/5.gif';
 
 import '../../styles/components/testimonials.scss';
 
@@ -34,7 +34,7 @@ const Testimonials = () => {
     <div id="testimonials">
       <div className="testimonial-meta">
         <div className="testimonial-head">
-          <img src={InvertStar} alt="testimonials" />
+          <img src={gif5} alt="testimonials" />
           <h2>
             Clients we <br /> partnered with
           </h2>
