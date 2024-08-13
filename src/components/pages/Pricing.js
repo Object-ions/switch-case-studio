@@ -1,4 +1,4 @@
-import { ReactComponent as Icon } from '../../assets/images/small-orange-star.svg';
+import Star from '../../assets/images/star.png';
 
 import '../../styles/components/pricing.scss';
 
@@ -69,7 +69,7 @@ const Pricing = () => {
     <div id="pricing">
       <div className="blue-square"></div>
       <div className="star">
-        <Icon style={{ height: '200px' }} className="icon-animation" />
+        <img src={Star} alt="pricing" />
         <h1>Web Development</h1>
       </div>
       {packages.map((pkg, index) => (
