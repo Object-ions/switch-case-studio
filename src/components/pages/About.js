@@ -5,6 +5,8 @@ const About = () => {
   return (
     <div id="about">
       <div className="about-content">
+        <div class="blue-square"></div>
+
         <div className="about-text">
           <h2>About Switch Case</h2>
           <p>

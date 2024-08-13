@@ -12,11 +12,22 @@
     grid-template-columns: repeat(4, 1fr);
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
 
     .image-wrapper {
       img {
         width: 100%;
       }
+    }
+
+    .blue-square {
+      position: absolute;
+      width: 20rem;
+      height: 12rem;
+      background-color: $blue-color;
+      top: -12rem;
+      right: -4rem;
+      z-index: 1;
     }
   }
 }

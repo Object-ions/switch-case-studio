@@ -65,11 +65,18 @@ const Pricing = () => {
 
   return (
     <div id="pricing">
+      <div class="blue-square"></div>
       {packages.map((pkg, index) => (
         <div className="package" key={index}>
-          <div className="package-title">{pkg.title}</div>
+          <div className="package-image">image</div>
+          <div className="package-title-price">
+            <p className="package-title">{pkg.title}</p>
+            <p className="package-price">{pkg.price}</p>
+          </div>
           <div className="package-main">
-            <div>{pkg.description}</div>
+            <div>
+              <p>{pkg.description}</p>
+            </div>
             <div className="package-includes">
               <ul>
                 {pkg.includes.map((item, idx) => (
@@ -77,9 +84,6 @@ const Pricing = () => {
                 ))}
               </ul>
             </div>
-          </div>
-          <div className="package-price">
-            <p>Price: {pkg.price}</p>
           </div>
         </div>
       ))}

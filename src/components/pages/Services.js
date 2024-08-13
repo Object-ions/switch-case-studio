@@ -13,6 +13,7 @@ import '../../styles/components/services.scss';
 const Services = () => {
   return (
     <div id="services">
+      <div class="blue-square"></div>
       <div className="services-content">
         <div className="title">
           <h1>Services</h1>

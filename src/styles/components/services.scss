@@ -6,13 +6,22 @@
   background: #000;
   color: #fff;
   padding: 5rem 0;
+  position: relative;
 
   h1 {
     font-family: $font-special;
     font-size: 4rem;
     margin-bottom: 0.5rem;
   }
-
+  .blue-square {
+    position: absolute;
+    width: 20rem;
+    height: 12rem;
+    background-color: #000;
+    top: -10rem;
+    left: -4rem;
+    z-index: 1;
+  }
   .services-content {
     max-width: 1200px;
     margin: 0 auto 5rem auto;
