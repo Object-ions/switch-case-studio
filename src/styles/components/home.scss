@@ -38,8 +38,9 @@
   }
 
   .img {
-    grid-row: 2 / 5;
-    grid-column: 2 / 5;
+    margin-top: 4rem;
+    grid-row: 2 / 4;
+    grid-column: 2 / 4;
     background-position: top top;
     background-size: contain;
     background-repeat: no-repeat;

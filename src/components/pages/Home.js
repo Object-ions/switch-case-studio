@@ -1,4 +1,4 @@
-import preview from '../../assets/images/IMG_2987blue.png';
+import preview from '../../assets/images/asset1.png';
 import WelcomeTyped from '../WelcomeTyped';
 
 import '../../styles/components/home.scss';
@@ -6,7 +6,6 @@ import '../../styles/components/home.scss';
 const Home = () => {
   return (
     <div id="home">
-      {/* <p className="p-hello">Hello...</p> */}
       <WelcomeTyped />
       <div className="hero">
         <h1>
