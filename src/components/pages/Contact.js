@@ -1,8 +1,10 @@
 import '../../styles/components/contact.scss';
+import Triangles from '../Triangles';
 
 const Contact = () => {
   return (
     <div id="contact">
+      <Triangles />
       <h1>
         Interested in working together? Use the form below and get in touch!
       </h1>

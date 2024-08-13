@@ -1,0 +1,61 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+.triangle-container {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  position: absolute;
+  animation: rotate 10s linear infinite;
+
+  &.triangle1 {
+    border-width: 40px 40px 0 0;
+    border-color: $orange-color transparent transparent transparent;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    animation-direction: normal;
+  }
+
+  &.triangle2 {
+    border-width: 0 40px 40px 0;
+    border-color: transparent $orange-color transparent transparent;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    animation-direction: reverse;
+  }
+
+  &.triangle3 {
+    border-width: 0 0 40px 40px;
+    border-color: transparent transparent $orange-color transparent;
+    bottom: 0;
+    right: 50%;
+    transform: translateX(50%);
+    animation-direction: normal;
+  }
+
+  &.triangle4 {
+    border-width: 40px 0 0 40px;
+    border-color: transparent transparent transparent $orange-color;
+    bottom: 50%;
+    left: 0;
+    transform: translateY(50%);
+    animation-direction: reverse;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
