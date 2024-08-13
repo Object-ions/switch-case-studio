@@ -6,12 +6,28 @@
   min-height: calc(100vh - 5rem);
   position: relative;
 
+  .star {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    h1 {
+      font-family: $font-special;
+      text-align: center;
+      font-size: 5rem;
+      margin-bottom: 5rem;
+      color: $orange-color;
+    }
+  }
+
   .blue-square {
     position: absolute;
     width: 20rem;
-    height: 12rem;
+    height: 7rem;
     background-color: #000;
-    top: -7rem;
+    top: -2rem;
     right: -4rem;
     z-index: 1;
   }
@@ -68,5 +84,17 @@
         }
       }
     }
+  }
+}
+
+@keyframes rotateStar {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(90deg); /* Rotate 90 degrees clockwise */
+  }
+  100% {
+    transform: rotate(-270deg); /* Rotate 2 times counterclockwise */
   }
 }

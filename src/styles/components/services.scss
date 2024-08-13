@@ -13,11 +13,13 @@
     font-size: 4rem;
     margin-bottom: 0.5rem;
   }
-  .blue-square {
+
+  .black-square {
     position: absolute;
     width: 20rem;
-    height: 12rem;
+    height: 20rem;
     background-color: #000;
+    border-radius: 50%;
     top: -10rem;
     left: -4rem;
     z-index: 1;
@@ -46,6 +48,7 @@
     }
 
     .title {
+      z-index: 998;
       grid-column: 1 / 3;
     }
 

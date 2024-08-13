@@ -1,61 +1,42 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
-.triangle-container {
-  position: relative;
-  width: 150px;
-  height: 150px;
-}
-
-.triangle {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  position: absolute;
-  animation: rotate 10s linear infinite;
-
-  &.triangle1 {
-    border-width: 40px 40px 0 0;
-    border-color: $orange-color transparent transparent transparent;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    animation-direction: normal;
-  }
-
-  &.triangle2 {
-    border-width: 0 40px 40px 0;
-    border-color: transparent $orange-color transparent transparent;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    animation-direction: reverse;
-  }
-
-  &.triangle3 {
-    border-width: 0 0 40px 40px;
-    border-color: transparent transparent $orange-color transparent;
-    bottom: 0;
-    right: 50%;
-    transform: translateX(50%);
-    animation-direction: normal;
-  }
-
-  &.triangle4 {
-    border-width: 40px 0 0 40px;
-    border-color: transparent transparent transparent $orange-color;
-    bottom: 50%;
-    left: 0;
-    transform: translateY(50%);
-    animation-direction: reverse;
-  }
-}
-
-@keyframes rotate {
-  from {
+@keyframes rotateAnimation {
+  0% {
     transform: rotate(0deg);
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+.animation-container {
+  position: absolute;
+  top: 10rem;
+  left: -20rem;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: rotateAnimation 2.5s infinite;
+
+  .shape {
+    width: 100%;
+    height: 100%;
+    background-color: $orange-color;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); // Initial shape
+
+    &.step-1 {
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); // Step 1 shape
+    }
+
+    &.step-2 {
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); // Step 2 shape
+      transform: rotate(90deg); // Rotate 90 degrees for step 2
+    }
   }
 }

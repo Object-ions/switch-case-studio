@@ -1,3 +1,5 @@
+import { ReactComponent as Icon } from '../../assets/images/small-orange-star.svg';
+
 import '../../styles/components/pricing.scss';
 
 const Pricing = () => {
@@ -65,7 +67,11 @@ const Pricing = () => {
 
   return (
     <div id="pricing">
-      <div class="blue-square"></div>
+      <div className="blue-square"></div>
+      <div className="star">
+        <Icon style={{ height: '200px' }} className="icon-animation" />
+        <h1>Web Development</h1>
+      </div>
       {packages.map((pkg, index) => (
         <div className="package" key={index}>
           <div className="package-image">image</div>
