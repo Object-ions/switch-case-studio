@@ -1,4 +1,4 @@
-import img from '../../assets/images/IMG_2987black.png';
+import img from '../../assets/gifs/poloroid-dump-bw-small.gif';
 import '../../styles/components/about.scss';
 
 const About = () => {
@@ -50,6 +50,10 @@ const About = () => {
         </div>
         <div className="image-wrapper">
           <img src={img} alt="Switch Case Studio" />
+        </div>
+
+        <div class="circle-container">
+          <div class="circle"></div>
         </div>
       </div>
     </div>

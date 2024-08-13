@@ -4,6 +4,7 @@
   padding: 10rem 0;
   background: $blue-color;
   color: #000;
+  position: relative;
 
   .about-content {
     max-width: 800px;
@@ -60,12 +61,51 @@
       max-width: 300px;
       display: flex;
       margin: 3rem auto 0 auto;
+      filter: grayscale(100%);
+      transition: filter 0.3s ease-in-out;
+
+      &:hover {
+        filter: grayscale(0%) sepia(100%) hue-rotate(190deg) saturate(500%)
+          brightness(110%);
+      }
 
       img {
         width: 100%;
         height: auto;
         display: block;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .circle-container {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 250px;
+      height: 250px;
+
+      .circle {
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        border-radius: 50%;
+        animation: switch 2s linear infinite;
+        background-color: #000;
+        border: 5px solid #000;
+        bottom: 0;
+        left: 30px;
+        animation-delay: 1s;
+      }
+    }
+
+    @keyframes switch {
+      0%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      75% {
+        transform: translate(70px, 0);
       }
     }
   }
