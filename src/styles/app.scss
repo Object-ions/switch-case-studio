@@ -5,6 +5,10 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+
+  &:hover {
+    cursor: none;
+  }
 }
 
 html {
@@ -15,6 +19,7 @@ body {
   background: $grey-color;
   font-family: $font-text;
   color: $blue-color;
+  cursor: none;
 }
 
 ul {
