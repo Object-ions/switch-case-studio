@@ -52,8 +52,8 @@ const About = () => {
           <img src={img} alt="Switch Case Studio" />
         </div>
 
-        <div class="circle-container">
-          <div class="circle"></div>
+        <div className="circle-container">
+          <div className="circle"></div>
         </div>
       </div>
     </div>
