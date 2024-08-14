@@ -1,4 +1,4 @@
-import preview from '../../assets/images/asset1.png';
+import preview from '../../assets/gifs/2.gif';
 import WelcomeTyped from '../WelcomeTyped';
 
 import '../../styles/components/home.scss';
