@@ -1,5 +1,6 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
+
 #about {
   padding: 10rem 0;
   background: $blue-color;
@@ -34,6 +35,10 @@
 
       &:last-of-type {
         grid-column: 1 / -1;
+        font-weight: 400;
+      }
+
+      &:first-of-type {
         font-weight: 400;
       }
 

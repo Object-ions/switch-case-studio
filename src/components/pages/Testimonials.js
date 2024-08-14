@@ -8,7 +8,7 @@ const testimonialsData = [
     name: 'Chris Imbo',
     title: 'Founder at Kamea',
     testimonial:
-      '9elements is not a service provider, but a real partner! With honest feedback, clever solution proposals and creative ideas of the highest quality - and an incredibly likeable team!',
+      '"Working with Moses and Switch Case Studio was an absolute pleasure. He took our vision and transformed it into a stunning, responsive website that truly captures our brand\'s essence. The attention to detail, creativity, and technical expertise were evident at every step of the process. We’ve seen a significant increase in user engagement since the launch. I highly recommend Moses for anyone looking to elevate their online presence!"',
     image: 'path/to/christian-image.jpg',
   },
   {
@@ -16,15 +16,15 @@ const testimonialsData = [
     name: 'Anthony Milian',
     title: 'Owner at Tony Milian Fitness',
     testimonial:
-      'From the first meeting I had absolute trust in the team of 9elements and am very happy that my expectations were met at all times. Creative work processes, strong product development and a fantastic result. Collaboration the way you want it.',
+      "Moses at Switch Case Studio exceeded our expectations in every way. From the initial concept to the final product, his dedication and passion were clear. The website he built for us is not only beautiful but also highly functional and user-friendly. His understanding of our needs and goals was spot-on, and the results speak for themselves. We couldn't be happier with our new site!",
     image: 'path/to/alice-image.jpg',
   },
   {
     id: 3,
-    name: 'Linoy Buchris',
-    title: 'Founder & CEO at La Mer',
+    name: 'Danielle Bar',
+    title: 'Founder & CEO at Saffron Cosmetics',
     testimonial:
-      '9elements is the most creative and enormously talented digital agency in Germany. I am pleased to partner with them for many years, creating innovative products and solutions for a global audience. 9e is always cutting edge!',
+      'Switch Case Studio brought our outdated website into the modern era. Moses listened to our needs, offered innovative solutions, and delivered a site that perfectly represents our company. The entire process was seamless, and the communication was excellent throughout. Our customers love the new design, and so do we! Moses is a true professional who goes above and beyond.',
     image: 'path/to/lars-image.jpg',
   },
 ];
