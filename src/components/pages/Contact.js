@@ -1,7 +1,35 @@
+import React, { useRef } from 'react';
+import emailjs from 'emailjs-com';
 import Triangles from '../Triangles';
+
 import '../../styles/components/contact.scss';
 
 const Contact = () => {
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        form.current,
+        process.env.REACT_APP_EMAILJS_USER_ID
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          alert('Message sent successfully!');
+        },
+        (error) => {
+          console.log(error.text);
+          alert('Failed to send message, please try again.');
+        }
+      );
+    e.target.reset();
+  };
+
   return (
     <div id="contact">
       <Triangles />
@@ -13,23 +41,23 @@ const Contact = () => {
         business and your needs, and what can be done to achieve growth for your
         business.
       </p>
-      <form>
+      <form ref={form} onSubmit={sendEmail}>
         <div className="form-group">
-          <label htmlFor="firstName">
+          <label htmlFor="first_name">
             Name <span>(required)</span>
           </label>
           <div className="name-fields">
             <input
               type="text"
-              id="firstName"
-              name="firstName"
+              id="first_name"
+              name="first_name"
               placeholder="First Name"
               required
             />
             <input
               type="text"
-              id="lastName"
-              name="lastName"
+              id="last_name"
+              name="last_name"
               placeholder="Last Name"
               required
             />
