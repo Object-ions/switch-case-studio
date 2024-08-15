@@ -1,4 +1,5 @@
 import Header from './components/layout/Header';
+import FooterCopyrights from './components/layout/FooterCopyrights';
 import Home from './components/pages/Home';
 import About from './components/pages/About';
 import Contact from './components/pages/Contact';
@@ -22,6 +23,7 @@ function App() {
       <Work />
       <Testimonials />
       <Contact />
+      <FooterCopyrights />
     </div>
   );
 }

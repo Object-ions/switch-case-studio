@@ -1,4 +1,5 @@
 import img from '../../assets/gifs/poloroid-dump-bw-small.gif';
+
 import '../../styles/components/about.scss';
 
 const About = () => {

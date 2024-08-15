@@ -1,27 +1,18 @@
-import React from 'react';
 import '../styles/components/scrollingText.scss';
 
 const ScrollingText = () => {
+  const text = 'Unlock Your Digital Potential. ';
+  const repeatTimes = 110;
+
   return (
     <div className="scrolling-container">
       <div className="scrolling-text">
         <p>
-          Unlock Your Digital Potential. {'   '}
-          Unlock Your Digital Potential. {'   '}
-          Unlock Your Digital Potential. {'   '}
-          Unlock Your Digital Potential. {'   '}
-          Unlock Your Digital Potential. {'   '}
-          Unlock Your Digital Potential. {'   '}
-          Unlock Your Digital Potential. {'   '}
-          Unlock Your Digital Potential. {'   '}
-          Unlock Your Digital Potential. {'   '}
-          Unlock Your Digital Potential. {'   '}
-          Unlock Your Digital Potential. {'   '}
-          Unlock Your Digital Potential. {'   '}
-          Unlock Your Digital Potential. {'   '}
-          Unlock Your Digital Potential. {'   '}
-          Unlock Your Digital Potential. {'   '}
-          Unlock Your Digital Potential. {'   '}
+          {Array(repeatTimes)
+            .fill(text)
+            .map((item, index) => (
+              <span key={index}>{item}</span>
+            ))}
         </p>
       </div>
     </div>

@@ -1,3 +1,5 @@
+import '../../styles/components/footer.scss';
+
 const FooterCopyrights = () => {
   const currentYear = new Date().getFullYear();
   return <p className="copyrights">Switch Case Studio &copy; {currentYear}</p>;

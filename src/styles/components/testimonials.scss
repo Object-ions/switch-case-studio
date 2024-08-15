@@ -79,6 +79,11 @@
           margin-bottom: 2rem;
           line-height: 1.5rem;
           text-align: left;
+
+          &:hover {
+            font-weight: 400;
+            color: $orange-color;
+          }
         }
 
         .testimonial-author {
