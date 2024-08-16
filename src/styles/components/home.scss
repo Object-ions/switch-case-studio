@@ -51,39 +51,17 @@
     background-position: top top;
     background-size: contain;
     background-repeat: no-repeat;
-  }
-
-  @media (max-width: 1200px) {
-    padding: 4rem 1rem;
-
-    .hero {
-      h1 {
-        font-size: 2.5rem;
-
-        strong {
-          font-size: 4rem;
-        }
-      }
-
-      p {
-        font-size: 1.1rem;
-      }
-
-      a {
-        font-size: 1.4rem;
-      }
-    }
-
-    .img {
-      grid-column: 1 / -1;
-      background-position: center top;
-      background-size: cover;
-    }
+    min-height: 250px;
+    min-width: 250px;
+    z-index: 988;
   }
 }
 
 @media (max-width: 768px) {
   #home {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(50vh - 4rem);
     padding: 3rem 1rem;
 
     .hero {
@@ -100,11 +78,12 @@
       }
 
       a {
-        font-size: 1.3rem;
+        font-size: 1rem;
       }
 
       .img {
-        grid-column: 1 / -1;
+        height: 250px;
+        width: 250px;
         background-position: center top;
         background-size: cover;
       }
@@ -132,10 +111,6 @@
       a {
         font-size: 1.2rem;
       }
-    }
-
-    .img {
-      display: none;
     }
   }
 }

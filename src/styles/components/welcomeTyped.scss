@@ -8,11 +8,11 @@
   align-items: flex-end;
 
   @media (max-width: 768px) {
-    display: block;
+    grid-column: 1 / -1;
     writing-mode: horizontal-tb;
     text-orientation: initial;
     line-height: normal;
-    font-size: 4rem;
+    font-size: 7rem;
     align-items: center;
     justify-content: center;
   }

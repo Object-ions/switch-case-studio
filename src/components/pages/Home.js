@@ -9,7 +9,8 @@ const Home = () => {
       <WelcomeTyped />
       <div className="hero">
         <h1>
-          <strong>Adaptable Solutions</strong> in a Digital Age
+          <strong>Adaptable Solutions</strong> <br />
+          in a Digital Age
         </h1>
         <p>
           Discover innovation and expertise in software development tailored for
