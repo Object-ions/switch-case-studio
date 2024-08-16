@@ -5,7 +5,6 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   min-height: calc(100vh - 4rem);
-  // gap: 10px;
   max-width: 1200px;
   margin: auto;
   padding: 5rem 0;
@@ -52,5 +51,91 @@
     background-position: top top;
     background-size: contain;
     background-repeat: no-repeat;
+  }
+
+  @media (max-width: 1200px) {
+    padding: 4rem 1rem;
+
+    .hero {
+      h1 {
+        font-size: 2.5rem;
+
+        strong {
+          font-size: 4rem;
+        }
+      }
+
+      p {
+        font-size: 1.1rem;
+      }
+
+      a {
+        font-size: 1.4rem;
+      }
+    }
+
+    .img {
+      grid-column: 1 / -1;
+      background-position: center top;
+      background-size: cover;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  #home {
+    padding: 3rem 1rem;
+
+    .hero {
+      h1 {
+        font-size: 2rem;
+
+        strong {
+          font-size: 3.5rem;
+        }
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      a {
+        font-size: 1.3rem;
+      }
+
+      .img {
+        grid-column: 1 / -1;
+        background-position: center top;
+        background-size: cover;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  #home {
+    padding: 2rem 1rem;
+
+    .hero {
+      h1 {
+        font-size: 1.5rem;
+
+        strong {
+          font-size: 2.5rem;
+        }
+      }
+
+      p {
+        font-size: 0.9rem;
+      }
+
+      a {
+        font-size: 1.2rem;
+      }
+    }
+
+    .img {
+      display: none;
+    }
   }
 }
