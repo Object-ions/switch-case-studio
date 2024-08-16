@@ -2,7 +2,7 @@
 @import '../_mixins.scss';
 
 #about {
-  padding: 10rem 0;
+  padding: 10rem 1.5rem;
   background: $blue-color;
   color: #000;
   position: relative;
@@ -15,6 +15,12 @@
       font-family: $font-special;
       font-size: 5rem;
       clear: both;
+      white-space: nowrap;
+
+      span {
+        display: inline-block;
+        white-space: normal;
+      }
     }
 
     h2 {
@@ -96,6 +102,83 @@
         border-radius: 50%;
         background: $grey-color;
         bottom: 5rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  #about {
+    .about-content {
+      h1 {
+        font-size: 3rem;
+        text-align: center;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        font-size: 0.8rem;
+        text-align: left;
+      }
+
+      .about-text {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .image-wrapper {
+        max-width: 250px;
+      }
+
+      .circle-container {
+        width: 200px;
+        height: 200px;
+
+        .circle {
+          width: 200px;
+          height: 200px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  #about {
+    .about-content {
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+        // padding-bottom: 0.1rem;
+      }
+
+      p {
+        font-size: 0.7rem;
+        line-height: 1.4;
+      }
+      .about-text {
+        gap: 0.8rem;
+      }
+      .image-wrapper {
+        max-width: 200px;
+      }
+
+      .circle-container {
+        width: 150px;
+        height: 150px;
+
+        .circle {
+          width: 150px;
+          height: 150px;
+        }
       }
     }
   }

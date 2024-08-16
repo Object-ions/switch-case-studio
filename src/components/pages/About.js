@@ -6,7 +6,9 @@ const About = () => {
   return (
     <div id="about">
       <div className="about-content">
-        <h1> {'< Switch Case />'}</h1>
+        <h1>
+          {'< Switch'}&nbsp;<span>{'Case />'}</span>
+        </h1>
         <h2>At Switch Case Studio flexibility meets creativity.</h2>
         <div className="about-text">
           <p>
