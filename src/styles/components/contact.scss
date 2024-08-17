@@ -9,16 +9,19 @@
   flex-direction: column;
   justify-content: center;
   position: relative;
+  padding: 0 2rem;
 
   h1 {
     color: $blue-color;
     font-size: 3rem;
     font-weight: 400;
     margin-bottom: 2rem;
+    text-align: center;
   }
 
   p {
     color: #000;
+    text-align: center;
   }
 
   form {
@@ -74,7 +77,7 @@
     }
 
     button {
-      width: 7rem;
+      width: 100%;
       padding: 1.5rem;
       font-size: 1rem;
       color: #fff;
@@ -86,5 +89,48 @@
         background-color: #333;
       }
     }
+  }
+}
+
+@media (max-width: 600px) {
+  #contact {
+    h1 {
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+
+    form {
+      .form-group {
+        label {
+          font-size: 0.9rem;
+        }
+
+        input,
+        textarea {
+          padding: 0.5rem;
+          font-size: 0.9rem;
+        }
+
+        textarea {
+          height: 5rem;
+        }
+
+        .name-fields {
+          flex-direction: column;
+        }
+      }
+
+      button {
+        padding: 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .name-fields {
+    flex-direction: column;
   }
 }
