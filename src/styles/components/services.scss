@@ -2,7 +2,7 @@
 @import '../_mixins.scss';
 
 #services {
-  min-height: 100vh;
+  // min-height: 100vh;
   background: #000;
   color: #fff;
   padding: 5rem 0;
@@ -80,6 +80,47 @@
     .email {
       grid-row: 5 / 6;
       grid-column: 3 / 5;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  #services {
+    .black-square {
+      width: 15rem;
+      height: 15rem;
+      top: -rem;
+      left: -4rem;
+    }
+
+    .services-content {
+      display: block;
+      padding: 0 2rem;
+
+      p {
+        font-size: 0.9rem;
+      }
+
+      .dev,
+      .seo,
+      .hosting,
+      .graphic,
+      .ads,
+      .email {
+        padding: 0.75rem;
+      }
+
+      .title {
+        text-align: center;
+        h1 {
+          font-size: 4rem;
+          text-align: center;
+        }
+      }
+
+      .image-wrapper {
+        max-width: 200px;
+      }
     }
   }
 }

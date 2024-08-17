@@ -29,3 +29,15 @@
     transform: translateX(-100%);
   }
 }
+
+@media (max-width: 768px) {
+  #services {
+    .scrolling-container {
+      .scrolling-text {
+        p {
+          font-size: 9rem;
+        }
+      }
+    }
+  }
+}
