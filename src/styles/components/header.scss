@@ -60,3 +60,28 @@ header {
     }
   }
 }
+
+@media (max-width: 480px) {
+  header {
+    .header {
+      display: flex;
+      flex-direction: column;
+
+      .brand {
+        width: 100%;
+        &:hover {
+        }
+      }
+
+      .navbar {
+        width: 100%;
+        justify-content: space-around;
+        a {
+          margin: auto;
+          text-align: center;
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+}

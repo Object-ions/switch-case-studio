@@ -35,7 +35,7 @@ const WelcomeTyped = () => {
   }, []);
 
   return (
-    <div className="custom-cursor">
+    <div className="typed-cursor">
       <span ref={typedElement} className="typed-container" />
       <span
         className="cursor"
