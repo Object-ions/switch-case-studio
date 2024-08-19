@@ -121,9 +121,11 @@
 
 @media (max-width: 768px) {
   #testimonials {
-    padding: 3rem 1rem;
+    padding: 2rem;
 
     .testimonial-meta {
+      margin: 0;
+
       .arrows {
         visibility: visible !important;
         display: flex !important;
@@ -186,8 +188,8 @@
 
           .testimonial-text {
             margin: auto;
-            max-width: 50%;
-            font-size: 1rem;
+            max-width: 70%;
+            font-size: 0.75rem;
             line-height: 1.4rem;
             margin-bottom: 1rem;
           }

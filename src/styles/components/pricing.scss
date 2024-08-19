@@ -99,6 +99,14 @@
 @media (max-width: 768px) {
   #pricing {
     padding: 5rem 2rem 3rem 2rem;
+
+    .blue-square {
+      width: 7rem;
+      height: 7rem;
+      top: -1.5rem;
+      right: 0;
+    }
+
     .package {
       grid-template-columns: 1fr 2fr;
       grid-template-rows: auto auto;
@@ -122,13 +130,6 @@
     .star h1 {
       font-size: 3rem;
       margin-bottom: 3rem;
-    }
-
-    .blue-square {
-      width: 5rem;
-      height: 5rem;
-      top: -1.5rem;
-      right: 0;
     }
 
     .package {
