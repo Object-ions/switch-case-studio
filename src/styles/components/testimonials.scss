@@ -29,6 +29,10 @@
       }
     }
 
+    .arrows {
+      visibility: hidden;
+    }
+
     .opening-quote {
       position: absolute;
       font-size: 5rem;
@@ -120,6 +124,29 @@
     padding: 3rem 1rem;
 
     .testimonial-meta {
+      .arrows {
+        visibility: visible !important;
+        display: flex !important;
+        justify-content: space-between;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        pointer-events: none; // Only arrows should be clickable
+
+        .arrow {
+          pointer-events: auto;
+          background-color: rgba(0, 0, 0, 0.5);
+          color: #fff;
+          border: none;
+          padding: 1rem;
+          cursor: pointer;
+          font-size: 1.5rem;
+          z-index: 100; // Ensure arrows are on top of other elements
+        }
+      }
+
       .testimonial-head {
         flex-direction: column;
         align-items: flex-start;
@@ -138,6 +165,7 @@
         -webkit-overflow-scrolling: touch;
         gap: 1rem;
         position: relative;
+        overflow: hidden;
 
         .testimonial-item {
           max-width: 100%;
@@ -152,9 +180,13 @@
             width: 80px;
             height: 80px;
             margin-bottom: 1rem;
+            margin: auto;
+            max-width: 50%;
           }
 
           .testimonial-text {
+            margin: auto;
+            max-width: 50%;
             font-size: 1rem;
             line-height: 1.4rem;
             margin-bottom: 1rem;
@@ -164,33 +196,13 @@
             .author-name {
               font-size: 1.1rem;
               margin-bottom: 0.3rem;
+              margin: auto;
+              max-width: 50%;
             }
 
             .author-title {
               font-size: 0.8rem;
             }
-          }
-        }
-
-        .arrows {
-          display: flex; // Ensure it's visible
-          justify-content: space-between;
-          position: absolute;
-          top: 50%;
-          left: 0;
-          right: 0;
-          transform: translateY(-50%);
-          pointer-events: none; // Only arrows should be clickable
-
-          .arrow {
-            pointer-events: auto;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: #fff;
-            border: none;
-            padding: 1rem;
-            cursor: pointer;
-            font-size: 1.5rem;
-            z-index: 100; // Ensure arrows are on top of other elements
           }
         }
       }
