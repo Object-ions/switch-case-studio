@@ -108,12 +108,17 @@
     }
 
     .package {
-      grid-template-columns: 1fr 2fr;
+      grid-template-columns: 1fr 1fr;
       grid-template-rows: auto auto;
 
       .package-image,
       .package-title-price-desc {
         grid-column: span 1;
+        grid-row: 1 / 2;
+      }
+
+      .package-image {
+        width: 250px;
       }
 
       .package-main {
@@ -134,13 +139,18 @@
 
     .package {
       grid-template-columns: 1fr;
-      grid-template-rows: auto;
+      grid-template-rows: auto auto;
 
       .package-image,
       .package-title-price-desc,
       .package-main {
         grid-column: span 1;
+        grid-row: auto;
         padding: 1rem 0;
+      }
+
+      .package-image {
+        width: 100px;
       }
     }
   }
