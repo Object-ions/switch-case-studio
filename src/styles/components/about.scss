@@ -150,14 +150,16 @@
 
 @media (max-width: 480px) {
   #about {
+    padding: 3rem 2rem;
+
     .about-content {
       h1 {
         font-size: 2rem;
+        z-index: 300;
       }
 
       h2 {
         font-size: 1.2rem;
-        // padding-bottom: 0.1rem;
       }
 
       p {
@@ -172,13 +174,11 @@
       }
 
       .circle-container {
-        width: 150px;
-        height: 150px;
-
-        .circle {
-          width: 150px;
-          height: 150px;
-        }
+        top: rem;
+        right: 0;
+        width: 50px;
+        height: 50px;
+        z-index: 100;
       }
     }
   }
