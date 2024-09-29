@@ -94,9 +94,8 @@ const Services = () => {
             emails, and automated sequences that drive engagement and sales.
           </p>
         </div>
-
-        <ScrollingText />
       </div>
+      <ScrollingText />
     </div>
   );
 };
