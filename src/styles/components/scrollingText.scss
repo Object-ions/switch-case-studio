@@ -4,6 +4,7 @@
 .scrolling-container {
   margin-top: 5rem;
   grid-column: 1 / 4;
+  max-width: 800px;
 
   .scrolling-text {
     display: inline-block;

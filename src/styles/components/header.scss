@@ -11,7 +11,7 @@ header {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1fr 2fr;
     color: #fff;
     align-items: center;
     justify-content: center;
@@ -45,18 +45,7 @@ header {
     }
 
     .contact {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.5rem 0;
-
-      a {
-        font-weight: 500;
-
-        &:hover {
-          color: $orange-color;
-        }
-      }
+      font-weight: 500;
     }
   }
 }

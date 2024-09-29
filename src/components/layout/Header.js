@@ -5,7 +5,7 @@ const Header = () => {
     <header>
       <div className="header">
         <a href="#home" className="brand">
-          {'<'} SC {'/>'}
+          {'<'} Switch Case {'/>'}
         </a>
 
         <div className="navbar">
@@ -14,10 +14,9 @@ const Header = () => {
           <a href="#pricing">Pricing</a>
           <a href="#work">Work</a>
           <a href="#testimonials">Testimonials</a>
-        </div>
-
-        <div className="contact">
-          <a href="#contact">Contact</a>
+          <a href="#contact" className="contact">
+            Contact
+          </a>
         </div>
       </div>
     </header>
