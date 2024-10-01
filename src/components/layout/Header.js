@@ -1,11 +1,30 @@
+import { useState, useEffect } from 'react';
 import '../../styles/components/header.scss';
 
 const Header = () => {
+  const [brandText, setBrandText] = useState('< Switch Case />');
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 840) {
+        setBrandText('< SC />');
+      } else {
+        setBrandText('< Switch Case />');
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <header>
       <div className="header">
         <a href="#home" className="brand">
-          {'<'} Switch Case {'/>'}
+          {brandText}
         </a>
 
         <div className="navbar">
