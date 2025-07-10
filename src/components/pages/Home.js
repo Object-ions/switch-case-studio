@@ -1,5 +1,5 @@
 import WelcomeTyped from '../WelcomeTyped';
-
+import Arrow from '../Arrow';
 import '../../styles/components/home.scss';
 
 const Home = () => {
@@ -55,6 +55,7 @@ const Home = () => {
             </svg>
           </a>
         </div>
+        <Arrow />
       </div>
     </div>
   );
