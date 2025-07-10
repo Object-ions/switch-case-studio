@@ -1,12 +1,10 @@
 .typed-cursor {
-  writing-mode: vertical-rl;
   text-orientation: mixed;
   font-size: 10rem;
   font-family: 'NeueMachina', sans-serif;
-  line-height: 0.5;
-  display: flex;
   align-items: flex-end;
   max-width: 70%;
+  color: #ff4400;
 
   @media (max-width: 768px) {
     font-size: 4.5rem !important;

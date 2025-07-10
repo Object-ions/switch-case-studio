@@ -10,11 +10,11 @@ const Header = () => {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 660) {
-        setBrandText('< Switch Case />');
+        setBrandText('< Switch Case Studio />');
       } else if (window.innerWidth < 840) {
-        setBrandText('< SC />');
+        setBrandText('< SCS />');
       } else {
-        setBrandText('< Switch Case />');
+        setBrandText('< Switch Case Studio />');
       }
     };
 

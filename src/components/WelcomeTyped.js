@@ -8,18 +8,15 @@ const WelcomeTyped = () => {
   useEffect(() => {
     const options = {
       strings: [
-        'Hello', // English
-        '¡Hola!', // Spanish (Castilian)
-        'Bonjour!', // French
-        'Olá!', // Portuguese
-        'Ciao!', // Italian
-        'Hallo!', // German
-        'Salut!', // Romanian
-        'Ahoj!', // Czech
-        'Helló!', // Hungarian
-        'Halló!', // Icelandic
-        'Cześć!', // Polish
-        'Hej!', // Danish]
+        'Design',
+        'Code',
+        'Shape',
+        'Build',
+        'Craft',
+        'Engineer',
+        'Create',
+        'Launch',
+        'Elevate',
       ],
       typeSpeed: 150,
       backSpeed: 150,
