@@ -11,8 +11,15 @@
   box-shadow: 6px 6px 0 0 $blue-color;
   padding: 1rem;
   z-index: 999;
-  cursor: pointer;
   transition: all 0.2s ease-in-out;
+  animation: blink 0.9s ease-in-out 0s infinite;
+  animation-delay: 0s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+
+  &.hidden {
+    display: none;
+  }
 
   svg {
     transform: rotate(360deg);
@@ -31,5 +38,22 @@
 
     box-shadow: none;
     transform: translateY(-50%) translateX(-4px);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  16.6%,
+  50%,
+  83.3% {
+    opacity: 0;
+  }
+  25%,
+  58.3%,
+  91.6% {
+    opacity: 1;
   }
 }
