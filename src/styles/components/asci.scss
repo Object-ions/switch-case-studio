@@ -1,0 +1,23 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+.ascii {
+  background-color: $black-color;
+  padding: 2rem 1rem;
+  text-align: center;
+
+  .ascii-label {
+    font-family: monospace;
+    font-size: 0.875rem;
+    color: #9ca3af;
+    margin-bottom: 1rem;
+  }
+
+  .ascii-art {
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: #9ca3af;
+    line-height: 1.1;
+    white-space: pre;
+  }
+}
