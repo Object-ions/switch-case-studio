@@ -15,31 +15,33 @@ const Home = () => {
 
         <div className="hero-intro">
           <p>
-            Switch Case Studio is a creative development and marketing studio
-            that helps businesses stand out—and scale up—online.
+            Switch Case Studio is a creative{' '}
+            <span className="highlight-block">development</span> and{' '}
+            <span className="highlight-block">marketing</span> studio that helps
+            businesses stand out—and scale up—online.
           </p>
         </div>
 
         <div className="pillars-row">
-          <div className="design-forward-container">
-            <div className="design-forward-title">DESIGN_FORWARD</div>
-            <div className="design-forward-text">
+          <div className="pillar-container">
+            <div className="pillar-title">DESIGN_FORWARD</div>
+            <div className="pillar-text">
               Every pixel placed with purpose. Every interaction crafted with
               intention.
             </div>
           </div>
 
-          <div className="development-driven-container">
-            <div className="development-driven-title">DEVELOPMENT_DRIVEN</div>
-            <div className="development-driven-text">
+          <div className="pillar-container pillar-blue">
+            <div className="pillar-title">DEVELOPMENT_DRIVEN</div>
+            <div className="pillar-text">
               Clean code. Fast performance. Scalable solutions.
             </div>
           </div>
         </div>
 
-        <div className="discovery-call-wrapper">
-          <a href="/Contact" className="discovery-call-button">
-            BOOK DISCOVERY CALL
+        <div className="cta-wrapper">
+          <a href="/Contact" className="cta-button">
+            Contact Us
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -55,6 +57,7 @@ const Home = () => {
             </svg>
           </a>
         </div>
+
         <Arrow />
       </div>
     </div>

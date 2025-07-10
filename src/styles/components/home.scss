@@ -7,7 +7,7 @@
   margin: auto;
   padding: 5rem 2rem;
   display: flex;
-  align-items: center;
+  justify-content: center;
 
   .hero {
     display: flex;
@@ -32,14 +32,27 @@
       max-width: 800px;
 
       p {
-        margin: 1.5rem 0;
+        margin: 1rem 0;
         color: $black-color;
         font-size: 1.2rem;
-        font-weight: 300;
+        font-weight: 400;
         font-family: $font-text;
+        letter-spacing: -0.7px;
+      }
+
+      .highlight-block {
+        text-transform: uppercase;
+        display: inline-block;
+        padding: 0.2rem 0.2rem;
+        position: relative;
+        font-weight: 600;
+        cursor: default;
+        transition: all 0.2s ease;
 
         &:hover {
-          color: $orange-color;
+          padding: 0.2rem 0.5rem;
+          background-color: $blue-color;
+          color: #fff;
         }
       }
     }
@@ -47,43 +60,43 @@
     .pillars-row {
       display: flex;
       gap: 2rem;
-      flex-wrap: wrap;
       justify-content: flex-start;
-    }
 
-    .design-forward-container,
-    .development-driven-container {
-      border: 2px solid $black-color;
-      padding: 1.5rem;
-      box-shadow: 4px 4px 0 0 $black-color;
-      display: inline-block;
-      width: 320px;
+      .pillar-container {
+        border: 2px solid $black-color;
+        padding: 1.5rem;
+        box-shadow: 4px 4px 0 0 $black-color;
+        display: inline-block;
+        width: 50%;
+        font-family: monospace;
+        transition: transform 0.2s ease;
 
-      font-family: monospace;
+        &:hover {
+          transform: rotate(2deg) scale(1.02);
+        }
 
-      .design-forward-title,
-      .development-driven-title {
-        font-size: 1.125rem;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
+        .pillar-title {
+          font-size: 1.125rem;
+          font-weight: bold;
+          margin-bottom: 0.5rem;
+        }
+
+        .pillar-text {
+          font-size: 0.875rem;
+        }
       }
 
-      .design-forward-text,
-      .development-driven-text {
-        font-size: 0.875rem;
+      .pillar-blue {
+        background-color: $blue-color;
+        color: white;
       }
     }
 
-    .development-driven-container {
-      background-color: $blue-color;
-      color: white;
-    }
-
-    .discovery-call-wrapper {
-      margin-top: 2rem;
+    .cta-wrapper {
+      margin-top: 1rem;
       animation: bounce-in 0.6s ease-out 1s both;
 
-      .discovery-call-button {
+      .cta-button {
         display: inline-flex;
         align-items: center;
         gap: 1rem;
@@ -105,15 +118,6 @@
         }
       }
     }
-
-    .design-forward-container,
-    .development-driven-container {
-      transition: transform 0.2s ease;
-
-      &:hover {
-        transform: rotate(2deg) scale(1.02);
-      }
-    }
   }
 }
 
@@ -121,31 +125,38 @@
   #home {
     display: flex;
     flex-direction: column;
-    min-height: calc(1000vh - 4rem);
+    min-height: calc(100vh - 3rem);
     padding: 3rem 1rem;
 
     .hero {
-      h1 {
-        font-size: 2rem;
-
-        strong {
-          font-size: 3.5rem;
+      .hero-heading {
+        h1 {
+          font-size: 5rem;
         }
       }
 
-      p {
-        font-size: 1rem;
+      .hero-intro {
+        p {
+          font-size: 1rem;
+        }
       }
 
-      a {
-        font-size: 1rem;
-      }
+      .pillars-row {
+        .pillar-container {
+          width: 33%;
 
-      .img {
-        height: 250px;
-        width: 250px;
-        background-position: center top;
-        background-size: cover;
+          &:hover {
+            transform: rotate(2deg) scale(1.02);
+          }
+
+          .pillar-title {
+            font-size: 1rem;
+          }
+
+          .pillar-text {
+            font-size: 0.75rem;
+          }
+        }
       }
     }
   }
