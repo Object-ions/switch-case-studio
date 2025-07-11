@@ -4,7 +4,8 @@
 .composition {
   background-color: #000;
   position: relative;
-  height: 80vh;
+  height: 50vh;
+
   --unit: clamp(10px, 2vw, 30px);
   $unit: 15px;
 
@@ -16,20 +17,7 @@
     position: absolute;
     background-color: white;
     z-index: 2;
-    transform-origin: center;
-    transition: transform 1.4s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.4s ease;
-    opacity: 0;
-    transform: translate(var(--x), var(--y));
-  }
-
-  &.show {
-    .block,
-    .block .orange,
-    .block .aqua,
-    .block .chartreuse,
-    .block .darkgreen {
-      opacity: 1;
-    }
+    transition: transform 0.2s ease-out;
   }
 
   .block.red {
@@ -37,27 +25,18 @@
     right: calc(var(--unit) * 10);
     width: calc(var(--unit) * 4);
     height: calc(var(--unit) * 4);
-    --x: 150px;
-    --y: -120px;
 
     .orange {
-      position: absolute;
-      top: 0;
       left: calc(var(--unit) * -2);
       width: calc(var(--unit) * 2);
       height: calc(var(--unit) / 3);
-      --x: -160px;
-      --y: -80px;
     }
 
     .aqua {
-      position: absolute;
       right: 0;
-      bottom: -25px;
+      bottom: calc(var(--unit) * -2);
       width: calc(var(--unit) / 3);
       height: calc(var(--unit) * 2);
-      --x: 90px;
-      --y: 160px;
     }
   }
 
@@ -66,8 +45,6 @@
     right: calc(var(--unit) * 6.87);
     width: calc(var(--unit) / 2);
     height: calc(var(--unit) * 14);
-    --x: 180px;
-    --y: -40px;
   }
 
   .block.green {
@@ -75,27 +52,19 @@
     right: calc(var(--unit) * 6.87);
     width: calc(var(--unit) * 2.5);
     height: calc(var(--unit) / 3);
-    --x: 120px;
-    --y: 140px;
 
     .chartreuse {
-      position: absolute;
       top: calc(var(--unit) * 2);
       right: calc(var(--unit) * 0.66);
       width: calc(var(--unit) * 2);
       height: calc(var(--unit) / 2);
-      --x: 160px;
-      --y: 200px;
     }
 
     .darkgreen {
-      position: absolute;
       top: calc(var(--unit) * 4.5);
       right: calc(var(--unit) * 0.66);
       width: calc(var(--unit) * 6);
       height: calc(var(--unit) / 4);
-      --x: 240px;
-      --y: 220px;
     }
   }
 
@@ -104,8 +73,6 @@
     right: calc(var(--unit) * 7.53);
     width: var(--unit);
     height: calc(var(--unit) * 4.66);
-    --x: 80px;
-    --y: 180px;
   }
 
   .block.pink {
@@ -113,7 +80,5 @@
     right: calc(var(--unit) * 8.33);
     width: calc(var(--unit) * 3.33);
     height: calc(var(--unit) * 3.33);
-    --x: -180px;
-    --y: 160px;
   }
 }
