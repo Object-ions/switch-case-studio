@@ -10,9 +10,11 @@ import {
 import ScrollingText from '../ScrollingText';
 
 import '../../styles/components/services.scss';
+import Bauhaus from '../Bauhous';
 const Services = () => {
   return (
     <div id="services">
+      <Bauhaus />
       <div class="black-square"></div>
       <div className="services-content">
         <div className="title">

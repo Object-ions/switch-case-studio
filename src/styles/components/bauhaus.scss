@@ -1,0 +1,94 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+.composition {
+  background-color: #111;
+  width: 100vw;
+  height: 50vh;
+  position: relative;
+  border: 1px red solid;
+
+  .block {
+    position: absolute;
+    background-color: white;
+
+    &.red {
+      position: absolute;
+      background-color: white;
+      top: 195px;
+      right: 150px;
+      width: 60px;
+      height: 60px;
+
+      .orange {
+        position: absolute;
+        background-color: white;
+        left: -30px;
+        width: 30px;
+        height: 5px;
+      }
+
+      .aqua {
+        position: absolute;
+        background-color: white;
+        right: 0;
+        bottom: -30px;
+        width: 5px;
+        height: 30px;
+      }
+    }
+
+    &.blue {
+      background-color: white;
+      position: absolute;
+      top: 150px;
+      right: 103px;
+      width: 8px;
+      height: 210px;
+    }
+
+    &.green {
+      background-color: white;
+      position: absolute;
+      top: 360px;
+      right: 103px;
+      width: 37px;
+      height: 5px;
+
+      .chartreuse {
+        background-color: white;
+        position: absolute;
+        top: 30px;
+        right: 10px;
+        width: 30px;
+        height: 8px;
+      }
+
+      .darkgreen {
+        background-color: white;
+        position: absolute;
+        top: 68px;
+        right: 10px;
+        width: 90px;
+        height: 4px;
+      }
+    }
+
+    &.yellow {
+      background-color: white;
+      top: 360px;
+      right: 113px;
+      width: 15px;
+      height: 70px;
+    }
+
+    &.pink {
+      background-color: white;
+      top: 430px;
+      right: 125px;
+      width: 50px;
+      height: 50px;
+      // border-radius: 0 0 15px 15px;
+    }
+  }
+}

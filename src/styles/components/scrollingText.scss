@@ -2,8 +2,8 @@
 @import '../_mixins.scss';
 
 .scrolling-container {
+  background-color: black;
   grid-column: 1 / 4;
-  max-width: 100%;
 
   img {
     width: 100%;
