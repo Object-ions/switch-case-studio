@@ -9,131 +9,113 @@
   --unit: clamp(10px, 2vw, 30px);
   $unit: 15px;
 
-  // Optional debug grid (uses fixed $unit, not responsive)
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0.05) 1px,
-        transparent 1px
-      ),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-    background-size: $unit $unit;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .block {
+  .block,
+  .block .orange,
+  .block .aqua,
+  .block .chartreuse,
+  .block .darkgreen {
     position: absolute;
     background-color: white;
     z-index: 2;
     transform-origin: center;
-    animation: subtleMove 6s ease-in-out infinite alternate;
+    animation: faceMotion 20s ease-in-out infinite;
+    transition: transform 20s ease-in-out;
+  }
 
-    &.red {
-      top: calc(var(--unit) * 13);
-      right: calc(var(--unit) * 10);
-      width: calc(var(--unit) * 4);
-      height: calc(var(--unit) * 4);
+  .block.red {
+    top: calc(var(--unit) * 13);
+    right: calc(var(--unit) * 10);
+    width: calc(var(--unit) * 4);
+    height: calc(var(--unit) * 4);
+    --x: 50px;
+    --y: -50px;
 
-      .orange {
-        position: absolute;
-        background-color: white;
-        left: calc(var(--unit) * -2);
-        width: calc(var(--unit) * 2);
-        height: calc(var(--unit) / 3);
-      }
-
-      .aqua {
-        position: absolute;
-        background-color: white;
-        right: 0;
-        bottom: calc(var(--unit) * -2);
-        width: calc(var(--unit) / 3);
-        height: calc(var(--unit) * 2);
-      }
-    }
-
-    &.blue {
-      top: calc(var(--unit) * 10);
-      right: calc(var(--unit) * 6.87);
-      width: calc(var(--unit) / 2);
-      height: calc(var(--unit) * 14);
-    }
-
-    &.green {
-      top: calc(var(--unit) * 24);
-      right: calc(var(--unit) * 6.87);
-      width: calc(var(--unit) * 2.5);
+    .orange {
+      left: calc(var(--unit) * -2);
+      width: calc(var(--unit) * 2);
       height: calc(var(--unit) / 3);
-
-      .chartreuse {
-        position: absolute;
-        background-color: white;
-        top: calc(var(--unit) * 2);
-        right: calc(var(--unit) * 0.66);
-        width: calc(var(--unit) * 2);
-        height: calc(var(--unit) / 2);
-      }
-
-      .darkgreen {
-        position: absolute;
-        background-color: white;
-        top: calc(var(--unit) * 4.5);
-        right: calc(var(--unit) * 0.66);
-        width: calc(var(--unit) * 6);
-        height: calc(var(--unit) / 4);
-      }
+      --x: -60px;
+      --y: -20px;
     }
 
-    &.yellow {
-      top: calc(var(--unit) * 24);
-      right: calc(var(--unit) * 7.53);
-      width: var(--unit);
-      height: calc(var(--unit) * 4.66);
+    .aqua {
+      right: 0;
+      bottom: calc(var(--unit) * -2);
+      width: calc(var(--unit) / 3);
+      height: calc(var(--unit) * 2);
+      --x: 10px;
+      --y: 60px;
+    }
+  }
+
+  .block.blue {
+    top: calc(var(--unit) * 10);
+    right: calc(var(--unit) * 6.87);
+    width: calc(var(--unit) / 2);
+    height: calc(var(--unit) * 14);
+    --x: 90px;
+    --y: -10px;
+  }
+
+  .block.green {
+    top: calc(var(--unit) * 24);
+    right: calc(var(--unit) * 6.87);
+    width: calc(var(--unit) * 2.5);
+    height: calc(var(--unit) / 3);
+    --x: 40px;
+    --y: 50px;
+
+    .chartreuse {
+      top: calc(var(--unit) * 2);
+      right: calc(var(--unit) * 0.66);
+      width: calc(var(--unit) * 2);
+      height: calc(var(--unit) / 2);
+      --x: 70px;
+      --y: 90px;
     }
 
-    &.pink {
-      top: calc(var(--unit) * 28.66);
-      right: calc(var(--unit) * 8.33);
-      width: calc(var(--unit) * 3.33);
-      height: calc(var(--unit) * 3.33);
+    .darkgreen {
+      top: calc(var(--unit) * 4.5);
+      right: calc(var(--unit) * 0.66);
+      width: calc(var(--unit) * 6);
+      height: calc(var(--unit) / 4);
+      --x: 120px;
+      --y: 110px;
     }
+  }
 
-    transform-origin: center;
-    animation: unifiedDrift 6s ease-in-out infinite;
+  .block.yellow {
+    top: calc(var(--unit) * 24);
+    right: calc(var(--unit) * 7.53);
+    width: var(--unit);
+    height: calc(var(--unit) * 4.66);
+    --x: 20px;
+    --y: 100px;
+  }
 
-    &.red {
-      animation-delay: 0s;
-    }
-    &.blue {
-      animation-delay: 0.4s;
-    }
-    &.green {
-      animation-delay: 0.8s;
-    }
-    &.yellow {
-      animation-delay: 1.2s;
-    }
-    &.pink {
-      animation-delay: 1.6s;
-    }
+  .block.pink {
+    top: calc(var(--unit) * 28.66);
+    right: calc(var(--unit) * 8.33);
+    width: calc(var(--unit) * 3.33);
+    height: calc(var(--unit) * 3.33);
+    --x: -60px;
+    --y: 80px;
   }
 }
 
-@keyframes unifiedDrift {
-  0% {
+// 🧠 Animation: go out over 0.2s, hold for 30s, return over 0.2s
+@keyframes faceMotion {
+  0%,
+  100% {
     transform: translate(0, 0);
   }
-  40% {
-    transform: translate(8%, -8%);
+  0.333% {
+    transform: translate(var(--x), var(--y));
   }
-  60% {
-    transform: translate(8%, -8%);
+  50% {
+    transform: translate(var(--x), var(--y));
   }
-  100% {
+  50.333% {
     transform: translate(0, 0);
   }
 }
