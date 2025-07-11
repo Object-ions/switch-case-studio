@@ -15,17 +15,14 @@ const Services = () => {
   return (
     <div id="services">
       <Bauhaus />
-      <div class="black-square"></div>
-      <div className="services-content">
-        <div className="title">
-          <h1>Services</h1>
-          <p>
-            At Switch Case, we're not just about coding—we're about creating
-            solutions that elevate your digital presence. Here's how we can help
-            you shine in the competitive digital landscape:
-          </p>
-        </div>
 
+      <div className="title">
+        <h1>Services</h1>
+        <p>
+          Here's how we can help you shine in the competitive digital landscape:
+        </p>
+      </div>
+      <div className="services-content">
         <div className="dev">
           <h3>
             <FontAwesomeIcon icon={faCode} /> Web Design and Development

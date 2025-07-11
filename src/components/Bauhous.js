@@ -1,44 +1,57 @@
-import { useEffect, useRef, useState } from 'react';
+// Bauhaus.jsx
+import { useEffect, useRef } from 'react';
 import '../styles/components/bauhaus.scss';
 
 const Bauhaus = () => {
   const containerRef = useRef();
-  const [locked, setLocked] = useState(false);
 
   useEffect(() => {
     const container = containerRef.current;
-    const blocks = container.querySelectorAll(
-      '.block, .orange, .aqua, .chartreuse, .darkgreen'
-    );
+    const blocks = container.querySelectorAll('.block, .block *');
 
-    const updateTransforms = () => {
+    let isReady = false;
+    container.classList.add('show');
+
+    const timer = setTimeout(() => {
+      isReady = true;
+    }, 500);
+
+    let lastScrollY = window.scrollY;
+    let locked = false;
+
+    const handleScroll = () => {
+      if (!isReady) return;
+
+      const scrollY = window.scrollY;
+      const scrollingDown = scrollY > lastScrollY;
+      lastScrollY = scrollY;
+
       const rect = container.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
-      const center = rect.top + rect.height / 2;
-      const distanceFromCenter = Math.abs(center - viewportHeight / 2);
-      const maxDistance = viewportHeight / 2 + rect.height / 2;
+      const top = rect.top;
+      const height = rect.height;
+      const triggerPoint = viewportHeight * 0.9;
 
-      let progress = 1 - Math.min(distanceFromCenter / maxDistance, 1);
+      const rawProgress =
+        1 - Math.min(Math.max((top + height - triggerPoint) / height, 0), 1);
+      const progress = Math.round(rawProgress * 1000) / 1000;
 
-      // 🔒 Lock when fully gathered and scrolled past
-      if (!locked && progress >= 0.95 && rect.top < viewportHeight / 2) {
+      if (progress >= 1 && scrollingDown) {
+        locked = true;
         blocks.forEach((el) => {
-          el.style.transform = 'translate(0px, 0px)';
+          el.style.transform = 'none';
         });
-        setLocked(true);
         return;
       }
 
-      // 🔓 Unlock if you scroll back up above the midpoint
-      if (locked && rect.top >= viewportHeight / 2) {
-        setLocked(false);
+      if (progress < 1 && !scrollingDown) {
+        locked = false;
       }
 
-      // If not locked, keep updating based on scroll
       if (!locked) {
         blocks.forEach((el) => {
-          const x = parseFloat(el.dataset.x || 0);
-          const y = parseFloat(el.dataset.y || 0);
+          const x = parseInt(el.dataset.x || '0');
+          const y = parseInt(el.dataset.y || '0');
           const dx = x * (1 - progress);
           const dy = y * (1 - progress);
           el.style.transform = `translate(${dx}px, ${dy}px)`;
@@ -46,15 +59,14 @@ const Bauhaus = () => {
       }
     };
 
-    window.addEventListener('scroll', updateTransforms);
-    window.addEventListener('resize', updateTransforms);
-    updateTransforms();
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
 
     return () => {
-      window.removeEventListener('scroll', updateTransforms);
-      window.removeEventListener('resize', updateTransforms);
+      clearTimeout(timer);
+      window.removeEventListener('scroll', handleScroll);
     };
-  }, [locked]);
+  }, []);
 
   return (
     <div className="composition" ref={containerRef}>

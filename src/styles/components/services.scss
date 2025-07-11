@@ -8,10 +8,13 @@
   padding: 3rem 0 0 0;
   position: relative;
 
-  h1 {
-    font-family: $font-special;
-    font-size: 4rem;
-    margin-bottom: 0.5rem;
+  .title {
+    padding: 5rem;
+    h1 {
+      font-family: $font-special;
+      font-size: 4rem;
+      margin-bottom: 0.5rem;
+    }
   }
 
   .black-square {
@@ -26,7 +29,7 @@
   }
   .services-content {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 400px auto 0 auto;
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(4, 1fr);
