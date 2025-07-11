@@ -2,19 +2,24 @@
 @import '../_mixins.scss';
 
 .composition {
-  background-color: #111;
-  width: 100vw;
-  height: 50vh;
+  background-color: #000;
   position: relative;
-  border: 1px red solid;
 
+  // Responsive unit
+  --unit: clamp(10px, 2vw, 30px);
   $unit: 15px;
 
-  // Optional debug grid
+  // Optional debug grid (uses fixed $unit, not responsive)
   &::before {
     content: '';
     position: absolute;
     inset: 0;
+    background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.05) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
     background-size: $unit $unit;
     pointer-events: none;
     z-index: 1;
@@ -24,76 +29,111 @@
     position: absolute;
     background-color: white;
     z-index: 2;
+    transform-origin: center;
+    animation: subtleMove 6s ease-in-out infinite alternate;
 
     &.red {
-      top: $unit * 13;
-      right: $unit * 10;
-      width: $unit * 4;
-      height: $unit * 4;
+      top: calc(var(--unit) * 13);
+      right: calc(var(--unit) * 10);
+      width: calc(var(--unit) * 4);
+      height: calc(var(--unit) * 4);
 
       .orange {
         position: absolute;
         background-color: white;
-        left: -$unit * 2;
-        width: $unit * 2;
-        height: $unit / 3;
+        left: calc(var(--unit) * -2);
+        width: calc(var(--unit) * 2);
+        height: calc(var(--unit) / 3);
       }
 
       .aqua {
         position: absolute;
         background-color: white;
         right: 0;
-        bottom: -$unit * 2;
-        width: $unit / 3;
-        height: $unit * 2;
+        bottom: calc(var(--unit) * -2);
+        width: calc(var(--unit) / 3);
+        height: calc(var(--unit) * 2);
       }
     }
 
     &.blue {
-      top: $unit * 10;
-      right: $unit * 6.87;
-      width: $unit / 2;
-      height: $unit * 14;
+      top: calc(var(--unit) * 10);
+      right: calc(var(--unit) * 6.87);
+      width: calc(var(--unit) / 2);
+      height: calc(var(--unit) * 14);
     }
 
     &.green {
-      top: $unit * 24;
-      right: $unit * 6.87;
-      width: $unit * 2.5;
-      height: $unit / 3;
+      top: calc(var(--unit) * 24);
+      right: calc(var(--unit) * 6.87);
+      width: calc(var(--unit) * 2.5);
+      height: calc(var(--unit) / 3);
 
       .chartreuse {
         position: absolute;
         background-color: white;
-        top: $unit * 2;
-        right: $unit * 0.66;
-        width: $unit * 2;
-        height: $unit / 2;
+        top: calc(var(--unit) * 2);
+        right: calc(var(--unit) * 0.66);
+        width: calc(var(--unit) * 2);
+        height: calc(var(--unit) / 2);
       }
 
       .darkgreen {
         position: absolute;
         background-color: white;
-        top: $unit * 4.5;
-        right: $unit * 0.66;
-        width: $unit * 6;
-        height: $unit / 4;
+        top: calc(var(--unit) * 4.5);
+        right: calc(var(--unit) * 0.66);
+        width: calc(var(--unit) * 6);
+        height: calc(var(--unit) / 4);
       }
     }
 
     &.yellow {
-      top: $unit * 24;
-      right: $unit * 7.53;
-      width: $unit;
-      height: $unit * 4.66;
+      top: calc(var(--unit) * 24);
+      right: calc(var(--unit) * 7.53);
+      width: var(--unit);
+      height: calc(var(--unit) * 4.66);
     }
 
     &.pink {
-      top: $unit * 28.66;
-      right: $unit * 8.33;
-      width: $unit * 3.33;
-      height: $unit * 3.33;
-      // border-radius: 0 0 $unit $unit;
+      top: calc(var(--unit) * 28.66);
+      right: calc(var(--unit) * 8.33);
+      width: calc(var(--unit) * 3.33);
+      height: calc(var(--unit) * 3.33);
     }
+
+    transform-origin: center;
+    animation: unifiedDrift 6s ease-in-out infinite;
+
+    &.red {
+      animation-delay: 0s;
+    }
+    &.blue {
+      animation-delay: 0.4s;
+    }
+    &.green {
+      animation-delay: 0.8s;
+    }
+    &.yellow {
+      animation-delay: 1.2s;
+    }
+    &.pink {
+      animation-delay: 1.6s;
+    }
+  }
+}
+
+@keyframes unifiedDrift {
+  0% {
+    transform: translate(0, 0);
+  }
+  40% {
+    transform: translate(8%, -8%);
+  }
+  60% {
+    transform: translate(8%, -8%);
+  }
+  100% {
+    transform: translate(0, 0);
   }
 }
