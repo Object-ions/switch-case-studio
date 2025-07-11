@@ -4,7 +4,7 @@ import scrollImage from '../assets/gifs/scroll-text.gif';
 const ScrollingText = () => {
   return (
     <div className="scrolling-container">
-      <div class="circle"></div>
+      {/* <div class="circle"></div> */}
       <img src={scrollImage} alt="Unlock your digital potential." />
     </div>
   );
