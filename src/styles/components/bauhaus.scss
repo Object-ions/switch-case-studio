@@ -8,87 +8,92 @@
   position: relative;
   border: 1px red solid;
 
+  $unit: 15px;
+
+  // Optional debug grid
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-size: $unit $unit;
+    pointer-events: none;
+    z-index: 1;
+  }
+
   .block {
     position: absolute;
     background-color: white;
+    z-index: 2;
 
     &.red {
-      position: absolute;
-      background-color: white;
-      top: 195px;
-      right: 150px;
-      width: 60px;
-      height: 60px;
+      top: $unit * 13;
+      right: $unit * 10;
+      width: $unit * 4;
+      height: $unit * 4;
 
       .orange {
         position: absolute;
         background-color: white;
-        left: -30px;
-        width: 30px;
-        height: 5px;
+        left: -$unit * 2;
+        width: $unit * 2;
+        height: $unit / 3;
       }
 
       .aqua {
         position: absolute;
         background-color: white;
         right: 0;
-        bottom: -30px;
-        width: 5px;
-        height: 30px;
+        bottom: -$unit * 2;
+        width: $unit / 3;
+        height: $unit * 2;
       }
     }
 
     &.blue {
-      background-color: white;
-      position: absolute;
-      top: 150px;
-      right: 103px;
-      width: 8px;
-      height: 210px;
+      top: $unit * 10;
+      right: $unit * 6.87;
+      width: $unit / 2;
+      height: $unit * 14;
     }
 
     &.green {
-      background-color: white;
-      position: absolute;
-      top: 360px;
-      right: 103px;
-      width: 37px;
-      height: 5px;
+      top: $unit * 24;
+      right: $unit * 6.87;
+      width: $unit * 2.5;
+      height: $unit / 3;
 
       .chartreuse {
-        background-color: white;
         position: absolute;
-        top: 30px;
-        right: 10px;
-        width: 30px;
-        height: 8px;
+        background-color: white;
+        top: $unit * 2;
+        right: $unit * 0.66;
+        width: $unit * 2;
+        height: $unit / 2;
       }
 
       .darkgreen {
-        background-color: white;
         position: absolute;
-        top: 68px;
-        right: 10px;
-        width: 90px;
-        height: 4px;
+        background-color: white;
+        top: $unit * 4.5;
+        right: $unit * 0.66;
+        width: $unit * 6;
+        height: $unit / 4;
       }
     }
 
     &.yellow {
-      background-color: white;
-      top: 360px;
-      right: 113px;
-      width: 15px;
-      height: 70px;
+      top: $unit * 24;
+      right: $unit * 7.53;
+      width: $unit;
+      height: $unit * 4.66;
     }
 
     &.pink {
-      background-color: white;
-      top: 430px;
-      right: 125px;
-      width: 50px;
-      height: 50px;
-      // border-radius: 0 0 15px 15px;
+      top: $unit * 28.66;
+      right: $unit * 8.33;
+      width: $unit * 3.33;
+      height: $unit * 3.33;
+      // border-radius: 0 0 $unit $unit;
     }
   }
 }
