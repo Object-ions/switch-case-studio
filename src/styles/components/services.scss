@@ -15,8 +15,9 @@
 
   .title {
     width: 50%;
-    padding: 5rem;
-    padding-left: 20%;
+    height: 70vh;
+    padding: 5rem 0;
+    padding-left: 12%;
 
     h1 {
       font-family: $font-special;
@@ -30,7 +31,8 @@
     }
 
     p {
-      font-size: 2rem;
+      font-size: 1.1rem;
+      text-transform: uppercase;
     }
   }
   .services-content {
