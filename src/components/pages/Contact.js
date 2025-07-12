@@ -33,13 +33,10 @@ const Contact = () => {
   return (
     <div id="contact">
       <Triangles />
-      <h1>
-        Interested in working together? Use the form below and get in touch!
-      </h1>
+      <h1>READY TO SWITCH YOUR DIGITAL GAME?</h1>
       <p>
-        I invite you to a free meeting where we will analyze what suits your
-        business and your needs, and what can be done to achieve growth for your
-        business.
+        Ready to transform your digital presence? Let's discuss your vision and
+        see how we can bring it to life.
       </p>
       <form ref={form} onSubmit={sendEmail}>
         <div className="form-group">

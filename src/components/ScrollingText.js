@@ -3,10 +3,15 @@ import scrollImage from '../assets/gifs/scroll-text.gif';
 
 const ScrollingText = () => {
   return (
-    <div className="scrolling-container">
-      {/* <div class="circle"></div> */}
-      <img src={scrollImage} alt="Unlock your digital potential." />
-    </div>
+    <div
+      className="scrolling-container"
+      style={{
+        backgroundImage: `url(${scrollImage})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
+      }}
+    ></div>
   );
 };
 

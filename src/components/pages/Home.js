@@ -40,8 +40,8 @@ const Home = () => {
         </div>
 
         <div className="cta-wrapper">
-          <a href="/Contact" className="cta-button">
-            Contact Us
+          <a href="#contact" className="cta-button">
+            Ready To Turn The Switch?
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"

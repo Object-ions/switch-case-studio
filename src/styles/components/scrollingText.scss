@@ -3,22 +3,5 @@
 
 .scrolling-container {
   background-color: black;
-  grid-column: 1 / 4;
-
-  img {
-    width: 100%;
-  }
-  .circle {
-    width: 300px;
-    height: 300px;
-    position: absolute;
-    border-radius: 50%;
-    background: #ebebeb;
-    bottom: -130px;
-    right: 50px;
-
-    &:hover {
-      background: $orange-color;
-    }
-  }
+  height: 30rem;
 }

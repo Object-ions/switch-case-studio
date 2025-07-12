@@ -28,7 +28,7 @@ const Services = () => {
       <div className="services-content">
         <div className="dev">
           <h3>
-            <FontAwesomeIcon icon={faCode} /> Web Design and Development
+            <FontAwesomeIcon icon={faCode} /> Web Design & Development
           </h3>
           <p>
             From stunning websites to web applications, we build it all with
@@ -40,8 +40,7 @@ const Services = () => {
 
         <div className="seo">
           <h3>
-            <FontAwesomeIcon icon={faSearchengin} /> Search Engine Optimization
-            (SEO)
+            <FontAwesomeIcon icon={faSearchengin} /> SEO
           </h3>
           <p>
             Maximize your online visibility. Our SEO experts not only optimize
