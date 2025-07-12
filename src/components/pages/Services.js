@@ -7,10 +7,92 @@ import {
   faWandMagicSparkles,
   faLightbulb,
 } from '@fortawesome/free-solid-svg-icons';
+
 import ScrollingText from '../ScrollingText';
+import Bauhaus from '../Bauhous';
 
 import '../../styles/components/services.scss';
-import Bauhaus from '../Bauhous';
+
+const servicesList = [
+  {
+    icon: faCode,
+    title: 'Web Development',
+    description:
+      'Custom websites and web applications built with modern technologies. From simple landing pages to complex e-commerce platforms.',
+    items: [
+      'React & Next.js',
+      'Node.js Backend',
+      'Database Design',
+      'API Integration',
+      'WordPress & WooCommerce stores',
+    ],
+  },
+  {
+    icon: faSearchengin,
+    title: 'Marketing & Advertisement',
+    description:
+      'Maximize your online visibility. Data-driven marketing strategies that grow your business. From SEO to social media, we cover all digital channels.',
+    items: [
+      'SEO Optimization',
+      'Google Ads',
+      'Meta Ads',
+      'Social Media',
+      'Content Strategy',
+      'Blog development',
+    ],
+  },
+  {
+    icon: faServer,
+    title: 'Web Hosting & Maintenance',
+    description:
+      'Secure, high-performance hosting with optional care plans to keep your site running smoothly.',
+    items: [
+      'Managed hosting setup',
+      'SSL & CDN configuration',
+      'Domain setup & DNS management',
+      'Custom email domain setup',
+      'SPF, DKIM, and DMARC configuration',
+    ],
+  },
+  {
+    icon: faPenNib,
+    title: 'Design & Branding',
+    description:
+      'Complete brand development from logo design to brand guidelines. We create identities that stand out in the market.',
+    items: [
+      'Logo Design',
+      'Wireframing',
+      'Brand guidelines (color palettes, typography)',
+      'Infographics',
+      'Visual assets for digital marketing',
+    ],
+  },
+  {
+    icon: faWandMagicSparkles,
+    title: 'Automation & Integrations',
+    description:
+      'Automate repetitive tasks and connect your tools for smoother operations. I use tools like Zapier and Go High Level to streamline your business.',
+    items: [
+      'Custom Zapier workflows',
+      'Go High Level automations',
+      'Integration with Acuity, Stripe, Mailchimp, and more',
+      'Form logic and data routing between apps',
+    ],
+  },
+  {
+    icon: faLightbulb,
+    title: 'Email Marketing',
+    description:
+      'Build relationships and increase conversions with targeted, automated email sequences.',
+    items: [
+      'Welcome flows',
+      'Promotional campaigns',
+      'Abandoned cart reminders',
+      'Monthly newsletters',
+    ],
+  },
+];
+
 const Services = () => {
   return (
     <div id="services">
@@ -21,80 +103,24 @@ const Services = () => {
           <h1>You</h1>
           <h1>Shine</h1>
           <p>In the competitive</p>
-          <p> digital landscape</p>
+          <p>igital landscape</p>
         </div>
         <Bauhaus />
       </div>
       <div className="services-content">
-        <div className="dev">
-          <h3>
-            <FontAwesomeIcon icon={faCode} /> Web Design & Development
-          </h3>
-          <p>
-            From stunning websites to web applications, we build it all with
-            precision and creativity. Each project is crafted to meet your
-            unique needs, ensuring a seamless user experience that converts
-            visitors into customers.
-          </p>
-        </div>
-
-        <div className="seo">
-          <h3>
-            <FontAwesomeIcon icon={faSearchengin} /> SEO
-          </h3>
-          <p>
-            Maximize your online visibility. Our SEO experts not only optimize
-            your new website from the ground up but also offer ongoing SEO
-            services to keep you on top of search results and ahead of the
-            competition.
-          </p>
-        </div>
-
-        <div className="hosting">
-          <h3>
-            <FontAwesomeIcon icon={faServer} /> Web Hosting
-          </h3>
-          <p>
-            Our reliable web hosting services ensure that your site remains
-            secure and accessible around the clock. We handle the technical
-            details while you enjoy the profits from reselling hosting as part
-            of your business model.
-          </p>
-        </div>
-
-        <div className="graphic">
-          <h3>
-            <FontAwesomeIcon icon={faPenNib} /> Graphic Design
-          </h3>
-          <p>
-            Let your brand speak visually. Our graphic design team creates
-            impactful designs, from logos and branding to flyers and
-            infographics. Each piece is designed to communicate and resonate
-            with your target audience effectively.
-          </p>
-        </div>
-
-        <div className="ads">
-          <h3>
-            <FontAwesomeIcon icon={faWandMagicSparkles} /> Ad Management
-          </h3>
-          <p>
-            Reach your audience where they are. We set up and manage ads on
-            platforms like Google and Facebook, focusing on precise targeting
-            and optimal ad spend to increase your ROI.
-          </p>
-        </div>
-
-        <div className="email">
-          <h3>
-            <FontAwesomeIcon icon={faLightbulb} /> Email Marketing
-          </h3>
-          <p>
-            Engage your customers with thoughtful email marketing campaigns.
-            From concept to execution, we handle newsletters, promotional
-            emails, and automated sequences that drive engagement and sales.
-          </p>
-        </div>
+        {servicesList.map((service, index) => (
+          <div key={index}>
+            <h3>
+              <FontAwesomeIcon icon={service.icon} /> {service.title}
+            </h3>
+            <p>{service.description}</p>
+            <ul>
+              {service.items.map((item, idx) => (
+                <li key={idx}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
       <ScrollingText />
     </div>
