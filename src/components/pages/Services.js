@@ -14,13 +14,16 @@ import Bauhaus from '../Bauhous';
 const Services = () => {
   return (
     <div id="services">
-      <Bauhaus />
-
-      <div className="title">
-        <h1>Services</h1>
-        <p>
-          Here's how we can help you shine in the competitive digital landscape:
-        </p>
+      <div className="services-hero">
+        <div className="title">
+          <h1>We</h1>
+          <h1>Help</h1>
+          <h1>You</h1>
+          <h1>Shine</h1>
+          <p>In the competitive</p>
+          <p> digital landscape</p>
+        </div>
+        <Bauhaus />
       </div>
       <div className="services-content">
         <div className="dev">
@@ -28,8 +31,8 @@ const Services = () => {
             <FontAwesomeIcon icon={faCode} /> Web Design and Development
           </h3>
           <p>
-            From stunning websites to complex web applications, we build it all
-            with precision and creativity. Each project is crafted to meet your
+            From stunning websites to web applications, we build it all with
+            precision and creativity. Each project is crafted to meet your
             unique needs, ensuring a seamless user experience that converts
             visitors into customers.
           </p>

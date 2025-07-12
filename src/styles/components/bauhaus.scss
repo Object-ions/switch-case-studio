@@ -2,12 +2,11 @@
 @import '../_mixins.scss';
 
 .composition {
-  background-color: #000;
   position: relative;
-  height: 50vh;
-
+  width: 50%;
   --unit: clamp(10px, 2vw, 30px);
   $unit: 15px;
+  z-index: 1;
 
   .block,
   .block .orange,
@@ -15,7 +14,7 @@
   .block .chartreuse,
   .block .darkgreen {
     position: absolute;
-    background-color: white;
+    background-color: $white-color;
     z-index: 2;
     transition: transform 0.2s ease-out;
   }

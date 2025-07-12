@@ -58,17 +58,17 @@ const Bauhaus = () => {
 
   return (
     <div className="composition" ref={containerRef}>
-      <div className="block red" data-x="150" data-y="-120">
-        <div className="orange" data-x="-160" data-y="-80"></div>
-        <div className="aqua" data-x="90" data-y="160"></div>
+      <div className="block red" data-x="250" data-y="-200">
+        <div className="orange" data-x="-260" data-y="-160"></div>
+        <div className="aqua" data-x="180" data-y="220"></div>
       </div>
-      <div className="block blue" data-x="180" data-y="-40" />
-      <div className="block green" data-x="120" data-y="140">
-        <div className="chartreuse" data-x="160" data-y="200"></div>
-        <div className="darkgreen" data-x="240" data-y="220"></div>
+      <div className="block blue" data-x="320" data-y="-120" />
+      <div className="block green" data-x="240" data-y="220">
+        <div className="chartreuse" data-x="300" data-y="280"></div>
+        <div className="darkgreen" data-x="360" data-y="300"></div>
       </div>
-      <div className="block yellow" data-x="80" data-y="180" />
-      <div className="block pink" data-x="-180" data-y="160" />
+      <div className="block yellow" data-x="180" data-y="280" />
+      <div className="block pink" data-x="-280" data-y="260" />
     </div>
   );
 };
