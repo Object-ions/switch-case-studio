@@ -103,7 +103,7 @@ const Services = () => {
           <h1>You</h1>
           <h1>Shine</h1>
           <p>In the competitive</p>
-          <p>igital landscape</p>
+          <p>digital landscape</p>
         </div>
         <Bauhaus />
       </div>
