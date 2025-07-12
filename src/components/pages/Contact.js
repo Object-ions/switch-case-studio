@@ -34,10 +34,7 @@ const Contact = () => {
     <div id="contact">
       <Triangles />
       <h1>READY TO SWITCH YOUR DIGITAL GAME?</h1>
-      <p>
-        Ready to transform your digital presence? Let's discuss your vision and
-        see how we can bring it to life.
-      </p>
+      <p>Let's discuss your vision and see how we can bring it to life.</p>
       <form ref={form} onSubmit={sendEmail}>
         <div className="form-group">
           <label htmlFor="first_name">
