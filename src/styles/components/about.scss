@@ -49,13 +49,13 @@
         font-weight: 400;
       }
 
-      &:first-of-type::first-letter {
-        float: left;
-        font-size: 3em;
-        line-height: 1;
-        margin-right: 0.1em;
-        font-weight: bold;
-      }
+      // &:first-of-type::first-letter {
+      //   float: left;
+      //   font-size: 3em;
+      //   line-height: 1;
+      //   margin-right: 0.1em;
+      //   font-weight: bold;
+      // }
     }
 
     .about-text {

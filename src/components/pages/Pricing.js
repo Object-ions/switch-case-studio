@@ -17,7 +17,6 @@ const gifMap = {
 const Pricing = () => {
   return (
     <div id="pricing">
-      <div className="blue-square"></div>
       <div className="star">
         <img src={Star} alt="pricing" />
         <h1>Web Development</h1>
