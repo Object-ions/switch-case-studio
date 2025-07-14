@@ -30,16 +30,16 @@ const Loader = () => {
 
         <div className="logo-mask">
           <span className="logo-piece">S</span>
-          <span className="logo-piece">W</span>
-          <span className="logo-piece">I</span>
-          <span className="logo-piece">T</span>
-          <span className="logo-piece">C</span>
-          <span className="logo-piece">H</span>
+          <span className="logo-piece">w</span>
+          <span className="logo-piece">i</span>
+          <span className="logo-piece">t</span>
+          <span className="logo-piece">c</span>
+          <span className="logo-piece">h</span>
           <span className="logo-piece spacer"></span>
           <span className="logo-piece">C</span>
-          <span className="logo-piece">A</span>
-          <span className="logo-piece">S</span>
-          <span className="logo-piece">E</span>
+          <span className="logo-piece">a</span>
+          <span className="logo-piece">s</span>
+          <span className="logo-piece">e</span>
         </div>
       </div>
     </div>
