@@ -1,31 +1,39 @@
-import Header from './components/layout/Header';
-import FooterCopyrights from './components/layout/FooterCopyrights';
+import { Routes, Route } from 'react-router-dom';
+import MainLayout from './components/layout/MainLayout';
+import Pricing from './components/pages/Pricing';
 import Home from './components/pages/Home';
 import About from './components/pages/About';
-import Contact from './components/pages/Contact';
-import Pricing from './components/pages/Pricing';
-import Testimonials from './components/pages/Testimonials';
-import Work from './components/pages/Work';
 import Services from './components/pages/Services';
-import CursorComponent from './components/CursorComponent';
-import Loader from './components/Loader';
+import Work from './components/pages/Work';
+import Testimonials from './components/pages/Testimonials';
 
-import '../src/styles/app.scss';
+import './styles/app.scss';
 
 function App() {
   return (
     <div className="app">
-      <CursorComponent />
-      <Loader />
-      <Header />
-      <Home />
-      <Services />
-      <About />
-      <Pricing />
-      <Work />
-      <Testimonials />
-      <Contact />
-      <FooterCopyrights />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <MainLayout>
+              <Home />
+              <Services />
+              <About />
+              <Work />
+              <Testimonials />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/services/pricing"
+          element={
+            <MainLayout>
+              <Pricing />
+            </MainLayout>
+          }
+        />
+      </Routes>
     </div>
   );
 }

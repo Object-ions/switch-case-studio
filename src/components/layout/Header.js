@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import '../../styles/components/header.scss';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [brandText, setBrandText] = useState('< Switch Case />');
@@ -35,7 +36,7 @@ const Header = () => {
     <header>
       <div className="header">
         <div className="brand">
-          <a href="#home">{brandText}</a>
+          <Link to="/">{brandText}</Link>
         </div>
 
         {/* Hamburger icon for screens less than 660px */}
@@ -47,7 +48,6 @@ const Header = () => {
         <div className="navbar">
           <a href="#about">About</a>
           <a href="#services">Services</a>
-          <a href="#pricing">Pricing</a>
           <a href="#work">Work</a>
           <a href="#testimonials">Testimonials</a>
           <a href="#contact">Contact</a>
