@@ -35,7 +35,7 @@ const Services = () => {
     reveals.forEach((el, i) => {
       gsap.fromTo(
         el,
-        { opacity: 0, y: 50 },
+        { opacity: 0, y: 80 },
         {
           opacity: 1,
           y: 0,
@@ -82,7 +82,7 @@ const Services = () => {
         ))}
       </div>
 
-      <div className="reveal">
+      <div>
         <ScrollingText />
       </div>
     </div>

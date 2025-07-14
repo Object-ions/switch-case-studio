@@ -93,14 +93,10 @@
       flex-direction: column;
       justify-content: center;
       padding: 2rem;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
     > * {
       padding: 2rem;
-
       transition: background-color 0.3s ease, color 0.3s ease;
 
       &:hover {
@@ -110,7 +106,6 @@
     }
   }
 
-  // Media Queries
   @media (max-width: 1024px) {
     .services-content {
       grid-template-columns: repeat(2, 1fr);
