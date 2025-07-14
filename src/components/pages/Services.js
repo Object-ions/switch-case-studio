@@ -70,15 +70,17 @@ const Services = () => {
 
       <div className="services-content">
         {servicesData.map((service, index) => (
-          <div key={index} className="services-card reveal">
+          <Link
+            to={`/services/${service.link}`}
+            className="services-card reveal cursor-black"
+            key={index}
+          >
             <h3>
               <FontAwesomeIcon icon={iconMap[service.icon]} />
             </h3>
-            <Link to={`/services/${service.link}`} className="cursor-black">
-              <h3>{service.title}</h3>
-            </Link>
+            <h3>{service.title}</h3>
             <p>{service.subTitle}</p>
-          </div>
+          </Link>
         ))}
       </div>
 

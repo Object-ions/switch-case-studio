@@ -4,7 +4,7 @@
 #services {
   background: #000;
   color: #fff;
-  padding: 1rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,7 +18,7 @@
 
   .services-hero {
     display: flex;
-    min-height: 50vh;
+    min-height: 70vh;
     flex-wrap: wrap;
     position: relative;
 
@@ -69,39 +69,35 @@
     position: relative;
     z-index: 2;
 
-    h3 {
-      text-transform: uppercase;
-      padding-bottom: 1rem;
-      font-size: 2rem;
-
-      &:hover ~ #cursor-dot {
-        border-color: black !important;
-      }
-    }
-
-    a {
-      &:hover ~ #cursor-dot {
-        border-color: black !important;
-      }
-    }
-
-    .services-card {
-      background-color: #0000009e;
-      border: 1px solid #fff;
-      aspect-ratio: 1;
+    a.services-card {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      background-color: #0000009e;
+      border: 1px solid #fff;
+      aspect-ratio: 1;
       padding: 2rem;
-    }
-
-    > * {
-      padding: 2rem;
+      color: white;
+      text-decoration: none;
       transition: background-color 0.3s ease, color 0.3s ease;
+
+      h3 {
+        text-transform: uppercase;
+        padding-bottom: 1rem;
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
 
       &:hover {
         background: #fff;
         color: $orange-color;
+      }
+
+      &:hover ~ #cursor-dot {
+        border-color: black !important;
       }
     }
   }
