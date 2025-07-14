@@ -16,15 +16,16 @@ const Home = () => {
         <div className="hero-intro">
           <p>
             Switch Case Studio is a creative{' '}
-            <span className="highlight-block">development</span> and{' '}
-            <span className="highlight-block">marketing</span> studio that helps
-            businesses stand out and scale up online.
+            <span className="highlight-block">
+              development and marketing studio
+            </span>{' '}
+            that helps businesses stand out and scale up online.
           </p>
         </div>
 
         <div className="pillars-row">
           <div className="pillar-container">
-            <div className="pillar-title">DESIGN_FORWARD</div>
+            <div className="pillar-title">DESIGN FORWARD</div>
             <div className="pillar-text">
               Every pixel placed with purpose. Every interaction crafted with
               intention.
@@ -32,7 +33,7 @@ const Home = () => {
           </div>
 
           <div className="pillar-container pillar-blue">
-            <div className="pillar-title">DEVELOPMENT_DRIVEN</div>
+            <div className="pillar-title">DEVELOPMENT DRIVEN</div>
             <div className="pillar-text">
               Clean code. Fast performance. Scalable solutions.
             </div>
