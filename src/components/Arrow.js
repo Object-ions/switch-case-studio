@@ -53,6 +53,7 @@ const Arrow = () => {
   }, [visible]);
   return visible ? (
     <div className="scroll-hint" ref={arrowRef}>
+      <h5>Scroll</h5>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="28"

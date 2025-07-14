@@ -18,7 +18,7 @@ const Home = () => {
             Switch Case Studio is a creative{' '}
             <span className="highlight-block">development</span> and{' '}
             <span className="highlight-block">marketing</span> studio that helps
-            businesses stand out—and scale up—online.
+            businesses stand out and scale up online.
           </p>
         </div>
 

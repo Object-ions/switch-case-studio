@@ -6,9 +6,6 @@
   top: 95%;
   right: 1rem;
   transform: translateY(-50%);
-  background-color: $grey-color;
-  border: 4px solid $black-color;
-  box-shadow: 6px 6px 0 0 $blue-color;
   padding: 1rem;
   z-index: 999;
   transition: all 0.2s ease-in-out;
@@ -16,6 +13,9 @@
   animation-delay: 0s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   &.hidden {
     display: none;
@@ -23,15 +23,13 @@
 
   svg {
     transform: rotate(360deg);
-    color: $blue-color;
+    color: $orange-color;
     stroke-width: 2.5;
   }
 
   &:hover {
-    background-color: #000;
-
     svg {
-      color: $orange-color;
+      // color: $orange-color;
       transform: rotate(180deg);
       transition: transform 0.2s ease;
     }
