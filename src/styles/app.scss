@@ -44,3 +44,13 @@ h5,
 h6 {
   font-weight: 500;
 }
+::selection {
+  background: $orange-color;
+  color: white;
+}
+
+/* For Firefox */
+::-moz-selection {
+  background: $orange-color;
+  color: white;
+}
