@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearchengin } from '@fortawesome/free-brands-svg-icons';
 import {
@@ -45,7 +46,9 @@ const Services = () => {
             <h3>
               <FontAwesomeIcon icon={iconMap[service.icon]} />
             </h3>
-            <h3>{service.title}</h3>
+            <Link to={`/services/${service.link}`} className="cursor-black">
+              <h3>{service.title}</h3>
+            </Link>
             <p>{service.subTitle}</p>
           </div>
         ))}

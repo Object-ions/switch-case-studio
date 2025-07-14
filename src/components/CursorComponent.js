@@ -17,6 +17,15 @@ const CursorComponent = () => {
 
     document.addEventListener('mousemove', handleMouseMove);
 
+    // Handle black-border cursor on hover over #services
+    const services = document.querySelector('#services');
+    const handleEnterServices = () => cursor.classList.add('black-border');
+    const handleLeaveServices = () => cursor.classList.remove('black-border');
+
+    services?.addEventListener('mouseenter', handleEnterServices);
+    services?.addEventListener('mouseleave', handleLeaveServices);
+
+    // Handle link-hover logic
     const links = document.querySelectorAll('a');
     links.forEach((link) => {
       link.addEventListener('mouseenter', () => {
@@ -29,6 +38,9 @@ const CursorComponent = () => {
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
+      services?.removeEventListener('mouseenter', handleEnterServices);
+      services?.removeEventListener('mouseleave', handleLeaveServices);
+
       links.forEach((link) => {
         link.removeEventListener('mouseenter', () => {});
         link.removeEventListener('mouseleave', () => {});

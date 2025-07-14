@@ -72,6 +72,16 @@
       text-transform: uppercase;
       padding-bottom: 1rem;
       font-size: 2rem;
+
+      &:hover ~ #cursor-dot {
+        border-color: black !important;
+      }
+    }
+
+    a {
+      &:hover ~ #cursor-dot {
+        border-color: black !important;
+      }
     }
 
     .services-card {
