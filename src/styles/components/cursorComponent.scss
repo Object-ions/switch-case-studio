@@ -22,6 +22,7 @@
 }
 
 #cursor-dot.link-hover {
+  mix-blend-mode: normal;
   background-color: transparent;
   border: 1px solid $orange-color;
   width: 35px;
