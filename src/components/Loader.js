@@ -6,10 +6,10 @@ const Loader = () => {
 
   useEffect(() => {
     const timeouts = [
-      setTimeout(() => setStage(1), 3000), // Split squares
-      setTimeout(() => setStage(2), 4000), // Trigger logo animation
-      setTimeout(() => setStage(3), 5600), // Hold logo visible
-      setTimeout(() => setStage(4), 7000), // Slide screen up
+      setTimeout(() => setStage(1), 2000), // Split squares
+      setTimeout(() => setStage(2), 2500), // Reveal logo
+      setTimeout(() => setStage(3), 3600), // Hold logo visible
+      setTimeout(() => setStage(4), 4600), // Slide screen up
     ];
 
     return () => timeouts.forEach(clearTimeout);
