@@ -34,9 +34,9 @@ const Header = () => {
   return (
     <header>
       <div className="header">
-        <a href="#home" className="brand">
-          {brandText}
-        </a>
+        <div className="brand">
+          <a href="#home">{brandText}</a>
+        </div>
 
         {/* Hamburger icon for screens less than 660px */}
         <div className="navbar-hamburger" onClick={toggleMenu}>
@@ -50,9 +50,7 @@ const Header = () => {
           <a href="#pricing">Pricing</a>
           <a href="#work">Work</a>
           <a href="#testimonials">Testimonials</a>
-          <a href="#contact" className="contact">
-            Contact
-          </a>
+          <a href="#contact">Contact</a>
         </div>
       </div>
 
