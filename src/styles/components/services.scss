@@ -2,69 +2,69 @@
 @import '../_mixins.scss';
 
 #services {
-  // min-height: 100vh;
   background: #000;
   color: #fff;
   padding: 3rem 0 0 0;
-  // position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   .services-hero {
     display: flex;
     flex-wrap: wrap;
-  }
 
-  .title {
-    width: 50%;
-    height: 80vh;
-    padding-left: 12%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
+    .title {
+      width: 50%;
+      height: 80vh;
+      padding-left: 12%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
 
-    h1 {
-      font-family: $font-special;
-      font-size: 8rem;
-      margin-bottom: 0.5rem;
-      padding-bottom: 1rem;
-      line-height: 0.75;
+      h1 {
+        font-family: $font-special;
+        font-size: 8rem;
+        margin-bottom: 0.5rem;
+        line-height: 0.75;
 
-      &:hover {
-        color: $orange-color;
+        &:hover {
+          color: $orange-color;
+        }
+      }
+
+      p {
+        font-size: 1.1rem;
+        text-transform: uppercase;
+
+        &:hover {
+          color: $orange-color;
+        }
       }
     }
-
-    p {
-      font-size: 1.1rem;
-      text-transform: uppercase;
-    }
   }
+
   .services-content {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 auto 7rem auto;
     display: grid;
-    gap: 1rem;
+    gap: 2rem;
     grid-template-columns: repeat(3, 1fr);
 
     h3 {
       text-transform: uppercase;
       padding-bottom: 1rem;
+      font-size: 2rem;
     }
 
-    ul {
-      padding-top: 1rem;
-      li {
-        position: relative;
-        padding-left: 1.2rem;
-        text-transform: capitalize;
-
-        &::before {
-          content: '-';
-          position: absolute;
-          left: 0;
-          color: $orange-color;
-        }
-      }
+    .services-card {
+      border: 1px solid #fff;
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     > * {

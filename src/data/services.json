@@ -1,0 +1,79 @@
+[
+  {
+    "icon": "faCode",
+    "title": "Web Development",
+    "subTitle": "Custom websites that convert visitors into customers.",
+    "description": "Custom websites and web applications built with modern technologies. From simple landing pages to complex e-commerce platforms.",
+    "items": [
+      "React & Next.js",
+      "Node.js Backend",
+      "Database Design",
+      "API Integration",
+      "WordPress & WooCommerce stores"
+    ]
+  },
+  {
+    "icon": "faSearchengin",
+    "title": "Marketing & Advertisement",
+    "subTitle": "Marketing strategies and campaigns that generate real ROI.",
+    "description": "Maximize your online visibility. Data-driven marketing strategies that grow your business. From SEO to social media, we cover all digital channels.",
+    "items": [
+      "SEO Optimization",
+      "Google Ads",
+      "Meta Ads",
+      "Social Media",
+      "Content Strategy",
+      "Blog development"
+    ]
+  },
+  {
+    "icon": "faServer",
+    "title": "Web Hosting & Maintenance",
+    "subTitle": "Lightning-fast, secure hosting infrastructure.",
+    "description": "Secure, high-performance hosting with optional care plans to keep your site running smoothly.",
+    "items": [
+      "Managed hosting setup",
+      "SSL & CDN configuration",
+      "Domain setup & DNS management",
+      "Custom email domain setup",
+      "SPF, DKIM, and DMARC configuration"
+    ]
+  },
+  {
+    "icon": "faPenNib",
+    "title": "Design & Branding",
+    "subTitle": "Visual identity that cuts through the noise.",
+    "description": "Complete brand development from logo design to brand guidelines. We create identities that stand out in the market.",
+    "items": [
+      "Logo Design",
+      "Wireframing",
+      "Brand guidelines (color palettes, typography)",
+      "Infographics",
+      "Visual assets for digital marketing"
+    ]
+  },
+  {
+    "icon": "faWandMagicSparkles",
+    "title": "Automation & Integrations",
+    "subTitle": "Seamless workflows cross platforms, less manual work.",
+    "description": "Automate repetitive tasks and connect your tools for smoother operations. I use tools like Zapier and Go High Level to streamline your business.",
+    "items": [
+      "Custom Zapier workflows",
+      "Go High Level automations",
+      "Integration with Acuity, Stripe, Mailchimp, and more",
+      "Form logic and data routing between apps"
+    ]
+  },
+  {
+    "icon": "faLightbulb",
+    "title": "Email Marketing",
+    "subTitle": "Automated sequences that nurture and convert.",
+    "description": "Build relationships and increase conversions with targeted, automated email sequences.",
+    "items": [
+      "Welcome flows",
+      "Promotional campaigns",
+      "Abandoned cart reminders",
+      "Monthly newsletters"
+    ]
+  }
+]
