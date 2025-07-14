@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import MainLayout from './components/layout/MainLayout';
-import Pricing from './components/pages/Pricing';
+import Development from './components/pages/Development';
 import Home from './components/pages/Home';
 import About from './components/pages/About';
 import Services from './components/pages/Services';
@@ -26,10 +26,10 @@ function App() {
           }
         />
         <Route
-          path="/services/pricing"
+          path="/services/development"
           element={
             <MainLayout>
-              <Pricing />
+              <Development />
             </MainLayout>
           }
         />

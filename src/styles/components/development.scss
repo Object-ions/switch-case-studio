@@ -1,7 +1,7 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
-#pricing {
+#development {
   padding: 5rem 0.5rem 10rem 0.5rem;
   min-height: calc(100vh - 5rem);
   position: relative;
@@ -87,7 +87,7 @@
 }
 
 @media (max-width: 768px) {
-  #pricing {
+  #development {
     padding: 5rem 2rem 3rem 2rem;
 
     .blue-square {
@@ -121,7 +121,7 @@
 }
 
 @media (max-width: 480px) {
-  #pricing {
+  #development {
     .star h1 {
       font-size: 3rem;
       margin-bottom: 3rem;

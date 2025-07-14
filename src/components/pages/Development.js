@@ -3,9 +3,9 @@ import gif1 from '../../assets/gifs/1.gif';
 import gif2 from '../../assets/gifs/2.gif';
 import gif3 from '../../assets/gifs/3.gif';
 import gif4 from '../../assets/gifs/4.gif';
-import packages from '../../data/pricing.json';
+import packages from '../../data/development.json';
 
-import '../../styles/components/pricing.scss';
+import '../../styles/components/development.scss';
 
 const gifMap = {
   gif1: gif1,
@@ -14,11 +14,11 @@ const gifMap = {
   gif4: gif4,
 };
 
-const Pricing = () => {
+const Development = () => {
   return (
-    <div id="pricing">
+    <div id="development">
       <div className="star">
-        <img src={Star} alt="pricing" />
+        <img src={Star} alt="development" />
         <h1>Web Development</h1>
       </div>
       {packages.map((pkg, index) => (
@@ -46,4 +46,4 @@ const Pricing = () => {
   );
 };
 
-export default Pricing;
+export default Development;
