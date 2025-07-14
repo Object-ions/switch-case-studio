@@ -11,9 +11,14 @@
   position: relative;
   z-index: 1;
 
+  .reveal {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
   .services-hero {
     display: flex;
-    min-height: 70vh;
+    min-height: 50vh;
     flex-wrap: wrap;
     position: relative;
 
@@ -21,11 +26,8 @@
       position: absolute;
       top: -90px;
       right: 0;
-      // width: 50%;
-      // height: 50%;
       z-index: 0;
       opacity: 0.85;
-      // pointer-events: none;
     }
 
     .title {
@@ -50,7 +52,6 @@
       p {
         font-size: 1.1rem;
         text-transform: uppercase;
-        mix-blend-mode: difference;
 
         &:hover {
           color: $orange-color;
@@ -92,7 +93,9 @@
       flex-direction: column;
       justify-content: center;
       padding: 2rem;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
     > * {

@@ -46,8 +46,8 @@ const Header = () => {
 
         {/* Full navbar for larger screens */}
         <div className="navbar">
-          <a href="#about">About</a>
           <a href="#services">Services</a>
+          <a href="#about">About</a>
           <a href="#work">Work</a>
           <a href="#testimonials">Testimonials</a>
           <a href="#contact">Contact</a>
