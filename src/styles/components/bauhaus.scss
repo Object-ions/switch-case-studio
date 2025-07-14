@@ -3,10 +3,13 @@
 
 .composition {
   position: relative;
-  width: 50%;
   --unit: clamp(10px, 2vw, 30px);
   $unit: 15px;
   z-index: 1;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 
   .block,
   .block .orange,

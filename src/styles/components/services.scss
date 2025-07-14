@@ -8,14 +8,28 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+  z-index: 1;
 
   .services-hero {
     display: flex;
+    min-height: 70vh;
     flex-wrap: wrap;
+    position: relative;
+
+    .bauhaus-bg {
+      position: absolute;
+      top: -90px;
+      right: 0;
+      // width: 50%;
+      // height: 50%;
+      z-index: 0;
+      opacity: 0.85;
+      // pointer-events: none;
+    }
 
     .title {
-      width: 50%;
-      height: 80vh;
+      padding: 7rem;
       padding-left: 12%;
       display: flex;
       flex-direction: column;
@@ -36,6 +50,7 @@
       p {
         font-size: 1.1rem;
         text-transform: uppercase;
+        mix-blend-mode: difference;
 
         &:hover {
           color: $orange-color;
@@ -50,6 +65,8 @@
     display: grid;
     gap: 2rem;
     grid-template-columns: repeat(3, 1fr);
+    position: relative;
+    z-index: 2;
 
     h3 {
       text-transform: uppercase;
@@ -58,6 +75,7 @@
     }
 
     .services-card {
+      background-color: #0000009e;
       border: 1px solid #fff;
       aspect-ratio: 1;
       display: flex;

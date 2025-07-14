@@ -34,7 +34,10 @@ const Services = () => {
           <h1>SHINE</h1>
           <p>In the competitive digital landscape</p>
         </div>
-        <Bauhaus />
+
+        <div className="bauhaus-bg">
+          <Bauhaus />
+        </div>
       </div>
       <div className="services-content">
         {servicesData.map((service, index) => (
