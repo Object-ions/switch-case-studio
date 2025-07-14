@@ -1,38 +1,39 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import gsap from 'gsap';
 import '../styles/components/cursorComponent.scss';
 
 const CursorComponent = () => {
   useEffect(() => {
     const cursor = document.querySelector('#cursor-dot');
-    const hoverTargets = document.querySelectorAll('.hover-target');
 
-    document.addEventListener('mousemove', (e) => {
+    const handleMouseMove = (e) => {
       gsap.to(cursor, {
         x: e.clientX,
         y: e.clientY,
         duration: 0.1,
         ease: 'power2.out',
       });
-    });
+    };
 
-    hoverTargets.forEach((target) => {
-      target.addEventListener('mouseenter', () => {
-        gsap.to(cursor, {
-          scale: 1.5,
-          duration: 0.3,
-        });
-        cursor.classList.add('invert');
+    document.addEventListener('mousemove', handleMouseMove);
+
+    const links = document.querySelectorAll('a');
+    links.forEach((link) => {
+      link.addEventListener('mouseenter', () => {
+        cursor.classList.add('link-hover');
       });
-
-      target.addEventListener('mouseleave', () => {
-        gsap.to(cursor, {
-          scale: 1,
-          duration: 0.3,
-        });
-        cursor.classList.remove('invert');
+      link.addEventListener('mouseleave', () => {
+        cursor.classList.remove('link-hover');
       });
     });
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      links.forEach((link) => {
+        link.removeEventListener('mouseenter', () => {});
+        link.removeEventListener('mouseleave', () => {});
+      });
+    };
   }, []);
 
   return <div id="cursor-dot"></div>;

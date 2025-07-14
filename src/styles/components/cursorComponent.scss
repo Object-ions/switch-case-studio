@@ -1,23 +1,29 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
-body {
-  cursor: none;
-}
-
 #cursor-dot {
   width: 25px;
   height: 25px;
   background-color: #fff;
-  // border-radius: 50%;
   position: fixed;
   pointer-events: none;
   z-index: 1000;
   transform: translate(-50%, -50%);
   mix-blend-mode: difference;
+  transition: background-color 0.3s, border 0.3s, width 0.3s ease,
+    height 0.3s ease;
+
+  border: 2px solid transparent;
 }
 
 #cursor-dot.invert {
   mix-blend-mode: difference;
   background-color: #ffffff;
+}
+
+#cursor-dot.link-hover {
+  background-color: transparent;
+  border: 1px solid $orange-color;
+  width: 35px;
+  height: 35px;
 }
