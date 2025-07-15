@@ -1,0 +1,23 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+.statue {
+  padding: 2rem;
+  border: 1px solid #fff;
+  grid-column: span 3 / span 3;
+  grid-row: span 8 / span 8;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .statue-svg {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    transform-origin: center;
+    opacity: 0;
+    transform: scale(0.8);
+    will-change: opacity, transform;
+  }
+}

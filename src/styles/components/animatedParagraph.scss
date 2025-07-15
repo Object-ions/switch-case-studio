@@ -1,0 +1,17 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+.animated-paragraph {
+  padding: 2rem;
+  border: 1px solid #fff;
+  grid-column: span 8 / span 8;
+  grid-row: span 2 / span 2;
+  grid-column-start: 4;
+  grid-row-start: 7;
+
+  .about-fade-text {
+    opacity: 0;
+    transform: translateY(30px);
+    will-change: opacity, transform;
+  }
+}
