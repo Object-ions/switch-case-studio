@@ -5,6 +5,7 @@ import Statue from '../Statue';
 import AnimatedHeading from '../AnimatedHeading';
 import AnimatedParagraph from '../AnimatedParagraph';
 import FloatingSquares from '../FloatingSquares';
+import CircleLogo from '../CircleLogo';
 import '../../styles/components/about.scss';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -19,7 +20,7 @@ const About = () => {
       <div className="about-grid">
         <Statue />
         <FloatingSquares />
-        <div className="div3">3</div>
+        <CircleLogo />
         <AnimatedHeading />
         <AnimatedParagraph />
       </div>

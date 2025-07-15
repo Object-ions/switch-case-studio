@@ -1,3 +1,6 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
 .floating-container {
   height: 800px;
   position: relative;
@@ -9,7 +12,8 @@
   grid-row: span 8 / span 8;
   grid-column-start: 12;
   grid-row-start: 1;
-  border: 1px solid #fff;
+  // border: 1px solid #000;
+  border-left: none;
 
   .stack-top {
     margin-top: 2rem;
@@ -21,7 +25,7 @@
   .square {
     width: 2rem;
     height: 2rem;
-    background-color: #fff;
+    background-color: $blue-color;
     z-index: 1;
 
     &.floating {

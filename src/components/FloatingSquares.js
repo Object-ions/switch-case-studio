@@ -21,15 +21,13 @@ const FloatingSquares = () => {
   return (
     <div className="floating-container">
       <div className="stack-top">
-        <div className="square">1</div>
-        <div className="square">2</div>
+        <div className="square"></div>
+        <div className="square"></div>
       </div>
 
-      <div className="square floating" ref={square3Ref}>
-        3
-      </div>
+      <div className="square floating" ref={square3Ref}></div>
 
-      <div className="square bottom">4</div>
+      <div className="square bottom"></div>
     </div>
   );
 };

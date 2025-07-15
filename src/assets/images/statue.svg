@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 177.03 237.75">
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 177.03 237.75" filter="url(#distortEffect)">
+  <defs>
+    <filter id="distortEffect">
+      <feTurbulence type="turbulence" baseFrequency="0.01" numOctaves="1" result="turbulence" />
+      <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="30" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </defs>
+
   <path d="M109.54,1.19c-.68.49-.85-.95-.29-.53.06.05.32.51.29.53Z"/>
   <polygon points="78.33 237.46 77.58 237.46 77.58 237.16 78.18 237.08 78.33 237.46"/>
   <rect x="79.22" y="237.16" width=".74" height=".3"/>

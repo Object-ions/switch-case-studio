@@ -1,0 +1,22 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+.circle-logo-wrapper {
+  padding: 2rem;
+  grid-column: span 8 / span 8;
+  grid-row: span 2 / span 2;
+  grid-column-start: 4;
+  grid-row-start: 1;
+  position: relative;
+  top: -2rem;
+  left: 0;
+  width: 25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .circle-svg {
+    position: absolute;
+    z-index: 100;
+  }
+}

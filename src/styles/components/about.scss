@@ -8,28 +8,19 @@
   color: #000;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
     'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  background-color: $blue-color;
+  background-color: $white-color;
   min-height: 60vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: #fff;
 
   .about-grid {
+    max-width: 1200px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(8, 1fr);
     min-height: 60vh;
     min-width: 90vw;
-
-    .div3 {
-      padding: 2rem;
-      border: 1px solid #fff;
-      grid-column: span 8 / span 8;
-      grid-row: span 2 / span 2;
-      grid-column-start: 4;
-      grid-row-start: 1;
-    }
   }
 }

@@ -7,24 +7,34 @@ const Statue = () => {
   const svgRef = useRef(null);
 
   useEffect(() => {
-    if (svgRef.current) {
-      gsap.fromTo(
-        svgRef.current,
-        { scale: 0.8, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 1.2,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: svgRef.current,
-            start: 'top 85%',
-            end: 'top 60%',
-            scrub: true,
-          },
-        }
-      );
+    const svgEl = svgRef.current;
+    const turbulence = svgEl?.querySelector('feTurbulence');
+
+    if (turbulence) {
+      gsap.to(turbulence, {
+        attr: { baseFrequency: 0.025 },
+        duration: 8,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+      });
     }
+
+    // 🔥 Remove all chances of hiding
+    gsap.set(svgEl, {
+      autoAlpha: 1,
+      opacity: 1,
+      visibility: 'visible',
+    });
+
+    // Optional: soft float
+    gsap.to(svgEl, {
+      y: -5,
+      duration: 6,
+      ease: 'sine.inOut',
+      repeat: -1,
+      yoyo: true,
+    });
   }, []);
 
   return (
