@@ -6,12 +6,14 @@ import About from './components/pages/About';
 import Services from './components/pages/Services';
 import Work from './components/pages/Work';
 import Testimonials from './components/pages/Testimonials';
+import ScrollToTop from './components/ScrollToTop';
 
 import './styles/app.scss';
 
 function App() {
   return (
     <div className="app">
+      <ScrollToTop />
       <Routes>
         <Route
           path="/"
