@@ -25,7 +25,7 @@ const About = () => {
         scrollTrigger: {
           trigger: headingRef.current,
           start: 'top 80%',
-          end: 'top 40%',
+          end: 'top 60%',
           scrub: true,
         },
       }
@@ -42,8 +42,8 @@ const About = () => {
         duration: 1,
         scrollTrigger: {
           trigger: paragraphRef.current,
-          start: 'top 90%',
-          end: 'top 40%',
+          start: 'top 95%',
+          end: 'top 60%',
           scrub: true,
         },
       }
