@@ -12,7 +12,7 @@ import {
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import ScrollingText from '../ScrollingText';
+// import ScrollingText from '../ScrollingText';
 import Bauhaus from '../Bauhous';
 import '../../styles/components/services.scss';
 import servicesData from '../../data/services.json';
@@ -84,9 +84,7 @@ const Services = () => {
         ))}
       </div>
 
-      <div>
-        <ScrollingText />
-      </div>
+      <div>{/* <ScrollingText /> */}</div>
     </div>
   );
 };
