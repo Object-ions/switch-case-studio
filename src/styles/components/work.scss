@@ -39,7 +39,7 @@
   z-index: 10;
 
   img {
-    height: 85vh;
+    height: 75vh;
     transition: transform 0.5s ease-out;
   }
 }
@@ -66,9 +66,13 @@
 
   p {
     mix-blend-mode: difference;
+
+    .word {
+      display: inline-block;
+      transition: color 0.2s ease;
+    }
   }
 }
-
 .marquee-container {
   width: 100%;
   z-index: 9;
@@ -76,7 +80,7 @@
   white-space: nowrap;
   position: relative;
   color: #ffffffb9;
-  padding: 5rem 0;
+  padding: 1rem 0;
 
   .marquee {
     display: inline-block;
