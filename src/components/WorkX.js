@@ -28,8 +28,8 @@ const WorkX = () => {
         ease: 'expo.out',
         scrollTrigger: {
           trigger: '#work',
-          start: 'top bottom',
-          end: 'center center',
+          start: 'top 70%',
+          end: 'bottom 50%',
           scrub: true,
         },
       }
