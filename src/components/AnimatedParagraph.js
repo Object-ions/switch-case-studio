@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import circleImage from '../assets/images/circle.png';
+import circleImage from '../assets/images/bubble1.png';
 import '../styles/components/animatedParagraph.scss';
 
 gsap.registerPlugin(ScrollTrigger);

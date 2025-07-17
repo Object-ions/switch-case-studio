@@ -2,13 +2,14 @@ import { Routes, Route } from 'react-router-dom';
 import MainLayout from './components/layout/MainLayout';
 import Development from './components/pages/Development';
 import Home from './components/pages/Home';
-import About from './components/pages/About';
+// import About from './components/pages/About';
 import Services from './components/pages/Services';
 import Work from './components/pages/Work';
-import Testimonials from './components/pages/Testimonials';
+// import Testimonials from './components/pages/Testimonials';
 import ScrollToTop from './components/ScrollToTop';
 
 import './styles/app.scss';
+import Intro from './components/pages/Intro';
 
 function App() {
   return (
@@ -22,8 +23,9 @@ function App() {
               <Home />
               <Services />
               <Work />
-              <About />
-              <Testimonials />
+              <Intro />
+              {/* <About /> */}
+              {/* <Testimonials /> */}
             </MainLayout>
           }
         />

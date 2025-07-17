@@ -84,7 +84,7 @@ const Services = () => {
         ))}
       </div>
 
-      <div>{/* <ScrollingText /> */}</div>
+      <div className="gradient-mask" />
     </div>
   );
 };

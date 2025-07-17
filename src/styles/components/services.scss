@@ -102,6 +102,21 @@
     }
   }
 
+  .gradient-mask {
+    position: absolute;
+    bottom: -20%;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 35%,
+      rgba(0, 0, 0, 1) 60%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    z-index: 10;
+    pointer-events: none;
+  }
+
   @media (max-width: 1024px) {
     .services-content {
       grid-template-columns: repeat(2, 1fr);
