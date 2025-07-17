@@ -20,7 +20,7 @@ const WorkX = () => {
         scale: 1,
       },
       {
-        y: (i) => Math.sin(i * 0.6) * 60,
+        y: (i) => Math.sin(i * 0.7) * 70,
         x: (i) => i * 30 - 200,
         rotation: (i) => i * 12,
         scale: 1.3,
@@ -28,8 +28,8 @@ const WorkX = () => {
         ease: 'expo.out',
         scrollTrigger: {
           trigger: '#work',
-          start: 'top bottom',
-          end: 'center center',
+          start: 'top 75%',
+          end: 'bottom center',
           scrub: true,
         },
       }
@@ -38,7 +38,7 @@ const WorkX = () => {
 
   return (
     <div className="work-x" ref={xRef}>
-      {Array.from({ length: 20 }).map((_, i) => (
+      {Array.from({ length: 15 }).map((_, i) => (
         <div className="x-icon" key={i}>
           <XIcon />
         </div>

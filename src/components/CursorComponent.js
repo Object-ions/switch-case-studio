@@ -17,17 +17,20 @@ const CursorComponent = () => {
 
     document.addEventListener('mousemove', handleMouseMove);
 
-    // Handle black-border cursor on hover over #services
-    const services = document.querySelector('#services');
-    const handleEnterServices = () => cursor.classList.add('black-border');
-    const handleLeaveServices = () => cursor.classList.remove('black-border');
+    // Scoped hover behavior: only a tags inside #work
+    const workLinks = document.querySelectorAll('#work a');
+    workLinks.forEach((link) => {
+      link.addEventListener('mouseenter', () => {
+        cursor.classList.add('black-border');
+      });
+      link.addEventListener('mouseleave', () => {
+        cursor.classList.remove('black-border');
+      });
+    });
 
-    services?.addEventListener('mouseenter', handleEnterServices);
-    services?.addEventListener('mouseleave', handleLeaveServices);
-
-    // Handle link-hover logic
-    const links = document.querySelectorAll('a');
-    links.forEach((link) => {
+    // Still apply orange border to other global links
+    const globalLinks = document.querySelectorAll('a:not(#work a)');
+    globalLinks.forEach((link) => {
       link.addEventListener('mouseenter', () => {
         cursor.classList.add('link-hover');
       });
@@ -38,10 +41,13 @@ const CursorComponent = () => {
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
-      services?.removeEventListener('mouseenter', handleEnterServices);
-      services?.removeEventListener('mouseleave', handleLeaveServices);
 
-      links.forEach((link) => {
+      workLinks.forEach((link) => {
+        link.removeEventListener('mouseenter', () => {});
+        link.removeEventListener('mouseleave', () => {});
+      });
+
+      globalLinks.forEach((link) => {
         link.removeEventListener('mouseenter', () => {});
         link.removeEventListener('mouseleave', () => {});
       });
