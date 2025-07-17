@@ -1,0 +1,11 @@
+#letters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: auto;
+
+  img {
+    height: 10rem;
+    padding: 0.25rem;
+  }
+}
