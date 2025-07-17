@@ -38,7 +38,7 @@ const WorkX = () => {
 
   return (
     <div className="work-x" ref={xRef}>
-      {Array.from({ length: 15 }).map((_, i) => (
+      {Array.from({ length: 10 }).map((_, i) => (
         <div className="x-icon" key={i}>
           <XIcon />
         </div>
