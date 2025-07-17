@@ -8,7 +8,7 @@ const WorkHeading = () => {
   useEffect(() => {
     const words = gsap.utils.toArray('.word');
 
-    gsap.set(words, { color: '#999' }); // initial color
+    gsap.set(words, { color: '#4B5563' }); // initial color
 
     const tl = gsap.timeline({
       scrollTrigger: {
