@@ -7,9 +7,9 @@ import Services from './components/pages/Services';
 import Work from './components/pages/Work';
 // import Testimonials from './components/pages/Testimonials';
 import ScrollToTop from './components/ScrollToTop';
+import Intro from './components/pages/Intro';
 
 import './styles/app.scss';
-import Intro from './components/pages/Intro';
 
 function App() {
   return (

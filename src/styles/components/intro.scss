@@ -2,6 +2,7 @@
 @import '../_mixins.scss';
 
 #intro {
+  overflow: visible;
   background: $blue-color;
   min-height: 100vh;
   color: white;
@@ -16,35 +17,35 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top right;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
   .intro-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     min-height: 90vh;
     border: 0.5rem solid white;
     margin: 5rem;
-    position: static;
+    position: relative;
+    background: rgba(0, 0, 0, 0.2);
   }
 
   .intro-content {
     z-index: 100;
     color: #fff;
     position: relative;
+    max-width: 1200px;
 
-    h1 {
+    h2 {
       font-family: $font-special;
-      font-size: 9rem;
     }
 
-    .intro-image-wrapper {
-      max-width: 35rem;
-      margin: auto;
-
-      img {
-        width: 100%;
-      }
+    h2,
+    p {
+      max-width: 60%;
+      margin: 2rem auto;
     }
   }
 
@@ -56,7 +57,9 @@
     height: 40rem;
     width: 40rem;
     position: absolute;
-    z-index: 100;
+    z-index: 50;
+    will-change: transform;
+    transition: transform 0.3s ease-out;
   }
 
   .bubble1 {
@@ -82,5 +85,53 @@
     );
     z-index: 10;
     pointer-events: none;
+  }
+}
+
+.why-switch-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: minmax(6rem, auto);
+  font-size: 1.2rem;
+  z-index: 200;
+  position: relative;
+  z-index: 200;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  width: 100%;
+
+  div {
+    border: 5px solid #fff;
+    padding: 1rem;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+  }
+
+  .item1 {
+    grid-column: span 3;
+  }
+
+  .item2 {
+    grid-column: span 3;
+  }
+
+  .item3 {
+    grid-column: span 2;
+  }
+
+  .item4 {
+    grid-column: span 2;
+  }
+
+  .item5 {
+    grid-column: span 2;
+  }
+
+  .item6 {
+    grid-column: span 6;
   }
 }
