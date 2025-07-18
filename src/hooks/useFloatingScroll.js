@@ -19,7 +19,7 @@ const useFloatingScroll = (ref) => {
       repeat: -1,
       paused: true, // start paused
       opacity: () => gsap.utils.random(0.85, 1),
-      scale: () => gsap.utils.random(0.95, 1.35),
+      scale: () => gsap.utils.random(0.95, 1.15),
     });
 
     const trigger = ScrollTrigger.create({
