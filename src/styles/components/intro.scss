@@ -13,7 +13,6 @@
   align-items: center;
   text-align: center;
   font-family: $font-special;
-  margin: 5rem auto;
 
   .holographic-bg {
     position: absolute;
@@ -46,12 +45,10 @@
       mix-blend-mode: multiply;
       z-index: 20;
       position: relative;
-      -webkit-text-stroke: 3px $black-color;
 
       .outlined {
         color: transparent;
-        mix-blend-mode: multiply;
-        -webkit-text-stroke: none;
+        -webkit-text-stroke: 3px $black-color;
       }
     }
   }
