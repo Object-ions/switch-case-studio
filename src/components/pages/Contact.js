@@ -4,6 +4,7 @@ import FloatingSquares from '../FloatingSquares';
 import CircleLogo from '../CircleLogo';
 import '../../styles/components/contact.scss';
 import AnimatedHeading from '../AnimatedHeading';
+import Statue from '../Statue';
 
 const Contact = () => {
   const form = useRef();
@@ -33,6 +34,7 @@ const Contact = () => {
 
   return (
     <div id="contact">
+      <Statue />
       <div className="contact-wrapper">
         <FloatingSquares />
 

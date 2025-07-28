@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
-import { ReactComponent as StatueSVG } from '../assets/images/statue.svg';
+import { ReactComponent as StatueSVG } from '../assets/images/half-tone.svg';
 import '../styles/components/statue.scss';
 
 const Statue = () => {

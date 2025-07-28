@@ -3,7 +3,6 @@
 
 .statue {
   padding: 2rem;
-  // border: 1px solid #000;
   border-right: none;
   grid-column: span 3 / span 3;
   grid-row: span 8 / span 8;
@@ -15,12 +14,12 @@
   .statue-svg {
     position: absolute;
     width: 100%;
-    width: 400px;
+    width: 120%;
     height: auto;
     transform-origin: center;
     opacity: 1 !important;
     visibility: visible !important;
     will-change: transform, filter;
-    z-index: 10;
+    z-index: 1;
   }
 }
