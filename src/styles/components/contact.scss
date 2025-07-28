@@ -32,6 +32,7 @@
 
       p {
         padding-left: 1.5rem;
+        color: #000;
       }
     }
 
@@ -70,12 +71,12 @@
           background: none;
 
           &::placeholder {
-            color: $blue-color;
+            color: #000;
           }
 
           &:focus {
             outline: none;
-            border-color: $orange-color;
+            border-color: $blue-color;
           }
         }
 
