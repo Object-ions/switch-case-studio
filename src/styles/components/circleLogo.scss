@@ -6,7 +6,6 @@
   position: relative;
   bottom: 15rem;
   left: 10rem;
-  width: 20rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,5 +13,6 @@
   .circle-svg {
     position: absolute;
     z-index: 100;
+    width: 20rem;
   }
 }

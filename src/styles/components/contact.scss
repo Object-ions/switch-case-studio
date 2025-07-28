@@ -2,7 +2,6 @@
 @import '../_mixins.scss';
 
 #contact {
-  max-width: 1200px;
   margin: 5rem auto;
   padding-top: 5rem;
   display: flex;
@@ -13,6 +12,8 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
   .contact-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: 0.6fr 1.8fr 0.6fr;
     grid-template-rows: 1fr 1fr;
