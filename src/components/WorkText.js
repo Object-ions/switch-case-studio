@@ -28,6 +28,15 @@ const WorkText = () => {
   return (
     <div className="work-text" ref={textRef}>
       <p>
+        Founded in 2024 by a designer and a developer, we bring a unique blend
+        of <span className="highlight-block">design thinking</span> and{' '}
+        <span className="highlight-block">technical skill</span> to every
+        project. Whether you're launching something new or leveling up what you
+        already have, we work closely with you to clarify your message, refine
+        your presence, and grow your business online.
+      </p>
+      <br />
+      <p>
         We approach every project with{' '}
         <span className="highlight-block"> curiosity</span> and{' '}
         <span className="highlight-block"> creativity</span>. Whether it’s a

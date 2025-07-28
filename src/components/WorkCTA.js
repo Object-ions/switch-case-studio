@@ -32,7 +32,7 @@ const WorkCTA = () => {
         <p>Let's Bring Your Idea To life</p>
         <a href="#home" className="highlight-block">
           {' '}
-          & Start Something Bold
+          & Book a Discovery Call
         </a>
       </div>
     </div>

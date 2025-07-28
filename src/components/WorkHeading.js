@@ -28,7 +28,7 @@ const WorkHeading = () => {
     };
   }, []);
 
-  const text = `Switch Case is a creative studio bringing sharp ideas to life — blending design, tech, and storytelling into thoughtful, effective digital experiences.`;
+  const text = `Switch Case is a creative development and marketing studio bringing sharp ideas to life — blending design, tech, and storytelling into thoughtful, effective digital experiences.`;
 
   const wrappedWords = text.split(' ').map((word, idx) => (
     <span key={idx} className="word">

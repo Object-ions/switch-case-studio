@@ -27,6 +27,7 @@ const Work = () => {
         <WorkCTA />
         <WorkX />
         <div className="gradient-mask" />
+        <div className="gradient-mask-bottom" />
       </div>
     </div>
   );

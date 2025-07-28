@@ -42,6 +42,7 @@ const Intro = () => {
 
   return (
     <div id="intro">
+      <div className="gradient-mask-top" />
       <div
         ref={bgRef}
         className="holographic-bg"
