@@ -31,7 +31,7 @@
       font-family: $font-special;
       font-size: 5rem;
       font-weight: 900;
-      color: $blue-color;
+      color: $blue-color !important;
       opacity: 0;
       transform: translateY(30px);
       will-change: opacity, transform;

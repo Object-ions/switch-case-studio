@@ -2,7 +2,7 @@
 @import '../_mixins.scss';
 
 #contact {
-  max-width: 600px;
+  max-width: 1200px;
   margin: 5rem auto;
   padding-top: 5rem;
   display: flex;
@@ -10,128 +10,95 @@
   justify-content: center;
   position: relative;
   padding: 0 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-  h1 {
-    color: $blue-color;
-    font-size: 3rem;
-    font-weight: 400;
-    margin-bottom: 2rem;
-    text-align: center;
-  }
+  .contact-wrapper {
+    display: grid;
+    grid-template-columns: 0.6fr 1.8fr 0.6fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      'circle-logo-wrapper form floating-container'
+      '. form floating-container';
 
-  p {
-    color: #000;
-    text-align: center;
-    font-weight: 400;
-  }
-
-  form {
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-
-      label {
-        font-weight: 400;
-
-        span {
-          font-size: 0.8rem;
-          color: #888;
-        }
-      }
-
-      input,
-      textarea {
-        padding: 1rem;
-        font-size: 1rem;
-        border: 3px solid #ccc;
-
-        &::placeholder {
-          color: #ccc;
-        }
-
-        &:focus {
-          outline: none;
-          border-color: #333;
-        }
-      }
-
-      textarea {
-        resize: vertical;
-        height: 10rem;
-      }
-
-      .name-fields {
-        display: flex;
-        flex-direction: row;
-        gap: 1rem;
-
-        input {
-          flex: 1;
-        }
-      }
+    .floating-container {
+      grid-area: floating-container;
     }
 
-    button {
-      width: 100%;
-      padding: 1.5rem;
-      font-size: 1rem;
-      color: #fff;
-      background-color: #000;
-      border: none;
-      cursor: pointer;
-
-      &:hover {
-        background-color: #333;
-      }
-    }
-  }
-}
-
-@media (max-width: 600px) {
-  #contact {
-    h1 {
-      font-size: 2rem;
+    .form {
+      grid-area: form;
     }
 
-    p {
-      font-size: 0.9rem;
+    .circle-logo-wrapper {
+      grid-area: circle-logo-wrapper;
     }
 
     form {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
       .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
         label {
-          font-size: 0.9rem;
+          font-weight: 400;
+
+          span {
+            font-size: 0.8rem;
+            color: #888;
+          }
         }
 
         input,
         textarea {
-          padding: 0.5rem;
-          font-size: 0.9rem;
+          padding: 1rem;
+          font-size: 1rem;
+          border: 3px solid #ccc;
+
+          &::placeholder {
+            color: #ccc;
+          }
+
+          &:focus {
+            outline: none;
+            border-color: #333;
+          }
         }
 
         textarea {
-          height: 5rem;
+          resize: vertical;
+          height: 10rem;
         }
 
         .name-fields {
-          flex-direction: column;
+          display: flex;
+          flex-direction: row;
+          gap: 1rem;
+
+          input {
+            flex: 1;
+          }
         }
       }
 
       button {
-        padding: 1rem;
-        font-size: 0.9rem;
+        width: 100%;
+        padding: 1.5rem;
+        font-size: 1rem;
+        color: #fff;
+        background-color: #000;
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #333;
+        }
       }
     }
-  }
-
-  .name-fields {
-    flex-direction: column;
   }
 }

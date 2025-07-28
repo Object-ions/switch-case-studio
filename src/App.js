@@ -2,7 +2,6 @@ import { Routes, Route } from 'react-router-dom';
 import MainLayout from './components/layout/MainLayout';
 import Development from './components/pages/Development';
 import Home from './components/pages/Home';
-import About from './components/pages/About';
 import Services from './components/pages/Services';
 import Work from './components/pages/Work';
 import Testimonials from './components/pages/Testimonials';
@@ -25,7 +24,6 @@ function App() {
               <Work />
               <Intro />
               <Testimonials />
-              <About />
             </MainLayout>
           }
         />
