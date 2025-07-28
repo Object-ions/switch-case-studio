@@ -29,6 +29,10 @@
 
     .form {
       grid-area: form;
+
+      p {
+        padding-left: 1.5rem;
+      }
     }
 
     .circle-logo-wrapper {
@@ -48,9 +52,11 @@
 
         label {
           font-weight: 400;
+          padding-left: 1.5rem;
+          visibility: hidden;
 
           span {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #888;
           }
         }
@@ -59,15 +65,17 @@
         textarea {
           padding: 1rem;
           font-size: 1rem;
-          border: 3px solid #ccc;
+          border: 2px solid #000;
+          border-radius: 2rem;
+          background: none;
 
           &::placeholder {
-            color: #ccc;
+            color: $blue-color;
           }
 
           &:focus {
             outline: none;
-            border-color: #333;
+            border-color: $orange-color;
           }
         }
 
@@ -88,16 +96,16 @@
       }
 
       button {
+        border-radius: 2rem;
         width: 100%;
         padding: 1.5rem;
         font-size: 1rem;
         color: #fff;
         background-color: #000;
         border: none;
-        cursor: pointer;
 
         &:hover {
-          background-color: #333;
+          background-color: $orange-color;
         }
       }
     }

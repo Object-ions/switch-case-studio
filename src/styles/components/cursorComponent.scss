@@ -32,3 +32,16 @@
 #cursor-dot.black-border {
   border: 2px solid $blue-color !important;
 }
+
+#cursor-dot.orange-bg {
+  background-color: $orange-color;
+  mix-blend-mode: normal;
+}
+
+#cursor-dot.contact-hover {
+  mix-blend-mode: normal;
+  background-color: transparent;
+  border: 2px solid $blue-color;
+  width: 35px;
+  height: 35px;
+}

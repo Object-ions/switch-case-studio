@@ -15,9 +15,21 @@ const CursorComponent = () => {
       });
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
+    const handleScroll = () => {
+      const contact = document.querySelector('#contact');
+      const rect = contact?.getBoundingClientRect();
+      if (rect && rect.top <= window.innerHeight && rect.bottom >= 0) {
+        cursor.classList.add('orange-bg');
+      } else {
+        cursor.classList.remove('orange-bg');
+      }
+    };
 
-    // Scoped hover behavior: only a tags inside #work
+    document.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // call initially in case user lands mid-page
+
+    // Links inside #work
     const workLinks = document.querySelectorAll('#work a');
     workLinks.forEach((link) => {
       link.addEventListener('mouseenter', () => {
@@ -28,29 +40,25 @@ const CursorComponent = () => {
       });
     });
 
-    // Still apply orange border to other global links
-    const globalLinks = document.querySelectorAll('a:not(#work a)');
-    globalLinks.forEach((link) => {
-      link.addEventListener('mouseenter', () => {
-        cursor.classList.add('link-hover');
+    // Global links and buttons in #contact
+    const globalLinks = document.querySelectorAll('a:not(#work a), button');
+    globalLinks.forEach((el) => {
+      el.addEventListener('mouseenter', () => {
+        if (el.closest('#contact')) {
+          cursor.classList.add('contact-hover');
+        } else {
+          cursor.classList.add('link-hover');
+        }
       });
-      link.addEventListener('mouseleave', () => {
+      el.addEventListener('mouseleave', () => {
+        cursor.classList.remove('contact-hover');
         cursor.classList.remove('link-hover');
       });
     });
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
-
-      workLinks.forEach((link) => {
-        link.removeEventListener('mouseenter', () => {});
-        link.removeEventListener('mouseleave', () => {});
-      });
-
-      globalLinks.forEach((link) => {
-        link.removeEventListener('mouseenter', () => {});
-        link.removeEventListener('mouseleave', () => {});
-      });
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
