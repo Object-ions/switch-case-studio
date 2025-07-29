@@ -7,7 +7,22 @@ const CircleLogo = () => {
   const logoRef = useRef(null);
 
   useEffect(() => {
-    gsap.to(logoRef.current, {
+    const el = logoRef.current;
+
+    gsap.set(el, { scale: 0.6, opacity: 0 });
+
+    gsap.to(el, {
+      scale: 1,
+      opacity: 1,
+      duration: 1.2,
+      ease: 'elastic.out(1, 0.5)',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 85%',
+      },
+    });
+
+    gsap.to(el, {
       rotate: 360,
       duration: 30,
       repeat: -1,

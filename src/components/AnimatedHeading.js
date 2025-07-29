@@ -17,17 +17,17 @@ const AnimatedHeading = () => {
 
     gsap.fromTo(
       words,
-      { opacity: 0, y: 30 },
+      { opacity: 0, y: 40 },
       {
         opacity: 1,
         y: 0,
-        stagger: 0.2,
-        ease: 'power2.out',
+        stagger: 0.15,
+        duration: 1,
+        ease: 'power3.out',
         scrollTrigger: {
           trigger: headingRef.current,
           start: 'top 80%',
-          end: 'top 60%',
-          scrub: true,
+          toggleActions: 'play none none reverse',
         },
       }
     );
