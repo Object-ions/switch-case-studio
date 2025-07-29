@@ -44,6 +44,18 @@ const WorkText = () => {
         <span className="highlight-block"> details</span> and help ideas take
         shape with <span className="highlight-block"> clarity and style.</span>
       </p>
+      <br />
+      <p>
+        At our core, we’re driven by a love for
+        <span className="highlight-block">art history and philosophy.</span> We
+        draw inspiration from visual culture, aesthetic theory, and movements
+        like <span className="highlight-block">Renaissance</span>, modernism,
+        and formalism. These passions shape how we think about perception,
+        design, and communication — and they’re part of why{' '}
+        <span className="highlight-block">
+          we care so much about the craft.
+        </span>
+      </p>
     </div>
   );
 };

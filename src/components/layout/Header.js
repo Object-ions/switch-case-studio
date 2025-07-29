@@ -48,7 +48,6 @@ const Header = () => {
         <div className="navbar">
           <a href="#services">Services</a>
           <a href="#work">About</a>
-          <a href="#about">About</a>
           <a href="#testimonials">Reviews</a>
           <a href="#contact">Contact</a>
         </div>

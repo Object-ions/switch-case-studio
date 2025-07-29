@@ -8,7 +8,7 @@ const WorkHeading = () => {
   useEffect(() => {
     const words = gsap.utils.toArray('.word');
 
-    gsap.set(words, { color: '#4B5563' }); // initial color
+    gsap.set(words, { color: '#2f353dff' }); // initial color
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -28,7 +28,7 @@ const WorkHeading = () => {
     };
   }, []);
 
-  const text = `Switch Case is a creative development and marketing studio bringing sharp ideas to life — blending design, tech, and storytelling into thoughtful, effective digital experiences.`;
+  const text = `Switch Case is a creative development and marketing studio based in Phoenix, Arizona. We bring sharp ideas to life - blending design, tech, and storytelling into thoughtful, effective digital experiences`;
 
   const wrappedWords = text.split(' ').map((word, idx) => (
     <span key={idx} className="word">

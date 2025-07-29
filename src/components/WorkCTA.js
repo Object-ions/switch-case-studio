@@ -30,8 +30,12 @@ const WorkCTA = () => {
     <div className="work-cta" ref={ctaRef}>
       <div className="text-wrapper">
         <p>Let's Bring Your Idea To life</p>
-        <a href="#home" className="highlight-block">
-          {' '}
+        <a
+          href="https://link.foreverbooked.com/widget/booking/ec8dal2CrxqAOd9QwKc2"
+          className="highlight-block"
+          target="_blank"
+          rel="noreferrer"
+        >
           & Book a Discovery Call
         </a>
       </div>
