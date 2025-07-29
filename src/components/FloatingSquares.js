@@ -6,16 +6,16 @@ const FloatingSquares = () => {
   const square3Ref = useRef(null);
 
   useEffect(() => {
-    gsap.from(square3Ref.current.parentNode, {
-      opacity: 0,
-      y: 60,
-      duration: 1,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: square3Ref.current.parentNode,
-        start: 'top 90%',
-      },
+    const tl = gsap.timeline({
+      repeat: -1,
+      yoyo: true,
+      defaults: { ease: 'power1.inOut' },
     });
+
+    tl.to(square3Ref.current, { y: 560, duration: 2 }) // down
+      .to(square3Ref.current, { y: 560, duration: 0, delay: 0.5 }) // pause at bottom
+      .to(square3Ref.current, { y: 0, duration: 2 }) // up
+      .to(square3Ref.current, { y: 0, duration: 0, delay: 1 }); // pause at top
   }, []);
 
   return (
