@@ -25,22 +25,40 @@ const SwitchCaseArt = () => {
   const containerRef = useRef(null);
 
   useEffect(() => {
+    // Position elements
     Object.entries(elementOffsets).forEach(([key, { x, y }]) => {
       gsap.set(`#${key}`, { x, y });
     });
+
+    // Animate elements
+    const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
+
+    tl.from('#layer1', { opacity: 0, scale: 1.05, duration: 1.2 })
+      .from('#image', { opacity: 0, y: 30, duration: 1 }, '-=0.6')
+      .from('#up', { opacity: 0, y: -100, skewY: 8, duration: 1 }, '-=0.5')
+      .to('#up', { skewY: 0, duration: 0.6 }, '<')
+      .from(
+        '#x',
+        { opacity: 0, scale: 0.5, duration: 1, ease: 'elastic.out(1, 0.5)' },
+        '-=0.6'
+      )
+      .from('#left', { opacity: 0, x: -100, rotation: 5, duration: 1 }, '-=0.8')
+      .from('#right', { opacity: 0, x: 100, rotation: -5, duration: 1 }, '-=1')
+      .from('#startt', { opacity: 0, scale: 0.5, duration: 0.6 }, '-=0.8')
+      .from('#starb', { opacity: 0, scale: 0.5, duration: 0.6 }, '-=0.5');
   }, []);
 
   return (
     <div className="switch-case-art">
       <div className="image-container" ref={containerRef}>
         <img id="layer1" src={layer1} className="base" alt="background base" />
-        <img id="image" src={image} className="layer" alt="image1" />
-        <img id="up" src={up} className="layer" alt="image2" />
-        <img id="x" src={x} className="layer" alt="image3" />
-        <img id="right" src={right} className="layer" alt="image4" />
-        <img id="left" src={left} className="layer" alt="image5" />
-        <img id="startt" src={startt} className="layer" alt="image6" />
-        <img id="starb" src={starb} className="layer" alt="image7" />
+        <img id="up" src={up} className="layer" alt="up text" />
+        <img id="image" src={image} className="layer" alt="main figure" />
+        <img id="x" src={x} className="layer" alt="xxx" />
+        <img id="right" src={right} className="layer" alt="right text" />
+        <img id="left" src={left} className="layer" alt="left text" />
+        <img id="starb" src={starb} className="layer" alt="bottom star" />
+        <img id="startt" src={startt} className="layer" alt="top star" />
       </div>
     </div>
   );
