@@ -4,12 +4,13 @@
 #services {
   background: #000;
   color: #fff;
-  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
-  z-index: 1;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  line-height: 1.5;
 
   .reveal {
     opacity: 0;
@@ -18,31 +19,24 @@
 
   .services-hero {
     display: flex;
-    min-height: 70vh;
-    flex-wrap: wrap;
-    position: relative;
-
-    .bauhaus-bg {
-      position: absolute;
-      top: -90px;
-      right: 0;
-      z-index: 0;
-      opacity: 0.85;
-    }
+    flex-direction: row-reverse;
+    margin: 3rem auto;
+    max-width: 1200px;
+    align-items: center;
+    justify-content: space-between;
 
     .title {
-      padding: 7rem;
-      padding-left: 12%;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
+      width: 50%;
+      padding: 3rem;
 
       h1 {
         font-family: $font-special;
-        font-size: 8rem;
-        margin-bottom: 0.5rem;
-        line-height: 0.75;
+        font-size: 5rem;
+        padding: 0.5rem;
 
         &:hover {
           color: $orange-color;
@@ -51,7 +45,6 @@
 
       p {
         font-size: 1.1rem;
-        text-transform: uppercase;
 
         &:hover {
           color: $orange-color;

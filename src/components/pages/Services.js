@@ -11,11 +11,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-// import ScrollingText from '../ScrollingText';
-import Bauhaus from '../Bauhous';
-import '../../styles/components/services.scss';
 import servicesData from '../../data/services.json';
+import SwitchCaseArt from '../SwitchCaseArt';
+import '../../styles/components/services.scss';
 
 const iconMap = {
   faCode,
@@ -56,16 +54,17 @@ const Services = () => {
     <div id="services">
       <div className="services-hero">
         <div className="title reveal">
-          <h1>We</h1>
-          <h1>Help</h1>
-          <h1>You</h1>
-          <h1>SHINE</h1>
+          <h2>We Help You Shine</h2>
           <p>In the competitive digital landscape</p>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque
+            saepe, harum quaerat labore esse, fugit officiis, porro delectus
+            obcaecati corrupti laudantium earum alias ipsum quae at eum
+            reprehenderit voluptas rem!
+          </p>
         </div>
 
-        <div className="bauhaus-bg reveal">
-          <Bauhaus />
-        </div>
+        <SwitchCaseArt />
       </div>
 
       <div className="services-content">
