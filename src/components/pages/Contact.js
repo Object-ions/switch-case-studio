@@ -20,8 +20,16 @@ const Contact = () => {
 
         <div className="form">
           <AnimatedHeading />
-          <p>Book a free 30 minute discovery call here</p>
-          <p>Or use the form below and let's bring your vision to life.</p>
+          <p>Let's bring your vision to life</p>
+          <a
+            href="https://link.foreverbooked.com/widget/booking/ec8dal2CrxqAOd9QwKc2"
+            className="highlight-block"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Book a free 30 minute discovery call here
+          </a>
+          <p>Or use the form below.</p>
           <ContactForm formRef={formRef} />
         </div>
       </div>

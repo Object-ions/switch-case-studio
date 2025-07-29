@@ -42,7 +42,7 @@ const CursorComponent = () => {
 
     // Global links and buttons in #contact
     const globalLinks = document.querySelectorAll(
-      'a:not(#work a), button, input'
+      'a:not(#work a), button, input, a, textarea'
     );
     globalLinks.forEach((el) => {
       el.addEventListener('mouseenter', () => {

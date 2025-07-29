@@ -30,6 +30,12 @@
     .form {
       grid-area: form;
 
+      a {
+        padding: 0.15rem 0.5rem;
+        margin: 0.15rem 1.5rem;
+        background-color: $blue-color;
+      }
+
       p {
         padding-left: 1.5rem;
         color: #000;
@@ -57,7 +63,7 @@
         label {
           font-weight: 400;
           padding-left: 1.5rem;
-          visibility: hidden;
+          display: none;
 
           span {
             font-size: 0.75rem;
