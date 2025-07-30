@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import '../styles/components/switchCaseArt.scss';
 
 import layer1 from '../assets/images/layer1.png';
 import up from '../assets/images/up.png';
@@ -11,6 +10,7 @@ import right from '../assets/images/right.png';
 import left from '../assets/images/left.png';
 import starb from '../assets/images/starb.png';
 import startt from '../assets/images/startt.png';
+import '../styles/components/switchCaseArt.scss';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,9 +28,7 @@ const SwitchCaseArt = () => {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    const layers = Object.keys(elementOffsets).map((key) =>
-      document.getElementById(key)
-    );
+    Object.keys(elementOffsets).map((key) => document.getElementById(key));
     const positions = {};
 
     Object.entries(elementOffsets).forEach(([key, { x, y }]) => {
