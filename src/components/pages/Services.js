@@ -98,10 +98,13 @@ const Services = () => {
           <h2>We Help You Shine</h2>
           <h1>SHINE</h1>
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque
-            saepe, harum quaerat labore esse, fugit officiis, porro delectus
-            obcaecati corrupti laudantium earum alias ipsum quae at eum
-            reprehenderit voluptas rem!
+            By blending bold design, custom development, and smart marketing
+            into digital work that actually works. From websites that convert to
+            branding that sticks, we handle it all - including SEO, Meta and
+            Google Ads, email marketing, content strategy, and ongoing hosting
+            and support. Whether you're building something new or refreshing
+            what you have, we give your brand the tools it needs to stand out
+            and grow.
           </p>
         </div>
 

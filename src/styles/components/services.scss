@@ -23,12 +23,15 @@
     flex-direction: row-reverse;
     margin: 3rem auto;
     max-width: 1200px;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
 
     .title {
       position: relative;
       isolation: isolate;
+      width: 50%;
+      text-align: center;
+      padding: 2rem;
 
       &::before {
         content: '';
@@ -60,10 +63,21 @@
 
       h1 {
         font-family: $font-special;
-        font-size: 5rem;
-        padding: 0.5rem;
+        font-size: clamp(2.5rem, 8vw, 10rem);
+        padding: 0;
+        margin: 0;
         color: transparent;
         -webkit-text-stroke: 1px #fff;
+        letter-spacing: 0.5rem;
+      }
+
+      h2 {
+        text-transform: uppercase;
+        font-size: clamp(1.25rem, 4vw, 3rem);
+      }
+
+      p {
+        text-align: justify;
       }
     }
   }
