@@ -38,8 +38,8 @@ const Services = () => {
         {
           opacity: 1,
           y: 0,
-          duration: 0.7,
-          delay: i * 0.5,
+          duration: 0.5,
+          delay: i * 0.25,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: el,
@@ -95,9 +95,9 @@ const Services = () => {
     <div id="services">
       <div className="services-hero">
         <div className="title reveal">
-          <h2 data-text="We Help You Shine">We Help You Shine</h2>
-          <h1 data-text="SHINE">SHINE</h1>
-          <p data-text="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque saepe, harum quaerat labore esse, fugit officiis, porro delectus obcaecati corrupti laudantium earum alias ipsum quae at eum reprehenderit voluptas rem!">
+          <h2>We Help You Shine</h2>
+          <h1>SHINE</h1>
+          <p>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque
             saepe, harum quaerat labore esse, fugit officiis, porro delectus
             obcaecati corrupti laudantium earum alias ipsum quae at eum

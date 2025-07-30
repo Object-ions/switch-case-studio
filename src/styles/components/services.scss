@@ -11,7 +11,7 @@
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
     'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   line-height: 1.5;
-  padding: 7rem 0;
+  padding: 7rem 2rem;
 
   .reveal {
     opacity: 0;
@@ -78,6 +78,7 @@
     z-index: 2;
 
     a.services-card {
+      max-width: 360px;
       position: relative;
       overflow: hidden;
       z-index: 1;
@@ -103,13 +104,20 @@
         font-size: 1rem;
       }
 
+      h3,
+      p {
+        position: relative;
+        z-index: 2;
+        mix-blend-mode: difference;
+      }
+
       &::before {
         content: '';
         position: absolute;
         top: var(--y, 50%);
         left: var(--x, 50%);
-        width: 100px;
-        height: 100px;
+        width: 60px;
+        height: 60px;
         background-color: white;
         border-radius: 50%;
         transform: translate(-50%, -50%) scale(0);
@@ -120,10 +128,6 @@
 
       &:hover::before {
         transform: translate(-50%, -50%) scale(7);
-      }
-
-      &:hover {
-        color: #262626;
       }
 
       &:hover ~ #cursor-dot {
