@@ -6,7 +6,7 @@ import layer1 from '../assets/images/layer1.png';
 import up from '../assets/images/up.png';
 import image from '../assets/images/image.png';
 import x from '../assets/images/x.png';
-import right from '../assets/images/right.png';
+import { ReactComponent as RightSVG } from '../assets/images/4.svg';
 import left from '../assets/images/left.png';
 import starb from '../assets/images/starb.png';
 import startt from '../assets/images/startt.png';
@@ -129,7 +129,12 @@ const SwitchCaseArt = () => {
           <img id="up" src={up} className="layer" alt="up text" />
           <img id="image" src={image} className="layer" alt="main figure" />
           <img id="x" src={x} className="layer" alt="xxx" />
-          <img id="right" src={right} className="layer" alt="right text" />
+
+          {/* Blend Mode SVG Layer */}
+          <div className="blend-wrapper">
+            <RightSVG id="right" />
+          </div>
+
           <img id="left" src={left} className="layer" alt="left text" />
           <img id="starb" src={starb} className="layer" alt="bottom star" />
           <img id="startt" src={startt} className="layer" alt="top star" />
