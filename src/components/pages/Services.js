@@ -48,16 +48,32 @@ const Services = () => {
         }
       );
     });
+
+    const titleEl = document.querySelector('.title');
+
+    const handleMouseMove = (e) => {
+      const rect = titleEl.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      titleEl.style.setProperty('--x', `${x}px`);
+      titleEl.style.setProperty('--y', `${y}px`);
+    };
+
+    titleEl.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      titleEl.removeEventListener('mousemove', handleMouseMove);
+    };
   }, []);
 
   return (
     <div id="services">
       <div className="services-hero">
         <div className="title reveal">
-          <h2>We Help You Shine</h2>
-          <h1>SHINE</h1>
-          <p>In the competitive digital landscape</p>
-          <p>
+          <h2 data-text="We Help You Shine">We Help You Shine</h2>
+          <h1 data-text="SHINE">SHINE</h1>
+          <p data-text="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque saepe, harum quaerat labore esse, fugit officiis, porro delectus obcaecati corrupti laudantium earum alias ipsum quae at eum reprehenderit voluptas rem!">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque
             saepe, harum quaerat labore esse, fugit officiis, porro delectus
             obcaecati corrupti laudantium earum alias ipsum quae at eum
