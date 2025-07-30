@@ -28,14 +28,26 @@ const SwitchCaseArt = () => {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    Object.keys(elementOffsets).map((key) => document.getElementById(key));
-    const positions = {};
+    const wrapper = containerRef.current?.parentElement;
+    const container = containerRef.current;
 
+    const resize = () => {
+      const wrapperWidth = wrapper.offsetWidth;
+      const scale = wrapperWidth / 550; // base width
+      container.style.setProperty('--scale', scale);
+    };
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Set initial positions
+    const positions = {};
     Object.entries(elementOffsets).forEach(([key, { x, y }]) => {
       gsap.set(`#${key}`, { x, y });
       positions[key] = { x, y };
     });
 
+    // Intro animation
     const timeline = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
@@ -99,21 +111,29 @@ const SwitchCaseArt = () => {
     };
 
     return () => {
+      window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
   return (
     <div className="switch-case-art">
-      <div className="image-container" ref={containerRef}>
-        <img id="layer1" src={layer1} className="base" alt="background base" />
-        <img id="up" src={up} className="layer" alt="up text" />
-        <img id="image" src={image} className="layer" alt="main figure" />
-        <img id="x" src={x} className="layer" alt="xxx" />
-        <img id="right" src={right} className="layer" alt="right text" />
-        <img id="left" src={left} className="layer" alt="left text" />
-        <img id="starb" src={starb} className="layer" alt="bottom star" />
-        <img id="startt" src={startt} className="layer" alt="top star" />
+      <div className="image-container-wrapper">
+        <div className="image-container" ref={containerRef}>
+          <img
+            id="layer1"
+            src={layer1}
+            className="base"
+            alt="background base"
+          />
+          <img id="up" src={up} className="layer" alt="up text" />
+          <img id="image" src={image} className="layer" alt="main figure" />
+          <img id="x" src={x} className="layer" alt="xxx" />
+          <img id="right" src={right} className="layer" alt="right text" />
+          <img id="left" src={left} className="layer" alt="left text" />
+          <img id="starb" src={starb} className="layer" alt="bottom star" />
+          <img id="startt" src={startt} className="layer" alt="top star" />
+        </div>
       </div>
     </div>
   );
