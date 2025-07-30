@@ -28,12 +28,16 @@ const SwitchCaseArt = () => {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    // Set each element's final position immediately
+    const layers = Object.keys(elementOffsets).map((key) =>
+      document.getElementById(key)
+    );
+    const positions = {};
+
     Object.entries(elementOffsets).forEach(([key, { x, y }]) => {
       gsap.set(`#${key}`, { x, y });
+      positions[key] = { x, y };
     });
 
-    // Animate when user scrolls to the container
     const timeline = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
@@ -41,6 +45,9 @@ const SwitchCaseArt = () => {
         once: true,
       },
       defaults: { ease: 'power4.out' },
+      onComplete: () => {
+        window.addEventListener('mousemove', handleMouseMove);
+      },
     });
 
     Object.keys(elementOffsets).forEach((key, i) => {
@@ -63,6 +70,39 @@ const SwitchCaseArt = () => {
         0
       );
     });
+
+    const movementScale = {
+      up: 1.4,
+      image: 2,
+      x: 2.4,
+      right: 1.2,
+      left: 1.2,
+      starb: 1,
+      startt: 1,
+    };
+
+    const handleMouseMove = (e) => {
+      const { innerWidth, innerHeight } = window;
+      const mouseX = (e.clientX / innerWidth - 0.5) * 2;
+      const mouseY = (e.clientY / innerHeight - 0.5) * 2;
+
+      Object.entries(positions).forEach(([key, { x, y }]) => {
+        const scale = movementScale[key] || 1;
+        const offsetX = mouseX * 10 * scale;
+        const offsetY = mouseY * 10 * scale;
+
+        gsap.to(`#${key}`, {
+          x: x + offsetX,
+          y: y + offsetY,
+          duration: 0.6,
+          ease: 'power3.out',
+        });
+      });
+    };
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
   }, []);
 
   return (

@@ -38,7 +38,17 @@
         font-family: $font-special;
         font-size: 5rem;
         padding: 0.5rem;
+        color: transparent;
+        -webkit-text-stroke: 1px #fff;
 
+        &:hover {
+          color: transparent;
+          text-shadow: 0 0 2px $orange-color, 0 0 2px $orange-color,
+            0 0 40px $orange-color, 0 0 60px $orange-color;
+        }
+      }
+
+      h2 {
         &:hover {
           color: $orange-color;
         }
