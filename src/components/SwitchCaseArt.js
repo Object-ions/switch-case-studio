@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import '../styles/components/switchCaseArt.scss';
 
 import layer1 from '../assets/images/layer1.png';
@@ -10,6 +11,8 @@ import right from '../assets/images/right.png';
 import left from '../assets/images/left.png';
 import starb from '../assets/images/starb.png';
 import startt from '../assets/images/startt.png';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const elementOffsets = {
   up: { x: 0.497, y: -370.4611 },
@@ -25,27 +28,41 @@ const SwitchCaseArt = () => {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    // Position elements
+    // Set each element's final position immediately
     Object.entries(elementOffsets).forEach(([key, { x, y }]) => {
       gsap.set(`#${key}`, { x, y });
     });
 
-    // Animate elements
-    const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
+    // Animate when user scrolls to the container
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: 'top 80%',
+        once: true,
+      },
+      defaults: { ease: 'power4.out' },
+    });
 
-    tl.from('#layer1', { opacity: 0, scale: 1.05, duration: 1.2 })
-      .from('#image', { opacity: 0, y: 30, duration: 1 }, '-=0.6')
-      .from('#up', { opacity: 0, y: -100, skewY: 8, duration: 1 }, '-=0.5')
-      .to('#up', { skewY: 0, duration: 0.6 }, '<')
-      .from(
-        '#x',
-        { opacity: 0, scale: 0.5, duration: 1, ease: 'elastic.out(1, 0.5)' },
-        '-=0.6'
-      )
-      .from('#left', { opacity: 0, x: -100, rotation: 5, duration: 1 }, '-=0.8')
-      .from('#right', { opacity: 0, x: 100, rotation: -5, duration: 1 }, '-=1')
-      .from('#startt', { opacity: 0, scale: 0.5, duration: 0.6 }, '-=0.8')
-      .from('#starb', { opacity: 0, scale: 0.5, duration: 0.6 }, '-=0.5');
+    Object.keys(elementOffsets).forEach((key, i) => {
+      timeline.fromTo(
+        `#${key}`,
+        {
+          opacity: 0,
+          scale: 1.2,
+          y: elementOffsets[key].y - 30,
+          filter: 'blur(10px)',
+        },
+        {
+          opacity: 1,
+          scale: 1,
+          y: elementOffsets[key].y,
+          filter: 'blur(0px)',
+          duration: 1.2,
+          delay: i * 0.15,
+        },
+        0
+      );
+    });
   }, []);
 
   return (
