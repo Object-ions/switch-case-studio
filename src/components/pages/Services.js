@@ -28,6 +28,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Services = () => {
   useEffect(() => {
+    // Scroll reveal animation
     const reveals = gsap.utils.toArray('.reveal');
 
     reveals.forEach((el, i) => {
@@ -49,6 +50,7 @@ const Services = () => {
       );
     });
 
+    // Title hover circle effect
     const titleEl = document.querySelector('.title');
 
     const handleMouseMove = (e) => {
@@ -62,6 +64,28 @@ const Services = () => {
 
     titleEl.addEventListener('mousemove', handleMouseMove);
 
+    // Card hover circle effect
+    const cards = document.querySelectorAll('.services-card');
+
+    cards.forEach((card) => {
+      const handleCardMouseMove = (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        card.style.setProperty('--x', `${x}px`);
+        card.style.setProperty('--y', `${y}px`);
+      };
+
+      card.addEventListener('mousemove', handleCardMouseMove);
+
+      // Cleanup
+      return () => {
+        card.removeEventListener('mousemove', handleCardMouseMove);
+      };
+    });
+
+    // Cleanup for title
     return () => {
       titleEl.removeEventListener('mousemove', handleMouseMove);
     };
