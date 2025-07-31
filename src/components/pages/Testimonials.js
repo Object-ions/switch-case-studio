@@ -1,5 +1,8 @@
-import React, { useRef } from 'react';
-import gif5 from '../../assets/gifs/5.gif';
+import { useRef } from 'react';
+import gif5 from '../../assets/images/renaissance_m.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+
 import testimonialsData from '../../data/testimonials.json';
 
 import '../../styles/components/testimonials.scss';
@@ -17,23 +20,27 @@ const Testimonials = () => {
   };
 
   return (
-    <div id="testimonials">
+    <div id="testimonials" style={{ backgroundImage: `url(${gif5})` }}>
       <div className="testimonial-meta">
         <div className="testimonial-head">
-          <img src={gif5} alt="testimonials" />
-          <h2>
-            Clients we <br /> partnered with
-          </h2>
+          <h2>What Our Clients Say</h2>
         </div>
         <div className="testimonials-content" ref={scrollRef}>
           {testimonialsData.map((testimonial) => (
             <div className="testimonial-item" key={testimonial.id}>
-              <div className="testimonial-quote"></div>
               <img
                 src={testimonial.image}
                 alt={testimonial.name}
                 className="testimonial-image"
               />
+              <div>
+                <FontAwesomeIcon icon={faStar} />
+                <FontAwesomeIcon icon={faStar} />
+                <FontAwesomeIcon icon={faStar} />
+                <FontAwesomeIcon icon={faStar} />
+                <FontAwesomeIcon icon={faStar} />
+              </div>
+              <br />
               <p className="testimonial-text">{testimonial.testimonial}</p>
               <div className="testimonial-author">
                 <p className="author-name">{testimonial.name.toUpperCase()}</p>

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-import FloatingSquares from '../FloatingSquares';
+// import FloatingSquares from '../FloatingSquares';
 import CircleLogo from '../CircleLogo';
 import AnimatedHeading from '../AnimatedHeading';
 import Statue from '../Statue';
@@ -15,7 +15,7 @@ const Contact = () => {
     <div id="contact">
       <Statue />
       <div className="contact-wrapper">
-        <FloatingSquares />
+        {/* <FloatingSquares /> */}
         <CircleLogo />
 
         <div className="form">

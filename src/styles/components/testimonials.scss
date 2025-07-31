@@ -4,48 +4,35 @@
 #testimonials {
   padding: 5rem 2rem;
   background-color: $grey-color;
+  min-height: 80vh;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: $black-color;
 
   .testimonial-meta {
     max-width: 1200px;
     margin: 5rem auto;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
     .testimonial-head {
       margin-bottom: 3rem;
-      display: flex;
-      align-items: center;
-
-      img {
-        width: 100px;
-        height: 100px;
-      }
 
       h2 {
-        padding-left: 5rem;
-        font-size: 5rem;
-        font-weight: bold;
-        color: #000;
+        font-size: 7rem;
         font-family: $font-special;
+        mix-blend-mode: overlay;
       }
     }
 
     .arrows {
       visibility: hidden;
-    }
-
-    .opening-quote {
-      position: absolute;
-      font-size: 5rem;
-      color: #000;
-      top: 10rem;
-      left: 0;
-    }
-
-    .closing-quote {
-      position: absolute;
-      font-size: 5rem;
-      bottom: -10rem;
-      right: 0;
     }
 
     .testimonials-content {
@@ -54,40 +41,22 @@
       gap: 2rem;
 
       .testimonial-item {
+        background-color: #ffffffad;
         display: flex;
         flex-direction: column;
         align-items: center;
-        text-align: center;
-        position: relative;
-        padding: 1rem;
-
-        .testimonial-quote {
-          font-size: 4rem;
-          color: #000;
-          position: absolute;
-          top: -1.5rem;
-          left: -1.5rem;
-        }
+        padding: 2rem;
 
         .testimonial-image {
           width: 100px;
           height: 100px;
           border-radius: 50%;
           object-fit: cover;
-          margin-bottom: 1.5rem;
         }
 
         .testimonial-text {
           font-size: 1rem;
-          color: #333;
-          margin-bottom: 2rem;
-          line-height: 1.5rem;
-          text-align: left;
-
-          &:hover {
-            font-weight: 400;
-            color: $orange-color;
-          }
+          margin-bottom: 0.75rem;
         }
 
         .testimonial-author {
@@ -96,7 +65,6 @@
           .author-name {
             font-size: 1.2rem;
             font-weight: bold;
-            color: #000;
             margin-bottom: 0.5rem;
           }
 
@@ -108,14 +76,6 @@
         }
       }
     }
-  }
-
-  .closing-quote {
-    font-size: 4rem;
-    color: #000;
-    text-align: right;
-    margin-top: 2rem;
-    margin-right: 2rem;
   }
 }
 
@@ -207,12 +167,6 @@
             }
           }
         }
-      }
-
-      .opening-quote,
-      .closing-quote {
-        font-size: 3rem;
-        display: none; // Hide the quotes for mobile view to avoid clutter
       }
     }
   }
