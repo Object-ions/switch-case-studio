@@ -95,7 +95,7 @@ const Services = () => {
     <div id="services">
       <div className="services-hero">
         <div className="title reveal">
-          <h2>We Help You Shine</h2>
+          <h2>We Help You</h2>
           <h1>SHINE</h1>
           <p>
             By blending bold design, custom development, and smart marketing

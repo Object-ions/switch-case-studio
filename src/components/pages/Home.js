@@ -1,10 +1,11 @@
 import WelcomeTyped from '../WelcomeTyped';
 import Arrow from '../Arrow';
+import heroBg from '../../assets/images/DP822195.png';
 import '../../styles/components/home.scss';
 
 const Home = () => {
   return (
-    <div id="home">
+    <div id="home" style={{ backgroundImage: `url(${heroBg})` }}>
       <div className="hero">
         <div className="hero-heading">
           <h1>We</h1>
