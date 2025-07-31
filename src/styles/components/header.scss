@@ -10,6 +10,11 @@ header {
   padding: 1rem 0;
   background: #ebebeb;
 
+  &.header-home {
+    background-color: #ebebebca;
+    backdrop-filter: blur(4px);
+  }
+
   .header {
     max-width: 1200px;
     margin: 0 auto;

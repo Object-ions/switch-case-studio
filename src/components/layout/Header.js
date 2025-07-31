@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
-import '../../styles/components/header.scss';
 import { Link } from 'react-router-dom';
+import '../../styles/components/header.scss';
 
 const Header = () => {
   const [brandText, setBrandText] = useState('< Switch Case />');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isHomeSection, setIsHomeSection] = useState(true);
 
+  // Handle resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 660) {
@@ -20,31 +22,39 @@ const Header = () => {
     };
 
     window.addEventListener('resize', handleResize);
-
-    // Call the handler right away so the correct value is set based on the initial screen size
     handleResize();
-
-    // Cleanup the event listener when the component is unmounted
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  // Handle scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const homeSection = document.getElementById('home');
+      if (!homeSection) return;
+
+      const rect = homeSection.getBoundingClientRect();
+      const isInView = rect.bottom > 80; // still mostly in view
+      setIsHomeSection(isInView);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <header>
+    <header className={isHomeSection ? 'header-home' : 'header'}>
       <div className="header">
         <div className="brand">
           <Link to="/">{brandText}</Link>
         </div>
 
-        {/* Hamburger icon for screens less than 660px */}
         <div className="navbar-hamburger" onClick={toggleMenu}>
           <FontAwesomeIcon icon={faBars} />
         </div>
 
-        {/* Full navbar for larger screens */}
         <div className="navbar">
           <a href="#services">Services</a>
           <a href="#work">About</a>
@@ -53,14 +63,10 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Modal menu for small screens */}
       {isMenuOpen && (
         <div className="modal">
           <div className="modal-close" onClick={toggleMenu}>
-            <FontAwesomeIcon
-              icon={faTimes}
-              style={{ color: '$orange-color' }}
-            />
+            <FontAwesomeIcon icon={faTimes} />
           </div>
           <div className="modal-content">
             <div className="modal-brand">{'< Switch Case />'}</div>
