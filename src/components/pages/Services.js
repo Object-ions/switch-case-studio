@@ -13,7 +13,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import servicesData from '../../data/services.json';
 import '../../styles/components/services.scss';
-import StripeSection from '../StripeSection';
 
 const iconMap = {
   faCode,

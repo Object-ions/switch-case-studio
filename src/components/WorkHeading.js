@@ -8,7 +8,7 @@ const WorkHeading = () => {
   useEffect(() => {
     const words = gsap.utils.toArray('.word');
 
-    gsap.set(words, { color: '#2f353dff' }); // initial color
+    gsap.set(words, { color: '#e9add7' }); // initial color
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -20,7 +20,7 @@ const WorkHeading = () => {
     });
 
     words.forEach((word, i) => {
-      tl.to(word, { color: '#fff' }, i * 0.05); // highlight one by one
+      tl.to(word, { color: '#ff8347' }, i * 0.05); // highlight one by one
     });
 
     return () => {
