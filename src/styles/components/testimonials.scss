@@ -14,65 +14,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-
-    .testimonial-head {
-      width: 50%;
-    
-      // palette
-      $c1: #ff834a;
-      $c2: #ff8f63;
-      $c3: #f39ba0;
-      $c4: #eaa8c6;
-      $c5: #dab8ff;
-    
-      h2 {
-        font-size: 7rem;
-        font-family: $font-special;
-        line-height: 0.9;
-        margin: 0;
-    
-        // GSAP-updated centers
-        --x1: 12%;
-        --y1: 16%;
-        --x2: 72%;
-        --y2: 22%;
-        --x3: 28%;
-        --y3: 76%;
-        --x4: 88%;
-        --y4: 66%;
-    
-        /* same “lenses” + a faint base fill as the last layer */
-        background:
-          radial-gradient(36% 36% at var(--x1) var(--y1), rgba($c1, .85), rgba($c1, 0) 60%),
-          radial-gradient(36% 36% at var(--x2) var(--y2), rgba($c2, .80), rgba($c2, 0) 60%),
-          radial-gradient(32% 32% at var(--x3) var(--y3), rgba($c4, .80), rgba($c4, 0) 60%),
-          radial-gradient(28% 28% at var(--x4) var(--y4), rgba($c5, .85), rgba($c5, 0) 60%),
-          radial-gradient(40% 40% at 18% 84%, rgba($c3, .85), rgba($c3, 0) 62%),
-          /* NEW: base fill so letters never vanish on the grey bg */
-          linear-gradient(#ff834af1, #dab8fff1);
-          /* per-layer blend (last one normal so it acts as the base) */
-        background-blend-mode: multiply, multiply, multiply, multiply, multiply, normal;
-    
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        -webkit-text-fill-color: transparent;
-    
-        /* crisper edges without looking outlined */
-        text-rendering: geometricPrecision;
-        -webkit-font-smoothing: antialiased;
-        @supports (-webkit-text-stroke: 1px black) {
-          -webkit-text-stroke: 0.35px rgba(0,0,0,.08);
-        }
-        text-shadow: 0 0 0.01em rgba(0,0,0,0.02);
-    
-        @media (prefers-reduced-motion: reduce) { animation: none; }
-      }
-    
-      @media (max-width: 768px) {
-        h2 { font-size: 3rem; }
-      }
-    }
     
 
     .arrows {

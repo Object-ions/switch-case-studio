@@ -2,7 +2,7 @@ import { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-
+import TestimonialHeading from '../TestimonialHeading';
 
 import testimonialsData from '../../data/testimonials.json';
 import '../../styles/components/testimonials.scss';
@@ -10,7 +10,6 @@ import '../../styles/components/testimonials.scss';
 const Testimonials = () => {
   const scrollRef = useRef(null);
   const titleRef = useRef(null);
-
 
   useLayoutEffect(() => {
     // animate the gradient centers (CSS variables)
@@ -46,9 +45,8 @@ const Testimonials = () => {
   return (
     <div id="testimonials" >
       <div className="testimonial-meta">
-        <div className="testimonial-head">
-        <h2 ref={titleRef}>What <br/> Our<br/> Clients<br/> Say</h2>
-        </div>
+      <TestimonialHeading />
+
         <div className="testimonials-content" ref={scrollRef}>
           {testimonialsData.map((testimonial) => (
             <div className="testimonial-item" key={testimonial.id}>
