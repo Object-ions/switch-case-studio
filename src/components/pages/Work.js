@@ -1,6 +1,7 @@
 import WorkHeading from '../WorkHeading';
 import WorkText from '../WorkText';
 import WorkCTA from '../WorkCTA';
+import WorkMarquee from '../WorkMarquee';
 
 import '../../styles/components/work.scss';
 
@@ -9,6 +10,7 @@ const Work = () => {
     <div id="work" >
       <div className="work-wrapper">
         <WorkHeading />
+        <WorkMarquee />
         <WorkText />
         <WorkCTA />
         <div className="gradient-mask" />

@@ -6,11 +6,10 @@ import Services from './components/pages/Services';
 import Work from './components/pages/Work';
 import Testimonials from './components/pages/Testimonials';
 import ScrollToTop from './components/ScrollToTop';
-// import Intro from './components/pages/Intro';
-
-import './styles/app.scss';
-import WorkMarquee from './components/WorkMarquee';
 import GradientStripe from './components/StripeSection';
+
+import Orb from './assets/images/orb.avif';
+import './styles/app.scss';
 
 function App() {
   return (
@@ -23,10 +22,13 @@ function App() {
             <MainLayout>
               <Home />
               <Services />
-              <WorkMarquee />
-              <Work />
-              <GradientStripe />              
-              {/* <Intro /> */}
+              <GradientStripe 
+               height={420}
+               duration={5.9}
+               travel={60}
+               orbSrc={Orb}
+               />              
+              <Work />              
               <Testimonials />
             </MainLayout>
           }
