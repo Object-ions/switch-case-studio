@@ -9,6 +9,8 @@ import ScrollToTop from './components/ScrollToTop';
 // import Intro from './components/pages/Intro';
 
 import './styles/app.scss';
+import WorkMarquee from './components/WorkMarquee';
+import GradientStripe from './components/StripeSection';
 
 function App() {
   return (
@@ -21,7 +23,9 @@ function App() {
             <MainLayout>
               <Home />
               <Services />
+              <WorkMarquee />
               <Work />
+              <GradientStripe />              
               {/* <Intro /> */}
               <Testimonials />
             </MainLayout>
