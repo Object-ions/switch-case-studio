@@ -1,0 +1,103 @@
+// HeroAnimation.scss
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+.hero-animation {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 3rem);
+  overflow: hidden;
+  font-family: $font-text;
+
+  .background.top-blue {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50vh;
+    background: linear-gradient(to bottom, $blue-color, $light-blue-color);
+    z-index: 1;
+  }
+
+  .gradient-block {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40vw;
+    height: 100vh;
+    background: linear-gradient(to right, #ff72c1, $orange-color);
+    z-index: 2;
+  }
+
+  .circles {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+
+    .circle {
+      position: absolute;
+      width: 20vmin;
+      height: 20vmin;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 0, 120, 0.7), rgba(255, 0, 0, 0.6));
+      mix-blend-mode: screen;
+      animation: float 8s ease-in-out infinite alternate;
+      filter: blur(2px);
+
+      &:nth-child(1) { top: 20%; right: 20%; }
+      &:nth-child(2) { top: 40%; right: 10%; }
+      &:nth-child(3) { top: 60%; right: 30%; }
+      &:nth-child(4) { top: 30%; right: 50%; }
+      &:nth-child(5) { top: 50%; right: 60%; }
+      &:nth-child(6) { top: 70%; right: 40%; }
+    }
+  }
+
+  .text-overlay {
+    position: absolute;
+    bottom: 3rem;
+    left: 0;
+    width: 100%;
+    z-index: 4;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 2rem;
+    color: $white-color;
+    font-family: $font-special;
+
+    .left {
+      font-size: 7rem;
+      line-height: 1;
+
+    }
+
+    .right {
+      font-size: 2vmin;
+      text-align: right;
+      font-family: $font-text;
+    }
+  }
+
+  .countdown {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 5;
+    font-size: 1rem;
+    font-family: $font-text;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    color: $white-color;
+  }
+}
+
+@keyframes float {
+  from { transform: translateY(0); }
+  to { transform: translateY(-20px); }
+}

@@ -73,32 +73,6 @@
     }
   }
 }
-.marquee-container {
-  width: 100%;
-  z-index: 9;
-  overflow: hidden;
-  white-space: nowrap;
-  position: relative;
-  color: #ffffffb9;
-  padding: 1rem 0;
-
-  .marquee {
-    display: inline-block;
-    padding-left: 100%;
-    animation: marqueeScroll 60s linear infinite;
-    font-size: 20rem;
-    font-family: $font-special;
-
-    @keyframes marqueeScroll {
-      0% {
-        transform: translateX(0%);
-      }
-      100% {
-        transform: translateX(-100%);
-      }
-    }
-  }
-}
 
 .work-text {
   z-index: 12;

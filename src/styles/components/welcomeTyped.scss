@@ -2,12 +2,7 @@
 @import '../_mixins.scss';
 
 .typed-cursor {
-  text-orientation: mixed;
   font-size: 10rem;
-  font-family: 'NeueMachina', sans-serif;
-  align-items: flex-end;
-  max-width: 70%;
-  color: $orange-color;
 
   @media (max-width: 768px) {
     font-size: 4.5rem !important;
