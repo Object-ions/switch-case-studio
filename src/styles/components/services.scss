@@ -8,10 +8,10 @@
   flex-direction: column;
   justify-content: center;
   position: relative;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  line-height: 1.5;
-  padding: 7rem 2rem;
+  font-family: $font-text;
+  line-height: 1.25;
+  padding: 2rem 0;
+  max-width: 1200px;
 
   .reveal {
     opacity: 0;
@@ -22,16 +22,15 @@
     display: flex;
     flex-direction: row-reverse;
     margin: 3rem auto;
-    max-width: 1200px;
+    
     justify-content: space-between;
     align-items: center;
 
     .title {
       position: relative;
       isolation: isolate;
-      width: 50%;
       text-align: center;
-      padding: 2rem;
+      padding: 4rem;
 
       &::before {
         content: '';
@@ -64,20 +63,18 @@
       h1 {
         font-family: $font-special;
         font-size: clamp(2.5rem, 8vw, 8rem);
-        padding: 0;
-        margin: 0;
         color: transparent;
         -webkit-text-stroke: 1px #fff;
-        letter-spacing: 0.5rem;
+        padding-bottom: 1rem;
       }
 
       h2 {
-        text-transform: uppercase;
-        font-size: clamp(1.25rem, 4vw, 3rem);
+        font-size: 2rem;
+        font-weight: 100;
       }
 
       p {
-        text-align: justify;
+        font-weight: 100;
       }
     }
   }

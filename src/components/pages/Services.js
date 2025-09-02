@@ -95,20 +95,15 @@ const Services = () => {
     <div id="services">
       <div className="services-hero">
         <div className="title reveal">
-          <h2>We Help You</h2>
-          <h1>SHINE</h1>
+          <h2>Switch Case is a creative development < br/> and marketing studio
+            that < br/> helps businesses  stand out and</h2>
+          <h1>shine</h1>
           <p>
-            By blending bold design, custom development, and smart marketing
-            into digital work that actually works. From websites that convert to
-            branding that sticks, we handle it all - including SEO, Meta and
-            Google Ads, email marketing, content strategy, and ongoing hosting
-            and support. Whether you're building something new or refreshing
-            what you have, we give your brand the tools it needs to stand out
+            Whether you're building something new or refreshing
+            what you have, < br/> we give your brand the tools it needs to stand out
             and grow.
           </p>
         </div>
-
-        <SwitchCaseArt />
       </div>
 
       <div className="services-content">
