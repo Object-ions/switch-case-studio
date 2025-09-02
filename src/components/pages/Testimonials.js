@@ -1,14 +1,38 @@
-import { useRef } from 'react';
-import gif5 from '../../assets/images/grid.png';
+import { useRef, useLayoutEffect } from 'react';
+import gsap from 'gsap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
-import testimonialsData from '../../data/testimonials.json';
 
+import testimonialsData from '../../data/testimonials.json';
 import '../../styles/components/testimonials.scss';
 
 const Testimonials = () => {
   const scrollRef = useRef(null);
+  const titleRef = useRef(null);
+
+
+  useLayoutEffect(() => {
+    // animate the gradient centers (CSS variables)
+    const ctx = gsap.context(() => {
+      gsap.to(titleRef.current, {
+        // drift to new positions, then yo-yo forever
+        '--x1': '10%',
+        '--y1': '18%',
+        '--x2': '20%',
+        '--y2': '86%',
+        '--x3': '78%',
+        '--y3': '72%',
+        '--x4': '35%',
+        '--y4': '28%',
+        duration: 4,
+        ease: 'sine.inOut',
+        repeat: -1,
+        yoyo: true,
+      });
+    });
+    return () => ctx.revert();
+  }, []);
 
   const scroll = (direction) => {
     if (scrollRef.current) {
@@ -23,7 +47,7 @@ const Testimonials = () => {
     <div id="testimonials" >
       <div className="testimonial-meta">
         <div className="testimonial-head">
-          <h2>What Our Clients Say</h2>
+        <h2 ref={titleRef}>What <br/> Our<br/> Clients<br/> Say</h2>
         </div>
         <div className="testimonials-content" ref={scrollRef}>
           {testimonialsData.map((testimonial) => (
@@ -48,14 +72,6 @@ const Testimonials = () => {
               </div>
             </div>
           ))}
-        </div>
-        <div className="arrows">
-          <button className="arrow left-arrow" onClick={() => scroll('left')}>
-            &#8249;
-          </button>
-          <button className="arrow right-arrow" onClick={() => scroll('right')}>
-            &#8250;
-          </button>
         </div>
       </div>
     </div>

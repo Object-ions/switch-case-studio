@@ -14,7 +14,6 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden !important;
-  background: #000;
 }
 
 body {
@@ -47,7 +46,7 @@ h6 {
 }
 
 .app {
-  background: #000;
+  background: inherit;
 }
 
 ::selection {

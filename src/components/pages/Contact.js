@@ -1,12 +1,11 @@
 import React, { useRef } from 'react';
-
-// import FloatingSquares from '../FloatingSquares';
 import CircleLogo from '../CircleLogo';
 import AnimatedHeading from '../AnimatedHeading';
 import Statue from '../Statue';
-
-import '../../styles/components/contact.scss';
 import ContactForm from '../ContactForm';
+import FloatingSquares from '../FloatingSquares';
+import '../../styles/components/contact.scss';
+
 
 const Contact = () => {
   const formRef = useRef();
@@ -15,8 +14,7 @@ const Contact = () => {
     <div id="contact">
       <Statue />
       <div className="contact-wrapper">
-        {/* <FloatingSquares /> */}
-        <CircleLogo />
+        <FloatingSquares />
 
         <div className="form">
           <AnimatedHeading />

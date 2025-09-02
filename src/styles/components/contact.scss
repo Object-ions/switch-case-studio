@@ -2,14 +2,14 @@
 @import '../_mixins.scss';
 
 #contact {
-  margin: 5rem auto;
+  margin: 0 auto;
   padding-top: 5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
   padding: 0 2rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: $grey-color;
 
   .contact-wrapper {
     max-width: 1200px;
