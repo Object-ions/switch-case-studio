@@ -9,29 +9,6 @@ import '../../styles/components/testimonials.scss';
 
 const Testimonials = () => {
   const scrollRef = useRef(null);
-  const titleRef = useRef(null);
-
-  useLayoutEffect(() => {
-    // animate the gradient centers (CSS variables)
-    const ctx = gsap.context(() => {
-      gsap.to(titleRef.current, {
-        // drift to new positions, then yo-yo forever
-        '--x1': '10%',
-        '--y1': '18%',
-        '--x2': '20%',
-        '--y2': '86%',
-        '--x3': '78%',
-        '--y3': '72%',
-        '--x4': '35%',
-        '--y4': '28%',
-        duration: 4,
-        ease: 'sine.inOut',
-        repeat: -1,
-        yoyo: true,
-      });
-    });
-    return () => ctx.revert();
-  }, []);
 
   const scroll = (direction) => {
     if (scrollRef.current) {
