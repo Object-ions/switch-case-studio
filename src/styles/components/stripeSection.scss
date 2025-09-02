@@ -1,0 +1,51 @@
+
+/* Stripe stops */
+$g1: #ff834a; // orange
+$g2: #ff8f63;
+$g3: #f39ba0; // pink
+$g4: #eaa8c6;
+$g5: #dab8ff; // lavender
+
+.gradient-stripe {
+  position: relative;
+  width: 100%;
+  overflow: clip;
+  isolation: isolate;
+}
+
+.stripe-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, $g1 0%, $g2 20%, $g3 50%, $g4 75%, $g5 100%);
+  filter: contrast(1.02) saturate(1.03);
+}
+
+/* ORB = same height as stripe, perfectly circular */
+.orb {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%); /* GSAP animates xPercent only */
+  border-radius: 50%;
+
+  /* Reversed stripe gradient + strong white highlight to the RIGHT.
+     This keeps the right edge reading white, not orange. */
+  background:
+    radial-gradient(90% 90% at 72% 48%,
+      rgba(255,255,255,0.95) 0%,
+      rgba(255,255,255,0.80) 32%,
+      rgba(255,255,255,0.25) 68%,
+      rgba(255,255,255,0.00) 85%),
+    linear-gradient(90deg, $g5 0%, $g4 20%, $g3 50%, $g2 75%, $g1 100%);
+
+  /* Softer, flatter look (remove heavy 3D inset). Keep a faint glow only. */
+  box-shadow: 0 26px 54px rgba(196,128,255,0.18);
+  will-change: transform, opacity;
+}
+
+/* Reduced motion: static centered orb */
+@media (prefers-reduced-motion: reduce) {
+  .orb { transform: translate(-50%, -50%) !important; }
+}

@@ -12,8 +12,8 @@ import {
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import servicesData from '../../data/services.json';
-import SwitchCaseArt from '../SwitchCaseArt';
 import '../../styles/components/services.scss';
+import StripeSection from '../StripeSection';
 
 const iconMap = {
   faCode,
@@ -95,14 +95,12 @@ const Services = () => {
     <div id="services">
       <div className="services-hero">
         <div className="title reveal">
-          <h2>Switch Case is a creative development < br/> and marketing studio
-            that < br/> helps businesses  stand out and</h2>
-          <h1>shine</h1>
-          <p>
+          <h2>Switch Case is a creative development and marketing studio
+            that helps businesses  stand out and SHINE.
             Whether you're building something new or refreshing
-            what you have, < br/> we give your brand the tools it needs to stand out
+            what you have,we give your brand the tools it needs < br/> to stand out
             and grow.
-          </p>
+          </h2>
         </div>
       </div>
 
@@ -121,8 +119,6 @@ const Services = () => {
           </Link>
         ))}
       </div>
-
-      <div className="gradient-mask" />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import gif5 from '../../assets/images/renaissance_m.png';
+import gif5 from '../../assets/images/grid.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
@@ -20,7 +20,7 @@ const Testimonials = () => {
   };
 
   return (
-    <div id="testimonials" style={{ backgroundImage: `url(${gif5})` }}>
+    <div id="testimonials" >
       <div className="testimonial-meta">
         <div className="testimonial-head">
           <h2>What Our Clients Say</h2>

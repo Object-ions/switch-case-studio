@@ -3,15 +3,10 @@
 
 #testimonials {
   padding: 5rem 2rem;
-  background-color: $grey-color;
   min-height: 80vh;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
   text-align: center;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  color: $black-color;
+  color: #fff;
+  background: #000;
 
   .testimonial-meta {
     max-width: 1200px;
@@ -27,7 +22,6 @@
       h2 {
         font-size: 7rem;
         font-family: $font-special;
-        mix-blend-mode: overlay;
       }
     }
 

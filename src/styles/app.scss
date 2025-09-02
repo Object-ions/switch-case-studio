@@ -14,6 +14,7 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden !important;
+  background: #000;
 }
 
 body {
@@ -44,6 +45,11 @@ h5,
 h6 {
   font-weight: 500;
 }
+
+.app {
+  background: #000;
+}
+
 ::selection {
   background: $orange-color;
   color: white;
