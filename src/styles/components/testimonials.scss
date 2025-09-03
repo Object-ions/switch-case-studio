@@ -12,6 +12,8 @@ $g-bot: #a5b2ba;  // darker
   background: $grey-color;
   font-family: $font-text;
   border: 1px solid #ccc; 
+  position: relative;
+  z-index: 20;
 
   .testimonial-meta {
     display: flex;

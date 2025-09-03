@@ -2,13 +2,13 @@
 @import '../_mixins.scss';
 
 .circle-logo-wrapper {
-  padding: 2rem;
   position: relative;
-  bottom: 15rem;
-  left: 10rem;
+  top: 0;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 21;
 
   .circle-svg {
     position: absolute;

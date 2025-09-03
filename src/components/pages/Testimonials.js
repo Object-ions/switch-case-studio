@@ -2,6 +2,8 @@ import { useRef} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import TestimonialHeading from '../TestimonialHeading';
+import CircleLogo from '../CircleLogo'
+
 
 import testimonialsData from '../../data/testimonials.json';
 import '../../styles/components/testimonials.scss';
@@ -11,9 +13,9 @@ const Testimonials = () => {
 
   return (
     <div id="testimonials" >
+      <CircleLogo />
       <div className="testimonial-meta">
       <TestimonialHeading />
-
         <div className="testimonials-content" ref={scrollRef}>
           {testimonialsData.map((testimonial) => (
             <div className="testimonial-item" key={testimonial.id}>
