@@ -4,7 +4,6 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import TestimonialHeading from '../TestimonialHeading';
 import CircleLogo from '../CircleLogo'
 
-
 import testimonialsData from '../../data/testimonials.json';
 import '../../styles/components/testimonials.scss';
 
