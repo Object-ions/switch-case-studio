@@ -9,25 +9,37 @@ export default function GradientStripeImage({
   orbSrc = "/assets/orb@768.avif", // single image source (no fallback)
   fetchPriority = "high",
 }) {
+  const stripeRef = useRef(null);
   const orbRef = useRef(null);
 
   useLayoutEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)")?.matches;
-    if (reduce) {
-      gsap.set(orbRef.current, { xPercent: 0 });
-      return;
-    }
-    const t = gsap.fromTo(
-      orbRef.current,
-      { xPercent: -travel, opacity: 1 },
-      { xPercent: travel, opacity: 1, duration, ease: "power2.inOut", repeat: -1, yoyo: true }
-    );
-    return () => t.kill();
-  }, [duration, travel]);
+      const stripe = stripeRef.current;
+      const orb = orbRef.current;
+      if (!stripe || !orb) return;
+  
+      const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+      if (reduce) { gsap.set(orb, { x: 0 }); return; }
+  
+      const build = () => {
+        const W = stripe.clientWidth;    // full stripe width
+        const max = W / 2;               // center → half offscreen
+        return gsap.fromTo(
+          orb,
+          { x: -max },
+          { x:  max, duration, ease: "power2.inOut", repeat: -1, yoyo: true }
+        );
+      };
+  
+      let tween = build();
+      const ro = new ResizeObserver(() => { tween.kill(); tween = build(); });
+      ro.observe(stripe);
+      return () => { ro.disconnect(); tween.kill(); };
+    }, [duration]);
 
   return (
     <div
       className="gradient-stripe"
+      ref={stripeRef} 
       style={{ height: typeof height === "number" ? `${height}px` : height }}
     >
       <div className="stripe-bg" />
@@ -35,7 +47,7 @@ export default function GradientStripeImage({
         <img
           src={orbSrc}
           alt=""
-          width={height} height={height}   // avoids CLS; same as stripe height
+          {...(typeof height === "number" ? { width: height, height } : {})}
           decoding="async"
           loading="eager"
           fetchPriority={fetchPriority}
