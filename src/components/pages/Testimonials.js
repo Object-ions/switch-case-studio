@@ -1,5 +1,4 @@
-import { useRef, useLayoutEffect } from 'react';
-import gsap from 'gsap';
+import { useRef} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import TestimonialHeading from '../TestimonialHeading';
@@ -9,15 +8,6 @@ import '../../styles/components/testimonials.scss';
 
 const Testimonials = () => {
   const scrollRef = useRef(null);
-
-  const scroll = (direction) => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({
-        left: direction === 'left' ? -window.innerWidth : window.innerWidth,
-        behavior: 'smooth',
-      });
-    }
-  };
 
   return (
     <div id="testimonials" >

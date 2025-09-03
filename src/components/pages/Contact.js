@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import CircleLogo from '../CircleLogo';
 import AnimatedHeading from '../AnimatedHeading';
 import Statue from '../Statue';
 import ContactForm from '../ContactForm';

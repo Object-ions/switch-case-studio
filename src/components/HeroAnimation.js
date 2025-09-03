@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import "../styles/components/heroAnimation.scss";
 import WelcomeTyped from "./WelcomeTyped";
