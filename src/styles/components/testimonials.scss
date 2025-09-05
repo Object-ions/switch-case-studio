@@ -1,10 +1,6 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
-$g-top: #dbe3e6;  // light
-$g-mid: #c3cdd3;  // medium
-$g-bot: #a5b2ba;  // darker
-
 #testimonials {
   margin: 0;
   text-align: center;
@@ -41,7 +37,7 @@ $g-bot: #a5b2ba;  // darker
         transition: background 0.6s ease; // smooth gradient swap
 
         &:hover {
-          background: linear-gradient(180deg, #ffc3a0 0%, #f2a2b6 100%); // orange gradient on hover
+          background: linear-gradient(180deg, $g7 0%, $g6 100%);
         }
 
         .testimonial-image {
