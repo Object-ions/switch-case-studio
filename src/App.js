@@ -10,6 +10,7 @@ import GradientStripe from './components/StripeSection';
 
 import Orb from './assets/images/orb.avif';
 import './styles/app.scss';
+import Projects from './components/Projects';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
                />              
               <Work />              
               <Testimonials />
+              <Projects />
             </MainLayout>
           }
         />
