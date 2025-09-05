@@ -1,47 +1,32 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
+/* default: solid square in difference mode */
 #cursor-dot {
   width: 25px;
   height: 25px;
-  background-color: #fff;
+  background-color: #fff;      /* appears black over light bg due to difference */
   position: fixed;
-  pointer-events: none;
-  z-index: 1000;
+  top: 0;
+  left: 0;
   transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 2147483647;
   mix-blend-mode: difference;
-  transition: background-color 0.3s, border 0.3s, width 0.3s ease,
-    height 0.3s ease;
-
   border: 2px solid transparent;
+  transition:
+    background-color .25s ease,
+    border .25s ease,
+    width .25s ease,
+    height .25s ease;
+  will-change: transform;
 }
 
-#cursor-dot.invert {
-  mix-blend-mode: difference;
-  background-color: #ffffff;
-}
-
-#cursor-dot.link-hover {
+/* hover: empty square, orange border, normal blend, scaled up */
+#cursor-dot.is-hovering {
   mix-blend-mode: normal;
   background-color: transparent;
-  border: 2px solid $orange-color;
-  width: 35px;
-  height: 35px;
-}
-
-#cursor-dot.black-border {
-  border: 2px solid $blue-color !important;
-}
-
-#cursor-dot.orange-bg {
-  background-color: $orange-color;
-  mix-blend-mode: normal;
-}
-
-#cursor-dot.contact-hover {
-  mix-blend-mode: normal;
-  background-color: transparent;
-  border: 2px solid $blue-color;
+  border: 2px solid var(--cursor-color, $orange-color);
   width: 35px;
   height: 35px;
 }

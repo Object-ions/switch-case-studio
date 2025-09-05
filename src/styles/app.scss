@@ -59,3 +59,13 @@ h6 {
   background: $orange-color;
   color: white;
 }
+
+.statue, .statue-svg, #Layer_1 { pointer-events: none !important; }
+.loader, .loader-overlay { pointer-events: none !important; }
+
+/* make sure your project tiles can be clicked even if something overlaps */
+.projects .panel {
+  position: relative;
+  z-index: 1;
+  cursor: none;
+}
