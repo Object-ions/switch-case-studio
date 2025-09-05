@@ -1,0 +1,176 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+.project-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  background: $white-color;
+
+  @media (max-width: 960px) {
+    grid-template-columns: 1fr;
+  }
+
+  &__media {
+    position: relative;
+    overflow: hidden;
+    background: $light-blue-color;
+
+    @media (max-width: 960px) {
+      height: 48vh;
+    }
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__panel {
+    display: grid;
+    grid-template-rows: auto 1fr auto auto;
+    background: $white-color;
+    color: $black-color;
+  }
+
+  /* Header */
+  &__header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: $black-color;
+    color: $white-color;
+  }
+
+  &__back {
+    font-family: $font-text;
+    font-size: 14px;
+    letter-spacing: .02em;
+    color: $grey-light-color;
+    background: transparent;
+    border: none;
+    padding: 6px 0;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+
+    &:hover { color: $white-color; }
+  }
+
+  &__close {
+    background: transparent;
+    border: none;
+    color: $white-color;
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  /* Main copy */
+  &__main {
+    padding: 32px 40px 16px;
+  }
+
+  &__title {
+    font-family: $font-special;
+    font-size: clamp(40px, 6vw, 72px);
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 8px 0 10px;
+  }
+
+  &__subtitle {
+    font-family: $font-text;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  &__desc {
+    font-family: $font-text;
+    font-size: 14px;
+    line-height: 1.55;
+    max-width: 56ch;
+    margin: 0 auto 28px;
+  }
+
+  &__socials {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    padding-bottom: 8px;
+  }
+
+  &__social {
+    font-family: $font-text;
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #777;
+    text-decoration: none;
+
+    &:hover { color: $black-color; text-decoration: underline; }
+  }
+
+  /* Divider */
+  &__divider {
+    height: 1px;
+    width: 100%;
+    background: #e7e7e7;
+    margin-top: 12px;
+  }
+
+  /* CTA block */
+  &__cta {
+    padding: 24px 40px 40px;
+    text-align: left;
+
+    @media (min-width: 961px) {
+      padding-top: 20px;
+    }
+  }
+
+  &__footnote {
+    font-family: $font-text;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 18px;
+  }
+
+  &__kicker {
+    font-family: $font-text;
+    font-size: 16px;
+    text-transform: none;
+    color: $black-color;
+    margin: 0 0 6px;
+  }
+
+  &__product {
+    font-family: $font-special;
+    font-size: clamp(40px, 8vw, 88px);
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    margin: 0 0 18px;
+  }
+
+  &__button {
+    appearance: none;
+    border: 1px solid $black-color;
+    background: $black-color;
+    color: $white-color;
+    font-family: $font-text;
+    font-size: 14px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    &:hover {
+      background: transparent;
+      color: $black-color;
+    }
+  }
+}

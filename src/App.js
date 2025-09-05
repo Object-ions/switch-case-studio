@@ -7,10 +7,10 @@ import Work from './components/pages/Work';
 import Testimonials from './components/pages/Testimonials';
 import ScrollToTop from './components/ScrollToTop';
 import GradientStripe from './components/StripeSection';
+import Projects from './components/Projects';
 
 import Orb from './assets/images/orb.avif';
 import './styles/app.scss';
-import Projects from './components/Projects';
 
 function App() {
   return (
@@ -30,8 +30,8 @@ function App() {
                orbSrc={Orb}
                />              
               <Work />              
-              <Testimonials />
               <Projects />
+              <Testimonials />
             </MainLayout>
           }
         />

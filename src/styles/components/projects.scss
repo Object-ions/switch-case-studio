@@ -7,6 +7,7 @@
   grid-auto-rows: minmax(200px, 24vh);
   width: 100%;
 
+
   .panel-header {
     grid-column: 1 / -1;
     grid-row: 1 / 2;
@@ -85,6 +86,8 @@
     grid-column: 2 / 3;
     grid-row: 2 / 3;
     background: #d99cff;
+    cursor: none;
+
   }
 
   .panel-card-2 {
@@ -95,12 +98,16 @@
       linear-gradient(#dbe3e7 1px, transparent 1px),
       linear-gradient(90deg, #dbe3e7 1px, transparent 1px);
     background-size: 28px 28px;
+  cursor: none;
+
   }
 
   .panel-card-3 {
     grid-column: 4 / 5;
     grid-row: 2 / 3;
     background: $orange-color;
+  cursor: none;
+
   }
 
   /* ----- Row 3: 2fr, 1fr, 1fr ----- */
@@ -112,6 +119,8 @@
     align-content: start;
     justify-items: start;
     padding: clamp(18px, 2.5vw, 36px);
+  cursor: none;
+
 
     h3 {
       margin: 0 0 16px;
@@ -177,3 +186,17 @@
     .panel-about { min-height: 300px; }
   }
 }
+
+/* Overlay that hosts ProjectDetails */
+.project-details-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100000; /* above Header/Loader */
+  animation: fadeIn .18s ease-out;
+}
+.project-details-overlay__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+}
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
