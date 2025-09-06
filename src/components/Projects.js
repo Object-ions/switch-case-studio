@@ -1,6 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import ProjectDetails from "./ProjectDetails";
+
+import useScrollLock from '../hooks/useScrollLock'
+
 import "../styles/components/projects.scss";
 
 const PROJECTS = [
@@ -12,6 +15,7 @@ const PROJECTS = [
 
 const Projects = () => {
   const [openId, setOpenId] = useState(null);
+  useScrollLock(Boolean(openId));
 
   // ESC to close
   useEffect(() => {

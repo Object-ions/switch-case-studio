@@ -193,6 +193,7 @@
   inset: 0;
   z-index: 100000; /* above Header/Loader */
   animation: fadeIn .18s ease-out;
+  overscroll-behavior: contain;
 }
 .project-details-overlay__backdrop {
   position: absolute;
