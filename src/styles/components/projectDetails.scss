@@ -2,6 +2,8 @@
 @import '../_mixins.scss';
 
 .project-details {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 100vh;
@@ -11,24 +13,30 @@
     grid-template-columns: 1fr;
   }
 
+  /* LEFT: scrollable only inside this half */
   &__media {
-    position: relative;
-    overflow: hidden;
-    background: $light-blue-color;
+    max-height: 100vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    background: #000;
 
     @media (max-width: 960px) {
-      height: 48vh;
+      max-height: 48vh;
     }
   }
 
+  /* Image taller than frame so there’s something to scroll */
   &__img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
     display: block;
+    width: 100%;
+    height: auto; // no fixed height
+    object-fit: contain;
   }
 
+  /* RIGHT: fixed (no scroll) */
   &__panel {
+    height: 100vh;      // lock to viewport
+    overflow: hidden;   // no scrollbar on the right side
     display: grid;
     grid-template-rows: auto 1fr auto auto;
     background: $white-color;
@@ -37,15 +45,16 @@
 
   /* Header */
   &__header {
-    position: sticky;
-    top: 0;
-    z-index: 2;
+    // no sticky since right side doesn't scroll
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 20px;
-    background: $black-color;
+    padding: 0.25rem 2.5rem;
     color: $white-color;
+
+    a {
+      text-decoration: none;
+    }
   }
 
   &__back {
@@ -58,19 +67,26 @@
     padding: 6px 0;
     text-decoration: underline;
     text-underline-offset: 3px;
+    cursor: pointer;
 
     &:hover { color: $white-color; }
   }
 
+  /* Make sure the × is always visible and clickable */
   &__close {
     background: transparent;
     border: none;
-    color: $white-color;
-    font-size: 28px;
+    color: $white-color !important;
+    font-size: 26px;
     line-height: 1;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0 2px;
+    position: relative;
+    z-index: 3; // above any accidental overlays
   }
 
-  /* Main copy */
+  /* Main copy (right column content will be clipped if too tall) */
   &__main {
     padding: 32px 40px 16px;
   }
@@ -82,6 +98,7 @@
     text-transform: uppercase;
     text-align: center;
     margin: 8px 0 10px;
+    color: #222;
   }
 
   &__subtitle {
@@ -98,11 +115,13 @@
     line-height: 1.55;
     max-width: 56ch;
     margin: 0 auto 28px;
+    color: #444;
   }
 
   &__socials {
     display: flex;
-    gap: 24px;
+    flex-wrap: wrap;
+    gap: 16px 24px;
     justify-content: center;
     padding-bottom: 8px;
   }
@@ -157,6 +176,7 @@
     text-transform: uppercase;
     letter-spacing: .02em;
     margin: 0 0 18px;
+    color: #111;
   }
 
   &__button {
@@ -168,6 +188,8 @@
     font-size: 14px;
     padding: 10px 18px;
     border-radius: 999px;
+    cursor: pointer;
+
     &:hover {
       background: transparent;
       color: $black-color;
