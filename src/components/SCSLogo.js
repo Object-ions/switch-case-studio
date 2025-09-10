@@ -1,60 +1,53 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import data from '../assets/lottie/SCS_Logo_Bauhaus.json';
 
-const SCSLogo = ({
-  width = 30,
-  height = 30,
-  hoverReplay = false,
-  className,
-  style,
-}) => {
-  const ref = useRef(null);
+const SCSLogo = forwardRef(({ width = 30, height = 30, className, style }, ref) => {
+  const containerRef = useRef(null);
+  const animRef = useRef(null);
 
   useEffect(() => {
-    let anim = null;
     let mounted = true;
 
     import('lottie-web').then(({ default: lottie }) => {
-      if (!mounted || !ref.current) return;
+      if (!mounted || !containerRef.current) return;
 
-      anim = lottie.loadAnimation({
-        container: ref.current,
+      animRef.current = lottie.loadAnimation({
+        container: containerRef.current,
         renderer: 'svg',
         loop: false,
         autoplay: true,
-        animationData: data, // <-- pass data, no XHR
+        animationData: data,
         rendererSettings: { preserveAspectRatio: 'xMidYMid meet' },
       });
 
       const media = window.matchMedia('(prefers-reduced-motion: reduce)');
-      if (media.matches) anim.setSpeed(0.75);
-
-      if (hoverReplay && ref.current) {
-        const onEnter = () => anim.goToAndPlay(0, true);
-        ref.current.addEventListener('mouseenter', onEnter);
-        ref.current._onEnter = onEnter;
-      }
+      if (media.matches) animRef.current.setSpeed(0.75);
     });
 
     return () => {
       mounted = false;
-      if (ref.current && ref.current._onEnter) {
-        ref.current.removeEventListener('mouseenter', ref.current._onEnter);
-        delete ref.current._onEnter;
-      }
-      try { anim && anim.destroy(); } catch {}
+      try { animRef.current?.destroy(); } catch {}
     };
-  }, [hoverReplay]);
+  }, []);
+
+  // Expose replay() to parent
+  useImperativeHandle(ref, () => ({
+    replay() {
+      if (animRef.current) {
+        animRef.current.goToAndPlay(0, true);
+      }
+    }
+  }));
 
   return (
     <div
-      ref={ref}
+      ref={containerRef}
       className={className}
       style={{ width, height, ...style }}
       aria-label="Switch Case Studio logo animation"
     />
   );
-};
+});
 
 export default SCSLogo;
