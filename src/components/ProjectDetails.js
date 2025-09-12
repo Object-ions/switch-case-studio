@@ -1,42 +1,35 @@
 import Arrow from "./Arrow";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
+
+
+import projectsData from "../data/projects.json";
 import "../styles/components/projectDetails.scss";
 
 const ProjectDetails = ({ onClose }) => {
-  const data = {
-    imageSrc: "/images/projects/zahav/zahav-1.png",
-    imageAlt: "Zahav Medspa homepage preview",
-    backLabel: "Back to Projects",
-    title: "Zahav Medspa",
-    subtitle: "Medical Spa in North Scottsdale",
-    description:
-      "Magali Rack worked in marketing before founding Studio Sage in 2019, which specializes in meditation. A long-term yoga and meditation aficionado, Magali responds to the growing demand for meditation and its interdisciplinary offshoots. She revisits meditation and movement by incorporating her passion for music, light and experience. The studio’s goal is to democratize meditation by offering an accessible, modern and transformative approach to a clientele eager for personal development.",
-    services: [
-      { label: "Brand Design", href: "#" },
-      { label: "Brand Strategy", href: "#" },
-      { label: "Website Design & Development", href: "#" },
-      { label: "SEO", href: "#" },
-      { label: "Paid Ads", href: "#" },
-      { label: "Email Marketing", href: "#" },
-    ],
-    footnote: "Bilingual (FR & EN)",
-    sectionKicker: "Coaching",
-    productName: "RECHARGE",
-    ctaLabel: "Learn More",
-  };
+  const data = projectsData[0];
 
   return (
     <section className="project-details" aria-label="Project details">
       {/* LEFT: image/media */}
       <div className="project-details__media" aria-label="Project preview">
-        <img src={data.imageSrc} alt={data.imageAlt} className="project-details__img" />
+        <img
+          src={data.imageSrc}
+          alt={data.imageAlt}
+          className="project-details__img"
+        />
         <Arrow />
       </div>
 
       {/* RIGHT: panel with header + scrollable content */}
       <div className="project-details__panel">
         <header className="project-details__header">
-          <button className="project-details__back" type="button" onClick={onClose}>
-            {data.backLabel}
+          <button
+            className="project-details__back"
+            type="button"
+            onClick={onClose}
+          >
+            Back to Projects
           </button>
           <button
             className="project-details__close"
@@ -54,25 +47,56 @@ const ProjectDetails = ({ onClose }) => {
             <p className="project-details__subtitle">{data.subtitle}</p>
             <p className="project-details__desc">{data.description}</p>
 
+            {/* Tag list (existing) */}
             <nav className="project-details__socials" aria-label="Services">
               {data.services.map((s) => (
-                <a key={s.label} href={s.href} className="project-details__social">
+                <p key={s.label} className="project-details__social">
                   {s.label}
-                </a>
+                </p>
               ))}
             </nav>
+
+          <hr className="__divider"/>
+          {/* CTA block (kept, with spacing tuned to match modal) */}
+          <section
+            className="project-details__cta"
+            aria-label="Coaching product highlight"
+          >
+            <div>
+            <p className="project-details__kicker">In dept on</p>
+            <h2 className="project-details__product">Our Work</h2>
+            </div>
+            <button className="project-details__button" type="button">
+              View Live {' '}
+              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            </button>
+          </section>
+            {/*Scope & Results */}
+            <section
+              className="project-details__scope"
+              aria-label="Scope & Results"
+            >
+              <h2 className="project-details__scopeHeading">Scope & Results</h2>
+
+              <ul className="project-details__scopeList">
+                {data.highlights?.map((item) => (
+                  <li key={item.title} className="project-details__scopeItem">
+                    <h3 className="project-details__scopeTitle">{item.title}</h3>
+                    <p className="project-details__scopeSummary">
+                      {item.summary}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="project-details__result">
+                <h3 className="project-details__resultHeading">Result</h3>
+                <p className="project-details__resultText">{data.result}</p>
+              </div>
+            </section>
           </main>
 
           <div className="project-details__divider" role="separator" />
-
-          <section className="project-details__cta" aria-label="Coaching product highlight">
-            <p className="project-details__footnote">{data.footnote}</p>
-            <p className="project-details__kicker">{data.sectionKicker}</p>
-            <h2 className="project-details__product">{data.productName}</h2>
-            <button className="project-details__button" type="button">
-              {data.ctaLabel}
-            </button>
-          </section>
         </div>
       </div>
     </section>
