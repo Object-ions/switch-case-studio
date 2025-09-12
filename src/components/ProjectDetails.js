@@ -62,6 +62,8 @@ const ProjectDetails = ({ onClose }) => {
 
             {/* BOTTOM BLOCK (reveals from bottom) */}
             <div className="project-details__bottom">
+              <Arrow />
+
               <section className="project-details__cta">
                 <div>
                   <hr />
