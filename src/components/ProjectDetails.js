@@ -1,4 +1,4 @@
-import React from "react";
+import Arrow from "./Arrow";
 import "../styles/components/projectDetails.scss";
 
 const ProjectDetails = ({ onClose }) => {
@@ -28,6 +28,7 @@ const ProjectDetails = ({ onClose }) => {
     <section className="project-details" aria-label="Project details">
       <div className="project-details__media" aria-label="Project preview">
         <img src={data.imageSrc} alt={data.imageAlt} className="project-details__img" />
+        <Arrow />
       </div>
 
       <div className="project-details__panel">

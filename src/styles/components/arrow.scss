@@ -3,55 +3,37 @@
 
 .scroll-hint {
   position: absolute;
-  top: 95%;
-  right: 1rem;
-  transform: translateY(-50%);
-  padding: 1rem;
-  z-index: 999;
-  transition: all 0.2s ease-in-out;
-  animation: blink 0.9s ease-in-out 0s infinite;
-  animation-delay: 0s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
+  right: 12px;
+  bottom: 12px;
+  padding: .5rem .75rem;
+  z-index: 3;
+  pointer-events: none;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 6px;
 
-  &.hidden {
-    display: none;
+  h5 {
+    margin: 0;
+    font-family: $font-text;
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: $white-color;
+    opacity: .85;
   }
 
   svg {
-    transform: rotate(360deg);
     color: $orange-color;
     stroke-width: 2.5;
   }
 
-  &:hover {
-    svg {
-      // color: $orange-color;
-      transform: rotate(180deg);
-      transition: transform 0.2s ease;
-    }
-
-    box-shadow: none;
-    transform: translateY(-50%) translateX(-4px);
-  }
+  /* keep your blink animation */
+  animation: blink 0.9s ease-in-out 0s 1 forwards;
 }
 
 @keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  16.6%,
-  50%,
-  83.3% {
-    opacity: 0;
-  }
-  25%,
-  58.3%,
-  91.6% {
-    opacity: 1;
-  }
+  0%, 100% { opacity: 1; }
+  16.6%, 50%, 83.3% { opacity: 0; }
+  25%, 58.3%, 91.6% { opacity: 1; }
 }

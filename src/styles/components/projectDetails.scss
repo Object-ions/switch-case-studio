@@ -15,6 +15,7 @@
 
   /* LEFT: scrollable only inside this half */
   &__media {
+    position: relative;              /* anchor for Arrow */
     max-height: 100vh;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
@@ -22,6 +23,40 @@
 
     @media (max-width: 960px) {
       max-height: 48vh;
+    }
+
+    /* Custom scrollbar (one clean copy) */
+    scrollbar-width: thin;                 
+    scrollbar-color: #000 #f5f5f5;
+
+    &::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+      background: #f5f5f5;                 /* flat track */
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f5f5f5;
+      border-left: 1px solid rgba(0,0,0,0.15);
+      border-radius: 0;                     /* flat edges */
+      box-shadow: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #000;               /* solid black */
+      border: 3px solid #f5f5f5;            /* spacing effect */
+      border-radius: 0;                      /* flat edges */
+      -webkit-appearance: none;
+      appearance: none;
+      background-clip: content-box;         /* hard corners */
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: #333;
+    }
+
+    &::-webkit-scrollbar-corner {
+      background: #f5f5f5;
     }
   }
 
@@ -45,38 +80,34 @@
 
   /* Header */
   &__header {
-    // no sticky since right side doesn't scroll
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0.25rem 2.5rem;
     color: $white-color;
 
-    a {
-      text-decoration: none;
-    }
+    a { text-decoration: none; }
   }
 
   &__back {
     font-family: $font-text;
     font-size: 14px;
     letter-spacing: .02em;
-    color: $grey-light-color;
+    color: #000;
     background: transparent;
     border: none;
     padding: 6px 0;
-    text-decoration: underline;
-    text-underline-offset: 3px;
+    text-decoration: none;
     cursor: pointer;
 
-    &:hover { color: $white-color; }
+    &:hover { color: $orange-color; }
   }
 
   /* Make sure the × is always visible and clickable */
   &__close {
     background: transparent;
     border: none;
-    color: $white-color !important;
+    color: #000;
     font-size: 26px;
     line-height: 1;
     font-weight: 700;
@@ -193,79 +224,6 @@
     &:hover {
       background: transparent;
       color: $black-color;
-    }
-  }
-}
-
-.project-details {
-  &__media {
-    scrollbar-width: thin;               
-    scrollbar-color: #000 #f5f5f5;       
-
-    &::-webkit-scrollbar {
-      width: 12px;
-      height: 12px;
-      background: #f5f5f5;           /* flat track */
-    }
-
-    &::-webkit-scrollbar-track {
-      background: #f5f5f5;
-      border-left: 1px solid rgba(0,0,0,0.15);
-      border-radius: 0;              /* flat edges */
-      box-shadow: none;              /* remove iOS/Chrome shadows */
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: #000;        /* solid black */
-      border: 3px solid #f5f5f5;     /* spacing effect */
-      border-radius: 0;   .project-details {
-        &__media {
-          scrollbar-width: thin;               
-          scrollbar-color: #000 #f5f5f5;       
-      
-          &::-webkit-scrollbar {
-            width: 12px;
-            height: 12px;
-            background: #f5f5f5;           /* flat track */
-          }
-      
-          &::-webkit-scrollbar-track {
-            background: #f5f5f5;
-            border-left: 1px solid rgba(0,0,0,0.15);
-            border-radius: 0;              /* flat edges */
-            box-shadow: none;              /* remove iOS/Chrome shadows */
-          }
-      
-          &::-webkit-scrollbar-thumb {
-            background-color: #000;        /* solid black */
-            border: 3px solid #f5f5f5;     /* spacing effect */
-            border-radius: 0;              /* flat edges */
-            -webkit-appearance: none;      /* strip browser styling */
-            appearance: none;
-            background-clip: content-box;  /* force hard edges */
-          }
-      
-          &::-webkit-scrollbar-thumb:hover {
-            background-color: #333;
-          }
-      
-          &::-webkit-scrollbar-corner {
-            background: #f5f5f5;
-          }
-        }
-      }
-                 /* flat edges */
-      -webkit-appearance: none;      /* strip browser styling */
-      appearance: none;
-      background-clip: content-box;  /* force hard edges */
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-      background-color: #333;
-    }
-
-    &::-webkit-scrollbar-corner {
-      background: #f5f5f5;
     }
   }
 }
