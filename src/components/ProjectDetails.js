@@ -1,7 +1,9 @@
 import Arrow from "./Arrow";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowUpRightFromSquare, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowUpRightFromSquare,
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
 
 import projectsData from "../data/projects.json";
 import "../styles/components/projectDetails.scss";
@@ -29,8 +31,7 @@ const ProjectDetails = ({ onClose }) => {
             type="button"
             onClick={onClose}
           >
-              <FontAwesomeIcon icon={faArrowLeft} />
-             {' '}Back to Projects
+            <FontAwesomeIcon icon={faArrowLeft} /> Back to Projects
           </button>
           <button
             className="project-details__close"
@@ -57,26 +58,25 @@ const ProjectDetails = ({ onClose }) => {
               ))}
             </nav>
 
-          <hr className="__divider"/>
-          {/* CTA block (kept, with spacing tuned to match modal) */}
-          <section
-            className="project-details__cta"
-            aria-label="Coaching product highlight"
-          >
-            <div>
-            <p className="project-details__kicker">In dept on</p>
-            <h2 className="project-details__product">Our Work</h2>
-            </div>
-            <a 
-              href={data.ctaUrl} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="project-details__button"
+            <hr className="__divider" />
+            {/* CTA block (kept, with spacing tuned to match modal) */}
+            <section
+              className="project-details__cta"
+              aria-label="Coaching product highlight"
             >
-              View Live{' '}
-              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-            </a>
-          </section>
+              <div>
+                <p className="project-details__kicker">In dept on</p>
+                <h2 className="project-details__product">Our Work</h2>
+              </div>
+              <a
+                href={data.ctaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-details__button"
+              >
+                View Live <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+              </a>
+            </section>
             {/*Scope & Results */}
             <section
               className="project-details__scope"
@@ -87,7 +87,9 @@ const ProjectDetails = ({ onClose }) => {
               <ul className="project-details__scopeList">
                 {data.highlights?.map((item) => (
                   <li key={item.title} className="project-details__scopeItem">
-                    <h3 className="project-details__scopeTitle">{item.title}</h3>
+                    <h3 className="project-details__scopeTitle">
+                      {item.title}
+                    </h3>
                     <p className="project-details__scopeSummary">
                       {item.summary}
                     </p>

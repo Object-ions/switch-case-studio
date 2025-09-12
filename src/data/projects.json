@@ -1,33 +1,50 @@
 [
-    {
-      "id": 1,
-      "imageSrc": "/images/projects/zahav/zahav-1.png",
-      "imageAlt": "Zahav Medspa homepage preview",
-      "backLabel": "Back to Projects",
-      "title": "Zahav Medspa",
-      "subtitle": "Medical Spa in North Scottsdale, Arizona",
-      "description": "Switch Case Studio partnered with Zahav Medspa to elevate their brand and digital presence. As a paid client project, we delivered a full suite of creative and marketing services tailored to the competitive aesthetics industry.",
-      "services": [
-        { "label": "#Brand Design" },
-        { "label": "#Brand Strategy" },
-        { "label": "#Website Design & Development" },
-        { "label": "#SEO" },
-        { "label": "#Paid Ads" },
-        { "label": "#Email Marketing" }
-      ],
-      "highlights": [
-        { "title": "Brand Design", "summary": "Luxury, trust-driven visual identity." },
-        { "title": "Brand Strategy", "summary": "Clear positioning and messaging." },
-        { "title": "Website Design & Development", "summary": "Responsive, conversion-focused site." },
-        { "title": "SEO", "summary": "Local optimization for search visibility." },
-        { "title": "Paid Ads", "summary": "Meta and Google campaigns to drive bookings." },
-        { "title": "Email Marketing", "summary": "Automated campaigns to retain and re-engage clients." }
-      ],
-      "result": "A cohesive brand identity, high-performing website, and marketing foundation that continues to generate measurable growth.",
-      "kicker": "In depth on",
-      "productName": "Our Work",
-      "ctaLabel": "View Live",
-      "ctaUrl": "https://zahavmedspa.com"
-    }
-  ]
-  
+  {
+    "id": 1,
+    "imageSrc": "/images/projects/zahav/zahav-1.png",
+    "imageAlt": "Zahav Medspa homepage preview",
+    "backLabel": "Back to Projects",
+    "title": "Zahav Medspa",
+    "subtitle": "Medical Spa in North Scottsdale, Arizona",
+    "description": "Switch Case Studio partnered with Zahav Medspa to elevate their brand and digital presence. As a paid client project, we delivered a full suite of creative and marketing services tailored to the competitive aesthetics industry.",
+    "services": [
+      { "label": "#Brand Design" },
+      { "label": "#Brand Strategy" },
+      { "label": "#Website Design & Development" },
+      { "label": "#SEO" },
+      { "label": "#Paid Ads" },
+      { "label": "#Email Marketing" }
+    ],
+    "highlights": [
+      {
+        "title": "Brand Design",
+        "summary": "Luxury, trust-driven visual identity."
+      },
+      {
+        "title": "Brand Strategy",
+        "summary": "Clear positioning and messaging."
+      },
+      {
+        "title": "Website Design & Development",
+        "summary": "Responsive, conversion-focused site."
+      },
+      {
+        "title": "SEO",
+        "summary": "Local optimization for search visibility."
+      },
+      {
+        "title": "Paid Ads",
+        "summary": "Meta and Google campaigns to drive bookings."
+      },
+      {
+        "title": "Email Marketing",
+        "summary": "Automated campaigns to retain and re-engage clients."
+      }
+    ],
+    "result": "A cohesive brand identity, high-performing website, and marketing foundation that continues to generate measurable growth.",
+    "kicker": "In depth on",
+    "productName": "Our Work",
+    "ctaLabel": "View Live",
+    "ctaUrl": "https://zahavmedspa.com"
+  }
+]
