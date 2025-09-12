@@ -1,6 +1,6 @@
 import Arrow from "./Arrow";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
+import { faArrowUpRightFromSquare, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 
 import projectsData from "../data/projects.json";
@@ -29,7 +29,8 @@ const ProjectDetails = ({ onClose }) => {
             type="button"
             onClick={onClose}
           >
-            Back to Projects
+              <FontAwesomeIcon icon={faArrowLeft} />
+             {' '}Back to Projects
           </button>
           <button
             className="project-details__close"
@@ -66,10 +67,15 @@ const ProjectDetails = ({ onClose }) => {
             <p className="project-details__kicker">In dept on</p>
             <h2 className="project-details__product">Our Work</h2>
             </div>
-            <button className="project-details__button" type="button">
-              View Live {' '}
+            <a 
+              href={data.ctaUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="project-details__button"
+            >
+              View Live{' '}
               <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-            </button>
+            </a>
           </section>
             {/*Scope & Results */}
             <section
