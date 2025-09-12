@@ -45,64 +45,65 @@ const ProjectDetails = ({ onClose }) => {
 
         <div className="project-details__scroll">
           <main className="project-details__main">
-            <h1 className="project-details__title">{data.title}</h1>
-            <p className="project-details__tileVersion">{data.tileVersion}</p>
-            <p className="project-details__subtitle">{data.subtitle}</p>
-            <p className="project-details__desc">{data.description}</p>
+            {/* TOP CONTENT (always visible when opened) */}
+            <div className="project-details__content">
+              <h1 className="project-details__title">{data.title}</h1>
+              <p className="project-details__subtitle">{data.subtitle}</p>
+              <p className="project-details__desc">{data.description}</p>
 
-            {/* Tag list (existing) */}
-            <nav className="project-details__socials" aria-label="Services">
-              {data.services.map((s) => (
-                <p key={s.label} className="project-details__social">
-                  {s.label}
-                </p>
-              ))}
-            </nav>
-
-            <hr className="__divider" />
-            {/* CTA block (kept, with spacing tuned to match modal) */}
-            <section
-              className="project-details__cta"
-              aria-label="Coaching product highlight"
-            >
-              <div>
-                <p className="project-details__kicker">In dept on</p>
-                <h2 className="project-details__product">Our Work</h2>
-              </div>
-              <a
-                href={data.ctaUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="project-details__button"
-              >
-                View Live <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-              </a>
-            </section>
-            {/*Scope & Results */}
-            <section
-              className="project-details__scope"
-              aria-label="Scope & Results"
-            >
-              <h2 className="project-details__scopeHeading">Scope & Results</h2>
-
-              <ul className="project-details__scopeList">
-                {data.highlights?.map((item) => (
-                  <li key={item.title} className="project-details__scopeItem">
-                    <h3 className="project-details__scopeTitle">
-                      {item.title}
-                    </h3>
-                    <p className="project-details__scopeSummary">
-                      {item.summary}
-                    </p>
-                  </li>
+              <nav className="project-details__socials" aria-label="Services">
+                {data.services.map((s) => (
+                  <p key={s.label} className="project-details__social">
+                    {s.label}
+                  </p>
                 ))}
-              </ul>
+              </nav>
+            </div>
 
-              <div className="project-details__result">
-                <h3 className="project-details__resultHeading">Result</h3>
-                <p className="project-details__resultText">{data.result}</p>
-              </div>
-            </section>
+            {/* BOTTOM BLOCK (reveals from bottom) */}
+            <div className="project-details__bottom">
+              <section className="project-details__cta">
+                <div>
+                  <hr />
+                  <p className="project-details__kicker">In dept on</p>
+                  <h2 className="project-details__product">Our Work</h2>
+                </div>
+                <a
+                  href={data.ctaUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-details__button"
+                >
+                  View Live <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                </a>
+              </section>
+
+              <section
+                className="project-details__scope"
+                aria-label="Scope & Results"
+              >
+                <h2 className="project-details__scopeHeading">
+                  Scope & Results
+                </h2>
+                <ul className="project-details__scopeList">
+                  {data.highlights?.map((item) => (
+                    <li key={item.title} className="project-details__scopeItem">
+                      <h3 className="project-details__scopeTitle">
+                        {item.title}
+                      </h3>
+                      <p className="project-details__scopeSummary">
+                        {item.summary}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="project-details__result">
+                  <h3 className="project-details__resultHeading">Result</h3>
+                  <p className="project-details__resultText">{data.result}</p>
+                </div>
+              </section>
+            </div>
           </main>
 
           <div className="project-details__divider" role="separator" />
