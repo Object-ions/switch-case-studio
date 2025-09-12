@@ -94,10 +94,9 @@ const Projects = () => {
       </div>
 
       <div className="panel panel-about">
-        <h3>ABOUT THIS WORK</h3>
-        <p>
-          Brief context for the selected projects—scope, role, stack, and outcomes. Replace this with per-project copy later.
-        </p>
+        <h3>WHAT’S BEHIND THE TILE?</h3>
+        <p>Hover to Explore</p>
+        <p>Move over a project to reveal its story. Click to dive deeper in a popup view.</p>
       </div>
 
       <div className="panel panel-tagline">
@@ -105,7 +104,7 @@ const Projects = () => {
       </div>
 
       <div className="panel panel-link">
-        <span>VIEW ALL</span>
+        <span>Book a Free Consultaion</span>
       </div>
       
       {active &&

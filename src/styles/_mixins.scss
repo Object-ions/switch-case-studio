@@ -42,3 +42,11 @@
     opacity: 0.7;
   }
 }
+
+@mixin grid-bg-light {
+  background-color: #f1f5f7;
+  background-image:
+    linear-gradient(#dbe3e7 1px, transparent 1px),
+    linear-gradient(90deg, #dbe3e7 1px, transparent 1px);
+  background-size: 28px 28px;
+}
