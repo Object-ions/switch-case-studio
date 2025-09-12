@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Arrow from "./Arrow";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,17 +11,28 @@ import "../styles/components/projectDetails.scss";
 
 const ProjectDetails = ({ onClose }) => {
   const data = projectsData[0];
+  const [scrolledMedia, setScrolledMedia] = useState(false);
+  const [scrolledPanel, setScrolledPanel] = useState(false);
 
   return (
     <section className="project-details" aria-label="Project details">
       {/* LEFT: image/media */}
-      <div className="project-details__media" aria-label="Project preview">
+      <div
+        className="project-details__media"
+        aria-label="Project preview"
+        onScroll={(e) => {
+          if (!scrolledMedia && e.currentTarget.scrollTop > 4) {
+            setScrolledMedia(true);
+          }
+        }}
+      >
         <img
           src={data.imageSrc}
           alt={data.imageAlt}
           className="project-details__img"
         />
-        <Arrow />
+        {/* Anchor to left column; hide after first scroll */}
+        <Arrow side="left" hidden={scrolledMedia} />
       </div>
 
       {/* RIGHT: panel with header + scrollable content */}
@@ -43,7 +55,17 @@ const ProjectDetails = ({ onClose }) => {
           </button>
         </header>
 
-        <div className="project-details__scroll">
+        <div
+          className="project-details__scroll"
+          onScroll={(e) => {
+            if (!scrolledPanel && e.currentTarget.scrollTop > 4) {
+              setScrolledPanel(true);
+            }
+          }}
+        >
+          {/* Right-side scroll hint, anchored to this scroller */}
+          <Arrow side="right" hidden={scrolledPanel} />
+
           <main className="project-details__main">
             {/* TOP CONTENT (always visible when opened) */}
             <div className="project-details__content">
@@ -62,8 +84,6 @@ const ProjectDetails = ({ onClose }) => {
 
             {/* BOTTOM BLOCK (reveals from bottom) */}
             <div className="project-details__bottom">
-              <Arrow />
-
               <section className="project-details__cta">
                 <div>
                   <hr />

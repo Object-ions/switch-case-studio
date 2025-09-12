@@ -1,39 +1,62 @@
-@import '../_variables.scss';
-@import '../_mixins.scss';
+@import "../_variables.scss";
+@import "../_mixins.scss";
 
 .scroll-hint {
   position: absolute;
-  right: 12px;
   bottom: 12px;
-  padding: .5rem .75rem;
-  z-index: 3;
-  pointer-events: none;
+  z-index: 9999;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 2px;
+  padding: 2px 4px;
+  background: #000;
+  animation: blink 0.9s ease-in-out 0s 1 forwards;
+
+  &.left {
+    left: 12px;
+  }
+  &.right {
+    right: 12px;
+  }
+
+  &.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+    animation: none;
+    transition: opacity 0.2s ease;
+  }
 
   h5 {
     margin: 0;
     font-family: $font-text;
-    font-size: 10px;
-    letter-spacing: .12em;
+    font-size: 8px;
     text-transform: uppercase;
-    color: $orange-color;
-    opacity: .85;
+    color: #fff;
   }
 
   svg {
-    color: $orange-color;
-    stroke-width: 2.5;
+    color: #fff;
+    height: 15px;
+    width: 15px;
   }
 
-  /* keep your blink animation */
   animation: blink 0.9s ease-in-out 0s 1 forwards;
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  16.6%, 50%, 83.3% { opacity: 0; }
-  25%, 58.3%, 91.6% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  16.6%,
+  50%,
+  83.3% {
+    opacity: 0;
+  }
+  25%,
+  58.3%,
+  91.6% {
+    opacity: 1;
+  }
 }
