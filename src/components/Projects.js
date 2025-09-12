@@ -1,20 +1,33 @@
 import { useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import ProjectDetails from "./ProjectDetails";
+import useScrollLock from "../hooks/useScrollLock";
 
-import useScrollLock from '../hooks/useScrollLock'
+import projectsData from "../data/projects.json";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import "../styles/components/projects.scss";
 
-const PROJECTS = [
-  { id: "zahav-medspa", label: "Zahav Medspa" },
-  { id: "prodani-miami", label: "ProDani Miami" },
-  { id: "project-b", label: "PROJECT B" },
-  { id: "project-c", label: "PROJECT C" },
+/**
+ * Base tiles: layout class + visible label.
+ * We merge each with the matching record from projects.json by id.
+ */
+const BASE_PROJECTS = [
+  { id: 1, label: "Zahav Medspa", panelClass: "panel-hero" },
+  { id: 2, label: "ProDani Miami", panelClass: "panel-card-1" },
+  { id: 3, label: "PROJECT B", panelClass: "panel-card-2" },
+  { id: 4, label: "PROJECT C", panelClass: "panel-card-3" },
 ];
 
+const PROJECTS = BASE_PROJECTS.map((p) => ({
+  ...p,
+  ...(projectsData.find((d) => d.id === p.id) || {}),
+}));
+
 const Projects = () => {
-  const [openId, setOpenId] = useState(null);
+  const [openId, setOpenId] = useState(null); // number | null
+  const [hoverId, setHoverId] = useState(null); // number | null
   useScrollLock(Boolean(openId));
 
   // ESC to close
@@ -37,66 +50,59 @@ const Projects = () => {
 
   return (
     <section className="projects" aria-label="project overview">
+      {/* Header marquee */}
       <div className="panel panel-header">
         <h1 className="marquee" aria-label="Selected Projects">
           <span className="marquee-track">
-            Selected Projects · Selected Projects · Selected Projects · Selected Projects · Selected Projects ·
+            Selected Projects · Selected Projects · Selected Projects · Selected
+            Projects · Selected Projects ·
           </span>
           <span className="marquee-track" aria-hidden="true">
-            Selected Projects · Selected Projects · Selected Projects · Selected Projects · Selected Projects ·
+            Selected Projects · Selected Projects · Selected Projects · Selected
+            Projects · Selected Projects ·
           </span>
         </h1>
       </div>
 
-      <div
-        className="panel panel-hero"
-        role="button"
-        tabIndex={0}
-        onClick={() => open("zahav-medspa")}
-        onKeyDown={(e) => onTileKey(e, "zahav-medspa")}
-        aria-label="Open Zahav Medspa details"
-      >
-        <span className="panel-label">Zahav Medspa</span>
-      </div>
+      {/* Four project tiles */}
+      {PROJECTS.slice(0, 4).map((proj) => (
+        <div
+          key={proj.id}
+          className={`panel ${proj.panelClass}`}
+          role="button"
+          tabIndex={0}
+          onClick={() => open(proj.id)}
+          onKeyDown={(e) => onTileKey(e, proj.id)}
+          onMouseEnter={() => setHoverId(proj.id)}
+          onMouseLeave={() => setHoverId(null)}
+          aria-label={`Open ${proj.label} details`}
+          {...(proj.panelClass === "panel-card-3"
+            ? { "data-cursor-color": "#fff" }
+            : {})}
+        >
+          <span className="panel-label">
+            {hoverId === proj.id ? `About ${proj.label}` : proj.label}
+          </span>
 
-      <div
-        className="panel panel-card-1"
-        role="button"
-        tabIndex={0}
-        onClick={() => open("prodani-miami")}
-        onKeyDown={(e) => onTileKey(e, "prodani-miami")}
-        aria-label="Open ProDani Miami details"
-      >
-        <span className="panel-label">ProDani Miami</span>
-      </div>
+          {/* tileVersion copy appears under label on hover if available */}
+          {hoverId === proj.id && proj.tileVersion && (
+            <p className="panel-excerpt">
+              {proj.tileVersion}
+              <br />
+              <b>Click to View</b> <FontAwesomeIcon icon={faArrowRight} />
+            </p>
+          )}
+        </div>
+      ))}
 
-      <div
-        className="panel panel-card-2"
-        role="button"
-        tabIndex={0}
-        onClick={() => open("project-b")}
-        onKeyDown={(e) => onTileKey(e, "project-b")}
-        aria-label="Open Project B details"
-      >
-        <span className="panel-label">PROJECT B</span>
-      </div>
-
-      <div
-        className="panel panel-card-3"
-        role="button"
-        tabIndex={0}
-        onClick={() => open("project-c")}
-        onKeyDown={(e) => onTileKey(e, "project-c")}
-        aria-label="Open Project C details"
-        data-cursor-color="#fff"
-      >
-        <span className="panel-label">PROJECT C</span>
-      </div>
-
+      {/* Row 3 informational panels */}
       <div className="panel panel-about">
         <h3>WHAT’S BEHIND THE TILE?</h3>
         <p>Hover to Explore</p>
-        <p>Move over a project to reveal its story. Click to dive deeper in a popup view.</p>
+        <p>
+          Move over a project to reveal its story. <b> Click to dive deeper</b>{" "}
+          in a popup view.
+        </p>
       </div>
 
       <div className="panel panel-tagline">
@@ -106,21 +112,24 @@ const Projects = () => {
       <div className="panel panel-link">
         <span>Book a Free Consultaion</span>
       </div>
-      
-      {active &&
-  createPortal(
-    <div className="project-details-overlay" aria-modal="true" role="dialog">
-      <div
-        className="project-details-overlay__backdrop"
-        aria-hidden="true"
-        onClick={close}
-      />
-      <ProjectDetails onClose={close} />
-    </div>,
-    document.body
-  )
-}
 
+      {/* Details overlay */}
+      {active &&
+        createPortal(
+          <div
+            className="project-details-overlay"
+            aria-modal="true"
+            role="dialog"
+          >
+            <div
+              className="project-details-overlay__backdrop"
+              aria-hidden="true"
+              onClick={close}
+            />
+            <ProjectDetails project={active} onClose={close} />
+          </div>,
+          document.body
+        )}
     </section>
   );
 };

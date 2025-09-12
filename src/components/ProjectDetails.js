@@ -46,6 +46,7 @@ const ProjectDetails = ({ onClose }) => {
         <div className="project-details__scroll">
           <main className="project-details__main">
             <h1 className="project-details__title">{data.title}</h1>
+            <p className="project-details__tileVersion">{data.tileVersion}</p>
             <p className="project-details__subtitle">{data.subtitle}</p>
             <p className="project-details__desc">{data.description}</p>
 
