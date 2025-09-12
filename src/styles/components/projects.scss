@@ -78,22 +78,6 @@
       transform: translateY(6px);
       transition: opacity 0.25s ease, transform 0.25s ease;
     }
-
-    /* hover state */
-    &:hover,
-    &.is-hovering {
-      // background-color: rgba(255, 255, 255, 0.1); // subtle overlay
-      transform: translateY(-3px);
-
-      .panel-label {
-        color: #000;
-      }
-
-      .panel-excerpt {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
   }
 
   /* ----- Row 2 (after header): 4 x 1fr ----- */
@@ -119,6 +103,25 @@
     grid-column: 4 / 5;
     grid-row: 2 / 3;
     background: $g4;
+  }
+  /* hover state */
+  .panel-hero:hover,
+  .panel-card-1:hover,
+  .panel-card-2:hover,
+  .panel-card-3:hover:hover,
+  &.is-hovering {
+    @include grid-bg-light;
+    transform: translateY(-3px);
+    border: 1px solid #000;
+
+    .panel-label {
+      color: #000;
+    }
+
+    .panel-excerpt {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   /* ----- Row 3: 2fr, 1fr, 1fr ----- */
