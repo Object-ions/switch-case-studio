@@ -26,11 +26,13 @@ const ProjectDetails = ({ onClose }) => {
 
   return (
     <section className="project-details" aria-label="Project details">
+      {/* LEFT: image/media */}
       <div className="project-details__media" aria-label="Project preview">
         <img src={data.imageSrc} alt={data.imageAlt} className="project-details__img" />
         <Arrow />
       </div>
 
+      {/* RIGHT: panel with header + scrollable content */}
       <div className="project-details__panel">
         <header className="project-details__header">
           <button className="project-details__back" type="button" onClick={onClose}>
@@ -46,30 +48,32 @@ const ProjectDetails = ({ onClose }) => {
           </button>
         </header>
 
-        <main className="project-details__main">
-          <h1 className="project-details__title">{data.title}</h1>
-          <p className="project-details__subtitle">{data.subtitle}</p>
-          <p className="project-details__desc">{data.description}</p>
+        <div className="project-details__scroll">
+          <main className="project-details__main">
+            <h1 className="project-details__title">{data.title}</h1>
+            <p className="project-details__subtitle">{data.subtitle}</p>
+            <p className="project-details__desc">{data.description}</p>
 
-          <nav className="project-details__socials" aria-label="Services">
-            {data.services.map((s) => (
-              <a key={s.label} href={s.href} className="project-details__social">
-                {s.label}
-              </a>
-            ))}
-          </nav>
-        </main>
+            <nav className="project-details__socials" aria-label="Services">
+              {data.services.map((s) => (
+                <a key={s.label} href={s.href} className="project-details__social">
+                  {s.label}
+                </a>
+              ))}
+            </nav>
+          </main>
 
-        <div className="project-details__divider" role="separator" />
+          <div className="project-details__divider" role="separator" />
 
-        <section className="project-details__cta" aria-label="Coaching product highlight">
-          <p className="project-details__footnote">{data.footnote}</p>
-          <p className="project-details__kicker">{data.sectionKicker}</p>
-          <h2 className="project-details__product">{data.productName}</h2>
-          <button className="project-details__button" type="button">
-            {data.ctaLabel}
-          </button>
-        </section>
+          <section className="project-details__cta" aria-label="Coaching product highlight">
+            <p className="project-details__footnote">{data.footnote}</p>
+            <p className="project-details__kicker">{data.sectionKicker}</p>
+            <h2 className="project-details__product">{data.productName}</h2>
+            <button className="project-details__button" type="button">
+              {data.ctaLabel}
+            </button>
+          </section>
+        </div>
       </div>
     </section>
   );
