@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import PropTypes from "prop-types";
 import "../styles/components/deviceMockup.scss";
@@ -20,7 +20,6 @@ const DeviceMockup = ({
   const tlRef = useRef(null);
   const distanceRef = useRef(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [hasAutoplayed, setHasAutoplayed] = useState(false);
 
   const prefersReduced = useMemo(
     () =>
@@ -37,13 +36,20 @@ const DeviceMockup = ({
     }
   };
 
-  const applyProgress = (p) => {
+  const buildLoop = useCallback(() => {
     const img = imgRef.current;
     const d = distanceRef.current;
-    if (!img || d <= 0) return;
-    const y = -d * Math.min(Math.max(p, 0), 1);
-    gsap.set(img, { y });
-  };
+    if (!img || d <= 1) return null;
+
+    const dur = d / speed;
+
+    return gsap
+      .timeline({ paused: true, repeat: -1, defaults: { ease: "none" } })
+      .to(img, { y: -d, duration: dur }) // down
+      .to({}, { duration: hold + 1.5 }) // ⬅ extra 1.5s before scrolling UP
+      .to(img, { y: 0, duration: dur }) // up
+      .to({}, { duration: hold }); // pause at top
+  }, [speed, hold]);
 
   // compute scroll distance when image & viewport are ready
   useEffect(() => {
@@ -91,22 +97,7 @@ const DeviceMockup = ({
       ro.disconnect();
       killTL();
     };
-  }, []);
-
-  const buildLoop = () => {
-    const img = imgRef.current;
-    const d = distanceRef.current;
-    if (!img || d <= 1) return null;
-
-    const dur = d / speed; // seconds for down/up legs
-
-    return gsap
-      .timeline({ paused: true, repeat: -1, defaults: { ease: "none" } })
-      .to(img, { y: -d, duration: dur }) // down
-      .to({}, { duration: hold }) // pause at bottom
-      .to(img, { y: 0, duration: dur }) // up
-      .to({}, { duration: hold }); // pause at top
-  };
+  }, [buildLoop, prefersReduced]);
 
   // intersection + hover behavior + AUTOPLAY once when visible
   useEffect(() => {
