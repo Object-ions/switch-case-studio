@@ -52,29 +52,29 @@ const DeviceMockup = ({
     if (!content || !viewportEl) return;
 
     const calc = () => {
-      const d =
-        content.naturalHeight - viewportEl.getBoundingClientRect().height;
-      distanceRef.current = Math.max(0, d);
-      if (d <= 0) {
+      const vH = viewRef.current.getBoundingClientRect().height; // visible window
+      const iH = imgRef.current.getBoundingClientRect().height; // rendered tall img
+      const d = Math.max(0, Math.round(iH - vH));
+      distanceRef.current = d;
+
+      if (d <= 1) {
+        // nothing to scroll
         killTL();
-        applyProgress(0);
+        gsap.set(imgRef.current, { y: 0 });
       }
     };
 
     const onLoad = () => {
       calc();
-      applyProgress(0); // show top immediately
-
-      // autoplay after 1s
-      if (!prefersReduced && distanceRef.current > 0) {
-        gsap.delayedCall(1.5, () => {
+      gsap.set(imgRef.current, { y: 0 }); // show top immediately
+      if (!prefersReduced && distanceRef.current > 1) {
+        gsap.delayedCall(1, () => {
           killTL();
-          const tl = buildOneShot();
+          const tl = buildLoop();
           if (tl) {
             tl.play(0);
             tlRef.current = tl;
             setIsPlaying(true);
-            setHasAutoplayed(true);
           }
         });
       }
@@ -93,29 +93,19 @@ const DeviceMockup = ({
     };
   }, []);
 
-  const buildOneShot = () => {
+  const buildLoop = () => {
     const img = imgRef.current;
     const d = distanceRef.current;
-    if (!img || d <= 0) return null;
+    if (!img || d <= 1) return null;
 
-    const currentY = gsap.getProperty(img, "y");
-    const traveled = Math.abs(currentY) || 0;
-    const remainingDown = Math.max(d - traveled, 0);
+    const dur = d / speed; // seconds for down/up legs
 
-    const tl = gsap.timeline({ paused: true });
-
-    tl.to(img, { y: -d, duration: remainingDown / speed, ease: "none" })
-      .to({}, { duration: hold }) // ✅ delay at bottom
-      .to(img, { y: 0, duration: d / speed, ease: "none" })
-      .add(() => {
-        // ✅ end at top
-        gsap.set(img, { y: 0 });
-        setIsPlaying(false);
-        setHasAutoplayed(true);
-        killTL();
-      });
-
-    return tl;
+    return gsap
+      .timeline({ paused: true, repeat: -1, defaults: { ease: "none" } })
+      .to(img, { y: -d, duration: dur }) // down
+      .to({}, { duration: hold }) // pause at bottom
+      .to(img, { y: 0, duration: dur }) // up
+      .to({}, { duration: hold }); // pause at top
   };
 
   // intersection + hover behavior + AUTOPLAY once when visible
@@ -133,10 +123,13 @@ const DeviceMockup = ({
     const io = new IntersectionObserver(
       (entries) =>
         entries.forEach((e) => {
-          if (!e.isIntersecting) pause();
+          const tl = tlRef.current;
+          if (!tl) return;
+          e.isIntersecting ? tl.resume() : tl.pause();
         }),
       { threshold: 0.55 }
     );
+
     io.observe(host);
 
     let onEnter, onLeave;
@@ -159,14 +152,13 @@ const DeviceMockup = ({
   // Controls
   const play = () => {
     if (prefersReduced || distanceRef.current <= 0) return;
-    killTL();
-    const tl = buildOneShot();
-    if (tl) {
-      tl.play();
-      tlRef.current = tl;
-      setIsPlaying(true);
-    }
+    const tl = tlRef.current || buildLoop();
+    if (!tl) return;
+    if (!tlRef.current) tlRef.current = tl;
+    tl.play();
+    setIsPlaying(true);
   };
+
   const pause = () => {
     if (tlRef.current) tlRef.current.pause();
     setIsPlaying(false);
