@@ -5,6 +5,9 @@ import {
   faArrowUpRightFromSquare,
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
+import DeviceMockup from "./DeviceMockup";
+import macbookFrame from "../assets/mockups/macbook-frame.png";
+import zahavLong from "../assets/projects/zahav-long.webp";
 
 import projectsData from "../data/projects.json";
 import "../styles/components/projectDetails.scss";
@@ -21,16 +24,27 @@ const ProjectDetails = ({ onClose }) => {
         className="project-details__media"
         aria-label="Project preview"
         onScroll={(e) => {
-          if (!scrolledMedia && e.currentTarget.scrollTop > 4) {
+          if (!scrolledMedia && e.currentTarget.scrollTop > 4)
             setScrolledMedia(true);
-          }
         }}
       >
-        <img
-          src={data.imageSrc}
-          alt={data.imageAlt}
-          className="project-details__img"
+        <DeviceMockup
+          frameSrc={macbookFrame}
+          contentSrc={zahavLong}
+          alt="Zahav Medspa homepage preview"
+          viewport={{
+            leftPct: 17.8468,
+            topPct: 14.9473,
+            widthPct: 64.4509,
+            heightPct: 77.0188,
+          }}
+          speed={35}
+          hold={0.6}
+          pauseOnHover
+          controls
+          className="project-details__mockup"
         />
+
         {/* Anchor to left column; hide after first scroll */}
         <Arrow side="left" hidden={scrolledMedia} />
       </div>

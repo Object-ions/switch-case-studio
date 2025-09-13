@@ -1,0 +1,86 @@
+.device-mockup {
+  position: relative;
+  width: min(100%, 980px);
+  display: block;
+  margin: 0 auto;
+  aspect-ratio: 16 / 10;
+  isolation: isolate;
+  z-index: 10;
+
+  .device-mockup__frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+    z-index: 2;
+  }
+
+  .device-mockup__viewport {
+    position: absolute;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .device-mockup__content {
+    display: block;
+    width: 100%;
+    height: auto;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .device-mockup__controls--top {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -5%); /* was -110% */
+    display: flex;
+    gap: 0.25rem; /* tighter spacing */
+    align-items: center;
+    background: none;
+    padding: 0;
+    z-index: 3;
+  }
+
+  .dmk-btn {
+    appearance: none;
+    border: none; /* minimal */
+    background: none; /* no panel */
+    color: #000; /* assume dark bg behind; tweak as needed */
+    font: 500 14px/1.1 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    padding: 0.25rem 0.4rem;
+    cursor: pointer;
+    opacity: 0.9;
+  }
+  .dmk-btn:hover {
+    opacity: 1;
+  }
+  .dmk-btn--primary {
+    font-weight: 600;
+  }
+}
+
+/* Accessible helper */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .device-mockup .device-mockup__content {
+    transform: none !important;
+  }
+}

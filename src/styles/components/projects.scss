@@ -110,7 +110,7 @@
   .panel-card-2:hover,
   .panel-card-3:hover:hover,
   &.is-hovering {
-    @include grid-bg-light;
+    background: $grey-light-color;
     transform: translateY(-3px);
     border: 1px solid #000;
 
