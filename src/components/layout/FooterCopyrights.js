@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import Logotype from "../../assets/images/logo-light.png";
 import "../../styles/components/footer.scss";
+import LogoAnimatedFooter from "../LogoAnimatedFooter";
 
 const FooterCopyrights = () => {
   return (
@@ -8,13 +8,7 @@ const FooterCopyrights = () => {
       <div className="stripe-bg" />
       {/* 1/4 Brand */}
       <div className="site-footer_brand">
-        <img
-          src={Logotype}
-          alt="Switch Case Studio"
-          className="brand_logotype"
-          height="100px"
-          width="100px"
-        />
+        <LogoAnimatedFooter />
       </div>
 
       {/* 1/4 Social */}
