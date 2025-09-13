@@ -34,14 +34,12 @@ const AnimatedHeading = () => {
   }, []);
 
   return (
-    <div className="content">
-      <div className="about-heading" ref={headingRef}>
-        {headingWords.map((word, i) => (
-          <h1 key={i} className="word">
-            {word + " "}
-          </h1>
-        ))}
-      </div>
+    <div className="contact-heading" ref={headingRef}>
+      {headingWords.map((word, i) => (
+        <h1 key={i} className="word">
+          {word + " "}
+        </h1>
+      ))}
     </div>
   );
 };

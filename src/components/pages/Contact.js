@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import AnimatedHeading from "../AnimatedHeading";
-import Statue from "../Statue";
 import ContactForm from "../ContactForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
@@ -11,44 +10,41 @@ const Contact = () => {
 
   return (
     <div id="contact">
-      <Statue />
       <div className="contact-wrapper">
-        <div className="form">
+        {/* Left */}
+        <div className="contact-left">
           <AnimatedHeading />
-          <p>Let's bring your vision to life</p>
-
-          <a
-            href="https://link.foreverbooked.com/widget/booking/ec8dal2CrxqAOd9QwKc2"
-            target="_blank"
-            rel="noreferrer"
-          >
-            - Book a{" "}
-            <span className="highlight-block">
-              Free Call{" "}
+          <div className="contact-text">
+            <a
+              href="https://link.foreverbooked.com/widget/booking/ec8dal2CrxqAOd9QwKc2"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Book Your Free Strategy Session Now{" "}
               <FontAwesomeIcon
                 icon={faArrowUpRightFromSquare}
                 style={{ fontSize: "10px" }}
               />
-            </span>
-          </a>
-
-          <br />
-
-          <a href="mailto:hello@switchcasestudio.com">
-            - Contact us at{" "}
-            <span className="highlight-block">
-              {" "}
-              hello@switchcasestudio.com{" "}
-              <FontAwesomeIcon
-                icon={faArrowUpRightFromSquare}
-                style={{ fontSize: "10px" }}
-              />
-            </span>
-          </a>
-
-          <p>- Or send us a message through the form</p>
-          <ContactForm formRef={formRef} />
+            </a>
+          </div>
+          <div className="contact-details">
+            <div>
+              <p>601 N 3rd AVE, Phoenix, AZ 83005</p>
+            </div>
+            <div>
+              <a href="mailto:hello@switchcasestudio.com">
+                hello@switchcasestudio.com{" "}
+                <FontAwesomeIcon
+                  icon={faArrowUpRightFromSquare}
+                  style={{ fontSize: "10px" }}
+                />
+              </a>
+              <p>925-323-1356</p>
+            </div>
+          </div>
         </div>
+        {/* Right */}
+        <ContactForm formRef={formRef} />
       </div>
     </div>
   );
