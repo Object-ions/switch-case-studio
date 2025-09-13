@@ -6,7 +6,10 @@ import useScrollLock from "../hooks/useScrollLock";
 import projectsData from "../data/projects.json";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRight,
+  faArrowUpRightFromSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import "../styles/components/projects.scss";
 
 const BASE_PROJECTS = [
@@ -106,7 +109,18 @@ const Projects = () => {
       </div>
 
       <div className="panel panel-link">
-        <span>Book a Free Consultaion</span>
+        <a
+          href="https://link.foreverbooked.com/widget/booking/ec8dal2CrxqAOd9QwKc2"
+          target="_blank"
+          rel="noreferrer"
+          style={{ fontWeight: 600 }}
+        >
+          Book a Free Call{" "}
+          <FontAwesomeIcon
+            icon={faArrowUpRightFromSquare}
+            style={{ fontSize: "12px" }}
+          />
+        </a>
       </div>
 
       {/* Details overlay */}

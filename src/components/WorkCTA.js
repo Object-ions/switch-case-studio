@@ -1,7 +1,13 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import '../styles/components/work.scss';
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowRight,
+  faArrowUpRightFromSquare,
+} from "@fortawesome/free-solid-svg-icons";
+
+import "../styles/components/work.scss";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,11 +22,11 @@ const WorkCTA = () => {
         y: 0,
         opacity: 1,
         duration: 1.2,
-        ease: 'power3.out',
+        ease: "power3.out",
         scrollTrigger: {
           trigger: ctaRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
+          start: "top 85%",
+          toggleActions: "play none none reverse",
         },
       }
     );
@@ -32,11 +38,15 @@ const WorkCTA = () => {
         <p>Let's Bring Your Idea To life</p>
         <a
           href="https://link.foreverbooked.com/widget/booking/ec8dal2CrxqAOd9QwKc2"
-          className="highlight-block"
           target="_blank"
           rel="noreferrer"
+          className="highlight-block"
         >
-          & Book a Discovery Call
+          & Book a Free Call{" "}
+          <FontAwesomeIcon
+            icon={faArrowUpRightFromSquare}
+            style={{ fontSize: "12px" }}
+          />
         </a>
       </div>
     </div>

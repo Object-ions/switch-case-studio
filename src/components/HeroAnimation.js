@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
-import "../styles/components/heroAnimation.scss";
 import WelcomeTyped from "./WelcomeTyped";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import "../styles/components/heroAnimation.scss";
 
 const circleVariants = {
   hidden: { opacity: 0, x: 100, scale: 0.8 },
@@ -22,7 +24,12 @@ const HeroAnimation = () => {
   return (
     <section className="hero-animation">
       <div className="background top-blue" />
-      <motion.div className="gradient-block" initial={{ y: 100 }} animate={{ y: 0 }} transition={{ duration: 1 }} />
+      <motion.div
+        className="gradient-block"
+        initial={{ y: 100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 1 }}
+      />
 
       <div className="circles">
         {circles.map((_, i) => (
@@ -44,30 +51,17 @@ const HeroAnimation = () => {
         transition={{ delay: 1.8, duration: 1 }}
       >
         <div className="left">
-        We < br/>
-        <WelcomeTyped/>
-        Digital <br/>
-        Experiences
+          We <br />
+          <WelcomeTyped />
+          Digital <br />
+          Experiences
         </div>
       </motion.div>
 
       <div className="countdown">
-      <a href="#contact" className="cta-button">
-            Ready To Turn The Switch?
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="22"
-              height="22"
-              stroke="currentColor"
-              fill="none"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M5 12h14" />
-              <path d="m12 5 7 7-7 7" />
-            </svg>
-          </a>
+        <a href="#contact" className="cta-button">
+          Ready To Turn The Switch? <FontAwesomeIcon icon={faArrowRight} />
+        </a>
       </div>
     </section>
   );

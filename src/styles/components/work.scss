@@ -2,7 +2,7 @@
 @import "../_mixins.scss";
 
 #work {
-  padding: 1rem 0;
+  // padding: 1rem 0;
   min-height: 100vh;
   font-family: $font-text;
   background: #000;
@@ -11,11 +11,9 @@
 }
 
 .work-wrapper {
-  margin: 3rem auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 8px;
   color: #fff;
 }
 
@@ -30,21 +28,6 @@
   pointer-events: none;
 }
 
-.work-image {
-  position: absolute;
-  // bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: end;
-  z-index: 10;
-
-  img {
-    height: 75vh;
-    transition: transform 0.5s ease-out;
-  }
-}
-
 .highlight-block {
   display: inline-block;
   padding: 0rem 0.2rem;
@@ -57,11 +40,11 @@
 .work-heading {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: 5rem 0 0 0;
   font-size: 3rem;
   font-family: $font-special;
   text-align: center;
-  // width: 70%;
+  width: 70%;
   z-index: 11;
 
   p {
@@ -76,13 +59,13 @@
 
 .work-text {
   z-index: 12;
-  padding: 3rem 1.5rem;
+  padding: 0 1.5rem;
   display: inline;
   max-width: 1200px;
   margin: 0 auto;
 
   p {
-    width: 40%;
+    width: 50%;
     line-height: 1.5;
   }
 }
@@ -93,6 +76,7 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(1, 1fr);
   gap: 8px;
+  padding-bottom: 5rem;
 
   .text-wrapper {
     grid-column-start: 3;
