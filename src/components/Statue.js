@@ -1,14 +1,14 @@
-import { useRef, useEffect } from 'react';
-import gsap from 'gsap';
-import { ReactComponent as StatueSVG } from '../assets/images/half-tone.svg';
-import '../styles/components/statue.scss';
+import { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ReactComponent as StatueSVG } from "../assets/images/half-tone.svg";
+import "../styles/components/statue.scss";
 
 const Statue = () => {
   const svgRef = useRef(null);
 
   useEffect(() => {
     const svgEl = svgRef.current;
-    const turbulence = svgEl?.querySelector('feTurbulence');
+    const turbulence = svgEl?.querySelector("feTurbulence");
 
     if (turbulence) {
       gsap.to(turbulence, {
@@ -16,22 +16,20 @@ const Statue = () => {
         duration: 8,
         repeat: -1,
         yoyo: true,
-        ease: 'sine.inOut',
+        ease: "sine.inOut",
       });
     }
 
-    // 🔥 Remove all chances of hiding
     gsap.set(svgEl, {
       autoAlpha: 1,
       opacity: 1,
-      visibility: 'visible',
+      visibility: "visible",
     });
 
-    // Optional: soft float
     gsap.to(svgEl, {
       y: -5,
       duration: 6,
-      ease: 'sine.inOut',
+      ease: "sine.inOut",
       repeat: -1,
       yoyo: true,
     });

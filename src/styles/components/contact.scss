@@ -1,5 +1,5 @@
-@import '../_variables.scss';
-@import '../_mixins.scss';
+@import "../_variables.scss";
+@import "../_mixins.scss";
 
 #contact {
   margin: 0 auto;
@@ -7,115 +7,77 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  position: relative;
   padding: 0 2rem;
-  background: $grey-color;
+  color: #000;
 
   .contact-wrapper {
-    max-width: 1200px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 0.6fr 1.8fr 0.6fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas:
-      'circle-logo-wrapper form floating-container'
-      '. form floating-container';
-
-    .floating-container {
-      grid-area: floating-container;
-    }
 
     .form {
-      grid-area: form;
-
-      a {
-        padding: 0.15rem 0.5rem;
-        margin: 0.15rem 1.5rem;
-        background-color: $blue-color;
-      }
-
-      p {
-        padding-left: 1.5rem;
-        color: #000;
-      }
-    }
-
-    .circle-logo-wrapper {
-      grid-area: circle-logo-wrapper;
-    }
-
-    form {
-      margin-top: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      opacity: 1;
-      transform: scale(1);
-      transition: all 0.3s ease;
-
-      .form-group {
+      form {
+        margin-top: 1rem;
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.75rem;
+        opacity: 1;
+        transform: scale(1);
+        transition: all 0.3s ease;
 
-        label {
-          font-weight: 400;
-          padding-left: 1.5rem;
-          display: none;
-
-          span {
-            font-size: 0.75rem;
-            color: #888;
-          }
-        }
-
-        input,
-        textarea {
-          padding: 1rem;
-          font-size: 1rem;
-          border: 2px solid #000;
-          border-radius: 2rem;
-          background: none;
-
-          &::placeholder {
-            color: #000;
-          }
-
-          &:focus {
-            outline: none;
-            border-color: $blue-color;
-          }
-        }
-
-        textarea {
-          resize: vertical;
-          height: 10rem;
-        }
-
-        .name-fields {
+        .form-group {
           display: flex;
-          flex-direction: row;
-          gap: 1rem;
+          flex-direction: column;
 
-          input {
-            flex: 1;
+          label {
+            display: none;
+          }
+
+          input,
+          textarea {
+            padding: 0.5rem;
+            font-size: 0.75rem;
+            border: 1px solid #7a7a7a;
+            border-radius: 0.25rem;
+            background: none;
+            font-family: $font-text;
+
+            &::placeholder {
+              color: #000;
+              font-weight: 100;
+            }
+
+            &:focus {
+              outline: none;
+              border-color: $orange-color;
+            }
+          }
+
+          textarea {
+            resize: vertical;
+            height: 5rem;
+          }
+
+          .name-fields {
+            display: flex;
+            flex-direction: row;
+            gap: 0.75rem;
+
+            input {
+              flex: 1;
+            }
           }
         }
-      }
 
-      button {
-        border-radius: 2rem;
-        width: 100%;
-        padding: 1.5rem;
-        font-size: 1rem;
-        color: #fff;
-        background-color: #000;
-        border: none;
+        button {
+          border-radius: 0.25rem;
+          width: 100%;
+          padding: 0.75rem;
+          color: #fff;
+          background-color: #000;
+          border: none;
 
-        &:hover {
-          background-color: $orange-color;
+          &:hover {
+            background-color: $orange-color;
+          }
         }
       }
     }

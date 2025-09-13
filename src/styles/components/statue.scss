@@ -1,22 +1,10 @@
-@import '../_variables.scss';
-@import '../_mixins.scss';
-
 .statue {
-  padding: 2rem;
-  border-right: none;
-  grid-column: span 3 / span 3;
-  grid-row: span 8 / span 8;
   display: flex;
   justify-content: center;
-  align-items: center;
-  position: relative;
 
   .statue-svg {
     position: absolute;
     width: 100%;
-    width: 120%;
-    height: auto;
-    transform-origin: center;
     opacity: 1 !important;
     visibility: visible !important;
     will-change: transform, filter;

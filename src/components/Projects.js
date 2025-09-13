@@ -9,10 +9,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import "../styles/components/projects.scss";
 
-/**
- * Base tiles: layout class + visible label.
- * We merge each with the matching record from projects.json by id.
- */
 const BASE_PROJECTS = [
   { id: 1, label: "Zahav Medspa", panelClass: "panel-hero" },
   { id: 2, label: "ProDani Miami", panelClass: "panel-card-1" },
@@ -49,7 +45,7 @@ const Projects = () => {
   };
 
   return (
-    <section className="projects" aria-label="project overview">
+    <section className="projects" id="projects" aria-label="project overview">
       {/* Header marquee */}
       <div className="panel panel-header">
         <h1 className="marquee" aria-label="Selected Projects">

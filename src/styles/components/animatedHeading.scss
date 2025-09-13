@@ -1,27 +1,20 @@
-@import '../_variables.scss';
-@import '../_mixins.scss';
+@import "../_variables.scss";
+@import "../_mixins.scss";
 
 .content {
-  padding: 2rem;
-  // border: 1px solid #000;
-  border-top: none;
-  border-bottom: none;
-  grid-column: span 8 / span 8;
-  grid-row: span 4 / span 4;
-  grid-column-start: 4;
-  grid-row-start: 3;
+  padding: 5rem 0 0.75rem 0;
 
   .about-heading {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    // align-items: center;
 
     h1 {
       font-family: $font-special;
       font-size: 5rem;
+      line-height: 0.8;
       font-weight: 900;
-      color: $blue-color !important;
+      color: $orange-color !important;
       opacity: 0;
       transform: translateY(30px);
       will-change: opacity, transform;

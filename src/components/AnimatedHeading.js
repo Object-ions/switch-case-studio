@@ -1,19 +1,19 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import '../styles/components/animatedHeading.scss';
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import "../styles/components/animatedHeading.scss";
 
 const AnimatedHeading = () => {
   const headingRef = useRef(null);
   const headingWords = [
     "Let's",
-    'Build',
-    'Something',
-    'Exceptional',
-    'Together',
+    "Build",
+    "Something",
+    "Exceptional",
+    "Together",
   ];
 
   useEffect(() => {
-    const words = gsap.utils.toArray('.about-heading .word');
+    const words = gsap.utils.toArray(".about-heading .word");
 
     gsap.fromTo(
       words,
@@ -23,11 +23,11 @@ const AnimatedHeading = () => {
         y: 0,
         stagger: 0.15,
         duration: 1,
-        ease: 'power3.out',
+        ease: "power3.out",
         scrollTrigger: {
           trigger: headingRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
+          start: "top 80%",
+          toggleActions: "play none none reverse",
         },
       }
     );
@@ -38,7 +38,7 @@ const AnimatedHeading = () => {
       <div className="about-heading" ref={headingRef}>
         {headingWords.map((word, i) => (
           <h1 key={i} className="word">
-            {word + ' '}
+            {word + " "}
           </h1>
         ))}
       </div>
