@@ -10,11 +10,15 @@ const TestimonialHeading = () => {
     const ctx = gsap.context(() => {
       // More visible movement suggestion (feel free to tweak)
       gsap.to(el, {
-        '--x1': '85%', '--y1': '25%',   // larger travel
-        '--x2': '10%', '--y2': '12%',
-        '--x3': '12%', '--y3': '88%',
-        '--x4': '92%', '--y4': '75%',
-        duration: 2,
+        '--x1': '85%',
+        '--y1': '65%', // larger travel
+        '--x2': '10%',
+        '--y2': '12%',
+        '--x3': '12%',
+        '--y3': '88%',
+        '--x4': '92%',
+        '--y4': '75%',
+        duration: 3,
         ease: 'power2.inOut',
         repeat: -1,
         yoyo: true,
