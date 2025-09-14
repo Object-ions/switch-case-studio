@@ -8,24 +8,18 @@ const Tile = ({ proj, onOpen }) => {
       onOpen(proj.id);
     }
   };
-
   return (
     <div
-      className={`panel ${proj.panelClass} projects__tiles-item`}
+      className={`panel ${proj.panelClass}`}
       role="button"
       tabIndex={0}
       onClick={() => onOpen(proj.id)}
       onKeyDown={onKey}
       aria-label={`Open ${proj.label} details`}
-      {...(proj.panelClass === 'panel-card-3'
-        ? { 'data-cursor-color': '#fff' }
-        : {})}
     >
-      {/* We render both labels once and let CSS swap on hover/focus */}
       <span className="panel-label" data-about={`About ${proj.label}`}>
         {proj.label}
       </span>
-
       {proj.tileVersion && (
         <p className="panel-excerpt">
           {proj.tileVersion}
@@ -38,11 +32,11 @@ const Tile = ({ proj, onOpen }) => {
 };
 
 const ProjectsTiles = ({ projects, onOpen }) => (
-  <>
+  <div className="projects-row row-tiles">
     {projects.map((p) => (
       <Tile key={p.id} proj={p} onOpen={onOpen} />
     ))}
-  </>
+  </div>
 );
 
 export default ProjectsTiles;

@@ -35,8 +35,8 @@ const Projects = () => {
 
   return (
     <section className="projects" id="projects" aria-label="project overview">
-      <ProjectsHeader />
       <ProjectsInfoRow />
+      <ProjectsHeader />
       <ProjectsTiles projects={PROJECTS.slice(0, 4)} onOpen={setOpenId} />
 
       {active &&

@@ -2,8 +2,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 
 const ProjectsInfoRow = () => (
-  <>
-    <div className="panel panel-about projects__info">
+  <div className="projects-row row-info">
+    <div className="panel panel-about">
       <h3>WHAT’S BEHIND THE TILE?</h3>
       <p>Hover to Explore</p>
       <p>
@@ -12,11 +12,11 @@ const ProjectsInfoRow = () => (
       </p>
     </div>
 
-    <div className="panel panel-tagline projects__info">
+    <div className="panel panel-tagline">
       <span>WEB · BRAND · INTERACTIVE</span>
     </div>
 
-    <div className="panel panel-link projects__info">
+    <div className="panel panel-link">
       <a
         href="https://link.foreverbooked.com/widget/booking/ec8dal2CrxqAOd9QwKc2"
         target="_blank"
@@ -30,7 +30,7 @@ const ProjectsInfoRow = () => (
         />
       </a>
     </div>
-  </>
+  </div>
 );
 
 export default ProjectsInfoRow;
