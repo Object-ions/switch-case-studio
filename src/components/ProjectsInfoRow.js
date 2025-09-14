@@ -5,7 +5,6 @@ const ProjectsInfoRow = () => (
   <div className="projects-row row-info">
     <div className="panel panel-about">
       <h3>WHAT’S BEHIND THE TILE?</h3>
-      <p>Hover to Explore</p>
       <p>
         Move over a project to reveal its story. <b>Click to dive deeper</b> in
         a popup view.
