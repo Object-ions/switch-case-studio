@@ -8,12 +8,11 @@
   background: #000;
   border-bottom: 1px solid #111;
   color: $white-color;
-  padding: 10px 0;
+  padding: 10px 16px;
 
   &_inner {
     max-width: 1200px;
     margin: 0 auto;
-
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-rows: auto auto;
@@ -47,7 +46,6 @@
     grid-column: 2;
     grid-row: 1;
     justify-self: end;
-
     padding: 6px 36px;
     background: $gradient;
     color: #fff;
@@ -94,28 +92,63 @@
     }
   }
 
-  @media (max-width: 768px) {
-    &_inner {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto auto auto;
-      row-gap: 12px;
+  &_menuBtn {
+    display: none;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    padding: 8px;
+    justify-self: start;
+    position: relative;
+    z-index: 2;
+    color: #fff;
+  }
+
+  @media (max-width: 960px) {
+    .site-header_inner {
+      display: grid;
+      grid-template-columns: 1fr auto; /* brand | menu */
+      grid-template-rows: auto; /* <-- single row */
+      grid-auto-rows: 0; /* prevent stray tracks */
+      column-gap: 16px;
+      padding: 0 16px;
     }
 
-    &_brand {
+    .site-header_brand {
       grid-column: 1;
       grid-row: 1;
     }
-    .headingCTA {
-      grid-column: 1;
-      grid-row: 2;
-      justify-self: start;
-    }
-    &_nav {
-      grid-column: 1;
-      grid-row: 3;
-      justify-self: start;
+    .site-header_menuBtn {
+      grid-column: 2;
+      grid-row: 1;
+      justify-self: end;
     }
 
+    .headingCTA,
+    .site-header_nav {
+      display: none;
+    }
+
+    .site-header_menuBtn {
+      display: inline-flex;
+      grid-column: 2;
+      grid-row: 1;
+      justify-self: end;
+    }
+
+    .site-header_brand {
+      grid-column: 1;
+      grid-row: 1;
+      align-self: center;
+    }
+
+    .headingCTA,
+    .site-header_nav {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
     .brand_logotype {
       height: 36px;
     }

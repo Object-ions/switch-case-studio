@@ -1,8 +1,6 @@
-import { motion } from "framer-motion";
-import WelcomeTyped from "./WelcomeTyped";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import "../styles/components/heroAnimation.scss";
+import { motion } from 'framer-motion';
+import WelcomeTyped from './WelcomeTyped';
+import '../styles/components/heroAnimation.scss';
 
 const circleVariants = {
   hidden: { opacity: 0, x: 100, scale: 0.8 },
@@ -13,7 +11,7 @@ const circleVariants = {
     transition: {
       delay: i * 0.2,
       duration: 0.8,
-      ease: "easeOut",
+      ease: 'easeOut',
     },
   }),
 };
@@ -57,12 +55,6 @@ const HeroAnimation = () => {
           Experiences
         </div>
       </motion.div>
-
-      <div className="countdown">
-        <a href="#contact" className="cta-button">
-          Ready To Turn The Switch? <FontAwesomeIcon icon={faArrowRight} />
-        </a>
-      </div>
     </section>
   );
 };

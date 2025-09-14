@@ -1,5 +1,5 @@
-import "../../styles/components/home.scss";
-import HeroAnimation from "../HeroAnimation";
+import HeroAnimation from '../HeroAnimation';
+import '../../styles/components/home.scss';
 
 const Home = () => {
   return (
