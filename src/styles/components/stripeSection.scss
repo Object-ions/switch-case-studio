@@ -1,10 +1,5 @@
-
-/* Stripe gradient stops (adjust to taste) */
-$g1: #ff834a;
-$g2: #ff8f63;
-$g3: #f39ba0;
-$g4: #eaa8c6;
-$g5: #dab8ff;
+@import '../_variables.scss';
+@import '../_mixins.scss';
 
 .gradient-stripe {
   position: relative;
@@ -16,7 +11,14 @@ $g5: #dab8ff;
 .stripe-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, $g1 0%, $g2 20%, $g3 50%, $g4 75%, $g5 100%);
+  background: linear-gradient(
+    90deg,
+    $g1 0%,
+    $g2 20%,
+    $g3 50%,
+    $g4 75%,
+    $g5 100%
+  );
   filter: contrast(1.02) saturate(1.03);
 }
 
@@ -25,23 +27,25 @@ $g5: #dab8ff;
   position: absolute;
   left: 50%;
   top: 50%;
-  height: 100%;          /* orb equals stripe height */
-  aspect-ratio: 1 / 1;   /* perfect circle */
+  height: 100%; /* orb equals stripe height */
+  aspect-ratio: 1 / 1; /* perfect circle */
   transform: translate(-50%, -50%); /* GSAP animates xPercent */
   border-radius: 50%;
-  overflow: hidden;      /* masks the square image to a circle */
+  overflow: hidden; /* masks the square image to a circle */
   will-change: transform;
-  pointer-events: none;  /* the orb is decorative */
+  pointer-events: none; /* the orb is decorative */
 }
 
 .orb-wrap img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;     /* fills the circle cleanly */
+  object-fit: cover; /* fills the circle cleanly */
 }
 
 /* Reduced motion: static centered orb */
 @media (prefers-reduced-motion: reduce) {
-  .orb-wrap { transform: translate(-50%, -50%) !important; }
+  .orb-wrap {
+    transform: translate(-50%, -50%) !important;
+  }
 }
