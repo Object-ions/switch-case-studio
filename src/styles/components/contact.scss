@@ -22,6 +22,20 @@
 
       .contact-text {
         padding-top: 3rem;
+
+        .contact-cta {
+          display: inline-flex;
+          gap: 0.4rem;
+
+          .contact-cta_icon {
+            transition: transform 180ms ease;
+          }
+
+          &:hover .contact-cta_icon,
+          &:focus-visible .contact-cta_icon {
+            transform: translateY(-5px);
+          }
+        }
       }
 
       .contact-details {
@@ -33,6 +47,14 @@
         a,
         p {
           font-size: 14px;
+          text-decoration: none;
+        }
+        .line {
+          display: block;
+        }
+
+        .contact-phone a {
+          color: inherit;
           text-decoration: none;
         }
       }

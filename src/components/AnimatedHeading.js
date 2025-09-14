@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import '../styles/components/animatedHeading.scss';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const AnimatedHeading = () => {
   const headingRef = useRef(null);
