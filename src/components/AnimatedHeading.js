@@ -16,24 +16,30 @@ const AnimatedHeading = () => {
   ];
 
   useEffect(() => {
-    const words = gsap.utils.toArray('.contact-heading .word');
-
-    gsap.fromTo(
-      words,
-      { opacity: 0, y: 40 },
-      {
-        opacity: 1,
-        y: 0,
-        stagger: 0.15,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: headingRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
-        },
-      }
-    );
+    const ctx = gsap.context(() => {
+      const words = headingRef.current
+        ? headingRef.current.querySelectorAll('.word')
+        : [];
+      gsap.fromTo(
+        words,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.15,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: headingRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse',
+          },
+          immediateRender: false,
+        }
+      );
+    }, headingRef);
+    requestAnimationFrame(() => ScrollTrigger.refresh());
+    return () => ctx.revert();
   }, []);
 
   return (

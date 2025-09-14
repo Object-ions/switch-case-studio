@@ -13,4 +13,8 @@
     transform: translateY(30px);
     will-change: opacity, transform;
   }
+  .word {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

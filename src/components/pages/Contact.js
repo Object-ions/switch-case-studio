@@ -32,7 +32,7 @@ const Contact = () => {
           start: 'top 75%',
           toggleActions: 'play none none reverse',
         },
-        defaults: { ease: 'power3.out' },
+        defaults: { ease: 'power3.out', immediateRender: false },
       });
 
       // CTA
