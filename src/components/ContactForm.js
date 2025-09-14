@@ -148,7 +148,7 @@ const ContactForm = ({ formRef }) => {
       ))}
 
       <button type="submit" ref={buttonRef}>
-        Send
+        Submit
       </button>
     </form>
   );

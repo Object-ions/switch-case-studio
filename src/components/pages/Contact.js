@@ -1,9 +1,9 @@
-import React, { useRef } from "react";
-import AnimatedHeading from "../AnimatedHeading";
-import ContactForm from "../ContactForm";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
-import "../../styles/components/contact.scss";
+import React, { useRef } from 'react';
+import AnimatedHeading from '../AnimatedHeading';
+import ContactForm from '../ContactForm';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
+import '../../styles/components/contact.scss';
 
 const Contact = () => {
   const formRef = useRef();
@@ -20,24 +20,25 @@ const Contact = () => {
               target="_blank"
               rel="noreferrer"
             >
-              Book Your Free Strategy Session Now{" "}
+              Book Your Free Strategy Session Now{' '}
               <FontAwesomeIcon
                 icon={faArrowUpRightFromSquare}
-                style={{ fontSize: "10px" }}
+                style={{ fontSize: '10px' }}
               />
             </a>
           </div>
           <div className="contact-details">
             <div>
-              <p>601 N 3rd AVE, Phoenix, AZ 83005</p>
+              <p>
+                601 N 3rd AVE, <br /> Phoenix, AZ <br />
+                83005
+              </p>
             </div>
             <div>
               <a href="mailto:hello@switchcasestudio.com">
-                hello@switchcasestudio.com{" "}
-                <FontAwesomeIcon
-                  icon={faArrowUpRightFromSquare}
-                  style={{ fontSize: "10px" }}
-                />
+                hello
+                <br />
+                @switchcasestudio.com
               </a>
               <p>925-323-1356</p>
             </div>
