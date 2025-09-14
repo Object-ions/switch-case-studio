@@ -102,19 +102,6 @@ const Testimonials = () => {
               </article>
             ))}
           </div>
-
-          {/* dots */}
-          <div className="dots" role="tablist" aria-label="Select testimonial">
-            {testimonialsData.map((_, i) => (
-              <button
-                key={i}
-                role="tab"
-                aria-selected={i === current}
-                className={`dot ${i === current ? 'is-active' : ''}`}
-                onClick={() => setCurrent(i)}
-              />
-            ))}
-          </div>
         </section>
       </div>
     </section>
