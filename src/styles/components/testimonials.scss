@@ -2,68 +2,118 @@
 @import '../_mixins.scss';
 
 #testimonials {
-  margin: 0;
-  text-align: center;
-  color: $black-color;
-  background: $grey-color;
-  font-family: $font-text;
-  border: 1px solid #ccc; 
   position: relative;
   z-index: 20;
+  color: $black-color;
+  font-family: $font-text;
 
   .testimonial-meta {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 
-    .arrows {
-      visibility: hidden;
+    /* LEFT */
+    .panel-left {
+      text-align: left;
+      padding: clamp(24px, 5vw, 56px);
+
+      .intro {
+        margin-top: 16px;
+        max-width: 38ch;
+        line-height: 1.6;
+        opacity: 0.8;
+      }
     }
 
-    .testimonials-content {
-      width: 50%;
+    /* RIGHT */
+    .panel-stage {
       display: grid;
-      grid-template-rows: repeat(3, 1fr);
+      grid-template-rows: 0.25fr 1fr;
+      gap: 10px;
+      padding: 1px;
+      border: 1px solid $g-bot;
 
-      .testimonial-item {
-        background: linear-gradient(180deg, #f5f5f5, #e6ebed); 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 1rem;
-        border: 1px solid #ccc; 
-        transition: background 0.6s ease; // smooth gradient swap
+      .controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
 
-        &:hover {
-          background: linear-gradient(180deg, $g7 0%, $g6 100%);
-        }
+        .ctrl {
+          appearance: none;
+          border: 1px solid $g-bot;
+          border-top: none;
+          background: none;
+          display: grid;
+          place-items: center;
+          transition: transform 120ms ease, box-shadow 120ms ease;
 
-        .testimonial-image {
-          width: 100px;
-          height: 100px;
-          border-radius: 50%;
-          object-fit: cover;
-        }
-
-        .testimonial-text {
-          font-size: 1rem;
-          margin-bottom: 0.75rem;
-        }
-
-        .testimonial-author {
-          margin-top: auto;
-
-          .author-name {
-            font-size: 1.2rem;
-            font-weight: bold;
+          &:first-child {
+            border-right: none;
+            border-left: none;
           }
 
-          .author-title {
-            font-size: 0.9rem;
-            color: #777;
-            letter-spacing: 1px;
+          &:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+          }
+          &:active {
+            transform: translateY(0);
+            box-shadow: none;
+          }
+        }
+      }
+
+      .slide {
+        display: grid;
+        grid-template-rows: auto auto 1fr;
+        justify-items: center;
+        gap: 24px;
+        padding: 16px;
+
+        .slide-head {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+
+          .slide-index {
+            inline-size: 40px;
+            block-size: 40px;
+            border: 1px solid $g-bot;
+            border-radius: 999px;
+            display: grid;
+            place-items: center;
+            font-weight: 600;
+            font-feature-settings: 'tnum' on;
+          }
+
+          .slide-name {
+            font-size: 40px;
+            line-height: 1.1;
+            letter-spacing: -0.01em;
+          }
+        }
+
+        .slide-company {
+          font-size: 16px;
+          opacity: 0.8;
+        }
+
+        .slide-body {
+          display: grid;
+          grid-template-columns: auto 1fr;
+          gap: 32px;
+          align-items: center;
+          align-content: space-between;
+
+          .avatar {
+            width: 112px;
+            height: 112px;
+            object-fit: cover;
+            border-radius: 6px;
+          }
+
+          .quote {
+            font-size: 20px;
+            line-height: 1.5;
+            font-weight: 300;
           }
         }
       }
