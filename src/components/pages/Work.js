@@ -8,7 +8,7 @@ import '../../styles/components/work.scss';
 
 const Work = () => {
   return (
-    <div id="work" style={{backgroundImage: `url(${BlacGrid})`}}>
+    <div id="work" style={{ backgroundImage: `url(${BlacGrid})` }}>
       <div className="work-wrapper">
         <WorkHeading />
         <WorkMarquee />

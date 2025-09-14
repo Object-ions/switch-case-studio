@@ -1,5 +1,5 @@
-@import "../_variables.scss";
-@import "../_mixins.scss";
+@import '../_variables.scss';
+@import '../_mixins.scss';
 
 #work {
   // padding: 1rem 0;
@@ -18,7 +18,7 @@
 }
 
 .work-wrapper::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   width: 100%;

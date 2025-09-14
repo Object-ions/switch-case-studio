@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import "../../styles/components/footer.scss";
-import LogoAnimatedFooter from "../LogoAnimatedFooter";
+import { Link } from 'react-router-dom';
+import '../../styles/components/footer.scss';
+import LogoAnimatedFooter from '../LogoAnimatedFooter';
 
 const FooterCopyrights = () => {
   return (
@@ -52,7 +52,9 @@ const FooterCopyrights = () => {
 
       {/* 1/4 Copyright */}
       <div className="site-footer_copy">
-        <p>© {new Date().getFullYear()} Switch Case Studio LLC</p>
+        <p>
+          © {new Date().getFullYear()} <br /> Switch Case Studio LLC
+        </p>
       </div>
     </footer>
   );

@@ -17,6 +17,7 @@
       p {
         color: #fff;
         font-weight: 300;
+        text-decoration: underline;
       }
 
       .contact-text {
@@ -32,6 +33,7 @@
         a,
         p {
           font-size: 14px;
+          text-decoration: none;
         }
       }
     }
@@ -77,7 +79,7 @@
 
           &:focus {
             outline: none;
-            border-color: $orange-color;
+            border-color: $g6;
           }
         }
 
@@ -105,7 +107,7 @@
         border: none;
 
         &:hover {
-          background-color: $orange-color;
+          background-color: $g6;
         }
       }
     }
