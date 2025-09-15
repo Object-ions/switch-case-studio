@@ -1,5 +1,5 @@
-@import "../_variables.scss";
-@import "../_mixins.scss";
+@import '../_variables.scss';
+@import '../_mixins.scss';
 .site-footer {
   position: relative;
   width: 100%;
@@ -10,7 +10,7 @@
   align-items: end;
   justify-items: center;
   font-family: $font-text;
-  padding: 3rem 2rem;
+  padding: 5rem 2rem 2rem;
 
   .stripe-bg {
     position: absolute;

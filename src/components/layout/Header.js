@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { useRef, useState } from 'react';
-import Logotype from '../../assets/images/type.svg';
 import SCSLogo from '../SCSLogo';
 import HeaderCTA from './HeaderCTA';
 import MenuIcon from '../MenuIcon';
@@ -36,12 +35,7 @@ const Header = () => {
               aria-label="Switch Case Studio home"
               onMouseEnter={handleHover}
             >
-              <SCSLogo ref={logoRef} width={64} height={64} />
-              <img
-                src={Logotype}
-                alt="Switch Case Studio"
-                className="brand_logotype"
-              />
+              <SCSLogo ref={logoRef} width={200} height="auto" />
             </Link>
           </div>
 

@@ -1,13 +1,13 @@
 'use client';
 
 import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
-import animationData from '../assets/lottie/sundaylogoanimation.json';
+import animationData from '../assets/lottie//animationWhitespaced.json';
 
 const LogoAnimatedFooter = forwardRef(
   (
     {
-      width = 200,
-      height = 200,
+      width = '100%',
+      height = 'auto',
       className = '',
       style = {},
       ariaLabel = 'Animated logo',
