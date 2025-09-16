@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react';
-import { createPortal } from 'react-dom';
-import { Link } from 'react-router-dom';
-import { AnimatePresence, motion } from 'motion/react';
-import SCSLogo from './SCSLogo';
-import MenuIcon from './MenuIcon';
-import '../styles/components/menuModal.scss';
+import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
+import { Link } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import SCSLogo from "./SCSLogo";
+import MenuIcon from "./MenuIcon";
+import "../styles/components/menuModal.scss";
 
 const MenuModal = ({ open, onClose }) => {
   const firstLinkRef = useRef(null);
@@ -12,14 +12,14 @@ const MenuModal = ({ open, onClose }) => {
   // focus + scroll lock
   useEffect(() => {
     if (!open) return;
-    const onKey = (e) => e.key === 'Escape' && onClose();
-    window.addEventListener('keydown', onKey);
+    const onKey = (e) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
     const t = setTimeout(() => firstLinkRef.current?.focus(), 0);
     const html = document.documentElement;
     const prevOverflow = html.style.overflow;
-    html.style.overflow = 'hidden';
+    html.style.overflow = "hidden";
     return () => {
-      window.removeEventListener('keydown', onKey);
+      window.removeEventListener("keydown", onKey);
       clearTimeout(t);
       html.style.overflow = prevOverflow;
     };
@@ -61,7 +61,7 @@ const MenuModal = ({ open, onClose }) => {
             initial={{ y: -8, opacity: 0.98 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -8, opacity: 0.98 }}
-            transition={{ duration: 0.18, ease: 'easeOut' }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
           >
             {/* Col 1 - Logo */}
             <div className="menu-modal__col menu-modal__col--brand">

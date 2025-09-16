@@ -1,31 +1,31 @@
-'use client';
-import { motion } from 'motion/react';
+"use client";
+import { motion } from "framer-motion";
 
 const lineVariants = {
   normal: {
     rotate: 0,
     y: 0,
     opacity: 1,
-    transition: { type: 'spring', stiffness: 260, damping: 20 },
+    transition: { type: "spring", stiffness: 260, damping: 20 },
   },
   animate: (custom) => ({
     rotate: custom === 1 ? 45 : custom === 3 ? -45 : 0,
     y: custom === 1 ? 6 : custom === 3 ? -6 : 0,
     opacity: custom === 2 ? 0 : 1,
-    transition: { type: 'spring', stiffness: 260, damping: 20 },
+    transition: { type: "spring", stiffness: 260, damping: 20 },
   }),
 };
 
 export default function MenuIcon({
   open,
-  className = '',
+  className = "",
   size = 28,
-  color = 'currentColor', // NEW: default to inherit
+  color = "currentColor", // NEW: default to inherit
   strokeWidth = 2, // NEW: make stroke width configurable
   style,
   ...props
 }) {
-  const state = open ? 'animate' : 'normal';
+  const state = open ? "animate" : "normal";
 
   return (
     <div
@@ -44,7 +44,7 @@ export default function MenuIcon({
         strokeWidth={strokeWidth}
         strokeLinecap="round"
         strokeLinejoin="round"
-        style={{ overflow: 'visible' }}
+        style={{ overflow: "visible" }}
         aria-hidden="true"
         focusable="false"
       >
