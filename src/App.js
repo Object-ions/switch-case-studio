@@ -1,22 +1,33 @@
-import { Routes, Route } from 'react-router-dom';
-import MainLayout from './components/layout/MainLayout';
-import Development from './components/pages/Development';
-import Home from './components/pages/Home';
-import Services from './components/pages/Services';
-import Work from './components/pages/Work';
-import Testimonials from './components/pages/Testimonials';
-import ScrollToTop from './components/ScrollToTop';
-import GradientStripe from './components/StripeSection';
-import Projects from './components/Projects';
+import { Routes, Route, Navigate } from "react-router-dom";
+import MainLayout from "./components/layout/MainLayout";
 
-import Orb from './assets/images/orb.avif';
-import './styles/app.scss';
+// Existing pages
+import Home from "./components/pages/Home";
+import Services from "./components/pages/Services";
+import Work from "./components/pages/Work";
+import Testimonials from "./components/pages/Testimonials";
+import ScrollToTop from "./components/ScrollToTop";
+import GradientStripe from "./components/StripeSection";
+import Projects from "./components/Projects";
+
+import Orb from "./assets/images/orb.avif";
+import "./styles/app.scss";
+
+// Pricing page stubs
+import PricingOverview from "./components/pages/pricing/PricingOverview";
+import PricingWebDev from "./components/pages/pricing/PricingWebDev";
+import PricingMarketingAds from "./components/pages/pricing/PricingMarketingAds";
+import PricingHostingMaintenance from "./components/pages/pricing/PricingHostingMaintenance";
+import PricingDesignBranding from "./components/pages/pricing/PricingDesignBranding";
+import PricingAutomationIntegrations from "./components/pages/pricing/PricingAutomationIntegrations";
+import PricingEmailMarketing from "./components/pages/pricing/PricingEmailMarketing";
 
 function App() {
   return (
     <div className="app">
       <ScrollToTop />
       <Routes>
+        {/* Home */}
         <Route
           path="/"
           element={
@@ -35,11 +46,63 @@ function App() {
             </MainLayout>
           }
         />
+
+        {/* Pricing overview */}
         <Route
-          path="/services/development"
+          path="/pricing"
           element={
             <MainLayout>
-              <Development />
+              <PricingOverview />
+            </MainLayout>
+          }
+        />
+
+        {/* Pricing children */}
+        <Route
+          path="/pricing/web-development"
+          element={
+            <MainLayout>
+              <PricingWebDev />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/pricing/marketing-ads"
+          element={
+            <MainLayout>
+              <PricingMarketingAds />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/pricing/hosting-maintenance"
+          element={
+            <MainLayout>
+              <PricingHostingMaintenance />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/pricing/design-branding"
+          element={
+            <MainLayout>
+              <PricingDesignBranding />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/pricing/automation-integrations"
+          element={
+            <MainLayout>
+              <PricingAutomationIntegrations />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/pricing/email-marketing"
+          element={
+            <MainLayout>
+              <PricingEmailMarketing />
             </MainLayout>
           }
         />

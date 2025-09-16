@@ -20,7 +20,7 @@ export default function MenuIcon({
   open,
   className = "",
   size = 28,
-  color = "currentColor", // NEW: default to inherit
+  color = "#fff",
   strokeWidth = 2, // NEW: make stroke width configurable
   style,
   ...props

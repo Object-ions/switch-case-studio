@@ -66,7 +66,7 @@ const MenuModal = ({ open, onClose }) => {
             {/* Col 1 - Logo */}
             <div className="menu-modal__col menu-modal__col--brand">
               <Link to="/" onClick={onClose} className="brand_link">
-                <SCSLogo width={72} height={72} />
+                <SCSLogo width="auto" height={72} />
               </Link>
             </div>
 
@@ -88,7 +88,7 @@ const MenuModal = ({ open, onClose }) => {
                 </li>
                 <li>
                   <a href="#pricing" onClick={onClose}>
-                    Packages
+                    Pricing
                   </a>
                 </li>
                 <li>

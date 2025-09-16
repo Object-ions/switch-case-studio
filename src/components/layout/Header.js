@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
-import { useRef, useState } from 'react';
-import SCSLogo from '../SCSLogo';
-import HeaderCTA from './HeaderCTA';
-import MenuIcon from '../MenuIcon';
-import MenuModal from '../MenuModal';
-import '../../styles/components/header.scss';
+// src/components/layout/Header.js
+import { Link } from "react-router-dom";
+import { useRef, useState } from "react";
+import SCSLogo from "../SCSLogo";
+import HeaderCTA from "./HeaderCTA";
+import MenuIcon from "../MenuIcon";
+import MenuModal from "../MenuModal";
+import "../../styles/components/header.scss";
 
 const Header = () => {
   const logoRef = useRef(null);
@@ -27,7 +28,7 @@ const Header = () => {
             <MenuIcon open={false} size={28} />
           </button>
 
-          {/* Brand spans two rows (from your previous step) */}
+          {/* Brand */}
           <div className="site-header_brand">
             <Link
               to="/"
@@ -39,10 +40,10 @@ const Header = () => {
             </Link>
           </div>
 
-          {/* CTA top-right (hidden on small screens) */}
+          {/* CTA top-right */}
           <HeaderCTA />
 
-          {/* Desktop nav (hidden on small screens) */}
+          {/* Desktop nav */}
           <nav className="site-header_nav" aria-label="Primary">
             <ul className="nav_list">
               <li className="nav_item">
@@ -51,9 +52,61 @@ const Header = () => {
               <li className="nav_item">
                 <a href="#services">Services</a>
               </li>
-              <li className="nav_item">
-                <a href="#pricing">Pricing</a>
+
+              {/* Pricing + submenu (desktop, CSS-only) */}
+              <li className="nav_item nav_item--has-submenu">
+                <Link to="/pricing" className="nav_link">
+                  Pricing
+                </Link>
+                <ul className="submenu">
+                  <li className="submenu__item">
+                    <Link
+                      to="/pricing/web-development"
+                      className="submenu__link"
+                    >
+                      Web Development
+                    </Link>
+                  </li>
+                  <li className="submenu__item">
+                    <Link to="/pricing/marketing-ads" className="submenu__link">
+                      Marketing & Advertisement
+                    </Link>
+                  </li>
+                  <li className="submenu__item">
+                    <Link
+                      to="/pricing/hosting-maintenance"
+                      className="submenu__link"
+                    >
+                      Web Hosting & Maintenance
+                    </Link>
+                  </li>
+                  <li className="submenu__item">
+                    <Link
+                      to="/pricing/design-branding"
+                      className="submenu__link"
+                    >
+                      Design & Branding
+                    </Link>
+                  </li>
+                  <li className="submenu__item">
+                    <Link
+                      to="/pricing/automation-integrations"
+                      className="submenu__link"
+                    >
+                      Automation & Integrations
+                    </Link>
+                  </li>
+                  <li className="submenu__item">
+                    <Link
+                      to="/pricing/email-marketing"
+                      className="submenu__link"
+                    >
+                      Email Marketing
+                    </Link>
+                  </li>
+                </ul>
               </li>
+
               <li className="nav_item">
                 <a href="#projects">Projects</a>
               </li>
