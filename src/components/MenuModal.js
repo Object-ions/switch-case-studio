@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -8,6 +8,8 @@ import "../styles/components/menuModal.scss";
 
 const MenuModal = ({ open, onClose }) => {
   const firstLinkRef = useRef(null);
+  const [openPricing, setOpenPricing] = useState(false);
+  const submenuId = "mm-pricing-submenu";
 
   // focus + scroll lock
   useEffect(() => {
@@ -24,6 +26,11 @@ const MenuModal = ({ open, onClose }) => {
       html.style.overflow = prevOverflow;
     };
   }, [open, onClose]);
+
+  // Close the accordion when modal closes
+  useEffect(() => {
+    if (!open) setOpenPricing(false);
+  }, [open]);
 
   return createPortal(
     <AnimatePresence>
@@ -81,16 +88,81 @@ const MenuModal = ({ open, onClose }) => {
                     Services
                   </a>
                 </li>
+
                 <li>
                   <a href="#work" onClick={onClose}>
                     About
                   </a>
                 </li>
-                <li>
-                  <a href="#pricing" onClick={onClose}>
+
+                {/* Pricing (accordion) */}
+                <li className={`has-submenu ${openPricing ? "is-open" : ""}`}>
+                  <button
+                    type="button"
+                    className="menu-modal__toggle"
+                    aria-expanded={openPricing ? "true" : "false"}
+                    aria-controls={submenuId}
+                    onClick={() => setOpenPricing((v) => !v)}
+                  >
                     Pricing
-                  </a>
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {openPricing && (
+                      <motion.ul
+                        id={submenuId}
+                        className="menu-modal__submenu"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.18, ease: "easeOut" }}
+                      >
+                        <li>
+                          <Link to="/pricing" onClick={onClose}>
+                            Overview
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="/pricing/web-development" onClick={onClose}>
+                            Web Development
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="/pricing/marketing-ads" onClick={onClose}>
+                            Marketing & Advertisement
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/pricing/hosting-maintenance"
+                            onClick={onClose}
+                          >
+                            Web Hosting & Maintenance
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="/pricing/design-branding" onClick={onClose}>
+                            Design & Branding
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/pricing/automation-integrations"
+                            onClick={onClose}
+                          >
+                            Automation & Integrations
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="/pricing/email-marketing" onClick={onClose}>
+                            Email Marketing
+                          </Link>
+                        </li>
+                      </motion.ul>
+                    )}
+                  </AnimatePresence>
                 </li>
+
                 <li>
                   <a href="#testimonials" onClick={onClose}>
                     Reviews
