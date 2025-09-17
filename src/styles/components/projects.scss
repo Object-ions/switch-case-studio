@@ -1,11 +1,19 @@
-@import '../_variables.scss';
-@import '../_mixins.scss';
+@import "../_variables.scss";
+@import "../_mixins.scss";
 
 .projects {
   display: grid;
   grid-auto-rows: auto;
   width: 100%;
   gap: 0;
+
+  /* Tile + Row height variables */
+  --tile-h-min: 200px;
+  --tile-h-max: 24vh;
+
+  /* Rows match tiles */
+  --row-h-min: var(--tile-h-min);
+  --row-h-max: var(--tile-h-max);
 }
 
 /* Each row owns its grid */
@@ -16,17 +24,31 @@
 /* Row: Marquee */
 .row-header {
   grid-template-columns: 1fr;
+  min-height: var(--row-h-min);
+  height: var(--row-h-max);
+}
+
+.row-header .panel {
+  min-height: 100%;
+  height: 100%;
 }
 
 /* Row: Info */
 .row-info {
   grid-template-columns: 2fr 1fr 1fr;
+  min-height: var(--row-h-min);
+  height: var(--row-h-max);
 }
 
-/* Row 3: Tiles*/
+.row-info .panel {
+  min-height: 100%;
+  height: 100%;
+}
+
+/* Row: Tiles */
 .row-tiles {
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(200px, 24vh);
+  grid-auto-rows: minmax(var(--tile-h-min), var(--tile-h-max));
 }
 
 // marquee
@@ -172,7 +194,6 @@
     opacity: 0;
     transform: translateY(6px);
     transition: opacity 0.25s ease, transform 0.25s ease;
-    /* smaller than title */
     font-size: clamp(11px, 0.95vw, 14px);
     color: #222;
   }
@@ -225,10 +246,16 @@
 }
 
 // Responsive
-
 @media (max-width: 960px) {
+  .projects {
+    --tile-h-min: 220px;
+    --tile-h-max: 38vh;
+    --row-h-min: var(--tile-h-min);
+    --row-h-max: var(--tile-h-max);
+  }
+
   .row-tiles {
-    grid-auto-rows: minmax(220px, 38vh);
+    grid-auto-rows: minmax(var(--tile-h-min), var(--tile-h-max));
   }
 }
 
@@ -246,7 +273,6 @@
 }
 
 // ProjectDetails overlay
-
 .project-details-overlay {
   position: fixed;
   inset: 0;
@@ -267,50 +293,5 @@
   }
   to {
     opacity: 1;
-  }
-}
-
-//  Height variables
-.projects {
-  /* Tile row height */
-  --tile-h-min: 200px;
-  --tile-h-max: 24vh;
-
-  /* Header/Info = half of tiles */
-  --row-h-min: calc(var(--tile-h-min) / 2);
-  --row-h-max: calc(var(--tile-h-max) / 2);
-}
-
-/* Tiles use the full height */
-.row-tiles {
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(var(--tile-h-min), var(--tile-h-max));
-}
-
-/* Header and info rows are half-height */
-.row-header .panel,
-.row-info .panel {
-  min-height: var(--row-h-min);
-  height: var(--row-h-max);
-}
-
-/* Responsive: update variables once and everything follows */
-@media (max-width: 960px) {
-  .projects {
-    --tile-h-min: 220px;
-    --tile-h-max: 38vh;
-    --row-h-min: calc(var(--tile-h-min) / 2);
-    --row-h-max: calc(var(--tile-h-max) / 2);
-  }
-}
-
-@media (max-width: 860px) {
-  .projects-row {
-    grid-template-columns: 1fr;
-  }
-  /* optional: keep a practical floor for stacked panels */
-  .row-header .panel,
-  .row-info .panel {
-    min-height: max(160px, var(--row-h-min));
   }
 }
