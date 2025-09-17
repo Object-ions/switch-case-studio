@@ -9,6 +9,7 @@ import {
 import DeviceMockup from "./DeviceMockup";
 import macbookFrame from "../assets/mockups/macbook-frame.png";
 import zahavLong from "../assets/projects/zahav-long.webp";
+import zahavlayout from "../assets/projects/zahav-1.avif";
 
 import projectsData from "../data/projects.json";
 import "../styles/components/projectDetails.scss";
@@ -86,6 +87,7 @@ const ProjectDetails = ({ onClose }) => {
           controls
           className="project-details__mockup"
         />
+        <img src={zahavlayout} alt="" style={{ width: "100%" }} />
 
         <Arrow side="left" hidden={scrolledMedia} />
       </div>

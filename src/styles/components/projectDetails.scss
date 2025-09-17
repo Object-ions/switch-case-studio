@@ -8,7 +8,7 @@
   --cta-h: 56px;
   height: 100dvh;
   overflow: hidden;
-  background: #eaeaea;
+  background: $grey-color;
   opacity: 0;
 
   position: relative;
@@ -34,11 +34,11 @@
     min-width: 0;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    background: #eaeaea;
+    background: $grey-color;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 32px 24px; /* keeps frame off edges */
+    flex-direction: column;
+    align-items: center;
+    padding: 14px;
 
     @media (max-width: 960px) {
       max-height: 48vh;
@@ -79,8 +79,7 @@
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
-    transform: scale(1.1);
-    transform-origin: 50% 0%;
+    transform: none;
   }
 
   @media (max-width: 960px) {
@@ -107,7 +106,7 @@
     min-height: 0;
     min-width: 0;
     overflow: hidden; /* prevent body scroll bleed */
-    background: $white-color;
+    background: $grey-color;
     color: #000;
 
     @media (max-width: 960px) {
