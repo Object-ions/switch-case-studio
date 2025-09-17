@@ -1,36 +1,37 @@
-import { Link } from 'react-router-dom';
-import '../../styles/components/footer.scss';
-import LogoAnimatedFooter from '../LogoAnimatedFooter';
+import { Link } from "react-router-dom";
+import "../../styles/components/footer.scss";
+import LogoAnimatedFooter from "../LogoAnimatedFooter";
 
 const FooterCopyrights = () => {
   return (
     <footer className="site-footer" role="contentinfo">
       <div className="stripe-bg" />
+
       {/* 1/4 Brand */}
       <div className="site-footer_brand">
         <LogoAnimatedFooter />
       </div>
 
-      {/* 1/4 Social */}
+      {/* 1/4 Site nav (matches header) */}
       <div className="site-footer_col">
         <ul>
           <li>
-            <Link to="/privacy">Services</Link>
+            <a href="#services">Services</a>
           </li>
           <li>
-            <Link to="/terms">About</Link>
+            <a href="#work">About</a>
           </li>
           <li>
-            <Link to="/accessibility">Packages</Link>
+            <Link to="/pricing">Pricing</Link>
           </li>
           <li>
-            <Link to="/sitemap">Reviews</Link>
+            <a href="#testimonials">Reviews</a>
           </li>
           <li>
-            <Link to="/accessibility">Projects</Link>
+            <a href="#projects">Projects</a>
           </li>
           <li>
-            <Link to="/sitemap">Contact Us</Link>
+            <a href="#contact">Contact Us</a>
           </li>
         </ul>
       </div>
