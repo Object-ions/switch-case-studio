@@ -1,4 +1,3 @@
-// src/components/layout/Header.js
 import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import SCSLogo from "../SCSLogo";
@@ -17,7 +16,6 @@ const Header = () => {
     <>
       <header className="site-header" role="banner">
         <div className="site-header_inner">
-          {/* Mobile menu button */}
           <button
             className="site-header_menuBtn"
             aria-controls="site-menu"
@@ -28,7 +26,6 @@ const Header = () => {
             <MenuIcon open={false} size={28} />
           </button>
 
-          {/* Brand */}
           <div className="site-header_brand">
             <Link
               to="/"
@@ -40,20 +37,21 @@ const Header = () => {
             </Link>
           </div>
 
-          {/* CTA top-right */}
           <HeaderCTA />
 
-          {/* Desktop nav */}
           <nav className="site-header_nav" aria-label="Primary">
             <ul className="nav_list">
               <li className="nav_item">
-                <a href="#work">About</a>
+                <Link to="/#work" className="nav_link">
+                  About
+                </Link>
               </li>
               <li className="nav_item">
-                <a href="#services">Services</a>
+                <Link to="/#services" className="nav_link">
+                  Services
+                </Link>
               </li>
 
-              {/* Pricing + submenu (desktop, CSS-only) */}
               <li className="nav_item nav_item--has-submenu">
                 <Link to="/pricing" className="nav_link">
                   Pricing
@@ -108,13 +106,19 @@ const Header = () => {
               </li>
 
               <li className="nav_item">
-                <a href="#projects">Projects</a>
+                <Link to="/#projects" className="nav_link">
+                  Projects
+                </Link>
               </li>
               <li className="nav_item">
-                <a href="#testimonials">Reviews</a>
+                <Link to="/#testimonials" className="nav_link">
+                  Reviews
+                </Link>
               </li>
               <li className="nav_item">
-                <a href="#contact">Contact</a>
+                <Link to="/#contact" className="nav_link">
+                  Contact
+                </Link>
               </li>
             </ul>
           </nav>
