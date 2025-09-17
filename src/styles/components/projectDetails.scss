@@ -286,7 +286,7 @@
     border: 1px solid #eee;
     background: #fff;
     padding: 10px;
-    border-radius: 02px;
+    border-radius: 0px;
     margin: 10px;
   }
 
@@ -309,7 +309,7 @@
     padding: 16px 18px;
     background: #fafafa;
     border: 1px solid #eee;
-    border-radius: 04px;
+    border-radius: 0px;
   }
 
   &__resultHeading {
@@ -401,7 +401,7 @@
     font-family: $font-text;
     font-size: 14px;
     padding: 10px 18px;
-    border-radius: 099px;
+    border-radius: 0;
     cursor: pointer;
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.15);
 
