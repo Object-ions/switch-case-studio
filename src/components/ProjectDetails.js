@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
 import Arrow from "./Arrow";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,10 +18,51 @@ const ProjectDetails = ({ onClose }) => {
   const [scrolledMedia, setScrolledMedia] = useState(false);
   const [scrolledPanel, setScrolledPanel] = useState(false);
 
+  // GSAP refs
+  const rootRef = useRef(null);
+  const mediaRef = useRef(null);
+  const panelRef = useRef(null);
+  const headerRef = useRef(null);
+  const mainRef = useRef(null);
+  const bottomRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+
+      // Initial states
+      gsap.set(mediaRef.current, { clipPath: "inset(0 100% 0 0)" });
+      gsap.set(headerRef.current, { y: -20, opacity: 0 });
+      gsap.set(mainRef.current, { y: 20, opacity: 0 });
+      gsap.set(bottomRef.current, { y: 30, opacity: 0 });
+      gsap.set(rootRef.current, { opacity: 1 });
+
+      // Sequence
+      tl.to(mediaRef.current, { clipPath: "inset(0 0% 0 0)", duration: 1 })
+        .to(headerRef.current, { y: 0, opacity: 1, duration: 0.6 }, 0.3)
+        .to(mainRef.current, { y: 0, opacity: 1, duration: 0.8 }, 0.6)
+        .to(bottomRef.current, { y: 0, opacity: 1, duration: 0.8 }, 0.9);
+
+      tl.fromTo(
+        panelRef.current,
+        { boxShadow: "0 0 0 rgba(0,0,0,0)" },
+        { boxShadow: "0 8px 24px rgba(0,0,0,0.08)", duration: 0.4 },
+        0.25
+      );
+    }, rootRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="project-details" aria-label="Project details">
+    <section
+      ref={rootRef}
+      className="project-details"
+      aria-label="Project details"
+    >
       {/* LEFT: image/media */}
       <div
+        ref={mediaRef}
         className="project-details__media"
         aria-label="Project preview"
         onScroll={(e) => {
@@ -45,13 +87,12 @@ const ProjectDetails = ({ onClose }) => {
           className="project-details__mockup"
         />
 
-        {/* Anchor to left column; hide after first scroll */}
         <Arrow side="left" hidden={scrolledMedia} />
       </div>
 
-      {/* RIGHT: panel with header + scrollable content */}
-      <div className="project-details__panel">
-        <header className="project-details__header">
+      {/* RIGHT: panel */}
+      <div ref={panelRef} className="project-details__panel">
+        <header ref={headerRef} className="project-details__header">
           <button
             className="project-details__back"
             type="button"
@@ -77,11 +118,9 @@ const ProjectDetails = ({ onClose }) => {
             }
           }}
         >
-          {/* Right-side scroll hint, anchored to this scroller */}
           <Arrow side="right" hidden={scrolledPanel} />
 
-          <main className="project-details__main">
-            {/* TOP CONTENT (always visible when opened) */}
+          <main ref={mainRef} className="project-details__main">
             <div className="project-details__content">
               <h1 className="project-details__title">{data.title}</h1>
               <p className="project-details__subtitle">{data.subtitle}</p>
@@ -96,13 +135,13 @@ const ProjectDetails = ({ onClose }) => {
               </nav>
             </div>
 
-            {/* BOTTOM BLOCK (reveals from bottom) */}
-            <div className="project-details__bottom">
+            {/* BOTTOM BLOCK */}
+            <div ref={bottomRef} className="project-details__bottom">
               <section className="project-details__cta">
                 <div>
                   <hr />
-                  <p className="project-details__kicker">In dept on</p>
-                  <h2 className="project-details__product">Our Work</h2>
+                  <p className="project-details__kicker">Our Work</p>
+                  <h2 className="project-details__product">in Detail</h2>
                 </div>
                 <a
                   href={data.ctaUrl}
