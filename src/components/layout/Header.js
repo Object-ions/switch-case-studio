@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useRef, useState, useEffect } from "react";
 import SCSLogo from "../SCSLogo";
 import HeaderCTA from "./HeaderCTA";
 import MenuIcon from "../MenuIcon";
@@ -9,6 +9,14 @@ import "../../styles/components/header.scss";
 const Header = () => {
   const logoRef = useRef(null);
   const [open, setOpen] = useState(false);
+  const [submenuOpen, setSubmenuOpen] = useState(false);
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    // Close any menus on route change
+    setOpen(false);
+    setSubmenuOpen(false);
+  }, [pathname, hash]);
 
   const handleHover = () => logoRef.current?.replay();
 
@@ -52,15 +60,26 @@ const Header = () => {
                 </Link>
               </li>
 
-              <li className="nav_item nav_item--has-submenu">
-                <Link to="/pricing" className="nav_link">
+              <li
+                className={`nav_item nav_item--has-submenu ${
+                  submenuOpen ? "is-open" : ""
+                }`}
+                onMouseEnter={() => setSubmenuOpen(true)}
+                onMouseLeave={() => setSubmenuOpen(false)}
+              >
+                <Link
+                  to="/pricing"
+                  className="nav_link"
+                  onClick={() => setSubmenuOpen(false)}
+                >
                   Pricing
                 </Link>
-                <ul className="submenu">
+                <ul className="submenu" role="menu" aria-hidden={!submenuOpen}>
                   <li className="submenu__item">
                     <Link
                       to="/pricing/web-development"
                       className="submenu__link"
+                      onClick={() => setSubmenuOpen(false)}
                     >
                       Web Development
                     </Link>

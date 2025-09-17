@@ -128,21 +128,16 @@
             }
           }
         }
-        /* open submenu on hover + keyboard focus */
-        &:hover .submenu,
-        &:focus-within .submenu {
-          opacity: 1;
-          transform: translateY(0);
-          pointer-events: auto;
-        }
 
-        .nav_item--has-submenu.is-open .submenu {
+        /* OPEN ONLY WHEN JS STATE ADDS .is-open OR VIA KEYBOARD FOCUS */
+        &.is-open .submenu {
           opacity: 1;
           transform: translateY(0);
           pointer-events: auto;
         }
       }
 
+      /* small buffer below the trigger to prevent accidental close flicker */
       .nav_item--has-submenu::after {
         content: "";
         position: absolute;
@@ -202,16 +197,7 @@
     .site-header_brand {
       grid-column: 1;
       grid-row: 1;
-    }
-    .site-header_menuBtn {
-      grid-column: 2;
-      grid-row: 1;
-      justify-self: end;
-    }
-
-    .headingCTA,
-    .site-header_nav {
-      display: none; /* desktop nav hidden on mobile */
+      align-self: center;
     }
 
     .site-header_menuBtn {
@@ -221,12 +207,7 @@
       justify-self: end;
     }
 
-    .site-header_brand {
-      grid-column: 1;
-      grid-row: 1;
-      align-self: center;
-    }
-
+    /* hide desktop nav + CTA on mobile */
     .headingCTA,
     .site-header_nav {
       display: none;
