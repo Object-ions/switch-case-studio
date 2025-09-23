@@ -1,6 +1,5 @@
-import { useEffect, useRef } from 'react';
-import Typed from 'typed.js';
-import '../styles/components/welcomeTyped.scss';
+import { useEffect, useRef } from "react";
+import Typed from "typed.js";
 
 const WelcomeTyped = () => {
   const typedElement = useRef(null);
@@ -8,15 +7,15 @@ const WelcomeTyped = () => {
   useEffect(() => {
     const options = {
       strings: [
-        'Design',
-        'Code',
-        'Shape',
-        'Build',
-        'Craft',
-        'Engineer',
-        'Create',
-        'Launch',
-        'Elevate',
+        "Design",
+        "Code",
+        "Shape",
+        "Build",
+        "Craft",
+        "Engineer",
+        "Create",
+        "Launch",
+        "Elevate",
       ],
       typeSpeed: 150,
       backSpeed: 150,
@@ -36,7 +35,7 @@ const WelcomeTyped = () => {
       <span ref={typedElement} className="typed-container" />
       <span
         className="cursor"
-        style={{ animation: 'blink 0.7s infinite', paddingLeft: '0.2rem' }}
+        style={{ animation: "blink 0.7s infinite", paddingLeft: "0.2rem" }}
       >
         |
       </span>

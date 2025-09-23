@@ -1,5 +1,5 @@
-@import '../_variables.scss';
-@import '../_mixins.scss';
+@import "../_variables.scss";
+@import "../_mixins.scss";
 
 .typed-cursor {
   font-size: 10rem;
@@ -13,16 +13,5 @@
     font-size: 7rem;
     align-items: center;
     justify-content: center;
-  }
-}
-
-.cursor {
-  animation: blink 0.7s infinite;
-  padding-left: 0.2rem;
-  margin-bottom: -5em;
-
-  @media (max-width: 768px) {
-    margin-bottom: 0;
-    padding-left: 0;
   }
 }
