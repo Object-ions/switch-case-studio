@@ -1,10 +1,11 @@
-import WorkHeading from '../WorkHeading';
-import WorkText from '../WorkText';
-import WorkCTA from '../WorkCTA';
-import WorkMarquee from '../WorkMarquee';
+import WorkHeading from "../WorkHeading";
+import WorkText from "../WorkText";
+import WorkCTA from "../WorkCTA";
+import WorkMarquee from "../WorkMarquee";
 
-import BlacGrid from '../../assets/images/black_grid.avif';
-import '../../styles/components/work.scss';
+import BlacGrid from "../../assets/images/black_grid.avif";
+import Moon from "../Moon";
+import "../../styles/components/work.scss";
 
 const Work = () => {
   return (
@@ -12,7 +13,16 @@ const Work = () => {
       <div className="work-wrapper">
         <WorkHeading />
         <WorkMarquee />
-        <WorkText />
+
+        <div className="work-content">
+          <div className="work-text">
+            <WorkText />
+          </div>
+          <div className="work-moon">
+            <Moon />
+          </div>
+        </div>
+
         <WorkCTA />
       </div>
     </div>

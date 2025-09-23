@@ -11,10 +11,8 @@ const Home = () => {
         </video>
 
         <div className="left">
-          We <br />
-          <WelcomeTyped />
-          Digital <br />
-          Experiences
+          {"We "} <WelcomeTyped />
+          {" Digital "} <br /> {"Experiences"}
         </div>
       </div>
     </div>
