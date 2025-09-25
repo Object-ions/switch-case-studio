@@ -7,6 +7,8 @@ import {
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import DeviceMockup from "./DeviceMockup";
+import ZoomLightbox from "./ZoomLightbox";
+
 import macbookFrame from "../assets/mockups/macbook-frame.png";
 import zahavLong from "../assets/projects/zahav-long.webp";
 import zahavlayout from "../assets/projects/zahav-1.avif";
@@ -18,6 +20,7 @@ const ProjectDetails = ({ onClose }) => {
   const data = projectsData[0];
   const [scrolledMedia, setScrolledMedia] = useState(false);
   const [scrolledPanel, setScrolledPanel] = useState(false);
+  const [zoomOpen, setZoomOpen] = useState(false);
 
   // GSAP refs
   const rootRef = useRef(null);
@@ -87,7 +90,14 @@ const ProjectDetails = ({ onClose }) => {
           controls
           className="project-details__mockup"
         />
-        <img src={zahavlayout} alt="" style={{ width: "100%" }} />
+
+        <img
+          src={zahavlayout}
+          alt="Project in detail"
+          className="project-details__img"
+          style={{ width: "100%", cursor: "zoom-in" }}
+          onClick={() => setZoomOpen(true)}
+        />
 
         <Arrow side="left" hidden={scrolledMedia} />
       </div>
@@ -186,6 +196,14 @@ const ProjectDetails = ({ onClose }) => {
           <div className="project-details__divider" role="separator" />
         </div>
       </div>
+
+      {/* Lightbox */}
+      <ZoomLightbox
+        src={zahavlayout}
+        alt="Project in detail"
+        open={zoomOpen}
+        onClose={() => setZoomOpen(false)}
+      />
     </section>
   );
 };
