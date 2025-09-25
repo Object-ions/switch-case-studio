@@ -9,13 +9,15 @@ import "../../styles/components/header.scss";
 const Header = () => {
   const logoRef = useRef(null);
   const [open, setOpen] = useState(false);
-  const [submenuOpen, setSubmenuOpen] = useState(false);
+  const [submenuOpen, setSubmenuOpen] = useState(false); // Pricing submenu
+  const [projectsOpen, setProjectsOpen] = useState(false); // Projects submenu
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
     // Close any menus on route change
     setOpen(false);
     setSubmenuOpen(false);
+    setProjectsOpen(false);
   }, [pathname, hash]);
 
   const handleHover = () => logoRef.current?.replay();
@@ -54,12 +56,14 @@ const Header = () => {
                   About
                 </Link>
               </li>
+
               <li className="nav_item">
                 <Link to="/#services" className="nav_link">
                   Services
                 </Link>
               </li>
 
+              {/* Pricing submenu */}
               <li
                 className={`nav_item nav_item--has-submenu ${
                   submenuOpen ? "is-open" : ""
@@ -85,7 +89,11 @@ const Header = () => {
                     </Link>
                   </li>
                   <li className="submenu__item">
-                    <Link to="/pricing/marketing-ads" className="submenu__link">
+                    <Link
+                      to="/pricing/marketing-ads"
+                      className="submenu__link"
+                      onClick={() => setSubmenuOpen(false)}
+                    >
                       Marketing & Advertisement
                     </Link>
                   </li>
@@ -93,6 +101,7 @@ const Header = () => {
                     <Link
                       to="/pricing/hosting-maintenance"
                       className="submenu__link"
+                      onClick={() => setSubmenuOpen(false)}
                     >
                       Web Hosting & Maintenance
                     </Link>
@@ -101,6 +110,7 @@ const Header = () => {
                     <Link
                       to="/pricing/design-branding"
                       className="submenu__link"
+                      onClick={() => setSubmenuOpen(false)}
                     >
                       Design & Branding
                     </Link>
@@ -109,6 +119,7 @@ const Header = () => {
                     <Link
                       to="/pricing/automation-integrations"
                       className="submenu__link"
+                      onClick={() => setSubmenuOpen(false)}
                     >
                       Automation & Integrations
                     </Link>
@@ -117,6 +128,7 @@ const Header = () => {
                     <Link
                       to="/pricing/email-marketing"
                       className="submenu__link"
+                      onClick={() => setSubmenuOpen(false)}
                     >
                       Email Marketing
                     </Link>
@@ -124,11 +136,61 @@ const Header = () => {
                 </ul>
               </li>
 
-              <li className="nav_item">
-                <Link to="/#projects" className="nav_link">
+              {/* Projects submenu */}
+              <li
+                className={`nav_item nav_item--has-submenu ${
+                  projectsOpen ? "is-open" : ""
+                }`}
+                onMouseEnter={() => setProjectsOpen(true)}
+                onMouseLeave={() => setProjectsOpen(false)}
+              >
+                <Link
+                  to="/projects"
+                  className="nav_link"
+                  onClick={() => setProjectsOpen(false)}
+                >
                   Projects
                 </Link>
+                <ul className="submenu" role="menu" aria-hidden={!projectsOpen}>
+                  <li className="submenu__item">
+                    <Link
+                      to="/projects/zahav-medspa"
+                      className="submenu__link"
+                      onClick={() => setProjectsOpen(false)}
+                    >
+                      Zahav Medspa
+                    </Link>
+                  </li>
+                  <li className="submenu__item">
+                    <Link
+                      to="/projects/prodani-miami"
+                      className="submenu__link"
+                      onClick={() => setProjectsOpen(false)}
+                    >
+                      ProDani Miami
+                    </Link>
+                  </li>
+                  <li className="submenu__item">
+                    <Link
+                      to="/projects/project-b"
+                      className="submenu__link"
+                      onClick={() => setProjectsOpen(false)}
+                    >
+                      Project B
+                    </Link>
+                  </li>
+                  <li className="submenu__item">
+                    <Link
+                      to="/projects/project-c"
+                      className="submenu__link"
+                      onClick={() => setProjectsOpen(false)}
+                    >
+                      Project C
+                    </Link>
+                  </li>
+                </ul>
               </li>
+
               <li className="nav_item">
                 <Link to="/#testimonials" className="nav_link">
                   Reviews

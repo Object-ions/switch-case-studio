@@ -9,9 +9,11 @@ import "../styles/components/menuModal.scss";
 const MenuModal = ({ open, onClose }) => {
   const firstLinkRef = useRef(null);
   const [openPricing, setOpenPricing] = useState(false);
+  const [openProjects, setOpenProjects] = useState(false);
   const submenuId = "mm-pricing-submenu";
+  const projectsSubmenuId = "mm-projects-submenu";
 
-  // focus + scroll lock
+  // focus and scroll lock
   useEffect(() => {
     if (!open) return;
     const onKey = (e) => e.key === "Escape" && onClose();
@@ -27,9 +29,12 @@ const MenuModal = ({ open, onClose }) => {
     };
   }, [open, onClose]);
 
-  // Close the accordion when modal closes
+  // Close accordions when modal closes
   useEffect(() => {
-    if (!open) setOpenPricing(false);
+    if (!open) {
+      setOpenPricing(false);
+      setOpenProjects(false);
+    }
   }, [open]);
 
   return createPortal(
@@ -95,7 +100,7 @@ const MenuModal = ({ open, onClose }) => {
                   </a>
                 </li>
 
-                {/* Pricing (accordion) */}
+                {/* Pricing accordion */}
                 <li className={`has-submenu ${openPricing ? "is-open" : ""}`}>
                   <button
                     type="button"
@@ -156,6 +161,53 @@ const MenuModal = ({ open, onClose }) => {
                         <li>
                           <Link to="/pricing/email-marketing" onClick={onClose}>
                             Email Marketing
+                          </Link>
+                        </li>
+                      </motion.ul>
+                    )}
+                  </AnimatePresence>
+                </li>
+
+                {/* Projects accordion */}
+                <li className={`has-submenu ${openProjects ? "is-open" : ""}`}>
+                  <button
+                    type="button"
+                    className="menu-modal__toggle"
+                    aria-expanded={openProjects ? "true" : "false"}
+                    aria-controls={projectsSubmenuId}
+                    onClick={() => setOpenProjects((v) => !v)}
+                  >
+                    Projects
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {openProjects && (
+                      <motion.ul
+                        id={projectsSubmenuId}
+                        className="menu-modal__submenu"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.18, ease: "easeOut" }}
+                      >
+                        <li>
+                          <Link to="/projects/zahav-medspa" onClick={onClose}>
+                            Zahav Medspa
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="/projects/prodani-miami" onClick={onClose}>
+                            ProDani Miami
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="/projects/project-b" onClick={onClose}>
+                            Project B
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="/projects/project-c" onClick={onClose}>
+                            Project C
                           </Link>
                         </li>
                       </motion.ul>

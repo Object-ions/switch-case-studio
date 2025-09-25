@@ -47,6 +47,24 @@ function App() {
           }
         />
 
+        {/* Projects index + deep links to modal */}
+        <Route
+          path="/projects"
+          element={
+            <MainLayout>
+              <Projects />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/projects/:slug"
+          element={
+            <MainLayout>
+              <Projects />
+            </MainLayout>
+          }
+        />
+
         {/* Pricing overview */}
         <Route
           path="/pricing"
