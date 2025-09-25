@@ -10,14 +10,37 @@ import DeviceMockup from "./DeviceMockup";
 import ZoomLightbox from "./ZoomLightbox";
 
 import macbookFrame from "../assets/mockups/macbook-frame.png";
-import zahavLong from "../assets/projects/zahav-long.webp";
-import zahavlayout from "../assets/projects/zahav-1.avif";
-
-import projectsData from "../data/projects.json";
 import "../styles/components/projectDetails.scss";
 
-const ProjectDetails = ({ onClose }) => {
-  const data = projectsData[0];
+const DEFAULT_VIEWPORT = {
+  leftPct: 17.8468,
+  topPct: 14.9473,
+  widthPct: 64.4509,
+  heightPct: 77.0188,
+};
+
+const ProjectDetails = ({ project, onClose }) => {
+  // Guard: if something goes wrong, avoid crashing
+  const data = project ?? {};
+
+  const {
+    title = "Untitled Project",
+    subtitle = "",
+    description = "",
+    imageSrc,
+    imageAlt,
+    longWeb,
+    services = [],
+    highlights = [],
+    result = "",
+    kicker = "In depth on",
+    productName = "Our Work",
+    ctaLabel = "View Live",
+    ctaUrl,
+    backLabel = "Back to Projects",
+    viewport,
+  } = data;
+
   const [scrolledMedia, setScrolledMedia] = useState(false);
   const [scrolledPanel, setScrolledPanel] = useState(false);
   const [zoomOpen, setZoomOpen] = useState(false);
@@ -58,6 +81,9 @@ const ProjectDetails = ({ onClose }) => {
     return () => ctx.revert();
   }, []);
 
+  const mockupAlt =
+    imageAlt || `${title} homepage preview` || "Project preview";
+
   return (
     <section
       ref={rootRef}
@@ -74,30 +100,29 @@ const ProjectDetails = ({ onClose }) => {
             setScrolledMedia(true);
         }}
       >
-        <DeviceMockup
-          frameSrc={macbookFrame}
-          contentSrc={zahavLong}
-          alt="Zahav Medspa homepage preview"
-          viewport={{
-            leftPct: 17.8468,
-            topPct: 14.9473,
-            widthPct: 64.4509,
-            heightPct: 77.0188,
-          }}
-          speed={35}
-          hold={0.6}
-          pauseOnHover
-          controls
-          className="project-details__mockup"
-        />
+        {longWeb && (
+          <DeviceMockup
+            frameSrc={macbookFrame}
+            contentSrc={longWeb}
+            alt={mockupAlt}
+            viewport={viewport || DEFAULT_VIEWPORT}
+            speed={35}
+            hold={0.6}
+            pauseOnHover
+            controls
+            className="project-details__mockup"
+          />
+        )}
 
-        <img
-          src={zahavlayout}
-          alt="Project in detail"
-          className="project-details__img"
-          style={{ width: "100%", cursor: "zoom-in" }}
-          onClick={() => setZoomOpen(true)}
-        />
+        {imageSrc && (
+          <img
+            src={imageSrc}
+            alt={imageAlt || `${title} detail`}
+            className="project-details__img"
+            style={{ width: "100%", cursor: "zoom-in" }}
+            onClick={() => setZoomOpen(true)}
+          />
+        )}
 
         <Arrow side="left" hidden={scrolledMedia} />
       </div>
@@ -110,7 +135,7 @@ const ProjectDetails = ({ onClose }) => {
             type="button"
             onClick={onClose}
           >
-            <FontAwesomeIcon icon={faArrowLeft} /> Back to Projects
+            <FontAwesomeIcon icon={faArrowLeft} /> {backLabel}
           </button>
           <button
             className="project-details__close"
@@ -134,62 +159,84 @@ const ProjectDetails = ({ onClose }) => {
 
           <main ref={mainRef} className="project-details__main">
             <div className="project-details__content">
-              <h1 className="project-details__title">{data.title}</h1>
-              <p className="project-details__subtitle">{data.subtitle}</p>
-              <p className="project-details__desc">{data.description}</p>
+              <h1 className="project-details__title">{title}</h1>
+              {subtitle && (
+                <p className="project-details__subtitle">{subtitle}</p>
+              )}
+              {description && (
+                <p className="project-details__desc">{description}</p>
+              )}
 
-              <nav className="project-details__socials" aria-label="Services">
-                {data.services.map((s) => (
-                  <p key={s.label} className="project-details__social">
-                    {s.label}
-                  </p>
-                ))}
-              </nav>
+              {!!services.length && (
+                <nav className="project-details__socials" aria-label="Services">
+                  {services.map((s) => (
+                    <p key={s.label} className="project-details__social">
+                      {s.label}
+                    </p>
+                  ))}
+                </nav>
+              )}
             </div>
 
             {/* BOTTOM BLOCK */}
             <div ref={bottomRef} className="project-details__bottom">
-              <section className="project-details__cta">
-                <div>
-                  <hr />
-                  <p className="project-details__kicker">Our Work</p>
-                  <h2 className="project-details__product">in Detail</h2>
-                </div>
-                <a
-                  href={data.ctaUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="project-details__button"
+              {(ctaUrl || ctaLabel) && (
+                <section className="project-details__cta">
+                  <div>
+                    <hr />
+                    <p className="project-details__kicker">{kicker}</p>
+                    <h2 className="project-details__product">{productName}</h2>
+                  </div>
+                  {ctaUrl && (
+                    <a
+                      href={ctaUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="project-details__button"
+                    >
+                      {ctaLabel}{" "}
+                      <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                    </a>
+                  )}
+                </section>
+              )}
+
+              {(highlights.length || result) && (
+                <section
+                  className="project-details__scope"
+                  aria-label="Scope & Results"
                 >
-                  View Live <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-                </a>
-              </section>
+                  {!!highlights.length && (
+                    <>
+                      <h2 className="project-details__scopeHeading">
+                        Scope & Results
+                      </h2>
+                      <ul className="project-details__scopeList">
+                        {highlights.map((item) => (
+                          <li
+                            key={item.title}
+                            className="project-details__scopeItem"
+                          >
+                            <h3 className="project-details__scopeTitle">
+                              {item.title}
+                            </h3>
+                            <p className="project-details__scopeSummary">
+                              {item.summary}
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
 
-              <section
-                className="project-details__scope"
-                aria-label="Scope & Results"
-              >
-                <h2 className="project-details__scopeHeading">
-                  Scope & Results
-                </h2>
-                <ul className="project-details__scopeList">
-                  {data.highlights?.map((item) => (
-                    <li key={item.title} className="project-details__scopeItem">
-                      <h3 className="project-details__scopeTitle">
-                        {item.title}
-                      </h3>
-                      <p className="project-details__scopeSummary">
-                        {item.summary}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="project-details__result">
-                  <h3 className="project-details__resultHeading">Result</h3>
-                  <p className="project-details__resultText">{data.result}</p>
-                </div>
-              </section>
+                  {result && (
+                    <div className="project-details__result">
+                      <h3 className="project-details__resultHeading">Result</h3>
+                      <p className="project-details__resultText">{result}</p>
+                    </div>
+                  )}
+                </section>
+              )}
             </div>
           </main>
 
@@ -198,12 +245,14 @@ const ProjectDetails = ({ onClose }) => {
       </div>
 
       {/* Lightbox */}
-      <ZoomLightbox
-        src={zahavlayout}
-        alt="Project in detail"
-        open={zoomOpen}
-        onClose={() => setZoomOpen(false)}
-      />
+      {imageSrc && (
+        <ZoomLightbox
+          src={imageSrc}
+          alt={imageAlt || `${title} detail`}
+          open={zoomOpen}
+          onClose={() => setZoomOpen(false)}
+        />
+      )}
     </section>
   );
 };

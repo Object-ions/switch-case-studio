@@ -1,7 +1,9 @@
 [
   {
     "id": 1,
-    "imageSrc": "/images/projects/zahav/zahav-1.png",
+    "slug": "zahav-medspa",
+    "imageSrc": "/projects/zahav/1.avif",
+    "longWeb": "/projects/zahav/long.webp",
     "imageAlt": "Zahav Medspa homepage preview",
     "backLabel": "Back to Projects",
     "title": "Zahav Medspa",
@@ -47,5 +49,40 @@
     "productName": "Our Work",
     "ctaLabel": "View Live",
     "ctaUrl": "https://zahavmedspa.com"
+  },
+  {
+    "id": 2,
+    "slug": "prodani-miami",
+    "imageSrc": "/projects/prodani/1.avif",
+    "longWeb": "/projects/prodani/long.webp",
+    "imageAlt": "ProDani Miami homepage preview",
+    "backLabel": "Back to Projects",
+    "title": "ProDani Miami",
+    "subtitle": "Healthy Baking Brand • Miami, FL",
+    "description": "Rebrand + Shopify launch tailored to ProDani’s product story and growth.",
+    "tileVersion": "Branding, Shopify setup, packaging, and email marketing.",
+    "services": [
+      { "label": "#Branding" },
+      { "label": "#Shopify Setup" },
+      { "label": "#Packaging" },
+      { "label": "#Email Marketing" }
+    ],
+    "highlights": [
+      { "title": "Branding", "summary": "Warm, appetizing visual language." },
+      { "title": "Shopify", "summary": "Fast, conversion-first storefront." }
+    ],
+    "result": "Unified brand and store that increased add-to-carts and email opt-ins.",
+    "kicker": "In depth on",
+    "productName": "Our Work",
+    "ctaLabel": "View Live",
+    "ctaUrl": "https://prodanimiami.com",
+    "longSrc": "/assets/projects/prodani/long.webp",
+    "layoutSrc": "/assets/projects/prodani/01.avif",
+    "viewport": {
+      "leftPct": 17.8468,
+      "topPct": 14.9473,
+      "widthPct": 64.4509,
+      "heightPct": 77.0188
+    }
   }
 ]
