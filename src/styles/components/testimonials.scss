@@ -1,5 +1,5 @@
-@import '../_variables.scss';
-@import '../_mixins.scss';
+@import "../_variables.scss";
+@import "../_mixins.scss";
 
 #testimonials {
   position: relative;
@@ -82,7 +82,7 @@
             display: grid;
             place-items: center;
             font-weight: 600;
-            font-feature-settings: 'tnum' on;
+            font-feature-settings: "tnum" on;
           }
 
           .slide-name {
@@ -112,7 +112,7 @@
           }
 
           .quote {
-            font-size: 20px;
+            font-size: 14px;
             line-height: 1.5;
             font-weight: 300;
           }

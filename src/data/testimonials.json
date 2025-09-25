@@ -2,22 +2,15 @@
   {
     "id": 1,
     "name": "Sean Dalal",
-    "title": "Owner of Zahav Medspa",
+    "title": "Owner at Zahav Medspa",
     "testimonial": "Moses has been such a huge help at Zahav. He brought fresh ideas, gave our brand a real creative lift, and made everything from the website to our marketing feel more professional. He’s easy to work with and always seems to know how to take an idea and make it better.",
     "image": "/images/sean.avif"
   },
   {
     "id": 2,
-    "name": "Anthony Milian",
-    "title": "Owner at Tony Milian Fitness",
-    "testimonial": "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    "image": "/images/person2.avif"
-  },
-  {
-    "id": 3,
-    "name": "Anthony Milian",
-    "title": "Owner at Tony Milian Fitness",
-    "testimonial": "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    "image": "/images/person2.avif"
+    "name": "Dani Basel",
+    "title": "Owner ProDani Miami",
+    "testimonial": "Big shoutout to Moses for the amazing branding work! He set up my Shopify store and built the ProDani brand exactly around my needs. I know I wasn’t the easiest client, but Moses went above and beyond on every detail. Couldn’t recommend him more.",
+    "image": "/images/dani.avif"
   }
 ]
