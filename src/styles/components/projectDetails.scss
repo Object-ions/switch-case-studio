@@ -3,6 +3,7 @@
 
 /* Project Details */
 .project-details {
+  /* ---- declarations first ---- */
   --pd-header: 56px;
   --reveal-gap: 33vh;
   --cta-h: 56px;
@@ -17,6 +18,7 @@
   font-family: $font-text;
   opacity: 0;
 
+  /* ---- nested rules after ---- */
   @media (max-width: 960px) {
     grid-template-columns: 1fr;
     height: auto;
@@ -38,14 +40,15 @@
     align-items: center;
     padding: 14px;
 
+    /* move declarations ABOVE nested rules to avoid mixed-decls */
+    scrollbar-width: thin;
+    scrollbar-color: #000 #f5f5f5;
+
     @media (max-width: 960px) {
       max-height: 48vh;
     }
 
     /* scrollbars */
-    scrollbar-width: thin;
-    scrollbar-color: #000 #f5f5f5;
-
     &::-webkit-scrollbar {
       width: 12px;
       height: 12px;
@@ -175,10 +178,11 @@
       100dvh - var(--pd-header) - env(safe-area-inset-bottom, 0px)
     );
 
-    /* scrollbars */
+    /* declarations first */
     scrollbar-width: thin;
     scrollbar-color: #000 #f5f5f5;
 
+    /* scrollbars */
     &::-webkit-scrollbar {
       width: 12px;
       background: #f5f5f5;
