@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import "../../styles/components/footer.scss";
 import LogoAnimatedFooter from "../LogoAnimatedFooter";
+import "../../styles/components/footer.scss";
+import HeaderCTA from "./HeaderCTA";
 
 const FooterCopyrights = () => {
   return (
@@ -10,11 +11,16 @@ const FooterCopyrights = () => {
       {/* 1/4 Brand */}
       <div className="site-footer_brand">
         <LogoAnimatedFooter />
+        <br />
+        <br />
+        <p>
+          © {new Date().getFullYear()} <br /> Switch Case Studio LLC
+        </p>
       </div>
 
       {/* 1/4 Site nav (matches header) */}
       <div className="site-footer_col">
-        <ul>
+        <ul className="site-footer_nav">
           <li>
             <a href="#services">Services</a>
           </li>
@@ -27,9 +33,7 @@ const FooterCopyrights = () => {
           <li>
             <a href="#testimonials">Reviews</a>
           </li>
-          <li>
-            <a href="#projects">Projects</a>
-          </li>
+
           <li>
             <a href="#contact">Contact Us</a>
           </li>
@@ -39,6 +43,38 @@ const FooterCopyrights = () => {
       {/* 1/4 Legal */}
       <div className="site-footer_col">
         <ul>
+          {/* Projects + deep links that open the modal */}
+          <li className="has-submenu">
+            <Link to="/projects">Projects</Link>
+            <ul className="site-footer_submenu">
+              <li>
+                <Link to="/projects/zahav-medspa">Zahav Medspa</Link>
+              </li>
+              <li>
+                <Link to="/projects/prodani-miami">ProDani Miami</Link>
+              </li>
+              <li>
+                <Link to="/projects/project-b">Project B</Link>
+              </li>
+              <li>
+                <Link to="/projects/project-c">Project C</Link>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      {/* 1/4 Copyright */}
+      <div className="site-footer_copy">
+        <ul>
+          <li>
+            <HeaderCTA />
+          </li>
+          <li>
+            {" "}
+            <br />
+            <br />
+          </li>
           <li>
             <Link to="/privacy">Privacy Policy</Link>
           </li>
@@ -49,13 +85,6 @@ const FooterCopyrights = () => {
             <Link to="/accessibility">Accessibility Statement</Link>
           </li>
         </ul>
-      </div>
-
-      {/* 1/4 Copyright */}
-      <div className="site-footer_copy">
-        <p>
-          © {new Date().getFullYear()} <br /> Switch Case Studio LLC
-        </p>
       </div>
     </footer>
   );
