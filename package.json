@@ -32,7 +32,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "node -e \"const fs=require('fs'),p='node_modules/@mediapipe/tasks-vision/vision_bundle_mjs.js.map'; if(!fs.existsSync(p)){fs.mkdirSync(require('path').dirname(p),{recursive:true}); fs.writeFileSync(p,'{\\\"version\\\":3,\\\"sources\\\":[],\\\"names\\\":[],\\\"mappings\\\":\\\"\\\"}');}\""
   },
   "eslintConfig": {
     "extends": [

@@ -6,10 +6,6 @@
   --pd-header: 56px;
   --reveal-gap: 33vh;
   --cta-h: 56px;
-  height: 100dvh;
-  overflow: hidden;
-  background: $grey-color;
-  opacity: 0;
 
   position: relative;
   z-index: 1;
@@ -17,7 +13,9 @@
   grid-template-columns: 1fr 1fr;
   height: 100dvh;
   overflow: hidden; /* contain scroll inside columns */
+  background: $grey-color;
   font-family: $font-text;
+  opacity: 0;
 
   @media (max-width: 960px) {
     grid-template-columns: 1fr;
@@ -84,11 +82,9 @@
 
   @media (max-width: 960px) {
     &__mockup {
-      // remove scale so 620px is the true visual max
-      transform: none;
-      // cap the width while allowing smaller screens to shrink it
-      max-width: 620px; // hard cap
-      width: min(100%, 620px); // guard for very small screens
+      transform: none; /* keep real size */
+      max-width: 620px; /* hard cap */
+      width: min(100%, 620px); /* guard for very small screens */
     }
   }
 
@@ -123,7 +119,6 @@
     padding: 0 0.75rem; /* horizontal only */
     color: $white-color;
     background: #000;
-    block-size: var(--pd-header);
     block-size: var(--pd-header);
 
     a {
@@ -173,8 +168,6 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
-    height: calc(100dvh - var(--pd-header));
-    max-height: calc(100dvh - var(--pd-header));
 
     /* viewport minus header with safe-area consideration */
     height: calc(100dvh - var(--pd-header) - env(safe-area-inset-bottom, 0px));
@@ -356,7 +349,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    min-height: var(--cta-h); /* NEW */
+    min-height: var(--cta-h);
 
     &::before {
       content: "";
@@ -409,12 +402,4 @@
       color: #000;
     }
   }
-}
-
-.project-details {
-  --pd-header: 56px;
-  --reveal-gap: 33vh;
-  --cta-h: 56px;
-  height: 100dvh;
-  overflow: hidden;
 }

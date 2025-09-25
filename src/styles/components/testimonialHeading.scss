@@ -1,5 +1,5 @@
-@import '../_variables.scss';
-@import '../_mixins.scss';
+@import "../_variables.scss";
+@import "../_mixins.scss";
 
 .testimonial-head {
   // palette
@@ -61,10 +61,13 @@
     /* crisper edges without looking outlined */
     text-rendering: geometricPrecision;
     -webkit-font-smoothing: antialiased;
+
+    /* moved ABOVE the nested @supports to avoid mixed-decls warning */
+    text-shadow: 0 0 0.01em rgba(0, 0, 0, 0.02);
+
     @supports (-webkit-text-stroke: 1px black) {
       -webkit-text-stroke: 0.35px rgba(0, 0, 0, 0.08);
     }
-    text-shadow: 0 0 0.01em rgba(0, 0, 0, 0.02);
 
     @media (prefers-reduced-motion: reduce) {
       animation: none;
