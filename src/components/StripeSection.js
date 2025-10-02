@@ -52,11 +52,7 @@ export default function GradientStripeImage({
   const cssSize = typeof size === 'number' ? `${size}px` : String(size);
 
   return (
-    <div
-      className="gradient-stripe"
-      ref={stripeRef}
-      style={{ ['--stripe-size']: cssSize }}
-    >
+    <div className="gradient-stripe" ref={stripeRef} style={{ cssSize }}>
       <div className="stripe-bg" />
       <div className="orb-wrap" ref={orbRef} aria-hidden="true">
         <img
