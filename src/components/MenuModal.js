@@ -1,29 +1,41 @@
-import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
-import { Link } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
-import SCSLogo from "./SCSLogo";
-import MenuIcon from "./MenuIcon";
-import "../styles/components/menuModal.scss";
+import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { Link } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+import SCSLogo from './SCSLogo';
+import MenuIcon from './MenuIcon';
+import '../styles/components/menuModal.scss';
 
 const MenuModal = ({ open, onClose }) => {
   const firstLinkRef = useRef(null);
   const [openPricing, setOpenPricing] = useState(false);
   const [openProjects, setOpenProjects] = useState(false);
-  const submenuId = "mm-pricing-submenu";
-  const projectsSubmenuId = "mm-projects-submenu";
+  const submenuId = 'mm-pricing-submenu';
+  const projectsSubmenuId = 'mm-projects-submenu';
+  const [logoWidth, setLogoWidth] = useState(200); // default desktop
+
+  useEffect(() => {
+    // update on resize
+    const handleResize = () => {
+      setLogoWidth(window.innerWidth <= 768 ? 100 : 200);
+    };
+
+    handleResize(); // run on mount
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // focus and scroll lock
   useEffect(() => {
     if (!open) return;
-    const onKey = (e) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", onKey);
+    const onKey = (e) => e.key === 'Escape' && onClose();
+    window.addEventListener('keydown', onKey);
     const t = setTimeout(() => firstLinkRef.current?.focus(), 0);
     const html = document.documentElement;
     const prevOverflow = html.style.overflow;
-    html.style.overflow = "hidden";
+    html.style.overflow = 'hidden';
     return () => {
-      window.removeEventListener("keydown", onKey);
+      window.removeEventListener('keydown', onKey);
       clearTimeout(t);
       html.style.overflow = prevOverflow;
     };
@@ -73,12 +85,12 @@ const MenuModal = ({ open, onClose }) => {
             initial={{ y: -8, opacity: 0.98 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -8, opacity: 0.98 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
+            transition={{ duration: 0.18, ease: 'easeOut' }}
           >
             {/* Col 1 - Logo */}
             <div className="menu-modal__col menu-modal__col--brand">
               <Link to="/" onClick={onClose} className="brand_link">
-                <SCSLogo width="auto" height={72} />
+                <SCSLogo width={logoWidth} height="auto" />
               </Link>
             </div>
 
@@ -101,11 +113,11 @@ const MenuModal = ({ open, onClose }) => {
                 </li>
 
                 {/* Pricing accordion */}
-                <li className={`has-submenu ${openPricing ? "is-open" : ""}`}>
+                <li className={`has-submenu ${openPricing ? 'is-open' : ''}`}>
                   <button
                     type="button"
                     className="menu-modal__toggle"
-                    aria-expanded={openPricing ? "true" : "false"}
+                    aria-expanded={openPricing ? 'true' : 'false'}
                     aria-controls={submenuId}
                     onClick={() => setOpenPricing((v) => !v)}
                   >
@@ -118,9 +130,9 @@ const MenuModal = ({ open, onClose }) => {
                         id={submenuId}
                         className="menu-modal__submenu"
                         initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
+                        animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.18, ease: "easeOut" }}
+                        transition={{ duration: 0.18, ease: 'easeOut' }}
                       >
                         <li>
                           <Link to="/pricing" onClick={onClose}>
@@ -169,11 +181,11 @@ const MenuModal = ({ open, onClose }) => {
                 </li>
 
                 {/* Projects accordion */}
-                <li className={`has-submenu ${openProjects ? "is-open" : ""}`}>
+                <li className={`has-submenu ${openProjects ? 'is-open' : ''}`}>
                   <button
                     type="button"
                     className="menu-modal__toggle"
-                    aria-expanded={openProjects ? "true" : "false"}
+                    aria-expanded={openProjects ? 'true' : 'false'}
                     aria-controls={projectsSubmenuId}
                     onClick={() => setOpenProjects((v) => !v)}
                   >
@@ -186,9 +198,9 @@ const MenuModal = ({ open, onClose }) => {
                         id={projectsSubmenuId}
                         className="menu-modal__submenu"
                         initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
+                        animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.18, ease: "easeOut" }}
+                        transition={{ duration: 0.18, ease: 'easeOut' }}
                       >
                         <li>
                           <Link to="/projects/zahav-medspa" onClick={onClose}>

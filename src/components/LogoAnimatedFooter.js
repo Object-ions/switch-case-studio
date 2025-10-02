@@ -6,7 +6,7 @@ import animationData from '../assets/lottie//animationWhitespaced.json';
 const LogoAnimatedFooter = forwardRef(
   (
     {
-      width = '100%',
+      width = '30%',
       height = 'auto',
       className = '',
       style = {},

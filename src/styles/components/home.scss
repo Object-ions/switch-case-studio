@@ -1,5 +1,5 @@
-@import "../_variables.scss";
-@import "../_mixins.scss";
+@import '../_variables.scss';
+@import '../_mixins.scss';
 
 #home {
   width: 100vw;
@@ -39,5 +39,28 @@
     color: #fff;
     padding: 0 100px;
     font-family: $font-special;
+  }
+
+  /* Tablet breakpoint: 768px - 1024px */
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .left {
+      bottom: 4rem;
+      right: 1.5rem;
+      font-size: 1.5rem;
+      padding: 0 60px;
+    }
+  }
+
+  /* Mobile breakpoint: under 768px */
+  @media (max-width: 768px) {
+    .left {
+      bottom: 3rem;
+      right: 1rem;
+      font-size: 1.25rem;
+      padding: 0 20px;
+      text-align: center;
+      left: 1rem;
+      right: 1rem;
+    }
   }
 }

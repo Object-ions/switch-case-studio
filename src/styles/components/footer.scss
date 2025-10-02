@@ -1,5 +1,5 @@
-@import "../_variables.scss";
-@import "../_mixins.scss";
+@import '../_variables.scss';
+@import '../_mixins.scss';
 .site-footer {
   position: relative;
   width: 100%;
@@ -67,10 +67,34 @@
     font-size: 0.8rem;
   }
 
+  /* Tablet breakpoint: 768px - 1024px */
+  @media (max-width: 1024px) and (min-width: 769px) {
+    padding: 4rem 1.5rem 1.5rem;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 2rem;
+    column-gap: 2rem;
+
+    .site-footer_brand {
+      // grid-column: 1 / -1;
+      justify-self: center;
+      text-align: center;
+    }
+
+    .site-footer_col {
+      justify-self: center;
+    }
+
+    .site-footer_copy {
+      justify-self: center;
+      text-align: center;
+    }
+  }
+
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     row-gap: 1.5rem;
     text-align: center;
+    padding: 3rem 1rem 1rem;
 
     .site-footer_copy {
       text-align: center;

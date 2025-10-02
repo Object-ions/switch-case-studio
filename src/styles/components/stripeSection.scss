@@ -4,6 +4,7 @@
 .gradient-stripe {
   position: relative;
   width: 100%;
+  height: var(--stripe-size, 420px); // responsive height lives here
   overflow: clip;
   isolation: isolate;
 }
@@ -29,18 +30,18 @@
   top: 50%;
   height: 100%; /* orb equals stripe height */
   aspect-ratio: 1 / 1; /* perfect circle */
-  transform: translate(-50%, -50%); /* GSAP animates xPercent */
+  transform: translate(-50%, -50%);
   border-radius: 50%;
-  overflow: hidden; /* masks the square image to a circle */
+  overflow: hidden;
   will-change: transform;
-  pointer-events: none; /* the orb is decorative */
+  pointer-events: none;
 }
 
 .orb-wrap img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* fills the circle cleanly */
+  object-fit: cover;
 }
 
 /* Reduced motion: static centered orb */

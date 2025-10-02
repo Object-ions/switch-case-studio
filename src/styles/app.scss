@@ -17,9 +17,9 @@ html {
 }
 
 body {
+  width: 100%;
   background: $grey-color;
   font-family: $font-text;
-  color: $blue-color;
   cursor: none;
 }
 
@@ -60,12 +60,45 @@ h6 {
   color: white;
 }
 
-.statue, .statue-svg, #Layer_1 { pointer-events: none !important; }
-.loader, .loader-overlay { pointer-events: none !important; }
+.statue,
+.statue-svg,
+#Layer_1 {
+  pointer-events: none !important;
+}
+.loader,
+.loader-overlay {
+  pointer-events: none !important;
+}
 
 /* make sure your project tiles can be clicked even if something overlaps */
 .projects .panel {
   position: relative;
   z-index: 1;
   cursor: none;
+}
+
+/* Responsive images and videos */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Ensure background videos scale properly */
+.background-video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive typography scaling */
+@media (max-width: 1024px) and (min-width: 769px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 13px;
+  }
 }

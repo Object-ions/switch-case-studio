@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import LogoAnimatedFooter from "../LogoAnimatedFooter";
-import "../../styles/components/footer.scss";
-import HeaderCTA from "./HeaderCTA";
+import { Link } from 'react-router-dom';
+import LogoAnimatedFooter from '../LogoAnimatedFooter';
+import HeaderCTA from './HeaderCTA';
+import '../../styles/components/footer.scss';
 
 const FooterCopyrights = () => {
   return (
@@ -71,7 +71,7 @@ const FooterCopyrights = () => {
             <HeaderCTA />
           </li>
           <li>
-            {" "}
+            {' '}
             <br />
             <br />
           </li>

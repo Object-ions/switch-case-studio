@@ -1,26 +1,27 @@
-import { Routes, Route } from "react-router-dom";
-import MainLayout from "./components/layout/MainLayout";
+import { Routes, Route } from 'react-router-dom';
+import MainLayout from './components/layout/MainLayout';
 
 // Existing pages
-import Home from "./components/pages/Home";
-import Services from "./components/pages/Services";
-import Work from "./components/pages/Work";
-import Testimonials from "./components/pages/Testimonials";
-import ScrollToTop from "./components/ScrollToTop";
-import GradientStripe from "./components/StripeSection";
-import Projects from "./components/Projects";
+import Home from './components/pages/Home';
+import Services from './components/pages/Services';
+import Work from './components/pages/Work';
+import Testimonials from './components/pages/Testimonials';
+import ScrollToTop from './components/ScrollToTop';
+import GradientStripe from './components/StripeSection';
+import Projects from './components/Projects';
 
-import Orb from "./assets/images/orb.avif";
-import "./styles/app.scss";
+import Orb from './assets/images/orb.avif';
 
 // Pricing page stubs
-import PricingOverview from "./components/pages/pricing/PricingOverview";
-import PricingWebDev from "./components/pages/pricing/PricingWebDev";
-import PricingMarketingAds from "./components/pages/pricing/PricingMarketingAds";
-import PricingHostingMaintenance from "./components/pages/pricing/PricingHostingMaintenance";
-import PricingDesignBranding from "./components/pages/pricing/PricingDesignBranding";
-import PricingAutomationIntegrations from "./components/pages/pricing/PricingAutomationIntegrations";
-import PricingEmailMarketing from "./components/pages/pricing/PricingEmailMarketing";
+import PricingOverview from './components/pages/pricing/PricingOverview';
+import PricingWebDev from './components/pages/pricing/PricingWebDev';
+import PricingMarketingAds from './components/pages/pricing/PricingMarketingAds';
+import PricingHostingMaintenance from './components/pages/pricing/PricingHostingMaintenance';
+import PricingDesignBranding from './components/pages/pricing/PricingDesignBranding';
+import PricingAutomationIntegrations from './components/pages/pricing/PricingAutomationIntegrations';
+import PricingEmailMarketing from './components/pages/pricing/PricingEmailMarketing';
+
+import './styles/app.scss';
 
 function App() {
   return (

@@ -1,10 +1,10 @@
-import { Link, useLocation } from "react-router-dom";
-import { useRef, useState, useEffect } from "react";
-import SCSLogo from "../SCSLogo";
-import HeaderCTA from "./HeaderCTA";
-import MenuIcon from "../MenuIcon";
-import MenuModal from "../MenuModal";
-import "../../styles/components/header.scss";
+import { Link, useLocation } from 'react-router-dom';
+import { useRef, useState, useEffect } from 'react';
+import SCSLogo from '../SCSLogo';
+import HeaderCTA from './HeaderCTA';
+import MenuIcon from '../MenuIcon';
+import MenuModal from '../MenuModal';
+import '../../styles/components/header.scss';
 
 const Header = () => {
   const logoRef = useRef(null);
@@ -12,6 +12,18 @@ const Header = () => {
   const [submenuOpen, setSubmenuOpen] = useState(false); // Pricing submenu
   const [projectsOpen, setProjectsOpen] = useState(false); // Projects submenu
   const { pathname, hash } = useLocation();
+  const [logoWidth, setLogoWidth] = useState(200); // default desktop
+
+  useEffect(() => {
+    // update on resize
+    const handleResize = () => {
+      setLogoWidth(window.innerWidth <= 768 ? 100 : 200);
+    };
+
+    handleResize(); // run on mount
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     // Close any menus on route change
@@ -43,7 +55,7 @@ const Header = () => {
               aria-label="Switch Case Studio home"
               onMouseEnter={handleHover}
             >
-              <SCSLogo ref={logoRef} width={200} height="auto" />
+              <SCSLogo ref={logoRef} width={logoWidth} height="auto" />
             </Link>
           </div>
 
@@ -66,7 +78,7 @@ const Header = () => {
               {/* Pricing submenu */}
               <li
                 className={`nav_item nav_item--has-submenu ${
-                  submenuOpen ? "is-open" : ""
+                  submenuOpen ? 'is-open' : ''
                 }`}
                 onMouseEnter={() => setSubmenuOpen(true)}
                 onMouseLeave={() => setSubmenuOpen(false)}
@@ -139,7 +151,7 @@ const Header = () => {
               {/* Projects submenu */}
               <li
                 className={`nav_item nav_item--has-submenu ${
-                  projectsOpen ? "is-open" : ""
+                  projectsOpen ? 'is-open' : ''
                 }`}
                 onMouseEnter={() => setProjectsOpen(true)}
                 onMouseLeave={() => setProjectsOpen(false)}

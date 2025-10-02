@@ -1,10 +1,8 @@
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
-
-import "../styles/components/work.scss";
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,11 +17,11 @@ const WorkCTA = () => {
         y: 0,
         opacity: 1,
         duration: 1.2,
-        ease: "power3.out",
+        ease: 'power3.out',
         scrollTrigger: {
           trigger: ctaRef.current,
-          start: "top 85%",
-          toggleActions: "play none none reverse",
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
         },
       }
     );
@@ -39,10 +37,10 @@ const WorkCTA = () => {
           rel="noreferrer"
           className="highlight-block"
         >
-          & Book a Free Call{" "}
+          & Book a Free Call{' '}
           <FontAwesomeIcon
             icon={faArrowUpRightFromSquare}
-            style={{ fontSize: "12px" }}
+            style={{ fontSize: '12px' }}
           />
         </a>
       </div>

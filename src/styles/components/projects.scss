@@ -1,5 +1,5 @@
-@import "../_variables.scss";
-@import "../_mixins.scss";
+@import '../_variables.scss';
+@import '../_mixins.scss';
 
 .projects {
   display: grid;
@@ -8,8 +8,8 @@
   gap: 0;
 
   /* Tile + Row height variables */
-  --tile-h-min: 200px;
-  --tile-h-max: 24vh;
+  --tile-h-min: 150px;
+  --tile-h-max: 15vh;
 
   /* Rows match tiles */
   --row-h-min: var(--tile-h-min);
@@ -155,7 +155,6 @@
 }
 .panel-link {
   background: $g7;
-  color: $black-color;
 }
 
 .panel-hero {
@@ -165,10 +164,10 @@
   background: $g2;
 }
 .panel-card-2 {
-  background: $g3;
+  background: $g4;
 }
 .panel-card-3 {
-  background: $g4;
+  background: $g5;
 }
 
 /* Hover interactions */
@@ -180,7 +179,7 @@
 .panel-card-1:focus-visible,
 .panel-card-2:focus-visible,
 .panel-card-3:focus-visible {
-  background: $g5;
+  background: $g7;
   transform: translateY(-3px);
 
   .panel-label {
@@ -246,29 +245,80 @@
 }
 
 // Responsive
-@media (max-width: 960px) {
+/* Tablet breakpoint: 768px - 1024px */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .row-info {
+    grid-template-columns: 1fr 1fr;
+
+    .panel-link {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .row-tiles {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(var(--tile-h-min), var(--tile-h-max));
+  }
+
+  .marquee {
+    font-size: clamp(24px, 4vw, 64px);
+    padding: clamp(12px, 1.2vw, 18px) clamp(10px, 1.5vw, 20px);
+  }
+}
+
+/* Mobile breakpoint: under 768px */
+@media (max-width: 768px) {
   .projects {
-    --tile-h-min: 220px;
-    --tile-h-max: 38vh;
+    --tile-h-min: 160px;
+    --tile-h-max: 10vh;
     --row-h-min: var(--tile-h-min);
     --row-h-max: var(--tile-h-max);
   }
 
-  .row-tiles {
-    grid-auto-rows: minmax(var(--tile-h-min), var(--tile-h-max));
-  }
-}
-
-@media (max-width: 860px) {
-  .projects-row {
+  .row-info {
     grid-template-columns: 1fr;
+
+    .panel-link,
+    .panel-tagline {
+      padding: 5px 0;
+    }
+  }
+
+  .row-tiles {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, minmax(var(--tile-h-min), var(--tile-h-max)));
+  }
+
+  .marquee {
+    font-size: clamp(20px, 6vw, 48px);
+    padding: clamp(10px, 2vw, 16px) clamp(8px, 2vw, 16px);
+    gap: 2rem;
   }
 
   .panel-about {
-    min-height: 300px;
+    min-height: 250px;
+    padding: 1.5rem;
+
+    h3 {
+      font-size: clamp(14px, 1.2vw, 18px);
+    }
+
+    p {
+      font-size: clamp(12px, 1vw, 16px);
+    }
   }
+
   .panel {
-    min-height: 220px;
+    min-height: 160px;
+
+    .panel-label {
+      font-size: clamp(10px, 1vw, 14px);
+    }
+
+    .panel-excerpt {
+      font-size: clamp(10px, 0.9vw, 13px);
+      margin: 8px 12px 0;
+    }
   }
 }
 
