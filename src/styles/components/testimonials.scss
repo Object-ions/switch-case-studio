@@ -13,15 +13,16 @@
 
     /* LEFT */
     .panel-left {
-      text-align: left;
+      text-align: center;
       padding: 2rem 0;
       margin: 0 2rem;
 
       .intro {
         margin-top: 16px;
-        max-width: 38ch;
         line-height: 1.6;
         opacity: 0.8;
+        font-size: 1.2rem;
+        font-weight: 300;
       }
     }
 

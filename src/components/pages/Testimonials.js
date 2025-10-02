@@ -40,10 +40,7 @@ const Testimonials = () => {
         {/* LEFT PANEL */}
         <aside className="panel-left" aria-label="Section heading and intro">
           <TestimonialHeading />
-          <p className="intro">
-            See what our clients say about the impact of our work and
-            partnership.
-          </p>
+          <p className="intro">About the impact of our work and partnership.</p>
         </aside>
 
         {/* RIGHT PANEL */}

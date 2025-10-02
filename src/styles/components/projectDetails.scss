@@ -1,5 +1,5 @@
-@import "../_variables.scss";
-@import "../_mixins.scss";
+@import '../_variables.scss';
+@import '../_mixins.scss';
 
 /* Project Details */
 .project-details {
@@ -356,11 +356,10 @@
     min-height: var(--cta-h);
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       inset: -16px 0 100% 0;
       pointer-events: none;
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff 70%);
     }
   }
 
