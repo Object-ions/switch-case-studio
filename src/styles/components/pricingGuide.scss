@@ -82,6 +82,7 @@
     .pg-row,
     .pg-list li {
       color: #fff;
+      font-weight: 500;
     }
 
     .pg-row__leader {
@@ -146,7 +147,8 @@
     position: relative;
     padding-left: 18px;
     line-height: 1.35;
-    font-size: clamp(14px, 1.8vw, 18px);
+    font-size: clamp(11px, 1.8vw, 15px);
+    font-weight: 300;
 
     &::before {
       content: '-';
