@@ -1,8 +1,12 @@
-// Projects.jsx
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { useNavigate, useParams } from 'react-router-dom'; // NEW
+import { useNavigate, useParams } from 'react-router-dom';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 import useScrollLock from '../hooks/useScrollLock';
+import useReducedMotion from '../hooks/useReducedMotion';
+
 import ProjectDetails from './ProjectDetails';
 import ProjectsHeader from './ProjectsHeader';
 import ProjectsInfoRow from './ProjectsInfoRow';
@@ -10,6 +14,8 @@ import ProjectsTiles from './ProjectsTiles';
 
 import projectsData from '../data/projects.json';
 import '../styles/components/projects.scss';
+
+gsap.registerPlugin(ScrollTrigger);
 
 // Give each base project a stable slug
 const BASE_PROJECTS = [
@@ -25,8 +31,8 @@ const BASE_PROJECTS = [
     panelClass: 'panel-card-1',
     slug: 'prodani-miami',
   },
-  { id: 3, label: 'PROJECT B', panelClass: 'panel-card-2', slug: 'project-b' },
-  { id: 4, label: 'PROJECT C', panelClass: 'panel-card-3', slug: 'project-c' },
+  { id: 3, label: 'PROJECT C', panelClass: 'panel-card-2', slug: 'project-c' },
+  { id: 4, label: 'PROJECT D', panelClass: 'panel-card-3', slug: 'project-d' },
 ];
 
 const PROJECTS = BASE_PROJECTS.map((p) => ({
@@ -35,16 +41,17 @@ const PROJECTS = BASE_PROJECTS.map((p) => ({
 }));
 
 const Projects = () => {
-  const navigate = useNavigate(); // NEW
-  const { slug } = useParams(); // NEW
+  const navigate = useNavigate();
+  const { slug } = useParams();
   const [openId, setOpenId] = useState(null);
+  const reduced = useReducedMotion();
   useScrollLock(Boolean(openId));
 
-  // Map helpers
+  const root = useRef(null);
+
   const findById = (id) => PROJECTS.find((p) => p.id === id);
   const findBySlug = (s) => PROJECTS.find((p) => p.slug === s);
 
-  // Open/close via URL
   useEffect(() => {
     if (!slug) {
       setOpenId(null);
@@ -54,12 +61,11 @@ const Projects = () => {
     setOpenId(match ? match.id : null);
   }, [slug]);
 
-  // ESC closes and cleans up URL
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === 'Escape') {
         setOpenId(null);
-        navigate('#projects', { replace: true }); // NEW
+        navigate('#projects', { replace: true });
       }
     };
     window.addEventListener('keydown', onKey);
@@ -68,11 +74,10 @@ const Projects = () => {
 
   const active = findById(openId);
 
-  // Clicking a tile should push the slug (keeps URL & modal in sync)
   const openById = (id) => {
     const proj = findById(id);
     if (proj?.slug) navigate(`/projects/${proj.slug}`);
-    else setOpenId(id); // fallback
+    else setOpenId(id);
   };
 
   const closeModal = () => {
@@ -80,13 +85,42 @@ const Projects = () => {
     navigate('#projects', { replace: true });
   };
 
+  // Section-level animations
+  useLayoutEffect(() => {
+    if (reduced) return;
+    const ctx = gsap.context(() => {
+      // Fade/slide in each row as it enters
+      gsap.utils.toArray('.projects .projects-row').forEach((row, i) => {
+        gsap.from(row, {
+          autoAlpha: 0,
+          y: 24,
+          duration: 0.8,
+          ease: 'power2.out',
+          delay: i * 0.05,
+          scrollTrigger: {
+            trigger: row,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
+          },
+        });
+      });
+    }, root);
+    return () => ctx.revert();
+  }, [reduced]);
+
   return (
-    <section className="projects" id="projects" aria-label="project overview">
+    <section
+      className="projects"
+      id="projects"
+      aria-label="project overview"
+      ref={root}
+    >
       <ProjectsInfoRow />
       <ProjectsHeader />
       <ProjectsTiles
         projects={PROJECTS.slice(0, 4)}
-        onOpen={openById} // UPDATED
+        onOpen={openById}
+        modalOpen={Boolean(active)}
       />
 
       {active &&
@@ -99,10 +133,9 @@ const Projects = () => {
             <div
               className="project-details-overlay__backdrop"
               aria-hidden="true"
-              onClick={closeModal} // UPDATED
+              onClick={closeModal}
             />
-            <ProjectDetails project={active} onClose={closeModal} />{' '}
-            {/* UPDATED */}
+            <ProjectDetails project={active} onClose={closeModal} />
           </div>,
           document.body
         )}
