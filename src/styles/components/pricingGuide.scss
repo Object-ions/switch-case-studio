@@ -1,0 +1,226 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+.pricing-guide {
+  --pad: clamp(16px, 3vw, 48px);
+  background: $grey-color;
+  color: $orange-color;
+  font-family: $font-text;
+  padding: var(--pad);
+}
+
+/* Giant “PRICING GUIDE” headline */
+.pg-head {
+  position: relative;
+  margin-bottom: clamp(24px, 5vw, 56px);
+}
+
+.pg-title {
+  font-family: $font-special;
+  text-transform: uppercase;
+  line-height: 0.85;
+  letter-spacing: 0.01em;
+  margin: 0;
+  font-size: clamp(56px, 16vw, 180px);
+  max-width: 15ch;
+}
+
+/* Service left / Company right */
+.pg-meta {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  margin-top: clamp(6px, 1.6vw, 12px);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: clamp(12px, 1.4vw, 18px);
+}
+
+.pg-service {
+  justify-self: start;
+}
+.pg-company {
+  justify-self: end;
+}
+
+/* Organic blob image overlapping headline */
+.pg-blob {
+  position: absolute;
+  right: 220px;
+  top: 50%;
+  transform: translateY(-20%);
+  width: clamp(160px, 28vw, 360px);
+  aspect-ratio: 1/1;
+  margin: 0;
+  border-radius: 58% 42% 52% 48% / 62% 44% 56% 38%;
+  overflow: hidden;
+
+  img,
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+/* Packages */
+.pg-packages {
+  margin-top: clamp(24px, 4vw, 48px);
+}
+
+.pg-package {
+  padding: 10px;
+  color: $orange-color;
+  transition: background 0.25s ease, color 0.25s ease;
+
+  &:hover {
+    background: $g6;
+    color: #fff;
+
+    .pg-row,
+    .pg-list li {
+      color: #fff;
+    }
+
+    .pg-row__leader {
+      border-bottom-color: currentColor;
+    }
+
+    .pg-list li::before {
+      color: currentColor;
+    }
+  }
+}
+
+.pg-sep {
+  border: 0;
+  margin: 10px 0;
+  height: 0;
+  background: none;
+  border-top: 3px dotted $orange-color; // default orange
+  transition: border-color 0.25s ease;
+
+  .pg-package:hover & {
+    border-top-color: #fff; // turns white when parent article is hovered
+  }
+
+  &.pg-sep--wide {
+    margin-top: clamp(28px, 5vw, 40px);
+  }
+}
+
+.pg-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: baseline;
+  margin-bottom: 8px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  font-size: clamp(16px, 2.1vw, 20px);
+}
+
+.pg-row__leader {
+  align-self: center;
+  border: 0;
+  border-bottom: 3px dotted currentColor;
+  transform: translateY(-2px);
+  transition: border-color 180ms ease;
+}
+
+.pg-row__name,
+.pg-row__price {
+  color: inherit;
+  white-space: nowrap;
+}
+
+.pg-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 clamp(6px, 2vw, 12px);
+
+  li {
+    position: relative;
+    padding-left: 18px;
+    line-height: 1.35;
+    font-size: clamp(14px, 1.8vw, 18px);
+
+    &::before {
+      content: '-';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: inherit;
+    }
+  }
+}
+
+/* Outro + Footer */
+.pg-outro {
+  text-align: center;
+  margin-top: clamp(20px, 4vw, 32px);
+  margin: 50px 0 10px 0;
+
+  &__line {
+    margin: 10px 0;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    font-size: clamp(12px, 1.6vw, 16px);
+  }
+}
+
+.pg-footer {
+  text-align: center;
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  margin-top: clamp(10px, 2.4vw, 16px);
+
+  .pg-book {
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    font-size: clamp(12px, 1.6vw, 16px);
+  }
+
+  .pg-link,
+  .pg-phone {
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    color: $orange-color;
+    font-size: clamp(12px, 1.6vw, 16px);
+    word-break: break-word;
+  }
+}
+
+/* empty state */
+.pg-empty {
+  opacity: 0.7;
+}
+
+/* Accessibility helper */
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Small screens */
+@media (max-width: 720px) {
+  .pg-blob {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    margin-top: clamp(8px, 3vw, 12px);
+  }
+}

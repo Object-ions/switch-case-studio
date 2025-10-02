@@ -9,17 +9,9 @@ import Testimonials from './components/pages/Testimonials';
 import ScrollToTop from './components/ScrollToTop';
 import GradientStripe from './components/StripeSection';
 import Projects from './components/Projects';
+import PricingPage from './components/PricingPage';
 
 import Orb from './assets/images/orb.avif';
-
-// Pricing page stubs
-import PricingOverview from './components/pages/pricing/PricingOverview';
-import PricingWebDev from './components/pages/pricing/PricingWebDev';
-import PricingMarketingAds from './components/pages/pricing/PricingMarketingAds';
-import PricingHostingMaintenance from './components/pages/pricing/PricingHostingMaintenance';
-import PricingDesignBranding from './components/pages/pricing/PricingDesignBranding';
-import PricingAutomationIntegrations from './components/pages/pricing/PricingAutomationIntegrations';
-import PricingEmailMarketing from './components/pages/pricing/PricingEmailMarketing';
 
 import './styles/app.scss';
 
@@ -68,62 +60,20 @@ function App() {
           }
         />
 
-        {/* Pricing overview */}
+        {/* Pricing (single renderer) */}
         <Route
           path="/pricing"
           element={
             <MainLayout>
-              <PricingOverview />
-            </MainLayout>
-          }
-        />
-
-        {/* Pricing children */}
-        <Route
-          path="/pricing/web-development"
-          element={
-            <MainLayout>
-              <PricingWebDev />
+              <PricingPage />
             </MainLayout>
           }
         />
         <Route
-          path="/pricing/marketing-ads"
+          path="/pricing/:serviceSlug"
           element={
             <MainLayout>
-              <PricingMarketingAds />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/pricing/hosting-maintenance"
-          element={
-            <MainLayout>
-              <PricingHostingMaintenance />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/pricing/design-branding"
-          element={
-            <MainLayout>
-              <PricingDesignBranding />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/pricing/automation-integrations"
-          element={
-            <MainLayout>
-              <PricingAutomationIntegrations />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/pricing/email-marketing"
-          element={
-            <MainLayout>
-              <PricingEmailMarketing />
+              <PricingPage />
             </MainLayout>
           }
         />

@@ -1,0 +1,118 @@
+{
+  "services": [
+    {
+      "id": "web-development",
+      "title": "Web Development",
+      "subtitle": "Build, launch, and scale",
+      "tiers": [
+        {
+          "name": "Landing Page",
+          "price": 800,
+          "billing": "one-time",
+          "description": "Perfect for professional events and promotions. A sleek, simple one-pager that makes an instant impact.",
+          "includes": [
+            "Professional design template",
+            "Single responsive page",
+            "Engaging slideshow to showcase key information",
+            "SEO essentials to increase visibility",
+            "Fast load times to keep your audience engaged"
+          ]
+        },
+        {
+          "name": "Simple Website",
+          "price": 1500,
+          "billing": "one-time",
+          "description": "Ideal for small businesses and personal portfolios. Expand your digital footprint with a site designed to grow with your needs.",
+          "includes": [
+            "Customizable design template",
+            "Up to 5 pages tailored to your content needs",
+            "Slideshow to highlight your products or services",
+            "1 year of hosting and domain registration",
+            "Basic SEO setup for better search engine ranking",
+            "Mobile responsiveness for optimal viewing on all devices"
+          ]
+        },
+        {
+          "name": "Business Bundle",
+          "price": 2500,
+          "billing": "one-time",
+          "description": "Great for growing businesses needing more functionality. A robust website with comprehensive features to facilitate interaction and management.",
+          "includes": [
+            "Custom design to reflect your brand's unique identity",
+            "Up to 10 pages of crafted content",
+            "Content Management System (CMS) for easy updates",
+            "Interactive contact form",
+            "1 year of hosting and domain registration",
+            "Basic SEO to enhance online presence",
+            "Google Analytics integration for visitor insights"
+          ],
+          "badge": "Popular"
+        },
+        {
+          "name": "Growth Suite",
+          "price": 5000,
+          "billing": "one-time",
+          "description": "A complete solution for e-commerce and complex business needs with advanced functionality and detailed user interaction.",
+          "includes": [
+            "Fully custom design tailored to your business requirements",
+            "Unlimited pages for comprehensive content delivery",
+            "Advanced CMS for full control over content",
+            "Detailed contact forms and custom forms",
+            "E-commerce functionality (cart + secure checkout)",
+            "Database integration for products, users, and admin",
+            "1 year of hosting and domain registration",
+            "Advanced SEO practices for superior web presence",
+            "Ongoing technical support"
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "marketing-advertisement",
+      "title": "Marketing & Advertisement",
+      "subtitle": "Acquire and convert",
+      "tiers": [
+        {
+          "name": "Starter",
+          "price": 1200,
+          "billing": "monthly",
+          "description": "Essentials to start running paid traffic.",
+          "includes": [
+            "1 platform (Meta or Google)",
+            "Creative refresh monthly",
+            "Pixel & conversions",
+            "Basic reporting"
+          ]
+        },
+        {
+          "name": "Performance",
+          "price": 2500,
+          "billing": "monthly",
+          "description": "Full funnel with testing and landing pages.",
+          "includes": [
+            "2 platforms",
+            "Weekly optimizations",
+            "Landing page build",
+            "Lead routing to CRM",
+            "Dashboards"
+          ],
+          "badge": "Best value"
+        },
+        {
+          "name": "Scale",
+          "price": 5000,
+          "billing": "monthly",
+          "description": "High-velocity growth and experimentation.",
+          "includes": [
+            "3+ platforms",
+            "Creative sprints",
+            "CRO experiments",
+            "Attribution modeling",
+            "Quarterly strategy workshop"
+          ]
+        }
+      ]
+    }
+  ]
+}
