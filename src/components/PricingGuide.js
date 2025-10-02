@@ -28,7 +28,15 @@ export const PricingGuide = ({ serviceId, heroSrc }) => {
     <section className={`pricing-guide`} aria-labelledby="pg-title">
       <header className="pg-head">
         <h1 id="pg-title" className="pg-title" aria-label="Pricing Guide">
-          <span aria-hidden>PRICING GUIDE</span>
+          <span aria-hidden style={{ textAlign: 'left' }}>
+            PRICING
+          </span>
+          <span
+            aria-hidden
+            style={{ textAlign: 'right', paddingRight: '250px' }}
+          >
+            GUIDE
+          </span>
         </h1>
 
         <div className="pg-meta">

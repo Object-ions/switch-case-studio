@@ -2,11 +2,13 @@ import React, { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import '../styles/components/stripeSection.scss';
 
-export default function GradientStripeImage({
-  // Make the default responsive instead of a fixed number
-  size = 'clamp(160px, 24vw, 420px)', // controls stripe height responsively
+export default function GradientStripe({
+  // Responsive default: min 160px, scales with viewport, caps at 420px
+  size = 'clamp(160px, 24vw, 420px)',
+  // Back-compat: if `height` is passed, use it as `size`
+  height,
   duration = 5.9,
-  travel = 60, // (kept in case you want to use it later)
+  travel = 60, // reserved for future use
   orbSrc = '/assets/orb@768.avif',
   fetchPriority = 'high',
 }) {
@@ -27,8 +29,8 @@ export default function GradientStripeImage({
     }
 
     const build = () => {
-      const W = stripe.clientWidth; // full stripe width
-      const max = W / 2; // center → half offscreen
+      const W = stripe.clientWidth;
+      const max = W / 2; // move from half-left offscreen to half-right offscreen
       return gsap.fromTo(
         orb,
         { x: -max },
@@ -42,22 +44,30 @@ export default function GradientStripeImage({
       tween = build();
     });
     ro.observe(stripe);
+
     return () => {
       ro.disconnect();
       tween.kill();
     };
   }, [duration]);
 
-  // If a raw number is passed, treat as px; otherwise accept any CSS length
-  const cssSize = typeof size === 'number' ? `${size}px` : String(size);
+  // Accept number (px) or any CSS length string
+  const resolvedSize =
+    typeof (height ?? size) === 'number'
+      ? `${height ?? size}px`
+      : String(height ?? size);
 
   return (
-    <div className="gradient-stripe" ref={stripeRef} style={{ cssSize }}>
+    <div
+      className="gradient-stripe"
+      ref={stripeRef}
+      style={{ '--stripe-size': resolvedSize }}
+    >
       <div className="stripe-bg" />
       <div className="orb-wrap" ref={orbRef} aria-hidden="true">
         <img
           src={orbSrc}
-          alt=""
+          alt="gradient orb"
           decoding="async"
           loading="eager"
           fetchPriority={fetchPriority}

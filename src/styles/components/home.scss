@@ -42,7 +42,7 @@
   }
 
   /* Tablet breakpoint: 768px - 1024px */
-  @media (max-width: 1024px) and (min-width: 769px) {
+  @media (max-width: 1300px) and (min-width: 669px) {
     .left {
       bottom: 4rem;
       right: 1.5rem;
@@ -52,7 +52,7 @@
   }
 
   /* Mobile breakpoint: under 768px */
-  @media (max-width: 768px) {
+  @media (max-width: 668px) {
     .left {
       bottom: 3rem;
       right: 1rem;

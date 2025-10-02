@@ -1,10 +1,11 @@
+// styles/components/stripeSection.scss
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
 .gradient-stripe {
   position: relative;
   width: 100%;
-  height: var(--stripe-size, 420px); // responsive height lives here
+  height: var(--stripe-size, 420px);
   overflow: clip;
   isolation: isolate;
 }
@@ -23,13 +24,13 @@
   filter: contrast(1.02) saturate(1.03);
 }
 
-/* The moving container GSAP targets */
+/* GSAP target */
 .orb-wrap {
   position: absolute;
   left: 50%;
   top: 50%;
-  height: 100%; /* orb equals stripe height */
-  aspect-ratio: 1 / 1; /* perfect circle */
+  height: 100%;
+  aspect-ratio: 1 / 1;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   overflow: hidden;
@@ -44,7 +45,14 @@
   object-fit: cover;
 }
 
-/* Reduced motion: static centered orb */
+/* Optional: slightly lower saturation on very small screens */
+@media (max-width: 480px) {
+  .stripe-bg {
+    filter: contrast(1.01) saturate(1);
+  }
+}
+
+/* Reduced motion: static */
 @media (prefers-reduced-motion: reduce) {
   .orb-wrap {
     transform: translate(-50%, -50%) !important;

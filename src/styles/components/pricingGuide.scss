@@ -23,6 +23,8 @@
   margin: 0;
   font-size: clamp(56px, 16vw, 180px);
   max-width: 15ch;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Service left / Company right */
@@ -47,7 +49,7 @@
 /* Organic blob image overlapping headline */
 .pg-blob {
   position: absolute;
-  right: 220px;
+  right: -35px;
   top: 50%;
   transform: translateY(-20%);
   width: clamp(160px, 28vw, 360px);
@@ -55,6 +57,7 @@
   margin: 0;
   border-radius: 58% 42% 52% 48% / 62% 44% 56% 38%;
   overflow: hidden;
+  z-index: 1;
 
   img,
   video {
@@ -74,6 +77,8 @@
   padding: 10px;
   color: $orange-color;
   transition: background 0.25s ease, color 0.25s ease;
+  z-index: 10;
+  position: relative;
 
   &:hover {
     background: $g6;

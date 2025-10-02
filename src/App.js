@@ -28,7 +28,7 @@ function App() {
               <Home />
               <Services />
               <GradientStripe
-                height={420}
+                size="clamp(160px, 30vw, 420px)"
                 duration={5.9}
                 travel={60}
                 orbSrc={Orb}
