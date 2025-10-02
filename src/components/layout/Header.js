@@ -157,7 +157,7 @@ const Header = () => {
                 onMouseLeave={() => setProjectsOpen(false)}
               >
                 <Link
-                  to="/projects"
+                  to="/#projects"
                   className="nav_link"
                   onClick={() => setProjectsOpen(false)}
                 >

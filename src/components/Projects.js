@@ -1,32 +1,32 @@
 // Projects.jsx
-import { useState, useEffect } from "react";
-import { createPortal } from "react-dom";
-import { useNavigate, useParams } from "react-router-dom"; // NEW
-import useScrollLock from "../hooks/useScrollLock";
-import ProjectDetails from "./ProjectDetails";
-import ProjectsHeader from "./ProjectsHeader";
-import ProjectsInfoRow from "./ProjectsInfoRow";
-import ProjectsTiles from "./ProjectsTiles";
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import { useNavigate, useParams } from 'react-router-dom'; // NEW
+import useScrollLock from '../hooks/useScrollLock';
+import ProjectDetails from './ProjectDetails';
+import ProjectsHeader from './ProjectsHeader';
+import ProjectsInfoRow from './ProjectsInfoRow';
+import ProjectsTiles from './ProjectsTiles';
 
-import projectsData from "../data/projects.json";
-import "../styles/components/projects.scss";
+import projectsData from '../data/projects.json';
+import '../styles/components/projects.scss';
 
 // Give each base project a stable slug
 const BASE_PROJECTS = [
   {
     id: 1,
-    label: "Zahav Medspa",
-    panelClass: "panel-hero",
-    slug: "zahav-medspa",
+    label: 'Zahav Medspa',
+    panelClass: 'panel-hero',
+    slug: 'zahav-medspa',
   },
   {
     id: 2,
-    label: "ProDani Miami",
-    panelClass: "panel-card-1",
-    slug: "prodani-miami",
+    label: 'ProDani Miami',
+    panelClass: 'panel-card-1',
+    slug: 'prodani-miami',
   },
-  { id: 3, label: "PROJECT B", panelClass: "panel-card-2", slug: "project-b" },
-  { id: 4, label: "PROJECT C", panelClass: "panel-card-3", slug: "project-c" },
+  { id: 3, label: 'PROJECT B', panelClass: 'panel-card-2', slug: 'project-b' },
+  { id: 4, label: 'PROJECT C', panelClass: 'panel-card-3', slug: 'project-c' },
 ];
 
 const PROJECTS = BASE_PROJECTS.map((p) => ({
@@ -57,13 +57,13 @@ const Projects = () => {
   // ESC closes and cleans up URL
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         setOpenId(null);
-        navigate("/projects", { replace: true }); // NEW
+        navigate('#projects', { replace: true }); // NEW
       }
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, [navigate]);
 
   const active = findById(openId);
@@ -77,7 +77,7 @@ const Projects = () => {
 
   const closeModal = () => {
     setOpenId(null);
-    navigate("/projects", { replace: true });
+    navigate('#projects', { replace: true });
   };
 
   return (
@@ -101,7 +101,7 @@ const Projects = () => {
               aria-hidden="true"
               onClick={closeModal} // UPDATED
             />
-            <ProjectDetails project={active} onClose={closeModal} />{" "}
+            <ProjectDetails project={active} onClose={closeModal} />{' '}
             {/* UPDATED */}
           </div>,
           document.body

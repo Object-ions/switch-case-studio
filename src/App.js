@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
+// App.jsx
+import { Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './components/layout/MainLayout';
 
 // Existing pages
@@ -28,7 +29,7 @@ function App() {
     <div className="app">
       <ScrollToTop />
       <Routes>
-        {/* Home */}
+        {/* Home page (contains Projects as a section) */}
         <Route
           path="/"
           element={
@@ -48,20 +49,22 @@ function App() {
           }
         />
 
-        {/* Projects index + deep links to modal */}
-        <Route
-          path="/projects"
-          element={
-            <MainLayout>
-              <Projects />
-            </MainLayout>
-          }
-        />
+        {/* Deep links: open modal on top of Projects section */}
         <Route
           path="/projects/:slug"
           element={
             <MainLayout>
+              <Home />
+              <Services />
+              <GradientStripe
+                height={420}
+                duration={5.9}
+                travel={60}
+                orbSrc={Orb}
+              />
+              <Work />
               <Projects />
+              <Testimonials />
             </MainLayout>
           }
         />
@@ -125,6 +128,9 @@ function App() {
             </MainLayout>
           }
         />
+
+        {/* Catch-all → Home */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>
   );
