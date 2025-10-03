@@ -62,14 +62,6 @@ function App() {
 
         {/* Pricing (single renderer) */}
         <Route
-          path="/pricing"
-          element={
-            <MainLayout>
-              <PricingPage />
-            </MainLayout>
-          }
-        />
-        <Route
           path="/pricing/:serviceSlug"
           element={
             <MainLayout>

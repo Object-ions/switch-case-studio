@@ -135,11 +135,6 @@ const MenuModal = ({ open, onClose }) => {
                         transition={{ duration: 0.18, ease: 'easeOut' }}
                       >
                         <li>
-                          <Link to="/pricing" onClick={onClose}>
-                            Overview
-                          </Link>
-                        </li>
-                        <li>
                           <Link to="/pricing/web-development" onClick={onClose}>
                             Web Development
                           </Link>

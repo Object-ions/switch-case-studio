@@ -84,7 +84,7 @@ const Header = () => {
                 onMouseLeave={() => setSubmenuOpen(false)}
               >
                 <Link
-                  to="/pricing"
+                  to="/"
                   className="nav_link"
                   onClick={() => setSubmenuOpen(false)}
                 >
