@@ -1,7 +1,7 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
-#work {
+#about {
   font-family: $font-text;
   background: #000;
   position: relative;
@@ -10,7 +10,6 @@
 
 /* wrapper must be positioned for ::after to anchor */
 .work-wrapper {
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;

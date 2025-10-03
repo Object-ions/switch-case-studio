@@ -1,15 +1,15 @@
-import WorkHeading from "../WorkHeading";
-import WorkText from "../WorkText";
-import WorkCTA from "../WorkCTA";
-import WorkMarquee from "../WorkMarquee";
+import WorkHeading from '../WorkHeading';
+import WorkText from '../WorkText';
+import WorkCTA from '../WorkCTA';
+import WorkMarquee from '../WorkMarquee';
 
-import BlacGrid from "../../assets/images/black_grid.avif";
-import Moon from "../Moon";
-import "../../styles/components/work.scss";
+import BlacGrid from '../../assets/images/black_grid.avif';
+import Moon from '../Moon';
+import '../../styles/components/work.scss';
 
 const Work = () => {
   return (
-    <div id="work" style={{ backgroundImage: `url(${BlacGrid})` }}>
+    <div id="about" style={{ backgroundImage: `url(${BlacGrid})` }}>
       <div className="work-wrapper">
         <WorkHeading />
         <WorkMarquee />
