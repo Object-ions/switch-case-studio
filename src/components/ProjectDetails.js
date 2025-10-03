@@ -1,16 +1,16 @@
-import { useState, useLayoutEffect, useRef } from "react";
-import gsap from "gsap";
-import Arrow from "./Arrow";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState, useLayoutEffect, useRef } from 'react';
+import gsap from 'gsap';
+import Arrow from './Arrow';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowUpRightFromSquare,
   faArrowLeft,
-} from "@fortawesome/free-solid-svg-icons";
-import DeviceMockup from "./DeviceMockup";
-import ZoomLightbox from "./ZoomLightbox";
+} from '@fortawesome/free-solid-svg-icons';
+import DeviceMockup from './DeviceMockup';
+import ZoomLightbox from './ZoomLightbox';
 
-import macbookFrame from "../assets/mockups/macbook-frame.png";
-import "../styles/components/projectDetails.scss";
+import macbookFrame from '../assets/mockups/macbook-frame.png';
+import '../styles/components/projectDetails.scss';
 
 const DEFAULT_VIEWPORT = {
   leftPct: 17.8468,
@@ -19,25 +19,25 @@ const DEFAULT_VIEWPORT = {
   heightPct: 77.0188,
 };
 
-const ProjectDetails = ({ project, onClose }) => {
+const ProjectDetails = ({ project, onClose, onBack }) => {
   // Guard: if something goes wrong, avoid crashing
   const data = project ?? {};
 
   const {
-    title = "Untitled Project",
-    subtitle = "",
-    description = "",
+    title = 'Untitled Project',
+    subtitle = '',
+    description = '',
     imageSrc,
     imageAlt,
     longWeb,
     services = [],
     highlights = [],
-    result = "",
-    kicker = "In depth on",
-    productName = "Our Work",
-    ctaLabel = "View Live",
+    result = '',
+    kicker = 'In depth on',
+    productName = 'Our Work',
+    ctaLabel = 'View Live',
     ctaUrl,
-    backLabel = "Back to Projects",
+    backLabel = 'Back to Projects',
     viewport,
   } = data;
 
@@ -55,25 +55,25 @@ const ProjectDetails = ({ project, onClose }) => {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+      const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
       // Initial states
-      gsap.set(mediaRef.current, { clipPath: "inset(0 100% 0 0)" });
+      gsap.set(mediaRef.current, { clipPath: 'inset(0 100% 0 0)' });
       gsap.set(headerRef.current, { y: -20, opacity: 0 });
       gsap.set(mainRef.current, { y: 20, opacity: 0 });
       gsap.set(bottomRef.current, { y: 30, opacity: 0 });
       gsap.set(rootRef.current, { opacity: 1 });
 
       // Sequence
-      tl.to(mediaRef.current, { clipPath: "inset(0 0% 0 0)", duration: 1 })
+      tl.to(mediaRef.current, { clipPath: 'inset(0 0% 0 0)', duration: 1 })
         .to(headerRef.current, { y: 0, opacity: 1, duration: 0.6 }, 0.3)
         .to(mainRef.current, { y: 0, opacity: 1, duration: 0.8 }, 0.6)
         .to(bottomRef.current, { y: 0, opacity: 1, duration: 0.8 }, 0.9);
 
       tl.fromTo(
         panelRef.current,
-        { boxShadow: "0 0 0 rgba(0,0,0,0)" },
-        { boxShadow: "0 8px 24px rgba(0,0,0,0.08)", duration: 0.4 },
+        { boxShadow: '0 0 0 rgba(0,0,0,0)' },
+        { boxShadow: '0 8px 24px rgba(0,0,0,0.08)', duration: 0.4 },
         0.25
       );
     }, rootRef);
@@ -82,7 +82,7 @@ const ProjectDetails = ({ project, onClose }) => {
   }, []);
 
   const mockupAlt =
-    imageAlt || `${title} homepage preview` || "Project preview";
+    imageAlt || `${title} homepage preview` || 'Project preview';
 
   return (
     <section
@@ -119,7 +119,7 @@ const ProjectDetails = ({ project, onClose }) => {
             src={imageSrc}
             alt={imageAlt || `${title} detail`}
             className="project-details__img"
-            style={{ width: "100%", cursor: "zoom-in" }}
+            style={{ width: '100%', cursor: 'zoom-in' }}
             onClick={() => setZoomOpen(true)}
           />
         )}
@@ -133,7 +133,7 @@ const ProjectDetails = ({ project, onClose }) => {
           <button
             className="project-details__back"
             type="button"
-            onClick={onClose}
+            onClick={onBack}
           >
             <FontAwesomeIcon icon={faArrowLeft} /> {backLabel}
           </button>
@@ -194,7 +194,7 @@ const ProjectDetails = ({ project, onClose }) => {
                       rel="noopener noreferrer"
                       className="project-details__button"
                     >
-                      {ctaLabel}{" "}
+                      {ctaLabel}{' '}
                       <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
                     </a>
                   )}

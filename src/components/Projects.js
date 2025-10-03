@@ -65,7 +65,7 @@ const Projects = () => {
     const onKey = (e) => {
       if (e.key === 'Escape') {
         setOpenId(null);
-        navigate('#projects', { replace: true });
+        navigate('/', { replace: true, state: { preserveScroll: true } });
       }
     };
     window.addEventListener('keydown', onKey);
@@ -76,13 +76,30 @@ const Projects = () => {
 
   const openById = (id) => {
     const proj = findById(id);
-    if (proj?.slug) navigate(`/projects/${proj.slug}`);
-    else setOpenId(id);
+    if (proj?.slug) {
+      navigate(`/projects/${proj.slug}`, {
+        state: { from: 'projects-section' },
+      });
+    } else {
+      setOpenId(id);
+    }
   };
 
-  const closeModal = () => {
+  // X / ESC / backdrop → close and return to root (no hash)
+  const closePlain = () => {
+    // remember current scroll position for one navigation
+    try {
+      sessionStorage.setItem('preserveScroll', '1');
+      sessionStorage.setItem('preserveScrollY', String(window.scrollY));
+    } catch {}
     setOpenId(null);
-    navigate('#projects', { replace: true });
+    navigate('/', { replace: true, state: { preserveScroll: true } });
+  };
+
+  // “Back to Projects” → close and jump to the section
+  const closeToProjects = () => {
+    setOpenId(null);
+    navigate('/#projects', { replace: true });
   };
 
   // Section-level animations
@@ -133,9 +150,13 @@ const Projects = () => {
             <div
               className="project-details-overlay__backdrop"
               aria-hidden="true"
-              onClick={closeModal}
+              onClick={closePlain} // <- close overlay, go to "/"
             />
-            <ProjectDetails project={active} onClose={closeModal} />
+            <ProjectDetails
+              project={active}
+              onClose={closePlain} // <- X button / ESC / backdrop
+              onBack={closeToProjects} // <- “Back to Projects”
+            />
           </div>,
           document.body
         )}
