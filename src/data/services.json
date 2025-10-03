@@ -2,7 +2,7 @@
   {
     "icon": "faCode",
     "title": "Web Development",
-    "link": "development",
+    "slug": "web-development",
     "subTitle": "Custom websites that convert visitors into customers.",
     "description": "Custom websites and web applications built with modern technologies. From simple landing pages to complex e-commerce platforms.",
     "items": [
@@ -16,7 +16,7 @@
   {
     "icon": "faSearchengin",
     "title": "Marketing & Advertisement",
-    "link": "marketing",
+    "slug": "marketing-ads",
     "subTitle": "Marketing strategies and campaigns that generate real ROI.",
     "description": "Maximize your online visibility. Data-driven marketing strategies that grow your business. From SEO to social media, we cover all digital channels.",
     "items": [
@@ -31,7 +31,7 @@
   {
     "icon": "faServer",
     "title": "Web Hosting & Maintenance",
-    "link": "hosting",
+    "slug": "hosting-maintenance",
     "subTitle": "Lightning-fast, secure hosting infrastructure.",
     "description": "Secure, high-performance hosting with optional care plans to keep your site running smoothly.",
     "items": [
@@ -45,7 +45,7 @@
   {
     "icon": "faPenNib",
     "title": "Design & Branding",
-    "link": "design",
+    "slug": "design-branding",
     "subTitle": "Visual identity that cuts through the noise.",
     "description": "Complete brand development from logo design to brand guidelines. We create identities that stand out in the market.",
     "items": [
@@ -59,7 +59,7 @@
   {
     "icon": "faWandMagicSparkles",
     "title": "Automation & Integrations",
-    "link": "automation",
+    "slug": "automation-integrations",
     "subTitle": "Seamless workflows cross platforms, less manual work.",
     "description": "Automate repetitive tasks and connect your tools for smoother operations. I use tools like Zapier and Go High Level to streamline your business.",
     "items": [
@@ -72,7 +72,7 @@
   {
     "icon": "faLightbulb",
     "title": "Email Marketing",
-    "link": "email",
+    "slug": "email-marketing",
     "subTitle": "Automated sequences that nurture and convert.",
     "description": "Build relationships and increase conversions with targeted, automated email sequences.",
     "items": [

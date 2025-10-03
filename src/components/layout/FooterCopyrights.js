@@ -25,7 +25,7 @@ const FooterCopyrights = () => {
             <a href="#services">Services</a>
           </li>
           <li>
-            <a href="#work">About</a>
+            <a href="#about">About</a>
           </li>
           <li>
             <Link to="/pricing">Pricing</Link>

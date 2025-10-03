@@ -107,7 +107,7 @@ const MenuModal = ({ open, onClose }) => {
                 </li>
 
                 <li>
-                  <a href="#work" onClick={onClose}>
+                  <a href="#about" onClick={onClose}>
                     About
                   </a>
                 </li>

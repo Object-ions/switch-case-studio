@@ -11,6 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 import servicesData from '../../data/services.json';
 import '../../styles/components/services.scss';
 
@@ -29,7 +30,6 @@ const Services = () => {
   useEffect(() => {
     // Scroll reveal animation
     const reveals = gsap.utils.toArray('.reveal');
-
     reveals.forEach((el, i) => {
       gsap.fromTo(
         el,
@@ -49,44 +49,42 @@ const Services = () => {
       );
     });
 
-    // Title hover circle effect
+    // Title hover circle effect (guard in case .title isn't on page yet)
     const titleEl = document.querySelector('.title');
-
-    const handleMouseMove = (e) => {
+    const handleTitleMouseMove = (e) => {
+      if (!titleEl) return;
       const rect = titleEl.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-
       titleEl.style.setProperty('--x', `${x}px`);
       titleEl.style.setProperty('--y', `${y}px`);
     };
+    if (titleEl) titleEl.addEventListener('mousemove', handleTitleMouseMove);
 
-    titleEl.addEventListener('mousemove', handleMouseMove);
-
-    // Card hover circle effect
-    const cards = document.querySelectorAll('.services-card');
+    // Card hover circle effect + proper cleanup
+    const cards = Array.from(document.querySelectorAll('.services-card'));
+    const handlers = new Map();
 
     cards.forEach((card) => {
       const handleCardMouseMove = (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-
         card.style.setProperty('--x', `${x}px`);
         card.style.setProperty('--y', `${y}px`);
       };
-
+      handlers.set(card, handleCardMouseMove);
       card.addEventListener('mousemove', handleCardMouseMove);
-
-      // Cleanup
-      return () => {
-        card.removeEventListener('mousemove', handleCardMouseMove);
-      };
     });
 
-    // Cleanup for title
+    // Cleanup
     return () => {
-      titleEl.removeEventListener('mousemove', handleMouseMove);
+      if (titleEl)
+        titleEl.removeEventListener('mousemove', handleTitleMouseMove);
+      cards.forEach((card) => {
+        const h = handlers.get(card);
+        if (h) card.removeEventListener('mousemove', h);
+      });
     };
   }, []);
 
@@ -94,11 +92,11 @@ const Services = () => {
     <div id="services">
       <div className="services-hero">
         <div className="title reveal">
-          <h2>Switch Case is a creative development and marketing studio
-            that helps businesses  stand out and SHINE.
-            Whether you're building something new or refreshing
-            what you have,we give your brand the tools it needs < br/> to stand out
-            and grow.
+          <h2>
+            Switch Case is a creative development and marketing studio that
+            helps businesses stand out and SHINE. Whether you're building
+            something new or refreshing what you have, we give your brand the
+            tools it needs <br /> to stand out and grow.
           </h2>
         </div>
       </div>
@@ -106,9 +104,10 @@ const Services = () => {
       <div className="services-content">
         {servicesData.map((service, index) => (
           <Link
-            to={`/services/${service.link}`}
-            className="services-card reveal cursor-black"
             key={index}
+            to={`/pricing/${service.slug}`}
+            className="services-card reveal cursor-black"
+            aria-label={`${service.title} pricing`}
           >
             <h3>
               <FontAwesomeIcon icon={iconMap[service.icon]} />

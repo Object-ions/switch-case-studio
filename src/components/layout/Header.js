@@ -64,7 +64,7 @@ const Header = () => {
           <nav className="site-header_nav" aria-label="Primary">
             <ul className="nav_list">
               <li className="nav_item">
-                <Link to="/#work" className="nav_link">
+                <Link to="/#about" className="nav_link">
                   About
                 </Link>
               </li>
