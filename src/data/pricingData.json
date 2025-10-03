@@ -74,42 +74,268 @@
       "subtitle": "Acquire and convert",
       "tiers": [
         {
-          "name": "Starter",
-          "price": 1200,
-          "billing": "monthly",
-          "description": "Essentials to start running paid traffic.",
+          "name": "Entry Package (Pilot Campaign)",
+          "price": 500,
+          "billing": "one-time",
+          "description": "Low-risk starter project for testing one marketing channel before committing to a monthly plan.",
           "includes": [
-            "1 platform (Meta or Google)",
-            "Creative refresh monthly",
-            "Pixel & conversions",
-            "Basic reporting"
+            "1-hour strategy call to define a single channel (Meta, LinkedIn, or Email)",
+            "3 custom posts or 1 short newsletter using existing brand assets",
+            "Caption writing + hashtag strategy",
+            "Scheduling + basic performance summary",
+            "Light creative direction and layout suggestions",
+            "Designed as a short-term pilot. No commitment required."
           ]
         },
         {
-          "name": "Performance",
-          "price": 2500,
+          "name": "Visibility Starter",
+          "price": 800,
           "billing": "monthly",
-          "description": "Full funnel with testing and landing pages.",
+          "description": "Essentials for building a social presence on one primary channel with consistent visibility.",
           "includes": [
-            "2 platforms",
-            "Weekly optimizations",
-            "Landing page build",
-            "Lead routing to CRM",
-            "Dashboards"
+            "1 primary channel (Instagram/Facebook, LinkedIn, or Email)",
+            "Strategy kickoff + monthly content calendar",
+            "4–6 posts or 2 newsletters per month",
+            "Basic graphics using your existing brand assets",
+            "End-of-month performance summary",
+            "Ideal for early-stage businesses building brand awareness"
+          ]
+        },
+        {
+          "name": "Growth Essentials",
+          "price": 1200,
+          "billing": "monthly",
+          "description": "Multi-channel management with SEO, blogs, and paid ads for small to medium businesses.",
+          "includes": [
+            "2–3 platforms managed (social, blog, or email)",
+            "8–12 posts with original copy and custom graphics",
+            "2 blog posts or newsletters per month",
+            "Basic on-page SEO updates",
+            "Simple paid ad setup or boost (ad spend separate)",
+            "Monthly strategy call + consolidated analytics report"
           ],
           "badge": "Best value"
         },
         {
-          "name": "Scale",
-          "price": 5000,
+          "name": "Momentum Builder",
+          "price": 3000,
           "billing": "monthly",
-          "description": "High-velocity growth and experimentation.",
+          "description": "Full-funnel marketing management with PPC, SEO, and conversion optimization for scaling brands.",
           "includes": [
-            "3+ platforms",
-            "Creative sprints",
-            "CRO experiments",
-            "Attribution modeling",
-            "Quarterly strategy workshop"
+            "Everything in Growth Essentials plus:",
+            "Google/Facebook ad campaign management",
+            "Quarterly content marketing plan",
+            "SEO keyword research + optimization",
+            "2 email campaigns per month",
+            "Basic conversion-rate optimization (CRO)",
+            "Performance dashboard with insights and recommendations"
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "web-hosting-maintenance",
+      "title": "Web Hosting & Maintenance",
+      "subtitle": "Keep your site secure and running fast",
+      "tiers": [
+        {
+          "name": "Starter Care",
+          "price": 75,
+          "billing": "monthly",
+          "description": "Ideal for personal sites, artists, and micro-businesses needing reliable hosting and light maintenance.",
+          "includes": [
+            "Shared or managed WordPress hosting (5 GB storage, 10 GB monthly bandwidth)",
+            "Domain renewal and SSL (billed annually at cost)",
+            "Weekly backups + security monitoring",
+            "Plugin and theme updates",
+            "Up to 1 hour of minor content/style edits per month"
+          ]
+        },
+        {
+          "name": "Growth Care",
+          "price": 125,
+          "billing": "monthly",
+          "description": "For small businesses and startups with growing traffic and regular updates.",
+          "includes": [
+            "VPS or cloud hosting with staging environment (15 GB storage, 50 GB monthly bandwidth)",
+            "Daily backups + uptime/performance monitoring",
+            "CMS and plugin updates",
+            "Priority security patching",
+            "Up to 3 hours of content or graphic edits per month",
+            "Quarterly site-health report"
+          ],
+          "badge": "Best value"
+        },
+        {
+          "name": "Enterprise Care",
+          "price": 350,
+          "billing": "monthly",
+          "description": "For established brands, e-commerce, or membership sites needing proactive optimization and hands-on support.",
+          "includes": [
+            "Proactive performance optimization (50 GB storage, 200 GB monthly bandwidth)",
+            "Free domain and SSL renewal",
+            "Unlimited minor updates (within reasonable use)",
+            "Monthly SEO & UX check",
+            "24-hour response SLA"
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "design-branding",
+      "title": "Design & Branding",
+      "subtitle": "Shape a brand that stands out",
+      "tiers": [
+        {
+          "name": "Logo & Style Guide",
+          "price": 750,
+          "billing": "one-time",
+          "description": "A focused identity package for solo entrepreneurs or micro-businesses needing a professional foundation.",
+          "includes": [
+            "Discovery call and creative brief",
+            "2–3 initial logo concepts + 1 round of refinements",
+            "Final logo files (AI, SVG, PNG, JPG)",
+            "Basic color palette and typography pairing",
+            "1-page brand sheet (visual guidelines)",
+            "Ideal for freelancers, artists, or small startups building first impressions"
+          ]
+        },
+        {
+          "name": "Brand Starter Kit",
+          "price": 2000,
+          "billing": "one-time",
+          "description": "A complete starter identity for small businesses ready to define their voice and visuals with intention.",
+          "includes": [
+            "Brand questionnaire + strategy mini-workshop",
+            "Logo design with multiple directions and refinements",
+            "Expanded color palette and typographic system",
+            "Brand mood board + creative direction summary",
+            "Social media templates (5–7 posts/stories)",
+            "Stationery or business card design",
+            "Basic brand guide (PDF)",
+            "Optional naming and tagline support"
+          ],
+          "badge": "Best value"
+        },
+        {
+          "name": "Brand System & Launch",
+          "price": 3500,
+          "billing": "one-time",
+          "description": "A comprehensive visual and strategic identity system for growing or rebranding businesses.",
+          "includes": [
+            "In-depth brand discovery and positioning workshop",
+            "Competitive and visual audit",
+            "Logo system (primary, secondary, and mark variations)",
+            "Custom color palette, type system, and design patterns",
+            "Comprehensive brand guidelines (15+ pages)",
+            "Launch assets: business cards, signage, or presentation templates",
+            "Social media and marketing collateral design",
+            "Optional website visual direction or homepage mockup"
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "automation-integrations",
+      "title": "Automation & Integrations",
+      "subtitle": "Work smarter, not harder",
+      "tiers": [
+        {
+          "name": "Workflow Starter",
+          "price": 500,
+          "billing": "one-time",
+          "description": "Ideal for small businesses automating simple, time-consuming tasks or connecting tools for the first time.",
+          "includes": [
+            "Perfect for lead routing, form submissions, or email notifications",
+            "Discovery call + automation mapping (1–2 workflows)",
+            "Setup of core automations using Zapier, Make, or native integrations",
+            "Basic logic (triggers, filters, actions) across up to 3 tools",
+            "Testing + error handling configuration",
+            "Handoff call with walkthrough and documentation"
+          ]
+        },
+        {
+          "name": "Growth Integrator",
+          "price": 750,
+          "billing": "monthly",
+          "description": "Ongoing automation management for growing businesses ready to streamline marketing, sales, and internal operations.",
+          "includes": [
+            "Best for businesses scaling manual processes into automated systems",
+            "Up to 5 custom workflows across CRM, ads, email, and forms",
+            "Monthly review and optimization of automations",
+            "Error monitoring + maintenance included",
+            "API-based integrations or webhook setup",
+            "1–2 custom dashboards (Google Sheets, Notion, or Airtable)",
+            "Monthly performance and uptime report"
+          ],
+          "badge": "Best value"
+        },
+        {
+          "name": "AI System Builder",
+          "price": 2500,
+          "billing": "monthly",
+          "description": "For businesses integrating AI agents, chatbots, or data-driven systems to automate revenue-generating tasks.",
+          "includes": [
+            "Priority support and ongoing iteration",
+            "End-to-end AI workflow design + development",
+            "Custom logic using APIs, AI models (OpenAI, Claude, etc.), or webhooks",
+            "Lead-generation bots, CRM enrichment, or automated follow-ups",
+            "Advanced monitoring + token usage optimization",
+            "Custom dashboard for metrics and analytics"
+          ]
+        }
+      ]
+    },
+
+    {
+      "id": "email-marketing",
+      "title": "Email Marketing",
+      "subtitle": "Nurture, engage, and convert your audience",
+      "tiers": [
+        {
+          "name": "Starter Campaign",
+          "price": 500,
+          "billing": "monthly",
+          "description": "Perfect for small lists or brands testing consistent email communication with minimal setup.",
+          "includes": [
+            "Platform setup in Mailchimp, Brevo, MailerLite, or ActiveCampaign",
+            "1–2 email campaigns per month (newsletter or promo)",
+            "Basic design using existing brand assets",
+            "List upload and contact segmentation (up to 2k contacts)",
+            "Basic performance summary (open + click rates)",
+            "Ideal for solo founders and small businesses starting out"
+          ]
+        },
+        {
+          "name": "Growth Automation",
+          "price": 1200,
+          "billing": "monthly",
+          "description": "A strategic package combining copywriting, automation, and design to build meaningful engagement.",
+          "includes": [
+            "Up to 4 campaigns per month (newsletter + drip or promo)",
+            "List segmentation and tagging (up to 5k contacts)",
+            "Custom-designed templates and graphics",
+            "Welcome or nurture automation setup (1–2 sequences)",
+            "Monthly analytics report with insights and recommendations",
+            "A/B testing for subject lines or content layout"
+          ],
+          "badge": "Best value"
+        },
+        {
+          "name": "Lifecycle Pro",
+          "price": 2500,
+          "billing": "monthly",
+          "description": "For growing brands needing fully managed, data-driven campaigns across the customer journey.",
+          "includes": [
+            "Full email strategy + calendar planning",
+            "Advanced segmentation (behavioral + purchase-based)",
+            "5–8 campaigns per month across audience segments",
+            "Automation setup for multiple journeys (welcome, re-engagement, abandoned cart, post-purchase)",
+            "Custom template design + graphics",
+            "Comprehensive reporting and optimization session"
           ]
         }
       ]

@@ -93,7 +93,7 @@ export const PricingGuide = ({ serviceId, heroSrc }) => {
       <footer className="pg-footer" aria-label="Contact">
         <a
           className="pg-link"
-          href="https://www.switchcasestudio.com"
+          href="https://link.foreverbooked.com/widget/booking/ec8dal2CrxqAOd9QwKc2"
           target="_blank"
           rel="noreferrer"
         >
@@ -101,13 +101,13 @@ export const PricingGuide = ({ serviceId, heroSrc }) => {
         </a>
         <a
           className="pg-link"
-          href="https://www.switchcasestudio.com"
+          href="mailto:hello@switchcasestudio.com"
           target="_blank"
           rel="noreferrer"
         >
           hello@switchcasestudio.com
         </a>
-        <div className="pg-phone">TEL. +1-234-567-8910</div>
+        {/* <div className="pg-phone">TEL. +1-234-567-8910</div> */}
       </footer>
     </section>
   );
