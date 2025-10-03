@@ -51,7 +51,7 @@
   grid-auto-rows: minmax(var(--tile-h-min), var(--tile-h-max));
 }
 
-// marquee
+/* marquee */
 .panel-header {
   border: 1px solid rgba(0, 0, 0, 0.15);
   display: grid;
@@ -146,7 +146,7 @@
   }
 }
 
-/* Backgrounds per panel type */
+/* === Backgrounds per panel type (used when no media) === */
 .panel-about {
   background: $g5;
 }
@@ -170,7 +170,7 @@
   background: $g5;
 }
 
-/* Hover interactions */
+/* Hover interactions for color-only tiles */
 .panel-hero:hover,
 .panel-card-1:hover,
 .panel-card-2:hover,
@@ -244,7 +244,74 @@
   }
 }
 
-// Responsive
+.tile {
+  position: relative;
+  isolation: isolate;
+}
+
+.tile .tile-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.tile .tile-video,
+.tile .tile-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.02);
+}
+
+/* text above media */
+.tile .panel-excerpt,
+.tile .panel-label {
+  position: relative;
+  z-index: 1;
+}
+
+.tile.has-media::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: transparent;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.tile.has-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: $grey-color;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.tile.has-media:hover::after,
+.tile.has-media:focus-visible::after {
+  opacity: 1; /* 100% solid */
+}
+
+/* text styling on hover over media tiles */
+.tile.has-media:hover .panel-excerpt,
+.tile.has-media:focus-visible .panel-excerpt {
+  color: #000; /* black text */
+  text-shadow: none; /* remove white shadow */
+}
+
+.tile.has-media:hover .panel-label,
+.tile.has-media:focus-visible .panel-label {
+  color: #000;
+}
+
+/* ================== Responsive ================== */
 /* Tablet breakpoint: 768px - 1024px */
 @media (max-width: 1024px) and (min-width: 769px) {
   .row-info {
@@ -302,7 +369,6 @@
     h3 {
       font-size: clamp(14px, 1.2vw, 18px);
     }
-
     p {
       font-size: clamp(12px, 1vw, 16px);
     }
@@ -314,7 +380,6 @@
     .panel-label {
       font-size: clamp(10px, 1vw, 14px);
     }
-
     .panel-excerpt {
       font-size: clamp(10px, 0.9vw, 13px);
       margin: 8px 12px 0;
@@ -322,7 +387,7 @@
   }
 }
 
-// ProjectDetails overlay
+/* ProjectDetails overlay */
 .project-details-overlay {
   position: fixed;
   inset: 0;
