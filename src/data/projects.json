@@ -84,5 +84,49 @@
       "widthPct": 64.4509,
       "heightPct": 77.0188
     }
+  },
+  {
+    "id": 3,
+    "slug": "creatuwheels",
+    "imageSrc": "/projects/creatuwheels/1.avif",
+    "longWeb": "/projects/creatuwheels/long.webp",
+    "imageAlt": "Creatuwheels packaging design preview",
+    "backLabel": "Back to Projects",
+    "title": "Creatuwheels",
+    "subtitle": "Creatures On Wheels Packaging Design",
+    "description": "The packaging for 'Creatuwheels' brings a playful and educational approach, reflecting the toy’s purpose of teaching geometric shapes and transforming into vehicle-like creatures. From flat layout to assembled box, the design highlights color theory, movement, and imagination.",
+    "tileVersion": "Toy packaging design exploring geometric play, color theory, and transformation.",
+    "services": [
+      { "label": "#Packaging Design" },
+      { "label": "#Brand Identity" },
+      { "label": "#Illustration" }
+    ],
+    "highlights": [
+      {
+        "title": "Color Blocks",
+        "summary": "Cyan, magenta, yellow, and grey—core colors tied to early learning and basic shapes."
+      },
+      {
+        "title": "Shape Confetti",
+        "summary": "Dynamic triangle patterns hint at creativity and play variety."
+      },
+      {
+        "title": "Iconography",
+        "summary": "Outlined abstract figures showcase transformation and movement."
+      },
+      {
+        "title": "Typography",
+        "summary": "Bold logo with tagline 'creatures on wheels' to establish brand identity."
+      },
+      {
+        "title": "3D Packaged Product",
+        "summary": "Geometric patterns flow seamlessly across the box with space for product info and barcode."
+      }
+    ],
+    "result": "Packaging that visually communicates the toy’s creativity, education, and play value—appealing to both kids and adults.",
+    "kicker": "In depth on",
+    "productName": "Our Work",
+    "ctaLabel": "View Project",
+    "ctaUrl": ""
   }
 ]

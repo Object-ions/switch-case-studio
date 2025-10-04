@@ -31,7 +31,12 @@ const BASE_PROJECTS = [
     panelClass: 'panel-card-1',
     slug: 'prodani-miami',
   },
-  { id: 3, label: 'PROJECT C', panelClass: 'panel-card-2', slug: 'project-c' },
+  {
+    id: 3,
+    label: 'creatuwheels',
+    panelClass: 'panel-card-2',
+    slug: 'creatuwheels',
+  },
   { id: 4, label: 'PROJECT D', panelClass: 'panel-card-3', slug: 'project-d' },
 ];
 

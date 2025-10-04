@@ -6,10 +6,14 @@ import useReducedMotion from '../hooks/useReducedMotion';
 import ZahavMp4 from '../assets/projects/zahav/zahav-cover-tile.mp4';
 import ZahavPoster from '../assets/projects/zahav/zahav-cover-tile.webp';
 
+import CreatuwheelsMp4 from '../assets/projects/creatuwheels/creatuwheels-cover-tile.mp4';
+import CreatuwheelsPoster from '../assets/projects/creatuwheels/creatuwheels-cover-tile.webp';
+
 gsap.registerPlugin(ScrollTrigger);
 
 const COVER_MEDIA = {
   'zahav-medspa': { mp4: ZahavMp4, poster: ZahavPoster },
+  creatuwheels: { mp4: CreatuwheelsMp4, poster: CreatuwheelsPoster },
 };
 
 const Tile = ({ proj, onOpen }) => {
