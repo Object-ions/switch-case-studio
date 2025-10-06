@@ -37,7 +37,7 @@ const BASE_PROJECTS = [
     panelClass: 'panel-card-2',
     slug: 'creatuwheels',
   },
-  { id: 4, label: 'PROJECT D', panelClass: 'panel-card-3', slug: 'project-d' },
+  { id: 4, label: 'Maritime', panelClass: 'panel-card-3', slug: 'maritime' },
 ];
 
 const PROJECTS = BASE_PROJECTS.map((p) => ({

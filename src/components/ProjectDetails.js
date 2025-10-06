@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useRef } from 'react';
+import { useState, useLayoutEffect, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import Arrow from './Arrow';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,6 +24,7 @@ const ProjectDetails = ({ project, onClose, onBack }) => {
   const data = project ?? {};
 
   const {
+    slug,
     title = 'Untitled Project',
     subtitle = '',
     description = '',
@@ -44,6 +45,20 @@ const ProjectDetails = ({ project, onClose, onBack }) => {
   const [scrolledMedia, setScrolledMedia] = useState(false);
   const [scrolledPanel, setScrolledPanel] = useState(false);
   const [zoomOpen, setZoomOpen] = useState(false);
+
+  // Only render the mockup if the source exists and loads successfully
+  const [mockupOK, setMockupOK] = useState(false);
+  const hasLongWeb = typeof longWeb === 'string' && longWeb.trim().length > 0;
+
+  useEffect(() => {
+    setMockupOK(false);
+    if (hasLongWeb) {
+      const img = new Image();
+      img.onload = () => setMockupOK(true);
+      img.onerror = () => setMockupOK(false);
+      img.src = longWeb;
+    }
+  }, [hasLongWeb, longWeb, slug, title]);
 
   // GSAP refs
   const rootRef = useRef(null);
@@ -100,8 +115,9 @@ const ProjectDetails = ({ project, onClose, onBack }) => {
             setScrolledMedia(true);
         }}
       >
-        {longWeb && (
+        {hasLongWeb && mockupOK && (
           <DeviceMockup
+            key={slug || title} // force remount when project changes
             frameSrc={macbookFrame}
             contentSrc={longWeb}
             alt={mockupAlt}
