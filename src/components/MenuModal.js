@@ -208,13 +208,13 @@ const MenuModal = ({ open, onClose }) => {
                           </Link>
                         </li>
                         <li>
-                          <Link to="/projects/project-b" onClick={onClose}>
-                            Project B
+                          <Link to="/projects/creatuwheels" onClick={onClose}>
+                            Creatuwheels
                           </Link>
                         </li>
                         <li>
-                          <Link to="/projects/project-c" onClick={onClose}>
-                            Project C
+                          <Link to="/projects/maritime" onClick={onClose}>
+                            Maritime
                           </Link>
                         </li>
                       </motion.ul>

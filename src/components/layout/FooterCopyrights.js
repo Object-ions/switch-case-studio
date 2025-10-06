@@ -54,10 +54,10 @@ const FooterCopyrights = () => {
                 <Link to="/projects/prodani-miami">ProDani Miami</Link>
               </li>
               <li>
-                <Link to="/projects/project-b">Project B</Link>
+                <Link to="/projects/creatuwheels">Creatuwheels</Link>
               </li>
               <li>
-                <Link to="/projects/project-c">Project C</Link>
+                <Link to="/projects/maritime">Maritime</Link>
               </li>
             </ul>
           </li>

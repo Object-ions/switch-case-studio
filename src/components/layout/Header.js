@@ -184,20 +184,20 @@ const Header = () => {
                   </li>
                   <li className="submenu__item">
                     <Link
-                      to="/projects/project-b"
+                      to="/projects/creatuwheels"
                       className="submenu__link"
                       onClick={() => setProjectsOpen(false)}
                     >
-                      Project B
+                      Creatuwheels
                     </Link>
                   </li>
                   <li className="submenu__item">
                     <Link
-                      to="/projects/project-c"
+                      to="/projects/maritime"
                       className="submenu__link"
                       onClick={() => setProjectsOpen(false)}
                     >
-                      Project C
+                      Maritime
                     </Link>
                   </li>
                 </ul>
