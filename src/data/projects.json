@@ -128,5 +128,52 @@
     "productName": "Our Work",
     "ctaLabel": "View Project",
     "ctaUrl": ""
+  },
+
+  {
+    "id": 4,
+    "slug": "maritime",
+    "imageSrc": "/projects/maritime/1.avif",
+    "longWeb": "",
+    "imageAlt": "Maritime crab cracker and packaging design preview",
+    "backLabel": "Back to Projects",
+    "title": "Maritime",
+    "subtitle": "Sculptural Crab Cracker & Packaging Design",
+    "description": "For 'Maritime', Switch Case Studio reimagined a simple seafood tool into a sculptural dining experience. The crab cracker, inspired by the fluid forms of marine life, balances ergonomic design with aesthetic refinement. Paired with a calm beige and navy packaging system, the project celebrates the art of taste, tactility, and thoughtful presentation.",
+    "tileVersion": "Product and packaging design inspired by marine forms, balancing function and elegance.",
+    "services": [
+      { "label": "#Product Design" },
+      { "label": "#3D Modeling" },
+      { "label": "#Branding" },
+      { "label": "#Packaging Design" },
+      { "label": "#Visual Direction" }
+    ],
+    "highlights": [
+      {
+        "title": "Sculptural Form",
+        "summary": "Organic silhouette shaped by ergonomic testing for comfort and balance."
+      },
+      {
+        "title": "Material Concept",
+        "summary": "Envisioned in stainless steel for durability, strength, and refined finish."
+      },
+      {
+        "title": "Packaging System",
+        "summary": "Minimal beige and navy design reflecting the calm sophistication of the sea."
+      },
+      {
+        "title": "Graphic Language",
+        "summary": "Linear wave patterns and typography echo the flow of marine life."
+      },
+      {
+        "title": "Unboxing Experience",
+        "summary": "Inner message crafted to enhance the reveal — transforming function into ritual."
+      }
+    ],
+    "result": "A cohesive product and brand experience that transforms a functional utensil into a piece of design storytelling — where form, utility, and emotion converge.",
+    "kicker": "In depth on",
+    "productName": "Our Work",
+    "ctaLabel": "View Project",
+    "ctaUrl": ""
   }
 ]
