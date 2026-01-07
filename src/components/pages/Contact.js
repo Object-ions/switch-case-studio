@@ -106,7 +106,7 @@ const Contact = () => {
             <a
               ref={ctaRef}
               className="contact-cta"
-              href="https://link.foreverbooked.com/widget/booking/ec8dal2CrxqAOd9QwKc2"
+              href="https://calendar.app.google/83UCJjis2FHUrr1s6"
               target="_blank"
               rel="noreferrer"
             >

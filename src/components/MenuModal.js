@@ -246,7 +246,7 @@ const MenuModal = ({ open, onClose }) => {
                 <li>
                   <a
                     className="menu-modal__cta"
-                    href="https://link.foreverbooked.com/widget/booking/ec8dal2CrxqAOd9QwKc2"
+                    href="https://calendar.app.google/83UCJjis2FHUrr1s6"
                     target="_blank"
                     rel="noreferrer"
                     onClick={onClose}
