@@ -49,6 +49,21 @@
 .row-tiles {
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: minmax(var(--tile-h-min), var(--tile-h-max));
+
+  // Transition for the whole row blurring
+  transition: filter 0.3s ease, opacity 0.3s ease;
+
+  .tile {
+    // Ensure tiles transition smoothly
+    transition: transform 0.25s ease, background-color 0.25s ease;
+  }
+
+  // When modal is open (applied by React)
+  &.is-blurred {
+    filter: grayscale(30%) blur(2px);
+    opacity: 0.6;
+    pointer-events: none; // Prevent clicking background tiles
+  }
 }
 
 /* marquee */

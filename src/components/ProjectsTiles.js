@@ -3,23 +3,61 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useReducedMotion from '../hooks/useReducedMotion';
 
-import ZahavMp4 from '../assets/projects/zahav/zahav-cover-tile.mp4';
 import ZahavPoster from '../assets/projects/zahav/zahav-cover-tile.webp';
-import CreatuwheelsMp4 from '../assets/projects/creatuwheels/creatuwheels-cover-tile.mp4';
 import CreatuwheelsPoster from '../assets/projects/creatuwheels/creatuwheels-cover-tile.webp';
-import MaritimeMp4 from '../assets/projects/maritime/maritime-cover-tile.mp4';
 import MaritimePoster from '../assets/projects/maritime/maritime-cover-tile.webp';
+import ProdaniPoster from '../assets/projects/prodani/prodani-cover-tile.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Keys MUST match the 'slug' in your PROJECTS data
 const COVER_MEDIA = {
-  'zahav-medspa': { mp4: ZahavMp4, poster: ZahavPoster },
-  creatuwheels: { mp4: CreatuwheelsMp4, poster: CreatuwheelsPoster },
-  maritime: { mp4: MaritimeMp4, poster: MaritimePoster },
+  'zahav-medspa': { poster: ZahavPoster },
+  'prodani-miami': { poster: ProdaniPoster },
+  creatuwheels: { poster: CreatuwheelsPoster },
+  maritime: { poster: MaritimePoster },
 };
 
 const Tile = ({ proj, onOpen }) => {
+  const tileRef = useRef(null);
   const media = COVER_MEDIA[proj.slug];
+
+  // Hover Logic: React Event -> GSAP
+  const onEnter = () => {
+    if (!tileRef.current) return;
+
+    // Animate Tile
+    gsap.to(tileRef.current, {
+      y: -6,
+      rotate: 0.6,
+      scale: 1.015,
+      duration: 0.25,
+      ease: 'power2.out',
+      overwrite: true, // Prevents animation conflicts
+    });
+
+    // Animate Label (if exists)
+    const label = tileRef.current.querySelector('.panel-label');
+    if (label) {
+      gsap.fromTo(
+        label,
+        { yPercent: 20, autoAlpha: 0.6 },
+        { yPercent: 0, autoAlpha: 1, duration: 0.25, overwrite: true }
+      );
+    }
+  };
+
+  const onLeave = () => {
+    if (!tileRef.current) return;
+    gsap.to(tileRef.current, {
+      y: 0,
+      rotate: 0,
+      scale: 1,
+      duration: 0.25,
+      ease: 'power2.inOut',
+      overwrite: true,
+    });
+  };
 
   const onKey = (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -30,14 +68,17 @@ const Tile = ({ proj, onOpen }) => {
 
   return (
     <div
+      ref={tileRef}
       className={`panel ${proj.panelClass} tile ${media ? 'has-media' : ''}`}
       role="button"
       tabIndex={0}
       onClick={() => onOpen(proj.id)}
       onKeyDown={onKey}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
       aria-label={`Open ${proj.label} details`}
     >
-      {/* Media layer (autoplay, loop, no controls) */}
+      {/* Media Layer */}
       {media && (
         <div className="tile-media" aria-hidden="true">
           {media.mp4 ? (
@@ -63,13 +104,14 @@ const Tile = ({ proj, onOpen }) => {
         </div>
       )}
 
-      {/* Show name ONLY on color tiles (no media). Hidden on media tiles. */}
+      {/* Text Layer (Only shown if no media) */}
       {!media && (
         <span className="panel-label" data-about={`About ${proj.label}`}>
           {proj.label}
         </span>
       )}
 
+      {/* Click Prompt (Overlay) */}
       {proj.tileVersion && (
         <p className="panel-excerpt">
           {proj.tileVersion}
@@ -85,14 +127,12 @@ const ProjectsTiles = ({ projects, onOpen, modalOpen }) => {
   const wrap = useRef(null);
   const reduced = useReducedMotion();
 
+  // Entrance Animation Only
   useLayoutEffect(() => {
     if (reduced) return;
     const ctx = gsap.context(() => {
-      const tiles = gsap.utils.toArray('.row-tiles .tile');
-
-      // Stagger in
       gsap.fromTo(
-        tiles,
+        '.tile', // Scoped to 'wrap' automatically by gsap.context
         { autoAlpha: 0, y: 30, scale: 0.98, rotate: -0.4 },
         {
           autoAlpha: 1,
@@ -109,54 +149,15 @@ const ProjectsTiles = ({ projects, onOpen, modalOpen }) => {
           },
         }
       );
-
-      // Hover float
-      tiles.forEach((tile) => {
-        let enterTl;
-        tile.addEventListener('mouseenter', () => {
-          enterTl?.kill();
-          enterTl = gsap.timeline();
-          enterTl.to(tile, {
-            y: -6,
-            rotate: 0.6,
-            scale: 1.015,
-            duration: 0.25,
-            ease: 'power2.out',
-          });
-          const label = tile.querySelector('.panel-label');
-          if (label) {
-            enterTl.fromTo(
-              label,
-              { yPercent: 20, autoAlpha: 0.6 },
-              { yPercent: 0, autoAlpha: 1, duration: 0.25 },
-              0
-            );
-          }
-        });
-        tile.addEventListener('mouseleave', () => {
-          gsap.to(tile, {
-            y: 0,
-            rotate: 0,
-            scale: 1,
-            duration: 0.25,
-            ease: 'power2.inOut',
-          });
-        });
-      });
-
-      // De-emphasize grid when modal open
-      gsap.to(tiles, {
-        filter: modalOpen ? 'grayscale(30%) blur(1px)' : 'none',
-        opacity: modalOpen ? 0.6 : 1,
-        duration: 0.25,
-        ease: 'power1.out',
-      });
     }, wrap);
     return () => ctx.revert();
-  }, [reduced, modalOpen]);
+  }, [reduced]); // Removed 'modalOpen' dependency to stop re-animating
 
   return (
-    <div className="projects-row row-tiles" ref={wrap}>
+    <div
+      className={`projects-row row-tiles ${modalOpen ? 'is-blurred' : ''}`}
+      ref={wrap}
+    >
       {projects.map((p) => (
         <Tile key={p.id} proj={p} onOpen={onOpen} />
       ))}
