@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import LogoAnimatedFooter from '../LogoAnimatedFooter';
+import logo from '../../assets/images/logo.png';
 import HeaderCTA from './HeaderCTA';
 import '../../styles/components/footer.scss';
 
@@ -10,7 +10,7 @@ const FooterCopyrights = () => {
 
       {/* 1/4 Brand */}
       <div className="site-footer_brand">
-        <LogoAnimatedFooter />
+        <img src={logo} alt="Switch Case Studio logo" width={'75px'} />
         <br />
         <br />
         <p>

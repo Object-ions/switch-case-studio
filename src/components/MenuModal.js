@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import SCSLogo from './SCSLogo';
+import logo from '../assets/images/logo.png';
 import MenuIcon from './MenuIcon';
 import '../styles/components/menuModal.scss';
 
@@ -12,18 +12,6 @@ const MenuModal = ({ open, onClose }) => {
   const [openProjects, setOpenProjects] = useState(false);
   const submenuId = 'mm-pricing-submenu';
   const projectsSubmenuId = 'mm-projects-submenu';
-  const [logoWidth, setLogoWidth] = useState(200); // default desktop
-
-  useEffect(() => {
-    // update on resize
-    const handleResize = () => {
-      setLogoWidth(window.innerWidth <= 768 ? 100 : 200);
-    };
-
-    handleResize(); // run on mount
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   // focus and scroll lock
   useEffect(() => {
@@ -90,7 +78,7 @@ const MenuModal = ({ open, onClose }) => {
             {/* Col 1 - Logo */}
             <div className="menu-modal__col menu-modal__col--brand">
               <Link to="/" onClick={onClose} className="brand_link">
-                <SCSLogo width={logoWidth} height="auto" />
+                <img src={logo} alt="Switch Case Studio logo" width={'75px'} />
               </Link>
             </div>
 

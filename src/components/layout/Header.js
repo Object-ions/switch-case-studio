@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useRef, useState, useEffect } from 'react';
-import SCSLogo from '../SCSLogo';
+import logo from '../../assets/images/logo.png';
 import HeaderCTA from './HeaderCTA';
 import MenuIcon from '../MenuIcon';
 import MenuModal from '../MenuModal';
@@ -12,18 +12,6 @@ const Header = () => {
   const [submenuOpen, setSubmenuOpen] = useState(false); // Pricing submenu
   const [projectsOpen, setProjectsOpen] = useState(false); // Projects submenu
   const { pathname, hash } = useLocation();
-  const [logoWidth, setLogoWidth] = useState(200); // default desktop
-
-  useEffect(() => {
-    // update on resize
-    const handleResize = () => {
-      setLogoWidth(window.innerWidth <= 768 ? 100 : 200);
-    };
-
-    handleResize(); // run on mount
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   useEffect(() => {
     // Close any menus on route change
@@ -55,7 +43,7 @@ const Header = () => {
               aria-label="Switch Case Studio home"
               onMouseEnter={handleHover}
             >
-              <SCSLogo ref={logoRef} width={logoWidth} height="auto" />
+              <img src={logo} alt="Switch Case Studio logo" width={'75px'} />
             </Link>
           </div>
 
