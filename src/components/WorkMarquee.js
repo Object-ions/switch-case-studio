@@ -2,18 +2,35 @@
 import '../styles/components/marquee.scss';
 
 const WorkMarquee = () => {
-  // The text you want to loop
-  const content = 'Unleash Your Digital Potential with < Switch Case Studio />';
+  const words = [
+    'Unleash',
+    'Your',
+    'Digital',
+    'Potential',
+    'with',
+    '< Switch Case Studio />',
+  ];
+
+  const renderContent = () => (
+    <>
+      {words.map((word, i) => (
+        <span key={i} className="work-marquee__word">
+          {word}
+          {/* Add a non-breaking space after each word */}
+          &nbsp;
+        </span>
+      ))}
+    </>
+  );
 
   return (
     <div className="work-marquee">
       <div className="work-marquee__track">
         {/* Copy 1 */}
-        <span className="work-marquee__item">{content}</span>
+        <span className="work-marquee__item">{renderContent()}</span>
 
-        {/* Copy 2 (Exact duplicate for the loop) */}
         <span className="work-marquee__item" aria-hidden="true">
-          {content}
+          {renderContent()}
         </span>
       </div>
     </div>
