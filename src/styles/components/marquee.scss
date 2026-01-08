@@ -1,64 +1,79 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
-/* Keyframes at root */
+/* 1. ANIMATION: Move exactly half the width */
 @keyframes workMarqueeScroll {
   from {
     transform: translateX(0%);
   }
   to {
-    transform: translateX(-100%);
-  }
-}
-@-webkit-keyframes workMarqueeScroll {
-  from {
-    transform: translateX(0%);
-  }
-  to {
-    transform: translateX(-100%);
+    transform: translateX(-50%); /* Crucial change: -50% not -100% */
   }
 }
 
 .work-marquee {
-  --marquee-duration: 20s;
-
   position: relative;
   z-index: 12;
-  overflow: hidden;
-  white-space: nowrap;
-  color: #fff;
+  overflow: hidden; /* Hides the scrolling parts */
   isolation: isolate;
+  user-select: none;
+  width: 100%;
+
+  /* Add background color if needed, or keep transparent */
 
   &__track {
-    display: inline-block;
-    padding-left: 100%;
+    display: flex; /* Ensures the two spans sit side-by-side */
+    width: fit-content; /* Allows track to grow based on text size */
+    will-change: transform;
+
+    /* Adjust speed here. 30s is usually a good smooth speed for large text */
+    animation: workMarqueeScroll 30s linear infinite;
+
+    /* Hover to pause (optional - remove if you don't want it) */
+    &:hover {
+      animation-play-state: paused;
+    }
+  }
+
+  &__item {
+    /* Prevent the text from wrapping or squishing */
+    flex-shrink: 0;
+    white-space: nowrap;
+
+    /* YOUR ORIGINAL STYLING HERE */
     font-family: $font-special;
-    padding: 7rem 0 3rem 0;
-
     font-size: 17rem;
-
     line-height: 0.9;
+    color: #fff;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 
-    will-change: transform;
-    animation: workMarqueeScroll var(--marquee-duration) linear infinite;
+    /* Spacing around the text */
+    padding: 7rem 0 3rem 0;
 
+    /* Gap between the end of sentence 1 and start of sentence 2.
+       This replaces the 'space' you might assume is there.
+    */
+    padding-right: 4rem;
+
+    /* YOUR MEDIA QUERIES */
     @media (max-width: 768px) {
       font-size: 10rem;
-      padding: 5rem 0 2rem 0;
+      padding-top: 5rem;
+      padding-bottom: 2rem;
     }
 
     @media (max-width: 400px) {
       font-size: 5rem;
-      padding: 3rem 0 1rem 0;
+      padding-top: 3rem;
+      padding-bottom: 1rem;
     }
   }
 }
 
-/* Reduced motion */
+/* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   .work-marquee__track {
-    animation-duration: calc(var(--marquee-duration) * 2);
+    animation-duration: 60s; /* Slower instead of stopping entirely often looks better */
   }
 }
