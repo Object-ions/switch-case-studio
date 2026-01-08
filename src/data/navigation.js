@@ -16,3 +16,10 @@ export const PROJECT_LINKS = [
   { label: 'Creatuwheels', to: '/projects/creatuwheels' },
   { label: 'Maritime', to: '/projects/maritime' },
 ];
+
+// NEW: Legal pages
+export const LEGAL_LINKS = [
+  { label: 'Privacy Policy', to: '/privacy' },
+  { label: 'Terms of Use', to: '/terms' },
+  { label: 'Accessibility Statement', to: '/accessibility' },
+];

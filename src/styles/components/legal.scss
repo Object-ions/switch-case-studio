@@ -1,0 +1,66 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+.legal-page {
+  padding: 120px 24px 80px; // Top padding accounts for fixed header
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 80vh;
+  color: #111;
+  font-family: $font-text;
+
+  h1 {
+    font-family: $font-special;
+    font-size: clamp(32px, 5vw, 48px);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .last-updated {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 48px;
+    display: block;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 24px;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 40px;
+    margin-bottom: 16px;
+    color: #000;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    color: #333;
+  }
+
+  ul {
+    margin-bottom: 16px;
+    padding-left: 20px;
+
+    li {
+      margin-bottom: 8px;
+      line-height: 1.6;
+      list-style-type: disc;
+    }
+  }
+
+  a {
+    color: $orange-color; // Or your brand link color
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 100px 16px 60px;
+  }
+}

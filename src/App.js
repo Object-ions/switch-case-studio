@@ -15,6 +15,12 @@ import GradientStripe from './components/StripeSection';
 
 // Assets & Styles
 import Orb from './assets/images/orb.avif';
+
+// Legal Pages
+import Privacy from './components/Privacy';
+import Terms from './components/Terms';
+import Accessibility from './components/Accessibility';
+
 import './styles/app.scss';
 
 /**
@@ -76,7 +82,33 @@ function App() {
           }
         />
 
-        {/* 4. Catch-all -> Redirect to Home */}
+        {/* 4. Legal Pages */}
+        <Route
+          path="/privacy"
+          element={
+            <MainLayout>
+              <Privacy />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/terms"
+          element={
+            <MainLayout>
+              <Terms />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/accessibility"
+          element={
+            <MainLayout>
+              <Accessibility />
+            </MainLayout>
+          }
+        />
+
+        {/* 5. Catch-all -> Redirect to Home */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>
