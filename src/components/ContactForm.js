@@ -40,48 +40,57 @@ const ContactForm = ({ formRef }) => {
   const buttonRef = useRef(null);
 
   useEffect(() => {
-    fieldRefs.current.forEach((el, i) => {
+    // 1. Create the context
+    const ctx = gsap.context(() => {
+      // Ensure fieldRefs doesn't contain nulls (common in React strict mode)
+      const validFields = fieldRefs.current.filter((el) => el !== null);
+
+      validFields.forEach((el, i) => {
+        gsap.fromTo(
+          el,
+          {
+            opacity: 0,
+            x: i % 2 === 0 ? -80 : 80,
+            rotate: i % 2 === 0 ? -5 : 5,
+            skewX: i % 2 === 0 ? 5 : -5,
+          },
+          {
+            opacity: 1,
+            x: 0,
+            rotate: 0,
+            skewX: 0,
+            duration: 1,
+            ease: 'back.out(1.7)',
+            scrollTrigger: {
+              trigger: formRef.current, // Simplified trigger
+              start: 'top 85%',
+            },
+            delay: i * 0.1,
+          }
+        );
+      });
+
       gsap.fromTo(
-        el,
+        buttonRef.current,
         {
+          scale: 0.8,
           opacity: 0,
-          x: i % 2 === 0 ? -80 : 80,
-          rotate: i % 2 === 0 ? -5 : 5,
-          skewX: i % 2 === 0 ? 5 : -5,
         },
         {
+          scale: 1,
           opacity: 1,
-          x: 0,
-          rotate: 0,
-          skewX: 0,
-          duration: 1,
-          ease: 'back.out(1.7)',
+          duration: 0.7,
+          ease: 'elastic.out(1, 0.5)',
           scrollTrigger: {
-            trigger: () => formRef.current,
+            trigger: formRef.current,
             start: 'top 85%',
           },
-          delay: i * 0.1,
         }
       );
-    });
+    }, formRef); // Scope the selector (optional but good practice)
 
-    gsap.fromTo(
-      buttonRef.current,
-      {
-        scale: 0.8,
-        opacity: 0,
-      },
-      {
-        scale: 1,
-        opacity: 1,
-        duration: 0.7,
-        ease: 'elastic.out(1, 0.5)',
-        scrollTrigger: {
-          trigger: () => formRef.current,
-          start: 'top 85%',
-        },
-      }
-    );
+    // 2. CLEANUP: Revert all animations when component unmounts
+    return () => ctx.revert();
   }, [formRef]);
 
   const fields = [
@@ -138,6 +147,7 @@ const ContactForm = ({ formRef }) => {
         <div
           className="form-group"
           key={name}
+          // Ensure we don't push duplicates if re-rendering
           ref={(el) => (fieldRefs.current[index] = el)}
         >
           <label htmlFor={name}>
