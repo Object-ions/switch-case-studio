@@ -1,79 +1,85 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
-/* 1. ANIMATION: Move exactly half the width */
+/* 1. ANIMATION: Use translate3d for iOS GPU acceleration */
 @keyframes workMarqueeScroll {
   from {
-    transform: translateX(0%);
+    transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translateX(-50%); /* Crucial change: -50% not -100% */
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
 .work-marquee {
   position: relative;
   z-index: 12;
-  overflow: hidden; /* Hides the scrolling parts */
+  overflow: hidden;
   isolation: isolate;
   user-select: none;
   width: 100%;
 
-  /* Add background color if needed, or keep transparent */
+  /* Explicit background helps the compositor on some iOS versions */
+  background-color: transparent;
 
   &__track {
-    display: flex; /* Ensures the two spans sit side-by-side */
-    width: fit-content; /* Allows track to grow based on text size */
+    display: flex;
+    width: fit-content;
     will-change: transform;
 
-    /* Adjust speed here. 30s is usually a good smooth speed for large text */
+    /* CRITICAL IOS FIXES: */
+    /* Forces the browser to promote this to a layer safely */
+    transform: translate3d(0, 0, 0);
+    /* Prevents flickering during the loop reset */
+    backface-visibility: hidden;
+    perspective: 1000px;
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+
     animation: workMarqueeScroll 30s linear infinite;
 
-    /* Hover to pause (optional - remove if you don't want it) */
     &:hover {
       animation-play-state: paused;
     }
   }
 
   &__item {
-    /* Prevent the text from wrapping or squishing */
     flex-shrink: 0;
     white-space: nowrap;
 
-    /* YOUR ORIGINAL STYLING HERE */
+    /* Base styles */
     font-family: $font-special;
-    font-size: 17rem;
+    /* Reduced from 17rem to 14rem to be safer on laptops, 
+       but you can bump this back up if testing proves stable on desktop */
+    font-size: 14rem;
     line-height: 0.9;
     color: #fff;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 
-    /* Spacing around the text */
     padding: 7rem 0 3rem 0;
-
-    /* Gap between the end of sentence 1 and start of sentence 2.
-       This replaces the 'space' you might assume is there.
-    */
     padding-right: 4rem;
 
-    /* YOUR MEDIA QUERIES */
-    @media (max-width: 768px) {
-      font-size: 10rem;
+    /* --- SAFETY BREAKPOINTS --- */
+
+    /* 1. Tablet/Small Laptop (Capture anything under 1024px) */
+    @media (max-width: 1024px) {
+      font-size: 6rem; /* DRASTICALLY reduced to stay under pixel limit */
       padding-top: 5rem;
       padding-bottom: 2rem;
     }
 
-    @media (max-width: 400px) {
-      font-size: 5rem;
+    /* 2. Mobile (Capture anything under 600px) */
+    @media (max-width: 600px) {
+      font-size: 4rem; /* Safe size for iPhone (approx 64px) */
       padding-top: 3rem;
       padding-bottom: 1rem;
     }
   }
 }
 
-/* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   .work-marquee__track {
-    animation-duration: 60s; /* Slower instead of stopping entirely often looks better */
+    animation-duration: 60s;
   }
 }
