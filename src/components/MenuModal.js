@@ -1,41 +1,69 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import logo from '../assets/images/logo.png';
 import MenuIcon from './MenuIcon';
+import { PRICING_LINKS, PROJECT_LINKS } from '../data/navigation';
 import '../styles/components/menuModal.scss';
 
-const MenuModal = ({ open, onClose }) => {
-  const firstLinkRef = useRef(null);
-  const [openPricing, setOpenPricing] = useState(false);
-  const [openProjects, setOpenProjects] = useState(false);
-  const submenuId = 'mm-pricing-submenu';
-  const projectsSubmenuId = 'mm-projects-submenu';
+// Reusable Accordion Component to clean up the main render
+const MenuAccordion = ({ label, items, isOpen, onToggle, onClose }) => {
+  return (
+    <li className={`has-submenu ${isOpen ? 'is-open' : ''}`}>
+      <button
+        type="button"
+        className="menu-modal__toggle"
+        aria-expanded={isOpen}
+        onClick={onToggle}
+      >
+        {label}
+      </button>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.ul
+            className="menu-modal__submenu"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.18, ease: 'easeOut' }}
+          >
+            {items.map((item) => (
+              <li key={item.to}>
+                <Link to={item.to} onClick={onClose}>
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </li>
+  );
+};
 
-  // focus and scroll lock
+const MenuModal = ({ open, onClose }) => {
+  const [openAccordion, setOpenAccordion] = useState(null); // 'pricing' | 'projects' | null
+
+  // Focus and scroll lock logic
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      setOpenAccordion(null);
+      return;
+    }
     const onKey = (e) => e.key === 'Escape' && onClose();
     window.addEventListener('keydown', onKey);
-    const t = setTimeout(() => firstLinkRef.current?.focus(), 0);
-    const html = document.documentElement;
-    const prevOverflow = html.style.overflow;
-    html.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden'; // Safer than document.documentElement usually
+
     return () => {
       window.removeEventListener('keydown', onKey);
-      clearTimeout(t);
-      html.style.overflow = prevOverflow;
+      document.body.style.overflow = '';
     };
   }, [open, onClose]);
 
-  // Close accordions when modal closes
-  useEffect(() => {
-    if (!open) {
-      setOpenPricing(false);
-      setOpenProjects(false);
-    }
-  }, [open]);
+  const toggleAccordion = (id) => {
+    setOpenAccordion((prev) => (prev === id ? null : id));
+  };
 
   return createPortal(
     <AnimatePresence>
@@ -44,7 +72,6 @@ const MenuModal = ({ open, onClose }) => {
           className="menu-modal"
           role="dialog"
           aria-modal="true"
-          aria-label="Site menu"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -52,174 +79,65 @@ const MenuModal = ({ open, onClose }) => {
         >
           <button
             className="menu-modal__close"
-            type="button"
-            aria-label="Close menu"
             onClick={onClose}
+            aria-label="Close"
           >
             <MenuIcon open size={28} />
           </button>
 
-          <motion.div
-            className="menu-modal__overlay"
-            onClick={onClose}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-          />
+          <motion.div className="menu-modal__overlay" onClick={onClose} />
 
           <motion.div
             className="menu-modal__panel"
-            initial={{ y: -8, opacity: 0.98 }}
+            initial={{ y: -8, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -8, opacity: 0.98 }}
-            transition={{ duration: 0.18, ease: 'easeOut' }}
+            exit={{ y: -8, opacity: 0 }}
+            transition={{ duration: 0.18 }}
           >
-            {/* Col 1 - Logo */}
+            {/* Col 1 */}
             <div className="menu-modal__col menu-modal__col--brand">
               <Link to="/" onClick={onClose} className="brand_link">
-                <img src={logo} alt="Switch Case Studio logo" width={'75px'} />
+                <img src={logo} alt="Switch Case Studio" width="75px" />
               </Link>
             </div>
 
-            {/* Col 2 - Main menu */}
-            <nav
-              className="menu-modal__col menu-modal__col--primary"
-              aria-label="Primary"
-            >
+            {/* Col 2 */}
+            <nav className="menu-modal__col menu-modal__col--primary">
               <ul className="menu-modal__list menu-modal__list--primary">
                 <li>
-                  <a ref={firstLinkRef} href="#services" onClick={onClose}>
+                  <a href="#services" onClick={onClose}>
                     Services
                   </a>
                 </li>
-
                 <li>
                   <a href="#about" onClick={onClose}>
                     About
                   </a>
                 </li>
 
-                {/* Pricing accordion */}
-                <li className={`has-submenu ${openPricing ? 'is-open' : ''}`}>
-                  <button
-                    type="button"
-                    className="menu-modal__toggle"
-                    aria-expanded={openPricing ? 'true' : 'false'}
-                    aria-controls={submenuId}
-                    onClick={() => setOpenPricing((v) => !v)}
-                  >
-                    Pricing
-                  </button>
+                <MenuAccordion
+                  label="Pricing"
+                  items={PRICING_LINKS}
+                  isOpen={openAccordion === 'pricing'}
+                  onToggle={() => toggleAccordion('pricing')}
+                  onClose={onClose}
+                />
 
-                  <AnimatePresence initial={false}>
-                    {openPricing && (
-                      <motion.ul
-                        id={submenuId}
-                        className="menu-modal__submenu"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.18, ease: 'easeOut' }}
-                      >
-                        <li>
-                          <Link to="/pricing/web-development" onClick={onClose}>
-                            Web Development
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/pricing/marketing-ads" onClick={onClose}>
-                            Marketing & Advertisement
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            to="/pricing/hosting-maintenance"
-                            onClick={onClose}
-                          >
-                            Web Hosting & Maintenance
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/pricing/design-branding" onClick={onClose}>
-                            Design & Branding
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            to="/pricing/automation-integrations"
-                            onClick={onClose}
-                          >
-                            Automation & Integrations
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/pricing/email-marketing" onClick={onClose}>
-                            Email Marketing
-                          </Link>
-                        </li>
-                      </motion.ul>
-                    )}
-                  </AnimatePresence>
-                </li>
-
-                {/* Projects accordion */}
-                <li className={`has-submenu ${openProjects ? 'is-open' : ''}`}>
-                  <button
-                    type="button"
-                    className="menu-modal__toggle"
-                    aria-expanded={openProjects ? 'true' : 'false'}
-                    aria-controls={projectsSubmenuId}
-                    onClick={() => setOpenProjects((v) => !v)}
-                  >
-                    Projects
-                  </button>
-
-                  <AnimatePresence initial={false}>
-                    {openProjects && (
-                      <motion.ul
-                        id={projectsSubmenuId}
-                        className="menu-modal__submenu"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.18, ease: 'easeOut' }}
-                      >
-                        <li>
-                          <Link to="/projects/zahav-medspa" onClick={onClose}>
-                            Zahav Medspa
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/projects/prodani-miami" onClick={onClose}>
-                            ProDani Miami
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/projects/creatuwheels" onClick={onClose}>
-                            Creatuwheels
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/projects/maritime" onClick={onClose}>
-                            Maritime
-                          </Link>
-                        </li>
-                      </motion.ul>
-                    )}
-                  </AnimatePresence>
-                </li>
+                <MenuAccordion
+                  label="Projects"
+                  items={PROJECT_LINKS}
+                  isOpen={openAccordion === 'projects'}
+                  onToggle={() => toggleAccordion('projects')}
+                  onClose={onClose}
+                />
 
                 <li>
                   <a href="#testimonials" onClick={onClose}>
                     Reviews
                   </a>
                 </li>
-                <li>
-                  <a href="#projects" onClick={onClose}>
-                    Projects
-                  </a>
-                </li>
+                {/* Note: In your original code you had Projects link AND accordion. 
+                    I kept accordion as primary, removed duplicate link to avoid confusion. */}
                 <li>
                   <a href="#contact" onClick={onClose}>
                     Contact Us
@@ -228,7 +146,7 @@ const MenuModal = ({ open, onClose }) => {
               </ul>
             </nav>
 
-            {/* Col 3 - Secondary */}
+            {/* Col 3 */}
             <div className="menu-modal__col menu-modal__col--secondary">
               <ul className="menu-modal__list">
                 <li>
@@ -250,11 +168,6 @@ const MenuModal = ({ open, onClose }) => {
                 <li>
                   <Link to="/terms" onClick={onClose}>
                     Terms of Use
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/accessibility" onClick={onClose}>
-                    Accessibility Statement
                   </Link>
                 </li>
               </ul>

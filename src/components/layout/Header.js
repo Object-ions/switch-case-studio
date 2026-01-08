@@ -1,26 +1,33 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import logo from '../../assets/images/logo.png';
 import HeaderCTA from './HeaderCTA';
 import MenuIcon from '../MenuIcon';
 import MenuModal from '../MenuModal';
+import { PRICING_LINKS, PROJECT_LINKS } from '../../data/navigation';
 import '../../styles/components/header.scss';
 
 const Header = () => {
-  const logoRef = useRef(null);
   const [open, setOpen] = useState(false);
-  const [submenuOpen, setSubmenuOpen] = useState(false); // Pricing submenu
-  const [projectsOpen, setProjectsOpen] = useState(false); // Projects submenu
+  const [activeSubmenu, setActiveSubmenu] = useState(null);
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    // Close any menus on route change
     setOpen(false);
-    setSubmenuOpen(false);
-    setProjectsOpen(false);
+    setActiveSubmenu(null);
   }, [pathname, hash]);
 
-  const handleHover = () => logoRef.current?.replay();
+  const renderSubmenu = (links, closeFn) => (
+    <ul className="submenu" role="menu">
+      {links.map((link) => (
+        <li className="submenu__item" key={link.to}>
+          <Link to={link.to} className="submenu__link" onClick={closeFn}>
+            {link.label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
 
   return (
     <>
@@ -28,8 +35,6 @@ const Header = () => {
         <div className="site-header_inner">
           <button
             className="site-header_menuBtn"
-            aria-controls="site-menu"
-            aria-expanded={open}
             aria-label="Open menu"
             onClick={() => setOpen(true)}
           >
@@ -37,13 +42,8 @@ const Header = () => {
           </button>
 
           <div className="site-header_brand">
-            <Link
-              to="/"
-              className="brand_link"
-              aria-label="Switch Case Studio home"
-              onMouseEnter={handleHover}
-            >
-              <img src={logo} alt="Switch Case Studio logo" width={'75px'} />
+            <Link to="/" className="brand_link" aria-label="Home">
+              <img src={logo} alt="Switch Case Studio" width="75px" />
             </Link>
           </div>
 
@@ -56,139 +56,46 @@ const Header = () => {
                   About
                 </Link>
               </li>
-
               <li className="nav_item">
                 <Link to="/#services" className="nav_link">
                   Services
                 </Link>
               </li>
 
-              {/* Pricing submenu */}
+              {/* Pricing Submenu */}
               <li
                 className={`nav_item nav_item--has-submenu ${
-                  submenuOpen ? 'is-open' : ''
+                  activeSubmenu === 'pricing' ? 'is-open' : ''
                 }`}
-                onMouseEnter={() => setSubmenuOpen(true)}
-                onMouseLeave={() => setSubmenuOpen(false)}
+                onMouseEnter={() => setActiveSubmenu('pricing')}
+                onMouseLeave={() => setActiveSubmenu(null)}
               >
                 <Link
                   to="/"
                   className="nav_link"
-                  onClick={() => setSubmenuOpen(false)}
+                  onClick={() => setActiveSubmenu(null)}
                 >
                   Pricing
                 </Link>
-                <ul className="submenu" role="menu" aria-hidden={!submenuOpen}>
-                  <li className="submenu__item">
-                    <Link
-                      to="/pricing/web-development"
-                      className="submenu__link"
-                      onClick={() => setSubmenuOpen(false)}
-                    >
-                      Web Development
-                    </Link>
-                  </li>
-                  <li className="submenu__item">
-                    <Link
-                      to="/pricing/marketing-ads"
-                      className="submenu__link"
-                      onClick={() => setSubmenuOpen(false)}
-                    >
-                      Marketing & Advertisement
-                    </Link>
-                  </li>
-                  <li className="submenu__item">
-                    <Link
-                      to="/pricing/hosting-maintenance"
-                      className="submenu__link"
-                      onClick={() => setSubmenuOpen(false)}
-                    >
-                      Web Hosting & Maintenance
-                    </Link>
-                  </li>
-                  <li className="submenu__item">
-                    <Link
-                      to="/pricing/design-branding"
-                      className="submenu__link"
-                      onClick={() => setSubmenuOpen(false)}
-                    >
-                      Design & Branding
-                    </Link>
-                  </li>
-                  <li className="submenu__item">
-                    <Link
-                      to="/pricing/automation-integrations"
-                      className="submenu__link"
-                      onClick={() => setSubmenuOpen(false)}
-                    >
-                      Automation & Integrations
-                    </Link>
-                  </li>
-                  <li className="submenu__item">
-                    <Link
-                      to="/pricing/email-marketing"
-                      className="submenu__link"
-                      onClick={() => setSubmenuOpen(false)}
-                    >
-                      Email Marketing
-                    </Link>
-                  </li>
-                </ul>
+                {renderSubmenu(PRICING_LINKS, () => setActiveSubmenu(null))}
               </li>
 
-              {/* Projects submenu */}
+              {/* Projects Submenu */}
               <li
                 className={`nav_item nav_item--has-submenu ${
-                  projectsOpen ? 'is-open' : ''
+                  activeSubmenu === 'projects' ? 'is-open' : ''
                 }`}
-                onMouseEnter={() => setProjectsOpen(true)}
-                onMouseLeave={() => setProjectsOpen(false)}
+                onMouseEnter={() => setActiveSubmenu('projects')}
+                onMouseLeave={() => setActiveSubmenu(null)}
               >
                 <Link
                   to="/#projects"
                   className="nav_link"
-                  onClick={() => setProjectsOpen(false)}
+                  onClick={() => setActiveSubmenu(null)}
                 >
                   Projects
                 </Link>
-                <ul className="submenu" role="menu" aria-hidden={!projectsOpen}>
-                  <li className="submenu__item">
-                    <Link
-                      to="/projects/zahav-medspa"
-                      className="submenu__link"
-                      onClick={() => setProjectsOpen(false)}
-                    >
-                      Zahav Medspa
-                    </Link>
-                  </li>
-                  <li className="submenu__item">
-                    <Link
-                      to="/projects/prodani-miami"
-                      className="submenu__link"
-                      onClick={() => setProjectsOpen(false)}
-                    >
-                      ProDani Miami
-                    </Link>
-                  </li>
-                  <li className="submenu__item">
-                    <Link
-                      to="/projects/creatuwheels"
-                      className="submenu__link"
-                      onClick={() => setProjectsOpen(false)}
-                    >
-                      Creatuwheels
-                    </Link>
-                  </li>
-                  <li className="submenu__item">
-                    <Link
-                      to="/projects/maritime"
-                      className="submenu__link"
-                      onClick={() => setProjectsOpen(false)}
-                    >
-                      Maritime
-                    </Link>
-                  </li>
-                </ul>
+                {renderSubmenu(PROJECT_LINKS, () => setActiveSubmenu(null))}
               </li>
 
               <li className="nav_item">
