@@ -17,7 +17,6 @@ import '../styles/components/projects.scss';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Give each base project a stable slug
 const BASE_PROJECTS = [
   {
     id: 1,
@@ -49,14 +48,16 @@ const Projects = () => {
   const navigate = useNavigate();
   const { slug } = useParams();
   const [openId, setOpenId] = useState(null);
-  const reduced = useReducedMotion();
-  useScrollLock(Boolean(openId));
 
+  // Lock body scroll only when modal is open
+  useScrollLock(Boolean(openId));
+  const reduced = useReducedMotion();
   const root = useRef(null);
 
   const findById = (id) => PROJECTS.find((p) => p.id === id);
   const findBySlug = (s) => PROJECTS.find((p) => p.slug === s);
 
+  // Sync URL slug with internal state
   useEffect(() => {
     if (!slug) {
       setOpenId(null);
@@ -66,52 +67,56 @@ const Projects = () => {
     setOpenId(match ? match.id : null);
   }, [slug]);
 
+  // Handle ESC key
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key === 'Escape') {
-        setOpenId(null);
-        navigate('/', { replace: true, state: { preserveScroll: true } });
-      }
+      if (e.key === 'Escape') closePlain();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [navigate]);
+  }, []); // Empty dependency array is fine here as closePlain uses stable navigate
 
   const active = findById(openId);
+
+  // --- LOGIC UPDATE STARTS HERE ---
 
   const openById = (id) => {
     const proj = findById(id);
     if (proj?.slug) {
+      // 1. SAVE SCROLL POSITION BEFORE NAVIGATING AWAY
+      sessionStorage.setItem('scrollPosition', String(window.scrollY));
+
       navigate(`/projects/${proj.slug}`, {
-        state: { from: 'projects-section' },
+        // Prevent scroll-to-top when opening the modal (keeps background stable)
+        state: { preserveScroll: true },
       });
     } else {
       setOpenId(id);
     }
   };
 
-  // X / ESC / backdrop → close and return to root (no hash)
+  // Close via "X" or "Esc" -> Restore scroll position
   const closePlain = () => {
-    // remember current scroll position for one navigation
-    try {
-      sessionStorage.setItem('preserveScroll', '1');
-      sessionStorage.setItem('preserveScrollY', String(window.scrollY));
-    } catch {}
     setOpenId(null);
-    navigate('/', { replace: true, state: { preserveScroll: true } });
+    navigate('/', {
+      replace: true,
+      // This flag tells ScrollToTop.js to look at sessionStorage
+      state: { preserveScroll: true },
+    });
   };
 
-  // “Back to Projects” → close and jump to the section
+  // Close via "Back to Projects" -> Jump to #projects anchor
   const closeToProjects = () => {
     setOpenId(null);
     navigate('/#projects', { replace: true });
   };
 
-  // Section-level animations
+  // --- LOGIC UPDATE ENDS HERE ---
+
+  // Animations
   useLayoutEffect(() => {
     if (reduced) return;
     const ctx = gsap.context(() => {
-      // Fade/slide in each row as it enters
       gsap.utils.toArray('.projects .projects-row').forEach((row, i) => {
         gsap.from(row, {
           autoAlpha: 0,
@@ -139,6 +144,7 @@ const Projects = () => {
     >
       <ProjectsInfoRow />
       <ProjectsHeader />
+
       <ProjectsTiles
         projects={PROJECTS.slice(0, 4)}
         onOpen={openById}
@@ -155,12 +161,12 @@ const Projects = () => {
             <div
               className="project-details-overlay__backdrop"
               aria-hidden="true"
-              onClick={closePlain} // <- close overlay, go to "/"
+              onClick={closePlain}
             />
             <ProjectDetails
               project={active}
-              onClose={closePlain} // <- X button / ESC / backdrop
-              onBack={closeToProjects} // <- “Back to Projects”
+              onClose={closePlain}
+              onBack={closeToProjects}
             />
           </div>,
           document.body

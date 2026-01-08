@@ -15,27 +15,25 @@ export default function ScrollToTop() {
     const nextFrame = (fn) =>
       requestAnimationFrame(() => requestAnimationFrame(fn));
 
-    // A) One-shot restoration after closing modal with X/backdrop/ESC
-    const preserve = sessionStorage.getItem('preserveScroll') === '1';
-    if (preserve) {
-      const y = parseFloat(sessionStorage.getItem('preserveScrollY') || '0');
-      // clear flags before applying (one-shot)
-      try {
-        sessionStorage.removeItem('preserveScroll');
-        sessionStorage.removeItem('preserveScrollY');
-      } catch {}
-      nextFrame(() => {
-        window.scrollTo({ top: y, left: 0, behavior: 'auto' });
-      });
-      return; // nothing else
-    }
+    // A) PRESERVE SCROLL:
+    // Triggered when opening/closing the project modal (flag passed in navigation state)
+    if (state?.preserveScroll) {
+      const savedY = sessionStorage.getItem('scrollPosition');
 
-    // B) Explicit state request to preserve scroll (defensive)
-    if (state && state.preserveScroll) {
+      if (savedY) {
+        // Restore immediately (behavior: auto) to avoid visual jumping
+        nextFrame(() => {
+          window.scrollTo({
+            top: parseFloat(savedY),
+            left: 0,
+            behavior: 'auto',
+          });
+        });
+      }
       return;
     }
 
-    // C) No hash → normal route change → scroll to top
+    // B) STANDARD NAVIGATION (No Hash) -> Scroll to Top
     if (!hash) {
       nextFrame(() => {
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
@@ -43,17 +41,19 @@ export default function ScrollToTop() {
       return;
     }
 
-    // D) Hash present → wait until element exists, then scroll with header offset
+    // C) HASH NAVIGATION -> Wait for element, then scroll
     let attempts = 0;
     const maxAttempts = 40; // ~2s @ 50ms
     const interval = setInterval(() => {
       attempts += 1;
       const id = hash.slice(1);
       const el = document.getElementById(id);
+
       if (el) {
-        const offset = getHeaderOffset() + 8; // small breathing room
+        const offset = getHeaderOffset() + 20; // +20px breathing room
         const top =
           el.getBoundingClientRect().top + window.pageYOffset - offset;
+
         window.scrollTo({ top, behavior: 'smooth' });
         clearInterval(interval);
       } else if (attempts >= maxAttempts) {
