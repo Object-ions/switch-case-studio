@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react'; // 1. Added useCallback
 import { createPortal } from 'react-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 import { gsap } from 'gsap';
@@ -49,7 +49,6 @@ const Projects = () => {
   const { slug } = useParams();
   const [openId, setOpenId] = useState(null);
 
-  // Lock body scroll only when modal is open
   useScrollLock(Boolean(openId));
   const reduced = useReducedMotion();
   const root = useRef(null);
@@ -67,27 +66,31 @@ const Projects = () => {
     setOpenId(match ? match.id : null);
   }, [slug]);
 
-  // Handle ESC key
+  // --- 2. DEFINED CLOSE FUNCTION FIRST (WRAPPED IN USECALLBACK) ---
+  const closePlain = useCallback(() => {
+    setOpenId(null);
+    navigate('/', {
+      replace: true,
+      state: { preserveScroll: true },
+    });
+  }, [navigate]);
+
+  // --- 3. NOW USE IT IN THE EFFECT ---
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === 'Escape') closePlain();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, []); // Empty dependency array is fine here as closePlain uses stable navigate
+  }, [closePlain]); // <--- No more warning
 
   const active = findById(openId);
-
-  // --- LOGIC UPDATE STARTS HERE ---
 
   const openById = (id) => {
     const proj = findById(id);
     if (proj?.slug) {
-      // 1. SAVE SCROLL POSITION BEFORE NAVIGATING AWAY
       sessionStorage.setItem('scrollPosition', String(window.scrollY));
-
       navigate(`/projects/${proj.slug}`, {
-        // Prevent scroll-to-top when opening the modal (keeps background stable)
         state: { preserveScroll: true },
       });
     } else {
@@ -95,25 +98,11 @@ const Projects = () => {
     }
   };
 
-  // Close via "X" or "Esc" -> Restore scroll position
-  const closePlain = () => {
-    setOpenId(null);
-    navigate('/', {
-      replace: true,
-      // This flag tells ScrollToTop.js to look at sessionStorage
-      state: { preserveScroll: true },
-    });
-  };
-
-  // Close via "Back to Projects" -> Jump to #projects anchor
   const closeToProjects = () => {
     setOpenId(null);
     navigate('/#projects', { replace: true });
   };
 
-  // --- LOGIC UPDATE ENDS HERE ---
-
-  // Animations
   useLayoutEffect(() => {
     if (reduced) return;
     const ctx = gsap.context(() => {
