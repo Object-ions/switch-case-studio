@@ -26,10 +26,16 @@ const BASE_PROJECTS = [
   },
   {
     id: 2,
-    label: 'ProDani Miami',
+    label: 'Crimson Equities',
     panelClass: 'panel-card-1',
-    slug: 'prodani-miami',
+    slug: 'crimson-equities',
   },
+  // {
+  //   id: 3,
+  //   label: 'ProDani Miami',
+  //   panelClass: 'panel-card-1',
+  //   slug: 'prodani-miami',
+  // },
   {
     id: 3,
     label: 'creatuwheels',

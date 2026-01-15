@@ -6,14 +6,16 @@ import useReducedMotion from '../hooks/useReducedMotion';
 import ZahavPoster from '../assets/projects/zahav/zahav-cover-tile.webp';
 import CreatuwheelsPoster from '../assets/projects/creatuwheels/creatuwheels-cover-tile.webp';
 import MaritimePoster from '../assets/projects/maritime/maritime-cover-tile.webp';
-import ProdaniPoster from '../assets/projects/prodani/prodani-cover-tile.webp';
+// import ProdaniPoster from '../assets/projects/prodani/prodani-cover-tile.webp';
+import CrimsonEquitiesPoster from '../assets/projects/crimson/crimson-cover-tile.webp';
 
 gsap.registerPlugin(ScrollTrigger);
 
 // Keys MUST match the 'slug' in your PROJECTS data
 const COVER_MEDIA = {
   'zahav-medspa': { poster: ZahavPoster },
-  'prodani-miami': { poster: ProdaniPoster },
+  // 'prodani-miami': { poster: ProdaniPoster },
+  'crimson-equities': { poster: CrimsonEquitiesPoster },
   creatuwheels: { poster: CreatuwheelsPoster },
   maritime: { poster: MaritimePoster },
 };

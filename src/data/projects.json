@@ -52,39 +52,46 @@
   },
   {
     "id": 2,
-    "slug": "prodani-miami",
-    "imageSrc": "/projects/prodani/1.avif",
-    "longWeb": "/projects/prodani/long.webp",
-    "imageAlt": "ProDani Miami homepage preview",
+    "slug": "crimson-equities",
+    "imageSrc": "/projects/crimson/1.avif",
+    "longWeb": "/projects/crimson/long.webp",
+    "imageAlt": "Crimson Equities website homepage preview",
     "backLabel": "Back to Projects",
-    "title": "ProDani Miami",
-    "subtitle": "Healthy Baking Brand • Miami, FL",
-    "description": "Rebrand + Shopify launch tailored to ProDani’s product story and growth.",
-    "tileVersion": "Branding, Shopify setup, packaging, and email marketing.",
+    "title": "Crimson Equities",
+    "subtitle": "Distressed Real Estate Investment Firm",
+    "description": "Switch Case Studio partnered with Crimson Equities to design and build a professional, investor-ready website for a New York–based real estate investment firm focused on distressed and value-add properties.",
+    "tileVersion": "New York real estate investment firm. We delivered website design, content structure, and front-end implementation.",
     "services": [
-      { "label": "#Branding" },
-      { "label": "#Shopify Setup" },
-      { "label": "#Packaging" },
-      { "label": "#Email Marketing" }
-    ],
+      { "label": "#Website Design" },
+      { "label": "#Front-End Development" },
+      { "label": "#Content Structure" },
+      { "label": "#Visual Direction" }
+      ],
     "highlights": [
-      { "title": "Branding", "summary": "Warm, appetizing visual language." },
-      { "title": "Shopify", "summary": "Fast, conversion-first storefront." }
+      {
+        "title": "Website Design",
+        "summary": "Clean, modern interface built to convey trust and credibility."
+      },
+      {
+        "title": "Front-End Development",
+        "summary": "Responsive build focused on clarity and usability."
+      },
+      {
+        "title": "Content Structure",
+        "summary": "Clear explanation of strategy, process, and investment focus."
+      },
+      {
+        "title": "Visual Direction",
+        "summary": "Dark, restrained aesthetic that keeps attention on properties and story."
+      }
     ],
-    "result": "Unified brand and store that increased add-to-carts and email opt-ins.",
+    "result": "A focused, professional website that positions Crimson Equities as a serious, credible player in the distressed real estate investment space.",
     "kicker": "In depth on",
     "productName": "Our Work",
     "ctaLabel": "View Live",
-    "ctaUrl": "https://prodanimiami.com",
-    "longSrc": "/assets/projects/prodani/long.webp",
-    "layoutSrc": "/assets/projects/prodani/01.avif",
-    "viewport": {
-      "leftPct": 17.8468,
-      "topPct": 14.9473,
-      "widthPct": 64.4509,
-      "heightPct": 77.0188
-    }
-  },
+    "ctaUrl": "https://crimsonequities.com"
+  },  
+
   {
     "id": 3,
     "slug": "creatuwheels",
