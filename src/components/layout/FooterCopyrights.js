@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import logo from '../../assets/images/logo.png';
+import logo from '../../assets/images/switch_case_line_logo.png';
 import HeaderCTA from './HeaderCTA';
 import { PROJECT_LINKS, LEGAL_LINKS } from '../../data/navigation';
 import '../../styles/components/footer.scss';
@@ -14,7 +14,7 @@ const FooterCopyrights = () => {
       <div className="site-footer__content">
         {/* Col 1: Brand & Copyright */}
         <div className="footer-col footer-brand">
-          <img src={logo} alt="Switch Case Studio" className="footer-logo" />
+          <img src={logo} alt="Switch Case Studio" width="200px" />
           <p className="copyright-text">
             &copy; {currentYear} Switch Case Studio LLC
           </p>
