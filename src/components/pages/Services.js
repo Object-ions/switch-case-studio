@@ -33,12 +33,12 @@ const Services = () => {
     reveals.forEach((el, i) => {
       gsap.fromTo(
         el,
-        { opacity: 0, y: 80 },
+        { opacity: 0, y: 60 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.5,
-          delay: i * 0.25,
+          duration: 0.6,
+          delay: i * 0.1,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: el,
@@ -49,7 +49,7 @@ const Services = () => {
       );
     });
 
-    // Title hover circle effect (guard in case .title isn't on page yet)
+    // Title hover circle effect
     const titleEl = document.querySelector('.title');
     const handleTitleMouseMove = (e) => {
       if (!titleEl) return;
@@ -61,7 +61,7 @@ const Services = () => {
     };
     if (titleEl) titleEl.addEventListener('mousemove', handleTitleMouseMove);
 
-    // Card hover circle effect + proper cleanup
+    // Card hover circle effect
     const cards = Array.from(document.querySelectorAll('.services-card'));
     const handlers = new Map();
 
@@ -94,9 +94,9 @@ const Services = () => {
         <div className="title reveal">
           <h2>
             Switch Case is a creative development and marketing studio that
-            helps businesses stand out and SHINE. Whether you're building
-            something new or refreshing what you have, we give your brand the
-            tools it needs <br /> to stand out and grow.
+            helps businesses stand out and <span className="shine-text">SHINE</span>.
+            Whether you're building something new or refreshing what you have,
+            we give your brand the tools it needs to stand out and grow.
           </h2>
         </div>
       </div>
@@ -109,9 +109,9 @@ const Services = () => {
             className="services-card reveal cursor-black"
             aria-label={`${service.title} pricing`}
           >
-            <h3>
+            <div className="card-icon">
               <FontAwesomeIcon icon={iconMap[service.icon]} />
-            </h3>
+            </div>
             <h3>{service.title}</h3>
             <p>{service.subTitle}</p>
           </Link>
