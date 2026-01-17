@@ -186,5 +186,56 @@
     "productName": "Our Work",
     "ctaLabel": "View Project",
     "ctaUrl": ""
+  },
+  {
+    "id": 5,
+    "slug": "prodani-miami",
+    "panelClass": "panel-hero",
+    "coverTile": "/projects/prodani/prodani-cover-tile.webp",
+    "imageSrc": "/projects/prodani/1.avif",
+    "longWeb": "/projects/prodani/long.webp",
+    "imageAlt": "ProDani Miami homepage preview",
+    "backLabel": "Back to Projects",
+    "title": "ProDani Miami",
+    "subtitle": "Healthy Baking Brand in Miami, Florida",
+    "description": "Switch Case Studio partnered with ProDani Miami to reimagine the brand from the ground up and launch a high-performing Shopify storefront. The project focused on translating ProDani’s product philosophy into a warm, modern, and conversion-driven digital experience.",
+    "tileVersion": "Miami-based healthy baking brand. We delivered branding, Shopify setup, packaging, and email marketing.",
+    "services": [
+      {
+        "label": "#Branding"
+      },
+      {
+        "label": "#Shopify Setup"
+      },
+      {
+        "label": "#Packaging"
+      },
+      {
+        "label": "#Email Marketing"
+      }
+    ],
+    "highlights": [
+      {
+        "title": "Branding",
+        "summary": "Warm, appetizing visual language rooted in product storytelling."
+      },
+      {
+        "title": "Shopify Setup",
+        "summary": "Fast, conversion-focused storefront built for scale."
+      },
+      {
+        "title": "Packaging",
+        "summary": "Clean, shelf-ready designs aligned with the brand’s health-forward values."
+      },
+      {
+        "title": "Email Marketing",
+        "summary": "Lifecycle flows to capture, nurture, and convert customers."
+      }
+    ],
+    "result": "A cohesive brand system and e-commerce experience that increased add-to-carts, improved product clarity, and grew email opt-ins.",
+    "kicker": "In depth on",
+    "productName": "Our Work",
+    "ctaLabel": "View Live",
+    "ctaUrl": "https://prodanimiami.com"
   }
 ]
