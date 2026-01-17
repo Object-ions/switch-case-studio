@@ -9,7 +9,6 @@ import useReducedMotion from '../hooks/useReducedMotion';
 
 import ProjectDetails from './ProjectDetails';
 import ProjectsHeader from './ProjectsHeader';
-import ProjectsInfoRow from './ProjectsInfoRow';
 import ProjectsTiles from './ProjectsTiles';
 
 // Now we import the full data directly
@@ -114,7 +113,6 @@ const Projects = () => {
       aria-label="project overview"
       ref={root}
     >
-      <ProjectsInfoRow />
       <ProjectsHeader />
 
       <ProjectsTiles
