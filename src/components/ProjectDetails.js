@@ -19,16 +19,47 @@ const DEFAULT_VIEWPORT = {
   heightPct: 77.0188,
 };
 
+// --- Helper Component: Scope & Results ---
+// Extracted to keep the main component clean
+const ScopeList = ({ highlights, result }) => {
+  if ((!highlights || highlights.length === 0) && !result) return null;
+
+  return (
+    <section className="project-details__scope">
+      {highlights && highlights.length > 0 && (
+        <>
+          <h2 className="project-details__scopeHeading">Scope & Results</h2>
+          <ul className="project-details__scopeList">
+            {highlights.map((item, idx) => (
+              <li key={idx} className="project-details__scopeItem">
+                <h3 className="project-details__scopeTitle">{item.title}</h3>
+                <p className="project-details__scopeSummary">{item.summary}</p>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+      {result && (
+        <div className="project-details__result">
+          <h3 className="project-details__resultHeading">Result</h3>
+          <p className="project-details__resultText">{result}</p>
+        </div>
+      )}
+    </section>
+  );
+};
+
 const ProjectDetails = ({ project, onClose }) => {
-  const data = project ?? {};
+  // 1. Safe Data Access
+  const data = project || {};
   const {
     slug,
     title = 'Untitled Project',
     subtitle,
     description,
-    imageSrc,
+    imageSrc,  // Path string from JSON
     imageAlt,
-    longWeb,
+    longWeb,   // Path string from JSON
     services = [],
     highlights = [],
     result,
@@ -45,57 +76,50 @@ const ProjectDetails = ({ project, onClose }) => {
   const [scrolledPanel, setScrolledPanel] = useState(false);
   const [zoomOpen, setZoomOpen] = useState(false);
 
-  // Helper hook to ensure Mockup image exists before rendering
-  const mockupOK = useImagePreload(longWeb);
+  // 2. Resolve Public Paths
+  // This ensures images load correctly from the public folder
+  const publicLongWeb = longWeb ? process.env.PUBLIC_URL + longWeb : null;
+  const publicImageSrc = imageSrc ? process.env.PUBLIC_URL + imageSrc : null;
 
-  // GSAP Animation using Scoped Selectors (No extra refs needed!)
+  // 3. Preload logic
+  const mockupOK = useImagePreload(publicLongWeb);
+
+  // 4. GSAP Entrance Animation
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
-      // Initial Setups
+      // Init State
       gsap.set('.project-details__media', { clipPath: 'inset(0 100% 0 0)' });
-      gsap.set('.project-details__header', { y: -20, opacity: 0 });
-      gsap.set('.project-details__main', { y: 20, opacity: 0 });
-      gsap.set('.project-details__bottom', { y: 30, opacity: 0 });
-      gsap.set(rootRef.current, { opacity: 1 }); // Reveal container
+      gsap.set(
+        ['.project-details__header', '.project-details__main', '.project-details__bottom'],
+        { y: 20, opacity: 0 }
+      );
+      gsap.set(rootRef.current, { opacity: 1 });
 
-      // Animation Sequence
+      // Sequence
       tl.to('.project-details__media', {
         clipPath: 'inset(0 0% 0 0)',
         duration: 1,
       })
-        .to(
-          '.project-details__header',
-          { y: 0, opacity: 1, duration: 0.6 },
-          0.3
-        )
-        .to('.project-details__main', { y: 0, opacity: 1, duration: 0.8 }, 0.6)
-        .to(
-          '.project-details__bottom',
-          { y: 0, opacity: 1, duration: 0.8 },
-          0.9
+        .to('.project-details__header', { y: 0, opacity: 1, duration: 0.6 }, 0.3)
+        .to('.project-details__main', { y: 0, opacity: 1, duration: 0.8 }, 0.5)
+        .to('.project-details__bottom', { y: 0, opacity: 1, duration: 0.8 }, 0.7)
+        .fromTo(
+          '.project-details__panel',
+          { boxShadow: '0 0 0 rgba(0,0,0,0)' },
+          { boxShadow: '0 8px 24px rgba(0,0,0,0.08)', duration: 0.4 },
+          0.25
         );
-
-      // Panel Shadow
-      tl.fromTo(
-        '.project-details__panel',
-        { boxShadow: '0 0 0 rgba(0,0,0,0)' },
-        { boxShadow: '0 8px 24px rgba(0,0,0,0.08)', duration: 0.4 },
-        0.25
-      );
-    }, rootRef); // Scope to rootRef
+    }, rootRef);
 
     return () => ctx.revert();
-  }, [slug]); // Re-run if project changes
+  }, [slug]);
 
-  // Scroll Handler
+  // Scroll UI Feedback
   const handleScroll = (e, setter) => {
-    const isScrolled = e.currentTarget.scrollTop > 10;
-    setter(isScrolled);
+    setter(e.currentTarget.scrollTop > 10);
   };
-
-  const mockupAlt = imageAlt || `${title} preview`;
 
   return (
     <section
@@ -108,12 +132,13 @@ const ProjectDetails = ({ project, onClose }) => {
         className="project-details__media"
         onScroll={(e) => handleScroll(e, setScrolledMedia)}
       >
-        {mockupOK && (
+        {/* Render Device Mockup if longWeb exists */}
+        {mockupOK && publicLongWeb && (
           <DeviceMockup
-            key={slug} // Remount animation on change
+            key={slug}
             frameSrc={macbookFrame}
-            contentSrc={longWeb}
-            alt={mockupAlt}
+            contentSrc={publicLongWeb}
+            alt={imageAlt || `${title} preview`}
             viewport={viewport || DEFAULT_VIEWPORT}
             speed={35}
             hold={0.6}
@@ -123,12 +148,14 @@ const ProjectDetails = ({ project, onClose }) => {
           />
         )}
 
-        {imageSrc && (
+        {/* Render Standard Image if imageSrc exists */}
+        {publicImageSrc && (
           <img
-            src={imageSrc}
+            src={publicImageSrc}
             alt={imageAlt || `${title} detail`}
             className="project-details__img"
             onClick={() => setZoomOpen(true)}
+            loading="eager"
           />
         )}
 
@@ -138,20 +165,10 @@ const ProjectDetails = ({ project, onClose }) => {
       {/* RIGHT: Content Column */}
       <div className="project-details__panel">
         <header className="project-details__header">
-          <button
-            className="project-details__back"
-            type="button"
-            onClick={onClose}
-            aria-label="Close"
-          >
+          <button className="project-details__back" onClick={onClose}>
             <FontAwesomeIcon icon={faArrowLeft} /> {backLabel}
           </button>
-          <button
-            className="project-details__close"
-            type="button"
-            onClick={onClose}
-            aria-label="Close"
-          >
+          <button className="project-details__close" onClick={onClose}>
             ×
           </button>
         </header>
@@ -183,7 +200,6 @@ const ProjectDetails = ({ project, onClose }) => {
               )}
             </div>
 
-            {/* Bottom: CTA & Scope */}
             <div className="project-details__bottom">
               {(ctaUrl || ctaLabel) && (
                 <section className="project-details__cta">
@@ -206,49 +222,17 @@ const ProjectDetails = ({ project, onClose }) => {
                 </section>
               )}
 
-              {(highlights.length > 0 || result) && (
-                <section className="project-details__scope">
-                  {highlights.length > 0 && (
-                    <>
-                      <h2 className="project-details__scopeHeading">
-                        Scope & Results
-                      </h2>
-                      <ul className="project-details__scopeList">
-                        {highlights.map((item) => (
-                          <li
-                            key={item.title}
-                            className="project-details__scopeItem"
-                          >
-                            <h3 className="project-details__scopeTitle">
-                              {item.title}
-                            </h3>
-                            <p className="project-details__scopeSummary">
-                              {item.summary}
-                            </p>
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  )}
-                  {result && (
-                    <div className="project-details__result">
-                      <h3 className="project-details__resultHeading">Result</h3>
-                      <p className="project-details__resultText">{result}</p>
-                    </div>
-                  )}
-                </section>
-              )}
+              {/* Scope & Results (Helper Component) */}
+              <ScopeList highlights={highlights} result={result} />
             </div>
           </main>
-
-          {/* Spacer to allow scrolling past bottom content */}
           <div className="project-details__divider" aria-hidden="true" />
         </div>
       </div>
 
-      {imageSrc && (
+      {publicImageSrc && (
         <ZoomLightbox
-          src={imageSrc}
+          src={publicImageSrc}
           alt={imageAlt || title}
           open={zoomOpen}
           onClose={() => setZoomOpen(false)}
@@ -258,27 +242,19 @@ const ProjectDetails = ({ project, onClose }) => {
   );
 };
 
-// --- Custom Hook for Image Preloading ---
+// --- Custom Hook ---
 function useImagePreload(src) {
   const [loaded, setLoaded] = useState(false);
-
   useEffect(() => {
-    if (!src || typeof src !== 'string') {
+    if (!src) {
       setLoaded(false);
       return;
     }
-
-    let active = true;
     const img = new Image();
     img.src = src;
-    img.onload = () => active && setLoaded(true);
-    img.onerror = () => active && setLoaded(false);
-
-    return () => {
-      active = false;
-    };
+    img.onload = () => setLoaded(true);
+    img.onerror = () => setLoaded(false);
   }, [src]);
-
   return loaded;
 }
 

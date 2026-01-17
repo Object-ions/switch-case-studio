@@ -13,12 +13,24 @@
     "description": "Switch Case Studio partnered with Zahav Medspa to elevate their brand and digital presence. As a paid client project, we delivered a full suite of creative and marketing services tailored to the competitive aesthetics industry.",
     "tileVersion": "North Scottsdale medical spa. We delivered brand design, strategy, website, SEO, paid ads, and email marketing.",
     "services": [
-      { "label": "#Brand Design" },
-      { "label": "#Brand Strategy" },
-      { "label": "#Website Design & Development" },
-      { "label": "#SEO" },
-      { "label": "#Paid Ads" },
-      { "label": "#Email Marketing" }
+      {
+        "label": "#Brand Design"
+      },
+      {
+        "label": "#Brand Strategy"
+      },
+      {
+        "label": "#Website Design & Development"
+      },
+      {
+        "label": "#SEO"
+      },
+      {
+        "label": "#Paid Ads"
+      },
+      {
+        "label": "#Email Marketing"
+      }
     ],
     "highlights": [
       {
@@ -66,10 +78,18 @@
     "description": "Switch Case Studio partnered with Crimson Equities to design and build a professional, investor-ready website for a New York–based real estate investment firm focused on distressed and value-add properties.",
     "tileVersion": "New York real estate investment firm. We delivered website design, content structure, and front-end implementation.",
     "services": [
-      { "label": "#Website Design" },
-      { "label": "#Front-End Development" },
-      { "label": "#Content Structure" },
-      { "label": "#Visual Direction" }
+      {
+        "label": "#Website Design"
+      },
+      {
+        "label": "#Front-End Development"
+      },
+      {
+        "label": "#Content Structure"
+      },
+      {
+        "label": "#Visual Direction"
+      }
     ],
     "highlights": [
       {
@@ -109,9 +129,15 @@
     "description": "The packaging for 'Creatuwheels' brings a playful and educational approach, reflecting the toy’s purpose of teaching geometric shapes and transforming into vehicle-like creatures.",
     "tileVersion": "Toy packaging design exploring geometric play, color theory, and transformation.",
     "services": [
-      { "label": "#Packaging Design" },
-      { "label": "#Brand Identity" },
-      { "label": "#Illustration" }
+      {
+        "label": "#Packaging Design"
+      },
+      {
+        "label": "#Brand Identity"
+      },
+      {
+        "label": "#Illustration"
+      }
     ],
     "highlights": [
       {
@@ -139,9 +165,15 @@
     "description": "For 'Maritime', Switch Case Studio reimagined a simple seafood tool into a sculptural dining experience.",
     "tileVersion": "Product and packaging design inspired by marine forms, balancing function and elegance.",
     "services": [
-      { "label": "#Product Design" },
-      { "label": "#3D Modeling" },
-      { "label": "#Branding" }
+      {
+        "label": "#Product Design"
+      },
+      {
+        "label": "#3D Modeling"
+      },
+      {
+        "label": "#Branding"
+      }
     ],
     "highlights": [
       {
