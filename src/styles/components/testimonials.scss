@@ -4,247 +4,269 @@
 #testimonials {
   position: relative;
   z-index: 20;
-  color: $black-color;
+  // Dark Theme Base
+  background-color: #000;
+  color: $white-color;
   font-family: $font-text;
+  padding: 6rem 1.5rem; // Increased padding for breathing room
+  overflow: hidden; // Prevent logo from causing scrollbars if it overlaps
+
+  // Positioning the Rotating Circle Logo between columns
+  .circle-logo {
+    position: absolute;
+    left: 45%; // approximate center between columns
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    pointer-events: none; // let clicks pass through
+    opacity: 0.8;
+  }
 
   .testimonial-meta {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.9fr 1.1fr; // Slightly adjusted ratios
+    gap: 4rem;
+    max-width: $max-width;
+    margin: 0 auto;
+    align-items: center;
 
-    /* LEFT */
+    /* LEFT PANEL: Heading & Intro */
     .panel-left {
-      text-align: center;
-      padding: 2rem 0;
-      margin: 0 2rem;
+      text-align: left;
+      position: relative;
+      z-index: 2;
 
       .intro {
-        margin-top: 16px;
+        margin-top: 32px;
         line-height: 1.6;
-        opacity: 0.8;
-        font-size: 1.2rem;
-        font-weight: 300;
+        opacity: 0.6;
+        font-size: 16px;
+        font-weight: 400;
+        max-width: 340px;
+        color: $grey-color;
       }
     }
 
-    /* RIGHT */
+    /* RIGHT PANEL: The Carousel Card */
     .panel-stage {
-      display: grid;
-      grid-template-rows: 0.25fr 1fr;
-      gap: 10px;
-      padding: 1px;
-      border: 1px solid $g-bot;
+      position: relative;
+      display: flex;
+      flex-direction: column;
 
+      // 1. FIXED HEIGHT to prevent jumping
+      height: 540px;
+
+      // The Dark Card Look
+      background: #0a0a0a;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 32px; // slightly rounder
+      padding: 3.5rem 3rem;
+
+      transition: border-color 0.3s ease, transform 0.3s ease;
+      will-change: transform;
+
+      &:hover {
+        border-color: rgba(255, 255, 255, 0.25);
+      }
+
+      /* Controls (Floating Top Right) */
       .controls {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        position: absolute;
+        top: 2.5rem;
+        right: 2.5rem;
+        display: flex;
+        gap: 12px;
+        z-index: 20;
 
         .ctrl {
           appearance: none;
-          border: 1px solid $g-bot;
-          border-top: none;
-          background: none;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 50%;
+          width: 52px;
+          height: 52px;
           display: grid;
           place-items: center;
-          transition: transform 120ms ease, box-shadow 120ms ease;
-          padding: 10px;
-
-          &:first-child {
-            border-right: none;
-            border-left: none;
-          }
+          color: $white-color;
+          cursor: pointer;
+          transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+          padding: 0;
 
           &:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            background: $g-top;
+            background: $white-color;
+            color: $black-color;
+            transform: scale(1.1);
           }
+
           &:active {
-            transform: translateY(0);
-            box-shadow: none;
+            transform: scale(0.95);
           }
         }
       }
 
+      /* The Slide Content */
       .slide {
-        display: grid;
-        grid-template-rows: auto auto 1fr;
-        justify-items: center;
-        gap: 24px;
-        padding: 16px;
+        // 2. Full height to allow vertical centering
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; // Center content vertically
+
+        // Hide inactive
+        display: none;
+
+        &.is-active {
+          display: flex;
+          animation: fadeSlide 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
 
         .slide-head {
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 16px;
+          margin-bottom: 2.5rem;
+          // No padding-top needed since we are centering vertically now
 
           .slide-index {
-            inline-size: 40px;
-            block-size: 40px;
-            border: 1px solid $g-bot;
-            border-radius: 999px;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
             display: grid;
             place-items: center;
-            font-weight: 600;
-            font-feature-settings: 'tnum' on;
+            font-size: 13px;
+            font-weight: 500;
+            opacity: 0.5;
+            font-family: $font-text;
           }
 
           .slide-name {
-            font-size: 40px;
-            line-height: 1.1;
+            font-size: clamp(28px, 2.5vw, 36px);
+            font-weight: 700;
             letter-spacing: -0.01em;
+            margin: 0;
+            color: $white-color;
           }
         }
 
         .slide-company {
-          font-size: 16px;
-          opacity: 0.8;
+          font-size: 14px;
+          text-transform: uppercase;
+          letter-spacing: 0.15em;
+          font-weight: 700;
+          margin-bottom: 2rem;
+          display: inline-block;
+
+          // Gradient Text
+          background: $gradient;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
         }
 
         .slide-body {
           display: grid;
-          grid-template-columns: auto 1fr;
-          gap: 32px;
-          align-items: center;
-          align-content: space-between;
+          grid-template-columns: 80px 1fr;
+          gap: 2rem;
+          align-items: start;
 
           .avatar {
-            width: 112px;
-            height: 112px;
+            width: 80px;
+            height: 80px;
             object-fit: cover;
-            border-radius: 6px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: #1a1a1a;
           }
 
           .quote {
-            font-size: 14px;
-            line-height: 1.5;
+            font-size: clamp(16px, 1.1vw, 18px);
+            line-height: 1.7;
             font-weight: 300;
-          }
-        }
-      }
-
-      .slides .slide {
-        display: none;
-      }
-      .slides .slide.is-active {
-        display: grid;
-      }
-    }
-  }
-
-  /* Tablet breakpoint: 768px - 1024px */
-  @media (max-width: 1024px) and (min-width: 769px) {
-    .circle-logo-wrapper {
-      top: 0;
-
-      .circle-svg {
-        width: 16rem;
-      }
-    }
-
-    .testimonial-meta {
-      .panel-left {
-        padding: clamp(20px, 4vw, 40px);
-
-        .testimonial-head {
-          padding: 10px 0;
-          h2 {
-            font-size: 4rem;
-          }
-        }
-
-        .intro {
-          font-size: 0.9rem;
-        }
-      }
-
-      .panel-stage {
-        .slide {
-          gap: 20px;
-          padding: 14px;
-
-          .slide-head {
-            .slide-name {
-              font-size: 32px;
-            }
-          }
-
-          .slide-body {
-            gap: 24px;
-
-            .avatar {
-              width: 96px;
-              height: 96px;
-            }
-
-            .quote {
-              font-size: 13px;
-            }
+            color: rgba(255, 255, 255, 0.85);
+            margin: 0;
           }
         }
       }
     }
   }
 
-  /* Mobile breakpoint: under 768px */
-  @media (max-width: 768px) {
-    .circle-logo-wrapper {
-      left: 150px;
-      top: 10px;
-
-      .circle-svg {
-        width: 12rem;
-      }
-    }
-
+  /* Responsive Adjustments */
+  @media (max-width: 1024px) {
     .testimonial-meta {
       grid-template-columns: 1fr;
+      gap: 3rem;
 
       .panel-left {
-        padding: clamp(16px, 3vw, 24px);
         text-align: center;
 
-        .testimonial-head {
-          padding: 15px 0;
-        }
-
         .intro {
-          max-width: 100%;
-          font-size: 0.85rem;
+          margin: 24px auto 0;
         }
       }
 
       .panel-stage {
-        .slide {
-          gap: 16px;
-          padding: 12px;
+        // Allow auto height on tablet if text is huge, but keep min-height
+        height: auto;
+        min-height: 450px;
+        padding: 3rem;
+      }
+    }
 
-          .slide-head {
-            flex-direction: column;
-            gap: 8px;
-            text-align: center;
+    // Hide or move logo on smaller screens
+    .circle-logo {
+      display: none;
+    }
+  }
 
-            .slide-name {
-              font-size: 24px;
-            }
-          }
+  @media (max-width: 768px) {
+    padding: 4rem 1rem;
 
-          .slide-body {
-            grid-template-columns: 1fr;
-            gap: 16px;
-            text-align: center;
+    .panel-stage {
+      padding: 2rem 1.5rem;
+      border-radius: 24px;
+      min-height: 480px; // Taller for mobile text wrapping
 
-            .avatar {
-              width: 80px;
-              height: 80px;
-              margin: 0 auto;
-            }
+      .controls {
+        top: 2rem;
+        right: 1.5rem;
 
-            .quote {
-              font-size: 12px;
-            }
+        .ctrl {
+          width: 44px;
+          height: 44px;
+        }
+      }
+
+      .slide {
+        .slide-head {
+          margin-bottom: 1.5rem;
+        }
+
+        .slide-company {
+          margin-bottom: 1.5rem;
+        }
+
+        .slide-body {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+          text-align: center;
+
+          .avatar {
+            margin: 0 auto;
           }
         }
       }
     }
+  }
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

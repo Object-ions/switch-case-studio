@@ -131,7 +131,7 @@ const Testimonials = () => {
 
     const dir =
       (next > prev && !(prev === 0 && next === slides.length - 1)) ||
-      (prev === slides.length - 1 && next === 0)
+        (prev === slides.length - 1 && next === 0)
         ? 1
         : -1;
 
