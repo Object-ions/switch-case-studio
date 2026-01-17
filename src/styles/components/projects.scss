@@ -14,9 +14,7 @@
   padding: 0 1.5rem 4rem;
   box-sizing: border-box;
 
-  /* Height Variables */
-  --tile-h-min: 240px;
-  --tile-h-max: 45vh;
+  /* Let aspect ratio drive height, so we remove strict min/max heights */
   --row-h-min: 120px;
 }
 
@@ -26,7 +24,7 @@
 }
 
 /* =========================================
-   2. HEADER & INFO ROWS
+   2. HEADER & INFO ROWS (Unchanged)
    ========================================= */
 .row-header {
   grid-template-columns: 1fr;
@@ -35,7 +33,6 @@
 }
 
 .panel-header {
-  // Transparent & Clean
   background: transparent;
   border: none;
   box-shadow: none;
@@ -50,15 +47,8 @@
     line-height: 1;
     font-family: $font-special;
     font-weight: 800;
-
-    // Large, modern typography
     font-size: clamp(40px, 8vw, 120px);
     color: $white-color;
-
-    // Optional: Add a subtle text-shadow or outline if desired
-    // -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
-    // color: transparent;
-
     display: flex;
     gap: 4rem;
 
@@ -74,7 +64,6 @@
   min-height: var(--row-h-min);
   margin-bottom: 2rem;
 
-  // Info Cards
   .panel {
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -102,7 +91,6 @@
     }
   }
 
-  // Hide borders for the middle tagline
   .panel-tagline {
     border: none;
     align-items: center;
@@ -115,11 +103,10 @@
     }
   }
 
-  // Pill Button Style
   .panel-link {
-    border: none; // No border for the link container
+    border: none;
     align-items: center;
-    justify-content: flex-end; // Push to right
+    justify-content: flex-end;
     padding-right: 0;
 
     a {
@@ -144,11 +131,12 @@
 }
 
 /* =========================================
-   3. PROJECT TILES (THE CARDS)
+   3. PROJECT TILES (16:9 & Solid Gradient)
    ========================================= */
 .row-tiles {
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(var(--tile-h-min), var(--tile-h-max));
+  // Switch to 3 columns for better 16:9 sizing
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
   transition: filter 0.3s ease, opacity 0.3s ease;
 
   &.is-blurred {
@@ -165,6 +153,10 @@
   justify-content: center;
   align-items: center;
 
+  // 1. Widescreen Ratio
+  aspect-ratio: 16 / 9;
+  width: 100%;
+
   // Dark Card Base
   background: #0a0a0a;
   border-radius: 24px;
@@ -175,9 +167,10 @@
   will-change: transform;
   transform: translateZ(0);
 
-  // Gradient Border Logic
+  // Z-Index Stacking Context
   z-index: 1;
 
+  // --- Layer 1: The Gradient Border ---
   &::before {
     content: "";
     position: absolute;
@@ -192,15 +185,29 @@
     mask-composite: exclude;
     opacity: 0.3; // Dim default state
     transition: opacity 0.4s ease;
+    z-index: 2; // Above base, below overlay
+    pointer-events: none;
   }
 
-  // Media (Images)
+  // --- Layer 2: The Solid Gradient Overlay (New) ---
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 2px; // Inside the border
+    border-radius: 22px;
+    background: $gradient; // YOUR BRAND GRADIENT
+    opacity: 0; // Hidden by default
+    transition: opacity 0.3s ease;
+    z-index: 3; // Above image, below text
+  }
+
+  // --- Layer 0: The Image ---
   .tile-media {
     position: absolute;
     inset: 2px; // Inside the border
     border-radius: 22px;
     overflow: hidden;
-    z-index: 0;
+    z-index: 1;
 
     .tile-image {
       width: 100%;
@@ -210,49 +217,63 @@
     }
   }
 
-  // Hover Effects
+  // --- Hover Logic ---
   &:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px);
     z-index: 10;
 
+    // Brighten border
     &::before {
-      opacity: 1; // Bright border on hover
+      opacity: 1;
+    }
+
+    // Show SOLID gradient overlay
+    &::after {
+      opacity: 1; // No transparency
     }
 
     .tile-image {
       transform: scale(1.05);
     }
 
+    // Reveal text
     .panel-excerpt {
       opacity: 1;
       transform: translateY(0);
     }
   }
 
-  // Text Overlay styling
+  // --- Text Styling (Highest Z-Index) ---
   .panel-label {
     position: relative;
-    z-index: 2;
+    z-index: 10; // Must be above the overlay (z-index 3)
     font-weight: 700;
-    font-size: 14px;
+    font-size: 16px;
+    text-transform: uppercase;
     letter-spacing: 0.08em;
     color: $white-color;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   }
 
   .panel-excerpt {
     position: relative;
-    z-index: 2;
-    font-size: 13px;
-    max-width: 80%;
+    z-index: 10;
+    font-size: 14px;
+    max-width: 85%;
     margin-top: 10px;
-    color: rgba(255, 255, 255, 0.9);
+    color: $white-color; // White text on colorful gradient
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.3s ease;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    font-weight: 500;
 
     b {
+      display: block;
+      margin-top: 8px;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      opacity: 0.9;
       color: $white-color;
     }
   }
@@ -297,6 +318,7 @@
     }
   }
 
+  // 2 Columns on Tablet
   .row-tiles {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -316,16 +338,23 @@
     }
   }
 
+  // 1 Column on Mobile
   .row-tiles {
-    grid-template-columns: 1fr; // Stack cards
-    grid-auto-rows: 280px;
+    grid-template-columns: 1fr;
   }
 
   .tile {
+    // Taller aspect ratio for mobile touch targets
+    aspect-ratio: 4 / 3;
     border-radius: 16px;
 
     &::before {
       border-radius: 16px;
+    }
+
+    // Fix corners for overlay
+    &::after {
+      border-radius: 14px;
     }
 
     .tile-media {
