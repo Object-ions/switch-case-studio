@@ -1,4 +1,3 @@
-// Testimonials.jsx
 import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
@@ -19,13 +18,12 @@ const Testimonials = () => {
   const [current, setCurrent] = useState(0);
   const total = testimonialsData.length;
 
-  // refs
   const root = useRef(null);
   const slidesWrap = useRef(null);
   const prevIndexRef = useRef(0);
   const reducedMotion = useRef(false);
 
-  // auto advance
+  // Auto-advance
   useEffect(() => {
     const id = setInterval(() => {
       setCurrent((i) => clampIndex(i + 1, total));
@@ -33,7 +31,7 @@ const Testimonials = () => {
     return () => clearInterval(id);
   }, [total]);
 
-  // basic touch swipe
+  // Touch Swipe
   const startX = useRef(null);
   const onTouchStart = (e) => (startX.current = e.touches[0].clientX);
   const onTouchEnd = (e) => {
@@ -45,7 +43,7 @@ const Testimonials = () => {
     startX.current = null;
   };
 
-  // detect reduced motion once
+  // Reduced Motion Detection
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
     reducedMotion.current = mq.matches;
@@ -54,7 +52,7 @@ const Testimonials = () => {
     return () => mq.removeEventListener?.('change', onChange);
   }, []);
 
-  // section intro on scroll
+  // Intro Animation
   useLayoutEffect(() => {
     if (reducedMotion.current) return;
     const ctx = gsap.context(() => {
@@ -66,7 +64,6 @@ const Testimonials = () => {
         },
       });
 
-      // Left panel rises in, then stage
       tl.from(root.current.querySelector('.panel-left'), {
         autoAlpha: 0,
         y: 24,
@@ -83,146 +80,106 @@ const Testimonials = () => {
         '-=0.3'
       );
 
-      // Optional: spin CircleLogo slowly if it has a recognizable class
-      const logoEl =
-        root.current.querySelector('.circle-logo') ||
-        root.current.querySelector('[data-circle-logo]');
-
-      if (logoEl) {
-        gsap.to(logoEl, {
-          rotate: 360,
-          duration: 60,
-          ease: 'none',
-          repeat: -1,
-        });
-      }
-
-      // Button press feedback
-      const buttons = gsap.utils.toArray(
-        root.current.querySelectorAll('.controls .ctrl')
-      );
+      // Button Press Effect
+      const buttons = gsap.utils.toArray('.controls .ctrl');
       buttons.forEach((btn) => {
         btn.addEventListener('mousedown', () =>
-          gsap.to(btn, { scale: 0.94, duration: 0.12, ease: 'power2.out' })
+          gsap.to(btn, { scale: 0.9, duration: 0.1 })
         );
-        const up = () =>
-          gsap.to(btn, { scale: 1, duration: 0.18, ease: 'power2.out' });
+        const up = () => gsap.to(btn, { scale: 1, duration: 0.2 });
         btn.addEventListener('mouseup', up);
         btn.addEventListener('mouseleave', up);
       });
+
     }, root);
 
     return () => ctx.revert();
   }, []);
 
-  // slide transitions
+  // Slide Transition
   useLayoutEffect(() => {
     if (reducedMotion.current) return;
-
-    const slides = gsap.utils.toArray(
-      slidesWrap.current?.querySelectorAll('.slide')
-    );
-
+    const slides = gsap.utils.toArray(slidesWrap.current?.querySelectorAll('.slide'));
     if (!slides.length) return;
 
     const prev = prevIndexRef.current;
     const next = current;
     if (prev === next) return;
 
-    const dir =
-      (next > prev && !(prev === 0 && next === slides.length - 1)) ||
-        (prev === slides.length - 1 && next === 0)
-        ? 1
-        : -1;
+    const dir = (next > prev && !(prev === 0 && next === total - 1)) ||
+      (prev === total - 1 && next === 0) ? 1 : -1;
 
     const prevEl = slides[prev];
     const nextEl = slides[next];
 
-    // Ensure both are visible for the transition duration
     gsap.set([prevEl, nextEl], { pointerEvents: 'none' });
-
-    // Start positions
-    gsap.set(nextEl, { xPercent: 12 * dir, autoAlpha: 0 });
+    gsap.set(nextEl, { xPercent: 12 * dir, autoAlpha: 0, display: 'flex' });
 
     const tl = gsap.timeline({
       defaults: { ease: 'power2.out', duration: 0.5 },
-      onComplete: () => gsap.set([prevEl, nextEl], { clearProps: 'all' }),
+      onComplete: () => {
+        gsap.set(prevEl, { clearProps: 'all', display: 'none' });
+        gsap.set(nextEl, { clearProps: 'all', display: 'flex' });
+      },
     });
 
-    tl.to(prevEl, { xPercent: -12 * dir, autoAlpha: 0, duration: 0.45 }, 0).to(
-      nextEl,
-      { xPercent: 0, autoAlpha: 1 },
-      0.05
-    );
+    tl.to(prevEl, { xPercent: -12 * dir, autoAlpha: 0, duration: 0.45 }, 0)
+      .to(nextEl, { xPercent: 0, autoAlpha: 1 }, 0.05);
 
     prevIndexRef.current = next;
-  }, [current]);
+  }, [current, total]);
 
   return (
     <section id="testimonials" aria-label="Testimonials" ref={root}>
       <CircleLogo />
 
       <div className="testimonial-meta">
-        {/* LEFT PANEL */}
-        <aside className="panel-left" aria-label="Section heading and intro">
+        <aside className="panel-left">
           <TestimonialHeading />
-          <p className="intro">About the impact of our work and partnership.</p>
         </aside>
 
-        {/* RIGHT PANEL */}
         <section className="panel-stage" aria-live="polite">
-          {/* top controls row */}
-          <div className="controls" aria-label="Carousel controls">
+          {/* 1. CONTROLS (Absolute Top Right) */}
+          <div className="controls">
             <button
-              type="button"
-              className="ctrl ctrl-prev"
-              aria-label="Previous testimonial"
+              className="ctrl"
               onClick={() => setCurrent((i) => clampIndex(i - 1, total))}
+              aria-label="Previous"
             >
-              <FontAwesomeIcon icon={faArrowLeft} fontSize="24px" />
+              <FontAwesomeIcon icon={faArrowLeft} />
             </button>
             <button
-              type="button"
-              className="ctrl ctrl-next"
-              aria-label="Next testimonial"
+              className="ctrl"
               onClick={() => setCurrent((i) => clampIndex(i + 1, total))}
+              aria-label="Next"
             >
-              <FontAwesomeIcon icon={faArrowRight} fontSize="24px" />
+              <FontAwesomeIcon icon={faArrowRight} />
             </button>
           </div>
 
-          {/* slides layer */}
-          <div
-            className="slides"
-            ref={slidesWrap}
-            onTouchStart={onTouchStart}
-            onTouchEnd={onTouchEnd}
-          >
+          <div className="slides" ref={slidesWrap} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
             {testimonialsData.map((item, i) => (
               <article
                 key={item.id ?? i}
                 className={`slide ${i === current ? 'is-active' : ''}`}
-                aria-hidden={i === current ? 'false' : 'true'}
+                style={{ display: i === current ? 'flex' : 'none' }}
               >
-                <div className="slide-head">
-                  <span className="slide-index">
-                    {(i + 1).toString().padStart(2, '0')}
-                  </span>
-                  <h3 className="slide-name">{item.name}</h3>
-                </div>
-                <p className="slide-company">{item.company || item.title}</p>
-
-                <div className="slide-body">
+                {/* 2. HEADER: Avatar + Name */}
+                <header className="slide-header">
                   <img
                     src={item.image}
                     alt={item.name}
                     className="avatar"
                     loading="lazy"
-                    width="112"
-                    height="112"
                   />
-                  <blockquote className="quote">{item.testimonial}</blockquote>
-                </div>
+                  <h3 className="slide-name">{item.name}</h3>
+                </header>
+
+                {/* 3. TITLE (New Line) */}
+                <p className="slide-company">{item.company || item.title}</p>
+
+                {/* 4. REVIEW (Bottom) */}
+                <blockquote className="quote">{item.testimonial}</blockquote>
               </article>
             ))}
           </div>

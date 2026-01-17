@@ -4,76 +4,64 @@
 #testimonials {
   position: relative;
   z-index: 20;
-  // Dark Theme Base
   background-color: #000;
   color: $white-color;
   font-family: $font-text;
-  padding: 6rem 1.5rem; // Increased padding for breathing room
-  overflow: hidden; // Prevent logo from causing scrollbars if it overlaps
+  padding: 6rem 1.5rem;
+  overflow: hidden;
 
-  // Positioning the Rotating Circle Logo between columns
+  // Center the Circle Logo
   .circle-logo {
     position: absolute;
-    left: 45%; // approximate center between columns
+    left: 45%;
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 10;
-    pointer-events: none; // let clicks pass through
+    pointer-events: none;
     opacity: 0.8;
   }
 
   .testimonial-meta {
     display: grid;
-    grid-template-columns: 0.9fr 1.1fr; // Slightly adjusted ratios
+    grid-template-columns: 0.9fr 1.1fr;
     gap: 4rem;
     max-width: $max-width;
     margin: 0 auto;
     align-items: center;
 
-    /* LEFT PANEL: Heading & Intro */
+    /* LEFT PANEL */
     .panel-left {
       text-align: left;
       position: relative;
       z-index: 2;
-
-      .intro {
-        margin-top: 32px;
-        line-height: 1.6;
-        opacity: 0.6;
-        font-size: 16px;
-        font-weight: 400;
-        max-width: 340px;
-        color: $grey-color;
-      }
     }
 
-    /* RIGHT PANEL: The Carousel Card */
+    /* RIGHT PANEL: The Card */
     .panel-stage {
       position: relative;
       display: flex;
       flex-direction: column;
 
-      // 1. FIXED HEIGHT to prevent jumping
-      height: 540px;
+      // --- FIX: FIXED HEIGHT ON DESKTOP ---
+      // This prevents the "jumping" effect.
+      height: 520px;
 
-      // The Dark Card Look
       background: #0a0a0a;
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 32px; // slightly rounder
-      padding: 3.5rem 3rem;
+      border-radius: 32px;
+      padding: 3rem;
 
-      transition: border-color 0.3s ease, transform 0.3s ease;
-      will-change: transform;
+      transition: border-color 0.3s ease;
 
       &:hover {
         border-color: rgba(255, 255, 255, 0.25);
       }
 
-      /* Controls (Floating Top Right) */
+      /* Controls: Absolute Top Right */
       .controls {
         position: absolute;
-        top: 2.5rem;
-        right: 2.5rem;
+        top: 3rem;
+        right: 3rem;
         display: flex;
         gap: 12px;
         z-index: 20;
@@ -81,116 +69,117 @@
         .ctrl {
           appearance: none;
           background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.15);
           border-radius: 50%;
-          width: 52px;
-          height: 52px;
+          width: 48px;
+          height: 48px;
           display: grid;
           place-items: center;
           color: $white-color;
           cursor: pointer;
-          transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
-          padding: 0;
+          transition: transform 0.2s ease, background-color 0.2s ease;
 
           &:hover {
             background: $white-color;
             color: $black-color;
             transform: scale(1.1);
           }
-
-          &:active {
-            transform: scale(0.95);
-          }
         }
       }
 
-      /* The Slide Content */
-      .slide {
-        // 2. Full height to allow vertical centering
+      /* SLIDE LAYOUT */
+      .slides {
+        position: relative;
         height: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: center; // Center content vertically
+      }
 
-        // Hide inactive
-        display: none;
+      .slide {
+        display: none; // Hidden by default
+        flex-direction: column;
+        height: 100%;
+        justify-content: center; // Vertically center the content
 
         &.is-active {
           display: flex;
-          animation: fadeSlide 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+          animation: fadeSlide 0.5s ease-out;
         }
 
-        .slide-head {
+        // 1. Header Row (Avatar + Name)
+        .slide-header {
           display: flex;
           align-items: center;
-          gap: 16px;
-          margin-bottom: 2.5rem;
-          // No padding-top needed since we are centering vertically now
+          gap: 1.5rem;
+          margin-bottom: 0.5rem;
+          padding-right: 120px; // space for controls
+          flex-shrink: 0; // Don't squash the header
 
-          .slide-index {
-            width: 36px;
-            height: 36px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+          .avatar {
+            width: 64px;
+            height: 64px;
             border-radius: 50%;
-            display: grid;
-            place-items: center;
-            font-size: 13px;
-            font-weight: 500;
-            opacity: 0.5;
-            font-family: $font-text;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: #1a1a1a;
           }
 
           .slide-name {
-            font-size: clamp(28px, 2.5vw, 36px);
+            font-size: clamp(24px, 2vw, 32px);
             font-weight: 700;
-            letter-spacing: -0.01em;
-            margin: 0;
             color: $white-color;
+            margin: 0;
+            line-height: 1.2;
           }
         }
 
+        // 2. Company Title
         .slide-company {
           font-size: 14px;
           text-transform: uppercase;
-          letter-spacing: 0.15em;
+          letter-spacing: 0.12em;
           font-weight: 700;
-          margin-bottom: 2rem;
-          display: inline-block;
+          margin-left: calc(64px + 1.5rem);
+          margin-bottom: 2.5rem;
+          flex-shrink: 0;
 
-          // Gradient Text
           background: $gradient;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
 
-        .slide-body {
-          display: grid;
-          grid-template-columns: 80px 1fr;
-          gap: 2rem;
-          align-items: start;
+        // 3. The Quote
+        .quote {
+          font-size: 18px;
+          line-height: 1.6;
+          font-weight: 300;
+          color: rgba(255, 255, 255, 0.9);
+          margin: 0;
 
-          .avatar {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            background: #1a1a1a;
+          // Safety net for very long reviews
+          max-height: 100%;
+          overflow-y: auto;
+          padding-right: 10px; // Space for scrollbar
+
+          /* Custom Scrollbar for the quote text */
+          &::-webkit-scrollbar {
+            width: 4px;
           }
 
-          .quote {
-            font-size: clamp(16px, 1.1vw, 18px);
-            line-height: 1.7;
-            font-weight: 300;
-            color: rgba(255, 255, 255, 0.85);
-            margin: 0;
+          &::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
           }
         }
       }
     }
   }
 
-  /* Responsive Adjustments */
+  /* Responsive */
   @media (max-width: 1024px) {
     .testimonial-meta {
       grid-template-columns: 1fr;
@@ -198,23 +187,16 @@
 
       .panel-left {
         text-align: center;
-
-        .intro {
-          margin: 24px auto 0;
-        }
       }
 
-      .panel-stage {
-        // Allow auto height on tablet if text is huge, but keep min-height
-        height: auto;
-        min-height: 450px;
-        padding: 3rem;
+      .circle-logo {
+        display: none;
       }
     }
 
-    // Hide or move logo on smaller screens
-    .circle-logo {
-      display: none;
+    // On tablet, we might need a bit more flexibility
+    .panel-stage {
+      height: 520px;
     }
   }
 
@@ -222,37 +204,35 @@
     padding: 4rem 1rem;
 
     .panel-stage {
-      padding: 2rem 1.5rem;
-      border-radius: 24px;
-      min-height: 480px; // Taller for mobile text wrapping
+      padding: 2rem;
+
+      // On mobile, fixed height can be dangerous if text wraps significantly.
+      // We switch to min-height to allow growth, or you can keep fixed if you prefer.
+      height: auto;
+      min-height: 500px;
 
       .controls {
         top: 2rem;
-        right: 1.5rem;
+        right: 2rem;
 
         .ctrl {
-          width: 44px;
-          height: 44px;
+          width: 40px;
+          height: 40px;
         }
       }
 
       .slide {
-        .slide-head {
-          margin-bottom: 1.5rem;
+        justify-content: flex-start; // Align top on mobile
+        padding-top: 1rem;
+
+        .slide-header {
+          padding-right: 0;
+          margin-bottom: 1rem;
         }
 
         .slide-company {
-          margin-bottom: 1.5rem;
-        }
-
-        .slide-body {
-          grid-template-columns: 1fr;
-          gap: 1.5rem;
-          text-align: center;
-
-          .avatar {
-            margin: 0 auto;
-          }
+          margin-left: 0;
+          margin-bottom: 2rem;
         }
       }
     }
