@@ -1,3 +1,4 @@
+// Testimonials.jsx
 import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
@@ -5,8 +6,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import TestimonialHeading from '../TestimonialHeading';
-import CircleLogo from '../CircleLogo';
-
 import testimonialsData from '../../data/testimonials.json';
 import '../../styles/components/testimonials.scss';
 
@@ -131,7 +130,7 @@ const Testimonials = () => {
 
   return (
     <section id="testimonials" aria-label="Testimonials" ref={root}>
-      <CircleLogo />
+      {/* CircleLogo removed from here */}
 
       <div className="testimonial-meta">
         <aside className="panel-left">
@@ -139,7 +138,6 @@ const Testimonials = () => {
         </aside>
 
         <section className="panel-stage" aria-live="polite">
-          {/* 1. CONTROLS (Absolute Top Right) */}
           <div className="controls">
             <button
               className="ctrl"
@@ -164,7 +162,6 @@ const Testimonials = () => {
                 className={`slide ${i === current ? 'is-active' : ''}`}
                 style={{ display: i === current ? 'flex' : 'none' }}
               >
-                {/* 2. HEADER: Avatar + Name */}
                 <header className="slide-header">
                   <img
                     src={item.image}
@@ -175,10 +172,7 @@ const Testimonials = () => {
                   <h3 className="slide-name">{item.name}</h3>
                 </header>
 
-                {/* 3. TITLE (New Line) */}
                 <p className="slide-company">{item.company || item.title}</p>
-
-                {/* 4. REVIEW (Bottom) */}
                 <blockquote className="quote">{item.testimonial}</blockquote>
               </article>
             ))}

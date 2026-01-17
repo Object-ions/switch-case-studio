@@ -10,16 +10,7 @@
   padding: 6rem 1.5rem;
   overflow: hidden;
 
-  // Center the Circle Logo
-  .circle-logo {
-    position: absolute;
-    left: 45%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-    pointer-events: none;
-    opacity: 0.8;
-  }
+  // Circle Logo styles removed from here
 
   .testimonial-meta {
     display: grid;
@@ -42,8 +33,7 @@
       display: flex;
       flex-direction: column;
 
-      // --- FIX: FIXED HEIGHT ON DESKTOP ---
-      // This prevents the "jumping" effect.
+      // Fixed height to prevent jumping
       height: 520px;
 
       background: #0a0a0a;
@@ -113,7 +103,7 @@
           gap: 1.5rem;
           margin-bottom: 0.5rem;
           padding-right: 120px; // space for controls
-          flex-shrink: 0; // Don't squash the header
+          flex-shrink: 0;
 
           .avatar {
             width: 64px;
@@ -159,9 +149,9 @@
           // Safety net for very long reviews
           max-height: 100%;
           overflow-y: auto;
-          padding-right: 10px; // Space for scrollbar
+          padding-right: 10px;
 
-          /* Custom Scrollbar for the quote text */
+          /* Custom Scrollbar */
           &::-webkit-scrollbar {
             width: 4px;
           }
@@ -188,13 +178,8 @@
       .panel-left {
         text-align: center;
       }
-
-      .circle-logo {
-        display: none;
-      }
     }
 
-    // On tablet, we might need a bit more flexibility
     .panel-stage {
       height: 520px;
     }
@@ -205,9 +190,6 @@
 
     .panel-stage {
       padding: 2rem;
-
-      // On mobile, fixed height can be dangerous if text wraps significantly.
-      // We switch to min-height to allow growth, or you can keep fixed if you prefer.
       height: auto;
       min-height: 500px;
 
@@ -222,7 +204,7 @@
       }
 
       .slide {
-        justify-content: flex-start; // Align top on mobile
+        justify-content: flex-start;
         padding-top: 1rem;
 
         .slide-header {
