@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import AnimatedHeading from '../AnimatedHeading';
 import ContactForm from '../ContactForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
@@ -12,18 +11,15 @@ gsap.registerPlugin(ScrollTrigger);
 const Contact = () => {
   const formRef = useRef();
 
-  // Left column refs
+  // Refs
   const leftColRef = useRef(null);
   const ctaRef = useRef(null);
   const iconRef = useRef(null);
   const addressRef = useRef(null);
   const emailRef = useRef(null);
-  const phoneRef = useRef(null);
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
@@ -35,59 +31,31 @@ const Contact = () => {
         defaults: { ease: 'power3.out', immediateRender: false },
       });
 
-      // CTA
-      tl.from(ctaRef.current, { autoAlpha: 0, y: 24, duration: 0.6 });
-      tl.from(
-        iconRef.current,
-        { autoAlpha: 0, y: 8, rotate: -10, duration: 0.35 },
-        '<0.05'
-      );
+      // 1. Headline rises up
+      tl.from('.contact-headline span', {
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.1
+      });
 
-      // Address lines
-      const addressLines = gsap.utils.toArray(
-        addressRef.current?.querySelectorAll('.line') || []
-      );
-      if (addressLines.length) {
-        tl.from(
-          addressLines,
-          { autoAlpha: 0, x: -20, duration: 0.45, stagger: 0.1 },
-          '-=0.15'
-        );
-      }
+      // 2. CTA & Details rise up (changed from X to Y axis)
+      tl.from(ctaRef.current, { autoAlpha: 0, y: 20, duration: 0.6 }, '-=0.5');
+      tl.from(addressRef.current, { autoAlpha: 0, y: 20, duration: 0.6 }, '-=0.4');
+      tl.from(emailRef.current, { autoAlpha: 0, y: 20, duration: 0.6 }, '-=0.5');
 
-      // Email lines
-      const emailLines = gsap.utils.toArray(
-        emailRef.current?.querySelectorAll('.line') || []
-      );
-      if (emailLines.length) {
-        tl.from(
-          emailLines,
-          { autoAlpha: 0, x: 20, duration: 0.45, stagger: 0.1 },
-          '-=0.25'
-        );
-      }
+      // 3. Form rises up
+      tl.from('.contact-form', { autoAlpha: 0, y: 40, duration: 0.8 }, '-=0.6');
 
-      // Phone
-      tl.from(
-        phoneRef.current,
-        { autoAlpha: 0, y: 14, duration: 0.45 },
-        '-=0.2'
-      );
-
-      // Small bounce on the CTA icon once
+      // Icon bounce
       if (!prefersReduced && iconRef.current) {
         gsap.to(iconRef.current, {
-          y: -2,
+          y: -3,
           repeat: 1,
           yoyo: true,
-          duration: 0.6,
-          ease: 'sine.inOut',
-          delay: 0.2,
-          scrollTrigger: {
-            trigger: ctaRef.current,
-            start: 'top bottom',
-            once: true,
-          },
+          duration: 0.5,
+          delay: 1,
+          ease: 'power1.inOut'
         });
       }
     });
@@ -98,9 +66,14 @@ const Contact = () => {
   return (
     <div id="contact">
       <div className="contact-wrapper">
-        {/* Left */}
+        {/* Text Section */}
         <div className="contact-left" ref={leftColRef}>
-          <AnimatedHeading />
+
+          <h2 className="contact-headline">
+            <span className="block">Let's Build</span>
+            <span className="block text-gradient">Something Exceptional</span>
+            <span className="block">Together.</span>
+          </h2>
 
           <div className="contact-text">
             <a
@@ -110,38 +83,32 @@ const Contact = () => {
               target="_blank"
               rel="noreferrer"
             >
-              Book Your Free Strategy Session Now{' '}
+              Book a Strategy Call
               <FontAwesomeIcon
                 ref={iconRef}
                 className="contact-cta_icon"
                 icon={faArrowUpRightFromSquare}
-                style={{ fontSize: '10px' }}
+                style={{ fontSize: '12px' }}
               />
             </a>
-          </div>
 
-          <div className="contact-details">
-            <div>
+            <div className="contact-details">
               <p ref={addressRef} className="contact-address">
-                <span className="line">Phoenix, AZ</span>
-                <span className="line">85003</span>
+                Phoenix, AZ 85003
               </p>
-            </div>
 
-            <div>
               <a
                 ref={emailRef}
                 className="contact-email"
                 href="mailto:hello@switchcasestudio.com"
               >
-                <span className="line">hello</span>
-                <span className="line">@switchcasestudio.com</span>
+                hello@switchcasestudio.com
               </a>
             </div>
           </div>
         </div>
 
-        {/* Right */}
+        {/* Form Section */}
         <div className="contact-form">
           <ContactForm formRef={formRef} />
         </div>
