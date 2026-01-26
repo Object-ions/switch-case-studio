@@ -44,7 +44,7 @@ const FooterCopyrights = () => {
 
         {/* Col 3: Projects (Dynamic) */}
         <div className="footer-col">
-          <h4>Projects</h4>
+          <h4>Case Studies</h4>
           <ul className="footer-nav">
             {PROJECT_LINKS.map((proj) => (
               <li key={proj.to}>

@@ -124,7 +124,7 @@ const MenuModal = ({ open, onClose }) => {
                 />
 
                 <MenuAccordion
-                  label="Projects"
+                  label="Case Studies"
                   items={PROJECT_LINKS}
                   isOpen={openAccordion === 'projects'}
                   onToggle={() => toggleAccordion('projects')}
@@ -133,7 +133,7 @@ const MenuModal = ({ open, onClose }) => {
 
                 <li>
                   <a href="#testimonials" onClick={onClose}>
-                    Reviews
+                    Testimonials
                   </a>
                 </li>
                 {/* Note: In your original code you had Projects link AND accordion. 

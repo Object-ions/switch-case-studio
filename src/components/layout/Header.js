@@ -93,7 +93,7 @@ const Header = () => {
                   className="nav_link"
                   onClick={() => setActiveSubmenu(null)}
                 >
-                  Projects
+                  Case Studies
                 </Link>
                 {renderSubmenu(PROJECT_LINKS, () => setActiveSubmenu(null))}
               </li>

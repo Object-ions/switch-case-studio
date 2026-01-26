@@ -30,7 +30,7 @@ const TestimonialHeading = () => {
   return (
     <div className="testimonial-head">
       <h2 ref={titleRef}>
-        What Our Clients Say About the impact of our work and partnership.
+        what our clients say bout the impact of our work and partnership
       </h2>
     </div>
   );

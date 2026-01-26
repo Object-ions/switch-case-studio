@@ -49,12 +49,12 @@ const ProjectsHeader = () => {
       <div className="panel panel-header">
         <h1 className="marquee" aria-label="Selected Projects">
           <span className="marquee-track">
-            Selected Projects · Selected Projects · Selected Projects · Selected
-            Projects · Selected Projects ·
+            Case Studies · Case Studies · Case Studies · Case
+            Studies · Case Studies ·
           </span>
           <span className="marquee-track" aria-hidden="true">
-            Selected Projects · Selected Projects · Selected Projects · Selected
-            Projects · Selected Projects ·
+            Case Studies · Case Studies · Case Studies · Case
+            Studies · Case Studies ·
           </span>
         </h1>
       </div>
