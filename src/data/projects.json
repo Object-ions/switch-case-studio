@@ -251,6 +251,59 @@
     "productName": "Our Work",
     "ctaLabel": "View Live",
     "ctaUrl": "https://www.prodanimiami.com"
-  }
-  
+  },
+  {
+    "id": 6,
+    "slug": "jelly-belly-wiki",
+    "panelClass": "panel-hero",
+    "coverTile": "/projects/jelly-belly-wiki/jelly-belly-wiki-cover-tile.webp",
+    "imageSrc": "/projects/jelly-belly-wiki/1.avif",
+    "longWeb": "/projects/jelly-belly-wiki/long.webp",
+    "imageAlt": "Jelly Belly Wiki API and developer documentation",
+    "backLabel": "Back to Projects",
+    "title": "Jelly Belly Wiki",
+    "subtitle": "Full Stack Wiki Platform + Public API & Documentation",
+    "description": "Switch Case Studio designed and built Jelly Belly Wiki as a full-stack product, including the branding, UI system, and a developer-ready API. The project includes a structured database of Jelly Belly flavors, a public API for other developers to use, and full documentation designed to make integration fast and clear.",
+    "tileVersion": "Full-stack wiki platform with a public API and full documentation. Branding, UI, backend, database, and dev experience built end to end.",
+    "services": [
+      { "label": "#Product Design" },
+      { "label": "#Brand Identity & Visual System" },
+      { "label": "#UI/UX Design" },
+      { "label": "#Frontend Development (React)" },
+      { "label": "#Backend Development (C# / .NET API)" },
+      { "label": "#Database Design (MySQL)" },
+      { "label": "#API Documentation" }
+    ],
+    "highlights": [
+      {
+        "title": "End-to-End Build",
+        "summary": "Built the full product from concept to launch, covering UX, UI, frontend, backend, and database."
+      },
+      {
+        "title": "Public API for Developers",
+        "summary": "Designed and implemented a clean API that exposes flavor data in a predictable, dev-friendly format."
+      },
+      {
+        "title": "Documentation & Dev Experience",
+        "summary": "Created complete documentation so other developers can explore endpoints, schemas, and usage quickly."
+      },
+      {
+        "title": "Database & Data Modeling",
+        "summary": "Structured flavor data in MySQL with a scalable schema that supports search, filtering, and expansion."
+      },
+      {
+        "title": "Branding & Graphics",
+        "summary": "Developed the visual identity and graphic system to make the product feel playful, clear, and polished."
+      },
+      {
+        "title": "UI System",
+        "summary": "Designed a consistent component system for browsing, discovery, and wiki-style navigation."
+      }
+    ],
+    "result": "A polished, developer-friendly wiki platform with a public API and clear documentation, supported by a complete brand and UI system.",
+    "kicker": "In depth on",
+    "productName": "Our Work",
+    "ctaLabel": "View Live",
+    "ctaUrl": "https://jelly-belly-wiki.netlify.app/"
+  }  
 ]
