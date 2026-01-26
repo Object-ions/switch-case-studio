@@ -194,48 +194,63 @@
     "coverTile": "/projects/prodani/prodani-cover-tile.webp",
     "imageSrc": "/projects/prodani/1.avif",
     "longWeb": "/projects/prodani/long.webp",
-    "imageAlt": "ProDani Miami homepage preview",
+    "imageAlt": "Prodani Miami Shopify homepage preview",
     "backLabel": "Back to Projects",
-    "title": "ProDani Miami",
-    "subtitle": "Healthy Baking Brand in Miami, Florida",
-    "description": "Switch Case Studio partnered with ProDani Miami to reimagine the brand from the ground up and launch a high-performing Shopify storefront. The project focused on translating ProDani’s product philosophy into a warm, modern, and conversion-driven digital experience.",
-    "tileVersion": "Miami-based healthy baking brand. We delivered branding, Shopify setup, packaging, and email marketing.",
+    "title": "Prodani Miami",
+    "subtitle": "High-Protein Dessert Brand, Miami, Florida",
+    "description": "Switch Case Studio partnered with Prodani Miami to lead the brand, design, and marketing of a high-protein dessert company. As an ongoing project, we shaped the visual identity, rebuilt the Shopify e-commerce website, and built a cohesive system across digital, packaging, and in-person marketing, enabling the brand’s expansion into trade shows and live events.",
+    "tileVersion": "High-protein dessert brand. We delivered brand direction, Shopify website design, packaging guidance, and trade show concepts.",
     "services": [
       {
-        "label": "#Branding"
+        "label": "#Brand Direction"
       },
       {
-        "label": "#Shopify Setup"
+        "label": "#Website Design & Development"
       },
       {
-        "label": "#Packaging"
+        "label": "#Shopify Customization"
       },
       {
-        "label": "#Email Marketing"
+        "label": "#Content & Copy"
+      },
+      {
+        "label": "#Packaging Direction"
+      },
+      {
+        "label": "#Trade Show Design"
       }
     ],
     "highlights": [
       {
-        "title": "Branding",
-        "summary": "Warm, appetizing visual language rooted in product storytelling."
+        "title": "Brand Direction",
+        "summary": "Positioned Prodani as indulgent, premium, and nutrition-forward."
       },
       {
-        "title": "Shopify Setup",
-        "summary": "Fast, conversion-focused storefront built for scale."
+        "title": "Website Design & Development",
+        "summary": "Custom Shopify experience beyond standard themes."
       },
       {
-        "title": "Packaging",
-        "summary": "Clean, shelf-ready designs aligned with the brand’s health-forward values."
+        "title": "Hero Sections & Motion",
+        "summary": "Bold video-led storytelling to set the tone immediately."
       },
       {
-        "title": "Email Marketing",
-        "summary": "Lifecycle flows to capture, nurture, and convert customers."
+        "title": "Content & Copy",
+        "summary": "Clear brand narrative balancing taste and macros."
+      },
+      {
+        "title": "Packaging Direction",
+        "summary": "Aligned packaging and labels with the digital brand."
+      },
+      {
+        "title": "Trade Show Design",
+        "summary": "Full booth concept including banners, roll-ups, and displays."
       }
     ],
-    "result": "A cohesive brand system and e-commerce experience that increased add-to-carts, improved product clarity, and grew email opt-ins.",
+    "result": "A cohesive brand system that translates seamlessly across website, packaging, and physical retail environments.",
     "kicker": "In depth on",
     "productName": "Our Work",
     "ctaLabel": "View Live",
-    "ctaUrl": "https://prodanimiami.com"
+    "ctaUrl": "https://www.prodanimiami.com"
   }
+  
 ]
