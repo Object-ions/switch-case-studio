@@ -19,47 +19,35 @@ const DEFAULT_VIEWPORT = {
   heightPct: 77.0188,
 };
 
-// --- Helper Component: Scope & Results ---
-// Extracted to keep the main component clean
-const ScopeList = ({ highlights, result }) => {
-  if ((!highlights || highlights.length === 0) && !result) return null;
+// --- Sub-Component: Editorial Scope List ---
+const ScopeList = ({ highlights }) => {
+  if (!highlights || highlights.length === 0) return null;
 
   return (
-    <section className="project-details__scope">
-      {highlights && highlights.length > 0 && (
-        <>
-          <h2 className="project-details__scopeHeading">Scope & Results</h2>
-          <ul className="project-details__scopeList">
-            {highlights.map((item, idx) => (
-              <li key={idx} className="project-details__scopeItem">
-                <h3 className="project-details__scopeTitle">{item.title}</h3>
-                <p className="project-details__scopeSummary">{item.summary}</p>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
-      {result && (
-        <div className="project-details__result">
-          <h3 className="project-details__resultHeading">Result</h3>
-          <p className="project-details__resultText">{result}</p>
-        </div>
-      )}
-    </section>
+    <div className="project-details__scope-group">
+      <h3 className="project-details__section-label">Scope & Results</h3>
+      <ul className="project-details__scope-list">
+        {highlights.map((item, idx) => (
+          <li key={idx} className="project-details__scope-item">
+            <span className="project-details__scope-title">{item.title}</span>
+            <span className="project-details__scope-summary">{item.summary}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
 const ProjectDetails = ({ project, onClose }) => {
-  // 1. Safe Data Access
   const data = project || {};
   const {
     slug,
     title = 'Untitled Project',
     subtitle,
     description,
-    imageSrc,  // Path string from JSON
+    imageSrc,
     imageAlt,
-    longWeb,   // Path string from JSON
+    longWeb,
     services = [],
     highlights = [],
     result,
@@ -76,160 +64,160 @@ const ProjectDetails = ({ project, onClose }) => {
   const [scrolledPanel, setScrolledPanel] = useState(false);
   const [zoomOpen, setZoomOpen] = useState(false);
 
-  // 2. Resolve Public Paths
-  // This ensures images load correctly from the public folder
   const publicLongWeb = longWeb ? process.env.PUBLIC_URL + longWeb : null;
   const publicImageSrc = imageSrc ? process.env.PUBLIC_URL + imageSrc : null;
-
-  // 3. Preload logic
   const mockupOK = useImagePreload(publicLongWeb);
 
-  // 4. GSAP Entrance Animation
+  // --- GSAP Animation ---
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
-      // Init State
+      // Initial States
       gsap.set('.project-details__media', { clipPath: 'inset(0 100% 0 0)' });
-      gsap.set(
-        ['.project-details__header', '.project-details__main', '.project-details__bottom'],
-        { y: 20, opacity: 0 }
-      );
+      gsap.set('.project-details__content-inner', { y: 20, opacity: 0 });
       gsap.set(rootRef.current, { opacity: 1 });
 
-      // Sequence
+      // Animation Sequence
       tl.to('.project-details__media', {
         clipPath: 'inset(0 0% 0 0)',
-        duration: 1,
+        duration: 0.8,
       })
-        .to('.project-details__header', { y: 0, opacity: 1, duration: 0.6 }, 0.3)
-        .to('.project-details__main', { y: 0, opacity: 1, duration: 0.8 }, 0.5)
-        .to('.project-details__bottom', { y: 0, opacity: 1, duration: 0.8 }, 0.7)
-        .fromTo(
-          '.project-details__panel',
-          { boxShadow: '0 0 0 rgba(0,0,0,0)' },
-          { boxShadow: '0 8px 24px rgba(0,0,0,0.08)', duration: 0.4 },
-          0.25
-        );
-    }, rootRef);
+      .to('.project-details__content-inner', {
+        y: 0, 
+        opacity: 1, 
+        duration: 0.6,
+        stagger: 0.1
+      }, "-=0.4");
 
+    }, rootRef);
     return () => ctx.revert();
   }, [slug]);
 
-  // Scroll UI Feedback
   const handleScroll = (e, setter) => {
     setter(e.currentTarget.scrollTop > 10);
   };
 
   return (
-    <section
-      ref={rootRef}
-      className="project-details"
-      aria-label="Project details"
-    >
-      {/* LEFT: Media Column */}
-      <div
+    <section ref={rootRef} className="project-details" aria-label="Project details">
+      
+      {/* --- Mobile Header (Fixed) --- */}
+      <header className="project-details__mobile-header">
+        <button className="project-details__back-btn" onClick={onClose}>
+          <FontAwesomeIcon icon={faArrowLeft} /> {backLabel}
+        </button>
+      </header>
+
+      {/* --- LEFT COLUMN: Visuals --- */}
+      <div 
         className="project-details__media"
         onScroll={(e) => handleScroll(e, setScrolledMedia)}
       >
-        {/* Render Device Mockup if longWeb exists */}
-        {mockupOK && publicLongWeb && (
-          <DeviceMockup
-            key={slug}
-            frameSrc={macbookFrame}
-            contentSrc={publicLongWeb}
-            alt={imageAlt || `${title} preview`}
-            viewport={viewport || DEFAULT_VIEWPORT}
-            speed={35}
-            hold={0.6}
-            pauseOnHover
-            controls
-            className="project-details__mockup"
-          />
-        )}
+        <div className="project-details__media-inner">
+          {mockupOK && publicLongWeb && (
+            <DeviceMockup
+              key={slug}
+              frameSrc={macbookFrame}
+              contentSrc={publicLongWeb}
+              alt={imageAlt || `${title} preview`}
+              viewport={viewport || DEFAULT_VIEWPORT}
+              speed={35}
+              hold={0.6}
+              pauseOnHover
+              controls
+              className="project-details__mockup"
+            />
+          )}
 
-        {/* Render Standard Image if imageSrc exists */}
-        {publicImageSrc && (
-          <img
-            src={publicImageSrc}
-            alt={imageAlt || `${title} detail`}
-            className="project-details__img"
-            onClick={() => setZoomOpen(true)}
-            loading="eager"
-          />
-        )}
-
+          {publicImageSrc && (
+            <img
+              src={publicImageSrc}
+              alt={imageAlt || `${title} detail`}
+              className="project-details__img"
+              onClick={() => setZoomOpen(true)}
+              loading="eager"
+            />
+          )}
+        </div>
         <Arrow side="left" hidden={scrolledMedia} />
       </div>
 
-      {/* RIGHT: Content Column */}
+      {/* --- RIGHT COLUMN: Info Panel --- */}
       <div className="project-details__panel">
-        <header className="project-details__header">
-          <button className="project-details__back" onClick={onClose}>
+        
+        {/* Desktop Header */}
+        <header className="project-details__desktop-header">
+          <button className="project-details__back-btn" onClick={onClose}>
             <FontAwesomeIcon icon={faArrowLeft} /> {backLabel}
           </button>
-          <button className="project-details__close" onClick={onClose}>
-            ×
-          </button>
+          <button className="project-details__close-btn" onClick={onClose}>×</button>
         </header>
 
-        <div
+        <div 
           className="project-details__scroll"
           onScroll={(e) => handleScroll(e, setScrolledPanel)}
         >
-          <Arrow side="right" hidden={scrolledPanel} />
-
-          <main className="project-details__main">
-            <div className="project-details__content">
+          <div className="project-details__content-inner">
+            
+            {/* Title Block */}
+            <div className="project-details__intro">
               <h1 className="project-details__title">{title}</h1>
-              {subtitle && (
-                <p className="project-details__subtitle">{subtitle}</p>
-              )}
-              {description && (
-                <p className="project-details__desc">{description}</p>
-              )}
-
+              {subtitle && <p className="project-details__subtitle">{subtitle}</p>}
+              
+              {/* Tags moved up for immediate context */}
               {services.length > 0 && (
-                <nav className="project-details__socials">
+                <div className="project-details__tags">
                   {services.map((s) => (
-                    <span key={s.label} className="project-details__social">
-                      {s.label}
-                    </span>
+                    <span key={s.label} className="project-details__tag">{s.label}</span>
                   ))}
-                </nav>
-              )}
-            </div>
-
-            <div className="project-details__bottom">
-              {(ctaUrl || ctaLabel) && (
-                <section className="project-details__cta">
-                  <div>
-                    <hr />
-                    <p className="project-details__kicker">{kicker}</p>
-                    <h2 className="project-details__product">{productName}</h2>
-                  </div>
-                  {ctaUrl && (
-                    <a
-                      href={ctaUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="project-details__button"
-                    >
-                      {ctaLabel}{' '}
-                      <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-                    </a>
-                  )}
-                </section>
+                </div>
               )}
 
-              {/* Scope & Results (Helper Component) */}
-              <ScopeList highlights={highlights} result={result} />
+              {description && <p className="project-details__desc">{description}</p>}
             </div>
-          </main>
-          <div className="project-details__divider" aria-hidden="true" />
+
+            <hr className="project-details__divider" />
+
+            {/* Scope List (Refactored) */}
+            <ScopeList highlights={highlights} />
+
+            {/* Results Block */}
+            {result && (
+              <div className="project-details__result-block">
+                <h3 className="project-details__section-label">Result</h3>
+                <p className="project-details__result-text">{result}</p>
+              </div>
+            )}
+
+            {/* Spacer for bottom CTA */}
+            <div className="project-details__spacer" />
+          </div>
+          
+          <Arrow side="right" hidden={scrolledPanel} />
         </div>
+
+        {/* Sticky Footer CTA */}
+        {(ctaUrl || ctaLabel) && (
+          <div className="project-details__cta-bar">
+            <div className="project-details__cta-info">
+              <span className="project-details__cta-kicker">{kicker}</span>
+              <span className="project-details__cta-product">{productName}</span>
+            </div>
+            {ctaUrl && (
+              <a 
+                href={ctaUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="project-details__cta-button"
+              >
+                {ctaLabel} <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+              </a>
+            )}
+          </div>
+        )}
       </div>
 
+      {/* Lightbox */}
       {publicImageSrc && (
         <ZoomLightbox
           src={publicImageSrc}
@@ -242,14 +230,10 @@ const ProjectDetails = ({ project, onClose }) => {
   );
 };
 
-// --- Custom Hook ---
 function useImagePreload(src) {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
-    if (!src) {
-      setLoaded(false);
-      return;
-    }
+    if (!src) { setLoaded(false); return; }
     const img = new Image();
     img.src = src;
     img.onload = () => setLoaded(true);
