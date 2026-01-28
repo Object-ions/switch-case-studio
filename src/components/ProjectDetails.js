@@ -66,7 +66,11 @@ const ProjectDetails = ({ project, onClose }) => {
 
   const publicLongWeb = longWeb ? process.env.PUBLIC_URL + longWeb : null;
   const publicImageSrc = imageSrc ? process.env.PUBLIC_URL + imageSrc : null;
+
+  // --- Preload Checks ---
+  // Returns true only if the image loads successfully
   const mockupOK = useImagePreload(publicLongWeb);
+  const detailImageOK = useImagePreload(publicImageSrc);
 
   // --- GSAP Animation ---
   useLayoutEffect(() => {
@@ -129,7 +133,8 @@ const ProjectDetails = ({ project, onClose }) => {
             />
           )}
 
-          {publicImageSrc && (
+          {/* FIX: Only render if detailImageOK is true (hides broken icon) */}
+          {detailImageOK && publicImageSrc && (
             <img
               src={publicImageSrc}
               alt={imageAlt || `${title} detail`}
@@ -218,7 +223,7 @@ const ProjectDetails = ({ project, onClose }) => {
       </div>
 
       {/* Lightbox */}
-      {publicImageSrc && (
+      {detailImageOK && publicImageSrc && (
         <ZoomLightbox
           src={publicImageSrc}
           alt={imageAlt || title}
