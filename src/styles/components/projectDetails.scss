@@ -24,50 +24,45 @@
 }
 
 .project-details {
-  --pd-header-height: 60px;
-  --pd-pad: 40px;
+  /* --- CUTTING SPACES HERE --- */
+  --pd-header-height: 50px; /* Reduced from 60px */
+  --pd-pad: 32px;           /* Reduced from 40px */
+  --reveal-gap: 40px;       /* MASSIVE REDUCTION: Was 33vh (approx 300px), now 40px */
   
-  /* Desktop: Fixed Modal Overlay */
   position: fixed;
   inset: 0;
   z-index: 999;
   background: $grey-color;
   font-family: $font-text;
   
+  /* Main Grid */
   display: grid;
   grid-template-columns: 55% 45%;
   height: 100dvh; 
   width: 100vw;
 
-  /* --- MOBILE LAYOUT OVERRIDE --- */
+  /* --- MOBILE OVERRIDE --- */
   @media (max-width: 960px) {
     display: flex;
     flex-direction: column;
-    position: fixed;
-    inset: 0;
-    background: $white-color;
-    z-index: 9999;
     overflow-y: auto; 
     -webkit-overflow-scrolling: touch;
+    background: $white-color;
   }
 
-  /* --- LEFT: Media Column (The Gallery) --- */
+  /* --- LEFT COLUMN: Media Gallery --- */
   &__media {
     background: #e0e5e8;
     position: relative;
     height: 100%;
     
-    /* DESKTOP FIX: Allow scrolling independently. 
-       This prevents the "cut off" issue on large screens. */
+    /* Allow scrolling if images are tall */
     overflow-y: auto; 
     @include custom-scrollbar;
     
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: block; 
 
     @media (max-width: 960px) {
-      /* Mobile: It's just a section in the page flow */
       height: auto; 
       width: 100%;
       background: #f4f4f4;
@@ -79,70 +74,54 @@
 
   &__media-inner {
     width: 100%;
-    /* Let height grow naturally */
-    min-height: min-content; 
     
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    gap: 40px; 
+    justify-content: center; 
     
-    /* Top padding ensures Laptop isn't glued to the top edge */
-    padding: 60px 40px 120px; 
+    /* Tighter gaps for visuals */
+    gap: 10px; 
+    padding: 20px; 
 
     @media (max-width: 960px) {
-      /* Reduce padding on mobile */
-      padding: 30px 20px;
-      gap: 30px;
+      padding: 20px;
+      gap: 20px;
+      justify-content: flex-start;
     }
   }
 
-  /* --- MOCKUP FIXES (Laptop) --- */
   &__mockup {
-    /* DESKTOP: Limit width to 85% so it sits nicely in the column */
     width: 85%; 
-    max-width: 1000px;
+    max-width: 900px;
     height: auto; 
     flex: 0 0 auto; 
-    filter: drop-shadow(0 25px 50px rgba(0,0,0,0.15));
 
     @media (max-width: 960px) {
-      /* MOBILE FIX: Ensure it doesn't get tiny */
       width: 100%; 
-      max-width: 100%;
-      /* Important: Don't let it shrink to 0 height */
-      min-height: 200px; 
+      min-height: 200px;
     }
   }
 
-  /* --- IMAGE FIXES (Secondary Visuals) --- */
   &__img {
     display: block;
     width: 90%; 
-    max-width: 800px;
+    max-width: 700px;
     height: auto;
-    
     cursor: zoom-in;
-    border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    flex: 0 0 auto;
+    border-radius: 3px;
 
     @media (max-width: 960px) {
-      /* MOBILE FIX: Stop the "Endless Scroll" */
       width: 100%;
-      max-width: 100%;
       border-radius: 0;
       box-shadow: none;
-      
-      /* Constrain height on mobile so user can reach text quickly */
-      max-height: 50vh; 
-      object-fit: contain; /* Ensure whole image is seen within that limit */
-      background: #f0f0f0; /* Fill empty space if aspect ratio differs */
+      max-height: 60vh; 
+      object-fit: contain; 
+      background: #f0f0f0; 
     }
   }
 
-  /* --- RIGHT: Panel Column (The Text) --- */
+  /* --- RIGHT COLUMN: Content Panel --- */
   &__panel {
     background: $white-color;
     display: flex;
@@ -159,30 +138,28 @@
     }
   }
 
-  /* Headers */
+  /* HEADERS */
   &__desktop-header {
     flex: 0 0 auto;
     height: var(--pd-header-height);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 24px;
+    padding: 0 20px;
     border-bottom: 1px solid #eee;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(5px);
+    font-size: 13px;
 
-    @media (max-width: 960px) {
-      display: none; 
-    }
+    @media (max-width: 960px) { display: none; }
   }
 
   &__mobile-header {
     display: none;
-    /* Use sticky so it stays at top of scroll view on mobile */
     position: sticky; 
     top: 0;
     z-index: 1000;
-    height: 60px;
+    height: 50px;
     background: $white-color; 
     color: $black-color;
     align-items: center;
@@ -190,47 +167,44 @@
     border-bottom: 1px solid #eee;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 
-    @media (max-width: 960px) {
-      display: flex;
-    }
+    @media (max-width: 960px) { display: flex; }
   }
 
   &__back-btn {
     background: none;
     border: none;
     font-family: $font-text;
-    font-size: 13px;
+    font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     cursor: pointer;
     color: inherit;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     font-weight: 600;
-
-    &:hover {
-      opacity: 0.7;
-    }
+    &:hover { opacity: 0.6; }
   }
 
   &__close-btn {
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: 22px;
     cursor: pointer;
     line-height: 1;
     color: $black-color;
-    padding: 0 8px;
+    padding: 0 5px;
   }
 
-  /* Scrollable Content Wrapper (Right Side) */
+  /* --- TEXT CONTENT SCROLL AREA --- */
   &__scroll {
     flex: 1;
     overflow-y: auto;
     padding: 0;
     position: relative;
     @include custom-scrollbar;
+    overflow: visible;
+
     
     @media (max-width: 960px) {
       overflow: visible; 
@@ -240,73 +214,79 @@
 
   &__content-inner {
     padding: var(--pd-pad);
-    max-width: 700px;
+    max-width: 650px; /* Slightly narrower for better reading */
     margin: 0 auto;
-    padding-bottom: 120px; 
+    /* Ensure bottom padding accounts for sticky CTA */
+    padding-bottom: 90px; 
 
     @media (max-width: 960px) {
-      padding: 40px 24px 100px; 
+      padding: 30px 24px 100px; 
     }
   }
 
-  /* Typography */
+  /* --- TYPOGRAPHY (TIGHTENED) --- */
   &__title {
     font-family: $font-special;
-    font-size: clamp(32px, 4vw, 48px);
+    font-size: clamp(28px, 3.5vw, 42px); /* Slightly smaller max size */
     line-height: 1.1;
-    margin: 0 0 16px; 
+    margin: 0 0 10px; 
     color: $black-color;
   }
 
   &__subtitle {
-    font-size: 15px; 
+    font-size: 14px; 
     color: #666;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     font-weight: 400;
-    line-height: 1.5;
+    line-height: 1.4;
   }
 
   &__tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 32px; 
+    gap: 6px;
+    margin-bottom: 24px; 
   }
 
   &__tag {
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    background: #f0f0f0;
-    padding: 6px 10px;
-    border-radius: 4px;
+    background: #f2f2f2;
+    padding: 5px 8px;
+    border-radius: 3px;
     color: #555;
     font-weight: 600;
   }
 
   &__desc {
-    font-size: 15px;
-    line-height: 1.7;
+    font-size: 14px;
+    line-height: 1.6;
     color: #333;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
   }
 
   &__divider {
     border: 0;
     border-top: 1px solid #eee;
-    margin: 40px 0;
+    margin: 10px 0;
   }
 
   &__section-label {
-    font-size: 11px;
+    font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.15em;
     color: #999;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     font-weight: 700;
   }
 
-  /* Scope List */
+  /* --- SCOPE LIST (COMPACTED) --- */
+  &__scope-group {
+    /* Use the variable to control spacing before this block */
+    margin-top: 20px; 
+  }
+
   &__scope-list {
     list-style: none;
     padding: 0;
@@ -315,51 +295,52 @@
 
   &__scope-item {
     display: grid;
-    grid-template-columns: 140px 1fr;
-    gap: 20px;
-    padding: 16px 0;
+    grid-template-columns: 130px 1fr; /* Tighter label column */
+    gap: 15px;
+    padding: 10px 0; /* Tighter vertical padding */
     border-bottom: 1px solid #f4f4f4;
 
     &:first-child { border-top: 1px solid #f4f4f4; }
 
     @media (max-width: 600px) {
       grid-template-columns: 1fr;
-      gap: 6px;
+      gap: 4px;
+      padding: 10px 0;
     }
   }
 
   &__scope-title {
     font-weight: 700;
-    font-size: 14px;
+    font-size: 13px;
     color: $black-color;
   }
 
   &__scope-summary {
-    font-size: 14px;
+    font-size: 13px;
     color: #555;
     line-height: 1.5;
   }
 
-  /* Result Block */
+  /* --- RESULT BLOCK --- */
   &__result-block {
-    margin-top: 50px;
+    margin-top: 10px;
     background: #fafafa;
-    padding: 30px;
-    border-radius: 2px;
-    border-left: 2px solid $black-color;
+    padding: 24px;
+    border-radius: 4px;
+    border-left: 3px solid $black-color;
   }
 
   &__result-text {
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.6;
     color: $black-color;
     font-weight: 500;
   }
 
-  /* --- CTA Bar --- */
+  /* --- STICKY CTA BAR --- */
   &__cta-bar {
     border-top: 1px solid #eee;
-    padding: 16px 24px;
+    padding: 12px 24px; /* Slimmer padding */
     background: rgba(255, 255, 255, 0.98);
     display: flex;
     align-items: center;
@@ -368,6 +349,8 @@
     position: sticky;
     bottom: 0;
     z-index: 10;
+    /* Ensure minimal height so it doesn't look cramped */
+    min-height: 60px;
 
     @media (max-width: 960px) {
       position: fixed;
@@ -386,26 +369,26 @@
   }
 
   &__cta-kicker {
-    font-size: 10px;
+    font-size: 9px;
     text-transform: uppercase;
     color: #999;
     letter-spacing: 0.05em;
+    margin-bottom: 2px;
   }
 
   &__cta-product {
     font-family: $font-special;
-    font-size: 18px;
+    font-size: 16px;
     color: $black-color;
     line-height: 1;
-    margin-top: 4px;
   }
 
   &__cta-button {
     background: $black-color;
     color: $white-color;
     text-decoration: none;
-    padding: 10px 18px;
-    font-size: 13px;
+    padding: 8px 16px; /* Slightly smaller button */
+    font-size: 12px;
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -419,7 +402,7 @@
     }
   }
 
-  /* --- Zoom Lightbox --- */
+  /* --- ZOOM LIGHTBOX --- */
   .zoomlightbox {
     position: fixed;
     inset: 0;
