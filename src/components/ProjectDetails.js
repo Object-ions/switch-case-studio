@@ -16,7 +16,7 @@ const DEFAULT_VIEWPORT = {
   leftPct: 17.8468,
   topPct: 14.9473,
   widthPct: 64.4509,
-  heightPct: 77.0188,
+  heightPct: 70.0188,
 };
 
 // --- Sub-Component: Editorial Scope List ---
