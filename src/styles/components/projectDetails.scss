@@ -126,15 +126,15 @@
     background: $white-color;
     display: flex;
     flex-direction: column;
-    height: 100%; 
+    height: 100%; /* Keeps the panel exactly the height of the screen */
     border-left: 1px solid #e0e0e0;
     position: relative;
     z-index: 2;
-
+    overflow: hidden; // ADD THIS: Prevents children from expanding the panel height
+  
     @media (max-width: 960px) {
       height: auto; 
       overflow: visible;
-      border-left: none;
     }
   }
 
@@ -199,12 +199,10 @@
   /* --- TEXT CONTENT SCROLL AREA --- */
   &__scroll {
     flex: 1;
-    overflow-y: auto;
-    padding: 0;
+    overflow-y: auto; // CHANGE THIS: From 'visible' to 'auto'
     position: relative;
     @include custom-scrollbar;
-    overflow: visible;
-
+    // min-height: 0; // Standard flex-fix to ensure it shrinks/scrolls
     
     @media (max-width: 960px) {
       overflow: visible; 
