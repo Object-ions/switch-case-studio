@@ -3,13 +3,24 @@ import WorkText from '../WorkText';
 import WorkCTA from '../WorkCTA';
 import WorkMarquee from '../WorkMarquee';
 
-import BlacGrid from '../../assets/images/black_grid.avif';
+import Squares from '../Squares';
 import Moon from '../Moon';
 import '../../styles/components/work.scss';
 
 const Work = () => {
   return (
-    <div id="about" style={{ backgroundImage: `url(${BlacGrid})` }}>
+    <div id="about">
+      {/* Animated grid background */}
+      <div className="squares-bg">
+        <Squares
+          speed={0.1}
+          squareSize={50}
+          direction="down"
+          borderColor="#7f7f7f"
+          hoverFillColor="#ff834b"
+        />
+      </div>
+
       <div className="work-wrapper">
         <WorkHeading />
         <WorkMarquee />

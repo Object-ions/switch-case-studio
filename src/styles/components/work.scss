@@ -6,174 +6,160 @@
   background: #000;
   position: relative;
   z-index: 1;
-}
 
-/* wrapper must be positioned for ::after to anchor */
-.work-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: #fff;
-
-  &::after {
-    content: '';
+  // ─── Animated Squares background layer ───
+  .squares-bg {
     position: absolute;
-    inset: auto 0 0 0;
-    height: 70vh;
-    background: linear-gradient(to top, rgba(0, 0, 0, 1), transparent);
-    z-index: 5;
-    pointer-events: none;
+    inset: 0;
+    z-index: 0;
+    pointer-events: auto;
   }
-}
 
-.highlight-block {
-  display: inline-block;
-  padding: 0rem 0.2rem;
-  font-weight: 300;
-  transition: all 0.2s ease;
-  background-color: $orange-color;
-  color: $white-color;
-}
+  // ─── Inline highlighted keywords ───
+  .highlight-block {
+    display: inline-block;
+    padding: 0 0.2rem;
+    font-weight: 300;
+    background-color: $orange-color;
+    color: $white-color;
+    transition: all 0.2s ease;
+  }
 
-.work-heading {
-  margin: 0 auto;
-  padding: 5rem 0 0 0;
-  font-size: 3rem;
-  font-family: $font-special;
-  text-align: center;
-  z-index: 11;
-  max-width: 1200px;
+  // ─── Content wrapper (sits above the canvas) ───
+  .work-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+    z-index: 1;
 
-  p {
-    mix-blend-mode: difference;
-
-    .word {
-      display: inline-block;
-      transition: color 0.2s ease;
+    &::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 70vh;
+      background: linear-gradient(to top, #000, transparent);
+      z-index: 5;
+      pointer-events: none;
     }
   }
-}
 
-/* Base text styles (used when .work-text stands alone) */
-.work-text {
-  z-index: 12;
-  padding: 0 1.5rem;
-  display: inline;
-  margin: 0 auto;
-
-  p {
-    width: 50%;
-    line-height: 1.5;
-  }
-}
-
-/* CTA at bottom */
-.work-cta {
-  z-index: 12;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr;
-  gap: 8px;
-  padding-bottom: 5rem;
-
-  .text-wrapper {
-    grid-column-start: 3;
-  }
-}
-
-/* Side-by-side text + Moon */
-.work-content {
-  max-width: 1200px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 auto;
-  gap: 2rem;
-  padding: 4rem 1.5rem;
-
-  .work-text {
-    flex: 1;
+  // ─── Section heading ───
+  .work-heading {
+    margin: 0 auto;
+    padding: 5rem 0 0;
+    font-size: 3rem;
+    font-family: $font-special;
+    text-align: center;
+    max-width: 1200px;
+    z-index: 11;
 
     p {
-      width: 100%; // override the base 50% when inside .work-content
-      line-height: 1.5;
+      mix-blend-mode: difference;
+
+      .word {
+        display: inline-block;
+        transition: color 0.2s ease;
+      }
+    }
+
+    @media (max-width: 1024px) and (min-width: 769px) {
+      padding: 4rem 0 0;
+      font-size: 2.5rem;
+      width: 80%;
+    }
+
+    @media (max-width: 768px) {
+      padding: 3rem 0 0;
+      font-size: 2rem;
+      width: 90%;
     }
   }
 
-  .work-moon {
-    flex: 1;
-    height: 500px; // height for Canvas
-    min-width: 300px;
-  }
-}
-
-/* =========================
-   Tablet: 769px–1024px
-   ========================= */
-@media (max-width: 1024px) and (min-width: 769px) {
-  .work-heading {
-    padding: 4rem 0 0 0;
-    font-size: 2.5rem;
-    width: 80%;
-  }
-
+  // ─── Text + Moon side-by-side ───
   .work-content {
-    gap: 1.5rem;
-    padding: 3rem 1.5rem;
-
-    .work-moon {
-      height: 400px;
-      min-width: 250px;
-    }
-  }
-
-  .work-cta {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-    padding-bottom: 4rem;
-
-    .text-wrapper {
-      grid-column-start: 2;
-    }
-  }
-}
-
-/* =========================
-   Mobile: under 768px
-   ========================= */
-@media (max-width: 768px) {
-  .work-heading {
-    padding: 3rem 0 0 0;
-    font-size: 2rem;
-    width: 90%;
-  }
-
-  .work-content {
-    flex-direction: column;
-    gap: 1rem;
-    padding: 2rem 1rem;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    gap: 2rem;
+    padding: 4rem 1.5rem;
 
     .work-text {
+      flex: 1;
+      z-index: 12;
+      padding: 0 1.5rem;
+
       p {
-        width: 100%;
-        font-size: 0.9rem;
+        line-height: 1.5;
       }
     }
 
     .work-moon {
-      width: 100%;
-      height: 300px; // smaller canvas on mobile
-      min-width: auto;
+      flex: 1;
+      height: 500px;
+      min-width: 300px;
+    }
+
+    @media (max-width: 1024px) and (min-width: 769px) {
+      gap: 1.5rem;
+      padding: 3rem 1.5rem;
+
+      .work-moon {
+        height: 400px;
+        min-width: 250px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 1rem;
+      padding: 2rem 1rem;
+
+      .work-text p {
+        font-size: 0.9rem;
+      }
+
+      .work-moon {
+        width: 100%;
+        height: 300px;
+        min-width: auto;
+      }
     }
   }
 
+  // ─── CTA at bottom ───
   .work-cta {
-    grid-template-columns: 1fr;
-    gap: 4px;
-    padding: 3rem 1rem;
+    z-index: 12;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding-bottom: 5rem;
 
     .text-wrapper {
-      grid-column-start: 1;
+      grid-column-start: 3;
+    }
+
+    @media (max-width: 1024px) and (min-width: 769px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      padding-bottom: 4rem;
+
+      .text-wrapper {
+        grid-column-start: 2;
+      }
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 4px;
+      padding: 3rem 1rem;
+
+      .text-wrapper {
+        grid-column-start: 1;
+      }
     }
   }
 }
