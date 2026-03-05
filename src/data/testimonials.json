@@ -3,21 +3,28 @@
     "id": 1,
     "name": "Ori Argaman",
     "title": "Owner at Crimson Equities",
-    "testimonial": "With honesty, I found Moses through a friend's referral. I didn't really know what I was looking for in terms of vision or design, but the best part was how quickly he understood exactly what I meant. He made the whole process easy and stress-free, and the website came out professional, clean, and it delivers the message I wanted.\n\nI spoke with other website builders before, and it always felt like a big project. With Moshiko, it was simple and we got the result I wanted in less than a week. Truly a 5-star experience.",
+    "testimonial": "I found Switch Case Studio through a friend's referral. I didn't really know what I was looking for in terms of vision or design, but the best part was how quickly they understood exactly what I meant. They made the whole process easy and stress-free, and the website came out professional, clean, and it delivers the message I wanted. I spoke with other website builders before, and it always felt like a big project.With Switch Case Studio, it was simple and we got the result I wanted in less than a week. Truly a 5-star experience.",
     "image": "/images/ori.jpg"
   },
   {
     "id": 2,
     "name": "Sean Dalal",
     "title": "Owner at Zahav Medspa",
-    "testimonial": "Moses has been such a huge help at Zahav. He brought fresh ideas, gave our brand a real creative lift, and made everything from the website to our marketing feel more professional. He’s easy to work with and always seems to know how to take an idea and make it better.",
+    "testimonial": "Partnering with Switch Case Studio has been an exceptional experience. The team is incredibly communicative, pleasant to work with, and maintains a calm, focused approach to every project. They didn't just execute tasks; they helped us significantly increase our social media exposure, managed our website blog seamlessly, and delivered outstanding design and content. They took the time to truly understand our brand voice, offering proactive recommendations and strategic advice that were right on target. From digital presence to printed materials, their work is consistently top-tier. ",
     "image": "/images/sean.avif"
   },
   {
     "id": 3,
-    "name": "Dani Basel",
-    "title": "Owner ProDani Miami",
-    "testimonial": "Big shoutout to Moses for the amazing branding work! He set up my Shopify store and built the ProDani brand exactly around my needs. I know I wasn’t the easiest client, but Moses went above and beyond on every detail. Couldn’t recommend him more.",
+    "name": "Lior Maman",
+    "title": "Owner at Ora Sempre Annapolis",
+    "testimonial": "Switch Case Studio took every idea I had and brought it to life — and then some. The website they built has genuinely elevated my brand and contributed to my business growth. Professional, talented, and a pleasure to work with. Highly recommended",
+    "image": "/images/lior.avif"
+  },
+  {
+    "id": 4,
+    "name": "Daniel Basel",
+    "title": "Founder of ProDani Miami",
+    "testimonial": "One of the most professional studios out there — you can truly feel the passion and love they put into their work, and it shows in the results. I deeply appreciate the professionalism, determination, availability, and commitment to helping me reach my exact business goals. It's clear that Switch Case Studio brings the knowledge and experience needed to guide you in the right direction — with a well-balanced, thoughtful approach that connects all the elements your business needs. Thank you so much. I'm so glad I got to work with you — here's to many more years of collaboration!",
     "image": "/images/dani.avif"
   }
 ]
