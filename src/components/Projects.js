@@ -22,7 +22,7 @@ import '../styles/components/projects.scss';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* ── Static lookups (no need to recreate per render) ── */
+/* ── Static lookups ── */
 const findById = (id) => projectsData.find((p) => p.id === id);
 const findBySlug = (s) => projectsData.find((p) => p.slug === s);
 
@@ -85,6 +85,7 @@ const Projects = () => {
     if (reduced) return;
 
     const ctx = gsap.context(() => {
+      // Header letter reveal
       gsap.from('.projects-header-wrap .variable-proximity-demo span', {
         autoAlpha: 0,
         y: 14,
@@ -98,23 +99,20 @@ const Projects = () => {
         },
       });
 
-      gsap.utils.toArray('.projects-row').forEach((row, i) => {
-        gsap.from(row, {
-          autoAlpha: 0,
-          y: 24,
-          duration: 0.8,
-          ease: 'power2.out',
-          delay: i * 0.05,
-          scrollTrigger: {
-            trigger: row,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-        });
+      // Tile grid reveal
+      gsap.from('.row-tiles', {
+        autoAlpha: 0,
+        y: 24,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.row-tiles',
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
       });
     }, root);
 
-    ScrollTrigger.refresh();
     return () => ctx.revert();
   }, [reduced]);
 

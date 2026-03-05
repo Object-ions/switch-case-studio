@@ -5,12 +5,11 @@ import { createParticle, GLOW_COLOR, PARTICLE_COUNT } from '../utils/bentoEffect
 /**
  * useBentoParticles
  *
- * Attaches floating particle stars (on hover) and a radial click-ripple
- * to the element referenced by `ref`.
+ * Floating particle stars (hover) and radial click-ripple for a tile.
  *
- * @param {React.RefObject} ref  - the tile DOM element
+ * @param {React.RefObject} ref         - tile DOM element
  * @param {Object}          opts
- * @param {boolean}          opts.disabled - skip all effects (mobile / reduced-motion)
+ * @param {boolean}         opts.disabled
  * @returns {{ startParticles, stopParticles, fireRipple }}
  */
 const useBentoParticles = (ref, { disabled = false } = {}) => {
@@ -18,7 +17,6 @@ const useBentoParticles = (ref, { disabled = false } = {}) => {
   const timeoutsRef = useRef([]);
   const activeRef = useRef(false);
 
-  /* ── Cleanup ── */
   const stopParticles = useCallback(() => {
     activeRef.current = false;
     timeoutsRef.current.forEach(clearTimeout);
@@ -36,7 +34,6 @@ const useBentoParticles = (ref, { disabled = false } = {}) => {
     particlesRef.current = [];
   }, []);
 
-  /* ── Spawn ── */
   const startParticles = useCallback(() => {
     if (disabled || !ref.current) return;
     activeRef.current = true;
@@ -47,21 +44,16 @@ const useBentoParticles = (ref, { disabled = false } = {}) => {
       const tid = setTimeout(() => {
         if (!activeRef.current || !ref.current) return;
 
-        const p = createParticle(
-          Math.random() * width,
-          Math.random() * height,
-        );
+        const p = createParticle(Math.random() * width, Math.random() * height);
         ref.current.appendChild(p);
         particlesRef.current.push(p);
 
-        // Pop in
         gsap.fromTo(
           p,
           { scale: 0, opacity: 0 },
           { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(1.7)' },
         );
 
-        // Drift
         gsap.to(p, {
           x: (Math.random() - 0.5) * 100,
           y: (Math.random() - 0.5) * 100,
@@ -72,7 +64,6 @@ const useBentoParticles = (ref, { disabled = false } = {}) => {
           yoyo: true,
         });
 
-        // Pulse
         gsap.to(p, {
           opacity: 0.3,
           duration: 1.5,
@@ -86,7 +77,6 @@ const useBentoParticles = (ref, { disabled = false } = {}) => {
     });
   }, [ref, disabled]);
 
-  /* ── Click ripple ── */
   const fireRipple = useCallback(
     (e) => {
       if (disabled || !ref.current) return;
@@ -135,7 +125,6 @@ const useBentoParticles = (ref, { disabled = false } = {}) => {
     [ref, disabled],
   );
 
-  /* ── Teardown on unmount ── */
   useEffect(() => {
     return () => {
       activeRef.current = false;

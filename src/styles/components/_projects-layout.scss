@@ -121,10 +121,6 @@
       justify-content: flex-start;
     }
   }
-
-  .panel-header .marquee {
-    font-size: clamp(32px, 6vw, 64px);
-  }
 }
 
 @media (max-width: 768px) {
@@ -134,11 +130,5 @@
     .panel {
       padding: 1.5rem;
     }
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee .marquee-track {
-    animation: none !important;
   }
 }

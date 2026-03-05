@@ -10,51 +10,35 @@ import {
 /**
  * useBentoSpotlight
  *
- * Creates a large ambient light blob that follows the cursor across
- * the grid and sets per-tile --glow-* CSS vars for the border glow.
+ * Ambient cursor-following light across a tile grid.
+ * Sets per-tile --glow-* CSS vars for the border glow effect.
  *
- * @param {React.RefObject} gridRef - the tile grid wrapper
+ * @param {React.RefObject} gridRef
  * @param {Object}          opts
- * @param {boolean}          opts.disabled
- * @param {number}           opts.radius
- * @param {string}           opts.color   - RGB string, e.g. '217, 156, 255'
+ * @param {boolean}         opts.disabled
+ * @param {number}          opts.radius
+ * @param {string}          opts.color  - RGB string
  */
 const useBentoSpotlight = (
   gridRef,
-  {
-    disabled = false,
-    radius = SPOTLIGHT_RADIUS,
-    color = GLOW_COLOR,
-  } = {},
+  { disabled = false, radius = SPOTLIGHT_RADIUS, color = GLOW_COLOR } = {},
 ) => {
   const spotlightRef = useRef(null);
 
   useEffect(() => {
     if (disabled || !gridRef?.current) return;
 
-    // Create the ambient light DOM element
+    // Only dynamic style is the radial gradient (color-dependent)
     const spotlight = document.createElement('div');
     spotlight.className = 'bento-global-spotlight';
-    spotlight.style.cssText = `
-      position: fixed;
-      width: 800px;
-      height: 800px;
-      border-radius: 50%;
-      pointer-events: none;
-      background: radial-gradient(circle,
-        rgba(${color}, 0.15) 0%,
-        rgba(${color}, 0.08) 15%,
-        rgba(${color}, 0.04) 25%,
-        rgba(${color}, 0.02) 40%,
-        rgba(${color}, 0.01) 65%,
-        transparent 70%
-      );
-      z-index: 200;
-      opacity: 0;
-      transform: translate(-50%, -50%);
-      mix-blend-mode: screen;
-      will-change: transform, opacity;
-    `;
+    spotlight.style.background = `radial-gradient(circle,
+      rgba(${color}, 0.15) 0%,
+      rgba(${color}, 0.08) 15%,
+      rgba(${color}, 0.04) 25%,
+      rgba(${color}, 0.02) 40%,
+      rgba(${color}, 0.01) 65%,
+      transparent 70%
+    )`;
     document.body.appendChild(spotlight);
     spotlightRef.current = spotlight;
 
@@ -83,7 +67,6 @@ const useBentoSpotlight = (
         return;
       }
 
-      // Per-tile glow intensity based on cursor distance
       const tiles = grid.querySelectorAll('.tile');
       let minDist = Infinity;
 
@@ -106,7 +89,6 @@ const useBentoSpotlight = (
         setGlowVars(tile, e.clientX, e.clientY, intensity, radius);
       });
 
-      // Move spotlight blob
       gsap.to(spotlightRef.current, {
         left: e.clientX,
         top: e.clientY,
@@ -114,7 +96,6 @@ const useBentoSpotlight = (
         ease: 'power2.out',
       });
 
-      // Fade spotlight blob based on distance to nearest tile
       const opacity =
         minDist <= proximity
           ? 0.8

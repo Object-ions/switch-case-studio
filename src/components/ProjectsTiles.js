@@ -31,15 +31,6 @@ const Tile = ({ proj, onOpen, disabled }) => {
       ease: 'power2.out',
       overwrite: true,
     });
-
-    const label = tileRef.current.querySelector('.panel-label');
-    if (label) {
-      gsap.fromTo(
-        label,
-        { yPercent: 20, autoAlpha: 0.6 },
-        { yPercent: 0, autoAlpha: 1, duration: 0.25, overwrite: true },
-      );
-    }
   };
 
   const onLeave = () => {
@@ -80,10 +71,8 @@ const Tile = ({ proj, onOpen, disabled }) => {
       onMouseLeave={onLeave}
       aria-label={`Open ${proj.label || proj.title} details`}
     >
-      {/* Bento: cursor-tracking border glow */}
       <div className="tile-bento-glow" aria-hidden="true" />
 
-      {/* Cover image */}
       <div className="tile-media" aria-hidden="true">
         <img
           className="tile-image"
@@ -93,7 +82,6 @@ const Tile = ({ proj, onOpen, disabled }) => {
         />
       </div>
 
-      {/* Hover overlay text */}
       {proj.tileVersion && (
         <p className="panel-excerpt">
           {proj.tileVersion}
@@ -122,10 +110,8 @@ const ProjectsTiles = ({ projects, onOpen, modalOpen }) => {
 
   const disabled = reduced || isMobile;
 
-  // Spotlight attaches to the grid
   useBentoSpotlight(gridRef, { disabled });
 
-  // Scroll-triggered entrance animation
   useLayoutEffect(() => {
     if (reduced) return;
 

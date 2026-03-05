@@ -4,8 +4,6 @@
    Remove this partial to disable all effects.
    ───────────────────────────────────────── */
 
-$bento-glow-color: $g6; // #d99cff → rgb(217, 156, 255)
-
 /* ── Cursor-tracking border glow (per tile) ── */
 .tile-bento-glow {
   position: absolute;
@@ -29,31 +27,41 @@ $bento-glow-color: $g6; // #d99cff → rgb(217, 156, 255)
   mask-composite: exclude;
   pointer-events: none;
   z-index: 4;
-  opacity: 1;
   transition: opacity 0.3s ease;
 }
 
-/* ── Floating particle dots ── */
+/* ── Floating particle dots ──
+   Static styles here; JS only sets left, top, background, box-shadow. */
 .bento-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 100;
   will-change: transform, opacity;
 
   &::before {
     content: '';
     position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
+    inset: -2px;
     background: rgba(217, 156, 255, 0.2);
     border-radius: 50%;
     z-index: -1;
   }
 }
 
-/* ── Global ambient spotlight blob ── */
+/* ── Global ambient spotlight blob ──
+   Static styles here; JS only sets background (color-dependent). */
 .bento-global-spotlight {
+  position: fixed;
+  width: 800px;
+  height: 800px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 200;
+  opacity: 0;
+  transform: translate(-50%, -50%);
   mix-blend-mode: screen;
   will-change: transform, opacity;
-  z-index: 200 !important;
-  pointer-events: none;
 }
