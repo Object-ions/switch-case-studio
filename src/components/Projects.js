@@ -1,4 +1,3 @@
-// Projects.js
 import {
   useState,
   useEffect,
@@ -23,22 +22,22 @@ import '../styles/components/projects.scss';
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* ── Static lookups (no need to recreate per render) ── */
+const findById = (id) => projectsData.find((p) => p.id === id);
+const findBySlug = (s) => projectsData.find((p) => p.slug === s);
+
 const Projects = () => {
   const navigate = useNavigate();
   const { slug } = useParams();
 
   const [openId, setOpenId] = useState(null);
-
-  useScrollLock(Boolean(openId));
   const reduced = useReducedMotion();
   const root = useRef(null);
-
-  // IMPORTANT: this ref must wrap the header letters
   const headerWrapRef = useRef(null);
 
-  const findById = (id) => projectsData.find((p) => p.id === id);
-  const findBySlug = (s) => projectsData.find((p) => p.slug === s);
+  useScrollLock(Boolean(openId));
 
+  /* ── Sync URL slug → open state ── */
   useEffect(() => {
     if (!slug) {
       setOpenId(null);
@@ -48,44 +47,44 @@ const Projects = () => {
     if (match) setOpenId(match.id);
   }, [slug]);
 
-  const closePlain = useCallback(() => {
-    setOpenId(null);
-    navigate('/', {
-      replace: true,
-      state: { preserveScroll: true },
-    });
-  }, [navigate]);
+  /* ── Modal controls ── */
+  const closeModal = useCallback(
+    (target = '/') => {
+      setOpenId(null);
+      navigate(target, { replace: true, state: { preserveScroll: true } });
+    },
+    [navigate],
+  );
 
+  const openProject = useCallback(
+    (id) => {
+      const proj = findById(id);
+      if (proj?.slug) {
+        sessionStorage.setItem('scrollPosition', String(window.scrollY));
+        navigate(`/projects/${proj.slug}`, {
+          state: { preserveScroll: true },
+        });
+      } else {
+        setOpenId(id);
+      }
+    },
+    [navigate],
+  );
+
+  /* ── Escape key ── */
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key === 'Escape') closePlain();
+      if (e.key === 'Escape') closeModal();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [closePlain]);
+  }, [closeModal]);
 
-  const openById = (id) => {
-    const proj = findById(id);
-    if (proj?.slug) {
-      sessionStorage.setItem('scrollPosition', String(window.scrollY));
-      navigate(`/projects/${proj.slug}`, {
-        state: { preserveScroll: true },
-      });
-    } else {
-      setOpenId(id);
-    }
-  };
-
-  const closeToProjects = () => {
-    setOpenId(null);
-    navigate('/#projects', { replace: true });
-  };
-
+  /* ── GSAP scroll-triggered entrance ── */
   useLayoutEffect(() => {
     if (reduced) return;
 
     const ctx = gsap.context(() => {
-      // Reveal the header (new component)
       gsap.from('.projects-header-wrap .variable-proximity-demo span', {
         autoAlpha: 0,
         y: 14,
@@ -99,7 +98,6 @@ const Projects = () => {
         },
       });
 
-      // Reveal each row (existing behavior)
       gsap.utils.toArray('.projects-row').forEach((row, i) => {
         gsap.from(row, {
           autoAlpha: 0,
@@ -116,9 +114,7 @@ const Projects = () => {
       });
     }, root);
 
-    // Helps when layout/fonts affect measurements
     ScrollTrigger.refresh();
-
     return () => ctx.revert();
   }, [reduced]);
 
@@ -145,7 +141,7 @@ const Projects = () => {
 
       <ProjectsTiles
         projects={projectsData}
-        onOpen={openById}
+        onOpen={openProject}
         modalOpen={Boolean(activeProject)}
       />
 
@@ -159,12 +155,12 @@ const Projects = () => {
             <div
               className="project-details-overlay__backdrop"
               aria-hidden="true"
-              onClick={closePlain}
+              onClick={() => closeModal()}
             />
             <ProjectDetails
               project={activeProject}
-              onClose={closePlain}
-              onBack={closeToProjects}
+              onClose={() => closeModal()}
+              onBack={() => closeModal('/#projects')}
             />
           </div>,
           document.body,

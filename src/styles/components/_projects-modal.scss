@@ -1,0 +1,22 @@
+/* ─────────────────────────────────────────
+   Projects: Modal Overlay
+   ───────────────────────────────────────── */
+
+.project-details-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  animation: project-fadeIn 0.2s ease-out;
+}
+
+.project-details-overlay__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+@keyframes project-fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

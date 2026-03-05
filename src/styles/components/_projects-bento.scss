@@ -1,0 +1,59 @@
+/* ─────────────────────────────────────────
+   Projects: Magic Bento Effects
+   Cursor-tracking glow, particles, spotlight.
+   Remove this partial to disable all effects.
+   ───────────────────────────────────────── */
+
+$bento-glow-color: $g6; // #d99cff → rgb(217, 156, 255)
+
+/* ── Cursor-tracking border glow (per tile) ── */
+.tile-bento-glow {
+  position: absolute;
+  inset: 0;
+  padding: 4px;
+  background: radial-gradient(
+    var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+    rgba(217, 156, 255, calc(var(--glow-intensity) * 0.9)) 0%,
+    rgba(217, 156, 255, calc(var(--glow-intensity) * 0.5)) 25%,
+    rgba(217, 156, 255, calc(var(--glow-intensity) * 0.15)) 45%,
+    transparent 60%
+  );
+  border-radius: inherit;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* ── Floating particle dots ── */
+.bento-particle {
+  will-change: transform, opacity;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: rgba(217, 156, 255, 0.2);
+    border-radius: 50%;
+    z-index: -1;
+  }
+}
+
+/* ── Global ambient spotlight blob ── */
+.bento-global-spotlight {
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+  z-index: 200 !important;
+  pointer-events: none;
+}
