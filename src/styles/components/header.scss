@@ -1,5 +1,5 @@
-@import "../_variables.scss";
-@import "../_mixins.scss";
+@import '../_variables.scss';
+@import '../_mixins.scss';
 
 .site-header {
   position: sticky;
@@ -46,15 +46,7 @@
     grid-column: 2;
     grid-row: 1;
     justify-self: end;
-    padding: 6px 36px;
-    background: $gradient;
-    color: #fff;
-    font-family: $font-text;
     font-weight: 400;
-    font-size: 14px;
-    letter-spacing: 0.02em;
-    text-decoration: none;
-    transition: opacity 120ms ease-in-out;
 
     &:hover,
     &:focus {
@@ -104,7 +96,9 @@
           opacity: 0;
           transform: translateY(6px);
           pointer-events: none;
-          transition: opacity 140ms ease, transform 140ms ease;
+          transition:
+            opacity 140ms ease,
+            transform 140ms ease;
 
           .submenu__item {
             list-style: none;
@@ -139,7 +133,7 @@
 
       /* small buffer below the trigger to prevent accidental close flicker */
       .nav_item--has-submenu::after {
-        content: "";
+        content: '';
         position: absolute;
         left: 0;
         right: 0;
