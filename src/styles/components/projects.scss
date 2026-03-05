@@ -16,6 +16,11 @@
 
   /* Let aspect ratio drive height, so we remove strict min/max heights */
   --row-h-min: 120px;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .projects-row {
@@ -30,33 +35,6 @@
   grid-template-columns: 1fr;
   height: auto;
   margin-bottom: 2rem;
-}
-
-.panel-header {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-
-  .marquee {
-    margin: 0;
-    width: 100%;
-    white-space: nowrap;
-    line-height: 1;
-    font-family: $font-special;
-    font-weight: 800;
-    font-size: clamp(40px, 8vw, 120px);
-    color: $white-color;
-    display: flex;
-    gap: 4rem;
-
-    .marquee-track {
-      flex: 0 0 auto;
-      animation: marquee-left 30s linear infinite;
-    }
-  }
 }
 
 .row-info {
@@ -117,7 +95,9 @@
       font-weight: 600;
       font-size: 14px;
       text-decoration: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -137,13 +117,16 @@
   // Switch to 3 columns for better 16:9 sizing
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: auto;
-  transition: filter 0.3s ease, opacity 0.3s ease;
+  transition:
+    filter 0.3s ease,
+    opacity 0.3s ease;
 
   &.is-blurred {
     filter: grayscale(100%) blur(5px);
     opacity: 0.4;
     pointer-events: none;
   }
+  max-width: 1200px;
 }
 
 .tile {
@@ -172,7 +155,7 @@
 
   // --- Layer 1: The Gradient Border ---
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     border-radius: 24px;
@@ -191,7 +174,7 @@
 
   // --- Layer 2: The Solid Gradient Overlay (New) ---
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     inset: 2px; // Inside the border
     border-radius: 22px;

@@ -1,4 +1,11 @@
-import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react';
+// Projects.js
+import {
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useCallback,
+} from 'react';
 import { createPortal } from 'react-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 import { gsap } from 'gsap';
@@ -11,7 +18,6 @@ import ProjectDetails from './ProjectDetails';
 import ProjectsHeader from './ProjectsHeader';
 import ProjectsTiles from './ProjectsTiles';
 
-// Now we import the full data directly
 import projectsData from '../data/projects.json';
 import '../styles/components/projects.scss';
 
@@ -21,30 +27,27 @@ const Projects = () => {
   const navigate = useNavigate();
   const { slug } = useParams();
 
-  // State for the active project ID (modal)
   const [openId, setOpenId] = useState(null);
 
   useScrollLock(Boolean(openId));
   const reduced = useReducedMotion();
   const root = useRef(null);
 
-  // Helper to find project by ID or Slug
+  // IMPORTANT: this ref must wrap the header letters
+  const headerWrapRef = useRef(null);
+
   const findById = (id) => projectsData.find((p) => p.id === id);
   const findBySlug = (s) => projectsData.find((p) => p.slug === s);
 
-  // 1. Sync URL slug with internal state (Deep Linking)
   useEffect(() => {
     if (!slug) {
       setOpenId(null);
       return;
     }
     const match = findBySlug(slug);
-    if (match) {
-      setOpenId(match.id);
-    }
+    if (match) setOpenId(match.id);
   }, [slug]);
 
-  // 2. Close Modal Handler
   const closePlain = useCallback(() => {
     setOpenId(null);
     navigate('/', {
@@ -53,7 +56,6 @@ const Projects = () => {
     });
   }, [navigate]);
 
-  // 3. Handle 'Escape' key
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === 'Escape') closePlain();
@@ -62,11 +64,9 @@ const Projects = () => {
     return () => window.removeEventListener('keydown', onKey);
   }, [closePlain]);
 
-  // 4. Open Project Handler
   const openById = (id) => {
     const proj = findById(id);
     if (proj?.slug) {
-      // Save scroll position before navigating
       sessionStorage.setItem('scrollPosition', String(window.scrollY));
       navigate(`/projects/${proj.slug}`, {
         state: { preserveScroll: true },
@@ -81,10 +81,25 @@ const Projects = () => {
     navigate('/#projects', { replace: true });
   };
 
-  // 5. GSAP Entrance Animation
   useLayoutEffect(() => {
     if (reduced) return;
+
     const ctx = gsap.context(() => {
+      // Reveal the header (new component)
+      gsap.from('.projects-header-wrap .variable-proximity-demo span', {
+        autoAlpha: 0,
+        y: 14,
+        duration: 0.6,
+        stagger: 0.012,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.projects-header-wrap',
+          start: 'top 85%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+
+      // Reveal each row (existing behavior)
       gsap.utils.toArray('.projects-row').forEach((row, i) => {
         gsap.from(row, {
           autoAlpha: 0,
@@ -100,10 +115,13 @@ const Projects = () => {
         });
       });
     }, root);
+
+    // Helps when layout/fonts affect measurements
+    ScrollTrigger.refresh();
+
     return () => ctx.revert();
   }, [reduced]);
 
-  // Get the active project object if the modal is open
   const activeProject = findById(openId);
 
   return (
@@ -113,7 +131,17 @@ const Projects = () => {
       aria-label="project overview"
       ref={root}
     >
-      <ProjectsHeader />
+      <div ref={headerWrapRef} className="projects-header-wrap">
+        <ProjectsHeader
+          label="A Selection of Projects and Case Studies"
+          className="variable-proximity-demo"
+          fromFontVariationSettings="'wght' 300, 'opsz' 8"
+          toFontVariationSettings="'wght' 1000, 'opsz' 72"
+          containerRef={headerWrapRef}
+          radius={140}
+          falloff="gaussian"
+        />
+      </div>
 
       <ProjectsTiles
         projects={projectsData}
@@ -139,7 +167,7 @@ const Projects = () => {
               onBack={closeToProjects}
             />
           </div>,
-          document.body
+          document.body,
         )}
     </section>
   );
