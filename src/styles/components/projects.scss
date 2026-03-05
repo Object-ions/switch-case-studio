@@ -120,6 +120,8 @@
   transition:
     filter 0.3s ease,
     opacity 0.3s ease;
+  position: relative;
+  user-select: none;
 
   &.is-blurred {
     filter: grayscale(100%) blur(5px);
@@ -153,6 +155,12 @@
   // Z-Index Stacking Context
   z-index: 1;
 
+  // Bento glow CSS custom properties (set by JS)
+  --glow-x: 50%;
+  --glow-y: 50%;
+  --glow-intensity: 0;
+  --glow-radius: 200px;
+
   // --- Layer 1: The Gradient Border ---
   &::before {
     content: '';
@@ -160,7 +168,7 @@
     inset: 0;
     border-radius: 24px;
     padding: 2px; // Border thickness
-    background: $gradient;
+    background: $g5;
     -webkit-mask:
       linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
@@ -178,7 +186,7 @@
     position: absolute;
     inset: 2px; // Inside the border
     border-radius: 22px;
-    background: $gradient; // YOUR BRAND GRADIENT
+    background: #000; // YOUR BRAND GRADIENT
     opacity: 0; // Hidden by default
     transition: opacity 0.3s ease;
     z-index: 3; // Above image, below text
@@ -224,6 +232,11 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    // Intensify bento glow on hover
+    .tile-bento-glow {
+      opacity: 1;
+    }
   }
 
   // --- Text Styling (Highest Z-Index) ---
@@ -260,6 +273,62 @@
       color: $white-color;
     }
   }
+}
+
+/* =========================================
+   3b. MAGIC BENTO EFFECT LAYERS
+   ========================================= */
+
+/* Cursor-following border glow (sits inside .tile) */
+.tile-bento-glow {
+  position: absolute;
+  inset: 0;
+  padding: 4px;
+  background: radial-gradient(
+    var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+    rgba(217, 156, 255, calc(var(--glow-intensity) * 0.9)) 0%,
+    rgba(217, 156, 255, calc(var(--glow-intensity) * 0.5)) 25%,
+    rgba(217, 156, 255, calc(var(--glow-intensity) * 0.15)) 45%,
+    transparent 60%
+  );
+  border-radius: inherit;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 4; // Above static border (2), below text (10)
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Floating particles */
+.bento-particle {
+  will-change: transform, opacity;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: rgba(217, 156, 255, 0.2);
+    border-radius: 50%;
+    z-index: -1;
+  }
+}
+
+/* Global ambient spotlight */
+.bento-global-spotlight {
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+  z-index: 200 !important;
+  pointer-events: none;
 }
 
 /* =========================================
@@ -342,6 +411,10 @@
 
     .tile-media {
       border-radius: 14px;
+    }
+
+    .tile-bento-glow {
+      border-radius: 16px;
     }
   }
 }
