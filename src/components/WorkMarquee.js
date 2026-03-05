@@ -1,37 +1,61 @@
-// src/components/WorkMarquee.js
+import { useLayoutEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import useReducedMotion from '../hooks/useReducedMotion';
 import '../styles/components/marquee.scss';
+gsap.registerPlugin(ScrollTrigger);
 
 const WorkMarquee = () => {
-  const words = [
-    'Unleash',
-    'Your',
-    'Digital',
-    'Potential',
-    'with',
-    '< Switch Case Studio />',
-  ];
+  const wrap = useRef(null);
+  const reduced = useReducedMotion();
 
-  const renderContent = () => (
-    <>
-      {words.map((word, i) => (
-        <span key={i} className="work-marquee__word">
-          {word}
-          {/* Add a non-breaking space after each word */}
-          &nbsp;
-        </span>
-      ))}
-    </>
-  );
+  useLayoutEffect(() => {
+    if (reduced) return;
+    const ctx = gsap.context(() => {
+      const tracks = gsap.utils.toArray('.marquee-track');
+      // Intro scrub on scroll
+      gsap.fromTo(
+        tracks,
+        { xPercent: 0 },
+        {
+          xPercent: -50,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: wrap.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true,
+          },
+        },
+      );
+      // Gentle infinite drift
+      tracks.forEach((el, idx) => {
+        gsap.to(el, {
+          xPercent: '-=100',
+          repeat: -1,
+          duration: 30,
+          ease: 'none',
+          modifiers: {
+            xPercent: gsap.utils.wrap(-100, 0),
+          },
+          delay: idx * 0.2,
+        });
+      });
+    }, wrap);
+    return () => ctx.revert();
+  }, [reduced]);
 
   return (
-    <div className="work-marquee">
-      <div className="work-marquee__track">
-        {/* Copy 1 */}
-        <span className="work-marquee__item">{renderContent()}</span>
-
-        <span className="work-marquee__item" aria-hidden="true">
-          {renderContent()}
-        </span>
+    <div className="projects-row row-header" ref={wrap}>
+      <div className="panel panel-header">
+        <h1 className="marquee" aria-label="Selected Projects">
+          <span className="marquee-track">
+            Unleash Your Digital Potential with Switch Case Studio
+          </span>
+          <span className="marquee-track">
+            Unleash Your Digital Potential with Switch Case Studio
+          </span>
+        </h1>
       </div>
     </div>
   );
