@@ -41,6 +41,10 @@
   z-index: 1;
 }
 
+.inner-content:hover {
+  border: 1px solid #d99cff;
+}
+
 @keyframes star-movement-bottom {
   0% {
     transform: translate(0%, 0%);
