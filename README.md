@@ -1,70 +1,261 @@
-# Getting Started with Create React App
+# Switch Case Studio – React Web App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Portfolio + marketing site for **Switch Case Studio**. This is a Create React App project with a component-driven UI, SCSS styling, and JSON-powered content (projects, services, pricing, testimonials).
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## What’s inside
 
-### `npm start`
+- **Marketing pages**: Home, Work, Services, About, Testimonials, Contact
+- **Portfolio/projects**: tiles + detail views powered by JSON + images under `public/projects/*`
+- **UI components**: animated headings/paragraphs, marquee/scrolling text, loader, lightbox, custom cursor, menu modal
+- **Content as data**: update most copy/content in `src/data/*.json` without touching components
+- **Media**: videos, lottie animations, fonts, images, and a 3D model (`moon.glb`)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tech stack
 
-### `npm test`
+- **React (Create React App)**
+- **SCSS** (global variables + mixins + component SCSS files)
+- **JSON data layer** for content (`src/data`)
+- **Static assets** served from `public/` and bundled assets from `src/assets/`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+> Note: This repo includes `package-lock.json`, so the default package manager is **npm**.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Getting started
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 1) Install dependencies
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm install
+```
 
-### `npm run eject`
+### 2) Run the dev server
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm start
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- App runs at `http://localhost:3000`
+- Hot reload is enabled
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 3) Build for production
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+npm run build
+```
 
-## Learn More
+Build output is generated in `build/`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Available scripts
 
-### Code Splitting
+These are the standard CRA scripts (plus anything you may have added in `package.json`):
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- `npm start` – run locally in development
+- `npm run build` – production build
+- `npm test` – run tests in watch mode
+- `npm run eject` – eject CRA config (one-way)
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Project structure
 
-### Making a Progressive Web App
+High-level layout (based on the repo tree you shared):
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```txt
+public/
+  index.html
+  images/                 # static images (e.g., dani, sean, ori)
+  projects/               # project images grouped by project
+  models/                 # 3D assets (moon.glb)
+  manifest.json
+  robots.txt
 
-### Advanced Configuration
+src/
+  index.js
+  App.js
+  reportWebVitals.js
+  setupTests.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+  components/
+    pages/                # route-level pages (Home, Work, Services, etc.)
+    layout/               # Header, MainLayout, Footer, CTAs
+    ...                   # shared UI components
 
-### Deployment
+  data/
+    navigation.js
+    projects.json
+    services.json
+    testimonials.json
+    pricingData.json
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+  styles/
+    _variables.scss
+    _mixins.scss
+    app.scss
+    components/           # per-component scss files
 
-### `npm run build` fails to minify
+  assets/
+    images/
+    videos/
+    lottie/
+    fonts/
+    mockups/
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## Content editing
+
+Most site content is intentionally stored as JSON so you can update the site quickly.
+
+### Projects
+
+- **Data**: `src/data/projects.json`
+- **Images**: `public/projects/<project-slug>/...`  
+  Includes cover tiles and long/hero images like:
+  - `public/projects/zahav/zahav-cover-tile.webp`
+  - `public/projects/zahav/long.webp`
+
+If you add a new project:
+
+1. Create a new folder under `public/projects/<new-slug>/`
+2. Add its images (`*-cover-tile.webp`, `long.webp`, etc.)
+3. Add an entry in `src/data/projects.json` that references those paths
+
+### Services
+
+- `src/data/services.json`
+
+### Testimonials
+
+- `src/data/testimonials.json`
+
+### Pricing
+
+- `src/data/pricingData.json`
+
+### Navigation
+
+- `src/data/navigation.js`
+
+---
+
+## Styling
+
+Styling is SCSS-based:
+
+- Global tokens:
+  - `src/styles/_variables.scss`
+  - `src/styles/_mixins.scss`
+- App-level stylesheet:
+  - `src/styles/app.scss`
+- Component styles:
+  - `src/styles/components/*.scss`
+
+Best practice in this repo:
+
+- Put global variables/mixins in the shared files
+- Keep component-specific styling inside its matching SCSS file
+- Prefer consistent naming between component file and SCSS file (many are already aligned)
+
+---
+
+## Assets
+
+There are two main asset patterns here:
+
+### `public/` assets (served as-is)
+
+Use when you want stable URLs and don’t need bundling:
+
+- `public/projects/...`
+- `public/images/...`
+- `public/models/moon.glb`
+
+### `src/assets/` assets (bundled by build)
+
+Use when importing directly in React:
+
+- `src/assets/videos/new_hero_video_SCS.mp4`
+- `src/assets/lottie/*.json`
+- `src/assets/fonts/NeueMachina-Ultrabold.otf`
+
+---
+
+## Performance + quality notes
+
+- Consider running Lighthouse on production builds for best signal.
+- If you add large images:
+  - prefer `webp` or `avif`
+  - keep “cover tiles” lightweight
+- If you add new animations:
+  - respect reduced motion (there is a `useReducedMotion` hook in `src/hooks/`)
+
+---
+
+## Deployment
+
+This is a static build once you run:
+
+```bash
+npm run build
+```
+
+You can deploy the `build/` directory to any static host:
+
+- Netlify / Vercel (static)
+- Cloudflare Pages
+- Hostinger (static hosting)
+- Any Nginx/Apache static server
+
+If your host supports SPA routing, make sure it rewrites all routes to `index.html`.
+
+---
+
+## Troubleshooting
+
+### Blank page after deploy
+
+Most common causes:
+
+- Missing SPA rewrite rules (routes not pointing to `index.html`)
+- Wrong asset paths if you changed homepage/base path
+
+### SCSS not updating / styles weird
+
+- Confirm the component SCSS file is imported (directly or via `app.scss`)
+- Check for name mismatches like `ProjectsHeader.scss` vs `ProjectsHeader.js` (case sensitivity matters on some hosts)
+
+### Images not loading
+
+- Anything under `public/` should be referenced with a leading `/`  
+  Example: `/projects/zahav/1.avif`
+- Double-check folder and filename casing (macOS can hide issues that Linux servers won’t)
+
+---
+
+## Contributing
+
+This is a studio site codebase. If you’re collaborating:
+
+1. Create a branch from `main`
+2. Keep changes small and scoped (one feature/fix per PR)
+3. Prefer editing JSON content in `src/data/` when possible
+
+---
+
+## License
+
+All rights reserved, unless you explicitly add an open-source license.
+
+---
+
+## Credits
+
+Built and maintained by Moses Atia Poston at **Switch Case Studio**.
