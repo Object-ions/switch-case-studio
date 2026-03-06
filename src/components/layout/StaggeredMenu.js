@@ -323,7 +323,7 @@ const StaggeredMenu = ({
       >
         <div className="sm-panel-inner">
           {/* Primary navigation */}
-          <ul className="sm-panel-list" role="list">
+          <ul className="sm-panel-list">
             <li className="sm-panel-itemWrap">
               <Link
                 to="/#services"
@@ -384,7 +384,7 @@ const StaggeredMenu = ({
           {/* Secondary section — CTA + legal */}
           <div className="sm-socials" aria-label="Quick links">
             <h3 className="sm-socials-title">Quick Links</h3>
-            <ul className="sm-socials-list" role="list">
+            <ul className="sm-socials-list">
               <li className="sm-socials-item">
                 <a
                   href="https://calendar.app.google/83UCJjis2FHUrr1s6"
