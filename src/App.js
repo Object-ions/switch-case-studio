@@ -2,12 +2,12 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './components/layout/MainLayout';
 
 // Pages & Sections
-import Home from './components/pages/Home';
 import Services from './components/pages/Services';
 import Work from './components/pages/Work';
 import Testimonials from './components/pages/Testimonials';
 import Projects from './components/Projects';
 import PricingPage from './components/PricingPage';
+import Hero from './components/Hero';
 
 // Utilities & Components
 import ScrollToTop from './components/ScrollToTop';
@@ -29,7 +29,7 @@ import './styles/app.scss';
  */
 const HomeContent = () => (
   <>
-    <Home />
+    <Hero />
     <Services />
     <GradientStripe
       size="clamp(160px, 30vw, 420px)"

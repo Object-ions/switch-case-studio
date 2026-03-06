@@ -36,7 +36,7 @@ const CursorComponent = () => {
       const custom = target.getAttribute('data-cursor-color');
       if (custom) {
         dot.style.setProperty('--cursor-color', custom);
-      } else if (target.closest('.site-header, #testimonials')) {
+      } else if (target.closest('.site-header, #testimonials, #hero')) {
         dot.style.setProperty('--cursor-color', PURPLE);
       } else {
         dot.style.removeProperty('--cursor-color');
