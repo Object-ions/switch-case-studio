@@ -19,6 +19,7 @@ import ProjectsTiles from './ProjectsTiles';
 
 import projectsData from '../data/projects.json';
 import '../styles/components/projects.scss';
+import TextPressure from './TextPressure';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -125,15 +126,35 @@ const Projects = () => {
       aria-label="project overview"
       ref={root}
     >
-      <div ref={headerWrapRef} className="projects-header-wrap">
-        <ProjectsHeader
-          label="A Selection of Projects and Case Studies"
-          className="variable-proximity-demo"
-          fromFontVariationSettings="'wght' 300, 'opsz' 8"
-          toFontVariationSettings="'wght' 1000, 'opsz' 72"
-          containerRef={headerWrapRef}
-          radius={140}
-          falloff="gaussian"
+      <div
+        style={{
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'row',
+          gap: '1rem',
+        }}
+      >
+        <TextPressure
+          text="Case"
+          alpha={false}
+          stroke={true}
+          width
+          weight
+          italic
+          textColor="#ffffff"
+          strokeColor="#f0d7ff"
+          minFontSize={100}
+        />
+        <TextPressure
+          text="Studies"
+          alpha={false}
+          stroke={true}
+          width
+          weight
+          italic
+          textColor="#ffffff"
+          strokeColor="#f0d7ff"
+          minFontSize={100}
         />
       </div>
 
