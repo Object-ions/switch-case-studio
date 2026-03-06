@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearchengin } from '@fortawesome/free-brands-svg-icons';
@@ -26,85 +26,80 @@ const iconMap = {
 
 gsap.registerPlugin(ScrollTrigger);
 
+/** Shared mousemove handler — sets --x / --y CSS vars on the target element. */
+const trackMouse = (e, el) => {
+  const rect = el.getBoundingClientRect();
+  el.style.setProperty('--x', `${e.clientX - rect.left}px`);
+  el.style.setProperty('--y', `${e.clientY - rect.top}px`);
+};
+
 const Services = () => {
+  const sectionRef = useRef(null);
+
   useEffect(() => {
-    // Scroll reveal animation
-    const reveals = gsap.utils.toArray('.reveal');
-    reveals.forEach((el, i) => {
-      gsap.fromTo(
-        el,
-        { opacity: 0, y: 60 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          delay: i * 0.1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
+    const section = sectionRef.current;
+    if (!section) return;
+
+    // --- Scroll reveal animation ---
+    const reveals = gsap.utils.toArray('.reveal', section);
+    const triggers = reveals.map(
+      (el, i) =>
+        gsap.fromTo(
+          el,
+          { opacity: 0, y: 60 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            delay: i * 0.1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse',
+            },
           },
-        }
-      );
-    });
+        ).scrollTrigger,
+    );
 
-    // Title hover circle effect
-    const titleEl = document.querySelector('.title');
-    const handleTitleMouseMove = (e) => {
-      if (!titleEl) return;
-      const rect = titleEl.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      titleEl.style.setProperty('--x', `${x}px`);
-      titleEl.style.setProperty('--y', `${y}px`);
-    };
-    if (titleEl) titleEl.addEventListener('mousemove', handleTitleMouseMove);
+    // --- Title hover circle ---
+    const titleEl = section.querySelector('.title');
+    const handleTitleMove = (e) => trackMouse(e, titleEl);
+    titleEl?.addEventListener('mousemove', handleTitleMove);
 
-    // Card hover circle effect
-    const cards = Array.from(document.querySelectorAll('.services-card'));
-    const handlers = new Map();
+    // --- Card hover circles ---
+    const cards = section.querySelectorAll('.services-card');
+    const handleCardMove = (e) => trackMouse(e, e.currentTarget);
+    cards.forEach((card) => card.addEventListener('mousemove', handleCardMove));
 
-    cards.forEach((card) => {
-      const handleCardMouseMove = (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        card.style.setProperty('--x', `${x}px`);
-        card.style.setProperty('--y', `${y}px`);
-      };
-      handlers.set(card, handleCardMouseMove);
-      card.addEventListener('mousemove', handleCardMouseMove);
-    });
-
-    // Cleanup
+    // --- Cleanup ---
     return () => {
-      if (titleEl)
-        titleEl.removeEventListener('mousemove', handleTitleMouseMove);
-      cards.forEach((card) => {
-        const h = handlers.get(card);
-        if (h) card.removeEventListener('mousemove', h);
-      });
+      triggers.forEach((t) => t?.kill());
+      titleEl?.removeEventListener('mousemove', handleTitleMove);
+      cards.forEach((card) =>
+        card.removeEventListener('mousemove', handleCardMove),
+      );
     };
   }, []);
 
   return (
-    <div id="services">
+    <div id="services" ref={sectionRef}>
       <div className="services-hero">
         <div className="title reveal">
           <h2>
             Switch Case is a creative development and marketing studio that
-            helps businesses stand out and <span className="shine-text">SHINE</span>.
-            Whether you're building something new or refreshing what you have,
-            we give your brand the tools it needs to stand out and grow.
+            helps businesses stand out and{' '}
+            <span className="shine-text">SHINE</span>. Whether you're building
+            something new or refreshing what you have, we give your brand the
+            tools it needs to stand out and grow.
           </h2>
         </div>
       </div>
 
       <div className="services-content">
-        {servicesData.map((service, index) => (
+        {servicesData.map((service) => (
           <Link
-            key={index}
+            key={service.slug}
             to={`/pricing/${service.slug}`}
             className="services-card reveal cursor-black"
             aria-label={`${service.title} pricing`}
