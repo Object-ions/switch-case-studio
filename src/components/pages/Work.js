@@ -17,7 +17,7 @@ const Work = () => {
           squareSize={50}
           direction="down"
           borderColor="#7f7f7f"
-          hoverFillColor="#ff834b"
+          hoverFillColor="#dab8ff"
         />
       </div>
 

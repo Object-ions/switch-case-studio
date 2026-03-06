@@ -33,6 +33,18 @@
     justify-content: center;
     color: #fff;
     z-index: 1;
+    pointer-events: none; // let hover pass through to canvas
+
+    // Re-enable clicks on all interactive children
+    a,
+    button,
+    input,
+    textarea,
+    .work-text,
+    .work-cta,
+    .work-moon {
+      pointer-events: auto;
+    }
 
     &::after {
       content: '';
