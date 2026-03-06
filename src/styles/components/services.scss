@@ -34,7 +34,7 @@
       padding: 3rem;
       border-radius: 32px;
 
-      // The Gradient Sphere
+      // White Sphere with blend
       &::before {
         content: '';
         position: absolute;
@@ -43,29 +43,23 @@
         width: 120px;
         height: 120px;
 
-        background: radial-gradient(circle at 30% 30%,
-            $orange-color 0%,
-            $g5 60%,
-            $g6 100%);
-
-        // YOUR CHOSEN FADE:
-        -webkit-mask-image: radial-gradient(circle, black 40%, transparent 50%);
-        mask-image: radial-gradient(circle, black 40%, transparent 50%);
+        background: #fff;
 
         border-radius: 50%;
         transform: translate(-50%, -50%) scale(0);
         transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
         pointer-events: none;
-        z-index: 0;
+        z-index: 10;
+        mix-blend-mode: difference;
       }
 
       &:hover::before {
-        transform: translate(-50%, -50%) scale(6);
+        transform: translate(-50%, -50%) scale(4);
       }
 
       h2 {
         position: relative;
-        z-index: 2;
+        z-index: 1;
         color: rgba(255, 255, 255, 0.9);
         font-family: $font-special;
         font-size: clamp(1.8rem, 3vw, 2.5rem);
@@ -85,7 +79,7 @@
         color: #fff;
 
         .shine-text {
-          text-decoration-color: #000;
+          text-decoration-color: #fff;
         }
       }
     }
@@ -106,6 +100,7 @@
     a.services-card {
       position: relative;
       overflow: hidden;
+      isolation: isolate;
       z-index: 1;
       display: flex;
       flex-direction: column;
@@ -119,16 +114,20 @@
       padding: 2.5rem;
       color: white;
       text-decoration: none;
-      transition: border-color 0.4s ease, transform 0.4s ease;
+      transition:
+        border-color 0.4s ease,
+        transform 0.4s ease;
       cursor: none;
 
       .card-icon {
         font-size: 2.5rem;
         margin-bottom: auto;
         position: relative;
-        z-index: 2;
+        z-index: 1;
         opacity: 0.8;
-        transition: color 0.3s ease, opacity 0.3s ease;
+        transition:
+          color 0.3s ease,
+          opacity 0.3s ease;
       }
 
       h3 {
@@ -138,7 +137,7 @@
         line-height: 1.1;
         margin-bottom: 1rem;
         position: relative;
-        z-index: 2;
+        z-index: 1;
         transition: color 0.3s ease;
       }
 
@@ -149,11 +148,13 @@
         line-height: 1.5;
         opacity: 0.8;
         position: relative;
-        z-index: 2;
-        transition: color 0.3s ease, opacity 0.3s ease;
+        z-index: 1;
+        transition:
+          color 0.3s ease,
+          opacity 0.3s ease;
       }
 
-      // The Gradient Sphere (Cards)
+      // White Sphere with blend (Cards)
       &::before {
         content: '';
         position: absolute;
@@ -162,20 +163,14 @@
         width: 100px;
         height: 100px;
 
-        background: radial-gradient(circle at 30% 30%,
-            $orange-color 0%,
-            $g5 60%,
-            $g6 100%);
-
-        // UPDATED: Matching the Hero Title Fade exactly
-        -webkit-mask-image: radial-gradient(circle, black 40%, transparent 50%);
-        mask-image: radial-gradient(circle, black 40%, transparent 50%);
+        background: #fff;
 
         border-radius: 50%;
         transform: translate(-50%, -50%) scale(0);
         transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-        z-index: 0;
+        z-index: 10;
         pointer-events: none;
+        mix-blend-mode: difference;
       }
 
       // HOVER STATE
@@ -184,18 +179,17 @@
         transform: translateY(-4px);
 
         &::before {
-          transform: translate(-50%, -50%) scale(6);
+          transform: translate(-50%, -50%) scale(4);
         }
 
         .card-icon,
         h3,
         p {
-          color: #fff;
           opacity: 1;
         }
       }
 
-      &:hover~#cursor-dot {
+      &:hover ~ #cursor-dot {
         border-color: black !important;
       }
     }
