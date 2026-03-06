@@ -1,11 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import logo from '../../assets/images/logo.png';
 import HeaderCTA from './HeaderCTA';
 import MenuIcon from '../MenuIcon';
 import MenuModal from '../MenuModal';
 import { PRICING_LINKS, PROJECT_LINKS } from '../../data/navigation';
 import '../../styles/components/header.scss';
+import GradientText from '../GradientText';
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -43,7 +43,14 @@ const Header = () => {
 
           <div className="site-header_brand">
             <Link to="/" className="brand_link" aria-label="Home">
-              <img src={logo} alt="Switch Case Studio" width="75px" />
+              <GradientText
+                colors={['#ffb029', '#FF9FFC', '#B19EEF']}
+                animationSpeed={8}
+                showBorder={false}
+                className="custom-class"
+              >
+                switch <br /> case <br /> studio
+              </GradientText>
             </Link>
           </div>
 
