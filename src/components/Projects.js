@@ -14,7 +14,6 @@ import useScrollLock from '../hooks/useScrollLock';
 import useReducedMotion from '../hooks/useReducedMotion';
 
 import ProjectDetails from './ProjectDetails';
-import ProjectsHeader from './ProjectsHeader';
 import ProjectsTiles from './ProjectsTiles';
 
 import projectsData from '../data/projects.json';
@@ -34,7 +33,6 @@ const Projects = () => {
   const [openId, setOpenId] = useState(null);
   const reduced = useReducedMotion();
   const root = useRef(null);
-  const headerWrapRef = useRef(null);
 
   useScrollLock(Boolean(openId));
 
@@ -86,20 +84,6 @@ const Projects = () => {
     if (reduced) return;
 
     const ctx = gsap.context(() => {
-      // Header letter reveal
-      gsap.from('.projects-header-wrap .variable-proximity-demo span', {
-        autoAlpha: 0,
-        y: 14,
-        duration: 0.6,
-        stagger: 0.012,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: '.projects-header-wrap',
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-      });
-
       // Tile grid reveal
       gsap.from('.row-tiles', {
         autoAlpha: 0,
