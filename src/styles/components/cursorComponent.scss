@@ -5,7 +5,7 @@
 #cursor-dot {
   width: 25px;
   height: 25px;
-  background-color: #fff;      /* appears black over light bg due to difference */
+  background-color: #fff;
   position: fixed;
   top: 0;
   left: 0;
@@ -15,14 +15,14 @@
   mix-blend-mode: difference;
   border: 2px solid transparent;
   transition:
-    background-color .25s ease,
-    border .25s ease,
-    width .25s ease,
-    height .25s ease;
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    width 0.25s ease,
+    height 0.25s ease;
   will-change: transform;
 }
 
-/* hover: empty square, orange border, normal blend, scaled up */
+/* hover: empty square, border color driven by --cursor-color */
 #cursor-dot.is-hovering {
   mix-blend-mode: normal;
   background-color: transparent;
