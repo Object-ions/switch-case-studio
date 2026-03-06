@@ -160,6 +160,9 @@
     }
   }
 
+  /* ── Mobile toggle button ─────────────────────
+     Styled as the StaggeredMenu "Menu/Close" + plus icon.
+     Hidden on desktop, shown at ≤960px.           */
   &_menuBtn {
     display: none;
     background: transparent;
@@ -170,6 +173,15 @@
     position: relative;
     z-index: 2;
     color: #fff;
+
+    /* StaggeredMenu toggle styling */
+    align-items: center;
+    gap: 0.35rem;
+    font-family: $font-text;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1;
+    white-space: nowrap;
   }
 
   @media (prefers-reduced-motion: reduce) {
