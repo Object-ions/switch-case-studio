@@ -46,7 +46,11 @@ const Hero = () => {
             Design, development &amp; marketing that moves the needle.
           </p>
 
-          <a href="#contact" className="hero-cta" ref={ctaRef}>
+          <a
+            href="https://calendar.app.google/83UCJjis2FHUrr1s6"
+            className="hero-cta"
+            ref={ctaRef}
+          >
             Book a Free Call
             <span className="cta-arrow">&rarr;</span>
           </a>

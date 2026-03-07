@@ -20,9 +20,13 @@
     display: inline-block;
     padding: 0 0.2rem;
     font-weight: 300;
-    background-color: $orange-color;
+    border: 1px solid $orange-color;
     color: $white-color;
     transition: all 0.2s ease;
+
+    &:hover {
+      background-color: $orange-color;
+    }
   }
 
   // ─── Content wrapper (sits above the canvas) ───
@@ -106,6 +110,7 @@
 
       p {
         line-height: 1.5;
+        text-align: center;
       }
     }
 
@@ -149,6 +154,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
     padding-bottom: 5rem;
+    // text-align: center;
 
     .text-wrapper {
       grid-column-start: 3;
