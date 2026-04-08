@@ -1,5 +1,4 @@
 import CursorComponent from '../CursorComponent';
-import Loader from '../Loader';
 import Header from './Header';
 import FooterCopyrights from './FooterCopyrights';
 import Contact from '../pages/Contact';
@@ -10,7 +9,6 @@ const MainLayout = ({ children }) => {
     <div className="app">
       <ScrollTriggerRefresher />
       <CursorComponent />
-      <Loader />
       <Header />
       {children}
       <Contact />
