@@ -7,10 +7,9 @@
   background-color: #000;
   color: $white-color;
   font-family: $font-text;
+  line-height: 1.6;
   padding: 6rem 1.5rem;
   overflow: hidden;
-
-  // Circle Logo styles removed from here
 
   .testimonial-meta {
     display: grid;
@@ -32,77 +31,47 @@
       position: relative;
       display: flex;
       flex-direction: column;
+      gap: 2rem;
 
-      // Fixed height to prevent jumping
-      height: 520px;
+      // Auto-grows with content (read-more expansion).
+      // No fixed height — variable-height with a min for short reviews.
+      min-height: 480px;
 
       background: #0a0a0a;
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 32px;
       padding: 3rem;
-
       transition: border-color 0.3s ease;
 
-      &:hover {
+      &:hover,
+      &:focus-within {
         border-color: rgba(255, 255, 255, 0.25);
-      }
-
-      /* Controls: Absolute Top Right */
-      .controls {
-        position: absolute;
-        top: 3rem;
-        right: 3rem;
-        display: flex;
-        gap: 12px;
-        z-index: 20;
-
-        .ctrl {
-          appearance: none;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          border-radius: 50%;
-          width: 48px;
-          height: 48px;
-          display: grid;
-          place-items: center;
-          color: $white-color;
-          cursor: pointer;
-          transition: transform 0.2s ease, background-color 0.2s ease;
-
-          &:hover {
-            background: $white-color;
-            color: $black-color;
-            transform: scale(1.1);
-          }
-        }
       }
 
       /* SLIDE LAYOUT */
       .slides {
         position: relative;
-        height: 100%;
+        flex: 1;
         display: flex;
         flex-direction: column;
       }
 
+      /* GSAP owns slide transition (xPercent + autoAlpha).
+         CSS only owns display via .is-active. No CSS @keyframes here. */
       .slide {
-        display: none; // Hidden by default
+        display: none;
         flex-direction: column;
-        height: 100%;
-        justify-content: center; // Vertically center the content
+        gap: 1.5rem;
 
         &.is-active {
           display: flex;
-          animation: fadeSlide 0.5s ease-out;
         }
 
-        // 1. Header Row (Avatar + Name)
+        // Header row: avatar + name/role
         .slide-header {
           display: flex;
           align-items: center;
-          gap: 1.5rem;
-          margin-bottom: 0.5rem;
-          padding-right: 120px; // space for controls
+          gap: 1.25rem;
           flex-shrink: 0;
 
           .avatar {
@@ -112,60 +81,285 @@
             object-fit: cover;
             border: 2px solid rgba(255, 255, 255, 0.1);
             background: #1a1a1a;
+            flex-shrink: 0;
+          }
+
+          .slide-id {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            min-width: 0;
           }
 
           .slide-name {
-            font-size: clamp(24px, 2vw, 32px);
-            font-weight: 700;
-            color: $white-color;
-            margin: 0;
+            font-size: clamp(1.25rem, 1.5vw, 1.5rem);
             line-height: 1.2;
           }
+
+          .slide-company {
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            font-weight: 700;
+            margin: 0;
+
+            background: $gradient;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+          }
         }
 
-        // 2. Company Title
-        .slide-company {
-          font-size: 14px;
-          text-transform: uppercase;
-          letter-spacing: 0.12em;
-          font-weight: 700;
-          margin-left: calc(64px + 1.5rem);
-          margin-bottom: 2.5rem;
-          flex-shrink: 0;
-
-          background: $gradient;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-
-        // 3. The Quote
-        .quote {
-          font-size: 18px;
-          line-height: 1.6;
-          font-weight: 300;
-          color: rgba(255, 255, 255, 0.9);
+        // Quote container holds highlight + collapsible full text
+        .slide-quote {
           margin: 0;
+          padding: 0;
+          color: rgba(255, 255, 255, 0.92);
+          border-left: 3px solid $g6;
+          padding-left: 1.5rem;
+        }
 
-          // Safety net for very long reviews
-          max-height: 100%;
-          overflow-y: auto;
-          padding-right: 10px;
+        .slide-highlight {
+          font-size: clamp(1.125rem, 1.5vw, 1.5rem);
+          font-weight: 300;
+          line-height: 1.4;
+          margin: 0;
+        }
 
-          /* Custom Scrollbar */
-          &::-webkit-scrollbar {
-            width: 4px;
+        // CSS-only max-height accordion (matches Header submenu pattern).
+        // 1500px ceiling is a safe upper bound for any plausible testimonial.
+        .slide-full {
+          overflow: hidden;
+          max-height: 0;
+          opacity: 0;
+          transition:
+            max-height 0.5s ease,
+            opacity 0.3s ease 0.05s,
+            margin-top 0.4s ease;
+          margin-top: 0;
+
+          &.is-open {
+            max-height: 1500px;
+            opacity: 1;
+            margin-top: 1.25rem;
+          }
+        }
+
+        .slide-full-text {
+          font-size: 0.9375rem;
+          line-height: 1.7;
+          color: rgba(255, 255, 255, 0.82);
+          font-weight: 300;
+          margin: 0;
+        }
+      }
+
+      // Read-more toggle
+      .read-more {
+        appearance: none;
+        align-self: flex-start;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        min-height: 44px;
+        padding: 0.5rem 0;
+        background: none;
+        border: none;
+        color: $g1;
+        font-family: $font-text;
+        font-size: 0.8125rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        cursor: pointer;
+        transition: color 0.2s ease;
+
+        .read-more-icon {
+          font-size: 0.75rem;
+          transition: transform 0.3s ease;
+        }
+
+        &.is-open .read-more-icon {
+          transform: rotate(180deg);
+        }
+
+        &:hover,
+        &:focus-visible {
+          color: $g7;
+        }
+
+        &:focus-visible {
+          outline: 2px solid $g6;
+          outline-offset: 4px;
+          border-radius: 2px;
+        }
+      }
+
+      // Footer: dots (left) + prev/next (right)
+      .stage-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-shrink: 0;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+        @media (max-width: 480px) {
+          flex-direction: column;
+          gap: 1.25rem;
+        }
+      }
+
+      .dots {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .dot {
+        appearance: none;
+        background: none;
+        border: none;
+        // 44px hit area with smaller visual dot inside
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        position: relative;
+
+        &::before {
+          content: '';
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.25);
+          transition:
+            background-color 0.2s ease,
+            width 0.3s ease;
+        }
+
+        &.is-active::before {
+          width: 24px;
+          border-radius: 4px;
+          background: $g6;
+        }
+
+        &:hover::before {
+          background: rgba(255, 255, 255, 0.5);
+        }
+
+        &.is-active:hover::before {
+          background: $g6;
+        }
+
+        &:focus-visible {
+          outline: 2px solid $g6;
+          outline-offset: 2px;
+          border-radius: 4px;
+        }
+      }
+
+      .controls {
+        display: flex;
+        gap: 0.75rem;
+
+        .ctrl {
+          appearance: none;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 50%;
+          // 44px touch target on all viewports (was 40 on mobile, audit fix)
+          width: 44px;
+          height: 44px;
+          display: grid;
+          place-items: center;
+          color: $white-color;
+          cursor: pointer;
+          transition:
+            background-color 0.2s ease,
+            color 0.2s ease,
+            transform 0.1s ease;
+
+          &:hover {
+            background: $white-color;
+            color: $black-color;
           }
 
-          &::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
+          // Press effect via CSS (replaces JS mousedown listeners)
+          &:active {
+            transform: scale(0.92);
           }
 
-          &::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
+          &:focus-visible {
+            outline: 2px solid $g6;
+            outline-offset: 2px;
           }
         }
       }
+    }
+  }
+
+  /* Section CTA */
+  .testimonials-cta {
+    max-width: $max-width;
+    margin: 4rem auto 0;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .testimonials-cta-text {
+    font-family: $font-special;
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
+    font-weight: 500;
+    color: $white-color;
+    margin: 0;
+  }
+
+  .testimonials-cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-height: 48px;
+    padding: 0.875rem 1.75rem;
+    font-family: $font-text;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    background: $g6;
+    color: $black-color;
+    border: 1px solid $g6;
+    border-radius: 999px;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease;
+
+    .cta-arrow {
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      background: $g7;
+      border-color: $g7;
+
+      .cta-arrow {
+        transform: translateX(4px);
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 4px;
     }
   }
 
@@ -178,57 +372,30 @@
       .panel-left {
         text-align: center;
       }
-    }
 
-    .panel-stage {
-      height: 520px;
+      .panel-stage {
+        min-height: 480px;
+      }
     }
   }
 
   @media (max-width: 768px) {
     padding: 4rem 1rem;
 
-    .panel-stage {
+    .testimonial-meta .panel-stage {
       padding: 2rem;
-      height: auto;
-      min-height: 500px;
+      gap: 1.5rem;
 
-      .controls {
-        top: 2rem;
-        right: 2rem;
-
-        .ctrl {
-          width: 40px;
-          height: 40px;
-        }
-      }
-
-      .slide {
-        justify-content: flex-start;
-        padding-top: 1rem;
-
-        .slide-header {
-          padding-right: 0;
-          margin-bottom: 1rem;
-        }
-
-        .slide-company {
-          margin-left: 0;
-          margin-bottom: 2rem;
-        }
+      .slide .slide-quote {
+        padding-left: 1rem;
       }
     }
-  }
-}
 
-@keyframes fadeSlide {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
+    .testimonials-cta {
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+    }
   }
 }

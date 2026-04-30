@@ -1,17 +1,21 @@
 import { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
+
+import useReducedMotion from '../hooks/useReducedMotion';
 import '../styles/components/testimonialHeading.scss';
 
-const TestimonialHeading = () => {
+const TestimonialHeading = ({ id }) => {
   const titleRef = useRef(null);
+  const reducedMotion = useReducedMotion();
 
   useLayoutEffect(() => {
+    if (reducedMotion) return;
+
     const el = titleRef.current;
     const ctx = gsap.context(() => {
-      // More visible movement suggestion (feel free to tweak)
       gsap.to(el, {
         '--x1': '85%',
-        '--y1': '65%', // larger travel
+        '--y1': '65%',
         '--x2': '10%',
         '--y2': '12%',
         '--x3': '12%',
@@ -24,13 +28,15 @@ const TestimonialHeading = () => {
         yoyo: true,
       });
     }, el);
+
     return () => ctx.revert();
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <div className="testimonial-head">
-      <h2 ref={titleRef}>
-        what our clients say bout the impact of our work and partnership
+      <p className="testimonial-head__kicker">Proof, not promises</p>
+      <h2 id={id} ref={titleRef} className="testimonial-head__title">
+        They trusted us. Here's what happened.
       </h2>
     </div>
   );

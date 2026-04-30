@@ -1,18 +1,27 @@
-@import "../_variables.scss";
-@import "../_mixins.scss";
+@import '../_variables.scss';
+@import '../_mixins.scss';
 
 .testimonial-head {
-  // Enhanced Palette for Dark Mode
-  $c1: #ff834a; // Orange
-  $c2: #ff5722; // Deep Orange
-  $c3: #f39ba0; // Pinkish
-  $c4: #eaa8c6; // Light Pink
-  $c5: #dab8ff; // Lavender
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 
-  h2 {
-    font-size: clamp(3.5rem, 6vw, 7rem); // Responsive clamping
+  &__kicker {
+    font-family: $font-text;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: $g6;
+    margin: 0;
+  }
+
+  &__title {
     font-family: $font-special;
-    line-height: 1;
+    font-size: clamp(2.25rem, 4.5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
     margin: 0;
 
     // Variables for movement (JS updates these)
@@ -25,32 +34,23 @@
     --x4: 88%;
     --y4: 66%;
 
-    /* Complex Gradient Layering 
-       We use 'screen' or 'lighten' blend modes on dark bg to make colors pop 
-    */
+    /* Layered radial gradients with subtle text glow */
     background:
-      radial-gradient(circle at var(--x1) var(--y1), rgba($c1, 0.9), transparent 50%),
-      radial-gradient(circle at var(--x2) var(--y2), rgba($c5, 0.8), transparent 50%),
-      radial-gradient(circle at var(--x3) var(--y3), rgba($c2, 0.8), transparent 60%),
-      radial-gradient(circle at var(--x4) var(--y4), rgba($c4, 0.9), transparent 50%),
-      // Base gradient to ensure visibility
-      linear-gradient(135deg, $white-color 0%, $c5 100%);
+      radial-gradient(circle at var(--x1) var(--y1), rgba($g1, 0.9), transparent 50%),
+      radial-gradient(circle at var(--x2) var(--y2), rgba($g5, 0.8), transparent 50%),
+      radial-gradient(circle at var(--x3) var(--y3), rgba($g1, 0.8), transparent 60%),
+      radial-gradient(circle at var(--x4) var(--y4), rgba($g4, 0.9), transparent 50%),
+      linear-gradient(135deg, $white-color 0%, $g5 100%);
 
-    background-size: 150% 150%; // Zoom in slightly for movement effect
+    background-size: 150% 150%;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
 
-    // Enhance crispness
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 
-    // Subtle glow instead of dark shadow
     filter: drop-shadow(0 0 15px rgba(255, 131, 74, 0.3));
-
-    @media (prefers-reduced-motion: reduce) {
-      animation: none;
-    }
   }
 }
