@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import MainLayout from './components/layout/MainLayout';
 
 // Pages & Sections
@@ -24,8 +24,8 @@ import Accessibility from './components/Accessibility';
 import './styles/app.scss';
 
 /**
- * The core structure of the landing page.
- * Defined outside App to prevent re-creation on re-renders.
+ * Core landing-page tree. Defined outside App so it isn't recreated
+ * on every render.
  */
 const HomeContent = () => (
   <>
@@ -43,75 +43,42 @@ const HomeContent = () => (
   </>
 );
 
+/**
+ * Layout route element — renders MainLayout once and lets nested
+ * routes plug into <Outlet />. Replaces the previous pattern of
+ * wrapping every route's element in <MainLayout>.
+ */
+const Layout = () => (
+  <MainLayout>
+    <Outlet />
+  </MainLayout>
+);
+
 function App() {
   return (
-    <div className="app">
+    <>
       <ScrollToTop />
 
       <Routes>
-        {/* 1. Main Landing Page */}
-        <Route
-          path="/"
-          element={
-            <MainLayout>
-              <HomeContent />
-            </MainLayout>
-          }
-        />
+        <Route element={<Layout />}>
+          {/* Landing + project deep-link share the same tree;
+              the Projects modal reads :slug from the URL. */}
+          <Route path="/" element={<HomeContent />} />
+          <Route path="/projects/:slug" element={<HomeContent />} />
 
-        {/* 2. Project Deep Links 
-            Renders the same HomeContent background so the Modal 
-            can open on top of the Projects section naturally. 
-        */}
-        <Route
-          path="/projects/:slug"
-          element={
-            <MainLayout>
-              <HomeContent />
-            </MainLayout>
-          }
-        />
+          {/* Standalone pages */}
+          <Route path="/pricing/:serviceSlug" element={<PricingPage />} />
 
-        {/* 3. Pricing Pages (Standalone) */}
-        <Route
-          path="/pricing/:serviceSlug"
-          element={
-            <MainLayout>
-              <PricingPage />
-            </MainLayout>
-          }
-        />
+          {/* Legal */}
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/accessibility" element={<Accessibility />} />
+        </Route>
 
-        {/* 4. Legal Pages */}
-        <Route
-          path="/privacy"
-          element={
-            <MainLayout>
-              <Privacy />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/terms"
-          element={
-            <MainLayout>
-              <Terms />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/accessibility"
-          element={
-            <MainLayout>
-              <Accessibility />
-            </MainLayout>
-          }
-        />
-
-        {/* 5. Catch-all -> Redirect to Home */}
+        {/* Catch-all → home */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </div>
+    </>
   );
 }
 

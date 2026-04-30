@@ -6,14 +6,14 @@ import ScrollTriggerRefresher from '../ScrollTriggerRefresher';
 
 const MainLayout = ({ children }) => {
   return (
-    <div className="app">
+    <>
       <ScrollTriggerRefresher />
       <CursorComponent />
       <Header />
-      {children}
+      <main>{children}</main>
       <Contact />
       <FooterCopyrights />
-    </div>
+    </>
   );
 };
 

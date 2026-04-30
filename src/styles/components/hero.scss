@@ -21,6 +21,7 @@
     position: absolute;
     inset: 0;
     z-index: 0;
+    pointer-events: none;
   }
 
   // ── Centered content layer ──
@@ -34,115 +35,182 @@
     height: 100%;
     text-align: center;
     padding: 0 2rem;
+
+    @media (max-width: 1300px) and (min-width: 669px) {
+      padding: 0 1.5rem;
+    }
+    @media (max-width: 668px) {
+      padding: 0 1.25rem 4rem;
+      justify-content: flex-end;
+    }
   }
 
   // ── Headline ──
   .hero-headline {
     font-family: $font-special;
-    font-size: clamp(3rem, 8vw, 7rem);
+    font-size: clamp(2.75rem, 7.5vw, 6.5rem);
     color: #fff;
     line-height: 1.05;
+    letter-spacing: -0.02em; // optical tightening on display type (audit §03)
     margin: 0;
+    max-width: 18ch;
     text-shadow: 0 2px 40px rgba(0, 0, 0, 0.5);
 
     .hero-line {
       display: block;
     }
 
-    // Force WelcomeTyped's wrapper div inline so it sits
-    // next to "We" on the same line
-    .typed-cursor {
-      display: inline;
+    // The accent line uses the brand purple to pull the eye to the value.
+    .hero-line--accent {
+      color: $g7;
     }
   }
 
   // ── Subline ──
   .hero-sub {
-    font-size: clamp(0.95rem, 1.5vw, 1.25rem);
-    color: rgba(255, 255, 255, 0.7);
-    margin-top: 1.5rem;
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.6; // audit §03 — body copy ≥ 1.6
+    color: rgba(255, 255, 255, 0.88); // bumped from 0.7 for AA contrast over Aurora
+    margin-top: 1.75rem;
     letter-spacing: 0.02em;
-    max-width: 500px;
+    max-width: 560px;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
     opacity: 0;
     transform: translateY(12px);
     transition:
       opacity 0.6s ease,
       transform 0.6s ease;
 
-    &.visible {
+    &.is-visible {
       opacity: 1;
       transform: translateY(0);
     }
+
+    @media (max-width: 668px) {
+      margin-top: 1rem;
+    }
   }
 
-  // ── CTA button ──
+  // ── CTA group ──
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 0.6s ease 0.2s,
+      transform 0.6s ease 0.2s;
+
+    &.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 668px) {
+      margin-top: 1.5rem;
+      gap: 0.75rem;
+      width: 100%;
+    }
+  }
+
+  // ── Shared CTA base ──
   .hero-cta {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.6rem;
-    margin-top: 2.5rem;
+    min-height: 48px; // audit §04 — touch target ≥ 44px (48 = comfort)
     padding: 0.9rem 2rem;
+    font-family: $font-text;
     font-size: 1rem;
     font-weight: 600;
-    color: #000;
-    background: #fff;
-    border: none;
     border-radius: 100px;
     text-decoration: none;
     cursor: pointer;
-    opacity: 0;
-    transform: translateY(12px);
-    border: 2px solid #fff;
     transition:
-      opacity 0.6s ease,
-      transform 0.6s ease,
       background 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease,
       box-shadow 0.3s ease;
 
-    &.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .cta-arrow {
+      font-size: 1.1em;
+      transition: transform 0.3s ease;
     }
 
-    &:hover {
-      border: 2px solid $g6;
-      color: #000;
-      box-shadow: 0 0 30px rgba($g6, 0.4);
+    &:hover .cta-arrow {
+      transform: translateX(4px);
+    }
 
-      .cta-arrow {
-        transform: translateX(4px);
-      }
+    // Visible focus ring for keyboard users (audit §04 a11y)
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 4px;
+    }
+
+    @media (max-width: 668px) {
+      flex: 1 1 auto;
+      min-width: 140px;
+      padding: 1rem 1.5rem;
+      font-size: 0.95rem;
+    }
+  }
+
+  // ── Primary CTA ──
+  .hero-cta--primary {
+    color: #000;
+    background: #fff;
+    border: 2px solid #fff;
+
+    &:hover {
+      border-color: $g6;
+      box-shadow: 0 0 30px rgba($g6, 0.4);
+    }
+  }
+
+  // ── Secondary CTA (ghost / outline) ──
+  .hero-cta--secondary {
+    color: #fff;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+
+    &:hover {
+      border-color: #fff;
+      background: rgba(255, 255, 255, 0.08);
     }
 
     .cta-arrow {
+      // Down-arrow shouldn't slide horizontally; override the shared rule.
       transition: transform 0.3s ease;
-      font-size: 1.1em;
+    }
+
+    &:hover .cta-arrow {
+      transform: translateY(3px);
     }
   }
 
-  // ── Tablet: 669px – 1300px ──
-  @media (max-width: 1300px) and (min-width: 669px) {
-    .hero-content {
-      padding: 0 1.5rem;
-    }
-  }
+  // ── Reduced-motion fallback ──
+  // Aurora canvas isn't rendered when reduced-motion is on (handled in JS).
+  // Provide a static gradient backdrop so the hero still feels brand-on.
+  @media (prefers-reduced-motion: reduce) {
+    background: radial-gradient(
+        ellipse at 30% 40%,
+        rgba($g1, 0.35),
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse at 70% 70%,
+        rgba($g6, 0.4),
+        transparent 60%
+      ),
+      #0a0a0a;
 
-  // ── Mobile: under 669px ──
-  @media (max-width: 668px) {
-    .hero-content {
-      padding: 0 1.25rem;
-      justify-content: flex-end;
-      padding-bottom: 4rem;
-    }
-
-    .hero-sub {
-      margin-top: 1rem;
-    }
-
-    .hero-cta {
-      margin-top: 1.5rem;
-      padding: 0.8rem 1.6rem;
-      font-size: 0.9rem;
+    .hero-sub,
+    .hero-ctas {
+      transition: none;
     }
   }
 }

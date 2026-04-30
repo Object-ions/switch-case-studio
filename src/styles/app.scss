@@ -5,22 +5,18 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-
-  &:hover {
-    cursor: none;
-  }
 }
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden !important;
+  overflow-x: hidden;
 }
 
 body {
   width: 100%;
   background: $grey-color;
   font-family: $font-text;
-  cursor: none;
+  cursor: none; // global cursor hide — CursorComponent renders the visual
 }
 
 ul {
@@ -36,6 +32,7 @@ a {
 p {
   font-weight: 200;
 }
+
 h1,
 h2,
 h3,
@@ -54,43 +51,43 @@ h6 {
   color: white;
 }
 
-/* For Firefox */
 ::-moz-selection {
   background: $orange-color;
   color: white;
 }
 
+// Decorative layers must never intercept pointer events
 .statue,
 .statue-svg,
-#Layer_1 {
-  pointer-events: none !important;
-}
+#Layer_1,
 .loader,
 .loader-overlay {
   pointer-events: none !important;
 }
 
-/* make sure your project tiles can be clicked even if something overlaps */
+// Project tiles must remain clickable above any decorative overlay
 .projects .panel {
   position: relative;
   z-index: 1;
   cursor: none;
 }
 
-/* Responsive images and videos */
+// Responsive media defaults
 img,
 video {
   max-width: 100%;
   height: auto;
 }
 
-/* Ensure background videos scale properly */
 .background-video {
   max-width: 100%;
   height: auto;
 }
 
-/* Responsive typography scaling */
+// Responsive typography scaling
+// NOTE: Audit §04 flags <16px on mobile inputs as an iOS auto-zoom trigger.
+// This body shrink affects every rem-based component on small screens — keep
+// in mind when sizing form inputs (ContactForm pass).
 @media (max-width: 1024px) and (min-width: 769px) {
   body {
     font-size: 14px;

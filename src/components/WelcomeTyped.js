@@ -1,45 +1,39 @@
-import { useEffect, useRef } from "react";
-import Typed from "typed.js";
+import { useEffect, useRef } from 'react';
+import Typed from 'typed.js';
+import useReducedMotion from '../hooks/useReducedMotion';
+
+const STRINGS = ['design', 'ship', 'shape', 'craft', 'launch', 'elevate'];
 
 const WelcomeTyped = () => {
-  const typedElement = useRef(null);
+  const targetRef = useRef(null);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
-    const options = {
-      strings: [
-        "Design",
-        "Code",
-        "Shape",
-        "Build",
-        "Craft",
-        "Engineer",
-        "Create",
-        "Launch",
-        "Elevate",
-      ],
-      typeSpeed: 150,
-      backSpeed: 150,
+    if (reducedMotion || !targetRef.current) return;
+
+    const typed = new Typed(targetRef.current, {
+      strings: STRINGS,
+      typeSpeed: 80,
+      backSpeed: 50,
+      backDelay: 1400,
       loop: true,
-      showCursor: false, // Hide the default cursor
-    };
+      showCursor: false,
+    });
 
-    const typed = new Typed(typedElement.current, options);
-
-    return () => {
-      typed.destroy();
-    };
-  }, []);
+    return () => typed.destroy();
+  }, [reducedMotion]);
 
   return (
-    <div className="typed-cursor">
-      <span ref={typedElement} className="typed-container" />
-      <span
-        className="cursor"
-        style={{ animation: "blink 0.7s infinite", paddingLeft: "0.2rem" }}
-      >
+    <span className="typed-cursor">
+      {reducedMotion ? (
+        <span className="typed-container">{STRINGS[0]}</span>
+      ) : (
+        <span ref={targetRef} className="typed-container" />
+      )}
+      <span className="typed-blinker" aria-hidden="true">
         |
       </span>
-    </div>
+    </span>
   );
 };
 
