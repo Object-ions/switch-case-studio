@@ -1,4 +1,4 @@
-import React, {
+import {
   useCallback,
   useLayoutEffect,
   useRef,
@@ -12,6 +12,8 @@ import {
   PROJECT_LINKS,
   LEGAL_LINKS,
 } from '../../data/navigation';
+import useScrollLock from '../../hooks/useScrollLock';
+import useReducedMotion from '../../hooks/useReducedMotion';
 import '../../styles/components/StaggeredMenu.scss';
 
 /* ──────────────────────────────────────────────
@@ -42,9 +44,8 @@ const MenuAccordion = ({ label, items, isOpen, onToggle, onNavClick }) => (
 );
 
 /* ──────────────────────────────────────────────
-   StaggeredMenu — headless (no built-in header)
-   Controlled via open / onClose props.
-   Replaces MenuModal on tablet/mobile only.
+   StaggeredMenu — headless, controlled via
+   `open` / `onClose`. Tablet/mobile only.
    ────────────────────────────────────────────── */
 const StaggeredMenu = ({
   open,
@@ -65,6 +66,10 @@ const StaggeredMenu = ({
 
   const location = useLocation();
   const navigate = useNavigate();
+  const reducedMotion = useReducedMotion();
+
+  // Scroll lock — preserves position across iOS + desktop
+  useScrollLock(open);
 
   /* ── GSAP initial setup ─────────────────────── */
   useLayoutEffect(() => {
@@ -100,6 +105,15 @@ const StaggeredMenu = ({
     const itemEls = Array.from(panel.querySelectorAll('.sm-panel-itemLabel'));
     const socialTitle = panel.querySelector('.sm-socials-title');
     const socialLinks = Array.from(panel.querySelectorAll('.sm-socials-link'));
+
+    // Reduced motion: snap everything to its end state instantly.
+    if (reducedMotion) {
+      gsap.set([...layers, panel], { xPercent: 0 });
+      if (itemEls.length) gsap.set(itemEls, { yPercent: 0, rotate: 0 });
+      if (socialTitle) gsap.set(socialTitle, { opacity: 1 });
+      if (socialLinks.length) gsap.set(socialLinks, { y: 0, opacity: 1 });
+      return null;
+    }
 
     const layerStates = layers.map((el) => ({
       el,
@@ -175,7 +189,7 @@ const StaggeredMenu = ({
 
     openTlRef.current = tl;
     return tl;
-  }, []);
+  }, [reducedMotion]);
 
   /* ── Play open ──────────────────────────────── */
   const playOpen = useCallback(() => {
@@ -188,6 +202,7 @@ const StaggeredMenu = ({
       });
       tl.play(0);
     } else {
+      // Reduced motion path — no timeline returned
       busyRef.current = false;
     }
   }, [buildOpenTimeline]);
@@ -205,46 +220,43 @@ const StaggeredMenu = ({
     closeTweenRef.current?.kill();
     const offscreen = position === 'left' ? -100 : 100;
 
+    const resetItems = () => {
+      const itemEls = Array.from(panel.querySelectorAll('.sm-panel-itemLabel'));
+      const socialTitle = panel.querySelector('.sm-socials-title');
+      const socialLinks = Array.from(
+        panel.querySelectorAll('.sm-socials-link'),
+      );
+      if (itemEls.length) gsap.set(itemEls, { yPercent: 140, rotate: 10 });
+      if (socialTitle) gsap.set(socialTitle, { opacity: 0 });
+      if (socialLinks.length) gsap.set(socialLinks, { y: 25, opacity: 0 });
+      busyRef.current = false;
+    };
+
+    if (reducedMotion) {
+      gsap.set(all, { xPercent: offscreen });
+      resetItems();
+      return;
+    }
+
     closeTweenRef.current = gsap.to(all, {
       xPercent: offscreen,
       duration: 0.32,
       ease: 'power3.in',
       overwrite: 'auto',
-      onComplete: () => {
-        const itemEls = Array.from(
-          panel.querySelectorAll('.sm-panel-itemLabel'),
-        );
-        if (itemEls.length) gsap.set(itemEls, { yPercent: 140, rotate: 10 });
-        const socialTitle = panel.querySelector('.sm-socials-title');
-        const socialLinks = Array.from(
-          panel.querySelectorAll('.sm-socials-link'),
-        );
-        if (socialTitle) gsap.set(socialTitle, { opacity: 0 });
-        if (socialLinks.length) gsap.set(socialLinks, { y: 25, opacity: 0 });
-        busyRef.current = false;
-      },
+      onComplete: resetItems,
     });
-  }, [position]);
+  }, [position, reducedMotion]);
 
   /* ── React to open prop changes ─────────────── */
   useEffect(() => {
     if (open && !prevOpenRef.current) {
-      document.body.style.overflow = 'hidden';
       playOpen();
     } else if (!open && prevOpenRef.current) {
-      document.body.style.overflow = '';
       setOpenAccordion(null);
       playClose();
     }
     prevOpenRef.current = open;
   }, [open, playOpen, playClose]);
-
-  /* ── Cleanup scroll lock on unmount ─────────── */
-  useEffect(() => {
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, []);
 
   /* ── Auto-close on route change ─────────────── */
   useEffect(() => {
@@ -273,14 +285,17 @@ const StaggeredMenu = ({
     return () => window.removeEventListener('keydown', handleKey);
   }, [open, onClose]);
 
-  /* ── Navigation handler (hash links) ────────── */
+  /* ── Navigation handler (delays nav so the close
+        animation has time to start before the new
+        page mounts) ────────────────────────────── */
   const handleNavClick = useCallback(
     (to) => (e) => {
       e.preventDefault();
       onClose();
-      setTimeout(() => navigate(to), 80);
+      const delay = reducedMotion ? 0 : 80;
+      setTimeout(() => navigate(to), delay);
     },
-    [onClose, navigate],
+    [onClose, navigate, reducedMotion],
   );
 
   /* ── Accordion toggle ───────────────────────── */
@@ -291,7 +306,7 @@ const StaggeredMenu = ({
   const preLayers = (() => {
     const raw =
       colors && colors.length ? colors.slice(0, 4) : ['#1a1a1a', '#2a1a35'];
-    let arr = [...raw];
+    const arr = [...raw];
     if (arr.length >= 3) {
       const mid = Math.floor(arr.length / 2);
       arr.splice(mid, 1);
@@ -299,7 +314,6 @@ const StaggeredMenu = ({
     return arr;
   })();
 
-  /* ── Render ─────────────────────────────────── */
   return (
     <div
       className="staggered-menu-wrapper"
@@ -307,14 +321,12 @@ const StaggeredMenu = ({
       data-position={position}
       data-open={open || undefined}
     >
-      {/* Pre-layers */}
       <div ref={preLayersRef} className="sm-prelayers" aria-hidden="true">
         {preLayers.map((c, i) => (
           <div key={i} className="sm-prelayer" style={{ background: c }} />
         ))}
       </div>
 
-      {/* Slide-in panel */}
       <aside
         id="staggered-menu-panel"
         ref={panelRef}
@@ -322,7 +334,6 @@ const StaggeredMenu = ({
         aria-hidden={!open}
       >
         <div className="sm-panel-inner">
-          {/* Primary navigation */}
           <ul className="sm-panel-list">
             <li className="sm-panel-itemWrap">
               <Link
@@ -381,7 +392,6 @@ const StaggeredMenu = ({
             </li>
           </ul>
 
-          {/* Secondary section — CTA + legal */}
           <div className="sm-socials" aria-label="Quick links">
             <h3 className="sm-socials-title">Quick Links</h3>
             <ul className="sm-socials-list">

@@ -1,8 +1,10 @@
 /* ═══════════════════════════════════════════════
-   StaggeredMenu — Headless, dark theme
-   Used as mobile/tablet menu only.
-   No built-in header — controlled by site Header.
+   StaggeredMenu — headless, dark theme.
+   Tablet/mobile only. Controlled by site Header.
    ═══════════════════════════════════════════════ */
+
+@import '../_variables.scss';
+@import '../_mixins.scss';
 
 /* ── Wrapper ──────────────────────────────────── */
 .staggered-menu-wrapper {
@@ -51,12 +53,20 @@
   background: #000;
   display: flex;
   flex-direction: column;
-  /* top padding accounts for the sticky header height */
+  /* top padding clears the sticky header */
   padding: 80px 2.5em 2em 2.5em;
   overflow-y: auto;
   z-index: 10;
-  pointer-events: auto;
   border-left: 1px solid #222;
+
+  /* Pointer-events guarded by wrapper's [data-open]
+     — prevents the offscreen panel from intercepting
+     stray clicks due to sub-pixel rounding. */
+  pointer-events: none;
+}
+
+[data-open] .staggered-menu-panel {
+  pointer-events: auto;
 }
 
 [data-position='left'] .staggered-menu-panel {
@@ -94,13 +104,15 @@
   overflow: visible;
 }
 
-.sm-panel-item {
+/* Shared trigger styles — used by both link items and accordion buttons.
+   Placeholder selector keeps the rules in one place without producing
+   duplicate output. */
+%menu-trigger-base {
   position: relative;
-  color: #ff834a;
-  font-family: 'Roboto Mono', monospace;
+  color: $g1;
+  font-family: $font-text;
   font-weight: 600;
   font-size: clamp(32px, 4.5vw, 42px);
-  cursor: pointer;
   line-height: 1.2;
   letter-spacing: -1px;
   text-transform: uppercase;
@@ -110,13 +122,18 @@
   background: transparent;
   border: none;
   padding: 0;
+  cursor: pointer;
   transition: color 0.25s ease;
+
+  &:hover,
+  &:focus-visible {
+    color: $g6;
+    outline: none;
+  }
 }
 
-.sm-panel-item:hover,
-.sm-panel-item:focus-visible {
-  color: #d99cff;
-  outline: none;
+.sm-panel-item {
+  @extend %menu-trigger-base;
 }
 
 .sm-panel-itemLabel {
@@ -125,33 +142,10 @@
   transform-origin: 50% 100%;
 }
 
-/* ── Accordion trigger ────────────────────────── 
-   Key fix: inherits the same font-size as .sm-panel-item
-   via explicit sizing (not font: inherit which can break) */
+/* ── Accordion trigger ────────────────────────── */
 .sm-accordion-trigger {
-  /* These properties match .sm-panel-item exactly */
-  color: #ff834a;
-  font-family: 'Roboto Mono', monospace;
-  font-weight: 600;
-  font-size: clamp(32px, 4.5vw, 42px);
-  cursor: pointer;
-  line-height: 1.2;
-  letter-spacing: -1px;
-  text-transform: uppercase;
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-  background: transparent;
-  border: none;
-  padding: 0;
+  @extend %menu-trigger-base;
   gap: 0.5rem;
-  transition: color 0.25s ease;
-}
-
-.sm-accordion-trigger:hover,
-.sm-accordion-trigger:focus-visible {
-  color: #d99cff;
-  outline: none;
 }
 
 .sm-accordion-caret {
@@ -197,21 +191,22 @@
 
 .sm-accordion-link {
   display: inline-block;
-  font-family: 'Roboto Mono', monospace;
+  font-family: $font-text;
   font-size: clamp(14px, 3vw, 18px);
   font-weight: 500;
   line-height: 1.35;
   letter-spacing: 0.01em;
-  color: #ff834a;
+  color: $g1;
   text-decoration: none;
-  padding: 6px 0;
+  // Touch target ≥ 44px — 18px line + 13px*2 padding ≈ 44px
+  padding: 13px 0;
   transition: color 0.2s ease;
-}
 
-.sm-accordion-link:hover,
-.sm-accordion-link:focus-visible {
-  color: #eaa8c6;
-  outline: none;
+  &:hover,
+  &:focus-visible {
+    color: $g4;
+    outline: none;
+  }
 }
 
 /* ── Secondary section (CTA + legal) ──────────── */
@@ -225,10 +220,10 @@
 
 .sm-socials-title {
   margin: 0;
-  font-family: 'Roboto Mono', monospace;
+  font-family: $font-text;
   font-size: 0.85rem;
   font-weight: 500;
-  color: #d99cff;
+  color: $g6;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
@@ -245,70 +240,67 @@
 }
 
 .sm-socials-link {
-  font-family: 'Roboto Mono', monospace;
+  font-family: $font-text;
   font-size: 0.85rem;
   font-weight: 500;
-  color: #a5b2ba;
+  color: $g-bot;
   text-decoration: none;
   position: relative;
-  padding: 2px 0;
+  // Min touch target for legal links
+  padding: 11px 0;
   display: inline-block;
   opacity: 1;
   transition:
     color 0.3s ease,
     opacity 0.3s ease;
+
+  &:hover {
+    color: $g6;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $g6;
+    outline-offset: 3px;
+  }
 }
 
-.sm-socials-link:hover {
-  color: #d99cff;
-}
-
-.sm-socials-link:focus-visible {
-  outline: 2px solid #d99cff;
-  outline-offset: 3px;
-}
-
-/* Collective dim on hover */
-.sm-socials-list:hover .sm-socials-link {
+/* Collective dim on hover/focus — exclude the CTA so it stays prominent
+   without needing `!important`. */
+.sm-socials-list:hover .sm-socials-link:not(.sm-cta-link) {
   opacity: 0.35;
 }
 
-.sm-socials-list:hover .sm-socials-link:hover {
+.sm-socials-list:hover .sm-socials-link:not(.sm-cta-link):hover {
   opacity: 1;
 }
 
-.sm-socials-list:focus-within .sm-socials-link {
+.sm-socials-list:focus-within .sm-socials-link:not(.sm-cta-link) {
   opacity: 0.35;
 }
 
-.sm-socials-list:focus-within .sm-socials-link:focus-visible {
+.sm-socials-list:focus-within .sm-socials-link:not(.sm-cta-link):focus-visible {
   opacity: 1;
 }
 
-/* CTA link — gradient background */
+/* CTA link — gradient pill */
 .sm-cta-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  // Touch target ≥ 44px
+  min-height: 44px;
   padding: 8px 18px;
-  background: linear-gradient(
-    90deg,
-    #ff834a 0%,
-    #ff8f63 20%,
-    #ff834a 50%,
-    #eaa8c6 75%,
-    #dab8ff 100%
-  );
-  color: #fff !important;
+  background: $gradient;
+  color: #fff;
   border-radius: 6px;
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   letter-spacing: 0.02em;
-  opacity: 1 !important;
   transition: filter 0.25s ease;
-}
 
-.sm-cta-link:hover {
-  filter: brightness(1.1);
-  color: #fff !important;
+  &:hover {
+    filter: brightness(1.1);
+    color: #fff;
+  }
 }
 
 /* ═══════════════════════════════════════════════
@@ -361,7 +353,7 @@
    Responsive
    ═══════════════════════════════════════════════ */
 
-/* Tablet — panel covers ~60% of the screen */
+/* Tablet — panel covers ~60% */
 @media (max-width: 960px) and (min-width: 641px) {
   .staggered-menu-panel,
   .sm-prelayers {
@@ -392,11 +384,12 @@
   }
 }
 
+/* Reduced motion — disable transitions; JS skips animations separately */
 @media (prefers-reduced-motion: reduce) {
-  .sm-accordion-submenu {
-    transition: none;
-  }
-  .sm-accordion-caret {
+  .sm-accordion-submenu,
+  .sm-accordion-caret,
+  .sm-cta-link,
+  .sm-socials-link {
     transition: none;
   }
 }
