@@ -1,6 +1,6 @@
 import CursorComponent from '../CursorComponent';
 import Header from './Header';
-import FooterCopyrights from './FooterCopyrights';
+import Footer from './Footer';
 import ScrollTriggerRefresher from '../ScrollTriggerRefresher';
 
 const MainLayout = ({ children }) => {
@@ -10,7 +10,7 @@ const MainLayout = ({ children }) => {
       <CursorComponent />
       <Header />
       <main>{children}</main>
-      <FooterCopyrights />
+      <Footer />
     </>
   );
 };
