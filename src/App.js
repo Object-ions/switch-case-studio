@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import MainLayout from './components/layout/MainLayout';
 
 // Pages & Sections
@@ -6,6 +7,8 @@ import Services from './components/pages/Services';
 import Work from './components/pages/Work';
 import Testimonials from './components/pages/Testimonials';
 import Projects from './components/Projects';
+import ProjectPage from './components/pages/ProjectPage';
+import Contact from './components/pages/Contact';
 import PricingPage from './components/PricingPage';
 import Hero from './components/Hero';
 
@@ -40,13 +43,13 @@ const HomeContent = () => (
     <Work />
     <Projects />
     <Testimonials />
+    <Contact />
   </>
 );
 
 /**
  * Layout route element — renders MainLayout once and lets nested
- * routes plug into <Outlet />. Replaces the previous pattern of
- * wrapping every route's element in <MainLayout>.
+ * routes plug into <Outlet />.
  */
 const Layout = () => (
   <MainLayout>
@@ -56,17 +59,18 @@ const Layout = () => (
 
 function App() {
   return (
-    <>
+    <HelmetProvider>
       <ScrollToTop />
 
       <Routes>
         <Route element={<Layout />}>
-          {/* Landing + project deep-link share the same tree;
-              the Projects modal reads :slug from the URL. */}
+          {/* Landing */}
           <Route path="/" element={<HomeContent />} />
-          <Route path="/projects/:slug" element={<HomeContent />} />
 
-          {/* Standalone pages */}
+          {/* Standalone case-study pages (replaces modal pattern) */}
+          <Route path="/projects/:slug" element={<ProjectPage />} />
+
+          {/* Pricing */}
           <Route path="/pricing/:serviceSlug" element={<PricingPage />} />
 
           {/* Legal */}
@@ -78,7 +82,7 @@ function App() {
         {/* Catch-all → home */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </>
+    </HelmetProvider>
   );
 }
 

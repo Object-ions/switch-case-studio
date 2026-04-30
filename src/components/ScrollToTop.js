@@ -8,40 +8,24 @@ function getHeaderOffset() {
 
 export default function ScrollToTop() {
   const location = useLocation();
-  const { pathname, hash, state } = location;
+  const { pathname, hash } = location;
 
   useEffect(() => {
     // Helper to run on the next paint (after layout)
     const nextFrame = (fn) =>
       requestAnimationFrame(() => requestAnimationFrame(fn));
 
-    // A) PRESERVE SCROLL:
-    // Triggered when opening/closing the project modal (flag passed in navigation state)
-    if (state?.preserveScroll) {
-      const savedY = sessionStorage.getItem('scrollPosition');
-
-      if (savedY) {
-        // Restore immediately (behavior: auto) to avoid visual jumping
-        nextFrame(() => {
-          window.scrollTo({
-            top: parseFloat(savedY),
-            left: 0,
-            behavior: 'auto',
-          });
-        });
-      }
-      return;
-    }
-
-    // B) STANDARD NAVIGATION (No Hash) -> Scroll to Top
+    // A) STANDARD NAVIGATION (no hash) → instant scroll to top.
+    // 'auto' (instant) is less jarring than 'smooth' on every route
+    // change, and matches user expectations for new pages.
     if (!hash) {
       nextFrame(() => {
-        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
       });
       return;
     }
 
-    // C) HASH NAVIGATION -> Wait for element, then scroll
+    // B) HASH NAVIGATION → wait for element, then scroll
     let attempts = 0;
     const maxAttempts = 40; // ~2s @ 50ms
     const interval = setInterval(() => {
@@ -62,7 +46,7 @@ export default function ScrollToTop() {
     }, 50);
 
     return () => clearInterval(interval);
-  }, [pathname, hash, state]);
+  }, [pathname, hash]);
 
   return null;
 }

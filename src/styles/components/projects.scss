@@ -4,4 +4,29 @@
 @import './projects-layout';
 @import './projects-tiles';
 @import './projects-bento';
-@import './projects-modal';
+
+/* ── Decorative TextPressure header ──
+   Replaces the inline style block previously in Projects.js. */
+.projects-header {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 5rem auto 0;
+}
+
+/* ── Visually-hidden heading for accessibility/SEO. ──
+   The TextPressure wordmark is decorative; this is the real h2. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

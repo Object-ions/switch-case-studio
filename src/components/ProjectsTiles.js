@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -12,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
 /* ═══════════════════════════════════════════
    Tile — single project card
    ═══════════════════════════════════════════ */
-const Tile = ({ proj, onOpen, disabled }) => {
+const Tile = ({ proj, disabled }) => {
   const tileRef = useRef(null);
   const { startParticles, stopParticles, fireRipple } = useBentoParticles(
     tileRef,
@@ -47,29 +48,20 @@ const Tile = ({ proj, onOpen, disabled }) => {
     });
   };
 
+  // Ripple effect on click; navigation handled by Link.
   const handleClick = (e) => {
     fireRipple(e);
-    onOpen(proj.id);
-  };
-
-  const handleKey = (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      onOpen(proj.id);
-    }
   };
 
   return (
-    <div
+    <Link
       ref={tileRef}
+      to={`/projects/${proj.slug}`}
       className={`panel ${proj.panelClass} tile has-media`}
-      role="button"
-      tabIndex={0}
       onClick={handleClick}
-      onKeyDown={handleKey}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
-      aria-label={`Open ${proj.label || proj.title} details`}
+      aria-label={`View case study: ${proj.title}`}
     >
       <div className="tile-bento-glow" aria-hidden="true" />
 
@@ -86,17 +78,17 @@ const Tile = ({ proj, onOpen, disabled }) => {
         <p className="panel-excerpt">
           {proj.tileVersion}
           <br />
-          <b>Click to View</b>
+          <b>View Case Study →</b>
         </p>
       )}
-    </div>
+    </Link>
   );
 };
 
 /* ═══════════════════════════════════════════
    ProjectsTiles — grid wrapper
    ═══════════════════════════════════════════ */
-const ProjectsTiles = ({ projects, onOpen, modalOpen }) => {
+const ProjectsTiles = ({ projects }) => {
   const gridRef = useRef(null);
   const reduced = useReducedMotion();
   const [isMobile, setIsMobile] = useState(false);
@@ -112,6 +104,8 @@ const ProjectsTiles = ({ projects, onOpen, modalOpen }) => {
 
   useBentoSpotlight(gridRef, { disabled });
 
+  // Tile-by-tile entrance. The parent .row-tiles reveal that previously
+  // lived in Projects.js was removed — it overlapped this animation.
   useLayoutEffect(() => {
     if (reduced) return;
 
@@ -140,12 +134,9 @@ const ProjectsTiles = ({ projects, onOpen, modalOpen }) => {
   }, [reduced]);
 
   return (
-    <div
-      className={`projects-row row-tiles ${modalOpen ? 'is-blurred' : ''}`}
-      ref={gridRef}
-    >
+    <div className="projects-row row-tiles" ref={gridRef}>
       {projects.map((p) => (
-        <Tile key={p.id} proj={p} onOpen={onOpen} disabled={disabled} />
+        <Tile key={p.slug} proj={p} disabled={disabled} />
       ))}
     </div>
   );

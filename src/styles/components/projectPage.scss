@@ -1,0 +1,432 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+// NOTE: .reveal initial state is owned by GSAP (see ProjectPage.js).
+// No CSS opacity/transform here — single source of truth.
+
+.project-page {
+  background: #000;
+  color: $white-color;
+  font-family: $font-text;
+  line-height: 1.6;
+  min-height: 100vh;
+  padding-bottom: 6rem;
+
+  // ── Top bar ──────────────────────────────────────────
+  &__topbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 0;
+  }
+
+  &__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    min-height: 44px;
+    padding: 0.5rem 0;
+    color: $g6;
+    font-family: $font-text;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+
+    svg {
+      transition: transform 0.2s ease;
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: $g7;
+
+      svg {
+        transform: translateX(-3px);
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+  }
+
+  // ── Hero ─────────────────────────────────────────────
+  &__hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+    text-align: left;
+
+    @media (max-width: 768px) {
+      padding: 2rem 1.25rem 3rem;
+    }
+  }
+
+  &__kicker {
+    font-family: $font-text;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: $g6;
+    margin: 0 0 1.5rem;
+  }
+
+  &__title {
+    font-family: $font-special;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: $white-color;
+    margin: 0 0 1.5rem;
+  }
+
+  &__lede {
+    font-family: $font-text;
+    font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 60ch;
+    margin: 0 0 2rem;
+  }
+
+  &__tags {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  &__tag {
+    display: inline-block;
+    padding: 0.375rem 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    font-family: $font-text;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  // ── Section labels ───────────────────────────────────
+  &__section-label {
+    font-family: $font-text;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: $g6;
+    margin: 0 0 1rem;
+  }
+
+  // ── Scope grid (2-col on desktop, stacked on mobile) ─
+  &__scope-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 4rem;
+
+    @media (max-width: 960px) {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      padding: 2rem 1.25rem 3rem;
+    }
+  }
+
+  &__desc {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 2.5rem;
+    max-width: 65ch;
+  }
+
+  &__scope-list {
+    margin: 0;
+    padding: 0;
+  }
+
+  &__scope-item {
+    display: grid;
+    grid-template-columns: minmax(140px, 200px) 1fr;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    &:last-child {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+      gap: 0.375rem;
+      padding: 0.875rem 0;
+    }
+  }
+
+  &__scope-title {
+    font-family: $font-text;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: $white-color;
+    margin: 0;
+  }
+
+  &__scope-summary {
+    font-family: $font-text;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+  }
+
+  // ── Metrics sidebar ──────────────────────────────────
+  &__metrics {
+    align-self: start;
+    position: sticky;
+    top: 2rem;
+
+    @media (max-width: 960px) {
+      position: static;
+    }
+  }
+
+  &__metrics-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  &__metric {
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  &__metric-value {
+    display: block;
+    font-family: $font-special;
+    font-size: clamp(2rem, 3vw, 2.75rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: $g6;
+    margin-bottom: 0.5rem;
+  }
+
+  &__metric-label {
+    display: block;
+    font-family: $font-text;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  // ── Result block ─────────────────────────────────────
+  &__result {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+
+    @media (max-width: 768px) {
+      padding: 0 1.25rem 3rem;
+    }
+  }
+
+  &__result-text {
+    font-family: $font-special;
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
+    font-weight: 500;
+    line-height: 1.4;
+    color: $white-color;
+    max-width: 50ch;
+    margin: 0;
+    padding-left: 1.5rem;
+    border-left: 3px solid $g6;
+  }
+
+  // ── Media blocks ─────────────────────────────────────
+  &__media-block {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+
+    @media (max-width: 768px) {
+      padding: 1.5rem 1.25rem;
+    }
+  }
+
+  &__mockup {
+    width: 100%;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  &__img-trigger {
+    display: block;
+    width: 100%;
+    padding: 0;
+    background: none;
+    border: none;
+    color: inherit;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+
+    @media (hover: hover) and (pointer: fine) {
+      cursor: zoom-in;
+
+      &:hover {
+        transform: scale(1.005);
+
+        .project-page__img-hint {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 4px;
+    }
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  &__img-hint {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.5rem 0.875rem;
+    background: rgba(0, 0, 0, 0.75);
+    color: $white-color;
+    font-family: $font-text;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+  }
+
+  // ── CTA footer bar ───────────────────────────────────
+  &__cta-bar {
+    max-width: 1200px;
+    margin: 4rem auto 0;
+    padding: 2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    flex-wrap: wrap;
+
+    @media (max-width: 768px) {
+      padding: 2rem 1.25rem;
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+
+  &__cta-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &__cta-kicker {
+    font-family: $font-text;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  &__cta-product {
+    font-family: $font-special;
+    font-size: 1.125rem;
+    color: $white-color;
+    line-height: 1.2;
+  }
+
+  &__cta-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
+  &__cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    min-height: 48px;
+    padding: 0.875rem 1.5rem;
+    font-family: $font-text;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border-radius: 999px;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease;
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 4px;
+    }
+
+    &--primary {
+      background: $g6;
+      color: $black-color;
+      border: 1px solid $g6;
+
+      &:hover {
+        background: $g7;
+        border-color: $g7;
+      }
+    }
+
+    &--secondary {
+      background: transparent;
+      color: $white-color;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+
+      &:hover {
+        border-color: $white-color;
+        background: rgba(255, 255, 255, 0.05);
+      }
+    }
+  }
+}
