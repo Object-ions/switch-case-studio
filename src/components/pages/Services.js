@@ -13,6 +13,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import servicesData from '../../data/services.json';
+import useReducedMotion from '../../hooks/useReducedMotion';
 import '../../styles/components/services.scss';
 
 const iconMap = {
@@ -35,20 +36,28 @@ const trackMouse = (e, el) => {
 
 const Services = () => {
   const sectionRef = useRef(null);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
-    // --- Scroll reveal animation ---
     const reveals = gsap.utils.toArray('.reveal', section);
-    const triggers = reveals.map(
-      (el, i) =>
-        gsap.fromTo(
-          el,
-          { opacity: 0, y: 60 },
-          {
-            opacity: 1,
+
+    // GSAP owns the reveal start + end state (single source of truth).
+    // Reduced-motion users skip the animation entirely.
+    if (reducedMotion) {
+      gsap.set(reveals, { autoAlpha: 1, y: 0 });
+    } else {
+      gsap.set(reveals, { autoAlpha: 0, y: 60 });
+    }
+
+    // --- Scroll reveal animation ---
+    const tweens = reducedMotion
+      ? []
+      : reveals.map((el, i) =>
+          gsap.to(el, {
+            autoAlpha: 1,
             y: 0,
             duration: 0.6,
             delay: i * 0.1,
@@ -58,9 +67,8 @@ const Services = () => {
               start: 'top 85%',
               toggleActions: 'play none none reverse',
             },
-          },
-        ).scrollTrigger,
-    );
+          }),
+        );
 
     // --- Title hover circle ---
     const titleEl = section.querySelector('.title');
@@ -74,24 +82,29 @@ const Services = () => {
 
     // --- Cleanup ---
     return () => {
-      triggers.forEach((t) => t?.kill());
+      tweens.forEach((tween) => {
+        tween.scrollTrigger?.kill();
+        tween.kill();
+      });
       titleEl?.removeEventListener('mousemove', handleTitleMove);
       cards.forEach((card) =>
         card.removeEventListener('mousemove', handleCardMove),
       );
     };
-  }, []);
+  }, [reducedMotion]);
 
   return (
-    <div id="services" ref={sectionRef}>
+    <section
+      id="services"
+      ref={sectionRef}
+      aria-labelledby="services-heading"
+    >
       <div className="services-hero">
         <div className="title reveal">
-          <h2>
-            Switch Case is a creative development and marketing studio that
-            helps businesses stand out and{' '}
-            <span className="shine-text">SHINE</span>. Whether you're building
-            something new or refreshing what you have, we give your brand the
-            tools it needs to stand out and grow.
+          <h2 id="services-heading">
+            Code, design, and marketing &mdash; under{' '}
+            <span className="shine-text">one roof</span>, in one conversation.
+            We build the websites your competitors wish they had.
           </h2>
         </div>
       </div>
@@ -102,17 +115,20 @@ const Services = () => {
             key={service.slug}
             to={`/pricing/${service.slug}`}
             className="services-card reveal cursor-black"
-            aria-label={`${service.title} pricing`}
+            aria-label={`${service.title} — see pricing`}
           >
             <div className="card-icon">
               <FontAwesomeIcon icon={iconMap[service.icon]} />
             </div>
             <h3>{service.title}</h3>
             <p>{service.subTitle}</p>
+            <span className="card-cta" aria-hidden="true">
+              {service.cta}
+            </span>
           </Link>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

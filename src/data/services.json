@@ -4,6 +4,7 @@
     "title": "Web Development",
     "slug": "web-development",
     "subTitle": "Custom websites that convert visitors into customers.",
+    "cta": "See pricing →",
     "description": "Custom websites and web applications built with modern technologies. From simple landing pages to complex e-commerce platforms.",
     "items": [
       "React & Next.js",
@@ -18,6 +19,7 @@
     "title": "Marketing & Advertisement",
     "slug": "marketing-ads",
     "subTitle": "Marketing strategies and campaigns that generate real ROI.",
+    "cta": "See pricing →",
     "description": "Maximize your online visibility. Data-driven marketing strategies that grow your business. From SEO to social media, we cover all digital channels.",
     "items": [
       "SEO Optimization",
@@ -33,6 +35,7 @@
     "title": "Web Hosting & Maintenance",
     "slug": "hosting-maintenance",
     "subTitle": "Lightning-fast, secure hosting infrastructure.",
+    "cta": "See pricing →",
     "description": "Secure, high-performance hosting with optional care plans to keep your site running smoothly.",
     "items": [
       "Managed hosting setup",
@@ -47,6 +50,7 @@
     "title": "Design & Branding",
     "slug": "design-branding",
     "subTitle": "Visual identity that cuts through the noise.",
+    "cta": "See pricing →",
     "description": "Complete brand development from logo design to brand guidelines. We create identities that stand out in the market.",
     "items": [
       "Logo Design",
@@ -61,6 +65,7 @@
     "title": "Automation & Integrations",
     "slug": "automation-integrations",
     "subTitle": "Seamless workflows cross platforms, less manual work.",
+    "cta": "See pricing →",
     "description": "Automate repetitive tasks and connect your tools for smoother operations. I use tools like Zapier and Go High Level to streamline your business.",
     "items": [
       "Custom Zapier workflows",
@@ -74,6 +79,7 @@
     "title": "Email Marketing",
     "slug": "email-marketing",
     "subTitle": "Automated sequences that nurture and convert.",
+    "cta": "See pricing →",
     "description": "Build relationships and increase conversions with targeted, automated email sequences.",
     "items": [
       "Welcome flows",

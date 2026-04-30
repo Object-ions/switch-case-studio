@@ -9,15 +9,13 @@
   justify-content: center;
   position: relative;
   font-family: $font-text;
-  line-height: 1.25;
+  line-height: 1.6;
   padding: 6rem 0;
   margin: auto;
   overflow: hidden;
 
-  .reveal {
-    opacity: 0;
-    transform: translateY(50px);
-  }
+  // NOTE: .reveal initial state is owned by GSAP (see Services.js).
+  // No CSS opacity/transform here — single source of truth.
 
   /* --- HERO SECTION --- */
   .services-hero {
@@ -33,7 +31,7 @@
       text-align: center;
       padding: 3rem;
 
-      // White Sphere with blend
+      // White Sphere with blend — pointer-capable devices only
       &::before {
         content: '';
         position: absolute;
@@ -41,19 +39,13 @@
         left: var(--x, 50%);
         width: 120px;
         height: 120px;
-
         background: #fff;
-
         border-radius: 50%;
         transform: translate(-50%, -50%) scale(0);
         transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
         pointer-events: none;
         z-index: 10;
         mix-blend-mode: difference;
-      }
-
-      &:hover::before {
-        transform: translate(-50%, -50%) scale(4);
       }
 
       h2 {
@@ -69,17 +61,31 @@
         .shine-text {
           font-weight: 800;
           text-decoration: underline;
-          text-decoration-color: $orange-color;
+          text-decoration-color: $g1;
           text-underline-offset: 6px;
         }
       }
 
-      &:hover h2 {
-        color: #fff;
-
-        .shine-text {
-          text-decoration-color: #fff;
+      // Hover effects scoped to pointer-capable devices to avoid
+      // sticky-tap behavior on touch screens.
+      @media (hover: hover) and (pointer: fine) {
+        &:hover::before {
+          transform: translate(-50%, -50%) scale(4);
         }
+
+        &:hover h2 {
+          color: #fff;
+
+          .shine-text {
+            text-decoration-color: #fff;
+          }
+        }
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .title h2 {
+        font-size: clamp(1.4rem, 4vw, 1.8rem);
       }
     }
   }
@@ -116,7 +122,6 @@
       transition:
         border-color 0.4s ease,
         transform 0.4s ease;
-      cursor: none;
 
       .card-icon {
         font-size: 2.5rem;
@@ -132,7 +137,8 @@
         text-transform: uppercase;
         font-size: clamp(1.5rem, 2vw, 2rem);
         line-height: 1.1;
-        margin-bottom: 1rem;
+        margin-top: 1rem;
+        margin-bottom: 0.75rem;
         position: relative;
         z-index: 1;
       }
@@ -141,14 +147,33 @@
         font-family: $font-text;
         font-size: 1rem;
         font-weight: 300;
-        line-height: 1.5;
+        line-height: 1.6;
         opacity: 0.8;
+        margin-bottom: 1.5rem;
         position: relative;
         z-index: 1;
         transition: opacity 0.3s ease;
       }
 
-      // White Sphere with blend (Cards)
+      .card-cta {
+        display: inline-block;
+        font-family: $font-text;
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: $g6;
+        padding: 0.5rem 0;
+        position: relative;
+        z-index: 1;
+        opacity: 0.85;
+        transition:
+          opacity 0.3s ease,
+          transform 0.3s ease,
+          color 0.3s ease;
+      }
+
+      // White Sphere with blend (Cards) — pointer-capable devices only
       &::before {
         content: '';
         position: absolute;
@@ -156,9 +181,7 @@
         left: var(--x, 50%);
         width: 100px;
         height: 100px;
-
         background: #fff;
-
         border-radius: 50%;
         transform: translate(-50%, -50%) scale(0);
         transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
@@ -167,33 +190,48 @@
         mix-blend-mode: difference;
       }
 
-      // HOVER STATE
-      &:hover {
+      // Keyboard focus state — works on all devices.
+      &:focus-visible {
+        outline: 2px solid $g6;
+        outline-offset: 4px;
         border-color: rgba(255, 255, 255, 0.4);
-        transform: translateY(-4px);
 
-        &::before {
-          transform: translate(-50%, -50%) scale(4);
-        }
-
-        .card-icon,
-        h3,
-        p {
+        .card-cta {
           opacity: 1;
+          transform: translateX(4px);
+        }
+      }
+
+      // Hover effects scoped to pointer-capable devices.
+      // Custom cursor only renders there; cursor: none would otherwise
+      // leave touch users with no cursor at all.
+      @media (hover: hover) and (pointer: fine) {
+        cursor: none;
+
+        &:hover {
+          border-color: rgba(255, 255, 255, 0.4);
+          transform: translateY(-4px);
+
+          &::before {
+            transform: translate(-50%, -50%) scale(4);
+          }
+
+          .card-icon,
+          h3,
+          p {
+            opacity: 1;
+          }
+
+          .card-cta {
+            opacity: 1;
+            transform: translateX(4px);
+            color: #fff;
+          }
         }
       }
     }
-  }
 
-  /* --- RESPONSIVE --- */
-  @media (max-width: 1024px) {
-    padding: 4rem 1.5rem;
-
-    .services-hero .title h2 {
-      font-size: 1.5rem;
-    }
-
-    .services-content {
+    @media (max-width: 1024px) {
       gap: 1rem;
       grid-template-columns: repeat(2, 1fr);
 
@@ -205,10 +243,8 @@
         }
       }
     }
-  }
 
-  @media (max-width: 768px) {
-    .services-content {
+    @media (max-width: 768px) {
       grid-template-columns: 1fr;
 
       a.services-card {
@@ -216,5 +252,9 @@
         min-height: 280px;
       }
     }
+  }
+
+  @media (max-width: 1024px) {
+    padding: 4rem 1.5rem;
   }
 }
