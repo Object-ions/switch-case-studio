@@ -1,0 +1,537 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+// ============================================================================
+// PostcardFrame — orange envelope/postcard aesthetic that holds testimonials.
+// Designed to sit on a dark section background; the orange pops like real mail.
+// CSS owns: colors, sizes, decorative positions, accordion-style transitions.
+// GSAP owns: entrance transform/opacity (in Testimonials.js). NEVER both.
+// ============================================================================
+
+// Local tokens — keep postcard self-contained
+$postcard-orange: $g1; // #ff834a brand orange
+$postcard-orange-deep: darken($g1, 8%);
+$postcard-paper: #f4f1ec; // off-white tape / address strip
+$postcard-ink: #111; // near-black for printed elements
+$postcard-tape: rgba(244, 241, 236, 0.94);
+
+.postcard {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  // Drop shadow on the wrapper instead of __body, so __body's filter context
+  // stays clean for the grain layer's mix-blend-mode to work correctly.
+  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+
+  // Hidden defs container — SVG itself takes no layout space
+  &__defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  // The actual postcard "paper". GSAP entrance animates transform+opacity here.
+  // Layered: ::before = torn orange paper, ::after = paper grain overlay.
+  // Real content sits at z-index 1+, above both.
+  &__body {
+    position: relative;
+    isolation: isolate; // create a stacking context so layers stay contained
+    padding: 3rem 3rem 2.5rem;
+    background: transparent;
+    will-change: transform, opacity;
+
+    // Layer 1: torn-edge orange paper background.
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        // Subtle vignette to break flat color
+        radial-gradient(
+        ellipse at 30% 40%,
+        lighten($postcard-orange, 4%) 0%,
+        $postcard-orange 50%,
+        darken($postcard-orange, 6%) 100%
+      );
+      filter: url(#postcard-tear);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    // Layer 2: paper grain overlay — fine noise giving fibrous texture.
+    // mix-blend-mode multiply darkens the orange where noise is present.
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      filter: url(#postcard-grain);
+      mix-blend-mode: multiply;
+      opacity: 0.5;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @media (max-width: 900px) {
+      padding: 2rem 1.75rem 1.75rem;
+    }
+
+    @media (max-width: 600px) {
+      padding: 1.5rem 1.25rem 1.5rem;
+    }
+  }
+
+  // ----- TOP ROW: address + postal strip -----
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 3;
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+
+  &__address {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15em;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 8%,
+      $postcard-paper 8%,
+      $postcard-paper 92%,
+      transparent 92%
+    );
+    padding: 0.4rem 0.6rem;
+    align-self: flex-start;
+    transform: rotate(-1.2deg);
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+  }
+
+  &__address-line {
+    font-family: $font-text;
+    font-weight: 700;
+    font-size: clamp(0.95rem, 1.4vw, 1.2rem);
+    color: $postcard-ink;
+    letter-spacing: 0.01em;
+    line-height: 1.25;
+  }
+
+  &__postal-strip {
+    position: relative;
+    background: #fff;
+    padding: 0.75rem 1rem;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transform: rotate(0.8deg);
+    box-shadow:
+      0 2px 6px rgba(0, 0, 0, 0.18),
+      0 1px 2px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 600px) {
+      min-width: 0;
+      width: 100%;
+    }
+  }
+
+  &__stamp-box {
+    align-self: flex-end;
+    border: 1.5px solid $postcard-ink;
+    padding: 0.4rem 0.55rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.2;
+    font-family: $font-text;
+    color: $postcard-ink;
+    font-size: 0.72rem;
+    min-width: 90px;
+    transform: rotate(-2deg);
+  }
+
+  &__stamp-label {
+    font-weight: 500;
+  }
+
+  &__stamp-redacted {
+    display: block;
+    background: $postcard-paper;
+    height: 0.7em;
+    width: 70%;
+    margin: 0.15rem 0;
+  }
+
+  &__stamp-domain {
+    font-weight: 700;
+  }
+
+  // ----- BARCODES (CSS-generated stripes, no images) -----
+  &__barcode {
+    background-image: repeating-linear-gradient(
+      to right,
+      $postcard-ink 0,
+      $postcard-ink 1px,
+      transparent 1px,
+      transparent 3px,
+      $postcard-ink 3px,
+      $postcard-ink 5px,
+      transparent 5px,
+      transparent 6px,
+      $postcard-ink 6px,
+      $postcard-ink 8px,
+      transparent 8px,
+      transparent 11px
+    );
+
+    &--top {
+      width: 60%;
+      height: 18px;
+      align-self: flex-start;
+    }
+  }
+
+  // ----- MASKING TAPE STRIPS (decorative) -----
+  &__tape {
+    position: absolute;
+    background:
+      // Adhesive sheen — subtle highlight running across the tape
+
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0) 40%,
+        rgba(0, 0, 0, 0.05) 100%
+      ),
+      $postcard-tape;
+    box-shadow:
+      0 3px 6px rgba(0, 0, 0, 0.18),
+      0 1px 2px rgba(0, 0, 0, 0.12);
+    pointer-events: none;
+    z-index: 2;
+    filter: url(#postcard-frayed);
+
+    &--tl {
+      top: 22px;
+      left: -14px;
+      width: 180px;
+      height: 24px;
+      transform: rotate(-3deg);
+    }
+
+    // Torn-square pieces: clip-path provides base outline, frayed filter roughs it up
+    &--br {
+      bottom: 90px;
+      right: 60px;
+      width: 90px;
+      height: 100px;
+      transform: rotate(8deg);
+      clip-path: polygon(
+        4% 6%,
+        94% 2%,
+        98% 18%,
+        96% 50%,
+        100% 88%,
+        88% 96%,
+        50% 94%,
+        12% 100%,
+        2% 80%,
+        6% 40%
+      );
+    }
+
+    &--br-small {
+      bottom: 105px;
+      right: 18px;
+      width: 50px;
+      height: 70px;
+      transform: rotate(-6deg);
+      clip-path: polygon(
+        8% 4%,
+        92% 8%,
+        96% 50%,
+        100% 92%,
+        60% 96%,
+        14% 100%,
+        2% 60%,
+        6% 24%
+      );
+    }
+
+    @media (max-width: 600px) {
+      &--br {
+        right: 14px;
+        bottom: 130px;
+        width: 70px;
+        height: 80px;
+      }
+      &--br-small {
+        right: 4px;
+        bottom: 145px;
+        width: 38px;
+        height: 54px;
+      }
+    }
+  }
+
+  // ----- CENTER PATCH: testimonial content container.
+  // Treated as fabric/canvas glued onto the postcard.
+  // Layered: base fabric color, fabric-weave texture overlay (::before),
+  // soft inset shadow + drop shadow for physical depth.
+  &__patch {
+    position: relative;
+    isolation: isolate;
+    background:
+      // Subtle two-tone variation for fabric color depth
+      radial-gradient(
+      ellipse at 35% 30%,
+      lighten($postcard-orange-deep, 3%) 0%,
+      $postcard-orange-deep 60%,
+      darken($postcard-orange-deep, 4%) 100%
+    );
+    padding: 2.25rem 2rem;
+    min-height: 240px;
+    margin: 1rem 0 2rem;
+    z-index: 1;
+    box-shadow:
+      // Drop shadow under the fabric patch
+      0 4px 10px rgba(0, 0, 0, 0.25),
+      0 2px 4px rgba(0, 0, 0, 0.15),
+      // Inset shadows simulating slight depression where fabric meets paper
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+
+    // Fabric weave layer — sits over the base color, blended for authenticity
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      filter: url(#postcard-fabric);
+      mix-blend-mode: multiply;
+      opacity: 0.4;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    // Cross-weave: very faint diagonal lines to suggest woven threads
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.06) 0,
+          rgba(0, 0, 0, 0.06) 1px,
+          transparent 1px,
+          transparent 2px
+        ),
+        repeating-linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.04) 0,
+          rgba(255, 255, 255, 0.04) 1px,
+          transparent 1px,
+          transparent 2px
+        );
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    // Lift content above texture layers
+    > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 600px) {
+      padding: 1.5rem 1.25rem;
+      min-height: 280px;
+    }
+  }
+
+  // ----- BOTTOM ROW: ticket counter + dots + arrows -----
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 3;
+
+    @media (max-width: 700px) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1.25rem;
+    }
+  }
+
+  &__ticket {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  &__ticket-label {
+    font-family: $font-text;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: $postcard-ink;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  &__ticket-sublabel {
+    font-family: $font-text;
+    font-size: 0.7rem;
+    color: $postcard-ink;
+    opacity: 0.65;
+    font-style: italic;
+  }
+
+  &__ticket-boxes {
+    display: flex;
+    gap: 4px;
+    margin-top: 0.5rem;
+  }
+
+  &__ticket-box {
+    width: 28px;
+    height: 32px;
+    background: #fff;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    transition:
+      background-color 0.25s ease,
+      transform 0.2s ease;
+
+    &:hover {
+      background: $postcard-paper;
+      transform: translateY(-2px);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $postcard-ink;
+      outline-offset: 2px;
+    }
+
+    &.is-active {
+      background: $postcard-ink;
+    }
+
+    @media (max-width: 600px) {
+      width: 22px;
+      height: 26px;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    gap: 0.6rem;
+
+    @media (max-width: 700px) {
+      align-self: flex-end;
+    }
+  }
+
+  &__ctrl {
+    appearance: none;
+    background: rgba(17, 17, 17, 0.08);
+    border: 1.5px solid $postcard-ink;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    color: $postcard-ink;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.1s ease;
+
+    &:hover {
+      background: $postcard-ink;
+      color: $postcard-orange;
+    }
+
+    &:active {
+      transform: scale(0.92);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $postcard-ink;
+      outline-offset: 3px;
+    }
+  }
+}
+
+// ============================================================================
+// TESTIMONIAL SLIDE STYLES INSIDE THE PATCH
+// These OVERRIDE the slide styling inherited from testimonials.scss because
+// the postcard interior needs dark text on orange (not white text on dark).
+// ============================================================================
+.postcard__patch {
+  // Slide reset — slides keep their existing layout, just recolor for orange bg
+  .slide {
+    .slide-header .avatar {
+      border: 4px solid $postcard-paper;
+      background: rgba(0, 0, 0, 0.1);
+      // Stamp-like tilt and physical shadow
+      transform: rotate(-3deg);
+      box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.25),
+        0 2px 3px rgba(0, 0, 0, 0.15);
+    }
+
+    .slide-header .slide-name {
+      color: $postcard-ink;
+    }
+
+    .slide-header .slide-company {
+      // Already white via testimonials.scss base; nudge slightly for orange bg legibility
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .slide-quote {
+      color: $postcard-ink;
+      border-left-color: $postcard-ink;
+    }
+
+    .slide-highlight {
+      color: $postcard-ink;
+      font-weight: 400; // bump weight slightly for legibility on orange
+    }
+
+    .slide-full-text {
+      color: rgba(17, 17, 17, 0.78);
+      font-weight: 400;
+    }
+  }
+
+  .read-more {
+    color: $postcard-ink;
+    font-weight: 600;
+
+    &:hover,
+    &:focus-visible {
+      color: $postcard-orange-deep;
+    }
+
+    &:focus-visible {
+      outline-color: $postcard-ink;
+    }
+  }
+}

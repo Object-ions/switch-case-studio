@@ -1,14 +1,17 @@
-import { useState, useEffect, useRef, useLayoutEffect, useCallback } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faArrowLeft,
-  faArrowRight,
-  faChevronDown,
-} from '@fortawesome/free-solid-svg-icons';
+  useState,
+  useEffect,
+  useRef,
+  useLayoutEffect,
+  useCallback,
+} from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import TestimonialHeading from '../TestimonialHeading';
+import PostcardFrame from '../PostcardFrame';
 import useReducedMotion from '../../hooks/useReducedMotion';
 import testimonialsData from '../../data/testimonials.json';
 import '../../styles/components/testimonials.scss';
@@ -33,6 +36,7 @@ const Testimonials = () => {
 
   const root = useRef(null);
   const slidesWrap = useRef(null);
+  const postcardBodyRef = useRef(null);
   const prevIndexRef = useRef(0);
 
   /* ── Manual navigation. Stops auto-advance permanently. ── */
@@ -48,9 +52,8 @@ const Testimonials = () => {
   const next = useCallback(() => goTo(current + 1), [current, goTo]);
   const prev = useCallback(() => goTo(current - 1), [current, goTo]);
 
-  /* ── Auto-advance.
-       Stops permanently after manual nav (autoAdvance=false).
-       Pauses temporarily on hover/focus/expand (paused=true). ── */
+  /* ── Auto-advance. Stops permanently after manual nav.
+       Pauses temporarily on hover/focus/expand. ── */
   useEffect(() => {
     if (!autoAdvance || paused || expanded) return;
 
@@ -74,7 +77,8 @@ const Testimonials = () => {
     startX.current = null;
   };
 
-  /* ── Intro reveal (run once on mount) ── */
+  /* ── Intro reveal: heading fades in, then postcard "arrives" ──
+       GSAP owns transform + opacity. CSS does not animate these on .postcard__body. */
   useLayoutEffect(() => {
     if (reducedMotion) return;
 
@@ -87,27 +91,34 @@ const Testimonials = () => {
         },
       });
 
-      tl.from(root.current.querySelector('.panel-left'), {
+      tl.from(root.current.querySelector('.testimonial-head'), {
         autoAlpha: 0,
         y: 24,
         duration: 0.6,
         ease: 'power2.out',
-      }).from(
-        root.current.querySelector('.panel-stage'),
-        {
-          autoAlpha: 0,
-          y: 24,
-          duration: 0.6,
-          ease: 'power2.out',
-        },
-        '-=0.3',
-      );
+      });
+
+      // Postcard "arrives" — placed-mail motion with slight overshoot
+      if (postcardBodyRef.current) {
+        tl.fromTo(
+          postcardBodyRef.current,
+          { autoAlpha: 0, y: -40, rotate: -6 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            rotate: -1.5, // final resting tilt — feels like real placed mail
+            duration: 0.9,
+            ease: 'back.out(1.4)',
+          },
+          '-=0.3',
+        );
+      }
     }, root);
 
     return () => ctx.revert();
   }, [reducedMotion]);
 
-  /* ── Slide cross-fade transition ── */
+  /* ── Slide cross-fade transition (unchanged from original) ── */
   useLayoutEffect(() => {
     const slides = gsap.utils.toArray(
       slidesWrap.current?.querySelectorAll('.slide') || [],
@@ -122,14 +133,12 @@ const Testimonials = () => {
     const nextEl = slides[nextIdx];
 
     if (reducedMotion) {
-      // Snap immediately, no animation.
       gsap.set(prevEl, { autoAlpha: 0, display: 'none' });
       gsap.set(nextEl, { autoAlpha: 1, display: 'flex', xPercent: 0 });
       prevIndexRef.current = nextIdx;
       return;
     }
 
-    // Direction: forward unless wrap-around.
     const dir =
       (nextIdx > prevIdx && !(prevIdx === 0 && nextIdx === total - 1)) ||
       (prevIdx === total - 1 && nextIdx === 0)
@@ -146,8 +155,11 @@ const Testimonials = () => {
       },
     });
 
-    tl.to(prevEl, { xPercent: -12 * dir, autoAlpha: 0, duration: 0.45 }, 0)
-      .to(nextEl, { xPercent: 0, autoAlpha: 1 }, 0.05);
+    tl.to(prevEl, { xPercent: -12 * dir, autoAlpha: 0, duration: 0.45 }, 0).to(
+      nextEl,
+      { xPercent: 0, autoAlpha: 1 },
+      0.05,
+    );
 
     prevIndexRef.current = nextIdx;
   }, [current, total, reducedMotion]);
@@ -165,127 +177,103 @@ const Testimonials = () => {
         onFocus={() => setPaused(true)}
         onBlur={() => setPaused(false)}
       >
-        <aside className="panel-left">
+        {/* Heading sits above the postcard now (was side-by-side) */}
+        <div className="panel-heading">
           <TestimonialHeading id="testimonials-heading" />
-        </aside>
+        </div>
 
-        <section className="panel-stage" aria-roledescription="carousel">
-          <div
-            className="slides"
-            ref={slidesWrap}
-            onTouchStart={onTouchStart}
-            onTouchEnd={onTouchEnd}
-            aria-live="polite"
-            aria-atomic="true"
+        {/* Postcard replaces the old .panel-stage card */}
+        <div className="panel-stage" aria-roledescription="carousel">
+          <PostcardFrame
+            currentIndex={current}
+            total={total}
+            onSelect={goTo}
+            onPrev={prev}
+            onNext={next}
+            bodyRef={postcardBodyRef}
           >
-            {testimonialsData.map((item, i) => {
-              const isActive = i === current;
-              const showFull = isActive && expanded;
-              return (
-                <article
-                  key={item.id ?? i}
-                  className={`slide ${isActive ? 'is-active' : ''}`}
-                  aria-hidden={!isActive}
-                >
-                  <header className="slide-header">
-                    <img
-                      src={item.image}
-                      alt=""
-                      className="avatar"
-                      loading="lazy"
-                    />
-                    <div className="slide-id">
-                      <h3 className="slide-name">{item.name}</h3>
-                      <p className="slide-company">{item.title}</p>
-                    </div>
-                  </header>
-
-                  <blockquote className="slide-quote">
-                    {item.highlight && (
-                      <p className="slide-highlight">
-                        &ldquo;{item.highlight}&rdquo;
-                      </p>
-                    )}
-
-                    {item.testimonial && item.testimonial !== item.highlight && (
-                      <div
-                        className={`slide-full ${showFull ? 'is-open' : ''}`}
-                        id={`testimonial-full-${item.id}`}
-                        aria-hidden={!showFull}
-                      >
-                        <p className="slide-full-text">{item.testimonial}</p>
-                      </div>
-                    )}
-                  </blockquote>
-
-                  {item.testimonial &&
-                    item.testimonial !== item.highlight &&
-                    isActive && (
-                      <button
-                        type="button"
-                        className={`read-more ${expanded ? 'is-open' : ''}`}
-                        onClick={() => setExpanded((v) => !v)}
-                        aria-expanded={expanded}
-                        aria-controls={`testimonial-full-${item.id}`}
-                      >
-                        <span>{expanded ? 'Show less' : 'Read full review'}</span>
-                        <FontAwesomeIcon
-                          icon={faChevronDown}
-                          className="read-more-icon"
-                          aria-hidden="true"
-                        />
-                      </button>
-                    )}
-                </article>
-              );
-            })}
-          </div>
-
-          <div className="stage-footer">
             <div
-              className="dots"
-              role="tablist"
-              aria-label="Select testimonial"
+              className="slides"
+              ref={slidesWrap}
+              onTouchStart={onTouchStart}
+              onTouchEnd={onTouchEnd}
+              aria-live="polite"
+              aria-atomic="true"
             >
-              {testimonialsData.map((item, i) => (
-                <button
-                  key={item.id ?? i}
-                  type="button"
-                  className={`dot ${i === current ? 'is-active' : ''}`}
-                  onClick={() => goTo(i)}
-                  role="tab"
-                  aria-selected={i === current}
-                  aria-label={`Show testimonial ${i + 1} of ${total}: ${item.name}`}
-                />
-              ))}
-            </div>
+              {testimonialsData.map((item, i) => {
+                const isActive = i === current;
+                const showFull = isActive && expanded;
+                return (
+                  <article
+                    key={item.id ?? i}
+                    className={`slide ${isActive ? 'is-active' : ''}`}
+                    aria-hidden={!isActive}
+                  >
+                    <header className="slide-header">
+                      <img
+                        src={item.image}
+                        alt=""
+                        className="avatar"
+                        loading="lazy"
+                      />
+                      <div className="slide-id">
+                        <h3 className="slide-name">{item.name}</h3>
+                        <p className="slide-company">{item.title}</p>
+                      </div>
+                    </header>
 
-            <div className="controls">
-              <button
-                type="button"
-                className="ctrl"
-                onClick={prev}
-                aria-label="Previous testimonial"
-              >
-                <FontAwesomeIcon icon={faArrowLeft} />
-              </button>
-              <button
-                type="button"
-                className="ctrl"
-                onClick={next}
-                aria-label="Next testimonial"
-              >
-                <FontAwesomeIcon icon={faArrowRight} />
-              </button>
+                    <blockquote className="slide-quote">
+                      {item.highlight && (
+                        <p className="slide-highlight">
+                          &ldquo;{item.highlight}&rdquo;
+                        </p>
+                      )}
+
+                      {item.testimonial &&
+                        item.testimonial !== item.highlight && (
+                          <div
+                            className={`slide-full ${showFull ? 'is-open' : ''}`}
+                            id={`testimonial-full-${item.id}`}
+                            aria-hidden={!showFull}
+                          >
+                            <p className="slide-full-text">
+                              {item.testimonial}
+                            </p>
+                          </div>
+                        )}
+                    </blockquote>
+
+                    {item.testimonial &&
+                      item.testimonial !== item.highlight &&
+                      isActive && (
+                        <button
+                          type="button"
+                          className={`read-more ${expanded ? 'is-open' : ''}`}
+                          onClick={() => setExpanded((v) => !v)}
+                          aria-expanded={expanded}
+                          aria-controls={`testimonial-full-${item.id}`}
+                        >
+                          <span>
+                            {expanded ? 'Show less' : 'Read full review'}
+                          </span>
+                          <FontAwesomeIcon
+                            icon={faChevronDown}
+                            className="read-more-icon"
+                            aria-hidden="true"
+                          />
+                        </button>
+                      )}
+                  </article>
+                );
+              })}
             </div>
-          </div>
-        </section>
+          </PostcardFrame>
+        </div>
       </div>
 
+      {/* Section CTA — unchanged */}
       <div className="testimonials-cta">
-        <p className="testimonials-cta-text">
-          Ready to be next?
-        </p>
+        <p className="testimonials-cta-text">Ready to be next?</p>
         <a
           href="https://calendar.app.google/83UCJjis2FHUrr1s6"
           target="_blank"

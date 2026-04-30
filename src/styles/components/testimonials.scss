@@ -1,5 +1,6 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
+@import './postcardFrame';
 
 #testimonials {
   position: relative;
@@ -11,297 +12,186 @@
   padding: 6rem 1.5rem;
   overflow: hidden;
 
+  // ----------------------------------------------------------------------
+  // LAYOUT: stacked. Heading on top (full-width), postcard below it.
+  // The old 2-column grid is gone — postcard needs horizontal breathing room
+  // for the masking tape, torn edges, and ticket-number boxes to read right.
+  // ----------------------------------------------------------------------
   .testimonial-meta {
-    display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
     max-width: $max-width;
     margin: 0 auto;
-    align-items: center;
+  }
 
-    /* LEFT PANEL */
-    .panel-left {
-      text-align: left;
-      position: relative;
-      z-index: 2;
-    }
+  .panel-heading {
+    text-align: center;
+    position: relative;
+    z-index: 2;
 
-    /* RIGHT PANEL: The Card */
-    .panel-stage {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-
-      // Auto-grows with content (read-more expansion).
-      // No fixed height — variable-height with a min for short reviews.
-      min-height: 480px;
-
-      background: #0a0a0a;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 32px;
-      padding: 3rem;
-      transition: border-color 0.3s ease;
-
-      &:hover,
-      &:focus-within {
-        border-color: rgba(255, 255, 255, 0.25);
-      }
-
-      /* SLIDE LAYOUT */
-      .slides {
-        position: relative;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-      }
-
-      /* GSAP owns slide transition (xPercent + autoAlpha).
-         CSS only owns display via .is-active. No CSS @keyframes here. */
-      .slide {
-        display: none;
-        flex-direction: column;
-        gap: 1.5rem;
-
-        &.is-active {
-          display: flex;
-        }
-
-        // Header row: avatar + name/role
-        .slide-header {
-          display: flex;
-          align-items: center;
-          gap: 1.25rem;
-          flex-shrink: 0;
-
-          .avatar {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            background: #1a1a1a;
-            flex-shrink: 0;
-          }
-
-          .slide-id {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-            min-width: 0;
-          }
-
-          .slide-name {
-            font-size: clamp(1.25rem, 1.5vw, 1.5rem);
-            line-height: 1.2;
-          }
-
-          .slide-company {
-            font-size: 0.75rem;
-            letter-spacing: 0.12em;
-            font-weight: 700;
-            margin: 0;
-
-            background: $gradient;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: transparent;
-          }
-        }
-
-        // Quote container holds highlight + collapsible full text
-        .slide-quote {
-          margin: 0;
-          padding: 0;
-          color: rgba(255, 255, 255, 0.92);
-          border-left: 3px solid $g6;
-          padding-left: 1.5rem;
-        }
-
-        .slide-highlight {
-          font-size: clamp(1.125rem, 1.5vw, 1.5rem);
-          font-weight: 300;
-          line-height: 1.4;
-          margin: 0;
-        }
-
-        // CSS-only max-height accordion (matches Header submenu pattern).
-        // 1500px ceiling is a safe upper bound for any plausible testimonial.
-        .slide-full {
-          overflow: hidden;
-          max-height: 0;
-          opacity: 0;
-          transition:
-            max-height 0.5s ease,
-            opacity 0.3s ease 0.05s,
-            margin-top 0.4s ease;
-          margin-top: 0;
-
-          &.is-open {
-            max-height: 1500px;
-            opacity: 1;
-            margin-top: 1.25rem;
-          }
-        }
-
-        .slide-full-text {
-          font-size: 0.9375rem;
-          line-height: 1.7;
-          color: rgba(255, 255, 255, 0.82);
-          font-weight: 300;
-          margin: 0;
-        }
-      }
-
-      // Read-more toggle
-      .read-more {
-        appearance: none;
-        align-self: flex-start;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        min-height: 44px;
-        padding: 0.5rem 0;
-        background: none;
-        border: none;
-        color: $g1;
-        font-family: $font-text;
-        font-size: 0.8125rem;
-        font-weight: 300;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        cursor: pointer;
-        transition: color 0.2s ease;
-
-        .read-more-icon {
-          font-size: 0.75rem;
-          transition: transform 0.3s ease;
-        }
-
-        &.is-open .read-more-icon {
-          transform: rotate(180deg);
-        }
-
-        &:hover,
-        &:focus-visible {
-          color: $g7;
-        }
-
-        &:focus-visible {
-          outline: 2px solid $g6;
-          outline-offset: 4px;
-          border-radius: 2px;
-        }
-      }
-
-      // Footer: dots (left) + prev/next (right)
-      .stage-footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
-        flex-shrink: 0;
-        padding-top: 1rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-
-        @media (max-width: 480px) {
-          flex-direction: column;
-          gap: 1.25rem;
-        }
-      }
-
-      .dots {
-        display: flex;
-        gap: 0.5rem;
-      }
-
-      .dot {
-        appearance: none;
-        background: none;
-        border: none;
-        // 44px hit area with smaller visual dot inside
-        width: 44px;
-        height: 44px;
-        padding: 0;
-        display: grid;
-        place-items: center;
-        cursor: pointer;
-        position: relative;
-
-        &::before {
-          content: '';
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.25);
-          transition:
-            background-color 0.2s ease,
-            width 0.3s ease;
-        }
-
-        &.is-active::before {
-          width: 24px;
-          border-radius: 4px;
-          background: $g6;
-        }
-
-        &:hover::before {
-          background: rgba(255, 255, 255, 0.5);
-        }
-
-        &.is-active:hover::before {
-          background: $g6;
-        }
-
-        &:focus-visible {
-          outline: 2px solid $g6;
-          outline-offset: 2px;
-          border-radius: 4px;
-        }
-      }
-
-      .controls {
-        display: flex;
-        gap: 0.75rem;
-
-        .ctrl {
-          appearance: none;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          border-radius: 50%;
-          // 44px touch target on all viewports (was 40 on mobile, audit fix)
-          width: 44px;
-          height: 44px;
-          display: grid;
-          place-items: center;
-          color: $white-color;
-          cursor: pointer;
-          transition:
-            background-color 0.2s ease,
-            color 0.2s ease,
-            transform 0.1s ease;
-
-          &:hover {
-            background: $white-color;
-            color: $black-color;
-          }
-
-          // Press effect via CSS (replaces JS mousedown listeners)
-          &:active {
-            transform: scale(0.92);
-          }
-
-          &:focus-visible {
-            outline: 2px solid $g6;
-            outline-offset: 2px;
-          }
-        }
-      }
+    // Center the heading content within itself
+    .testimonial-head {
+      align-items: center;
     }
   }
 
-  /* Section CTA */
+  // The postcard wrapper. NO background/border/padding/min-height here —
+  // the postcard provides its own visual container. Just used for layout.
+  .panel-stage {
+    position: relative;
+  }
+
+  // ----------------------------------------------------------------------
+  // SLIDE STYLES — these still apply, since slides are now nested inside
+  // .postcard__patch. Color overrides for orange-bg legibility live in
+  // postcardFrame.scss (.postcard__patch .slide { ... }).
+  // ----------------------------------------------------------------------
+  .slides {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* GSAP owns slide transition (xPercent + autoAlpha).
+     CSS only owns display via .is-active. No CSS @keyframes here. */
+  .slide {
+    display: none;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    &.is-active {
+      display: flex;
+    }
+
+    // Header row: avatar + name/role
+    .slide-header {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-shrink: 0;
+
+      .avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        background: #1a1a1a;
+        flex-shrink: 0;
+      }
+
+      .slide-id {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        min-width: 0;
+      }
+
+      .slide-name {
+        font-size: clamp(1.25rem, 1.5vw, 1.5rem);
+        line-height: 1.2;
+      }
+
+      .slide-company {
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+        font-weight: 700;
+        margin: 0;
+        color: $white-color;
+      }
+    }
+
+    // Quote container holds highlight + collapsible full text
+    .slide-quote {
+      margin: 0;
+      padding: 0;
+      color: rgba(255, 255, 255, 0.92);
+      border-left: 3px solid rgba(255, 255, 255, 0.5);
+      padding-left: 1.5rem;
+    }
+
+    .slide-highlight {
+      font-size: clamp(1.125rem, 1.5vw, 1.5rem);
+      font-weight: 300;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    // CSS-only max-height accordion (matches Header submenu pattern).
+    // 1500px ceiling is a safe upper bound for any plausible testimonial.
+    .slide-full {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition:
+        max-height 0.5s ease,
+        opacity 0.3s ease 0.05s,
+        margin-top 0.4s ease;
+      margin-top: 0;
+
+      &.is-open {
+        max-height: 1500px;
+        opacity: 1;
+        margin-top: 1.25rem;
+      }
+    }
+
+    .slide-full-text {
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.82);
+      font-weight: 300;
+      margin: 0;
+    }
+  }
+
+  // Read-more toggle (color overrides for orange bg live in postcardFrame.scss)
+  .read-more {
+    appearance: none;
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    padding: 0.5rem 0;
+    background: none;
+    border: none;
+    color: $white-color;
+    font-family: $font-text;
+    font-size: 0.8125rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    margin-top: 1rem;
+
+    .read-more-icon {
+      font-size: 0.75rem;
+      transition: transform 0.3s ease;
+    }
+
+    &.is-open .read-more-icon {
+      transform: rotate(180deg);
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $white-color;
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+  }
+
+  // ----------------------------------------------------------------------
+  // SECTION CTA (unchanged)
+  // ----------------------------------------------------------------------
   .testimonials-cta {
     max-width: $max-width;
     margin: 4rem auto 0;
@@ -335,9 +225,9 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     text-decoration: none;
-    background: $g6;
+    background: $white-color;
     color: $black-color;
-    border: 1px solid $g6;
+    border: 1px solid $white-color;
     border-radius: 999px;
     transition:
       background-color 0.2s ease,
@@ -349,8 +239,8 @@
     }
 
     &:hover {
-      background: $g7;
-      border-color: $g7;
+      background: rgba(255, 255, 255, 0.85);
+      border-color: rgba(255, 255, 255, 0.85);
 
       .cta-arrow {
         transform: translateX(4px);
@@ -358,37 +248,23 @@
     }
 
     &:focus-visible {
-      outline: 2px solid $g6;
+      outline: 2px solid $white-color;
       outline-offset: 4px;
     }
   }
 
-  /* Responsive */
-  @media (max-width: 1024px) {
-    .testimonial-meta {
-      grid-template-columns: 1fr;
-      gap: 3rem;
-
-      .panel-left {
-        text-align: center;
-      }
-
-      .panel-stage {
-        min-height: 480px;
-      }
-    }
-  }
-
+  // ----------------------------------------------------------------------
+  // RESPONSIVE
+  // ----------------------------------------------------------------------
   @media (max-width: 768px) {
     padding: 4rem 1rem;
 
-    .testimonial-meta .panel-stage {
-      padding: 2rem;
-      gap: 1.5rem;
+    .testimonial-meta {
+      gap: 2.5rem;
+    }
 
-      .slide .slide-quote {
-        padding-left: 1rem;
-      }
+    .slide .slide-quote {
+      padding-left: 1rem;
     }
 
     .testimonials-cta {
