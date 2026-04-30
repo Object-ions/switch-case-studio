@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import circleLogo from '../../assets/images/circle-logo.svg';
+import { ReactComponent as CircleSVG } from '../../assets/images/circle-logo.svg';
 import '../../styles/components/contact.scss';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -101,17 +101,10 @@ const Contact = () => {
         <div className="contact-grid">
           {/* ---------- Left Column ---------- */}
           <div className="contact-left">
-            <div className="contact-left__top">
-              <h2 className="contact-left__heading contact-animate">
-                Ready to create
-                <br />
-                something exceptional?
-              </h2>
-            </div>
-
             <div className="contact-left__bottom contact-animate">
-              <div className="contact-left__logo">
-                <img src={circleLogo} alt="Switch Case Studio" />
+              {/* Brand mark — local SVG with CSS-only rotation */}
+              <div className="contact-left__brand-mark" aria-hidden="true">
+                <CircleSVG className="contact-left__brand-mark-svg" />
               </div>
 
               <div className="contact-left__details">

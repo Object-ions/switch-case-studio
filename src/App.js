@@ -41,9 +41,9 @@ const HomeContent = () => (
       orbSrc={Orb}
     />
     <Work />
+    <Contact />
     <Projects />
     <Testimonials />
-    <Contact />
   </>
 );
 
