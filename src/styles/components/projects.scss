@@ -15,6 +15,25 @@
   width: 100%;
   max-width: 1200px;
   margin: 5rem auto 0;
+
+  &__word {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* On mobile, two words side-by-side at large font sizes wrap mid-word
+     ("CASE STUDIES" → "C A S ESTUDIES"). Stack vertically and tighten
+     the top margin. */
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 0.25rem;
+    margin: 3rem auto 0;
+    padding: 0 1rem;
+
+    &__word {
+      flex: none;
+    }
+  }
 }
 
 /* ── Visually-hidden heading for accessibility/SEO. ──
