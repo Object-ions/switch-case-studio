@@ -5,7 +5,7 @@ import HeaderCTA from './HeaderCTA';
 import StaggeredMenu from './StaggeredMenu';
 import { PRICING_LINKS, PROJECT_LINKS } from '../../data/navigation';
 import useReducedMotion from '../../hooks/useReducedMotion';
-import GradientText from '../GradientText';
+import logo from '../../assets/images/scs-logo.png';
 import '../../styles/components/header.scss';
 
 // Scroll distance after which the header gets a `is-scrolled` class.
@@ -256,14 +256,11 @@ const Header = () => {
               className="brand_link"
               aria-label="Switch Case Studio — Home"
             >
-              <GradientText
-                colors={['#ffb029', '#FF9FFC', '#B19EEF']}
-                animationSpeed={8}
-                showBorder={false}
-                className="custom-class"
-              >
-                switch <br /> case <br /> studio
-              </GradientText>
+              <img
+                src={logo}
+                alt="Switch Case Studio logo"
+                className="header_logo"
+              />
             </Link>
           </div>
 
