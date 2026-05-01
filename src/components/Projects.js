@@ -14,28 +14,32 @@ const Projects = () => {
       {/* Visually decorative wordmark; the real heading for a11y/SEO
           is the sr-only h2 below. */}
       <div className="projects-header" aria-hidden="true">
-        <TextPressure
-          text="Case"
-          alpha={false}
-          stroke={true}
-          width
-          weight
-          italic
-          textColor="#ffffff"
-          strokeColor="#f0d7ff"
-          minFontSize={100}
-        />
-        <TextPressure
-          text="Studies"
-          alpha={false}
-          stroke={true}
-          width
-          weight
-          italic
-          textColor="#ffffff"
-          strokeColor="#f0d7ff"
-          minFontSize={100}
-        />
+        <div className="projects-header__word">
+          <TextPressure
+            text="Case"
+            alpha={false}
+            stroke={true}
+            width
+            weight
+            italic
+            textColor="#ffffff"
+            strokeColor="#f0d7ff"
+            minFontSize={60}
+          />
+        </div>
+        <div className="projects-header__word">
+          <TextPressure
+            text="Studies"
+            alpha={false}
+            stroke={true}
+            width
+            weight
+            italic
+            textColor="#ffffff"
+            strokeColor="#f0d7ff"
+            minFontSize={60}
+          />
+        </div>
       </div>
 
       <h2 id="projects-heading" className="sr-only">

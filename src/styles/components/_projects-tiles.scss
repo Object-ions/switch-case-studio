@@ -7,7 +7,7 @@ $tile-radius: 24px;
 $tile-border-width: 2px;
 $tile-radius-inner: $tile-radius - $tile-border-width;
 
-$tile-radius-mobile: 16px;
+$tile-radius-mobile: 14px;
 $tile-radius-inner-mobile: $tile-radius-mobile - $tile-border-width;
 
 /* ── Grid ── */
@@ -98,6 +98,20 @@ $tile-radius-inner-mobile: $tile-radius-mobile - $tile-border-width;
     }
   }
 
+  /* ── Title — visually hidden on desktop (cover image is the title there); ──
+     ── shown on mobile inside the row layout. ── */
+  .tile-title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
   /* ── Hover: pseudo-elements + text only (GSAP handles transform) ── */
   &:hover {
     z-index: 10;
@@ -154,29 +168,137 @@ $tile-radius-inner-mobile: $tile-radius-mobile - $tile-border-width;
   }
 }
 
+/* ──────────────────────────────────────────
+   MOBILE: compact horizontal row layout
+   ──────────────────────────────────────────
+   Image thumbnail (96px) on the left, title + excerpt + CTA on the right.
+   Cover image stays present so the visual identity isn't lost, but copy
+   is always visible — no hover state to wait for on touch. */
 @media (max-width: 768px) {
   .row-tiles {
     grid-template-columns: 1fr;
+    gap: 0.875rem;
   }
 
   .tile {
-    aspect-ratio: 4 / 3;
+    // ── Reset desktop card geometry ──
+    aspect-ratio: auto;
     border-radius: $tile-radius-mobile;
 
+    // ── Switch from flex column to a 2-column grid: image | text ──
+    // Single source of truth — no leftover flex rules from desktop apply
+    // since they're column-direction-specific and grid takes precedence.
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    grid-template-rows: 1fr auto auto 1fr;
+    column-gap: 0.875rem;
+    row-gap: 0;
+    padding: 0.625rem;
+    align-items: center;
+
+    // ── Border ring: always visible on mobile (no hover to trigger it) ──
     &::before {
       border-radius: $tile-radius-mobile;
+      opacity: 0.4;
     }
 
+    // ── The black overlay is purely a desktop hover device — kill it
+    //    on mobile so the cover image stays visible. ──
     &::after {
-      border-radius: $tile-radius-inner-mobile;
+      display: none;
     }
 
-    .tile-media {
-      border-radius: $tile-radius-inner-mobile;
-    }
-
+    /* ── Bento glow spans the whole tile, not just one grid cell ── */
     .tile-bento-glow {
+      grid-column: 1 / -1;
+      grid-row: 1 / -1;
       border-radius: $tile-radius-mobile;
+      pointer-events: none;
+    }
+
+    /* ── Image: fixed 96px square thumbnail, spans both rows of column 1 ── */
+    .tile-media {
+      // Override the desktop absolute positioning
+      position: relative;
+      inset: auto;
+
+      grid-column: 1;
+      grid-row: 1 / -1;
+      align-self: center;
+
+      width: 96px;
+      height: 96px;
+      border-radius: $tile-radius-inner-mobile;
+
+      .tile-image {
+        // No hover scale on touch — image is static
+        transition: none;
+      }
+    }
+
+    /* ── Title (row 2 of column 2) ── */
+    .tile-title {
+      // Override the visually-hidden state from desktop
+      position: static;
+      width: auto;
+      height: auto;
+      padding: 0;
+      margin: 0 0 0.25rem 0;
+      overflow: visible;
+      clip: auto;
+      white-space: normal;
+      border: 0;
+
+      grid-column: 2;
+      grid-row: 2;
+      align-self: end;
+
+      font-family: $font-special;
+      font-size: 0.95rem;
+      line-height: 1.2;
+      color: $white-color;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── Excerpt (row 3 of column 2) — always visible on mobile ── */
+    .panel-excerpt {
+      // Reset the desktop hidden-until-hover state
+      opacity: 1;
+      transform: none;
+      transition: none;
+
+      grid-column: 2;
+      grid-row: 3;
+      align-self: start;
+
+      max-width: none;
+      margin: 0;
+      font-size: 0.8125rem;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.6);
+
+      b {
+        margin-top: 0.4rem;
+        font-size: 0.6875rem;
+        color: $g6;
+        opacity: 1;
+      }
+    }
+
+    /* ── Hover state suppression ──
+       GSAP hover tweens still fire on tap (onMouseEnter dispatches on
+       touch). Suppress the visual hover side-effects so the tile doesn't
+       flicker mid-tap. */
+    &:hover {
+      &::before { opacity: 0.4; }
+
+      .tile-image { transform: none; }
+    }
+
+    /* ── Tap feedback ── */
+    &:active {
+      .tile-title { color: $g6; }
     }
   }
 }

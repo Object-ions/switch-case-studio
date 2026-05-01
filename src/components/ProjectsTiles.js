@@ -74,10 +74,13 @@ const Tile = ({ proj, disabled }) => {
         />
       </div>
 
+      {/* Title — visually hidden on desktop (cover image is the title there);
+          visible on mobile where the row layout needs a textual anchor. */}
+      <h3 className="tile-title">{proj.title}</h3>
+
       {proj.tileVersion && (
         <p className="panel-excerpt">
-          {proj.tileVersion}
-          <br />
+          <span className="panel-excerpt-text">{proj.tileVersion}</span>
           <b>View Case Study →</b>
         </p>
       )}
@@ -93,11 +96,14 @@ const ProjectsTiles = ({ projects }) => {
   const reduced = useReducedMotion();
   const [isMobile, setIsMobile] = useState(false);
 
+  // matchMedia is cheaper than a resize listener and only fires when the
+  // breakpoint is actually crossed. Matches the Cursor / Services pattern.
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
+    const mq = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`);
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
   }, []);
 
   const disabled = reduced || isMobile;
