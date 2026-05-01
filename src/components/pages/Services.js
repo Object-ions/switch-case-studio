@@ -8,6 +8,7 @@ import {
   faPenNib,
   faWandMagicSparkles,
   faLightbulb,
+  faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -26,6 +27,13 @@ const iconMap = {
 };
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Module-level pointer detection — matches the Cursor component pattern.
+// Avoids attaching mousemove listeners on touch devices where the hover
+// circle effect is purely decorative and would never fire.
+const HAS_FINE_POINTER =
+  typeof window !== 'undefined' &&
+  window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 /** Shared mousemove handler — sets --x / --y CSS vars on the target element. */
 const trackMouse = (e, el) => {
@@ -70,15 +78,23 @@ const Services = () => {
           }),
         );
 
-    // --- Title hover circle ---
-    const titleEl = section.querySelector('.title');
-    const handleTitleMove = (e) => trackMouse(e, titleEl);
-    titleEl?.addEventListener('mousemove', handleTitleMove);
+    // --- Hover circle effects (pointer-capable devices only) ---
+    let titleEl;
+    let handleTitleMove;
+    let cards;
+    let handleCardMove;
 
-    // --- Card hover circles ---
-    const cards = section.querySelectorAll('.services-card');
-    const handleCardMove = (e) => trackMouse(e, e.currentTarget);
-    cards.forEach((card) => card.addEventListener('mousemove', handleCardMove));
+    if (HAS_FINE_POINTER) {
+      titleEl = section.querySelector('.title');
+      handleTitleMove = (e) => trackMouse(e, titleEl);
+      titleEl?.addEventListener('mousemove', handleTitleMove);
+
+      cards = section.querySelectorAll('.services-card');
+      handleCardMove = (e) => trackMouse(e, e.currentTarget);
+      cards.forEach((card) =>
+        card.addEventListener('mousemove', handleCardMove),
+      );
+    }
 
     // --- Cleanup ---
     return () => {
@@ -86,10 +102,12 @@ const Services = () => {
         tween.scrollTrigger?.kill();
         tween.kill();
       });
-      titleEl?.removeEventListener('mousemove', handleTitleMove);
-      cards.forEach((card) =>
-        card.removeEventListener('mousemove', handleCardMove),
-      );
+      if (HAS_FINE_POINTER) {
+        titleEl?.removeEventListener('mousemove', handleTitleMove);
+        cards?.forEach((card) =>
+          card.removeEventListener('mousemove', handleCardMove),
+        );
+      }
     };
   }, [reducedMotion]);
 
@@ -120,10 +138,15 @@ const Services = () => {
             <div className="card-icon">
               <FontAwesomeIcon icon={iconMap[service.icon]} />
             </div>
-            <h3>{service.title}</h3>
-            <p>{service.subTitle}</p>
-            <span className="card-cta" aria-hidden="true">
-              {service.cta}
+            <div className="card-body">
+              <h3>{service.title}</h3>
+              <p>{service.subTitle}</p>
+              <span className="card-cta" aria-hidden="true">
+                {service.cta}
+              </span>
+            </div>
+            <span className="card-chevron" aria-hidden="true">
+              <FontAwesomeIcon icon={faChevronRight} />
             </span>
           </Link>
         ))}

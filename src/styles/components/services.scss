@@ -88,6 +88,19 @@
         font-size: clamp(1.4rem, 4vw, 1.8rem);
       }
     }
+
+    @media (max-width: 768px) {
+      margin: 0 auto 2rem auto;
+
+      .title {
+        padding: 1rem 1.25rem;
+
+        h2 {
+          font-size: clamp(1.25rem, 5vw, 1.6rem);
+          line-height: 1.35;
+        }
+      }
+    }
   }
 
   /* --- GRID LAYOUT --- */
@@ -132,6 +145,13 @@
         transition: opacity 0.3s ease;
       }
 
+      // Mobile-only wrapper around the text content. On desktop/tablet the
+      // card uses column flex with space-between, so this div is a passive
+      // pass-through; on mobile it becomes the middle flex column.
+      .card-body {
+        display: contents;
+      }
+
       h3 {
         font-family: $font-special;
         text-transform: uppercase;
@@ -171,6 +191,12 @@
           opacity 0.3s ease,
           transform 0.3s ease,
           color 0.3s ease;
+      }
+
+      // Chevron is mobile-only — hidden on desktop/tablet where the
+      // .card-cta pill carries the affordance instead.
+      .card-chevron {
+        display: none;
       }
 
       // White Sphere with blend (Cards) — pointer-capable devices only
@@ -244,17 +270,116 @@
       }
     }
 
+    /* --- MOBILE: row-list layout --- */
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
+      gap: 0;
+      padding: 0 1rem;
+
+      // Top + bottom rails wrap the list; each card supplies its own
+      // bottom divider, removed on the last item.
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
 
       a.services-card {
+        // Reset desktop card styling
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 0;
         aspect-ratio: auto;
-        min-height: 280px;
+        min-height: 0;
+        padding: 1.25rem 0.5rem;
+
+        // Switch to horizontal flex row
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1rem;
+
+        // Hover sphere is purely decorative + never fires on touch — kill it
+        &::before {
+          display: none;
+        }
+
+        .card-icon {
+          // Reset margin-bottom: auto from desktop column layout
+          margin-bottom: 0;
+          flex-shrink: 0;
+
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
+          background: rgba(217, 156, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          font-size: 1.1rem;
+          color: $g6;
+          opacity: 1;
+        }
+
+        // .card-body becomes the middle flex column — wraps h3 + p,
+        // pushes chevron to the right via flex: 1.
+        .card-body {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          min-width: 0;
+        }
+
+        h3 {
+          font-size: 1rem;
+          margin: 0 0 0.2rem 0;
+          letter-spacing: 0.01em;
+        }
+
+        p {
+          font-size: 0.8125rem;
+          line-height: 1.4;
+          margin: 0;
+          opacity: 0.6;
+        }
+
+        // Redundant on mobile — chevron carries the affordance
+        .card-cta {
+          display: none;
+        }
+
+        .card-chevron {
+          display: flex;
+          align-items: center;
+          flex-shrink: 0;
+          font-size: 0.75rem;
+          color: rgba(255, 255, 255, 0.4);
+          padding-left: 0.25rem;
+          transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        // Tap feedback — touch users get a brief active state
+        &:active {
+          background: rgba(255, 255, 255, 0.02);
+
+          .card-chevron {
+            color: $g6;
+            transform: translateX(3px);
+          }
+        }
+
+        &:focus-visible {
+          outline-offset: -2px;
+        }
       }
     }
   }
 
   @media (max-width: 1024px) {
     padding: 4rem 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 3rem 0;
   }
 }
