@@ -70,7 +70,12 @@
   .hero-sub {
     font-size: clamp(1rem, 1.4vw, 1.2rem);
     line-height: 1.6; // audit §03 — body copy ≥ 1.6
-    color: rgba(255, 255, 255, 0.88); // bumped from 0.7 for AA contrast over Aurora
+    color: rgba(
+      255,
+      255,
+      255,
+      0.88
+    ); // bumped from 0.7 for AA contrast over Aurora
     margin-top: 1.75rem;
     letter-spacing: 0.02em;
     max-width: 560px;
@@ -123,7 +128,7 @@
     justify-content: center;
     gap: 0.6rem;
     min-height: 48px; // audit §04 — touch target ≥ 44px (48 = comfort)
-    padding: 0.9rem 2rem;
+    padding: 0.5rem;
     font-family: $font-text;
     font-size: 1rem;
     font-weight: 600;
@@ -153,8 +158,6 @@
 
     @media (max-width: 668px) {
       flex: 1 1 auto;
-      min-width: 140px;
-      padding: 1rem 1.5rem;
       font-size: 0.95rem;
     }
   }
@@ -196,16 +199,9 @@
   // Aurora canvas isn't rendered when reduced-motion is on (handled in JS).
   // Provide a static gradient backdrop so the hero still feels brand-on.
   @media (prefers-reduced-motion: reduce) {
-    background: radial-gradient(
-        ellipse at 30% 40%,
-        rgba($g1, 0.35),
-        transparent 60%
-      ),
-      radial-gradient(
-        ellipse at 70% 70%,
-        rgba($g6, 0.4),
-        transparent 60%
-      ),
+    background:
+      radial-gradient(ellipse at 30% 40%, rgba($g1, 0.35), transparent 60%),
+      radial-gradient(ellipse at 70% 70%, rgba($g6, 0.4), transparent 60%),
       #0a0a0a;
 
     .hero-sub,
