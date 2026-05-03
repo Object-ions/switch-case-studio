@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ReactComponent as CircleSVG } from '../../assets/images/circle-logo.svg';
+import bannerVideo from '../../assets/videos/switch-case-studio-banner.webm';
 import '../../styles/components/contact.scss';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -30,6 +30,7 @@ const socials = [
 const Contact = () => {
   const sectionRef = useRef(null);
   const formRef = useRef(null);
+  const videoRef = useRef(null);
 
   const [agreed, setAgreed] = useState(false);
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
@@ -93,6 +94,17 @@ const Contact = () => {
     return () => ctx.revert();
   }, []);
 
+  /* ------------------------------------------------------------------ *
+   * Respect prefers-reduced-motion: pause the looping banner if the
+   * user has motion sensitivity enabled at the OS level.
+   * ------------------------------------------------------------------ */
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mq.matches && videoRef.current) {
+      videoRef.current.pause();
+    }
+  }, []);
+
   const canSubmit = agreed && status !== 'sending';
 
   return (
@@ -101,50 +113,61 @@ const Contact = () => {
         <div className="contact-grid">
           {/* ---------- Left Column ---------- */}
           <div className="contact-left">
-            <div className="contact-left__bottom contact-animate">
-              {/* Brand mark — local SVG with CSS-only rotation */}
-              <div className="contact-left__brand-mark" aria-hidden="true">
-                <CircleSVG className="contact-left__brand-mark-svg" />
-              </div>
+            <div className="contact-left__media contact-animate">
+              <video
+                ref={videoRef}
+                className="contact-left__video"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-hidden="true"
+              >
+                <source src={bannerVideo} type="video/webm" />
+                {/* Add an mp4 fallback here once you've encoded one:
+                <source src={bannerVideoMp4} type="video/mp4" />
+                */}
+              </video>
+            </div>
 
-              <div className="contact-left__details">
-                <p className="contact-left__address">
-                  Switch Case Studio
-                  <br />
-                  Portland, Oregon
-                </p>
+            <div className="contact-left__details contact-animate">
+              <p className="contact-left__address">
+                Switch Case Studio
+                <br />
+                Portland, Oregon
+              </p>
 
-                <a
-                  className="contact-left__email"
-                  href="mailto:hello@switchcasestudio.com"
-                >
-                  hello@switchcasestudio.com
-                </a>
+              <a
+                className="contact-left__email"
+                href="mailto:hello@switchcasestudio.com"
+              >
+                hello@switchcasestudio.com
+              </a>
 
-                <a
-                  className="contact-left__cta"
-                  href="https://calendar.app.google/83UCJjis2FHUrr1s6"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Book a Strategy Call →
-                </a>
+              <a
+                className="contact-left__cta"
+                href="https://calendar.app.google/83UCJjis2FHUrr1s6"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Book a Strategy Call →
+              </a>
 
-                {socials.length > 0 && (
-                  <div className="contact-left__socials">
-                    {socials.map((s) => (
-                      <a
-                        key={s.key}
-                        href={s.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {s.label}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
+              {socials.length > 0 && (
+                <div className="contact-left__socials">
+                  {socials.map((s) => (
+                    <a
+                      key={s.key}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {s.label}
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 

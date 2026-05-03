@@ -4,7 +4,7 @@
 /* ==================================================================
  * Contact Section (contact-2 port)
  *
- * Two-column layout: left = brand/details, right = form.
+ * Two-column layout: left = brand video + details, right = form.
  * Dark-only. Uses brand orange ($g1) for the submit button and
  * purple ($g6) for hover/focus accents.
  * ================================================================== */
@@ -42,6 +42,7 @@
   @media (min-width: 1024px) {
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
+    align-items: start;
   }
 }
 
@@ -52,11 +53,10 @@
 .contact-left {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 4rem;
+  gap: 2.5rem;
 
   @media (min-width: 1024px) {
-    gap: 0;
+    gap: 3rem;
   }
 
   &__heading {
@@ -67,35 +67,31 @@
     margin: 0;
   }
 
-  &__bottom {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  /* ---------- Brand mark ----------
-   * Self-contained, contact-scoped spinning brand mark using the
-   * circle-logo SVG asset directly. CSS-only rotation, no JS, no
-   * shared classes with the (now-removed) <CircleLogo /> component.
-   * Respects prefers-reduced-motion.
+  /* ---------- Brand video ----------
+   * Replaces the previous spinning circle-logo brand mark.
+   * Aspect ratio is preserved by the source video itself; the
+   * container caps the height on mobile so the video doesn't
+   * dominate the viewport and push the form way down.
    */
-  &__brand-mark {
-    width: 5rem;
-    height: 5rem;
-    flex-shrink: 0;
-    display: block;
-    animation: contact-brand-spin 30s linear infinite;
-    transform-origin: center center;
+  &__media {
+    width: 100%;
+    max-width: 32rem;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    background: $g1; // matches the video bg, prevents flash before load
+    line-height: 0;
 
-    @media (prefers-reduced-motion: reduce) {
-      animation: none;
+    @media (max-width: 1023px) {
+      max-height: 60vh;
+      margin: 0 auto;
     }
   }
 
-  &__brand-mark-svg {
-    width: 100%;
-    height: 100%;
+  &__video {
     display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
   }
 
   &__details {
@@ -157,15 +153,6 @@
         color: #fff;
       }
     }
-  }
-}
-
-@keyframes contact-brand-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
   }
 }
 
