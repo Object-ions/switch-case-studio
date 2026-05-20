@@ -11,6 +11,7 @@ import ProjectPage from './components/pages/ProjectPage';
 import Contact from './components/pages/Contact';
 import PricingPage from './components/PricingPage';
 import Hero from './components/Hero';
+import ValueProp from './components/ValueProp';
 
 // Utilities & Components
 import ScrollToTop from './components/ScrollToTop';
@@ -33,6 +34,7 @@ import './styles/app.scss';
 const HomeContent = () => (
   <>
     <Hero />
+    <ValueProp />
     <Services />
     <GradientStripe
       size="clamp(160px, 30vw, 420px)"

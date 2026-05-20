@@ -1,0 +1,241 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+.value-prop {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  background: #000;
+  color: #fff;
+
+  &__pin {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  // ── Shader background (bottom 58% of pinned area) ──
+  &__shader-wrap {
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 58%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  // ── Progress bar across the top ──
+  &__progress {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 10;
+  }
+
+  &__progress-bar {
+    height: 100%;
+    width: 100%;
+    background: $g1;
+    transform: scaleX(0);
+    transform-origin: 0 0;
+  }
+
+  // ── Header bar (heading + "See our work" link) ──
+  &__header {
+    position: absolute;
+    inset: 0 0 auto 0;
+    z-index: 10;
+    padding: 7rem 2.5rem 0;
+    max-width: 1680px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+
+    @media (max-width: 850px) {
+      padding: 6rem 1.5rem 0;
+    }
+    @media (max-width: 668px) {
+      padding: 5rem 1.25rem 0;
+    }
+  }
+
+  &__heading {
+    max-width: 22ch;
+    font-family: $font-text;
+    font-size: clamp(1rem, 2.4vw, 1.5rem);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+  }
+
+  &__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    font-family: $font-text;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition:
+      color 0.3s ease,
+      border-color 0.3s ease;
+
+    .cta-arrow {
+      font-size: 1.1em;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.25);
+
+      .cta-arrow {
+        transform: translateX(4px);
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 4px;
+    }
+
+    @media (max-width: 850px) {
+      display: none;
+    }
+  }
+
+  // ── Step container (all steps absolutely stacked, fade between) ──
+  &__steps {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none;
+    max-width: 1680px;
+    margin: 0 auto;
+  }
+
+  &__step {
+    position: absolute;
+    inset: 0;
+    padding: 18rem 2.5rem 4rem;
+    visibility: hidden;
+    opacity: 0;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2rem;
+    align-content: start;
+
+    @media (max-width: 850px) {
+      padding: 15rem 1.5rem 4rem;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    @media (max-width: 668px) {
+      padding: 12rem 1.25rem 4rem;
+    }
+  }
+
+  &__step-meta {
+    grid-column: span 3;
+
+    @media (max-width: 850px) {
+      grid-column: span 1;
+    }
+  }
+
+  &__counter {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.375rem 0.875rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    font-family: $font-text;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  &__counter-sep {
+    margin: 0 0.375rem;
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  &__eyebrow {
+    margin: 1.5rem 0 0;
+    font-family: $font-text;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  &__body {
+    grid-column: span 9;
+    margin: 0;
+    font-family: $font-special;
+    font-size: clamp(2rem, 4.2vw, 4rem);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+
+    @media (max-width: 850px) {
+      grid-column: span 1;
+    }
+  }
+
+  &__word {
+    color: rgba(255, 255, 255, 0.18);
+    transition: color 0.3s ease;
+
+    &.is-bright {
+      color: #fff;
+    }
+  }
+
+  // ── Reduced-motion fallback ──
+  // When reduced motion is on, the shader doesn't render and the pinned
+  // scroll behavior is skipped. Show all three steps stacked statically.
+  @media (prefers-reduced-motion: reduce) {
+    &__pin {
+      height: auto;
+      min-height: 100vh;
+    }
+
+    &__shader-wrap {
+      display: none;
+    }
+
+    &__steps {
+      position: relative;
+      inset: auto;
+    }
+
+    &__step {
+      position: relative;
+      visibility: visible;
+      opacity: 1;
+      padding: 4rem 2.5rem;
+
+      @media (max-width: 850px) {
+        padding: 4rem 1.5rem;
+      }
+    }
+
+    &__word {
+      color: #fff;
+      transition: none;
+    }
+  }
+}

@@ -112,21 +112,7 @@ const Services = () => {
   }, [reducedMotion]);
 
   return (
-    <section
-      id="services"
-      ref={sectionRef}
-      aria-labelledby="services-heading"
-    >
-      <div className="services-hero">
-        <div className="title reveal">
-          <h2 id="services-heading">
-            Code, design, and marketing &mdash; under{' '}
-            <span className="shine-text">one roof</span>, in one conversation.
-            We build the websites your competitors wish they had.
-          </h2>
-        </div>
-      </div>
-
+    <section id="services" ref={sectionRef} aria-labelledby="services-heading">
       <div className="services-content">
         {servicesData.map((service) => (
           <Link
