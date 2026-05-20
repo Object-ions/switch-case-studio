@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { HashLink } from 'react-router-hash-link';
 import WelcomeTyped from './WelcomeTyped';
-import Aurora from './Aurora';
+import LightRays from './LightRays';
 import useReducedMotion from '../hooks/useReducedMotion';
 
 import '../styles/components/hero.scss';
@@ -25,12 +25,20 @@ const Hero = () => {
     <section id="hero" aria-label="Switch Case Studio introduction">
       <div className="hero-inner">
         {!reducedMotion && (
-          <div className="aurora-bg" aria-hidden="true">
-            <Aurora
-              colorStops={['#ff834a', '#f0d7ff', '#d99cff']}
-              amplitude={0.3}
-              blend={1}
-              speed={2.0}
+          <div className="lightrays-bg" aria-hidden="true">
+            <LightRays
+              raysOrigin="top-center"
+              raysColor="#ca92ff"
+              raysSpeed={1}
+              lightSpread={0.5}
+              rayLength={3}
+              followMouse={true}
+              mouseInfluence={0.1}
+              noiseAmount={0}
+              distortion={0}
+              pulsating={false}
+              fadeDistance={1}
+              saturation={1}
             />
           </div>
         )}

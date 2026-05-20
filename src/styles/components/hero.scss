@@ -16,8 +16,8 @@
     height: 100%;
   }
 
-  // ── Aurora background ──
-  .aurora-bg {
+  // ── LightRays background ──
+  .lightrays-bg {
     position: absolute;
     inset: 0;
     z-index: 0;
@@ -75,7 +75,7 @@
       255,
       255,
       0.88
-    ); // bumped from 0.7 for AA contrast over Aurora
+    ); // bumped from 0.7 for AA contrast over LightRays
     margin-top: 1.75rem;
     letter-spacing: 0.02em;
     max-width: 560px;
@@ -196,7 +196,7 @@
   }
 
   // ── Reduced-motion fallback ──
-  // Aurora canvas isn't rendered when reduced-motion is on (handled in JS).
+  // LightRays canvas isn't rendered when reduced-motion is on (handled in JS).
   // Provide a static gradient backdrop so the hero still feels brand-on.
   @media (prefers-reduced-motion: reduce) {
     background:
