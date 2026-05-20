@@ -27,5 +27,50 @@
 
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+
+    // ----------------------------------------------------------------
+    // GradientText styles — scoped to the title only so they don't leak.
+    // The component ships with display:flex + max-width:fit-content +
+    // cursor:pointer, which fight heading behaviour. We reset those here
+    // so the gradient layer fills the heading naturally and the title
+    // still wraps as a block-level h2.
+    // ----------------------------------------------------------------
+    .animated-gradient-text {
+      position: relative;
+      display: inline;
+      margin: 0;
+      max-width: none;
+      border-radius: 0;
+      backdrop-filter: none;
+      cursor: inherit;
+      overflow: visible;
+      // Inherit heading typography so the gradient picks up font/weight/size
+      font: inherit;
+      letter-spacing: inherit;
+      line-height: inherit;
+    }
+
+    .text-content {
+      display: inline;
+      position: relative;
+      z-index: 2;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      // Inherit heading typography
+      font: inherit;
+      letter-spacing: inherit;
+      line-height: inherit;
+    }
+
+    // Border overlay is unused here (showBorder=false) but defined for
+    // completeness in case the component is reused with a border later.
+    .gradient-overlay {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      z-index: 0;
+      pointer-events: none;
+    }
   }
 }
