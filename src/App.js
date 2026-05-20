@@ -27,10 +27,6 @@ import Accessibility from './components/Accessibility';
 
 import './styles/app.scss';
 
-/**
- * Core landing-page tree. Defined outside App so it isn't recreated
- * on every render.
- */
 const HomeContent = () => (
   <>
     <Hero />
