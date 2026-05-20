@@ -1,273 +1,234 @@
+import { useState, useEffect, useRef, useCallback } from 'react';
 import {
-  useState,
-  useEffect,
-  useRef,
-  useLayoutEffect,
-  useCallback,
-} from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useSpring,
+  useReducedMotion,
+} from 'motion/react';
 
 import TestimonialHeading from '../TestimonialHeading';
-import PostcardFrame from '../PostcardFrame';
-import useReducedMotion from '../../hooks/useReducedMotion';
 import testimonialsData from '../../data/testimonials.json';
 import '../../styles/components/testimonials.scss';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const AUTO_ADVANCE_MS = 10000;
-const SWIPE_THRESHOLD = 40;
-
-const clampIndex = (i, total) => (i + total) % total;
+const CURSOR_HIDE_CLASS = 'is-carousel-hover';
 
 const Testimonials = () => {
   const [current, setCurrent] = useState(0);
-  const [expanded, setExpanded] = useState(false);
-  // Once user takes manual control, auto-advance is permanently off.
-  const [autoAdvance, setAutoAdvance] = useState(true);
-  // Pause flag for hover/focus (does NOT permanently disable like manual nav).
-  const [paused, setPaused] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+  const containerRef = useRef(null);
 
   const total = testimonialsData.length;
-  const reducedMotion = useReducedMotion();
+  const prefersReducedMotion = useReducedMotion();
 
-  const root = useRef(null);
-  const slidesWrap = useRef(null);
-  const postcardBodyRef = useRef(null);
-  const prevIndexRef = useRef(0);
+  /* ── Cursor follow (spring-smoothed) ── */
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
-  /* ── Manual navigation. Stops auto-advance permanently. ── */
+  const springConfig = { damping: 20, stiffness: 300, mass: 0.5 };
+  const cursorX = useSpring(mouseX, springConfig);
+  const cursorY = useSpring(mouseY, springConfig);
+
+  const handleMouseMove = (e) => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      mouseX.set(e.clientX - rect.left);
+      mouseY.set(e.clientY - rect.top);
+    }
+  };
+
+  /* ── Navigation ── */
   const goTo = useCallback(
     (i) => {
-      setAutoAdvance(false);
-      setExpanded(false);
-      setCurrent(clampIndex(i, total));
+      setCurrent(((i % total) + total) % total);
     },
     [total],
   );
 
-  const next = useCallback(() => goTo(current + 1), [current, goTo]);
-  const prev = useCallback(() => goTo(current - 1), [current, goTo]);
+  const next = useCallback(() => {
+    setCurrent((prev) => (prev + 1) % total);
+  }, [total]);
 
-  /* ── Auto-advance. Stops permanently after manual nav.
-       Pauses temporarily on hover/focus/expand. ── */
+  /* ── Auto-advance every 10s. Pauses on hover. ── */
   useEffect(() => {
-    if (!autoAdvance || paused || expanded) return;
-
-    const id = setInterval(() => {
-      setCurrent((i) => clampIndex(i + 1, total));
-    }, AUTO_ADVANCE_MS);
-
+    if (isHovering) return;
+    const id = setInterval(next, AUTO_ADVANCE_MS);
     return () => clearInterval(id);
-  }, [autoAdvance, paused, expanded, total]);
+  }, [next, isHovering, current]);
 
-  /* ── Touch swipe ── */
-  const startX = useRef(null);
-  const onTouchStart = (e) => {
-    startX.current = e.touches[0].clientX;
-  };
-  const onTouchEnd = (e) => {
-    if (startX.current == null) return;
-    const dx = e.changedTouches[0].clientX - startX.current;
-    if (dx > SWIPE_THRESHOLD) prev();
-    if (dx < -SWIPE_THRESHOLD) next();
-    startX.current = null;
+  /* ── Hide global cursor while hovering the carousel ── */
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+    document.body.classList.add(CURSOR_HIDE_CLASS);
   };
 
-  /* ── Intro reveal: heading fades in, then postcard "arrives" ──
-       GSAP owns transform + opacity. CSS does not animate these on .postcard__body. */
-  useLayoutEffect(() => {
-    if (reducedMotion) return;
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+    document.body.classList.remove(CURSOR_HIDE_CLASS);
+  };
 
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: root.current,
-          start: 'top 80%',
-          once: true,
-        },
-      });
+  // Belt-and-suspenders: ensure the class never sticks if the component
+  // unmounts mid-hover (route change, etc.)
+  useEffect(() => {
+    return () => {
+      document.body.classList.remove(CURSOR_HIDE_CLASS);
+    };
+  }, []);
 
-      tl.from(root.current.querySelector('.testimonial-head'), {
-        autoAlpha: 0,
-        y: 24,
-        duration: 0.6,
-        ease: 'power2.out',
-      });
-
-      // Postcard "arrives" — placed-mail motion with slight overshoot
-      if (postcardBodyRef.current) {
-        tl.fromTo(
-          postcardBodyRef.current,
-          { autoAlpha: 0, y: -40, rotate: -6 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            rotate: -1.5, // final resting tilt — feels like real placed mail
-            duration: 0.9,
-            ease: 'back.out(1.4)',
-          },
-          '-=0.3',
-        );
-      }
-    }, root);
-
-    return () => ctx.revert();
-  }, [reducedMotion]);
-
-  /* ── Slide cross-fade transition (unchanged from original) ── */
-  useLayoutEffect(() => {
-    const slides = gsap.utils.toArray(
-      slidesWrap.current?.querySelectorAll('.slide') || [],
-    );
-    if (!slides.length) return;
-
-    const prevIdx = prevIndexRef.current;
-    const nextIdx = current;
-    if (prevIdx === nextIdx) return;
-
-    const prevEl = slides[prevIdx];
-    const nextEl = slides[nextIdx];
-
-    if (reducedMotion) {
-      gsap.set(prevEl, { autoAlpha: 0, display: 'none' });
-      gsap.set(nextEl, { autoAlpha: 1, display: 'flex', xPercent: 0 });
-      prevIndexRef.current = nextIdx;
-      return;
-    }
-
-    const dir =
-      (nextIdx > prevIdx && !(prevIdx === 0 && nextIdx === total - 1)) ||
-      (prevIdx === total - 1 && nextIdx === 0)
-        ? 1
-        : -1;
-
-    gsap.set(nextEl, { xPercent: 12 * dir, autoAlpha: 0, display: 'flex' });
-
-    const tl = gsap.timeline({
-      defaults: { ease: 'power2.out', duration: 0.5 },
-      onComplete: () => {
-        gsap.set(prevEl, { clearProps: 'all', display: 'none' });
-        gsap.set(nextEl, { clearProps: 'all', display: 'flex' });
-      },
-    });
-
-    tl.to(prevEl, { xPercent: -12 * dir, autoAlpha: 0, duration: 0.45 }, 0).to(
-      nextEl,
-      { xPercent: 0, autoAlpha: 1 },
-      0.05,
-    );
-
-    prevIndexRef.current = nextIdx;
-  }, [current, total, reducedMotion]);
+  const item = testimonialsData[current];
 
   return (
-    <section
-      id="testimonials"
-      aria-labelledby="testimonials-heading"
-      ref={root}
-    >
-      <div
-        className="testimonial-meta"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        onFocus={() => setPaused(true)}
-        onBlur={() => setPaused(false)}
-      >
-        {/* Heading sits above the postcard now (was side-by-side) */}
+    <section id="testimonials" aria-labelledby="testimonials-heading">
+      <div className="testimonials-inner">
         <div className="panel-heading">
           <TestimonialHeading id="testimonials-heading" />
         </div>
 
-        {/* Postcard replaces the old .panel-stage card */}
-        <div className="panel-stage" aria-roledescription="carousel">
-          <PostcardFrame
-            currentIndex={current}
-            total={total}
-            onSelect={goTo}
-            onPrev={prev}
-            onNext={next}
-            bodyRef={postcardBodyRef}
-          >
-            <div
-              className="slides"
-              ref={slidesWrap}
-              onTouchStart={onTouchStart}
-              onTouchEnd={onTouchEnd}
-              aria-live="polite"
-              aria-atomic="true"
-            >
-              {testimonialsData.map((item, i) => {
-                const isActive = i === current;
-                const showFull = isActive && expanded;
-                return (
-                  <article
-                    key={item.id ?? i}
-                    className={`slide ${isActive ? 'is-active' : ''}`}
-                    aria-hidden={!isActive}
-                  >
-                    <header className="slide-header">
-                      <img
-                        src={item.image}
-                        alt=""
-                        className="avatar"
-                        loading="lazy"
-                      />
-                      <div className="slide-id">
-                        <h3 className="slide-name">{item.name}</h3>
-                        <p className="slide-company">{item.title}</p>
-                      </div>
-                    </header>
+        <div
+          ref={containerRef}
+          className="testimonial-carousel"
+          onClick={next}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onMouseMove={handleMouseMove}
+          role="button"
+          tabIndex={0}
+          aria-roledescription="carousel"
+          aria-label="Client testimonials. Click or press Enter to advance."
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              next();
+            }
+            if (e.key === 'ArrowRight') next();
+            if (e.key === 'ArrowLeft') goTo(current - 1);
+          }}
+        >
+          {/* Floating "Next" pill cursor */}
+          <AnimatePresence>
+            {isHovering && (
+              <motion.div
+                className="next-pill"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0 }}
+                transition={{ duration: 0.15 }}
+                style={{
+                  translateX: cursorX,
+                  translateY: cursorY,
+                }}
+              >
+                <span className="next-pill-label">Next</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-                    <blockquote className="slide-quote">
-                      {item.highlight && (
-                        <p className="slide-highlight">
-                          &ldquo;{item.highlight}&rdquo;
-                        </p>
-                      )}
-
-                      {item.testimonial &&
-                        item.testimonial !== item.highlight && (
-                          <div
-                            className={`slide-full ${showFull ? 'is-open' : ''}`}
-                            id={`testimonial-full-${item.id}`}
-                            aria-hidden={!showFull}
-                          >
-                            <p className="slide-full-text">
-                              {item.testimonial}
-                            </p>
-                          </div>
-                        )}
-                    </blockquote>
-
-                    {item.testimonial &&
-                      item.testimonial !== item.highlight &&
-                      isActive && (
-                        <button
-                          type="button"
-                          className={`read-more ${expanded ? 'is-open' : ''}`}
-                          onClick={() => setExpanded((v) => !v)}
-                          aria-expanded={expanded}
-                          aria-controls={`testimonial-full-${item.id}`}
-                        >
-                          <span>
-                            {expanded ? 'Show less' : 'Read full review'}
-                          </span>
-                          <FontAwesomeIcon
-                            icon={faChevronDown}
-                            className="read-more-icon"
-                            aria-hidden="true"
-                          />
-                        </button>
-                      )}
-                  </article>
-                );
-              })}
+          <div className="testimonial-row">
+            {/* Image column */}
+            <div className="testimonial-image-col">
+              <div className="testimonial-image-frame">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={current}
+                    src={item.image}
+                    alt=""
+                    initial={
+                      prefersReducedMotion
+                        ? { opacity: 0 }
+                        : { opacity: 0, scale: 1.05 }
+                    }
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
+                    className="testimonial-image"
+                    loading="lazy"
+                  />
+                </AnimatePresence>
+              </div>
             </div>
-          </PostcardFrame>
+
+            {/* Quote column */}
+            <div className="testimonial-quote-col">
+              <div className="testimonial-quote-top">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={current}
+                    initial={
+                      prefersReducedMotion
+                        ? { opacity: 0 }
+                        : { opacity: 0, y: 10 }
+                    }
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={
+                      prefersReducedMotion
+                        ? { opacity: 0 }
+                        : { opacity: 0, y: -10 }
+                    }
+                    transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
+                  >
+                    <blockquote className="testimonial-quote">
+                      &ldquo;{item.highlight}&rdquo;
+                    </blockquote>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              <div className="testimonial-quote-bottom">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={current}
+                    className="testimonial-attrib"
+                    initial={
+                      prefersReducedMotion
+                        ? { opacity: 0 }
+                        : { opacity: 0, y: 10 }
+                    }
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={
+                      prefersReducedMotion
+                        ? { opacity: 0 }
+                        : { opacity: 0, y: -10 }
+                    }
+                    transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
+                  >
+                    <h4 className="testimonial-name">{item.name}</h4>
+                    <p className="testimonial-role">{item.title}</p>
+                  </motion.div>
+                </AnimatePresence>
+
+                <div className="testimonial-progress">
+                  {testimonialsData.map((_, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      className="testimonial-progress-track"
+                      aria-label={`Go to testimonial ${idx + 1}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        goTo(idx);
+                      }}
+                    >
+                      <motion.span
+                        className="testimonial-progress-fill"
+                        initial={{ width: 0 }}
+                        animate={{
+                          width: idx === current ? '100%' : '0%',
+                        }}
+                        transition={{
+                          duration:
+                            idx === current && !isHovering
+                              ? AUTO_ADVANCE_MS / 1000
+                              : 0,
+                          ease: 'linear',
+                        }}
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

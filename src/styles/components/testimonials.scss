@@ -1,6 +1,5 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
-@import './postcardFrame';
 
 #testimonials {
   position: relative;
@@ -12,17 +11,23 @@
   padding: 6rem 1.5rem;
   overflow: hidden;
 
-  // ----------------------------------------------------------------------
-  // LAYOUT: stacked. Heading on top (full-width), postcard below it.
-  // The old 2-column grid is gone — postcard needs horizontal breathing room
-  // for the masking tape, torn edges, and ticket-number boxes to read right.
-  // ----------------------------------------------------------------------
-  .testimonial-meta {
+  @media (max-width: 768px) {
+    padding: 4rem 1rem;
+  }
+
+  // --------------------------------------------------------------------
+  // LAYOUT: heading on top (centered), image+quote row below, CTA at end
+  // --------------------------------------------------------------------
+  .testimonials-inner {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 4rem;
     max-width: $max-width;
     margin: 0 auto;
+
+    @media (max-width: 768px) {
+      gap: 2.5rem;
+    }
   }
 
   .panel-heading {
@@ -30,168 +35,241 @@
     position: relative;
     z-index: 2;
 
-    // Center the heading content within itself
     .testimonial-head {
       align-items: center;
     }
   }
 
-  // The postcard wrapper. NO background/border/padding/min-height here —
-  // the postcard provides its own visual container. Just used for layout.
-  .panel-stage {
+  // --------------------------------------------------------------------
+  // CAROUSEL: image left, quote right. Click anywhere to advance.
+  // Hides global cursor on hover via body.is-carousel-hover (rule lives
+  // in cursorComponent.scss). The "Next" pill takes over visually.
+  // --------------------------------------------------------------------
+  .testimonial-carousel {
     position: relative;
+    cursor: none;
+    user-select: none;
+    outline: none;
+
+    &:focus-visible {
+      outline: 2px solid $white-color;
+      outline-offset: 8px;
+      border-radius: 4px;
+    }
+
+    // Touch / coarse pointer: restore default pointer behaviour
+    // (the "Next" pill is hidden via its own JS hover state)
+    @media (hover: none), (pointer: coarse) {
+      cursor: pointer;
+    }
   }
 
-  // ----------------------------------------------------------------------
-  // SLIDE STYLES — these still apply, since slides are now nested inside
-  // .postcard__patch. Color overrides for orange-bg legibility live in
-  // postcardFrame.scss (.postcard__patch .slide { ... }).
-  // ----------------------------------------------------------------------
-  .slides {
+  // The floating "Next" cursor pill. Motion owns translateX/translateY.
+  // CSS only handles base styling and positioning anchor.
+  .next-pill {
+    position: absolute;
+    top: -20px;
+    left: -40px;
+    z-index: 50;
+    pointer-events: none;
+
+    .next-pill-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1.25rem;
+      background-color: $white-color;
+      color: $black-color;
+      border-radius: 999px;
+      font-family: $font-text;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    // Hide on coarse-pointer devices — no hover state to drive it
+    @media (hover: none), (pointer: coarse) {
+      display: none;
+    }
+  }
+
+  .testimonial-row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 1.5rem;
+    max-width: 72rem;
+    margin: 0 auto;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 2rem;
+    }
+  }
+
+  // --------------------------------------------------------------------
+  // IMAGE COLUMN
+  // --------------------------------------------------------------------
+  .testimonial-image-col {
+    width: 33.333%;
+    flex-shrink: 0;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .testimonial-image-frame {
     position: relative;
-    flex: 1;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    max-width: 260px;
+    margin-left: 0;
+    margin-right: auto;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 1rem;
+    overflow: hidden;
+    height: 100%;
+    background: #1a1a1a;
+
+    @media (max-width: 768px) {
+      margin: 0 auto;
+    }
+  }
+
+  .testimonial-image {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  // --------------------------------------------------------------------
+  // QUOTE COLUMN
+  // --------------------------------------------------------------------
+  .testimonial-quote-col {
+    width: 66.666%;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
   }
 
-  /* GSAP owns slide transition (xPercent + autoAlpha).
-     CSS only owns display via .is-active. No CSS @keyframes here. */
-  .slide {
-    display: none;
-    flex-direction: column;
+  .testimonial-quote-top {
+    flex: 1;
+  }
+
+  .testimonial-quote {
+    font-family: $font-text;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: $white-color;
+    margin: 0;
+
+    @media (max-width: 768px) {
+      font-size: clamp(1.25rem, 5vw, 1.5rem);
+    }
+  }
+
+  .testimonial-quote-bottom {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
     gap: 1.5rem;
 
-    &.is-active {
-      display: flex;
-    }
-
-    // Header row: avatar + name/role
-    .slide-header {
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
-      flex-shrink: 0;
-
-      .avatar {
-        width: 64px;
-        height: 64px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 2px solid rgba(255, 255, 255, 0.1);
-        background: #1a1a1a;
-        flex-shrink: 0;
-      }
-
-      .slide-id {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-        min-width: 0;
-      }
-
-      .slide-name {
-        font-size: clamp(1.25rem, 1.5vw, 1.5rem);
-        line-height: 1.2;
-      }
-
-      .slide-company {
-        font-size: 0.75rem;
-        letter-spacing: 0.12em;
-        font-weight: 700;
-        margin: 0;
-        color: $white-color;
-      }
-    }
-
-    // Quote container holds highlight + collapsible full text
-    .slide-quote {
-      margin: 0;
-      padding: 0;
-      color: rgba(255, 255, 255, 0.92);
-      border-left: 3px solid rgba(255, 255, 255, 0.5);
-      padding-left: 1.5rem;
-    }
-
-    .slide-highlight {
-      font-size: clamp(1.125rem, 1.5vw, 1.5rem);
-      font-weight: 300;
-      line-height: 1.4;
-      margin: 0;
-    }
-
-    // CSS-only max-height accordion (matches Header submenu pattern).
-    // 1500px ceiling is a safe upper bound for any plausible testimonial.
-    .slide-full {
-      overflow: hidden;
-      max-height: 0;
-      opacity: 0;
-      transition:
-        max-height 0.5s ease,
-        opacity 0.3s ease 0.05s,
-        margin-top 0.4s ease;
-      margin-top: 0;
-
-      &.is-open {
-        max-height: 1500px;
-        opacity: 1;
-        margin-top: 1.25rem;
-      }
-    }
-
-    .slide-full-text {
-      font-size: 0.9375rem;
-      line-height: 1.7;
-      color: rgba(255, 255, 255, 0.82);
-      font-weight: 300;
-      margin: 0;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
     }
   }
 
-  // Read-more toggle (color overrides for orange bg live in postcardFrame.scss)
-  .read-more {
+  .testimonial-attrib {
+    min-width: 0;
+  }
+
+  .testimonial-name {
+    font-family: $font-text;
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: $white-color;
+    margin: 0 0 0.25rem;
+    line-height: 1.2;
+  }
+
+  .testimonial-role {
+    font-family: $font-text;
+    font-size: 1rem;
+    letter-spacing: -0.005em;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+  }
+
+  // --------------------------------------------------------------------
+  // PROGRESS BARS — clickable, fill over AUTO_ADVANCE_MS for current item
+  // --------------------------------------------------------------------
+  .testimonial-progress {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding-bottom: 0.5rem;
+
+    @media (max-width: 768px) {
+      justify-content: flex-start;
+    }
+  }
+
+  .testimonial-progress-track {
     appearance: none;
-    align-self: flex-start;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    min-height: 44px;
-    padding: 0.5rem 0;
     background: none;
     border: none;
-    color: $white-color;
-    font-family: $font-text;
-    font-size: 0.8125rem;
-    font-weight: 300;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    padding: 0;
+    position: relative;
+    display: block;
+    height: 2px;
+    width: 3rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    overflow: hidden;
     cursor: pointer;
-    transition: color 0.2s ease;
-    margin-top: 1rem;
+    transition: background-color 0.2s ease;
 
-    .read-more-icon {
-      font-size: 0.75rem;
-      transition: transform 0.3s ease;
-    }
-
-    &.is-open .read-more-icon {
-      transform: rotate(180deg);
-    }
-
-    &:hover,
-    &:focus-visible {
-      color: rgba(255, 255, 255, 0.7);
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.35);
     }
 
     &:focus-visible {
       outline: 2px solid $white-color;
       outline-offset: 4px;
-      border-radius: 2px;
+    }
+
+    // Larger tap target on touch
+    @media (hover: none), (pointer: coarse) {
+      height: 3px;
+      width: 2.5rem;
     }
   }
 
-  // ----------------------------------------------------------------------
-  // SECTION CTA (unchanged)
-  // ----------------------------------------------------------------------
+  .testimonial-progress-fill {
+    position: absolute;
+    inset: 0;
+    background-color: $white-color;
+    display: block;
+  }
+
+  // --------------------------------------------------------------------
+  // SECTION CTA (unchanged from previous implementation)
+  // --------------------------------------------------------------------
   .testimonials-cta {
     max-width: $max-width;
     margin: 4rem auto 0;
@@ -203,6 +281,13 @@
     gap: 1.5rem;
     flex-wrap: wrap;
     text-align: center;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+    }
   }
 
   .testimonials-cta-text {
@@ -250,28 +335,6 @@
     &:focus-visible {
       outline: 2px solid $white-color;
       outline-offset: 4px;
-    }
-  }
-
-  // ----------------------------------------------------------------------
-  // RESPONSIVE
-  // ----------------------------------------------------------------------
-  @media (max-width: 768px) {
-    padding: 4rem 1rem;
-
-    .testimonial-meta {
-      gap: 2.5rem;
-    }
-
-    .slide .slide-quote {
-      padding-left: 1rem;
-    }
-
-    .testimonials-cta {
-      flex-direction: column;
-      gap: 1.25rem;
-      margin-top: 3rem;
-      padding-top: 2rem;
     }
   }
 }
