@@ -1,10 +1,16 @@
 import { useEffect, useState } from 'react';
 import { HashLink } from 'react-router-hash-link';
 import WelcomeTyped from './WelcomeTyped';
-import LightRays from './LightRays';
+import CursorWave from './CursorWave';
 import useReducedMotion from '../hooks/useReducedMotion';
 
 import '../styles/components/hero.scss';
+
+/* Brand shape + color config for the Hero background.
+   Repeating shapes in the array biases the random distribution —
+   square and asterisk are the dominant marks, star is the accent. */
+const HERO_SHAPES = ['square', 'square', 'star', 'asterisk', 'asterisk'];
+const HERO_COLORS = ['#ff834a', '#d99cff', '#f0d7ff'];
 
 const Hero = () => {
   const reducedMotion = useReducedMotion();
@@ -25,26 +31,23 @@ const Hero = () => {
     <section id="hero" aria-label="Switch Case Studio introduction">
       <div className="hero-inner">
         {!reducedMotion && (
-          <div className="lightrays-bg" aria-hidden="true">
-            <LightRays
-              raysOrigin="top-center"
-              raysColor="#ca92ff"
-              raysSpeed={1}
-              lightSpread={0.5}
-              rayLength={3}
-              followMouse={true}
-              mouseInfluence={0.1}
-              noiseAmount={0}
-              distortion={0}
-              pulsating={false}
-              fadeDistance={1}
-              saturation={1}
+          <div className="cursorwave-bg" aria-hidden="true">
+            <CursorWave
+              shapes={HERO_SHAPES}
+              colors={HERO_COLORS}
+              backgroundColor="#0a0a0a"
+              cellSize={48}
+              influenceRadiusVmin={28}
+              minPeakScale={1.2}
+              maxPeakScale={2.8}
+              burstSpeed={1400}
+              burstThickness={220}
             />
           </div>
         )}
 
         <div className="hero-content">
-          <h1 className="hero-headline">
+          <h1 className="hero-headline" data-cursor-wave-mask>
             <span className="hero-line">
               {'We '}
               <WelcomeTyped />
@@ -55,12 +58,18 @@ const Hero = () => {
             </span>
           </h1>
 
-          <p className={`hero-sub ${revealed ? 'is-visible' : ''}`}>
+          <p
+            className={`hero-sub ${revealed ? 'is-visible' : ''}`}
+            data-cursor-wave-mask
+          >
             Design, development &amp; marketing &mdash; custom-built for
             ambitious brands.
           </p>
 
-          <div className={`hero-ctas ${revealed ? 'is-visible' : ''}`}>
+          <div
+            className={`hero-ctas ${revealed ? 'is-visible' : ''}`}
+            data-cursor-wave-mask
+          >
             <a
               href="https://calendar.app.google/83UCJjis2FHUrr1s6"
               className="hero-cta hero-cta--primary"
