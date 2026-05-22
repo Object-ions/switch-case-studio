@@ -66,10 +66,15 @@
     grid-row: 1;
     justify-self: end;
     font-weight: 400;
+    background: $g6;
+    padding: 10px 16px;
+    border-radius: 20px;
+    border: 2px solid transparent;
 
     &:hover,
     &:focus-visible {
-      color: $g6;
+      border-color: $g6;
+      background: #000;
     }
   }
 
