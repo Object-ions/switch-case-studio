@@ -99,3 +99,19 @@ video {
     font-size: 13px;
   }
 }
+
+/* ==================================================================
+ * Lift effect — main scrolls over a sticky footer
+ *
+ * On desktop, <main> sits at z-index 1 with an opaque background,
+ * covering the sticky <footer> (z-index 0) below it. As the user
+ * scrolls past <main>'s bottom edge, the footer is revealed.
+ *
+ * Mobile: normal stacked layout (footer sticky positioning is
+ * disabled at <1024px in footer.scss).
+ * ================================================================== */
+main {
+  position: relative;
+  z-index: 1;
+  background: $grey-color; // must be opaque to hide the footer beneath
+}

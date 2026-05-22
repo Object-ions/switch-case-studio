@@ -1,0 +1,186 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
+.faq {
+  position: relative;
+  width: 100%;
+  padding: 6rem 1.5rem;
+  background: $grey-color;
+  color: #fff;
+  font-family: 'Roboto Mono', monospace;
+
+  @media (min-width: 640px) {
+    padding: 7rem 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 9rem 3rem;
+  }
+
+  &__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+
+    @media (min-width: 1024px) {
+      grid-template-columns: 1fr 1.6fr;
+      gap: 5rem;
+      align-items: start;
+    }
+  }
+
+  /* ============================================================ *
+   * Title — left column on desktop, sticky so it stays in view
+   * while the user scrolls through the question list.
+   * ============================================================ */
+  &__title {
+    font-family: $font-special;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0;
+    color: #fff;
+
+    @media (min-width: 1024px) {
+      position: sticky;
+      top: 8rem;
+    }
+  }
+
+  /* ============================================================ *
+   * Question list
+   * ============================================================ */
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* ============================================================ *
+   * Individual row
+   * ============================================================ */
+  &__item {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    overflow: hidden;
+    transition:
+      border-color 0.3s ease,
+      background 0.3s ease;
+
+    &:hover {
+      border-color: rgba($g5, 0.4);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    &.is-open {
+      border-color: rgba($g5, 0.5);
+      background: rgba(255, 255, 255, 0.04);
+
+      .faq__icon {
+        transform: rotate(45deg);
+      }
+
+      .faq__answer-wrap {
+        grid-template-rows: 1fr;
+      }
+    }
+  }
+
+  &__button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.5rem 1.75rem;
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    text-align: left;
+    cursor: none; // matches site-wide custom cursor
+
+    @media (min-width: 640px) {
+      padding: 1.75rem 2rem;
+    }
+  }
+
+  &__question {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.4;
+    flex: 1;
+
+    @media (min-width: 640px) {
+      font-size: 1.125rem;
+    }
+
+    @media (min-width: 1024px) {
+      font-size: 1.25rem;
+    }
+  }
+
+  /* ============================================================ *
+   * Plus / close icon — rotates 45° via .is-open on parent
+   * ============================================================ */
+  &__icon {
+    position: relative;
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: transform 0.3s ease;
+  }
+
+  &__icon-line {
+    position: absolute;
+    background: #fff;
+    border-radius: 1px;
+
+    &--horizontal {
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      transform: translateY(-50%);
+    }
+
+    &--vertical {
+      top: 0;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      transform: translateX(-50%);
+    }
+  }
+
+  /* ============================================================ *
+   * Animated answer wrap — uses the grid-template-rows trick to
+   * animate from 0 to auto height without JS height measurement.
+   * Toggled via .is-open on .faq__item parent.
+   * ============================================================ */
+  &__answer-wrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s ease;
+  }
+
+  &__answer-inner {
+    overflow: hidden;
+  }
+
+  &__answer {
+    padding: 0 1.75rem 1.5rem;
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0;
+
+    @media (min-width: 640px) {
+      padding: 0 2rem 1.75rem;
+      font-size: 1rem;
+    }
+  }
+}

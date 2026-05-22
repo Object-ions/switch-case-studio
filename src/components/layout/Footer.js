@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import logo from '../../assets/images/switch_case_line_logo.png';
-import { PROJECT_LINKS, LEGAL_LINKS } from '../../data/navigation';
-import '../../styles/components/footer.scss';
+import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import logo from "../../assets/images/switch_case_line_logo.png";
+import { PROJECT_LINKS, LEGAL_LINKS } from "../../data/navigation";
+import "../../styles/components/footer.scss";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -70,10 +70,10 @@ const socials = [
  * ------------------------------------------------------------------ */
 const handleAnchorClick = (e, hash) => {
   // If we're already on home, prevent the route push and just scroll.
-  if (window.location.pathname === '/') {
+  if (window.location.pathname === "/") {
     e.preventDefault();
     const el = document.querySelector(hash);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   }
   // If on another route, the <Link to="/#services"> default behaviour
   // navigates home; ScrollToTop + the browser's hash handling pick it up.
@@ -82,22 +82,35 @@ const handleAnchorClick = (e, hash) => {
 /* ------------------------------------------------------------------ *
  * Column data
  * ------------------------------------------------------------------ */
+const SERVICES_LINKS = [
+  { label: "Web Development", to: "/pricing/web-development" },
+  { label: "Design & Branding", to: "/pricing/design-branding" },
+  { label: "Marketing & Ads", to: "/pricing/marketing-ads" },
+  { label: "Automation", to: "/pricing/automation-integrations" },
+  { label: "Email Marketing", to: "/pricing/email-marketing" },
+  { label: "Hosting & Maintenance", to: "/pricing/hosting-maintenance" },
+];
+
 const EXPLORE_LINKS = [
-  { label: 'Services', hash: '#services' },
-  { label: 'About', hash: '#about' },
-  { label: 'Reviews', hash: '#testimonials' },
-  { label: 'Contact', hash: '#contact' },
-  { label: 'Pricing', to: '/pricing/web-development' },
+  { label: "Services", hash: "#services" },
+  { label: "About", hash: "#about" },
+  { label: "Reviews", hash: "#testimonials" },
+  { label: "Contact", hash: "#contact" },
+  { label: "Pricing", to: "/pricing/web-development" },
 ];
 
 const CONNECT_LINKS = [
   {
-    label: 'Book a Call',
-    to: 'https://calendar.google.com/calendar/u/0/appointments/AcZssZ2kHaMoFWG192FjKixO0w5b2Lb0wcjipYV2xQU=',
-    badge: 'free',
+    label: "Book a Call",
+    href: "https://calendar.app.google/83UCJjis2FHUrr1s6",
+    external: true,
+    badge: "free",
   },
-  { label: 'Email Us', href: 'mailto:hello@switchcasestudio.com' },
+  { label: "Email Us", href: "mailto:hello@switchcasestudio.com" },
 ];
+
+const CALENDLY_URL = "https://calendar.app.google/83UCJjis2FHUrr1s6";
+const CONTACT_EMAIL = "hello@switchcasestudio.com";
 
 const Footer = () => {
   const footerRef = useRef(null);
@@ -105,7 +118,7 @@ const Footer = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const cols = gsap.utils.toArray('.footer-col-animate');
+      const cols = gsap.utils.toArray(".footer-col-animate");
       gsap.fromTo(
         cols,
         { opacity: 0, y: 16 },
@@ -114,11 +127,11 @@ const Footer = () => {
           y: 0,
           duration: 0.5,
           stagger: 0.06,
-          ease: 'power2.out',
+          ease: "power2.out",
           scrollTrigger: {
             trigger: footerRef.current,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
+            start: "top 85%",
+            toggleActions: "play none none reverse",
           },
         },
       );
@@ -128,8 +141,36 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer ref={footerRef} className="site-footer" role="contentinfo">
+    <footer
+      ref={footerRef}
+      id="contact"
+      className="site-footer"
+      role="contentinfo"
+    >
       <div className="site-footer__inner">
+        {/* ============================================================
+         * CTA band — giant email + "Start New Project" button
+         * ============================================================ */}
+        <div className="footer-cta footer-col-animate">
+          <a href={`mailto:${CONTACT_EMAIL}`} className="footer-cta__email">
+            {CONTACT_EMAIL}
+          </a>
+          <a
+            href={CALENDLY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-cta__button"
+          >
+            Start New Project
+          </a>
+        </div>
+
+        {/* Divider between CTA and main grid */}
+        <div className="footer-divider" aria-hidden="true" />
+
+        {/* ============================================================
+         * Main grid — Brand | Services | Explore | Case Studies | Connect
+         * ============================================================ */}
         <div className="site-footer__grid">
           {/* Brand + tagline + socials */}
           <div className="footer-col footer-col-animate footer-brand">
@@ -160,6 +201,18 @@ const Footer = () => {
                 ))}
               </div>
             )}
+          </div>
+
+          {/* Services */}
+          <div className="footer-col footer-col-animate">
+            <h4 className="footer-col__title">Services</h4>
+            <ul className="footer-nav">
+              {SERVICES_LINKS.map((link) => (
+                <li key={link.to}>
+                  <Link to={link.to}>{link.label}</Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Explore */}
@@ -203,20 +256,15 @@ const Footer = () => {
             <ul className="footer-nav">
               {CONNECT_LINKS.map((link) => (
                 <li key={link.label} className="footer-nav__item">
-                  {link.href ? (
-                    <a href={link.href}>{link.label}</a>
-                  ) : (
-                    <Link
-                      to={link.to}
-                      onClick={
-                        link.to.includes('#')
-                          ? (e) => handleAnchorClick(e, '#contact')
-                          : undefined
-                      }
-                    >
-                      {link.label}
-                    </Link>
-                  )}
+                  <a
+                    href={link.href}
+                    {...(link.external && {
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                    })}
+                  >
+                    {link.label}
+                  </a>
                   {link.badge && (
                     <span className="footer-nav__badge">{link.badge}</span>
                   )}
@@ -231,11 +279,10 @@ const Footer = () => {
           <span className="footer-wordmark__text">switch case</span>
         </div>
 
-        {/* Bottom bar */}
+        {/* ============================================================
+         * Bottom bar — Legal | © Copyright | Built in Portland
+         * ============================================================ */}
         <div className="footer-bottom">
-          <p className="footer-bottom__copy">
-            &copy; {currentYear} Switch Case Studio LLC
-          </p>
           <ul className="footer-bottom__legal">
             {LEGAL_LINKS.map((link) => (
               <li key={link.to}>
@@ -243,6 +290,14 @@ const Footer = () => {
               </li>
             ))}
           </ul>
+
+          <p className="footer-bottom__copy">
+            &copy; {currentYear} Switch Case Studio LLC
+          </p>
+
+          <p className="footer-bottom__tagline">
+            Built in Portland, OR — delivered worldwide
+          </p>
         </div>
       </div>
     </footer>

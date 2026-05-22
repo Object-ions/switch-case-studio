@@ -10,6 +10,14 @@
   font-family: 'Roboto Mono', monospace;
   overflow: hidden;
 
+  /* LIFT EFFECT — desktop only.
+   * Footer pins to viewport bottom; <main> scrolls over it. */
+  @media (min-width: 1024px) {
+    position: sticky;
+    bottom: 0;
+    z-index: 0;
+  }
+
   @media (min-width: 640px) {
     padding: 5rem 2rem 2rem;
   }
@@ -31,10 +39,99 @@
     grid-template-columns: 1fr;
     gap: 2.5rem;
 
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem 3rem;
+    }
+
     @media (min-width: 1024px) {
-      grid-template-columns: 1.3fr 1fr 1fr 1fr;
+      /* Brand wider, four link columns equal */
+      grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr;
+      gap: 2.5rem;
+    }
+
+    @media (min-width: 1280px) {
       gap: 3rem;
     }
+  }
+}
+
+/* ==================================================================
+ * CTA band — giant email + button
+ * ================================================================== */
+
+.footer-cta {
+  text-align: center;
+  padding: 2rem 0 3rem;
+
+  @media (min-width: 640px) {
+    text-align: left;
+    padding: 3rem 0 4rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 4rem 0 5rem;
+  }
+
+  &__email {
+    display: inline-block;
+    font-family: $font-special;
+    font-weight: 500;
+    font-size: clamp(1.75rem, 7vw, 6rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: #fff;
+    text-decoration: none;
+    word-break: break-all;
+    transition: opacity 0.2s ease;
+
+    @media (min-width: 640px) {
+      word-break: normal;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2.5rem;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    background: #fff;
+    color: #000;
+    font-size: 1.05rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+    width: 100%;
+
+    @media (min-width: 640px) {
+      width: auto;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+/* ==================================================================
+ * Divider
+ * ================================================================== */
+
+.footer-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba($g5, 0.15);
+  margin-bottom: 4rem;
+
+  @media (min-width: 1024px) {
+    margin-bottom: 5rem;
   }
 }
 
@@ -171,9 +268,6 @@
 
 /* ==================================================================
  * Stenciled wordmark
- *
- * The signature visual of footer-8: an outlined giant wordmark with
- * a fade mask. Recreated using $g1 (brand orange) for the outline.
  * ================================================================== */
 
 .footer-wordmark {
@@ -195,7 +289,6 @@
     font-weight: 500;
     line-height: 1;
     white-space: nowrap;
-    // padding-left: 0.15em;
     color: #000; // fill matches footer bg → only outline shows
     text-shadow:
       0 -1.5px 0 rgba($g5, 0.7),
@@ -210,7 +303,7 @@
 }
 
 /* ==================================================================
- * Bottom bar
+ * Bottom bar — Legal | © | Built in Portland
  * ================================================================== */
 
 .footer-bottom {
@@ -224,14 +317,10 @@
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.6);
 
-  @media (min-width: 640px) {
+  @media (min-width: 768px) {
     flex-direction: row;
     align-items: center;
-    font-size: 0.875rem;
-  }
-
-  &__copy {
-    margin: 0;
+    font-size: 0.8125rem;
   }
 
   &__legal {
@@ -239,8 +328,10 @@
     padding: 0;
     margin: 0;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 1.25rem;
+    order: 1;
 
     a {
       color: inherit;
@@ -251,5 +342,16 @@
         color: #fff;
       }
     }
+  }
+
+  &__copy {
+    margin: 0;
+    order: 2;
+  }
+
+  &__tagline {
+    margin: 0;
+    order: 3;
+    color: rgba(255, 255, 255, 0.4);
   }
 }

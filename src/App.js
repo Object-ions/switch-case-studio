@@ -1,31 +1,32 @@
-import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
-import MainLayout from './components/layout/MainLayout';
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
+import MainLayout from "./components/layout/MainLayout";
 
 // Pages & Sections
-import Services from './components/pages/Services';
-import Work from './components/pages/Work';
-import Testimonials from './components/pages/Testimonials';
-import Projects from './components/Projects';
-import ProjectPage from './components/pages/ProjectPage';
-import Contact from './components/pages/Contact';
-import PricingPage from './components/PricingPage';
-import Hero from './components/Hero';
-import ValueProp from './components/ValueProp';
+import Services from "./components/pages/Services";
+import Work from "./components/pages/Work";
+import Testimonials from "./components/pages/Testimonials";
+import Projects from "./components/Projects";
+import ProjectPage from "./components/pages/ProjectPage";
+import Contact from "./components/pages/Contact";
+import PricingPage from "./components/PricingPage";
+import Hero from "./components/Hero";
+import ValueProp from "./components/ValueProp";
+import Faq from "./components/Faq";
 
 // Utilities & Components
-import ScrollToTop from './components/ScrollToTop';
-import GradientStripe from './components/StripeSection';
+import ScrollToTop from "./components/ScrollToTop";
+import GradientStripe from "./components/StripeSection";
 
 // Assets & Styles
-import Orb from './assets/images/orb.avif';
+import Orb from "./assets/images/orb.avif";
 
 // Legal Pages
-import Privacy from './components/Privacy';
-import Terms from './components/Terms';
-import Accessibility from './components/Accessibility';
+import Privacy from "./components/Privacy";
+import Terms from "./components/Terms";
+import Accessibility from "./components/Accessibility";
 
-import './styles/app.scss';
+import "./styles/app.scss";
 
 const HomeContent = () => (
   <>
@@ -42,6 +43,7 @@ const HomeContent = () => (
     <Contact />
     <Projects />
     <Testimonials />
+    <Faq />
   </>
 );
 
