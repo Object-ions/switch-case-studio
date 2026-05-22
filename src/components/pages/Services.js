@@ -1,141 +1,198 @@
-import { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearchengin } from '@fortawesome/free-brands-svg-icons';
-import {
-  faCode,
-  faServer,
-  faPenNib,
-  faWandMagicSparkles,
-  faLightbulb,
-  faChevronRight,
-} from '@fortawesome/free-solid-svg-icons';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import servicesData from '../../data/services.json';
-import useReducedMotion from '../../hooks/useReducedMotion';
-import '../../styles/components/services.scss';
-
-const iconMap = {
-  faCode,
-  faSearchengin,
-  faServer,
-  faPenNib,
-  faWandMagicSparkles,
-  faLightbulb,
-};
+import servicesData from "../../data/services.json";
+import "../../styles/components/services.scss";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Module-level pointer detection — matches the Cursor component pattern.
-// Avoids attaching mousemove listeners on touch devices where the hover
-// circle effect is purely decorative and would never fire.
-const HAS_FINE_POINTER =
-  typeof window !== 'undefined' &&
-  window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+function ServiceItem({ service, index }) {
+  const itemRef = useRef(null);
+  const overlayRef = useRef(null);
+  const overlayInnerRef = useRef(null);
+  const charsRef = useRef([]);
 
-/** Shared mousemove handler — sets --x / --y CSS vars on the target element. */
-const trackMouse = (e, el) => {
-  const rect = el.getBoundingClientRect();
-  el.style.setProperty('--x', `${e.clientX - rect.left}px`);
-  el.style.setProperty('--y', `${e.clientY - rect.top}px`);
-};
-
-const Services = () => {
-  const sectionRef = useRef(null);
-  const reducedMotion = useReducedMotion();
+  const animationDefaults = { duration: 0.6, ease: "expo" };
 
   useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
+    if (!itemRef.current) return;
 
-    const reveals = gsap.utils.toArray('.reveal', section);
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        itemRef.current,
+        { x: -60, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: itemRef.current,
+            start: "top 90%",
+            end: "top 70%",
+            scrub: 1,
+          },
+        },
+      );
+    }, itemRef);
 
-    // GSAP owns the reveal start + end state (single source of truth).
-    // Reduced-motion users skip the animation entirely.
-    if (reducedMotion) {
-      gsap.set(reveals, { autoAlpha: 1, y: 0 });
-    } else {
-      gsap.set(reveals, { autoAlpha: 0, y: 60 });
+    return () => ctx.revert();
+  }, [index]);
+
+  const findClosestEdge = (mouseX, mouseY, width, height) => {
+    const topEdgeDist = Math.pow(mouseX - width / 2, 2) + Math.pow(mouseY, 2);
+    const bottomEdgeDist =
+      Math.pow(mouseX - width / 2, 2) + Math.pow(mouseY - height, 2);
+
+    return topEdgeDist < bottomEdgeDist ? "top" : "bottom";
+  };
+
+  const handleMouseEnter = (ev) => {
+    if (!itemRef.current || !overlayRef.current || !overlayInnerRef.current) {
+      return;
     }
 
-    // --- Scroll reveal animation ---
-    const tweens = reducedMotion
-      ? []
-      : reveals.map((el, i) =>
-          gsap.to(el, {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.6,
-            delay: i * 0.1,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 85%',
-              toggleActions: 'play none none reverse',
-            },
-          }),
-        );
+    const rect = itemRef.current.getBoundingClientRect();
 
-    // --- Hover circle effects (pointer-capable devices only) ---
-    let titleEl;
-    let handleTitleMove;
-    let cards;
-    let handleCardMove;
+    const edge = findClosestEdge(
+      ev.clientX - rect.left,
+      ev.clientY - rect.top,
+      rect.width,
+      rect.height,
+    );
 
-    if (HAS_FINE_POINTER) {
-      titleEl = section.querySelector('.title');
-      handleTitleMove = (e) => trackMouse(e, titleEl);
-      titleEl?.addEventListener('mousemove', handleTitleMove);
+    const tl = gsap.timeline({ defaults: animationDefaults });
 
-      cards = section.querySelectorAll('.services-card');
-      handleCardMove = (e) => trackMouse(e, e.currentTarget);
-      cards.forEach((card) =>
-        card.addEventListener('mousemove', handleCardMove),
+    tl.set(overlayRef.current, { y: edge === "top" ? "-101%" : "101%" }, 0)
+      .set(overlayInnerRef.current, { y: edge === "top" ? "101%" : "-101%" }, 0)
+      .to([overlayRef.current, overlayInnerRef.current], { y: "0%" }, 0);
+
+    if (charsRef.current.length > 0) {
+      tl.fromTo(
+        charsRef.current,
+        { y: 0 },
+        {
+          y: -32,
+          duration: 0.15,
+          ease: "sine.out",
+          stagger: { each: 0.01, from: "start" },
+        },
+        0,
+      ).to(
+        charsRef.current,
+        {
+          y: 0,
+          duration: 0.2,
+          ease: "sine.inOut",
+          stagger: { each: 0.01, from: "start" },
+        },
+        0.15,
       );
     }
+  };
 
-    // --- Cleanup ---
-    return () => {
-      tweens.forEach((tween) => {
-        tween.scrollTrigger?.kill();
-        tween.kill();
-      });
-      if (HAS_FINE_POINTER) {
-        titleEl?.removeEventListener('mousemove', handleTitleMove);
-        cards?.forEach((card) =>
-          card.removeEventListener('mousemove', handleCardMove),
-        );
-      }
-    };
-  }, [reducedMotion]);
+  const handleMouseLeave = (ev) => {
+    if (!itemRef.current || !overlayRef.current || !overlayInnerRef.current) {
+      return;
+    }
+
+    const rect = itemRef.current.getBoundingClientRect();
+
+    const edge = findClosestEdge(
+      ev.clientX - rect.left,
+      ev.clientY - rect.top,
+      rect.width,
+      rect.height,
+    );
+
+    gsap.set(charsRef.current, { y: 0 });
+
+    gsap
+      .timeline({ defaults: animationDefaults })
+      .to(overlayRef.current, { y: edge === "top" ? "-101%" : "101%" }, 0)
+      .to(overlayInnerRef.current, { y: edge === "top" ? "101%" : "-101%" }, 0);
+  };
+
+  const chars = service.title.split("").map((char, i) => (
+    <span
+      key={i}
+      ref={(el) => {
+        if (el) charsRef.current[i] = el;
+      }}
+      className="services__overlay-char"
+      style={{ whiteSpace: char === " " ? "pre" : undefined }}
+    >
+      {char}
+    </span>
+  ));
 
   return (
-    <section id="services" ref={sectionRef} aria-labelledby="services-heading">
-      <div className="services-content">
-        {servicesData.map((service) => (
-          <Link
-            key={service.slug}
-            to={`/pricing/${service.slug}`}
-            className="services-card reveal cursor-black"
-            aria-label={`${service.title} — see pricing`}
-          >
-            <div className="card-icon">
-              <FontAwesomeIcon icon={iconMap[service.icon]} />
-            </div>
-            <div className="card-body">
-              <h3>{service.title}</h3>
-              <p>{service.subTitle}</p>
-              <span className="card-cta" aria-hidden="true">
-                {service.cta}
-              </span>
-            </div>
-            <span className="card-chevron" aria-hidden="true">
-              <FontAwesomeIcon icon={faChevronRight} />
+    <div ref={itemRef} className="services__item">
+      <Link
+        to={`/pricing/${service.slug}`}
+        className="services__link cursor-black"
+        aria-label={`${service.title} pricing`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <span className="services__item-main">
+          <span className="services__item-title">{service.title}</span>
+          <span className="services__item-subtitle">{service.subTitle}</span>
+        </span>
+
+        <span className="services__item-cta">{service.cta}</span>
+      </Link>
+
+      <div
+        ref={overlayRef}
+        className="services__overlay"
+        style={{ transform: "translateY(101%)" }}
+      >
+        <div
+          ref={overlayInnerRef}
+          className="services__overlay-inner"
+          style={{ transform: "translateY(-101%)" }}
+        >
+          <span className="services__overlay-main">
+            <span className="services__overlay-title">{chars}</span>
+            <span className="services__overlay-subtitle">
+              {service.description}
             </span>
-          </Link>
-        ))}
+          </span>
+
+          <svg
+            className="services__icon"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M7 17L17 7M17 7H7M17 7V17"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const Services = () => {
+  return (
+    <section id="services" className="services">
+      <div id="services-menu" className="services__menu">
+        <div className="services__list">
+          {servicesData.map((service, index) => (
+            <ServiceItem key={service.slug} service={service} index={index} />
+          ))}
+
+          <div className="services__list-bottom" />
+        </div>
       </div>
     </section>
   );

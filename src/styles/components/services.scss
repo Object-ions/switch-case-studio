@@ -1,385 +1,201 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
-#services {
+#services.services {
+  position: relative;
+  overflow: hidden;
   background: #000;
   color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
   font-family: $font-text;
-  line-height: 1.6;
-  padding: 6rem 0;
-  margin: auto;
-  overflow: hidden;
+}
 
-  // NOTE: .reveal initial state is owned by GSAP (see Services.js).
-  // No CSS opacity/transform here — single source of truth.
-
-  /* --- HERO SECTION --- */
-  .services-hero {
-    max-width: 1000px;
-    margin: 0 auto 4rem auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .title {
-      position: relative;
-      isolation: isolate;
-      text-align: center;
-      padding: 3rem;
-
-      // White Sphere with blend — pointer-capable devices only
-      &::before {
-        content: '';
-        position: absolute;
-        top: var(--y, 50%);
-        left: var(--x, 50%);
-        width: 120px;
-        height: 120px;
-        background: #fff;
-        border-radius: 50%;
-        transform: translate(-50%, -50%) scale(0);
-        transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-        pointer-events: none;
-        z-index: 10;
-        mix-blend-mode: difference;
-      }
-
-      h2 {
-        position: relative;
-        z-index: 1;
-        color: rgba(255, 255, 255, 0.9);
-        font-family: $font-special;
-        font-size: clamp(1.8rem, 3vw, 2.5rem);
-        font-weight: 500;
-        line-height: 1.4;
-        transition: color 0.3s ease;
-
-        .shine-text {
-          font-weight: 800;
-          text-decoration: underline;
-          text-decoration-color: $g1;
-          text-underline-offset: 6px;
-        }
-      }
-
-      // Hover effects scoped to pointer-capable devices to avoid
-      // sticky-tap behavior on touch screens.
-      @media (hover: hover) and (pointer: fine) {
-        &:hover::before {
-          transform: translate(-50%, -50%) scale(4);
-        }
-
-        &:hover h2 {
-          color: #fff;
-
-          .shine-text {
-            text-decoration-color: #fff;
-          }
-        }
-      }
-    }
-
-    @media (max-width: 1024px) {
-      .title h2 {
-        font-size: clamp(1.4rem, 4vw, 1.8rem);
-      }
-    }
-
-    @media (max-width: 768px) {
-      margin: 0 auto 2rem auto;
-
-      .title {
-        padding: 1rem 1.25rem;
-
-        h2 {
-          font-size: clamp(1.25rem, 5vw, 1.6rem);
-          line-height: 1.35;
-        }
-      }
-    }
+.services {
+  &__menu {
+    width: 100%;
+    padding-bottom: 6rem;
   }
 
-  /* --- GRID LAYOUT --- */
-  .services-content {
-    max-width: 1200px;
-    padding: 0 1.5rem;
-    margin: 0 auto 7rem auto;
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(3, 1fr);
+  &__list {
+    width: 100%;
+  }
+
+  &__list-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  &__item {
     position: relative;
-    z-index: 2;
+    overflow: hidden;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
 
-    /* --- THE CARD --- */
-    a.services-card {
-      position: relative;
-      overflow: hidden;
-      isolation: isolate;
-      z-index: 1;
-      display: flex;
+  &__link {
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    cursor: pointer;
+    padding: 2rem 1.5rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &__item-main,
+  &__overlay-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  &__item-title,
+  &__overlay-title {
+    font-family: $font-text;
+    font-size: clamp(1rem, 4vw, 2.5rem);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+  }
+
+  &__item-subtitle {
+    max-width: 520px;
+    font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+    font-weight: 300;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.65);
+  }
+
+  &__item-cta {
+    flex-shrink: 0;
+    font-size: 0.875rem;
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: $g6;
+
+
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background: #fff;
+    color: #000;
+  }
+
+  &__overlay-inner {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 2rem;
+    padding-inline: 1.5rem;
+  }
+
+  &__overlay-title {
+    color: #000;
+  }
+
+  &__overlay-subtitle {
+    max-width: 620px;
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    font-weight: 400;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.65);
+  }
+
+  &__overlay-cta {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #000;
+    white-space: nowrap;
+  }
+
+  &__overlay-char {
+    display: inline-block;
+  }
+
+  &__icon {
+    width: 2rem;
+    height: 2rem;
+    color: #000;
+    flex-shrink: 0;
+  }
+}
+
+@media (min-width: 640px) {
+  .services {
+    &__link,
+    &__overlay-inner {
+      padding-inline: 3rem;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .services {
+    &__link {
+      padding-block: 2.5rem;
+    }
+
+    &__icon {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .services {
+    &__link,
+    &__overlay-inner {
+      padding-inline: 6rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .services {
+    &__menu {
+      padding-bottom: 4rem;
+    }
+
+    &__link {
+      min-height: 120px;
+      align-items: flex-start;
       flex-direction: column;
-      justify-content: space-between;
-
-      background-color: #0a0a0a;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 24px;
-
-      aspect-ratio: 1;
-      padding: 2.5rem;
-      color: white;
-      text-decoration: none;
-      transition:
-        border-color 0.4s ease,
-        transform 0.4s ease;
-
-      .card-icon {
-        font-size: 2.5rem;
-        margin-bottom: auto;
-        position: relative;
-        z-index: 1;
-        opacity: 0.8;
-        transition: opacity 0.3s ease;
-      }
-
-      // Mobile-only wrapper around the text content. On desktop/tablet the
-      // card uses column flex with space-between, so this div is a passive
-      // pass-through; on mobile it becomes the middle flex column.
-      .card-body {
-        display: contents;
-      }
-
-      h3 {
-        font-family: $font-special;
-        text-transform: uppercase;
-        font-size: clamp(1.5rem, 2vw, 2rem);
-        line-height: 1.1;
-        margin-top: 1rem;
-        margin-bottom: 0.75rem;
-        position: relative;
-        z-index: 1;
-      }
-
-      p {
-        font-family: $font-text;
-        font-size: 1rem;
-        font-weight: 300;
-        line-height: 1.6;
-        opacity: 0.8;
-        margin-bottom: 1.5rem;
-        position: relative;
-        z-index: 1;
-        transition: opacity 0.3s ease;
-      }
-
-      .card-cta {
-        display: inline-block;
-        font-family: $font-text;
-        font-size: 0.875rem;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        color: $g6;
-        padding: 0.5rem 0;
-        position: relative;
-        z-index: 1;
-        opacity: 0.85;
-        transition:
-          opacity 0.3s ease,
-          transform 0.3s ease,
-          color 0.3s ease;
-      }
-
-      // Chevron is mobile-only — hidden on desktop/tablet where the
-      // .card-cta pill carries the affordance instead.
-      .card-chevron {
-        display: none;
-      }
-
-      // White Sphere with blend (Cards) — pointer-capable devices only
-      &::before {
-        content: '';
-        position: absolute;
-        top: var(--y, 50%);
-        left: var(--x, 50%);
-        width: 100px;
-        height: 100px;
-        background: #fff;
-        border-radius: 50%;
-        transform: translate(-50%, -50%) scale(0);
-        transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-        z-index: 10;
-        pointer-events: none;
-        mix-blend-mode: difference;
-      }
-
-      // Keyboard focus state — works on all devices.
-      &:focus-visible {
-        outline: 2px solid $g6;
-        outline-offset: 4px;
-        border-color: rgba(255, 255, 255, 0.4);
-
-        .card-cta {
-          opacity: 1;
-          transform: translateX(4px);
-        }
-      }
-
-      // Hover effects scoped to pointer-capable devices.
-      // Custom cursor only renders there; cursor: none would otherwise
-      // leave touch users with no cursor at all.
-      @media (hover: hover) and (pointer: fine) {
-        cursor: none;
-
-        &:hover {
-          border-color: rgba(255, 255, 255, 0.4);
-          transform: translateY(-4px);
-
-          &::before {
-            transform: translate(-50%, -50%) scale(4);
-          }
-
-          .card-icon,
-          h3,
-          p {
-            opacity: 1;
-          }
-
-          .card-cta {
-            opacity: 1;
-            transform: translateX(4px);
-            color: #fff;
-          }
-        }
-      }
-    }
-
-    @media (max-width: 1024px) {
       gap: 1rem;
-      grid-template-columns: repeat(2, 1fr);
-
-      a.services-card {
-        padding: 2rem;
-
-        h3 {
-          font-size: 1.5rem;
-        }
-      }
+      padding: 1.5rem 1.25rem;
     }
 
-    /* --- MOBILE: row-list layout --- */
-    @media (max-width: 768px) {
-      grid-template-columns: 1fr;
-      gap: 0;
-      padding: 0 1rem;
-
-      // Top + bottom rails wrap the list; each card supplies its own
-      // bottom divider, removed on the last item.
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-
-      a.services-card {
-        // Reset desktop card styling
-        background: transparent;
-        border: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 0;
-        aspect-ratio: auto;
-        min-height: 0;
-        padding: 1.25rem 0.5rem;
-
-        // Switch to horizontal flex row
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 1rem;
-
-        // Hover sphere is purely decorative + never fires on touch — kill it
-        &::before {
-          display: none;
-        }
-
-        .card-icon {
-          // Reset margin-bottom: auto from desktop column layout
-          margin-bottom: 0;
-          flex-shrink: 0;
-
-          width: 44px;
-          height: 44px;
-          border-radius: 12px;
-          background: rgba(217, 156, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.08);
-
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          font-size: 1.1rem;
-          color: $g6;
-          opacity: 1;
-        }
-
-        // .card-body becomes the middle flex column — wraps h3 + p,
-        // pushes chevron to the right via flex: 1.
-        .card-body {
-          display: flex;
-          flex-direction: column;
-          flex: 1;
-          min-width: 0;
-        }
-
-        h3 {
-          font-size: 1rem;
-          margin: 0 0 0.2rem 0;
-          letter-spacing: 0.01em;
-        }
-
-        p {
-          font-size: 0.8125rem;
-          line-height: 1.4;
-          margin: 0;
-          opacity: 0.6;
-        }
-
-        // Redundant on mobile — chevron carries the affordance
-        .card-cta {
-          display: none;
-        }
-
-        .card-chevron {
-          display: flex;
-          align-items: center;
-          flex-shrink: 0;
-          font-size: 0.75rem;
-          color: rgba(255, 255, 255, 0.4);
-          padding-left: 0.25rem;
-          transition: transform 0.2s ease, color 0.2s ease;
-        }
-
-        // Tap feedback — touch users get a brief active state
-        &:active {
-          background: rgba(255, 255, 255, 0.02);
-
-          .card-chevron {
-            color: $g6;
-            transform: translateX(3px);
-          }
-        }
-
-        &:focus-visible {
-          outline-offset: -2px;
-        }
-      }
+    &__item-title,
+    &__overlay-title {
+      font-size: clamp(1.5rem, 4vw, 2rem);
     }
-  }
 
-  @media (max-width: 1024px) {
-    padding: 4rem 1.5rem;
-  }
+    &__item-subtitle {
+      font-size: 0.9rem;
+    }
 
-  @media (max-width: 768px) {
-    padding: 3rem 0;
+    &__overlay-inner {
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      padding-inline: 1.25rem;
+    }
+
+    &__overlay-subtitle,
+    &__overlay-cta {
+      display: none;
+    }
+
+    &__icon {
+      width: 2rem;
+      height: 2rem;
+    }
   }
 }
