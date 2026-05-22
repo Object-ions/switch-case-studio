@@ -1,0 +1,62 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+// SCSLogo
+// -------
+// Sizing comes from the parent (.header_logo in header.scss). This file
+// owns the inline-SVG presentation: the gentle hover scale on the wrapper
+// and the star spin keyframe.
+//
+// Pointer-aware: the spin only engages on devices that actually support
+// hover (skips touch). prefers-reduced-motion strips both transitions.
+
+.scsLogo {
+  display: inline-block;
+  line-height: 0; // prevent baseline space below inline SVG
+
+  &__svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__star {
+    transform-box: fill-box; // rotate around the star's own bounding box
+    transform-origin: center;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    &:hover {
+      transform: scale(1.03);
+    }
+
+    &:hover &__star {
+      animation: scsLogo-starSpin 5s linear infinite;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+
+    &__star,
+    &:hover &__star {
+      animation: none;
+    }
+  }
+}
+
+@keyframes scsLogo-starSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

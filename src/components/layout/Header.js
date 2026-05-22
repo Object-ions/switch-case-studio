@@ -1,12 +1,12 @@
-import { Link, useLocation } from 'react-router-dom';
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { gsap } from 'gsap';
-import HeaderCTA from './HeaderCTA';
-import StaggeredMenu from './StaggeredMenu';
-import { PRICING_LINKS, PROJECT_LINKS } from '../../data/navigation';
-import useReducedMotion from '../../hooks/useReducedMotion';
-import logo from '../../assets/images/scs-logo.png';
-import '../../styles/components/header.scss';
+import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { gsap } from "gsap";
+import HeaderCTA from "./HeaderCTA";
+import StaggeredMenu from "./StaggeredMenu";
+import SCSLogo from "../SCSLogo";
+import { PRICING_LINKS, PROJECT_LINKS } from "../../data/navigation";
+import useReducedMotion from "../../hooks/useReducedMotion";
+import "../../styles/components/header.scss";
 
 // Scroll distance after which the header gets a `is-scrolled` class.
 const SCROLL_THRESHOLD = 8;
@@ -14,7 +14,7 @@ const SCROLL_THRESHOLD = 8;
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState(null);
-  const [textLines, setTextLines] = useState(['Menu', 'Close']);
+  const [textLines, setTextLines] = useState(["Menu", "Close"]);
   const [scrolled, setScrolled] = useState(false);
   const { pathname, hash } = useLocation();
   const reducedMotion = useReducedMotion();
@@ -40,9 +40,9 @@ const Header = () => {
     const textInner = textInnerRef.current;
     if (!plusH || !plusV || !icon || !textInner) return;
 
-    gsap.set(plusH, { transformOrigin: '50% 50%', rotate: 0 });
-    gsap.set(plusV, { transformOrigin: '50% 50%', rotate: 90 });
-    gsap.set(icon, { rotate: 0, transformOrigin: '50% 50%' });
+    gsap.set(plusH, { transformOrigin: "50% 50%", rotate: 0 });
+    gsap.set(plusV, { transformOrigin: "50% 50%", rotate: 90 });
+    gsap.set(icon, { rotate: 0, transformOrigin: "50% 50%" });
     gsap.set(textInner, { yPercent: 0 });
   }, []);
 
@@ -50,8 +50,8 @@ const Header = () => {
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > SCROLL_THRESHOLD);
     onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   /* ── Icon spin animation ────────────────────── */
@@ -70,14 +70,14 @@ const Header = () => {
         ? gsap.to(icon, {
             rotate: 225,
             duration: 0.8,
-            ease: 'power4.out',
-            overwrite: 'auto',
+            ease: "power4.out",
+            overwrite: "auto",
           })
         : gsap.to(icon, {
             rotate: 0,
             duration: 0.35,
-            ease: 'power3.inOut',
-            overwrite: 'auto',
+            ease: "power3.inOut",
+            overwrite: "auto",
           });
     },
     [reducedMotion],
@@ -90,7 +90,7 @@ const Header = () => {
       if (!inner) return;
       textCycleAnimRef.current?.kill();
 
-      const targetLabel = opening ? 'Close' : 'Menu';
+      const targetLabel = opening ? "Close" : "Menu";
 
       if (reducedMotion) {
         setTextLines([targetLabel]);
@@ -98,12 +98,12 @@ const Header = () => {
         return;
       }
 
-      const currentLabel = opening ? 'Menu' : 'Close';
+      const currentLabel = opening ? "Menu" : "Close";
       const cycles = 3;
       const seq = [currentLabel];
       let last = currentLabel;
       for (let i = 0; i < cycles; i++) {
-        last = last === 'Menu' ? 'Close' : 'Menu';
+        last = last === "Menu" ? "Close" : "Menu";
         seq.push(last);
       }
       if (last !== targetLabel) seq.push(targetLabel);
@@ -116,7 +116,7 @@ const Header = () => {
       textCycleAnimRef.current = gsap.to(inner, {
         yPercent: -finalShift,
         duration: 0.5 + lineCount * 0.07,
-        ease: 'power4.out',
+        ease: "power4.out",
       });
     },
     [reducedMotion],
@@ -148,10 +148,10 @@ const Header = () => {
   /* ── Active-route helpers ───────────────────── */
   const isActive = useCallback(
     (to) => {
-      if (to.startsWith('/#')) {
-        return pathname === '/' && hash === to.slice(1);
+      if (to.startsWith("/#")) {
+        return pathname === "/" && hash === to.slice(1);
       }
-      if (to === '/') return pathname === '/';
+      if (to === "/") return pathname === "/";
       return pathname === to || pathname.startsWith(`${to}/`);
     },
     [pathname, hash],
@@ -222,14 +222,14 @@ const Header = () => {
   return (
     <>
       <header
-        className={`site-header ${scrolled ? 'is-scrolled' : ''}`}
+        className={`site-header ${scrolled ? "is-scrolled" : ""}`}
         role="banner"
       >
         <div className="site-header_inner">
           {/* Mobile toggle */}
           <button
             className="site-header_menuBtn"
-            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="staggered-menu-panel"
             onClick={toggleMenu}
@@ -256,11 +256,7 @@ const Header = () => {
               className="brand_link"
               aria-label="Switch Case Studio — Home"
             >
-              <img
-                src={logo}
-                alt="Switch Case Studio logo"
-                className="header_logo"
-              />
+              <SCSLogo className="header_logo" />
             </Link>
           </div>
 
@@ -271,8 +267,8 @@ const Header = () => {
               <li className="nav_item">
                 <Link
                   to="/#about"
-                  className={`nav_link ${isActive('/#about') ? 'is-active' : ''}`}
-                  aria-current={isActive('/#about') ? 'page' : undefined}
+                  className={`nav_link ${isActive("/#about") ? "is-active" : ""}`}
+                  aria-current={isActive("/#about") ? "page" : undefined}
                 >
                   About
                 </Link>
@@ -280,8 +276,8 @@ const Header = () => {
               <li className="nav_item">
                 <Link
                   to="/#services"
-                  className={`nav_link ${isActive('/#services') ? 'is-active' : ''}`}
-                  aria-current={isActive('/#services') ? 'page' : undefined}
+                  className={`nav_link ${isActive("/#services") ? "is-active" : ""}`}
+                  aria-current={isActive("/#services") ? "page" : undefined}
                 >
                   Services
                 </Link>
@@ -292,62 +288,62 @@ const Header = () => {
                   Route-match highlights the trigger via .is-active below. */}
               <li
                 className={`nav_item nav_item--has-submenu ${
-                  activeSubmenu === 'pricing' ? 'is-open' : ''
+                  activeSubmenu === "pricing" ? "is-open" : ""
                 }`}
-                onMouseEnter={handleSubmenuEnter('pricing')}
+                onMouseEnter={handleSubmenuEnter("pricing")}
                 onMouseLeave={handleSubmenuLeave}
                 onBlur={handleSubmenuBlur}
               >
                 <button
                   type="button"
                   className={`nav_link nav_link--trigger ${
-                    isSectionActive('/pricing') ? 'is-active' : ''
+                    isSectionActive("/pricing") ? "is-active" : ""
                   }`}
                   aria-haspopup="true"
-                  aria-expanded={activeSubmenu === 'pricing'}
+                  aria-expanded={activeSubmenu === "pricing"}
                   aria-controls="submenu-pricing"
-                  onClick={handleTriggerClick('pricing')}
-                  onFocus={handleTriggerFocus('pricing')}
+                  onClick={handleTriggerClick("pricing")}
+                  onFocus={handleTriggerFocus("pricing")}
                 >
                   Pricing
                   <span className="nav_caret" aria-hidden="true" />
                 </button>
-                {renderSubmenu('pricing', PRICING_LINKS)}
+                {renderSubmenu("pricing", PRICING_LINKS)}
               </li>
 
               {/* Case Studies — disclosure with a primary route */}
               <li
                 className={`nav_item nav_item--has-submenu ${
-                  activeSubmenu === 'projects' ? 'is-open' : ''
+                  activeSubmenu === "projects" ? "is-open" : ""
                 }`}
-                onMouseEnter={handleSubmenuEnter('projects')}
+                onMouseEnter={handleSubmenuEnter("projects")}
                 onMouseLeave={handleSubmenuLeave}
                 onBlur={handleSubmenuBlur}
               >
                 <Link
                   to="/#projects"
                   className={`nav_link nav_link--trigger ${
-                    isActive('/#projects') || isSectionActive('/projects')
-                      ? 'is-active'
-                      : ''
+                    isActive("/#projects") || isSectionActive("/projects")
+                      ? "is-active"
+                      : ""
                   }`}
                   aria-haspopup="true"
-                  aria-expanded={activeSubmenu === 'projects'}
+                  aria-expanded={activeSubmenu === "projects"}
                   aria-controls="submenu-projects"
-                  onFocus={handleTriggerFocus('projects')}
+                  onFocus={handleTriggerFocus("projects")}
                   onClick={() => setActiveSubmenu(null)}
                 >
                   Case Studies
                   <span className="nav_caret" aria-hidden="true" />
                 </Link>
-                {renderSubmenu('projects', PROJECT_LINKS)}
+                {renderSubmenu("projects", PROJECT_LINKS)}
               </li>
 
               <li className="nav_item">
                 <Link
                   to="/#testimonials"
-                  className={`nav_link ${isActive('/#testimonials') ? 'is-active' : ''}`}
-                  aria-current={isActive('/#testimonials') ? 'page' : undefined}
+                  className={`nav_link ${isActive("/#testimonials") ? "is-active" : ""}`}
+                  aria-current={isActive("/#testimonials") ? "page" : undefined}
                 >
                   Reviews
                 </Link>
@@ -355,8 +351,8 @@ const Header = () => {
               <li className="nav_item">
                 <Link
                   to="/#contact"
-                  className={`nav_link ${isActive('/#contact') ? 'is-active' : ''}`}
-                  aria-current={isActive('/#contact') ? 'page' : undefined}
+                  className={`nav_link ${isActive("/#contact") ? "is-active" : ""}`}
+                  aria-current={isActive("/#contact") ? "page" : undefined}
                 >
                   Contact
                 </Link>
@@ -371,7 +367,7 @@ const Header = () => {
         open={open}
         onClose={closeMenu}
         position="right"
-        colors={['#1a1a1a', '#2a1a35']}
+        colors={["#1a1a1a", "#2a1a35"]}
         accentColor="#ff834a"
       />
     </>

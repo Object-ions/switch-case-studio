@@ -52,7 +52,11 @@
       width: auto;
     }
 
+    // Sizes the inline-SVG SCSLogo. Square aspect ratio (matches the
+    // 571.68×571.68 viewBox) so it locks to the same visual footprint
+    // as the previous PNG.
     .header_logo {
+      width: 85px;
       height: 85px;
     }
   }
@@ -286,6 +290,11 @@
   @media (max-width: 768px) {
     .brand_logotype {
       height: 36px;
+    }
+
+    .site-header_brand .header_logo {
+      width: 56px;
+      height: 56px;
     }
   }
 }
