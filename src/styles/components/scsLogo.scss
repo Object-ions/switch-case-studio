@@ -5,7 +5,7 @@
 // -------
 // Sizing comes from the parent (.header_logo in header.scss). This file
 // owns the inline-SVG presentation: the gentle hover scale on the wrapper
-// and the star spin keyframe.
+// and the outer star spin keyframe.
 //
 // Pointer-aware: the spin only engages on devices that actually support
 // hover (skips touch). prefers-reduced-motion strips both transitions.
@@ -18,11 +18,16 @@
     display: block;
     width: 100%;
     height: 100%;
+    // padding: 1rem;
   }
 
-  &__star {
-    transform-box: fill-box; // rotate around the star's own bounding box
+  &__outerStar {
+    transform-box: fill-box; // rotate around the outer star's own bounding box
     transform-origin: center;
+  }
+
+  &__innerStar {
+    transform: none;
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -33,8 +38,8 @@
       transform: scale(1.03);
     }
 
-    &:hover &__star {
-      animation: scsLogo-starSpin 5s linear infinite;
+    &:hover &__outerStar {
+      animation: scsLogo-starSpin 13s linear infinite;
     }
   }
 
@@ -45,8 +50,8 @@
       transform: none;
     }
 
-    &__star,
-    &:hover &__star {
+    &__outerStar,
+    &:hover &__outerStar {
       animation: none;
     }
   }

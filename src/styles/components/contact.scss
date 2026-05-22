@@ -12,7 +12,7 @@
 .contact-section {
   width: 100%;
   background: #000;
-  color: #fff;
+  color: $white-color;
   padding: 4rem 1.5rem;
   font-family: 'Roboto Mono', monospace;
 
@@ -63,7 +63,7 @@
   &__heading {
     font-size: clamp(1.5rem, 3vw, 2rem);
     font-weight: 400;
-    color: #fff;
+    color: $white-color;
     line-height: 1.2;
     margin: 0;
   }
@@ -151,7 +151,7 @@
       transition: color 0.2s ease;
 
       &:hover {
-        color: #fff;
+        color: $white-color;
       }
     }
   }
@@ -165,7 +165,7 @@
   &__heading {
     font-size: clamp(3rem, 8vw, 5rem);
     font-weight: 400;
-    color: #fff;
+    color: $white-color;
     line-height: 1;
     margin: 0 0 3rem;
 
@@ -201,7 +201,7 @@
       border: 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.3);
       padding: 0 0 0.75rem;
-      color: #fff;
+      color: $white-color;
       font-family: inherit;
       font-size: 1rem;
       outline: none;

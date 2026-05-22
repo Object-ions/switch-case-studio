@@ -1,10 +1,10 @@
-import { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import logo from "../../assets/images/switch_case_line_logo.png";
-import { PROJECT_LINKS, LEGAL_LINKS } from "../../data/navigation";
-import "../../styles/components/footer.scss";
+import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import SCSLogo from '../SCSLogo';
+import { PROJECT_LINKS, LEGAL_LINKS } from '../../data/navigation';
+import '../../styles/components/footer.scss';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,7 +31,14 @@ const socials = [
   //   href: 'https://instagram.com/your-handle',
   //   label: 'Instagram',
   //   icon: (
-  //     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+  //     <svg
+  //       width="18"
+  //       height="18"
+  //       viewBox="0 0 24 24"
+  //       fill="none"
+  //       stroke="currentColor"
+  //       strokeWidth="1.8"
+  //     >
   //       <rect x="3" y="3" width="18" height="18" rx="5" />
   //       <circle cx="12" cy="12" r="4" />
   //       <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
@@ -70,10 +77,10 @@ const socials = [
  * ------------------------------------------------------------------ */
 const handleAnchorClick = (e, hash) => {
   // If we're already on home, prevent the route push and just scroll.
-  if (window.location.pathname === "/") {
+  if (window.location.pathname === '/') {
     e.preventDefault();
     const el = document.querySelector(hash);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
   // If on another route, the <Link to="/#services"> default behaviour
   // navigates home; ScrollToTop + the browser's hash handling pick it up.
@@ -83,34 +90,34 @@ const handleAnchorClick = (e, hash) => {
  * Column data
  * ------------------------------------------------------------------ */
 const SERVICES_LINKS = [
-  { label: "Web Development", to: "/pricing/web-development" },
-  { label: "Design & Branding", to: "/pricing/design-branding" },
-  { label: "Marketing & Ads", to: "/pricing/marketing-ads" },
-  { label: "Automation", to: "/pricing/automation-integrations" },
-  { label: "Email Marketing", to: "/pricing/email-marketing" },
-  { label: "Hosting & Maintenance", to: "/pricing/hosting-maintenance" },
+  { label: 'Web Development', to: '/pricing/web-development' },
+  { label: 'Design & Branding', to: '/pricing/design-branding' },
+  { label: 'Marketing & Ads', to: '/pricing/marketing-ads' },
+  { label: 'Automation', to: '/pricing/automation-integrations' },
+  { label: 'Email Marketing', to: '/pricing/email-marketing' },
+  { label: 'Hosting & Maintenance', to: '/pricing/hosting-maintenance' },
 ];
 
 const EXPLORE_LINKS = [
-  { label: "Services", hash: "#services" },
-  { label: "About", hash: "#about" },
-  { label: "Reviews", hash: "#testimonials" },
-  { label: "Contact", hash: "#contact" },
-  { label: "Pricing", to: "/pricing/web-development" },
+  { label: 'Services', hash: '#services' },
+  { label: 'About', hash: '#about' },
+  { label: 'Reviews', hash: '#testimonials' },
+  { label: 'Contact', hash: '#contact' },
+  { label: 'Pricing', to: '/pricing/web-development' },
 ];
 
 const CONNECT_LINKS = [
   {
-    label: "Book a Call",
-    href: "https://calendar.app.google/83UCJjis2FHUrr1s6",
+    label: 'Book a Call',
+    href: 'https://calendar.app.google/83UCJjis2FHUrr1s6',
     external: true,
-    badge: "free",
+    badge: 'free',
   },
-  { label: "Email Us", href: "mailto:hello@switchcasestudio.com" },
+  { label: 'Email Us', href: 'mailto:hello@switchcasestudio.com' },
 ];
 
-const CALENDLY_URL = "https://calendar.app.google/83UCJjis2FHUrr1s6";
-const CONTACT_EMAIL = "hello@switchcasestudio.com";
+const CALENDAR_URL = 'https://calendar.app.google/83UCJjis2FHUrr1s6';
+const CONTACT_EMAIL = 'hello@switchcasestudio.com';
 
 const Footer = () => {
   const footerRef = useRef(null);
@@ -118,7 +125,7 @@ const Footer = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const cols = gsap.utils.toArray(".footer-col-animate");
+      const cols = gsap.utils.toArray('.footer-col-animate');
       gsap.fromTo(
         cols,
         { opacity: 0, y: 16 },
@@ -127,11 +134,11 @@ const Footer = () => {
           y: 0,
           duration: 0.5,
           stagger: 0.06,
-          ease: "power2.out",
+          ease: 'power2.out',
           scrollTrigger: {
             trigger: footerRef.current,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
           },
         },
       );
@@ -155,8 +162,9 @@ const Footer = () => {
           <a href={`mailto:${CONTACT_EMAIL}`} className="footer-cta__email">
             {CONTACT_EMAIL}
           </a>
+          <br />
           <a
-            href={CALENDLY_URL}
+            href={CALENDAR_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="footer-cta__button"
@@ -165,25 +173,17 @@ const Footer = () => {
           </a>
         </div>
 
-        {/* Divider between CTA and main grid */}
-        <div className="footer-divider" aria-hidden="true" />
-
         {/* ============================================================
          * Main grid — Brand | Services | Explore | Case Studies | Connect
          * ============================================================ */}
         <div className="site-footer__grid">
           {/* Brand + tagline + socials */}
           <div className="footer-col footer-col-animate footer-brand">
-            <img
-              src={logo}
-              alt="Switch Case Studio"
-              className="footer-brand__logo"
-            />
+            <SCSLogo />
             <p className="footer-brand__tagline">
               A full-service digital studio crafting design, development, and
               marketing that moves the needle.
             </p>
-
             {/* Social icons — uncomment entries in the `socials` array above to enable */}
             {socials.length > 0 && (
               <div className="footer-socials">
@@ -259,8 +259,8 @@ const Footer = () => {
                   <a
                     href={link.href}
                     {...(link.external && {
-                      target: "_blank",
-                      rel: "noopener noreferrer",
+                      target: '_blank',
+                      rel: 'noopener noreferrer',
                     })}
                   >
                     {link.label}

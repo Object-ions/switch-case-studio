@@ -5,7 +5,7 @@
   position: relative;
   overflow: hidden;
   background: #000;
-  color: #fff;
+  color: $white-color;
   font-family: $font-text;
 }
 
@@ -73,8 +73,6 @@
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: $g6;
-
-
   }
 
   &__overlay {
@@ -82,7 +80,7 @@
     inset: 0;
     overflow: hidden;
     pointer-events: none;
-    background: #fff;
+    background: $white-color;
     color: #000;
   }
 

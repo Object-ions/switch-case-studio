@@ -6,8 +6,7 @@
   width: 100%;
   padding: 4rem 1.5rem 2rem;
   background: #000;
-  color: #fff;
-  font-family: 'Roboto Mono', monospace;
+  color: #fef7ed;
   overflow: hidden;
 
   /* LIFT EFFECT — desktop only.
@@ -77,10 +76,10 @@
     display: inline-block;
     font-family: $font-special;
     font-weight: 500;
-    font-size: clamp(1.75rem, 7vw, 6rem);
+    font-size: clamp(1.75rem, 5vw, 6rem);
     line-height: 1;
     letter-spacing: -0.02em;
-    color: #fff;
+    color: #fef7ed;
     text-decoration: none;
     word-break: break-all;
     transition: opacity 0.2s ease;
@@ -101,12 +100,14 @@
     margin-top: 2.5rem;
     padding: 1rem 2rem;
     border-radius: 9999px;
-    background: #fff;
+    background: #fef7ed;
     color: #000;
     font-size: 1.05rem;
     font-weight: 500;
     text-decoration: none;
-    transition: background 0.2s ease, transform 0.2s ease;
+    transition:
+      background 0.2s ease,
+      transform 0.2s ease;
     width: 100%;
 
     @media (min-width: 640px) {
@@ -155,7 +156,7 @@
   &__title {
     font-size: 1rem;
     font-weight: 600;
-    color: #fff;
+    color: #fef7ed;
     margin: 0;
     letter-spacing: 0.01em;
 
@@ -164,36 +165,6 @@
     }
   }
 }
-
-/* ==================================================================
- * Brand column
- * ================================================================== */
-
-.footer-brand {
-  gap: 1.5rem;
-
-  &__logo {
-    width: 200px;
-    height: auto;
-    display: block;
-  }
-
-  &__tagline {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.85);
-    max-width: 22rem;
-    margin: 0;
-
-    @media (min-width: 640px) {
-      font-size: 1rem;
-    }
-  }
-}
-
-/* ==================================================================
- * Social icons
- * ================================================================== */
 
 .footer-socials {
   display: flex;
@@ -339,7 +310,7 @@
       transition: color 0.2s ease;
 
       &:hover {
-        color: #fff;
+        color: #fef7ed;
       }
     }
   }

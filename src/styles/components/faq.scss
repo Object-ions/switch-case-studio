@@ -5,9 +5,8 @@
   position: relative;
   width: 100%;
   padding: 6rem 1.5rem;
-  background: $grey-color;
+  background: $g1;
   color: #fff;
-  font-family: 'Roboto Mono', monospace;
 
   @media (min-width: 640px) {
     padding: 7rem 2rem;
@@ -31,10 +30,6 @@
     }
   }
 
-  /* ============================================================ *
-   * Title — left column on desktop, sticky so it stays in view
-   * while the user scrolls through the question list.
-   * ============================================================ */
   &__title {
     font-family: $font-special;
     font-size: clamp(2.5rem, 6vw, 5rem);
@@ -49,20 +44,14 @@
     }
   }
 
-  /* ============================================================ *
-   * Question list
-   * ============================================================ */
   &__list {
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
 
-  /* ============================================================ *
-   * Individual row
-   * ============================================================ */
   &__item {
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 1rem;
     background: rgba(255, 255, 255, 0.02);
     overflow: hidden;
@@ -71,7 +60,7 @@
       background 0.3s ease;
 
     &:hover {
-      border-color: rgba($g5, 0.4);
+      border: 2px solid $g5;
       background: rgba(255, 255, 255, 0.04);
     }
 
@@ -123,9 +112,6 @@
     }
   }
 
-  /* ============================================================ *
-   * Plus / close icon — rotates 45° via .is-open on parent
-   * ============================================================ */
   &__icon {
     position: relative;
     flex-shrink: 0;
@@ -156,11 +142,6 @@
     }
   }
 
-  /* ============================================================ *
-   * Animated answer wrap — uses the grid-template-rows trick to
-   * animate from 0 to auto height without JS height measurement.
-   * Toggled via .is-open on .faq__item parent.
-   * ============================================================ */
   &__answer-wrap {
     display: grid;
     grid-template-rows: 0fr;
@@ -175,8 +156,10 @@
     padding: 0 1.75rem 1.5rem;
     font-size: 0.9rem;
     line-height: 1.65;
-    color: rgba(255, 255, 255, 0.75);
+    // color: rgba(255, 255, 255, 0.75);
     margin: 0;
+    color: #000;
+    font-weight: 300;
 
     @media (min-width: 640px) {
       padding: 0 2rem 1.75rem;
