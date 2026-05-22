@@ -1,16 +1,32 @@
-import { useEffect, useState } from 'react';
-import { HashLink } from 'react-router-hash-link';
-import WelcomeTyped from './WelcomeTyped';
-import CursorWave from './CursorWave';
-import useReducedMotion from '../hooks/useReducedMotion';
+import { useEffect, useState } from "react";
+import { HashLink } from "react-router-hash-link";
+import WelcomeTyped from "./WelcomeTyped";
+import CursorWave from "./CursorWave";
+import useReducedMotion from "../hooks/useReducedMotion";
 
-import '../styles/components/hero.scss';
+import "../styles/components/hero.scss";
 
 /* Brand shape + color config for the Hero background.
    Repeating shapes in the array biases the random distribution —
-   square and asterisk are the dominant marks, star is the accent. */
-const HERO_SHAPES = ['square', 'square', 'star', 'asterisk', 'asterisk'];
-const HERO_COLORS = ['#ff834a', '#d99cff', '#f0d7ff'];
+   square and asterisk are the textural backbone, the SCS star is the
+   brand mark and gets a slight boost over circle (the accent). */
+const HERO_SHAPES = [
+  "square",
+  "star",
+  "asterisk",
+  "square",
+  "asterisk",
+  "star",
+  "circle",
+];
+const HERO_COLORS = [
+  "#dab8ff",
+  "#ff834a",
+  "#d99cff",
+  "#ff8f63",
+  "#f0d7ff",
+  "#FEF7ED",
+];
 
 const Hero = () => {
   const reducedMotion = useReducedMotion();
@@ -35,7 +51,7 @@ const Hero = () => {
             <CursorWave
               shapes={HERO_SHAPES}
               colors={HERO_COLORS}
-              backgroundColor="#0a0a0a"
+              backgroundColor="#000000"
               cellSize={48}
               influenceRadiusVmin={28}
               minPeakScale={1.2}
@@ -49,7 +65,7 @@ const Hero = () => {
         <div className="hero-content">
           <h1 className="hero-headline" data-cursor-wave-mask>
             <span className="hero-line">
-              {'We '}
+              {"We "}
               <WelcomeTyped />
             </span>
             <span className="hero-line">digital experiences</span>
@@ -59,7 +75,7 @@ const Hero = () => {
           </h1>
 
           <p
-            className={`hero-sub ${revealed ? 'is-visible' : ''}`}
+            className={`hero-sub ${revealed ? "is-visible" : ""}`}
             data-cursor-wave-mask
           >
             Design, development &amp; marketing &mdash; custom-built for
@@ -67,7 +83,7 @@ const Hero = () => {
           </p>
 
           <div
-            className={`hero-ctas ${revealed ? 'is-visible' : ''}`}
+            className={`hero-ctas ${revealed ? "is-visible" : ""}`}
             data-cursor-wave-mask
           >
             <a

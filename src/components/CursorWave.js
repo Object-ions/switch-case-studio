@@ -12,8 +12,15 @@ import "../styles/components/cursorWave.scss";
 /*  Defaults                                                          */
 /* ------------------------------------------------------------------ */
 
-const DEFAULT_COLORS = ["#ff834a", "#d99cff", "#f0d7ff"];
-const DEFAULT_SHAPES = ["square", "star", "asterisk"];
+const DEFAULT_COLORS = [
+  "#dab8ff",
+  "#ff834a",
+  "#d99cff",
+  "#ff8f63",
+  "#f0d7ff",
+  "#FEF7ED",
+];
+const DEFAULT_SHAPES = ["square", "star", "asterisk", "circle"];
 
 const TAU = Math.PI * 2;
 
@@ -56,6 +63,36 @@ function settleFactor(seconds) {
 /*  scale transform stack works without changes.                      */
 /* ------------------------------------------------------------------ */
 
+/* SCS brand star — taken from Asset_12.svg (viewBox 1116.06 × 1059.42).
+   The raw path's bounding box is roughly 1148 × 1085, centered around
+   (571.19, 541.77). We render via Path2D once and reuse it: every cell
+   gets the same Path2D, transformed in place by the existing translate/
+   rotate/scale stack. */
+const SCS_STAR_PATH_DATA =
+  "M595.94,270.83c56.16-41.57,112.93-98.74,170.44-142.58,40.42-28.83,137.34-126.52,134.65-16.78-20.86,66.83-62.51,150.75-81.53,221.29-4.06,10.79-35.93,76.32-31.38,80.74,67.12,6.3,135.09,1.25,202.56,2.8,32.83,5.57,154.36-18.75,119,43.49-313.18,211.46-402.86,16.06-112.21,357.36,6.53,22.85,5.4,66.8-30.26,47.71-89.47-28.45-185.58-77.39-272.19-112.22-21.21-10.61-15.06,46.75-20.45,61.26-13.59,44.93,19.32,270.37-54.04,243.25-52.8-36.41-65.31-118.07-91.11-173.89-12.91-29.86-30.65-58.34-43.08-88.53-88.01,37.58-153.53,154.96-244.34,186.87-22.52-14.02-50.24,3.9-45.12-36.64,13.74-97.54,64.36-190.13,93.21-283.91-85.62-18.72-179.99.17-265.86-18.16-4.35-.87-16.24-7.13-18.12-10.99-3.51-7.18-8.77-43.75-4.52-51.11,11.95-20.67,105.18-45.19,131.16-55.21,36.36-14.02,72.11-30.95,107.75-46.74-20.89-36.83-62.14-85.22-86.17-123.24-13.9-18.48-69.52-79-71.03-95.22,1.21-12.17.82-42.77,14.58-49.17,96.56,2.51,192.09,61.3,285.38,85.85,3.31-55.17,14.48-109.84,20.36-164.57,2.65-24.6-.65-88.09,13.02-103.45C422.14,22.86,476.28-.73,483.69.02c53.68,76.55,70.99,184.05,112.26,270.82Z";
+
+/* Bounding box center of the raw path data above. We translate by these
+   values so the shape draws centered on (0,0). */
+const SCS_STAR_CENTER_X = 571.19;
+const SCS_STAR_CENTER_Y = 541.77;
+
+/* Half-extent of the path's bounding box (~1148/2). Dividing the target
+   render size by this gives us the per-cell scale factor. Tuned with a
+   small boost (0.85) so the SCS star reads at a similar visual weight to
+   the spiky `outer = size * 0.95` star it replaces. */
+const SCS_STAR_BBOX_HALF = 574;
+const SCS_STAR_VISUAL_SCALE = 0.85;
+
+/* Lazily-built Path2D cached at module scope. Path2D isn't available in
+   SSR, so we defer construction until first use in the browser. */
+let scsStarPath2D = null;
+function getScsStarPath() {
+  if (scsStarPath2D !== null) return scsStarPath2D;
+  if (typeof Path2D === "undefined") return null;
+  scsStarPath2D = new Path2D(SCS_STAR_PATH_DATA);
+  return scsStarPath2D;
+}
+
 function tracePath(ctx, shape, size) {
   switch (shape) {
     case "square": {
@@ -67,27 +104,23 @@ function tracePath(ctx, shape, size) {
       } else {
         ctx.rect(-half, -half, half * 2, half * 2);
       }
-      break;
+      return null;
     }
 
-    /* Spiky 8-point star modeled after the Switch Case Studio logo.
-       Alternates between outer points and deep inner valleys to get
-       the wavy/spiky silhouette rather than a tidy geometric star. */
+    /* SCS brand star — the iconic Switch Case Studio mark. Built from
+       the raw SVG path data once and cached as a Path2D, then drawn
+       under the existing translate/rotate/scale transform stack. We
+       use a nested save/translate/scale so the path data's own
+       coordinate space is recentered without disturbing the caller's
+       rotation. Returns the Path2D so the caller fills it directly. */
     case "star": {
-      const points = 8;
-      const outer = size * 0.95;
-      const inner = size * 0.38;
-      ctx.beginPath();
-      for (let i = 0; i < points * 2; i++) {
-        const r = i % 2 === 0 ? outer : inner;
-        const a = -Math.PI / 2 + (i * Math.PI) / points;
-        const x = Math.cos(a) * r;
-        const y = Math.sin(a) * r;
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.closePath();
-      break;
+      const path = getScsStarPath();
+      if (!path) return null;
+      const k = (size / SCS_STAR_BBOX_HALF) * SCS_STAR_VISUAL_SCALE;
+      ctx.save();
+      ctx.scale(k, k);
+      ctx.translate(-SCS_STAR_CENTER_X, -SCS_STAR_CENTER_Y);
+      return path;
     }
 
     /* 6-pointed asterisk — three rounded bars rotated 0°/60°/120°.
@@ -97,7 +130,6 @@ function tracePath(ctx, shape, size) {
       const thick = size * 0.32;
       const half = len / 2;
       const hThick = thick / 2;
-      // const r = thick * 0.5;
       ctx.beginPath();
       for (let i = 0; i < 3; i++) {
         const a = (i * Math.PI) / 3;
@@ -114,34 +146,24 @@ function tracePath(ctx, shape, size) {
           x * cos - y * sin,
           x * sin + y * cos,
         ]);
-        if (typeof ctx.roundRect === "function") {
-          /* Fallback: stroke a rotated path manually for older browsers.
-             We can't use roundRect when rotated arbitrarily, so we
-             approximate with a sharp-cornered polygon — the asterisk
-             still reads correctly. */
-          ctx.moveTo(rotated[0][0], rotated[0][1]);
-          ctx.lineTo(rotated[1][0], rotated[1][1]);
-          ctx.lineTo(rotated[2][0], rotated[2][1]);
-          ctx.lineTo(rotated[3][0], rotated[3][1]);
-          ctx.closePath();
-        } else {
-          ctx.moveTo(rotated[0][0], rotated[0][1]);
-          ctx.lineTo(rotated[1][0], rotated[1][1]);
-          ctx.lineTo(rotated[2][0], rotated[2][1]);
-          ctx.lineTo(rotated[3][0], rotated[3][1]);
-          ctx.closePath();
-        }
+        /* roundRect can't be rotated arbitrarily, so we approximate with
+           a sharp-cornered polygon — the asterisk still reads correctly. */
+        ctx.moveTo(rotated[0][0], rotated[0][1]);
+        ctx.lineTo(rotated[1][0], rotated[1][1]);
+        ctx.lineTo(rotated[2][0], rotated[2][1]);
+        ctx.lineTo(rotated[3][0], rotated[3][1]);
+        ctx.closePath();
       }
-      break;
+      return null;
     }
 
-    /* Legacy shapes from the source component — kept so callers can
-       still opt into them if needed. */
     case "circle": {
       ctx.beginPath();
       ctx.arc(0, 0, size * 0.6, 0, TAU);
-      break;
+      return null;
     }
+
+    /* Legacy shape — kept so existing callers can still opt in. */
     case "triangle": {
       const r = size * 0.78;
       ctx.beginPath();
@@ -153,13 +175,13 @@ function tracePath(ctx, shape, size) {
         else ctx.lineTo(x, y);
       }
       ctx.closePath();
-      break;
+      return null;
     }
 
     default: {
       ctx.beginPath();
       ctx.arc(0, 0, size * 0.6, 0, TAU);
-      break;
+      return null;
     }
   }
 }
@@ -512,8 +534,17 @@ const CursorWave = React.forwardRef(
           ctx.rotate(cell.angle);
           ctx.scale(cell.scale, cell.scale);
           ctx.fillStyle = makeFill(ctx, cell.color, cell.size);
-          tracePath(ctx, cell.shape, cell.size);
-          ctx.fill();
+          /* tracePath returns a Path2D when the shape needs one (SCS star),
+             or null when it has populated the current ctx path (everything
+             else). Path2D-returning shapes apply their own nested transform
+             via save(), so we restore() once after fill() in that case. */
+          const path2d = tracePath(ctx, cell.shape, cell.size);
+          if (path2d) {
+            ctx.fill(path2d);
+            ctx.restore();
+          } else {
+            ctx.fill();
+          }
           ctx.restore();
         }
 
