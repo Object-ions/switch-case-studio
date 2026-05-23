@@ -4,23 +4,23 @@ import React, {
   useImperativeHandle,
   useMemo,
   useRef,
-} from "react";
+} from 'react';
 
-import "../styles/components/cursorWave.scss";
+import '../styles/components/cursorWave.scss';
 
 /* ------------------------------------------------------------------ */
 /*  Defaults                                                          */
 /* ------------------------------------------------------------------ */
 
 const DEFAULT_COLORS = [
-  "#dab8ff",
-  "#ff834a",
-  "#d99cff",
-  "#ff8f63",
-  "#f0d7ff",
-  "#FEF7ED",
+  '#dab8ff',
+  '#ff834a',
+  '#d99cff',
+  '#ff8f63',
+  '#f0d7ff',
+  '#FEF7ED',
 ];
-const DEFAULT_SHAPES = ["square", "star", "asterisk", "circle"];
+const DEFAULT_SHAPES = ['square', 'star', 'asterisk', 'circle'];
 
 const TAU = Math.PI * 2;
 
@@ -29,9 +29,9 @@ const TAU = Math.PI * 2;
    we keep the canvas mounted either way so taps can still trigger
    bursts and an auto-burst gives mobile users immediate motion. */
 const IS_TOUCH =
-  typeof window !== "undefined" &&
-  typeof window.matchMedia === "function" &&
-  window.matchMedia("(hover: none)").matches;
+  typeof window !== 'undefined' &&
+  typeof window.matchMedia === 'function' &&
+  window.matchMedia('(hover: none)').matches;
 
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                           */
@@ -69,7 +69,7 @@ function settleFactor(seconds) {
    gets the same Path2D, transformed in place by the existing translate/
    rotate/scale stack. */
 const SCS_STAR_PATH_DATA =
-  "M595.94,270.83c56.16-41.57,112.93-98.74,170.44-142.58,40.42-28.83,137.34-126.52,134.65-16.78-20.86,66.83-62.51,150.75-81.53,221.29-4.06,10.79-35.93,76.32-31.38,80.74,67.12,6.3,135.09,1.25,202.56,2.8,32.83,5.57,154.36-18.75,119,43.49-313.18,211.46-402.86,16.06-112.21,357.36,6.53,22.85,5.4,66.8-30.26,47.71-89.47-28.45-185.58-77.39-272.19-112.22-21.21-10.61-15.06,46.75-20.45,61.26-13.59,44.93,19.32,270.37-54.04,243.25-52.8-36.41-65.31-118.07-91.11-173.89-12.91-29.86-30.65-58.34-43.08-88.53-88.01,37.58-153.53,154.96-244.34,186.87-22.52-14.02-50.24,3.9-45.12-36.64,13.74-97.54,64.36-190.13,93.21-283.91-85.62-18.72-179.99.17-265.86-18.16-4.35-.87-16.24-7.13-18.12-10.99-3.51-7.18-8.77-43.75-4.52-51.11,11.95-20.67,105.18-45.19,131.16-55.21,36.36-14.02,72.11-30.95,107.75-46.74-20.89-36.83-62.14-85.22-86.17-123.24-13.9-18.48-69.52-79-71.03-95.22,1.21-12.17.82-42.77,14.58-49.17,96.56,2.51,192.09,61.3,285.38,85.85,3.31-55.17,14.48-109.84,20.36-164.57,2.65-24.6-.65-88.09,13.02-103.45C422.14,22.86,476.28-.73,483.69.02c53.68,76.55,70.99,184.05,112.26,270.82Z";
+  'M691,319.23c-28.1-2.98-56.47-4.28-84.66-6.68,42.11-31.36,88.38-60.24,118.57-99.05-1.04-5.03-28-35.66-33.26-37.98-13.09-5.76-54.79,9.76-71.77,13.19-5.23,1.06-10.48,2.05-15.75,2.99,15.2-31.23,31.81-62.69,42.83-90.22,8.17-76.4-64.04-13.75-93.48,4.06-15.03,9.76-30.08,20.72-45.1,31.95,3.49-45.51,7.5-91.74-4.39-133.27-7.12-7.7-27.47-1.01-35.85.76-10.51,4.4-39.4,53.7-48.86,66.73-5.93,6.92-12.15,14.98-18.49,23.47C392.42,61.31,382.88,28.24,366.66.05c-5.05-.94-43.6,12.44-47.73,16.44-10.28,9.94-11.67,54.41-14.91,71.43-.44,2.32-.9,4.64-1.36,6.96-.44-.53-.88-1.06-1.31-1.6-12.07-14.98-47.75-71.12-64.03-74.63-5.79-1.25-29.12,9.9-33.19,13.72-2.19,2.05-3.9,11.19-3.59,14.23,4.22,45.9,23.84,90.51,35.29,135.75-47.8-23.07-95.96-51.35-146.41-56.86-9.82,3.68-11.31,25.05-12.85,33.47.08,9.35,23.44,41.53,36.53,60.36-26.49-.73-52.79-.01-78.48,4.33-28.13,5.16-10.42,19.61-15.12,37.37,24.84,32.82,69.56,52.38,110.3,74.37-11.47,4.03-22.98,7.92-34.54,11.38-18.43,5.52-83.89,17.33-93.3,31.07-3.35,4.89-1.84,30.7.16,35.91,1.07,2.8,8.88,7.84,11.82,8.7,37.92,11.56,79.27,12.2,119.5,16.29-31.69,25.1-74.08,49.37-85.98,87.06-1.94,35.9,61.07,17.32,113.1.72-18.4,37.92-36.39,76.19-45.4,116.45-5.85,27.99,14.22,17.06,28.89,28.12,40.69-10.84,76.38-46.17,113-76.02-4.7,40-9.12,80.59-9.39,118.24-5.36,27.46,24.22,18.96,38.12,9.86,27.45-43.04,47.41-76.35,62.49-101.26,13.64,40.21,18.19,95.68,51.5,123.36,37.03,17.5,40.45-69.75,45.14-126.29,21.1,27.7,52.44,63.43,102.7,102.82,48.88,10.17,7.47-64.63,4.39-87.39-6.14-21.21-13.29-42.18-20.16-63.22,38.85,21.5,78.72,43.59,117.2,59.62,23.4,15.34,26.71-15.26,23.54-31.57-29.05-41.09-52.1-71.85-69.38-95.11,44.54,1.22,94.26,7.5,133.75,7.22,73.82-21.31-11.47-64.49-39.09-85.01-10.86-7.54-22.32-14.85-34.04-22.04,29.38-9.67,64.96-24.31,106.45-47.99,27.88-41.41-57.02-31.34-79.25-37.09Z';
 
 /* Bounding box center of the raw path data above. We translate by these
    values so the shape draws centered on (0,0). */
@@ -88,18 +88,18 @@ const SCS_STAR_VISUAL_SCALE = 0.85;
 let scsStarPath2D = null;
 function getScsStarPath() {
   if (scsStarPath2D !== null) return scsStarPath2D;
-  if (typeof Path2D === "undefined") return null;
+  if (typeof Path2D === 'undefined') return null;
   scsStarPath2D = new Path2D(SCS_STAR_PATH_DATA);
   return scsStarPath2D;
 }
 
 function tracePath(ctx, shape, size) {
   switch (shape) {
-    case "square": {
+    case 'square': {
       const half = size * 0.6;
       const r = size * 0.12;
       ctx.beginPath();
-      if (typeof ctx.roundRect === "function") {
+      if (typeof ctx.roundRect === 'function') {
         ctx.roundRect(-half, -half, half * 2, half * 2, r);
       } else {
         ctx.rect(-half, -half, half * 2, half * 2);
@@ -113,7 +113,7 @@ function tracePath(ctx, shape, size) {
        use a nested save/translate/scale so the path data's own
        coordinate space is recentered without disturbing the caller's
        rotation. Returns the Path2D so the caller fills it directly. */
-    case "star": {
+    case 'star': {
       const path = getScsStarPath();
       if (!path) return null;
       const k = (size / SCS_STAR_BBOX_HALF) * SCS_STAR_VISUAL_SCALE;
@@ -125,7 +125,7 @@ function tracePath(ctx, shape, size) {
 
     /* 6-pointed asterisk — three rounded bars rotated 0°/60°/120°.
        Built as a single path so it fills cleanly as one shape. */
-    case "asterisk": {
+    case 'asterisk': {
       const len = size * 1.15;
       const thick = size * 0.32;
       const half = len / 2;
@@ -157,14 +157,14 @@ function tracePath(ctx, shape, size) {
       return null;
     }
 
-    case "circle": {
+    case 'circle': {
       ctx.beginPath();
       ctx.arc(0, 0, size * 0.6, 0, TAU);
       return null;
     }
 
     /* Legacy shape — kept so existing callers can still opt in. */
-    case "triangle": {
+    case 'triangle': {
       const r = size * 0.78;
       ctx.beginPath();
       for (let i = 0; i < 3; i++) {
@@ -187,7 +187,7 @@ function tracePath(ctx, shape, size) {
 }
 
 function makeFill(ctx, color, size) {
-  if (typeof color === "string") return color;
+  if (typeof color === 'string') return color;
   const grad = ctx.createRadialGradient(
     0,
     -size * 0.3,
@@ -208,20 +208,20 @@ function makeFill(ctx, color, size) {
 const CursorWave = React.forwardRef(
   (
     {
-      width = "100%",
-      height = "100%",
-      className = "",
+      width = '100%',
+      height = '100%',
+      className = '',
       children,
       cellSize = 40,
       influenceRadiusVmin = 30,
       attackTime = 0.5,
       releaseTime = 0.6,
       idleScale = 0.09,
-      minPeakScale = 1,
-      maxPeakScale = 3,
+      minPeakScale = 0.5,
+      maxPeakScale = 0.5,
       burstSpeed = 1200,
       burstThickness = 180,
-      backgroundColor = "#0a0a0a",
+      backgroundColor = '#0a0a0a',
       shapes = DEFAULT_SHAPES,
       colors = DEFAULT_COLORS,
       dpr = 2,
@@ -350,7 +350,7 @@ const CursorWave = React.forwardRef(
       canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
 
-      const ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext('2d');
       if (ctx) {
         ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.scale(ratio, ratio);
@@ -408,7 +408,7 @@ const CursorWave = React.forwardRef(
       const tick = () => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-        const ctx = canvas.getContext("2d");
+        const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
         const p = propsRef.current;
@@ -428,7 +428,7 @@ const CursorWave = React.forwardRef(
         rt.maskFrame += 1;
         if (rt.maskFrame % 10 === 0 && containerRef.current) {
           const els = containerRef.current.querySelectorAll(
-            "[data-cursor-wave-mask]",
+            '[data-cursor-wave-mask]',
           );
           const containerRect = containerRef.current.getBoundingClientRect();
           const rects = [];
@@ -557,22 +557,22 @@ const CursorWave = React.forwardRef(
 
       let resizeObs = null;
       const target = containerRef.current;
-      if (target && typeof ResizeObserver !== "undefined") {
+      if (target && typeof ResizeObserver !== 'undefined') {
         resizeObs = new ResizeObserver(() => resize());
         resizeObs.observe(target);
       } else {
-        window.addEventListener("resize", resize);
+        window.addEventListener('resize', resize);
       }
 
       return () => {
         cancelAnimationFrame(rt.raf);
         if (resizeObs) resizeObs.disconnect();
-        else window.removeEventListener("resize", resize);
+        else window.removeEventListener('resize', resize);
       };
     }, [resize, triggerBurst, autoBurstOnMount]);
 
     const structuralKey = useMemo(
-      () => `${cellSize}|${shapes.join(",")}|${colors.length}`,
+      () => `${cellSize}|${shapes.join(',')}|${colors.length}`,
       [cellSize, shapes, colors],
     );
     useEffect(() => {
@@ -622,6 +622,6 @@ const CursorWave = React.forwardRef(
   },
 );
 
-CursorWave.displayName = "CursorWave";
+CursorWave.displayName = 'CursorWave';
 
 export default CursorWave;
