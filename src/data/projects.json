@@ -24,12 +24,30 @@
       { "label": "#Email Marketing" }
     ],
     "highlights": [
-      { "title": "Brand Design", "summary": "Luxury, trust-driven visual identity." },
-      { "title": "Brand Strategy", "summary": "Clear positioning and messaging." },
-      { "title": "Website Design & Development", "summary": "Responsive, conversion-focused site." },
-      { "title": "SEO", "summary": "Local optimization for search visibility." },
-      { "title": "Paid Ads", "summary": "Meta and Google campaigns to drive bookings." },
-      { "title": "Email Marketing", "summary": "Automated campaigns to retain and re-engage clients." }
+      {
+        "title": "Brand Design",
+        "summary": "Luxury, trust-driven visual identity."
+      },
+      {
+        "title": "Brand Strategy",
+        "summary": "Clear positioning and messaging."
+      },
+      {
+        "title": "Website Design & Development",
+        "summary": "Responsive, conversion-focused site."
+      },
+      {
+        "title": "SEO",
+        "summary": "Local optimization for search visibility."
+      },
+      {
+        "title": "Paid Ads",
+        "summary": "Meta and Google campaigns to drive bookings."
+      },
+      {
+        "title": "Email Marketing",
+        "summary": "Automated campaigns to retain and re-engage clients."
+      }
     ],
     "result": "A cohesive brand identity, high-performing website, and marketing foundation that continues to generate measurable growth.",
     "kicker": "In depth on",
@@ -60,10 +78,22 @@
       { "label": "#Visual Direction" }
     ],
     "highlights": [
-      { "title": "Website Design", "summary": "Clean, modern interface built to convey trust and credibility." },
-      { "title": "Front-End Development", "summary": "Responsive build focused on clarity and usability." },
-      { "title": "Content Structure", "summary": "Clear explanation of strategy, process, and investment focus." },
-      { "title": "Visual Direction", "summary": "Dark, restrained aesthetic that keeps attention on properties and story." }
+      {
+        "title": "Website Design",
+        "summary": "Clean, modern interface built to convey trust and credibility."
+      },
+      {
+        "title": "Front-End Development",
+        "summary": "Responsive build focused on clarity and usability."
+      },
+      {
+        "title": "Content Structure",
+        "summary": "Clear explanation of strategy, process, and investment focus."
+      },
+      {
+        "title": "Visual Direction",
+        "summary": "Dark, restrained aesthetic that keeps attention on properties and story."
+      }
     ],
     "result": "A focused, professional website that positions Crimson Equities as a serious, credible player in the distressed real estate investment space.",
     "kicker": "In depth on",
@@ -73,66 +103,54 @@
   },
   {
     "id": 3,
-    "slug": "creatuwheels",
+    "slug": "jo-marketing-11",
     "panelClass": "panel-card-2",
-    "coverTile": "/projects/creatuwheels/creatuwheels-cover-tile.webp",
-    "imageSrc": "/projects/creatuwheels/1.avif",
-    "longWeb": "/projects/creatuwheels/long.webp",
-    "imageAlt": "Creatuwheels packaging design preview",
+    "coverTile": "/projects/jo-marketing-11/jo-marketing-11-cover-tile.webp",
+    "imageSrc": "/projects/jo-marketing-11/1.avif",
+    "longWeb": "/projects/jo-marketing-11/long.webp",
+    "imageAlt": "Jo Marketing 11 website homepage preview",
     "backLabel": "Back to Projects",
-    "title": "Creatuwheels",
-    "subtitle": "Creatures On Wheels Packaging Design",
+    "title": "Jo Marketing 11",
+    "subtitle": "Marketing Company Website",
     "outcome": "",
-    "year": "",
+    "year": "2026",
     "metrics": [],
-    "description": "The packaging for 'Creatuwheels' brings a playful and educational approach, reflecting the toy's purpose of teaching geometric shapes and transforming into vehicle-like creatures.",
-    "tileVersion": "Toy packaging design exploring geometric play, color theory, and transformation.",
+    "description": "Jo Marketing 11 is a branding, design, and website project for a Florida marketing company. The goal was to create a clean, confident online presence that explains the offer clearly and helps contractors understand how the company can turn leads into real appointments.",
+    "tileVersion": "Branding, design, and development for a marketing company focused on helping contractors book better appointments.",
     "services": [
-      { "label": "#Packaging Design" },
-      { "label": "#Brand Identity" },
-      { "label": "#Illustration" }
+      { "label": "#Branding" },
+      { "label": "#Website Design" },
+      { "label": "#Frontend Development" },
+      { "label": "#Landing Page Design" },
+      { "label": "#Copy Structure" },
+      { "label": "#Responsive Design" }
     ],
     "highlights": [
-      { "title": "Color Blocks", "summary": "Cyan, magenta, yellow, and grey—core colors tied to early learning." }
+      {
+        "title": "Clear Positioning",
+        "summary": "Focused the message around one simple idea: stop paying for leads and start paying for meetings."
+      },
+      {
+        "title": "Modern Brand Feel",
+        "summary": "Created a clean visual direction with a bold hero section, soft motion, and a professional color palette."
+      },
+      {
+        "title": "Service Explanation",
+        "summary": "Structured the page so contractors can quickly understand the process, benefits, and common questions."
+      },
+      {
+        "title": "Lead-Focused Website",
+        "summary": "Designed the site around clear calls to action and an easy contact flow."
+      }
     ],
-    "result": "Packaging that visually communicates the toy's creativity, education, and play value.",
+    "result": "A polished marketing website that gives Jo Marketing 11 a professional presence and makes their offer easier for contractors to understand.",
     "kicker": "In depth on",
     "productName": "Our Work",
-    "ctaLabel": "View Project",
-    "ctaUrl": ""
+    "ctaLabel": "View Live",
+    "ctaUrl": "https://jomarketing11.com/"
   },
   {
     "id": 4,
-    "slug": "maritime",
-    "panelClass": "panel-card-3",
-    "coverTile": "/projects/maritime/maritime-cover-tile.webp",
-    "imageSrc": "/projects/maritime/1.avif",
-    "longWeb": "",
-    "imageAlt": "Maritime crab cracker and packaging design preview",
-    "backLabel": "Back to Projects",
-    "title": "Maritime",
-    "subtitle": "Sculptural Crab Cracker & Packaging Design",
-    "outcome": "",
-    "year": "",
-    "metrics": [],
-    "description": "For 'Maritime', Switch Case Studio reimagined a simple seafood tool into a sculptural dining experience.",
-    "tileVersion": "Product and packaging design inspired by marine forms, balancing function and elegance.",
-    "services": [
-      { "label": "#Product Design" },
-      { "label": "#3D Modeling" },
-      { "label": "#Branding" }
-    ],
-    "highlights": [
-      { "title": "Sculptural Form", "summary": "Organic silhouette shaped by ergonomic testing." }
-    ],
-    "result": "A cohesive product and brand experience that transforms a functional utensil into a piece of design storytelling.",
-    "kicker": "In depth on",
-    "productName": "Our Work",
-    "ctaLabel": "View Project",
-    "ctaUrl": ""
-  },
-  {
-    "id": 5,
     "slug": "prodani-miami",
     "panelClass": "panel-hero",
     "coverTile": "/projects/prodani/prodani-cover-tile.webp",
@@ -156,12 +174,30 @@
       { "label": "#Trade Show Design" }
     ],
     "highlights": [
-      { "title": "Brand Direction", "summary": "Positioned Prodani as indulgent, premium, and nutrition-forward." },
-      { "title": "Website Design & Development", "summary": "Custom Shopify experience beyond standard themes." },
-      { "title": "Hero Sections & Motion", "summary": "Bold video-led storytelling to set the tone immediately." },
-      { "title": "Content & Copy", "summary": "Clear brand narrative balancing taste and macros." },
-      { "title": "Packaging Direction", "summary": "Aligned packaging and labels with the digital brand." },
-      { "title": "Trade Show Design", "summary": "Full booth concept including banners, roll-ups, and displays." }
+      {
+        "title": "Brand Direction",
+        "summary": "Positioned Prodani as indulgent, premium, and nutrition-forward."
+      },
+      {
+        "title": "Website Design & Development",
+        "summary": "Custom Shopify experience beyond standard themes."
+      },
+      {
+        "title": "Hero Sections & Motion",
+        "summary": "Bold video-led storytelling to set the tone immediately."
+      },
+      {
+        "title": "Content & Copy",
+        "summary": "Clear brand narrative balancing taste and macros."
+      },
+      {
+        "title": "Packaging Direction",
+        "summary": "Aligned packaging and labels with the digital brand."
+      },
+      {
+        "title": "Trade Show Design",
+        "summary": "Full booth concept including banners, roll-ups, and displays."
+      }
     ],
     "result": "A cohesive brand system that translates seamlessly across website, packaging, and physical retail environments.",
     "kicker": "In depth on",
@@ -170,7 +206,102 @@
     "ctaUrl": "https://www.prodanimiami.com"
   },
   {
+    "id": 5,
+    "slug": "florida-energy-assistance",
+    "panelClass": "panel-card-3",
+    "coverTile": "/projects/florida-energy-assistance/florida-energy-assistance-cover-tile.webp",
+    "imageSrc": "/projects/florida-energy-assistance/1.avif",
+    "longWeb": "/projects/florida-energy-assistance/long.webp",
+    "imageAlt": "Florida Energy Assistance landing page preview",
+    "backLabel": "Back to Projects",
+    "title": "Florida Energy Assistance",
+    "subtitle": "Landing Page for Florida Home Energy Programs",
+    "outcome": "",
+    "year": "2026",
+    "metrics": [],
+    "description": "Florida Energy Assistance is a landing page I designed and developed for a home energy program lead campaign. The goal was to explain the offer clearly, build trust fast, and make it easy for homeowners to check eligibility.",
+    "tileVersion": "Landing page design and development for a Florida home energy program campaign.",
+    "services": [
+      { "label": "#Landing Page Design" },
+      { "label": "#Frontend Development" },
+      { "label": "#Lead Generation" },
+      { "label": "#Responsive Design" },
+      { "label": "#Form UX" }
+    ],
+    "highlights": [
+      {
+        "title": "Clear Offer",
+        "summary": "Presented the program benefits in a simple way, including $0 down, financing, and grant options."
+      },
+      {
+        "title": "Lead-Focused Structure",
+        "summary": "Built the page around one main action: checking eligibility."
+      },
+      {
+        "title": "Trust-Driven Design",
+        "summary": "Used a clean, calm layout with program details, steps, and contact information."
+      },
+      {
+        "title": "Responsive Build",
+        "summary": "Designed and developed the page to work smoothly across desktop and mobile."
+      }
+    ],
+    "result": "A clean, focused landing page that turns a complex home energy offer into a simple path for homeowners to understand the program and submit their information.",
+    "kicker": "In depth on",
+    "productName": "Our Work",
+    "ctaLabel": "View Live",
+    "ctaUrl": "https://floridaenergyassistance.com/"
+  },
+  {
     "id": 6,
+    "slug": "sha-design-studio",
+    "panelClass": "panel-hero",
+    "coverTile": "/projects/sha-design-studio/sha-design-studio-cover-tile.webp",
+    "imageSrc": "/projects/sha-design-studio/1.avif",
+    "longWeb": "/projects/sha-design-studio/long.webp",
+    "imageAlt": "Sha Design Studio website homepage preview",
+    "backLabel": "Back to Projects",
+    "title": "Sha Design Studio",
+    "subtitle": "Toy Design Studio Website",
+    "outcome": "",
+    "year": "2026",
+    "metrics": [],
+    "description": "Sha Design Studio is a branding, design, and website project for Shiran Hayon, a senior toy designer who opened her own studio. The website presents her work, services, and playful design style in a clear and colorful way.",
+    "tileVersion": "Branding, design, and development for a toy design studio offering services from idea to production.",
+    "services": [
+      { "label": "#Branding" },
+      { "label": "#Website Design" },
+      { "label": "#Frontend Development" },
+      { "label": "#Creative Direction" },
+      { "label": "#Responsive Design" },
+      { "label": "#Portfolio Website" }
+    ],
+    "highlights": [
+      {
+        "title": "Playful Brand Direction",
+        "summary": "Created a bold, colorful visual style that fits the world of toy design."
+      },
+      {
+        "title": "Portfolio Structure",
+        "summary": "Organized the site around projects, services, testimonials, and contact."
+      },
+      {
+        "title": "Service-Focused Messaging",
+        "summary": "Explained how the studio can help take a toy idea from concept to production."
+      },
+      {
+        "title": "Custom Website Design",
+        "summary": "Designed and developed a unique website instead of using a generic template."
+      }
+    ],
+    "result": "A playful and professional website that helps Sha Design Studio present its work, explain its services, and connect with new clients.",
+    "kicker": "In depth on",
+    "productName": "Our Work",
+    "ctaLabel": "View Live",
+    "ctaUrl": "https://sha-design-studio.netlify.app/"
+  },
+  {
+    "id": 7,
     "slug": "jelly-belly-wiki",
     "panelClass": "panel-hero",
     "coverTile": "/projects/jelly-belly-wiki/jelly-belly-wiki-cover-tile.webp",
@@ -195,17 +326,149 @@
       { "label": "#API Documentation" }
     ],
     "highlights": [
-      { "title": "End-to-End Build", "summary": "Built the full product from concept to launch, covering UX, UI, frontend, backend, and database." },
-      { "title": "Public API for Developers", "summary": "Designed and implemented a clean API that exposes flavor data in a predictable, dev-friendly format." },
-      { "title": "Documentation & Dev Experience", "summary": "Created complete documentation so other developers can explore endpoints, schemas, and usage quickly." },
-      { "title": "Database & Data Modeling", "summary": "Structured flavor data in MySQL with a scalable schema that supports search, filtering, and expansion." },
-      { "title": "Branding & Graphics", "summary": "Developed the visual identity and graphic system to make the product feel playful, clear, and polished." },
-      { "title": "UI System", "summary": "Designed a consistent component system for browsing, discovery, and wiki-style navigation." }
+      {
+        "title": "End-to-End Build",
+        "summary": "Built the full product from concept to launch, covering UX, UI, frontend, backend, and database."
+      },
+      {
+        "title": "Public API for Developers",
+        "summary": "Designed and implemented a clean API that exposes flavor data in a predictable, dev-friendly format."
+      },
+      {
+        "title": "Documentation & Dev Experience",
+        "summary": "Created complete documentation so other developers can explore endpoints, schemas, and usage quickly."
+      },
+      {
+        "title": "Database & Data Modeling",
+        "summary": "Structured flavor data in MySQL with a scalable schema that supports search, filtering, and expansion."
+      },
+      {
+        "title": "Branding & Graphics",
+        "summary": "Developed the visual identity and graphic system to make the product feel playful, clear, and polished."
+      },
+      {
+        "title": "UI System",
+        "summary": "Designed a consistent component system for browsing, discovery, and wiki-style navigation."
+      }
     ],
     "result": "A polished, developer-friendly wiki platform with a public API and clear documentation, supported by a complete brand and UI system.",
     "kicker": "In depth on",
     "productName": "Our Work",
     "ctaLabel": "View Live",
     "ctaUrl": "https://jelly-belly-wiki.netlify.app/"
+  },
+  {
+    "id": 8,
+    "slug": "birth-of-venus",
+    "panelClass": "panel-card-1",
+    "coverTile": "/projects/birth-of-venus/birth-of-venus-cover-tile.webp",
+    "imageSrc": "/projects/birth-of-venus/1.avif",
+    "longWeb": "/projects/birth-of-venus/long.webp",
+    "imageAlt": "Birth of Venus interactive art website homepage preview",
+    "backLabel": "Back to Projects",
+    "title": "Birth of Venus",
+    "subtitle": "Interactive Art History Website",
+    "outcome": "",
+    "year": "",
+    "metrics": [],
+    "description": "Birth of Venus is an interactive art history website I built around Sandro Botticelli’s famous Renaissance painting. The project started from my old History of Art notes and became a way to explore how design, storytelling, and parallax effects can make educational content feel more engaging online.",
+    "tileVersion": "Interactive art history website exploring Botticelli’s Birth of Venus through annotations, interpretation, responsive design, and parallax effects.",
+    "services": [
+      { "label": "#Frontend Development" },
+      { "label": "#React" },
+      { "label": "#Interactive Design" },
+      { "label": "#Art Direction" },
+      { "label": "#Educational Content" },
+      { "label": "#Parallax Experience" }
+    ],
+    "highlights": [
+      {
+        "title": "Interactive Art Education",
+        "summary": "Built a web experience that helps users explore the historical and artistic meaning behind Botticelli’s Birth of Venus."
+      },
+      {
+        "title": "Parallax Experimentation",
+        "summary": "Used parallax effects to create movement, depth, and a more engaging way to experience the artwork."
+      },
+      {
+        "title": "Annotation-Based Learning",
+        "summary": "Structured the site around interpretation and annotations so visitors can understand the painting beyond the surface image."
+      },
+      {
+        "title": "Responsive Front-End Build",
+        "summary": "Developed the project with attention to layout, typography, and usability across screen sizes."
+      }
+    ],
+    "result": "A polished educational web experience that shows how visual design, historical content, and front-end interaction can turn static information into something more memorable and engaging.",
+    "kicker": "In depth on",
+    "productName": "Our Work",
+    "ctaLabel": "View Live",
+    "ctaUrl": "https://birth-of-venus.netlify.app/"
+  },
+  {
+    "id": 9,
+    "slug": "creatuwheels",
+    "panelClass": "panel-card-2",
+    "coverTile": "/projects/creatuwheels/creatuwheels-cover-tile.webp",
+    "imageSrc": "/projects/creatuwheels/1.avif",
+    "longWeb": "/projects/creatuwheels/long.webp",
+    "imageAlt": "Creatuwheels packaging design preview",
+    "backLabel": "Back to Projects",
+    "title": "Creatuwheels",
+    "subtitle": "Creatures On Wheels Packaging Design",
+    "outcome": "",
+    "year": "",
+    "metrics": [],
+    "description": "The packaging for 'Creatuwheels' brings a playful and educational approach, reflecting the toy's purpose of teaching geometric shapes and transforming into vehicle-like creatures.",
+    "tileVersion": "Toy packaging design exploring geometric play, color theory, and transformation.",
+    "services": [
+      { "label": "#Packaging Design" },
+      { "label": "#Brand Identity" },
+      { "label": "#Illustration" }
+    ],
+    "highlights": [
+      {
+        "title": "Color Blocks",
+        "summary": "Cyan, magenta, yellow, and grey—core colors tied to early learning."
+      }
+    ],
+    "result": "Packaging that visually communicates the toy's creativity, education, and play value.",
+    "kicker": "In depth on",
+    "productName": "Our Work",
+    "ctaLabel": "View Project",
+    "ctaUrl": ""
+  },
+  {
+    "id": 10,
+    "slug": "maritime",
+    "panelClass": "panel-card-3",
+    "coverTile": "/projects/maritime/maritime-cover-tile.webp",
+    "imageSrc": "/projects/maritime/1.avif",
+    "longWeb": "",
+    "imageAlt": "Maritime crab cracker and packaging design preview",
+    "backLabel": "Back to Projects",
+    "title": "Maritime",
+    "subtitle": "Sculptural Crab Cracker & Packaging Design",
+    "outcome": "",
+    "year": "",
+    "metrics": [],
+    "description": "For 'Maritime', Switch Case Studio reimagined a simple seafood tool into a sculptural dining experience.",
+    "tileVersion": "Product and packaging design inspired by marine forms, balancing function and elegance.",
+    "services": [
+      { "label": "#Product Design" },
+      { "label": "#3D Modeling" },
+      { "label": "#Branding" }
+    ],
+    "highlights": [
+      {
+        "title": "Sculptural Form",
+        "summary": "Organic silhouette shaped by ergonomic testing."
+      }
+    ],
+    "result": "A cohesive product and brand experience that transforms a functional utensil into a piece of design storytelling.",
+    "kicker": "In depth on",
+    "productName": "Our Work",
+    "ctaLabel": "View Project",
+    "ctaUrl": ""
   }
 ]
