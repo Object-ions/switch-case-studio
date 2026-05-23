@@ -9,19 +9,19 @@
   },
   {
     "id": 2,
+    "name": "Shiran Hayon",
+    "title": "Owner at Sha Design Studio",
+    "highlight": "He helped bring my vision to life in a way that clearly shows my work.",
+    "testimonial": "Moses built the website for my toy design studio, and I’m so happy with how it came out. He understood that the site needed to feel playful, creative, and professional at the same time. He helped bring my vision to life in a way that clearly shows my work, my services, and the personality of the studio. The process was smooth, thoughtful, and very collaborative. I felt that he really cared about the details and about creating something that fits me and my brand.",
+    "image": "/images/shiran.avif"
+  },
+  {
+    "id": 3,
     "name": "Sean Dalal",
     "title": "Owner at Zahav Medspa",
     "highlight": "They didn't just execute tasks; they helped us significantly increase our social media exposure, managed our website blog seamlessly, and delivered outstanding design and content.",
     "testimonial": "Partnering with Switch Case Studio has been an exceptional experience. The team is incredibly communicative, pleasant to work with, and maintains a calm, focused approach to every project. They didn't just execute tasks; they helped us significantly increase our social media exposure, managed our website blog seamlessly, and delivered outstanding design and content. They took the time to truly understand our brand voice, offering proactive recommendations and strategic advice that were right on target. From digital presence to printed materials, their work is consistently top-tier.",
     "image": "/images/sean.avif"
-  },
-  {
-    "id": 3,
-    "name": "Lior Maman",
-    "title": "Owner at Ora Sempre Annapolis",
-    "highlight": "Switch Case Studio took every idea I had and brought it to life — and then some.",
-    "testimonial": "Switch Case Studio took every idea I had and brought it to life — and then some. The website they built has genuinely elevated my brand and contributed to my business growth. Professional, talented, and a pleasure to work with. Highly recommended.",
-    "image": "/images/lior.avif"
   },
   {
     "id": 4,
@@ -30,5 +30,21 @@
     "highlight": "One of the most professional studios out there — you can truly feel the passion and love they put into their work, and it shows in the results.",
     "testimonial": "One of the most professional studios out there — you can truly feel the passion and love they put into their work, and it shows in the results. I deeply appreciate the professionalism, determination, availability, and commitment to helping me reach my exact business goals. It's clear that Switch Case Studio brings the knowledge and experience needed to guide you in the right direction — with a well-balanced, thoughtful approach that connects all the elements your business needs. Thank you so much. I'm so glad I got to work with you — here's to many more years of collaboration!",
     "image": "/images/dani.avif"
+  },
+  {
+    "id": 5,
+    "name": "Lior Maman",
+    "title": "Owner at Ora Sempre Annapolis",
+    "highlight": "Switch Case Studio took every idea I had and brought it to life — and then some.",
+    "testimonial": "Switch Case Studio took every idea I had and brought it to life — and then some. The website they built has genuinely elevated my brand and contributed to my business growth. Professional, talented, and a pleasure to work with. Highly recommended.",
+    "image": "/images/lior.avif"
+  },
+  {
+    "id": 6,
+    "name": "Yuli",
+    "title": "Owner at Isha Medspa",
+    "highlight": "He understood the style and level we wanted for Isha Medspa and turned it into a clean, professional website that feels right for our brand.",
+    "testimonial": "Working with Moses on our website was a great experience. He understood the style and level we wanted for Isha Medspa and helped turn it into a clean, professional website that feels right for our brand. We have two locations in Miami, so it was important for the website to look polished, be easy to understand, and make it simple for clients to learn about our services. Moses was patient, creative, and very detail-oriented throughout the process. We’re very happy with the final result.",
+    "image": "/images/yuli.avif"
   }
 ]
