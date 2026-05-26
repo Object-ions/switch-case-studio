@@ -265,9 +265,9 @@ const Header = () => {
               </li>
               <li className="nav_item">
                 <Link
-                  to="/#services"
-                  className={`nav_link ${isActive("/#services") ? "is-active" : ""}`}
-                  aria-current={isActive("/#services") ? "page" : undefined}
+                  to="/services"
+                  className={`nav_link ${isActive("/services") ? "is-active" : ""}`}
+                  aria-current={isActive("/services") ? "page" : undefined}
                 >
                   Services
                 </Link>
@@ -329,18 +329,18 @@ const Header = () => {
 
               <li className="nav_item">
                 <Link
-                  to="/#testimonials"
-                  className={`nav_link ${isActive("/#testimonials") ? "is-active" : ""}`}
-                  aria-current={isActive("/#testimonials") ? "page" : undefined}
+                  to="/testimonials"
+                  className={`nav_link ${isActive("/testimonials") ? "is-active" : ""}`}
+                  aria-current={isActive("/testimonials") ? "page" : undefined}
                 >
                   Reviews
                 </Link>
               </li>
               <li className="nav_item">
                 <Link
-                  to="/#contact"
-                  className={`nav_link ${isActive("/#contact") ? "is-active" : ""}`}
-                  aria-current={isActive("/#contact") ? "page" : undefined}
+                  to="/contact"
+                  className={`nav_link ${isActive("/contact") ? "is-active" : ""}`}
+                  aria-current={isActive("/contact") ? "page" : undefined}
                 >
                   Contact
                 </Link>

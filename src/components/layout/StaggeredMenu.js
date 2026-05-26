@@ -347,9 +347,9 @@ const StaggeredMenu = ({
           <ul className="sm-panel-list">
             <li className="sm-panel-itemWrap">
               <Link
-                to="/#services"
+                to="/services"
                 className="sm-panel-item"
-                onClick={handleNavClick('/#services')}
+                onClick={handleNavClick('/services')}
               >
                 <span className="sm-panel-itemLabel">Services</span>
               </Link>
@@ -385,9 +385,9 @@ const StaggeredMenu = ({
 
             <li className="sm-panel-itemWrap">
               <Link
-                to="/#testimonials"
+                to="/testimonials"
                 className="sm-panel-item"
-                onClick={handleNavClick('/#testimonials')}
+                onClick={handleNavClick('/testimonials')}
               >
                 <span className="sm-panel-itemLabel">Testimonials</span>
               </Link>
@@ -395,9 +395,9 @@ const StaggeredMenu = ({
 
             <li className="sm-panel-itemWrap">
               <Link
-                to="/#contact"
+                to="/contact"
                 className="sm-panel-item"
-                onClick={handleNavClick('/#contact')}
+                onClick={handleNavClick('/contact')}
               >
                 <span className="sm-panel-itemLabel">Contact Us</span>
               </Link>

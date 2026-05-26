@@ -1,0 +1,181 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+.testimonials-page {
+  background: #000;
+  color: #fff;
+  font-family: $font-text;
+
+  // ── Header ──
+  &__header {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8rem 6rem 6rem;
+
+    @media (max-width: 1024px) { padding: 6rem 3rem 5rem; }
+    @media (max-width: 768px)  { padding: 5rem 1.5rem 4rem; }
+  }
+
+  &__kicker {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: $orange-color;
+    margin: 0 0 1.5rem;
+  }
+
+  &__title {
+    font-family: $font-special;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin: 0 0 2rem;
+    color: #fff;
+
+    &--accent { color: $g6; }
+  }
+
+  &__lede {
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 580px;
+    margin: 0;
+  }
+
+  // ── Grid ──
+  &__grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 6rem 5rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+
+    @media (max-width: 1024px) { padding: 0 3rem 4rem; }
+    @media (max-width: 900px)  { grid-template-columns: 1fr; }
+    @media (max-width: 768px)  { padding: 0 1.5rem 3rem; }
+  }
+
+  // ── Card ──
+  &__card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: background 0.25s ease, border-color 0.25s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+
+    @media (max-width: 580px) { padding: 2rem 1.5rem; }
+  }
+
+  &__card-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__card-img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+  }
+
+  &__card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  &__card-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+  }
+
+  &__card-title {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+  }
+
+  &__card-highlight {
+    font-family: $font-special;
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    font-weight: 700;
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+    color: #fff;
+    margin: 0;
+    border-left: 3px solid $orange-color;
+    padding-left: 1.125rem;
+  }
+
+  &__card-body {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+  }
+
+  // ── Bottom CTA ──
+  &__bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 6rem 8rem;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    @media (max-width: 1024px) { padding: 5rem 3rem 7rem; }
+    @media (max-width: 768px)  { padding: 4rem 1.5rem 6rem; }
+
+    &-heading {
+      font-family: $font-special;
+      font-size: clamp(2rem, 4.5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0 0 1rem;
+      color: #fff;
+    }
+
+    &-body {
+      font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+      color: rgba(255, 255, 255, 0.5);
+      margin: 0 0 2.5rem;
+    }
+
+    &-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2rem;
+      border-radius: 100px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      background: #fff;
+      color: #000;
+      border: 2px solid #fff;
+      transition: all 0.3s ease;
+      min-height: 48px;
+
+      &:hover {
+        border-color: $g6;
+        box-shadow: 0 0 32px rgba($g6, 0.4);
+      }
+    }
+  }
+}

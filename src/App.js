@@ -24,6 +24,9 @@ const ProjectsPage       = lazy(() => import("./components/pages/ProjectsPage"))
 const PricingPage        = lazy(() => import("./components/PricingPage"));
 const PricingOverviewPage = lazy(() => import("./components/pages/PricingOverviewPage"));
 const AboutPage          = lazy(() => import("./components/pages/AboutPage"));
+const ServicesPage       = lazy(() => import("./components/pages/ServicesPage"));
+const TestimonialsPage   = lazy(() => import("./components/pages/TestimonialsPage"));
+const ContactPage        = lazy(() => import("./components/pages/ContactPage"));
 const Privacy            = lazy(() => import("./components/Privacy"));
 const Terms              = lazy(() => import("./components/Terms"));
 const Accessibility      = lazy(() => import("./components/Accessibility"));
@@ -79,6 +82,11 @@ function App() {
             {/* Pricing */}
             <Route path="/pricing" element={<PricingOverviewPage />} />
             <Route path="/pricing/:serviceSlug" element={<PricingPage />} />
+
+            {/* Standalone section pages */}
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/testimonials" element={<TestimonialsPage />} />
+            <Route path="/contact" element={<ContactPage />} />
 
             {/* Legal */}
             <Route path="/privacy" element={<Privacy />} />
