@@ -68,9 +68,9 @@ const Hero = () => {
               {"We "}
               <WelcomeTyped />
             </span>
-            <span className="hero-line">landing pages</span>
+            <span className="hero-line">websites &amp; stores</span>
             <span className="hero-line hero-line--accent">
-              that actually convert.
+              that actually perform.
             </span>
           </h1>
 
@@ -78,9 +78,13 @@ const Hero = () => {
             className={`hero-sub ${revealed ? "is-visible" : ""}`}
             data-cursor-wave-mask
           >
-            High-performance landing pages for Google Ads, Meta, and beyond
-            &mdash; built by a design-led studio that takes conversion
-            seriously.
+            <span className="hero-sub__desktop">
+              Websites, e-commerce stores, and apps &mdash; built from scratch
+              by a design-led studio that takes performance seriously.
+            </span>
+            <span className="hero-sub__mobile">
+              Built to perform. Designed to convert.
+            </span>
           </p>
 
           <div

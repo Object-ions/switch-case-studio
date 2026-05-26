@@ -131,13 +131,11 @@
 - [x] Phase 3 — Recommendations with shippable fixes
 - [x] Phase 4 — 7-day execution plan
 - [x] Branch created: `audit/pre-pitch-fixes`
-- [x] **DAY 1 COMPLETE** — 7 files changed, all verified
-- [x] **DAY 1 COMPLETE**
-- [x] **DAY 2 COMPLETE**
-- [x] **DAY 3 COMPLETE** — 2 new files, metrics added
-- [ ] Day 6 — Code splitting + mobile QA
-- [ ] Day 7 — Final review + deploy
-- [ ] PR merged to main
+- [x] Day 1 — Structure + quick wins
+- [x] Day 2 — LandingPageProof + Services B2B copy
+- [x] Day 3 — ClientStrip + mock metrics
+- [x] Day 6 — Meta tags + code splitting + build verified ✅
+- [ ] **Day 7 — Mobile QA + final review + merge to main**
 
 ## DAY 1 CHANGES — SHIPPED ✅
 Branch: `audit/pre-pitch-fixes`
@@ -196,26 +194,42 @@ Branch: `audit/pre-pitch-fixes`
 | `src/data/projects.json` | Mock metrics added to Zahav, Crimson Equities, Prodani Miami |
 
 ### Final homepage section order
-1. Hero
-2. **ClientStrip** ← NEW (social proof immediately after hero)
-3. ValueProp
-4. Services
-5. LandingPageProof
-6. GradientStripe
-7. Projects/Case Studies
-8. Work/About
-9. Testimonials
-10. Contact
-11. FAQ
+1. Hero — "We [build] landing pages that actually convert."
+2. ClientStrip — client logo marquee (social proof)
+3. LandingPageProof — LP narrative / positioning ("why us" beat, replaces ValueProp)
+4. Services — 6 service menu items
+5. GradientStripe — animated visual break
+6. Projects/Case Studies — portfolio tiles (FL Energy first)
+7. Work/About — studio story
+8. Testimonials
+9. Contact
+10. FAQ
+
+Note: ValueProp removed by Moses — scroll-pin animation was too aggressive for time-poor visitors.
+LandingPageProof now carries the narrative weight ValueProp had, without the scroll lock.
+
+## DAY 6 CHANGES — SHIPPED ✅
+
+| File | What changed |
+|------|-------------|
+| `public/index.html` | Title, meta description, OG title/description, Twitter title/description — all updated to LP focus ("Landing Pages That Convert") |
+| `src/App.js` | `React.lazy()` + `<Suspense>` applied to `ProjectPage`, `PricingPage`, `Privacy`, `Terms`, `Accessibility`. Build verified clean. |
+
+Build output: main.js = 1.6MB (Three.js + GSAP + OGL — animation system, expected). Lazy chunks: 2–14KB each, load on demand only.
 
 ## NEXT SESSION ENTRY POINT
-Days 1–3 done. All pre-pitch content changes are live on branch `audit/pre-pitch-fixes`.
-
-Next: **Day 6 — Code splitting + full mobile QA pass**
+**Day 7 — Mobile QA + merge to main**
 Branch: `git checkout audit/pre-pitch-fixes`
 
-Tasks:
-1. Wrap all route components in `React.lazy()` + `<Suspense>` in `src/App.js`
-2. Full scroll-through on mobile viewport — check every section
-3. Fix any scroll anchor or layout regressions from the section reorder
-4. Final Matt-persona review of homepage first fold
+Tasks for Moses (browser):
+1. Open site on mobile (or DevTools → iPhone viewport)
+2. Check these sections specifically:
+   - ClientStrip — logos visible and marquee running?
+   - LandingPageProof — 4 features collapse to 2-col then 1-col correctly?
+   - Hero — headline wraps cleanly? CTAs stack correctly?
+   - Projects grid — tiles readable, hover state functional?
+3. Report any visual issues → fix → merge
+
+Tasks for Claude (after QA):
+1. Commit all changes on branch
+2. Merge to main / push for deploy

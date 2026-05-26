@@ -181,8 +181,8 @@ const Footer = () => {
           <div className="footer-col footer-col-animate footer-brand">
             <SCSLogo />
             <p className="footer-brand__tagline">
-              A full-service digital studio crafting design, development, and
-              marketing that moves the needle.
+              Landing pages and websites built to convert — designed from
+              scratch, shipped fast.
             </p>
             {/* Social icons — uncomment entries in the `socials` array above to enable */}
             {socials.length > 0 && (

@@ -50,10 +50,10 @@ const WorkMarquee = () => {
       <div className="panel panel-header">
         <h1 className="marquee" aria-label="Selected Projects">
           <span className="marquee-track">
-            Unleash Your Digital Potential with Switch Case Studio
+            Websites that convert — e-commerce stores that sell — apps built to last — Switch Case Studio
           </span>
           <span className="marquee-track">
-            Unleash Your Digital Potential with Switch Case Studio
+            Websites that convert — e-commerce stores that sell — apps built to last — Switch Case Studio
           </span>
         </h1>
       </div>

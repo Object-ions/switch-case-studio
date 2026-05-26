@@ -10,20 +10,20 @@ gsap.registerPlugin(ScrollTrigger);
 
 const FEATURES = [
   {
-    label: 'Offer clarity',
-    desc: 'One message. One action. No distractions.',
+    label: 'Landing pages',
+    desc: 'One message. One CTA. Optimized for paid campaigns and built to convert.',
   },
   {
-    label: 'Mobile-first',
-    desc: 'Built for how paid traffic actually arrives.',
+    label: 'E-commerce',
+    desc: 'Product-first stores that sell — not just display. Designed for the full buyer journey.',
   },
   {
-    label: 'Fast turnaround',
-    desc: 'Most pages live in under two weeks.',
+    label: 'Marketing sites',
+    desc: 'Full-brand web presence built from scratch. Not a template, not a theme.',
   },
   {
     label: 'Agency-ready',
-    desc: 'White-label and wholesale delivery available.',
+    desc: 'White-label and wholesale delivery available. Built to your brief, shipped on time.',
   },
 ];
 
@@ -61,22 +61,22 @@ const LandingPageProof = () => {
   return (
     <section
       ref={sectionRef}
-      id="landing-pages"
+      id="what-we-build"
       className="lpp"
-      aria-label="Landing page specialty"
+      aria-label="What we build"
     >
       <div className="lpp__inner">
         <div className="lpp__header">
           <p className="lpp__kicker lpp-animate">What we build best</p>
           <h2 className="lpp__heading lpp-animate">
-            Landing pages engineered<br />for paid traffic.
+            Built to perform.<br />Whatever the format.
           </h2>
           <p className="lpp__body lpp-animate">
-            Google Ads. Meta. Email. Retargeting. If you're spending money to
-            send traffic somewhere, that page has one job: convert. We design
-            and build high-performance landing pages with a clear offer, a
-            single conversion path, and the kind of trust-building detail that
-            keeps Quality Scores high and bounce rates low.
+            Landing page or full e-commerce store — every build starts with
+            the same question: what needs to happen for a visitor to become a
+            customer? We design and build with that answer in mind, from a
+            single campaign page to a complete storefront, delivered fast and
+            built to last.
           </p>
         </div>
 
@@ -94,7 +94,7 @@ const LandingPageProof = () => {
           smooth
           className="lpp__cta lpp-animate"
         >
-          See landing page work
+          See our work
           <span className="lpp__cta-arrow" aria-hidden="true">&rarr;</span>
         </HashLink>
       </div>

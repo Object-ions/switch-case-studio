@@ -28,7 +28,7 @@ const WorkHeading = () => {
     };
   }, []);
 
-  const text = `We bring sharp ideas to life - blending design, tech, and storytelling into thoughtful, effective digital experiences`;
+  const text = `We build websites, e-commerce stores, and apps that convert — designed from scratch, shipped fast, and built to grow with your business`;
 
   const wrappedWords = text.split(' ').map((word, idx) => (
     <span key={idx} className="word">

@@ -7,7 +7,7 @@
   background: #000;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 2rem 0;
+  padding: 2.5rem 0;
   overflow: hidden;
 
   &__label {
@@ -39,19 +39,19 @@
 
     &::before {
       left: 0;
-      background: linear-gradient(to right, #000, transparent);
+      background: linear-gradient(to right, #000 60%, transparent);
     }
 
     &::after {
       right: 0;
-      background: linear-gradient(to left, #000, transparent);
+      background: linear-gradient(to left, #000 60%, transparent);
     }
   }
 
   &__track {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.25rem;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -69,19 +69,17 @@
 
   &__logo {
     display: block;
-    height: 72px;
-    width: 72px;
+    height: 96px;
+    width: 96px;
     object-fit: cover;
-    border-radius: 8px;
-    // The cover tiles are black BG + white logo —
-    // a thin border gives each tile just enough boundary on the black bg
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
     transition: border-color 0.3s ease, opacity 0.3s ease;
-    opacity: 0.85;
+    opacity: 0.9;
     user-select: none;
 
     &:hover {
-      border-color: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
       opacity: 1;
     }
   }
@@ -108,8 +106,8 @@
     }
 
     &__logo {
-      height: 60px;
-      width: 60px;
+      height: 76px;
+      width: 76px;
     }
 
     &__track-wrap {
