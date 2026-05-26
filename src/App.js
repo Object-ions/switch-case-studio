@@ -1,37 +1,35 @@
+import { lazy, Suspense } from "react";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import MainLayout from "./components/layout/MainLayout";
 
-// Pages & Sections
+// Home sections — synchronous (must be ready on first paint)
+import Hero from "./components/Hero";
+import ClientStrip from "./components/ClientStrip";
+import LandingPageProof from "./components/LandingPageProof";
 import Services from "./components/pages/Services";
 import Work from "./components/pages/Work";
 import Testimonials from "./components/pages/Testimonials";
 import Projects from "./components/Projects";
-import ProjectPage from "./components/pages/ProjectPage";
 import Contact from "./components/pages/Contact";
-import PricingPage from "./components/PricingPage";
-import Hero from "./components/Hero";
-import ValueProp from "./components/ValueProp";
 import Faq from "./components/Faq";
-
-// Utilities & Components
-import ScrollToTop from "./components/ScrollToTop";
 import GradientStripe from "./components/StripeSection";
-
-// Assets & Styles
+import ScrollToTop from "./components/ScrollToTop";
 import Orb from "./assets/images/orb.avif";
-
-// Legal Pages
-import Privacy from "./components/Privacy";
-import Terms from "./components/Terms";
-import Accessibility from "./components/Accessibility";
-
 import "./styles/app.scss";
+
+// Route-only pages — lazy loaded (not needed on initial home visit)
+const ProjectPage   = lazy(() => import("./components/pages/ProjectPage"));
+const PricingPage   = lazy(() => import("./components/PricingPage"));
+const Privacy       = lazy(() => import("./components/Privacy"));
+const Terms         = lazy(() => import("./components/Terms"));
+const Accessibility = lazy(() => import("./components/Accessibility"));
 
 const HomeContent = () => (
   <>
     <Hero />
-    <ValueProp />
+    <ClientStrip />
+    <LandingPageProof />
     <Services />
     <GradientStripe
       size="clamp(160px, 30vw, 420px)"
@@ -39,10 +37,10 @@ const HomeContent = () => (
       travel={60}
       orbSrc={Orb}
     />
-    <Work />
-    <Contact />
     <Projects />
+    <Work />
     <Testimonials />
+    <Contact />
     <Faq />
   </>
 );
@@ -62,26 +60,28 @@ function App() {
     <HelmetProvider>
       <ScrollToTop />
 
-      <Routes>
-        <Route element={<Layout />}>
-          {/* Landing */}
-          <Route path="/" element={<HomeContent />} />
+      <Suspense fallback={null}>
+        <Routes>
+          <Route element={<Layout />}>
+            {/* Landing */}
+            <Route path="/" element={<HomeContent />} />
 
-          {/* Standalone case-study pages (replaces modal pattern) */}
-          <Route path="/projects/:slug" element={<ProjectPage />} />
+            {/* Standalone case-study pages */}
+            <Route path="/projects/:slug" element={<ProjectPage />} />
 
-          {/* Pricing */}
-          <Route path="/pricing/:serviceSlug" element={<PricingPage />} />
+            {/* Pricing */}
+            <Route path="/pricing/:serviceSlug" element={<PricingPage />} />
 
-          {/* Legal */}
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/accessibility" element={<Accessibility />} />
-        </Route>
+            {/* Legal */}
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/accessibility" element={<Accessibility />} />
+          </Route>
 
-        {/* Catch-all → home */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+          {/* Catch-all → home */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
     </HelmetProvider>
   );
 }

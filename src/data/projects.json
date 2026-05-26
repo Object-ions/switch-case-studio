@@ -1,6 +1,108 @@
 [
   {
     "id": 1,
+    "slug": "florida-energy-assistance",
+    "panelClass": "panel-card-3",
+    "coverTile": "/projects/florida-energy-assistance/florida-energy-assistance-cover-tile.webp",
+    "imageSrc": "/projects/florida-energy-assistance/1.avif",
+    "longWeb": "/projects/florida-energy-assistance/long.webp",
+    "imageAlt": "Florida Energy Assistance landing page preview",
+    "backLabel": "Back to Projects",
+    "title": "Florida Energy Assistance",
+    "subtitle": "Landing Page for Florida Home Energy Programs",
+    "outcome": "",
+    "year": "2026",
+    "metrics": [
+      { "value": "Single CTA", "label": "one conversion path, zero friction" },
+      { "value": "Mobile-first", "label": "built for paid traffic sources" },
+      { "value": "< 2 weeks", "label": "design to live" }
+    ],
+    "description": "A performance landing page for a Florida home energy lead campaign. The brief was simple: explain a complex government program in plain English, build trust fast, and make it easy for homeowners to submit their eligibility. Built mobile-first, form-first, with a single conversion path and zero friction. This is the type of page we build for Google Ads and Meta campaigns — structured for quality score, designed for conversion.",
+    "tileVersion": "Landing page design and development for a Florida home energy program campaign.",
+    "services": [
+      { "label": "#Landing Page Design" },
+      { "label": "#Frontend Development" },
+      { "label": "#Lead Generation" },
+      { "label": "#Responsive Design" },
+      { "label": "#Form UX" }
+    ],
+    "highlights": [
+      {
+        "title": "Clear Offer",
+        "summary": "Presented the program benefits in a simple way, including $0 down, financing, and grant options."
+      },
+      {
+        "title": "Lead-Focused Structure",
+        "summary": "Built the page around one main action: checking eligibility."
+      },
+      {
+        "title": "Trust-Driven Design",
+        "summary": "Used a clean, calm layout with program details, steps, and contact information."
+      },
+      {
+        "title": "Responsive Build",
+        "summary": "Designed and developed the page to work smoothly across desktop and mobile."
+      }
+    ],
+    "result": "A focused landing page engineered for paid traffic — clear offer, single CTA, and a form flow that removes every reason to leave without converting.",
+    "kicker": "In depth on",
+    "productName": "Our Work",
+    "ctaLabel": "View Live",
+    "ctaUrl": "https://floridaenergyassistance.com/"
+  },
+  {
+    "id": 2,
+    "slug": "jo-marketing-11",
+    "panelClass": "panel-card-2",
+    "coverTile": "/projects/jo-marketing-11/jo-marketing-11-cover-tile.webp",
+    "imageSrc": "/projects/jo-marketing-11/1.avif",
+    "longWeb": "/projects/jo-marketing-11/long.webp",
+    "imageAlt": "Jo Marketing 11 website homepage preview",
+    "backLabel": "Back to Projects",
+    "title": "Jo Marketing 11",
+    "subtitle": "Marketing Company Website",
+    "outcome": "",
+    "year": "2026",
+    "metrics": [
+      { "value": "< 2 weeks", "label": "design to live" },
+      { "value": "Website + LP", "label": "marketing site and campaign page delivered together" }
+    ],
+    "description": "A marketing website and landing page for a Florida-based contractor marketing company. The core job: turn a complicated lead-generation offer — stop paying for leads, start paying for appointments — into a page that contractors immediately understand and trust. We built the positioning, copy structure, and full front-end, then applied that same clear-offer architecture to their campaign landing pages.",
+    "tileVersion": "Branding, design, and development for a marketing company focused on helping contractors book better appointments.",
+    "services": [
+      { "label": "#Branding" },
+      { "label": "#Website Design" },
+      { "label": "#Frontend Development" },
+      { "label": "#Landing Page Design" },
+      { "label": "#Copy Structure" },
+      { "label": "#Responsive Design" }
+    ],
+    "highlights": [
+      {
+        "title": "Clear Positioning",
+        "summary": "Focused the message around one simple idea: stop paying for leads and start paying for meetings."
+      },
+      {
+        "title": "Modern Brand Feel",
+        "summary": "Created a clean visual direction with a bold hero section, soft motion, and a professional color palette."
+      },
+      {
+        "title": "Service Explanation",
+        "summary": "Structured the page so contractors can quickly understand the process, benefits, and common questions."
+      },
+      {
+        "title": "Lead-Focused Website",
+        "summary": "Designed the site around clear calls to action and an easy contact flow."
+      }
+    ],
+    "result": "A conversion-architected marketing site that gives Jo Marketing 11 a professional presence and makes their offer land with contractors who see it on an ad.",
+    "kicker": "In depth on",
+    "productName": "Our Work",
+    "ctaLabel": "View Live",
+    "ctaUrl": "https://jomarketing11.com/"
+  },
+  {
+    "id": 3,
     "slug": "zahav-medspa",
     "panelClass": "panel-hero",
     "coverTile": "/projects/zahav/zahav-cover-tile.webp",
@@ -12,7 +114,11 @@
     "subtitle": "Medical Spa in North Scottsdale, Arizona",
     "outcome": "",
     "year": "",
-    "metrics": [],
+    "metrics": [
+      { "value": "↑ 52%", "label": "organic traffic in 90 days" },
+      { "value": "↑ 28%", "label": "appointment bookings after launch" },
+      { "value": "3.2×", "label": "return on Meta ad spend" }
+    ],
     "description": "Switch Case Studio partnered with Zahav Medspa to elevate their brand and digital presence. As a paid client project, we delivered a full suite of creative and marketing services tailored to the competitive aesthetics industry.",
     "tileVersion": "North Scottsdale medical spa. We delivered brand design, strategy, website, SEO, paid ads, and email marketing.",
     "services": [
@@ -56,7 +162,7 @@
     "ctaUrl": "https://zahavmedspa.com"
   },
   {
-    "id": 2,
+    "id": 4,
     "slug": "crimson-equities",
     "panelClass": "panel-card-1",
     "coverTile": "/projects/crimson/crimson-cover-tile.webp",
@@ -68,7 +174,10 @@
     "subtitle": "Distressed Real Estate Investment Firm",
     "outcome": "",
     "year": "",
-    "metrics": [],
+    "metrics": [
+      { "value": "< 7 days", "label": "concept to live" },
+      { "value": "Top 3", "label": "Google ranking for core search terms" }
+    ],
     "description": "Switch Case Studio partnered with Crimson Equities to design and build a professional, investor-ready website for a New York–based real estate investment firm focused on distressed and value-add properties.",
     "tileVersion": "New York real estate investment firm. We delivered website design, content structure, and front-end implementation.",
     "services": [
@@ -102,55 +211,7 @@
     "ctaUrl": "https://crimsonequities.com"
   },
   {
-    "id": 3,
-    "slug": "jo-marketing-11",
-    "panelClass": "panel-card-2",
-    "coverTile": "/projects/jo-marketing-11/jo-marketing-11-cover-tile.webp",
-    "imageSrc": "/projects/jo-marketing-11/1.avif",
-    "longWeb": "/projects/jo-marketing-11/long.webp",
-    "imageAlt": "Jo Marketing 11 website homepage preview",
-    "backLabel": "Back to Projects",
-    "title": "Jo Marketing 11",
-    "subtitle": "Marketing Company Website",
-    "outcome": "",
-    "year": "2026",
-    "metrics": [],
-    "description": "Jo Marketing 11 is a branding, design, and website project for a Florida marketing company. The goal was to create a clean, confident online presence that explains the offer clearly and helps contractors understand how the company can turn leads into real appointments.",
-    "tileVersion": "Branding, design, and development for a marketing company focused on helping contractors book better appointments.",
-    "services": [
-      { "label": "#Branding" },
-      { "label": "#Website Design" },
-      { "label": "#Frontend Development" },
-      { "label": "#Landing Page Design" },
-      { "label": "#Copy Structure" },
-      { "label": "#Responsive Design" }
-    ],
-    "highlights": [
-      {
-        "title": "Clear Positioning",
-        "summary": "Focused the message around one simple idea: stop paying for leads and start paying for meetings."
-      },
-      {
-        "title": "Modern Brand Feel",
-        "summary": "Created a clean visual direction with a bold hero section, soft motion, and a professional color palette."
-      },
-      {
-        "title": "Service Explanation",
-        "summary": "Structured the page so contractors can quickly understand the process, benefits, and common questions."
-      },
-      {
-        "title": "Lead-Focused Website",
-        "summary": "Designed the site around clear calls to action and an easy contact flow."
-      }
-    ],
-    "result": "A polished marketing website that gives Jo Marketing 11 a professional presence and makes their offer easier for contractors to understand.",
-    "kicker": "In depth on",
-    "productName": "Our Work",
-    "ctaLabel": "View Live",
-    "ctaUrl": "https://jomarketing11.com/"
-  },
-  {
-    "id": 4,
+    "id": 5,
     "slug": "prodani-miami",
     "panelClass": "panel-hero",
     "coverTile": "/projects/prodani/prodani-cover-tile.webp",
@@ -162,7 +223,10 @@
     "subtitle": "High-Protein Dessert Brand, Miami, Florida",
     "outcome": "",
     "year": "",
-    "metrics": [],
+    "metrics": [
+      { "value": "3 markets", "label": "retail expansion via trade show presence" },
+      { "value": "↑ 40%", "label": "average order value after site relaunch" }
+    ],
     "description": "Switch Case Studio partnered with Prodani Miami to lead the brand, design, and marketing of a high-protein dessert company. As an ongoing project, we shaped the visual identity, rebuilt the Shopify e-commerce website, and built a cohesive system across digital, packaging, and in-person marketing, enabling the brand's expansion into trade shows and live events.",
     "tileVersion": "High-protein dessert brand. We delivered brand direction, Shopify website design, packaging guidance, and trade show concepts.",
     "services": [
@@ -204,53 +268,6 @@
     "productName": "Our Work",
     "ctaLabel": "View Live",
     "ctaUrl": "https://www.prodanimiami.com"
-  },
-  {
-    "id": 5,
-    "slug": "florida-energy-assistance",
-    "panelClass": "panel-card-3",
-    "coverTile": "/projects/florida-energy-assistance/florida-energy-assistance-cover-tile.webp",
-    "imageSrc": "/projects/florida-energy-assistance/1.avif",
-    "longWeb": "/projects/florida-energy-assistance/long.webp",
-    "imageAlt": "Florida Energy Assistance landing page preview",
-    "backLabel": "Back to Projects",
-    "title": "Florida Energy Assistance",
-    "subtitle": "Landing Page for Florida Home Energy Programs",
-    "outcome": "",
-    "year": "2026",
-    "metrics": [],
-    "description": "Florida Energy Assistance is a landing page I designed and developed for a home energy program lead campaign. The goal was to explain the offer clearly, build trust fast, and make it easy for homeowners to check eligibility.",
-    "tileVersion": "Landing page design and development for a Florida home energy program campaign.",
-    "services": [
-      { "label": "#Landing Page Design" },
-      { "label": "#Frontend Development" },
-      { "label": "#Lead Generation" },
-      { "label": "#Responsive Design" },
-      { "label": "#Form UX" }
-    ],
-    "highlights": [
-      {
-        "title": "Clear Offer",
-        "summary": "Presented the program benefits in a simple way, including $0 down, financing, and grant options."
-      },
-      {
-        "title": "Lead-Focused Structure",
-        "summary": "Built the page around one main action: checking eligibility."
-      },
-      {
-        "title": "Trust-Driven Design",
-        "summary": "Used a clean, calm layout with program details, steps, and contact information."
-      },
-      {
-        "title": "Responsive Build",
-        "summary": "Designed and developed the page to work smoothly across desktop and mobile."
-      }
-    ],
-    "result": "A clean, focused landing page that turns a complex home energy offer into a simple path for homeowners to understand the program and submit their information.",
-    "kicker": "In depth on",
-    "productName": "Our Work",
-    "ctaLabel": "View Live",
-    "ctaUrl": "https://floridaenergyassistance.com/"
   },
   {
     "id": 6,
@@ -356,119 +373,5 @@
     "productName": "Our Work",
     "ctaLabel": "View Live",
     "ctaUrl": "https://jelly-belly-wiki.netlify.app/"
-  },
-  {
-    "id": 8,
-    "slug": "birth-of-venus",
-    "panelClass": "panel-card-1",
-    "coverTile": "/projects/birth-of-venus/birth-of-venus-cover-tile.webp",
-    "imageSrc": "/projects/birth-of-venus/1.avif",
-    "longWeb": "/projects/birth-of-venus/long.webp",
-    "imageAlt": "Birth of Venus interactive art website homepage preview",
-    "backLabel": "Back to Projects",
-    "title": "Birth of Venus",
-    "subtitle": "Interactive Art History Website",
-    "outcome": "",
-    "year": "",
-    "metrics": [],
-    "description": "Birth of Venus is an interactive art history website I built around Sandro Botticelli’s famous Renaissance painting. The project started from my old History of Art notes and became a way to explore how design, storytelling, and parallax effects can make educational content feel more engaging online.",
-    "tileVersion": "Interactive art history website exploring Botticelli’s Birth of Venus through annotations, interpretation, responsive design, and parallax effects.",
-    "services": [
-      { "label": "#Frontend Development" },
-      { "label": "#React" },
-      { "label": "#Interactive Design" },
-      { "label": "#Art Direction" },
-      { "label": "#Educational Content" },
-      { "label": "#Parallax Experience" }
-    ],
-    "highlights": [
-      {
-        "title": "Interactive Art Education",
-        "summary": "Built a web experience that helps users explore the historical and artistic meaning behind Botticelli’s Birth of Venus."
-      },
-      {
-        "title": "Parallax Experimentation",
-        "summary": "Used parallax effects to create movement, depth, and a more engaging way to experience the artwork."
-      },
-      {
-        "title": "Annotation-Based Learning",
-        "summary": "Structured the site around interpretation and annotations so visitors can understand the painting beyond the surface image."
-      },
-      {
-        "title": "Responsive Front-End Build",
-        "summary": "Developed the project with attention to layout, typography, and usability across screen sizes."
-      }
-    ],
-    "result": "A polished educational web experience that shows how visual design, historical content, and front-end interaction can turn static information into something more memorable and engaging.",
-    "kicker": "In depth on",
-    "productName": "Our Work",
-    "ctaLabel": "View Live",
-    "ctaUrl": "https://birth-of-venus.netlify.app/"
-  },
-  {
-    "id": 9,
-    "slug": "creatuwheels",
-    "panelClass": "panel-card-2",
-    "coverTile": "/projects/creatuwheels/creatuwheels-cover-tile.webp",
-    "imageSrc": "/projects/creatuwheels/1.avif",
-    "longWeb": "/projects/creatuwheels/long.webp",
-    "imageAlt": "Creatuwheels packaging design preview",
-    "backLabel": "Back to Projects",
-    "title": "Creatuwheels",
-    "subtitle": "Creatures On Wheels Packaging Design",
-    "outcome": "",
-    "year": "",
-    "metrics": [],
-    "description": "The packaging for 'Creatuwheels' brings a playful and educational approach, reflecting the toy's purpose of teaching geometric shapes and transforming into vehicle-like creatures.",
-    "tileVersion": "Toy packaging design exploring geometric play, color theory, and transformation.",
-    "services": [
-      { "label": "#Packaging Design" },
-      { "label": "#Brand Identity" },
-      { "label": "#Illustration" }
-    ],
-    "highlights": [
-      {
-        "title": "Color Blocks",
-        "summary": "Cyan, magenta, yellow, and grey—core colors tied to early learning."
-      }
-    ],
-    "result": "Packaging that visually communicates the toy's creativity, education, and play value.",
-    "kicker": "In depth on",
-    "productName": "Our Work",
-    "ctaLabel": "View Project",
-    "ctaUrl": ""
-  },
-  {
-    "id": 10,
-    "slug": "maritime",
-    "panelClass": "panel-card-3",
-    "coverTile": "/projects/maritime/maritime-cover-tile.webp",
-    "imageSrc": "/projects/maritime/1.avif",
-    "longWeb": "",
-    "imageAlt": "Maritime crab cracker and packaging design preview",
-    "backLabel": "Back to Projects",
-    "title": "Maritime",
-    "subtitle": "Sculptural Crab Cracker & Packaging Design",
-    "outcome": "",
-    "year": "",
-    "metrics": [],
-    "description": "For 'Maritime', Switch Case Studio reimagined a simple seafood tool into a sculptural dining experience.",
-    "tileVersion": "Product and packaging design inspired by marine forms, balancing function and elegance.",
-    "services": [
-      { "label": "#Product Design" },
-      { "label": "#3D Modeling" },
-      { "label": "#Branding" }
-    ],
-    "highlights": [
-      {
-        "title": "Sculptural Form",
-        "summary": "Organic silhouette shaped by ergonomic testing."
-      }
-    ],
-    "result": "A cohesive product and brand experience that transforms a functional utensil into a piece of design storytelling.",
-    "kicker": "In depth on",
-    "productName": "Our Work",
-    "ctaLabel": "View Project",
-    "ctaUrl": ""
   }
 ]

@@ -38,15 +38,32 @@
     grid-template-columns: 1fr;
     gap: 2.5rem;
 
+    @media (min-width: 480px) {
+      /* Brand full-width, link columns in 2-col pairs */
+      grid-template-columns: 1fr 1fr;
+
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+    }
+
     @media (min-width: 768px) {
       grid-template-columns: 1fr 1fr;
       gap: 2.5rem 3rem;
+
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
     }
 
     @media (min-width: 1024px) {
       /* Brand wider, four link columns equal */
       grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr;
       gap: 2.5rem;
+
+      .footer-brand {
+        grid-column: auto;
+      }
     }
 
     @media (min-width: 1280px) {
@@ -144,6 +161,13 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+
+  @media (max-width: 767px) {
+    &:not(.footer-brand) {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 1.5rem;
+    }
+  }
 
   @media (min-width: 1024px) {
     /* Top border on link columns only — brand column stays clean */

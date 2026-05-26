@@ -26,9 +26,7 @@ const Work = () => {
         <WorkMarquee />
 
         <div className="work-content">
-          <div className="work-text">
-            <WorkText />
-          </div>
+          <WorkText />
           <div className="work-moon">
             <Moon />
           </div>

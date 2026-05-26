@@ -47,7 +47,7 @@ useGLTF.preload("/models/moon.glb");
 
 export default function Moon() {
   return (
-    <div style={{ width: "100%", height: "500px" }}>
+    <div style={{ width: "100%", height: "100%" }}>
       <Canvas camera={{ position: [0, 0, CAM_DIST], fov: FOV }} dpr={[1, 2]}>
         <Suspense fallback={<Html center>Loading…</Html>}>
           {/* Base lighting */}
