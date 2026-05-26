@@ -3,13 +3,13 @@
     "icon": "faCode",
     "title": "Web Development",
     "slug": "web-development",
-    "subTitle": "Custom websites that convert visitors into customers.",
+    "subTitle": "Landing pages and websites built to perform.",
     "cta": "See pricing →",
-    "description": "Custom websites and web applications built with modern technologies. From simple landing pages to complex e-commerce platforms.",
+    "description": "High-performance landing pages, marketing sites, and web apps built from scratch. Designed for paid traffic, optimized for conversion, and delivered fast — including white-label builds for agencies.",
     "items": [
+      "Landing page design & development",
       "React & Next.js",
       "Node.js Backend",
-      "Database Design",
       "API Integration",
       "WordPress & WooCommerce stores"
     ]

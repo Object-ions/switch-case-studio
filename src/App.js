@@ -3,6 +3,8 @@ import { HelmetProvider } from "react-helmet-async";
 import MainLayout from "./components/layout/MainLayout";
 
 // Pages & Sections
+import LandingPageProof from "./components/LandingPageProof";
+import ClientStrip from "./components/ClientStrip";
 import Services from "./components/pages/Services";
 import Work from "./components/pages/Work";
 import Testimonials from "./components/pages/Testimonials";
@@ -31,18 +33,20 @@ import "./styles/app.scss";
 const HomeContent = () => (
   <>
     <Hero />
+    <ClientStrip />
     <ValueProp />
     <Services />
+    <LandingPageProof />
     <GradientStripe
       size="clamp(160px, 30vw, 420px)"
       duration={5.9}
       travel={60}
       orbSrc={Orb}
     />
-    <Work />
-    <Contact />
     <Projects />
+    <Work />
     <Testimonials />
+    <Contact />
     <Faq />
   </>
 );

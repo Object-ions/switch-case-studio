@@ -27,7 +27,7 @@ $g-bot: #a5b2ba; // darker
 $max-width: 1200px;
 
 // Font-face definitions
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+// Inter loaded via <link> in public/index.html (non-blocking)
 
 @font-face {
   font-family: 'NeueMachina';

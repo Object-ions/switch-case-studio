@@ -68,9 +68,9 @@ const Hero = () => {
               {"We "}
               <WelcomeTyped />
             </span>
-            <span className="hero-line">digital experiences</span>
+            <span className="hero-line">landing pages</span>
             <span className="hero-line hero-line--accent">
-              that move the needle.
+              that actually convert.
             </span>
           </h1>
 
@@ -78,17 +78,29 @@ const Hero = () => {
             className={`hero-sub ${revealed ? "is-visible" : ""}`}
             data-cursor-wave-mask
           >
-            Design, development &amp; marketing &mdash; custom-built for
-            ambitious brands.
+            High-performance landing pages for Google Ads, Meta, and beyond
+            &mdash; built by a design-led studio that takes conversion
+            seriously.
           </p>
 
           <div
             className={`hero-ctas ${revealed ? "is-visible" : ""}`}
             data-cursor-wave-mask
           >
+            <HashLink
+              to="/#projects"
+              smooth
+              className="hero-cta hero-cta--primary"
+            >
+              See Our Work
+              <span className="cta-arrow" aria-hidden="true">
+                &darr;
+              </span>
+            </HashLink>
+
             <a
               href="https://calendar.app.google/83UCJjis2FHUrr1s6"
-              className="hero-cta hero-cta--primary"
+              className="hero-cta hero-cta--secondary"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -97,17 +109,6 @@ const Hero = () => {
                 &rarr;
               </span>
             </a>
-
-            <HashLink
-              to="/#projects"
-              smooth
-              className="hero-cta hero-cta--secondary"
-            >
-              See Our Work
-              <span className="cta-arrow" aria-hidden="true">
-                &darr;
-              </span>
-            </HashLink>
           </div>
         </div>
       </div>
