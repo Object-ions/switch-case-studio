@@ -183,16 +183,6 @@ const Header = () => {
     }
   };
 
-  // Click toggles. If we're closing, set a flag so the focus event that
-  // immediately follows the click doesn't re-open the menu.
-  const handleTriggerClick = (id) => () => {
-    setActiveSubmenu((prev) => {
-      const next = prev === id ? null : id;
-      if (next === null) skipNextFocusOpenRef.current = true;
-      return next;
-    });
-  };
-
   // Open on focus, unless the focus came from a just-completed close click.
   const handleTriggerFocus = (id) => () => {
     if (skipNextFocusOpenRef.current) {
@@ -266,9 +256,9 @@ const Header = () => {
             <ul className="nav_list">
               <li className="nav_item">
                 <Link
-                  to="/#about"
-                  className={`nav_link ${isActive("/#about") ? "is-active" : ""}`}
-                  aria-current={isActive("/#about") ? "page" : undefined}
+                  to="/about"
+                  className={`nav_link ${isActive("/about") ? "is-active" : ""}`}
+                  aria-current={isActive("/about") ? "page" : undefined}
                 >
                   About
                 </Link>
@@ -294,20 +284,20 @@ const Header = () => {
                 onMouseLeave={handleSubmenuLeave}
                 onBlur={handleSubmenuBlur}
               >
-                <button
-                  type="button"
+                <Link
+                  to="/pricing"
                   className={`nav_link nav_link--trigger ${
                     isSectionActive("/pricing") ? "is-active" : ""
                   }`}
                   aria-haspopup="true"
                   aria-expanded={activeSubmenu === "pricing"}
                   aria-controls="submenu-pricing"
-                  onClick={handleTriggerClick("pricing")}
                   onFocus={handleTriggerFocus("pricing")}
+                  onClick={() => setActiveSubmenu(null)}
                 >
                   Pricing
                   <span className="nav_caret" aria-hidden="true" />
-                </button>
+                </Link>
                 {renderSubmenu("pricing", PRICING_LINKS)}
               </li>
 
@@ -321,11 +311,9 @@ const Header = () => {
                 onBlur={handleSubmenuBlur}
               >
                 <Link
-                  to="/#projects"
+                  to="/projects"
                   className={`nav_link nav_link--trigger ${
-                    isActive("/#projects") || isSectionActive("/projects")
-                      ? "is-active"
-                      : ""
+                    isSectionActive("/projects") ? "is-active" : ""
                   }`}
                   aria-haspopup="true"
                   aria-expanded={activeSubmenu === "projects"}

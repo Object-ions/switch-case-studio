@@ -19,7 +19,7 @@ import '../../styles/components/StaggeredMenu.scss';
 /* ──────────────────────────────────────────────
    Accordion sub-component (CSS-only transition)
    ────────────────────────────────────────────── */
-const MenuAccordion = ({ label, items, isOpen, onToggle, onNavClick }) => (
+const MenuAccordion = ({ label, labelTo, items, isOpen, onToggle, onNavClick }) => (
   <li className="sm-panel-itemWrap">
     <button
       type="button"
@@ -27,7 +27,17 @@ const MenuAccordion = ({ label, items, isOpen, onToggle, onNavClick }) => (
       aria-expanded={isOpen}
       onClick={onToggle}
     >
-      <span className="sm-panel-itemLabel">{label}</span>
+      {labelTo ? (
+        <Link
+          to={labelTo}
+          className="sm-panel-itemLabel"
+          onClick={(e) => { e.stopPropagation(); onNavClick(); }}
+        >
+          {label}
+        </Link>
+      ) : (
+        <span className="sm-panel-itemLabel">{label}</span>
+      )}
       <span className="sm-accordion-caret" aria-hidden="true" />
     </button>
 
@@ -347,9 +357,9 @@ const StaggeredMenu = ({
 
             <li className="sm-panel-itemWrap">
               <Link
-                to="/#about"
+                to="/about"
                 className="sm-panel-item"
-                onClick={handleNavClick('/#about')}
+                onClick={handleNavClick('/about')}
               >
                 <span className="sm-panel-itemLabel">About</span>
               </Link>
@@ -357,6 +367,7 @@ const StaggeredMenu = ({
 
             <MenuAccordion
               label="Pricing"
+              labelTo="/pricing"
               items={PRICING_LINKS}
               isOpen={openAccordion === 'pricing'}
               onToggle={() => toggleAccordion('pricing')}
@@ -365,6 +376,7 @@ const StaggeredMenu = ({
 
             <MenuAccordion
               label="Case Studies"
+              labelTo="/projects"
               items={PROJECT_LINKS}
               isOpen={openAccordion === 'projects'}
               onToggle={() => toggleAccordion('projects')}
