@@ -1,0 +1,299 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+.about-page {
+  background: #000;
+  color: #fff;
+  font-family: $font-text;
+
+  // ── Shared section wrapper ──
+  &__section-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6rem 6rem;
+
+    @media (max-width: 1024px) { padding: 5rem 3rem; }
+    @media (max-width: 768px)  { padding: 4rem 1.5rem; }
+  }
+
+  &__section-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: rgba(255, 255, 255, 0.35);
+    margin: 0 0 2.5rem;
+  }
+
+  // ── Hero ──
+  &__hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8rem 6rem 7rem;
+
+    @media (max-width: 1024px) { padding: 6rem 3rem 5rem; }
+    @media (max-width: 768px)  { padding: 5rem 1.5rem 4rem; }
+  }
+
+  &__kicker {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: $orange-color;
+    margin: 0 0 1.5rem;
+  }
+
+  &__title {
+    font-family: $font-special;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin: 0 0 2rem;
+    color: #fff;
+
+    &--accent {
+      color: $g6;
+    }
+  }
+
+  &__lede {
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 640px;
+    margin: 0;
+  }
+
+  // ── Story ──
+  &__story {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    &-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 6rem;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 5rem;
+      align-items: start;
+
+      @media (max-width: 1024px) {
+        padding: 5rem 3rem;
+        gap: 4rem;
+      }
+
+      @media (max-width: 768px) {
+        padding: 4rem 1.5rem;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+    }
+
+    &-text {
+      p {
+        font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.65);
+        margin: 0 0 1.5rem;
+
+        &:last-child { margin-bottom: 0; }
+      }
+    }
+  }
+
+  // ── Stats ──
+  &__stat-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    padding-left: 3rem;
+
+    @media (max-width: 768px) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      border-left: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-left: 0;
+      padding-top: 2rem;
+      gap: 2.5rem;
+    }
+  }
+
+  &__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    &-value {
+      font-family: $font-special;
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: $orange-color;
+      line-height: 1;
+    }
+
+    &-label {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.35);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+  }
+
+  // ── Capabilities ──
+  &__capabilities {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  &__caps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+
+    @media (max-width: 900px)  { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 580px)  { grid-template-columns: 1fr; }
+  }
+
+  &__cap {
+    padding: 2.5rem 2rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background 0.25s ease;
+
+    &:hover { background: rgba(255, 255, 255, 0.03); }
+
+    &-title {
+      font-family: $font-special;
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 0 0 0.875rem;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+
+    &-body {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.5);
+      margin: 0;
+    }
+  }
+
+  // ── Values ──
+  &__values {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  &__values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+
+    @media (max-width: 580px) { grid-template-columns: 1fr; }
+  }
+
+  &__value {
+    padding: 2.5rem 2.5rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    transition: background 0.25s ease;
+
+    &:hover { background: rgba(255, 255, 255, 0.03); }
+
+    &-label {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    &-desc {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.5);
+      margin: 0;
+    }
+  }
+
+  // ── CTA ──
+  &__cta {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 7rem 6rem 8rem;
+    text-align: center;
+
+    @media (max-width: 1024px) { padding: 6rem 3rem; }
+    @media (max-width: 768px)  { padding: 5rem 1.5rem; }
+
+    &-heading {
+      font-family: $font-special;
+      font-size: clamp(2rem, 4.5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0 0 1rem;
+      color: #fff;
+    }
+
+    &-body {
+      font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+      color: rgba(255, 255, 255, 0.5);
+      margin: 0 0 2.5rem;
+    }
+
+    &-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    &-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2rem;
+      border-radius: 100px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      min-height: 48px;
+      cursor: pointer;
+
+      @media (max-width: 480px) {
+        width: 100%;
+        justify-content: center;
+      }
+
+      &--primary {
+        background: #fff;
+        color: #000;
+        border: 2px solid #fff;
+
+        &:hover {
+          border-color: $g6;
+          box-shadow: 0 0 32px rgba($g6, 0.4);
+        }
+      }
+
+      &--secondary {
+        background: transparent;
+        color: #fff;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+
+        &:hover { border-color: rgba(255, 255, 255, 0.8); }
+      }
+    }
+  }
+}

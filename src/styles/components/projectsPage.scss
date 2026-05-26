@@ -1,0 +1,214 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+.projects-page {
+  background: #000;
+  color: #fff;
+  font-family: $font-text;
+
+  // ── Header ──
+  &__header {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8rem 6rem 5rem;
+
+    @media (max-width: 1024px) { padding: 6rem 3rem 4rem; }
+    @media (max-width: 768px)  { padding: 5rem 1.5rem 3.5rem; }
+  }
+
+  &__kicker {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: $orange-color;
+    margin: 0 0 1.25rem;
+  }
+
+  &__title {
+    font-family: $font-special;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin: 0 0 1.5rem;
+    color: #fff;
+  }
+
+  &__lede {
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+  }
+
+  // ── Grid ──
+  &__grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 6rem 6rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+
+    @media (max-width: 1024px) { padding: 0 3rem 5rem; }
+    @media (max-width: 900px)  { grid-template-columns: 1fr; }
+    @media (max-width: 768px)  { padding: 0 1.5rem 4rem; }
+  }
+
+  // ── Card ──
+  &__card {
+    display: flex;
+    flex-direction: column;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #fff;
+    transition:
+      border-color 0.3s ease,
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+
+      .projects-page__card-cta {
+        color: $orange-color;
+      }
+
+      .projects-page__card-img img {
+        transform: scale(1.04);
+      }
+    }
+
+    &-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      flex-shrink: 0;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+    }
+
+    &-body {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.625rem;
+      flex: 1;
+    }
+
+    &-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    &-year {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.3);
+      letter-spacing: 0.08em;
+    }
+
+    &-kicker {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: $orange-color;
+    }
+
+    &-title {
+      font-family: $font-special;
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin: 0;
+      color: #fff;
+    }
+
+    &-sub {
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.5);
+      margin: 0;
+    }
+
+    &-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      list-style: none;
+      padding: 0;
+      margin: 0.25rem 0 0;
+    }
+
+    &-tag {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 100px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &-cta {
+      margin-top: auto;
+      padding-top: 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.4);
+      transition: color 0.3s ease;
+    }
+  }
+
+  // ── Bottom CTA ──
+  &__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 6rem 7rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+
+    @media (max-width: 1024px) { padding: 4rem 3rem 6rem; }
+    @media (max-width: 768px)  { padding: 3.5rem 1.5rem 5rem; }
+
+    &-text {
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
+      color: rgba(255, 255, 255, 0.55);
+      margin: 0;
+    }
+
+    &-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.875rem 2rem;
+      border-radius: 100px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      border: 2px solid #fff;
+      min-height: 48px;
+      margin-top: 0.5rem;
+
+      &:hover {
+        border-color: $g6;
+        box-shadow: 0 0 32px rgba($g6, 0.35);
+      }
+    }
+  }
+}

@@ -19,11 +19,14 @@ import Orb from "./assets/images/orb.avif";
 import "./styles/app.scss";
 
 // Route-only pages — lazy loaded (not needed on initial home visit)
-const ProjectPage   = lazy(() => import("./components/pages/ProjectPage"));
-const PricingPage   = lazy(() => import("./components/PricingPage"));
-const Privacy       = lazy(() => import("./components/Privacy"));
-const Terms         = lazy(() => import("./components/Terms"));
-const Accessibility = lazy(() => import("./components/Accessibility"));
+const ProjectPage        = lazy(() => import("./components/pages/ProjectPage"));
+const ProjectsPage       = lazy(() => import("./components/pages/ProjectsPage"));
+const PricingPage        = lazy(() => import("./components/PricingPage"));
+const PricingOverviewPage = lazy(() => import("./components/pages/PricingOverviewPage"));
+const AboutPage          = lazy(() => import("./components/pages/AboutPage"));
+const Privacy            = lazy(() => import("./components/Privacy"));
+const Terms              = lazy(() => import("./components/Terms"));
+const Accessibility      = lazy(() => import("./components/Accessibility"));
 
 const HomeContent = () => (
   <>
@@ -66,10 +69,15 @@ function App() {
             {/* Landing */}
             <Route path="/" element={<HomeContent />} />
 
-            {/* Standalone case-study pages */}
+            {/* About */}
+            <Route path="/about" element={<AboutPage />} />
+
+            {/* Case studies */}
+            <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/projects/:slug" element={<ProjectPage />} />
 
             {/* Pricing */}
+            <Route path="/pricing" element={<PricingOverviewPage />} />
             <Route path="/pricing/:serviceSlug" element={<PricingPage />} />
 
             {/* Legal */}

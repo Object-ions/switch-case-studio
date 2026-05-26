@@ -100,10 +100,10 @@ const SERVICES_LINKS = [
 
 const EXPLORE_LINKS = [
   { label: 'Services', hash: '#services' },
-  { label: 'About', hash: '#about' },
-  { label: 'Reviews', hash: '#testimonials' },
+  { label: 'About', to: '/about' },
+  { label: 'Case Studies', to: '/projects' },
+  { label: 'Pricing', to: '/pricing' },
   { label: 'Contact', hash: '#contact' },
-  { label: 'Pricing', to: '/pricing/web-development' },
 ];
 
 const CONNECT_LINKS = [
