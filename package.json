@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
-    "@fortawesome/free-brands-svg-icons": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@react-three/drei": "^9.122.0",
@@ -14,7 +13,6 @@
     "@testing-library/user-event": "^13.5.0",
     "gsap": "^3.13.0",
     "motion": "^12.35.0",
-    "ogl": "^1.0.11",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^3.0.0",

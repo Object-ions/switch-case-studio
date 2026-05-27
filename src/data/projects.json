@@ -377,5 +377,57 @@
     "productName": "Our Work",
     "ctaLabel": "View Live",
     "ctaUrl": "https://jelly-belly-wiki.netlify.app/"
+  },
+  {
+    "id": 7,
+    "slug": "birth-of-venus",
+    "panelClass": "panel-card-1",
+    "coverTile": "/projects/birth-of-venus/birth-of-venus-cover-tile.webp",
+    "imageSrc": "/projects/birth-of-venus/1.avif",
+    "longWeb": "/projects/birth-of-venus/long.webp",
+    "imageAlt": "Birth of Venus interactive art website homepage preview",
+    "backLabel": "Back to Projects",
+    "title": "Birth of Venus",
+    "subtitle": "Interactive Art History Website",
+    "outcome": "",
+    "year": "2023",
+    "metrics": [],
+    "description": "Birth of Venus is a self-initiated interactive website built around Sandro Botticelli’s iconic Renaissance painting. Inspired by old History of Art notes from my undergraduate design studies, the project explores how educational content, visual storytelling, and front-end interaction can make a classic artwork feel more accessible and engaging online.",
+    "tileVersion": "Interactive art history website exploring Botticelli’s Birth of Venus through annotations, interpretation, responsive design, and parallax effects.",
+    "services": [
+      { "label": "#Frontend Development" },
+      { "label": "#React" },
+      { "label": "#Interactive Design" },
+      { "label": "#Art Direction" },
+      { "label": "#Educational Content" },
+      { "label": "#Parallax Experience" }
+    ],
+    "highlights": [
+      {
+        "title": "Interactive Art Education",
+        "summary": "Built a web experience that helps users explore the historical and artistic meaning behind Botticelli’s Birth of Venus."
+      },
+      {
+        "title": "Parallax Experimentation",
+        "summary": "Used parallax effects to create movement, depth, and a more engaging way to experience the artwork."
+      },
+      {
+        "title": "Annotation-Based Learning",
+        "summary": "Structured the site around interpretation and annotations so visitors can understand the painting beyond the surface image."
+      },
+      {
+        "title": "Responsive Front-End Build",
+        "summary": "Developed the project with React and Sass, with attention to layout, typography, and usability across screen sizes."
+      },
+      {
+        "title": "Personal Design Exploration",
+        "summary": "Connected art history, product design background, and web development into one focused creative experiment."
+      }
+    ],
+    "result": "A polished educational web experience that demonstrates how visual design, historical content, and front-end interaction can turn static information into something more memorable and engaging.",
+    "kicker": "In depth on",
+    "productName": "Our Work",
+    "ctaLabel": "View Live",
+    "ctaUrl": "https://birth-of-venus.netlify.app/"
   }
 ]
