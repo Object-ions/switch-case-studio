@@ -104,6 +104,7 @@
   {
     "id": 3,
     "slug": "zahav-medspa",
+    "featured": true,
     "panelClass": "panel-hero",
     "coverTile": "/projects/zahav/zahav-cover-tile.webp",
     "imageSrc": "/projects/zahav/1.avif",
@@ -164,6 +165,7 @@
   {
     "id": 4,
     "slug": "crimson-equities",
+    "featured": true,
     "panelClass": "panel-card-1",
     "coverTile": "/projects/crimson/crimson-cover-tile.webp",
     "imageSrc": "/projects/crimson/1.avif",
@@ -213,6 +215,7 @@
   {
     "id": 5,
     "slug": "prodani-miami",
+    "featured": true,
     "panelClass": "panel-hero",
     "coverTile": "/projects/prodani/prodani-cover-tile.webp",
     "imageSrc": "/projects/prodani/1.avif",
@@ -320,6 +323,7 @@
   {
     "id": 7,
     "slug": "jelly-belly-wiki",
+    "featured": true,
     "panelClass": "panel-hero",
     "coverTile": "/projects/jelly-belly-wiki/jelly-belly-wiki-cover-tile.webp",
     "imageSrc": "/projects/jelly-belly-wiki/1.avif",

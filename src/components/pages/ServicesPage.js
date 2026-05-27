@@ -16,19 +16,67 @@ const ServicesPage = () => {
   useLayoutEffect(() => {
     if (reducedMotion) return;
     const ctx = gsap.context(() => {
-      gsap.utils.toArray('.sp-reveal', rootRef.current).forEach((el) => {
+      const header = rootRef.current.querySelector('.services-page__header');
+      if (header) {
+        const headerEls = header.querySelectorAll('.sp-reveal');
         gsap.fromTo(
-          el,
-          { autoAlpha: 0, y: 24 },
+          headerEls,
+          { autoAlpha: 0, y: 32, clipPath: 'inset(0 0 100% 0)' },
           {
             autoAlpha: 1,
             y: 0,
-            duration: 0.6,
-            ease: 'power2.out',
-            scrollTrigger: { trigger: el, start: 'top 86%', once: true },
+            clipPath: 'inset(0 0 0% 0)',
+            duration: 0.8,
+            ease: 'power3.out',
+            stagger: 0.12,
           },
         );
+      }
+
+      const rows = gsap.utils.toArray('.services-page__service', rootRef.current);
+      rows.forEach((row) => {
+        const index = row.querySelector('.services-page__service-index');
+        const body = row.querySelector('.services-page__service-body');
+        const cta = row.querySelector('.services-page__service-cta');
+        const items = row.querySelectorAll('.services-page__service-item');
+
+        const tl = gsap.timeline({
+          scrollTrigger: { trigger: row, start: 'top 85%', once: true },
+        });
+
+        if (index) {
+          tl.fromTo(index, { autoAlpha: 0, x: -16 }, {
+            autoAlpha: 1, x: 0, duration: 0.5, ease: 'power2.out',
+          }, 0);
+        }
+
+        if (body) {
+          tl.fromTo(body, { autoAlpha: 0, y: 24 }, {
+            autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out',
+          }, 0.1);
+        }
+
+        if (cta) {
+          tl.fromTo(cta, { autoAlpha: 0, x: 16 }, {
+            autoAlpha: 1, x: 0, duration: 0.5, ease: 'power2.out',
+          }, 0.25);
+        }
+
+        if (items.length) {
+          tl.fromTo(items, { autoAlpha: 0, scale: 0.85, y: 8 }, {
+            autoAlpha: 1, scale: 1, y: 0, duration: 0.4, ease: 'back.out(2)',
+            stagger: 0.04,
+          }, 0.35);
+        }
       });
+
+      const bottom = rootRef.current.querySelector('.services-page__bottom');
+      if (bottom) {
+        gsap.fromTo(bottom, { autoAlpha: 0, y: 24, scale: 0.97 }, {
+          autoAlpha: 1, y: 0, scale: 1, duration: 0.7, ease: 'power2.out',
+          scrollTrigger: { trigger: bottom, start: 'top 88%', once: true },
+        });
+      }
     }, rootRef);
     return () => ctx.revert();
   }, [reducedMotion]);
@@ -50,7 +98,6 @@ const ServicesPage = () => {
       </Helmet>
 
       <article className="services-page" ref={rootRef} aria-label="Services">
-        {/* ── Header ── */}
         <header className="services-page__header">
           <p className="services-page__kicker sp-reveal">What we do</p>
           <h1 className="services-page__title sp-reveal">
@@ -59,15 +106,14 @@ const ServicesPage = () => {
             <span className="services-page__title--accent">digital presence needs.</span>
           </h1>
           <p className="services-page__lede sp-reveal">
-            From a single campaign page to a full brand system — we handle
-            design, development, marketing, and everything in between.
+            Design, development, marketing, and automation — we handle the
+            full stack of what a growing business needs online.
           </p>
         </header>
 
-        {/* ── Services list ── */}
         <section className="services-page__list" aria-label="Service list">
           {servicesData.map((service, i) => (
-            <div key={service.slug} className="services-page__service sp-reveal">
+            <div key={service.slug} className="services-page__service">
               <div className="services-page__service-index">
                 {String(i + 1).padStart(2, '0')}
               </div>
@@ -103,8 +149,7 @@ const ServicesPage = () => {
           ))}
         </section>
 
-        {/* ── Bottom CTA ── */}
-        <div className="services-page__bottom sp-reveal">
+        <div className="services-page__bottom">
           <h2 className="services-page__bottom-heading">
             Not sure what you need?
           </h2>

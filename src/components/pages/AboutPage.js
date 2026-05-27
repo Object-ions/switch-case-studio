@@ -126,7 +126,7 @@ const AboutPage = () => {
             <div className="about-page__stat-col about-reveal">
               <div className="about-page__stat">
                 <span className="about-page__stat-value">7+</span>
-                <span className="about-page__stat-label">Projects delivered</span>
+                <span className="about-page__stat-label">Clients launched</span>
               </div>
               <div className="about-page__stat">
                 <span className="about-page__stat-value">&lt;2wk</span>

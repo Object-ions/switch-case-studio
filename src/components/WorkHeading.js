@@ -28,7 +28,7 @@ const WorkHeading = () => {
     };
   }, []);
 
-  const text = `We build websites, e-commerce stores, and apps that convert — designed from scratch, shipped fast, and built to grow with your business`;
+  const text = `We build websites, e-commerce stores, and apps that convert — designed from scratch, shipped fast, and backed by a team that actually cares about your results`;
 
   const wrappedWords = text.split(' ').map((word, idx) => (
     <span key={idx} className="word">

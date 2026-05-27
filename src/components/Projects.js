@@ -1,8 +1,11 @@
+import { Link } from 'react-router-dom';
 import projectsData from '../data/projects.json';
 import ProjectsTiles from './ProjectsTiles';
 import TextPressure from './TextPressure';
 
 import '../styles/components/projects.scss';
+
+const featured = projectsData.filter((p) => p.featured);
 
 const Projects = () => {
   return (
@@ -11,8 +14,6 @@ const Projects = () => {
       id="projects"
       aria-labelledby="projects-heading"
     >
-      {/* Visually decorative wordmark; the real heading for a11y/SEO
-          is the sr-only h2 below. */}
       <div className="projects-header" aria-hidden="true">
         <div className="projects-header__word">
           <TextPressure
@@ -46,7 +47,14 @@ const Projects = () => {
         Selected work
       </h2>
 
-      <ProjectsTiles projects={projectsData} />
+      <ProjectsTiles projects={featured} />
+
+      <div className="projects-viewall">
+        <Link to="/projects" className="projects-viewall__link">
+          View all case studies
+          <span aria-hidden="true"> →</span>
+        </Link>
+      </div>
     </section>
   );
 };

@@ -14,11 +14,11 @@ const slugToServiceId = {
 
 const servicesIndex = [
   { slug: 'web-development', label: 'Web Development' },
-  { slug: 'marketing-ads', label: 'Marketing & Advertisement' },
-  { slug: 'hosting-maintenance', label: 'Web Hosting & Maintenance' },
-  { slug: 'design-branding', label: 'Design & Branding' },
-  { slug: 'automation-integrations', label: 'Automation & Integrations' },
-  { slug: 'email-marketing', label: 'Email Marketing' },
+  { slug: 'marketing-ads', label: 'Growth & Performance' },
+  { slug: 'hosting-maintenance', label: 'Hosting & Support' },
+  { slug: 'design-branding', label: 'Brand Identity' },
+  { slug: 'automation-integrations', label: 'Automation & Systems' },
+  { slug: 'email-marketing', label: 'Email & Retention' },
 ];
 
 function PricingPage() {

@@ -16,11 +16,11 @@
   },
   {
     "icon": "faSearchengin",
-    "title": "Marketing & Advertisement",
+    "title": "Growth & Performance",
     "slug": "marketing-ads",
-    "subTitle": "Marketing strategies and campaigns that generate real ROI.",
+    "subTitle": "Ads, SEO, and content that bring in actual revenue.",
     "cta": "See pricing →",
-    "description": "Maximize your online visibility. Data-driven marketing strategies that grow your business. From SEO to social media, we cover all digital channels.",
+    "description": "SEO, paid ads, social media, and content — structured around what actually drives leads and revenue, not vanity metrics.",
     "items": [
       "SEO Optimization",
       "Google Ads",
@@ -32,11 +32,11 @@
   },
   {
     "icon": "faServer",
-    "title": "Web Hosting & Maintenance",
+    "title": "Hosting & Support",
     "slug": "hosting-maintenance",
-    "subTitle": "Lightning-fast, secure hosting infrastructure.",
+    "subTitle": "Fast, secure, always running — without you lifting a finger.",
     "cta": "See pricing →",
-    "description": "Secure, high-performance hosting with optional care plans to keep your site running smoothly.",
+    "description": "Fast, secure hosting with hands-off maintenance plans. We handle SSL, DNS, updates, and uptime — so you don't have to think about it.",
     "items": [
       "Managed hosting setup",
       "SSL & CDN configuration",
@@ -47,11 +47,11 @@
   },
   {
     "icon": "faPenNib",
-    "title": "Design & Branding",
+    "title": "Brand Identity",
     "slug": "design-branding",
-    "subTitle": "Visual identity that cuts through the noise.",
+    "subTitle": "A visual system that makes your business unmistakable.",
     "cta": "See pricing →",
-    "description": "Complete brand development from logo design to brand guidelines. We create identities that stand out in the market.",
+    "description": "Logo, color system, typography, and guidelines — a complete visual identity built to work across web, print, and packaging.",
     "items": [
       "Logo Design",
       "Wireframing",
@@ -62,11 +62,11 @@
   },
   {
     "icon": "faWandMagicSparkles",
-    "title": "Automation & Integrations",
+    "title": "Automation & Systems",
     "slug": "automation-integrations",
-    "subTitle": "Seamless workflows cross platforms, less manual work.",
+    "subTitle": "Connect your tools. Eliminate busywork.",
     "cta": "See pricing →",
-    "description": "Automate repetitive tasks and connect your tools for smoother operations. I use tools like Zapier and Go High Level to streamline your business.",
+    "description": "Connect your tools and eliminate manual work. We build workflows with Zapier, Go High Level, and custom integrations that keep your operations running without you.",
     "items": [
       "Custom Zapier workflows",
       "Go High Level automations",
@@ -76,11 +76,11 @@
   },
   {
     "icon": "faLightbulb",
-    "title": "Email Marketing",
+    "title": "Email & Retention",
     "slug": "email-marketing",
-    "subTitle": "Automated sequences that nurture and convert.",
+    "subTitle": "Set it up once. Let it sell for you.",
     "cta": "See pricing →",
-    "description": "Build relationships and increase conversions with targeted, automated email sequences.",
+    "description": "Welcome flows, promotions, abandoned carts, and newsletters — set up once, keep converting on autopilot.",
     "items": [
       "Welcome flows",
       "Promotional campaigns",

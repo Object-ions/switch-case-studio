@@ -72,11 +72,10 @@ const LandingPageProof = () => {
             Built to perform.<br />Whatever the format.
           </h2>
           <p className="lpp__body lpp-animate">
-            Landing page or full e-commerce store — every build starts with
-            the same question: what needs to happen for a visitor to become a
-            customer? We design and build with that answer in mind, from a
-            single campaign page to a complete storefront, delivered fast and
-            built to last.
+            E-commerce store, marketing site, or campaign page — every build
+            starts with the same question: what needs to happen for a visitor
+            to become a customer? We design and build with that answer in
+            mind, delivered fast and built to last.
           </p>
         </div>
 

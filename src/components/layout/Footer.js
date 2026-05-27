@@ -91,11 +91,11 @@ const handleAnchorClick = (e, hash) => {
  * ------------------------------------------------------------------ */
 const SERVICES_LINKS = [
   { label: 'Web Development', to: '/pricing/web-development' },
-  { label: 'Design & Branding', to: '/pricing/design-branding' },
-  { label: 'Marketing & Ads', to: '/pricing/marketing-ads' },
-  { label: 'Automation', to: '/pricing/automation-integrations' },
-  { label: 'Email Marketing', to: '/pricing/email-marketing' },
-  { label: 'Hosting & Maintenance', to: '/pricing/hosting-maintenance' },
+  { label: 'Brand Identity', to: '/pricing/design-branding' },
+  { label: 'Growth & Performance', to: '/pricing/marketing-ads' },
+  { label: 'Automation & Systems', to: '/pricing/automation-integrations' },
+  { label: 'Email & Retention', to: '/pricing/email-marketing' },
+  { label: 'Hosting & Support', to: '/pricing/hosting-maintenance' },
 ];
 
 const EXPLORE_LINKS = [
@@ -181,7 +181,7 @@ const Footer = () => {
           <div className="footer-col footer-col-animate footer-brand">
             <SCSLogo />
             <p className="footer-brand__tagline">
-              Landing pages and websites built to convert — designed from
+              Websites, stores, and apps built to convert — designed from
               scratch, shipped fast.
             </p>
             {/* Social icons — uncomment entries in the `socials` array above to enable */}

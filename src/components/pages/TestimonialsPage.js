@@ -1,36 +1,42 @@
-import { useLayoutEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import useReducedMotion from '../../hooks/useReducedMotion';
+import { motion, useReducedMotion } from 'motion/react';
 import testimonialsData from '../../data/testimonials.json';
 import '../../styles/components/testimonialsPage.scss';
 
-gsap.registerPlugin(ScrollTrigger);
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 30, scale: 0.97 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] },
+  },
+};
+
+const headerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
+
+const lineVariant = {
+  hidden: { opacity: 0, y: 24, clipPath: 'inset(0 0 100% 0)' },
+  visible: {
+    opacity: 1,
+    y: 0,
+    clipPath: 'inset(0 0 0% 0)',
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+  },
+};
 
 const TestimonialsPage = () => {
-  const rootRef = useRef(null);
   const reducedMotion = useReducedMotion();
 
-  useLayoutEffect(() => {
-    if (reducedMotion) return;
-    const ctx = gsap.context(() => {
-      gsap.utils.toArray('.tp-reveal', rootRef.current).forEach((el) => {
-        gsap.fromTo(
-          el,
-          { autoAlpha: 0, y: 24 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.6,
-            ease: 'power2.out',
-            scrollTrigger: { trigger: el, start: 'top 86%', once: true },
-          },
-        );
-      });
-    }, rootRef);
-    return () => ctx.revert();
-  }, [reducedMotion]);
+  const animate = reducedMotion ? {} : undefined;
 
   return (
     <>
@@ -48,27 +54,42 @@ const TestimonialsPage = () => {
         />
       </Helmet>
 
-      <article className="testimonials-page" ref={rootRef} aria-label="Client reviews">
-        {/* ── Header ── */}
-        <header className="testimonials-page__header">
-          <p className="testimonials-page__kicker tp-reveal">What clients say</p>
-          <h1 className="testimonials-page__title tp-reveal">
+      <article className="testimonials-page" aria-label="Client reviews">
+        <motion.header
+          className="testimonials-page__header"
+          variants={reducedMotion ? undefined : headerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.p className="testimonials-page__kicker" variants={lineVariant} {...animate}>
+            What clients say
+          </motion.p>
+          <motion.h1 className="testimonials-page__title" variants={lineVariant} {...animate}>
             Real words.
             <br />
             <span className="testimonials-page__title--accent">Real results.</span>
-          </h1>
-          <p className="testimonials-page__lede tp-reveal">
+          </motion.h1>
+          <motion.p className="testimonials-page__lede" variants={lineVariant} {...animate}>
             Every project is built around one goal — making our clients' businesses
             grow. Here's what they had to say.
-          </p>
-        </header>
+          </motion.p>
+        </motion.header>
 
-        {/* ── Review grid ── */}
-        <section className="testimonials-page__grid" aria-label="Client testimonials">
+        <motion.section
+          className="testimonials-page__grid"
+          aria-label="Client testimonials"
+          variants={reducedMotion ? undefined : containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
           {testimonialsData.map((review) => (
-            <article
+            <motion.article
               key={review.id}
-              className="testimonials-page__card tp-reveal"
+              className="testimonials-page__card"
+              variants={reducedMotion ? undefined : cardVariants}
+              whileHover={reducedMotion ? undefined : { y: -4, transition: { duration: 0.25 } }}
               aria-label={`Review by ${review.name}`}
             >
               <div className="testimonials-page__card-top">
@@ -91,12 +112,17 @@ const TestimonialsPage = () => {
               </blockquote>
 
               <p className="testimonials-page__card-body">{review.testimonial}</p>
-            </article>
+            </motion.article>
           ))}
-        </section>
+        </motion.section>
 
-        {/* ── Bottom CTA ── */}
-        <div className="testimonials-page__bottom tp-reveal">
+        <motion.div
+          className="testimonials-page__bottom"
+          initial={reducedMotion ? undefined : { opacity: 0, y: 24 }}
+          whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+        >
           <h2 className="testimonials-page__bottom-heading">
             Ready to be next?
           </h2>
@@ -111,7 +137,7 @@ const TestimonialsPage = () => {
           >
             Book a Free Call
           </a>
-        </div>
+        </motion.div>
       </article>
     </>
   );
