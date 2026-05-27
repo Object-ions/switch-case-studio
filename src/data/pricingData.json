@@ -3,40 +3,40 @@
     {
       "id": "web-development",
       "title": "Web Development",
-      "subtitle": "Build, launch, and scale",
+      "subtitle": "Custom-built. Performance-focused. Shipped fast.",
       "tiers": [
         {
           "name": "Landing Page",
           "price": 800,
           "billing": "one-time",
-          "description": "Perfect for professional events and promotions. A sleek, simple one-pager that makes an instant impact.",
+          "description": "A focused one-page build for campaigns, launches, or lead capture — designed around a single conversion goal.",
           "includes": [
-            "Professional design template",
+            "Custom design from scratch",
             "Single responsive page",
-            "Engaging slideshow to showcase key information",
-            "SEO essentials to increase visibility",
-            "Fast load times to keep your audience engaged"
+            "Clear content structure and CTA placement",
+            "SEO essentials for search visibility",
+            "Optimized for fast load times"
           ]
         },
         {
           "name": "Simple Website",
           "price": 1500,
           "billing": "one-time",
-          "description": "Ideal for small businesses and personal portfolios. Expand your digital footprint with a site designed to grow with your needs.",
+          "description": "A clean, professional website for small businesses and portfolios — built custom, not from a template.",
           "includes": [
-            "Customizable design template",
-            "Up to 5 pages tailored to your content needs",
-            "Slideshow to highlight your products or services",
+            "Custom design tailored to your brand",
+            "Up to 5 pages of structured content",
+            "Image gallery or project showcase",
             "1 year of hosting and domain registration",
-            "Basic SEO setup for better search engine ranking",
-            "Mobile responsiveness for optimal viewing on all devices"
+            "Basic SEO setup for search ranking",
+            "Fully responsive across all devices"
           ]
         },
         {
           "name": "Business Bundle",
           "price": 2500,
           "billing": "one-time",
-          "description": "Great for growing businesses needing more functionality. A robust website with comprehensive features to facilitate interaction and management.",
+          "description": "A full business website with CMS, forms, and analytics — everything you need to run and grow your online presence.",
           "includes": [
             "Custom design to reflect your brand's unique identity",
             "Up to 10 pages of crafted content",
@@ -52,7 +52,7 @@
           "name": "Growth Suite",
           "price": 5000,
           "billing": "one-time",
-          "description": "A complete solution for e-commerce and complex business needs with advanced functionality and detailed user interaction.",
+          "description": "E-commerce, web apps, or complex builds — fully custom with database, checkout, and ongoing support.",
           "includes": [
             "Fully custom design tailored to your business requirements",
             "Unlimited pages for comprehensive content delivery",
@@ -70,8 +70,8 @@
 
     {
       "id": "marketing-advertisement",
-      "title": "Marketing & Advertisement",
-      "subtitle": "Acquire and convert",
+      "title": "Growth & Performance",
+      "subtitle": "Strategy, ads, and content that drive revenue.",
       "tiers": [
         {
           "name": "Entry Package (Pilot Campaign)",
@@ -136,8 +136,8 @@
 
     {
       "id": "web-hosting-maintenance",
-      "title": "Web Hosting & Maintenance",
-      "subtitle": "Keep your site secure and running fast",
+      "title": "Hosting & Support",
+      "subtitle": "We keep it running. You focus on your business.",
       "tiers": [
         {
           "name": "Starter Care",
@@ -185,8 +185,8 @@
 
     {
       "id": "design-branding",
-      "title": "Design & Branding",
-      "subtitle": "Shape a brand that stands out",
+      "title": "Brand Identity",
+      "subtitle": "Logo, system, guidelines — built to last.",
       "tiers": [
         {
           "name": "Logo & Style Guide",
@@ -240,8 +240,8 @@
 
     {
       "id": "automation-integrations",
-      "title": "Automation & Integrations",
-      "subtitle": "Work smarter, not harder",
+      "title": "Automation & Systems",
+      "subtitle": "Workflows that run without you.",
       "tiers": [
         {
           "name": "Workflow Starter",
@@ -292,8 +292,8 @@
 
     {
       "id": "email-marketing",
-      "title": "Email Marketing",
-      "subtitle": "Nurture, engage, and convert your audience",
+      "title": "Email & Retention",
+      "subtitle": "Automated sequences that keep selling.",
       "tiers": [
         {
           "name": "Starter Campaign",
