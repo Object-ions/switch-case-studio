@@ -77,6 +77,12 @@
   // ── Subline ──
   .hero-sub {
     font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.88);
+    margin-top: 1.75rem;
+    letter-spacing: 0.02em;
+    max-width: 560px;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
 
     &__desktop { display: inline; }
     &__mobile  { display: none; }
@@ -85,17 +91,6 @@
       &__desktop { display: none; }
       &__mobile  { display: inline; }
     }
-    line-height: 1.6; // audit §03 — body copy ≥ 1.6
-    color: rgba(
-      255,
-      255,
-      255,
-      0.88
-    ); // bumped from 0.7 for AA contrast over animated background
-    margin-top: 1.75rem;
-    letter-spacing: 0.02em;
-    max-width: 560px;
-    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
     opacity: 0;
     transform: translateY(12px);
     transition:

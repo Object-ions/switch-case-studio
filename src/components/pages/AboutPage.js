@@ -1,12 +1,6 @@
-import { useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import useReducedMotion from '../../hooks/useReducedMotion';
 import '../../styles/components/aboutPage.scss';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const CAPABILITIES = [
   {
@@ -43,55 +37,6 @@ const VALUES = [
 ];
 
 const AboutPage = () => {
-  const rootRef = useRef(null);
-  const reducedMotion = useReducedMotion();
-
-  useLayoutEffect(() => {
-    if (reducedMotion) return;
-    const ctx = gsap.context(() => {
-      const heroEls = gsap.utils.toArray(
-        '.about-page__hero .about-reveal',
-        rootRef.current,
-      );
-      if (heroEls.length) {
-        gsap.fromTo(
-          heroEls,
-          { opacity: 0, y: 28 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.65,
-            ease: 'power2.out',
-            stagger: 0.1,
-          },
-        );
-      }
-
-      const scrollEls = gsap.utils
-        .toArray('.about-reveal', rootRef.current)
-        .filter((el) => !heroEls.includes(el));
-      scrollEls.forEach((el) => {
-        gsap.fromTo(
-          el,
-          { opacity: 0, y: 28 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.65,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 84%',
-              once: true,
-            },
-          },
-        );
-      });
-
-      requestAnimationFrame(() => ScrollTrigger.refresh());
-    }, rootRef);
-    return () => ctx.revert();
-  }, [reducedMotion]);
 
   return (
     <>
@@ -109,16 +54,16 @@ const AboutPage = () => {
         />
       </Helmet>
 
-      <article className="about-page" ref={rootRef} aria-label="About Switch Case Studio">
+      <article className="about-page" aria-label="About Switch Case Studio">
         {/* ── Hero ── */}
         <header className="about-page__hero">
-          <p className="about-page__kicker about-reveal">Our Studio</p>
-          <h1 className="about-page__title about-reveal">
+          <p className="about-page__kicker">Our Studio</p>
+          <h1 className="about-page__title">
             Design-led.
             <br />
             <span className="about-page__title--accent">Results-driven.</span>
           </h1>
-          <p className="about-page__lede about-reveal">
+          <p className="about-page__lede">
             Switch Case Studio is a boutique digital studio building websites,
             e-commerce stores, and web apps from scratch — for businesses that
             take their digital presence seriously.
@@ -128,7 +73,7 @@ const AboutPage = () => {
         {/* ── Story ── */}
         <section className="about-page__story" aria-labelledby="about-story-heading">
           <div className="about-page__story-inner">
-            <div className="about-page__story-text about-reveal">
+            <div className="about-page__story-text">
               <h2 id="about-story-heading" className="about-page__section-label">
                 The Studio
               </h2>
@@ -146,7 +91,7 @@ const AboutPage = () => {
                 scratch.
               </p>
             </div>
-            <div className="about-page__stat-col about-reveal">
+            <div className="about-page__stat-col">
               <div className="about-page__stat">
                 <span className="about-page__stat-value">7+</span>
                 <span className="about-page__stat-label">Clients launched</span>
@@ -166,12 +111,12 @@ const AboutPage = () => {
         {/* ── Capabilities ── */}
         <section className="about-page__capabilities" aria-labelledby="about-caps-heading">
           <div className="about-page__section-wrap">
-            <h2 id="about-caps-heading" className="about-page__section-label about-reveal">
+            <h2 id="about-caps-heading" className="about-page__section-label">
               What we build
             </h2>
             <div className="about-page__caps-grid">
               {CAPABILITIES.map((cap) => (
-                <div key={cap.title} className="about-page__cap about-reveal">
+                <div key={cap.title} className="about-page__cap">
                   <h3 className="about-page__cap-title">{cap.title}</h3>
                   <p className="about-page__cap-body">{cap.body}</p>
                 </div>
@@ -183,12 +128,12 @@ const AboutPage = () => {
         {/* ── Values ── */}
         <section className="about-page__values" aria-labelledby="about-values-heading">
           <div className="about-page__section-wrap">
-            <h2 id="about-values-heading" className="about-page__section-label about-reveal">
+            <h2 id="about-values-heading" className="about-page__section-label">
               How we work
             </h2>
             <div className="about-page__values-grid">
               {VALUES.map((v) => (
-                <div key={v.label} className="about-page__value about-reveal">
+                <div key={v.label} className="about-page__value">
                   <strong className="about-page__value-label">{v.label}</strong>
                   <p className="about-page__value-desc">{v.desc}</p>
                 </div>
@@ -198,7 +143,7 @@ const AboutPage = () => {
         </section>
 
         {/* ── CTA ── */}
-        <section className="about-page__cta about-reveal" aria-labelledby="about-cta-heading">
+        <section className="about-page__cta" aria-labelledby="about-cta-heading">
           <h2 id="about-cta-heading" className="about-page__cta-heading">
             Ready to build something?
           </h2>

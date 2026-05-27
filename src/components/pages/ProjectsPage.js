@@ -1,64 +1,9 @@
-import { useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import useReducedMotion from '../../hooks/useReducedMotion';
 import projectsData from '../../data/projects.json';
 import '../../styles/components/projectsPage.scss';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const ProjectsPage = () => {
-  const rootRef = useRef(null);
-  const reducedMotion = useReducedMotion();
-
-  useLayoutEffect(() => {
-    if (reducedMotion) return;
-    const ctx = gsap.context(() => {
-      const heroEls = gsap.utils.toArray(
-        '.projects-page__header .psp-reveal',
-        rootRef.current,
-      );
-      if (heroEls.length) {
-        gsap.fromTo(
-          heroEls,
-          { opacity: 0, y: 24 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            ease: 'power2.out',
-            stagger: 0.1,
-          },
-        );
-      }
-
-      const scrollEls = gsap.utils
-        .toArray('.psp-reveal', rootRef.current)
-        .filter((el) => !heroEls.includes(el));
-      scrollEls.forEach((el) => {
-        gsap.fromTo(
-          el,
-          { opacity: 0, y: 24 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 86%',
-              once: true,
-            },
-          },
-        );
-      });
-
-      requestAnimationFrame(() => ScrollTrigger.refresh());
-    }, rootRef);
-    return () => ctx.revert();
-  }, [reducedMotion]);
 
   return (
     <>
@@ -76,12 +21,12 @@ const ProjectsPage = () => {
         />
       </Helmet>
 
-      <article className="projects-page" ref={rootRef} aria-label="Case studies">
+      <article className="projects-page" aria-label="Case studies">
         {/* ── Header ── */}
         <header className="projects-page__header">
-          <p className="projects-page__kicker psp-reveal">Portfolio</p>
-          <h1 className="projects-page__title psp-reveal">Selected Work</h1>
-          <p className="projects-page__lede psp-reveal">
+          <p className="projects-page__kicker">Portfolio</p>
+          <h1 className="projects-page__title">Selected Work</h1>
+          <p className="projects-page__lede">
             {projectsData.length} projects. All built from scratch.
           </p>
         </header>
@@ -92,7 +37,7 @@ const ProjectsPage = () => {
             <Link
               key={project.slug}
               to={`/projects/${project.slug}`}
-              className="projects-page__card psp-reveal"
+              className="projects-page__card"
               aria-label={`View case study: ${project.title}`}
             >
               <div className="projects-page__card-img">
@@ -133,7 +78,7 @@ const ProjectsPage = () => {
         </section>
 
         {/* ── Bottom CTA ── */}
-        <div className="projects-page__bottom psp-reveal">
+        <div className="projects-page__bottom">
           <p className="projects-page__bottom-text">
             Want to see what we can build for you?
           </p>

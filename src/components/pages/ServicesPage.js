@@ -1,87 +1,9 @@
-import { useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import useReducedMotion from '../../hooks/useReducedMotion';
 import servicesData from '../../data/services.json';
 import '../../styles/components/servicesPage.scss';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const ServicesPage = () => {
-  const rootRef = useRef(null);
-  const reducedMotion = useReducedMotion();
-
-  useLayoutEffect(() => {
-    if (reducedMotion) return;
-    const ctx = gsap.context(() => {
-      const header = rootRef.current.querySelector('.services-page__header');
-      if (header) {
-        const headerEls = header.querySelectorAll('.sp-reveal');
-        gsap.fromTo(
-          headerEls,
-          { opacity: 0, y: 32, clipPath: 'inset(0 0 100% 0)' },
-          {
-            opacity: 1,
-            y: 0,
-            clipPath: 'inset(0 0 0% 0)',
-            duration: 0.8,
-            ease: 'power3.out',
-            stagger: 0.12,
-          },
-        );
-      }
-
-      const rows = gsap.utils.toArray('.services-page__service', rootRef.current);
-      rows.forEach((row) => {
-        const index = row.querySelector('.services-page__service-index');
-        const body = row.querySelector('.services-page__service-body');
-        const cta = row.querySelector('.services-page__service-cta');
-        const items = row.querySelectorAll('.services-page__service-item');
-
-        const tl = gsap.timeline({
-          scrollTrigger: { trigger: row, start: 'top 85%', once: true },
-        });
-
-        if (index) {
-          tl.fromTo(index, { opacity: 0, x: -16 }, {
-            opacity: 1, x: 0, duration: 0.5, ease: 'power2.out',
-          }, 0);
-        }
-
-        if (body) {
-          tl.fromTo(body, { opacity: 0, y: 24 }, {
-            opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
-          }, 0.1);
-        }
-
-        if (cta) {
-          tl.fromTo(cta, { opacity: 0, x: 16 }, {
-            opacity: 1, x: 0, duration: 0.5, ease: 'power2.out',
-          }, 0.25);
-        }
-
-        if (items.length) {
-          tl.fromTo(items, { opacity: 0, scale: 0.85, y: 8 }, {
-            opacity: 1, scale: 1, y: 0, duration: 0.4, ease: 'back.out(2)',
-            stagger: 0.04,
-          }, 0.35);
-        }
-      });
-
-      const bottom = rootRef.current.querySelector('.services-page__bottom');
-      if (bottom) {
-        gsap.fromTo(bottom, { opacity: 0, y: 24, scale: 0.97 }, {
-          opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'power2.out',
-          scrollTrigger: { trigger: bottom, start: 'top 88%', once: true },
-        });
-      }
-
-      requestAnimationFrame(() => ScrollTrigger.refresh());
-    }, rootRef);
-    return () => ctx.revert();
-  }, [reducedMotion]);
 
   return (
     <>
@@ -99,15 +21,15 @@ const ServicesPage = () => {
         />
       </Helmet>
 
-      <article className="services-page" ref={rootRef} aria-label="Services">
+      <article className="services-page" aria-label="Services">
         <header className="services-page__header">
-          <p className="services-page__kicker sp-reveal">What we do</p>
-          <h1 className="services-page__title sp-reveal">
+          <p className="services-page__kicker">What we do</p>
+          <h1 className="services-page__title">
             Everything your
             <br />
             <span className="services-page__title--accent">digital presence needs.</span>
           </h1>
-          <p className="services-page__lede sp-reveal">
+          <p className="services-page__lede">
             Design, development, marketing, and automation — we handle the
             full stack of what a growing business needs online.
           </p>
