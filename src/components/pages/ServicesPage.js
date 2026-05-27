@@ -21,9 +21,9 @@ const ServicesPage = () => {
         const headerEls = header.querySelectorAll('.sp-reveal');
         gsap.fromTo(
           headerEls,
-          { autoAlpha: 0, y: 32, clipPath: 'inset(0 0 100% 0)' },
+          { opacity: 0, y: 32, clipPath: 'inset(0 0 100% 0)' },
           {
-            autoAlpha: 1,
+            opacity: 1,
             y: 0,
             clipPath: 'inset(0 0 0% 0)',
             duration: 0.8,
@@ -45,26 +45,26 @@ const ServicesPage = () => {
         });
 
         if (index) {
-          tl.fromTo(index, { autoAlpha: 0, x: -16 }, {
-            autoAlpha: 1, x: 0, duration: 0.5, ease: 'power2.out',
+          tl.fromTo(index, { opacity: 0, x: -16 }, {
+            opacity: 1, x: 0, duration: 0.5, ease: 'power2.out',
           }, 0);
         }
 
         if (body) {
-          tl.fromTo(body, { autoAlpha: 0, y: 24 }, {
-            autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out',
+          tl.fromTo(body, { opacity: 0, y: 24 }, {
+            opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
           }, 0.1);
         }
 
         if (cta) {
-          tl.fromTo(cta, { autoAlpha: 0, x: 16 }, {
-            autoAlpha: 1, x: 0, duration: 0.5, ease: 'power2.out',
+          tl.fromTo(cta, { opacity: 0, x: 16 }, {
+            opacity: 1, x: 0, duration: 0.5, ease: 'power2.out',
           }, 0.25);
         }
 
         if (items.length) {
-          tl.fromTo(items, { autoAlpha: 0, scale: 0.85, y: 8 }, {
-            autoAlpha: 1, scale: 1, y: 0, duration: 0.4, ease: 'back.out(2)',
+          tl.fromTo(items, { opacity: 0, scale: 0.85, y: 8 }, {
+            opacity: 1, scale: 1, y: 0, duration: 0.4, ease: 'back.out(2)',
             stagger: 0.04,
           }, 0.35);
         }
@@ -72,11 +72,13 @@ const ServicesPage = () => {
 
       const bottom = rootRef.current.querySelector('.services-page__bottom');
       if (bottom) {
-        gsap.fromTo(bottom, { autoAlpha: 0, y: 24, scale: 0.97 }, {
-          autoAlpha: 1, y: 0, scale: 1, duration: 0.7, ease: 'power2.out',
+        gsap.fromTo(bottom, { opacity: 0, y: 24, scale: 0.97 }, {
+          opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'power2.out',
           scrollTrigger: { trigger: bottom, start: 'top 88%', once: true },
         });
       }
+
+      requestAnimationFrame(() => ScrollTrigger.refresh());
     }, rootRef);
     return () => ctx.revert();
   }, [reducedMotion]);

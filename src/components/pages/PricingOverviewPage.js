@@ -23,9 +23,9 @@ const PricingOverviewPage = () => {
       if (heroEls.length) {
         gsap.fromTo(
           heroEls,
-          { autoAlpha: 0, y: 24 },
+          { opacity: 0, y: 24 },
           {
-            autoAlpha: 1,
+            opacity: 1,
             y: 0,
             duration: 0.6,
             ease: 'power2.out',
@@ -40,9 +40,9 @@ const PricingOverviewPage = () => {
       scrollEls.forEach((el) => {
         gsap.fromTo(
           el,
-          { autoAlpha: 0, y: 24 },
+          { opacity: 0, y: 24 },
           {
-            autoAlpha: 1,
+            opacity: 1,
             y: 0,
             duration: 0.6,
             ease: 'power2.out',
@@ -54,6 +54,8 @@ const PricingOverviewPage = () => {
           },
         );
       });
+
+      requestAnimationFrame(() => ScrollTrigger.refresh());
     }, rootRef);
     return () => ctx.revert();
   }, [reducedMotion]);

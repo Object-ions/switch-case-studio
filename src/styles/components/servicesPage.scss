@@ -6,15 +6,6 @@
   color: #fff;
   font-family: $font-text;
 
-  // GSAP autoAlpha needs initial hidden state to prevent FOUC
-  .sp-reveal,
-  &__service-index,
-  &__service-body,
-  &__service-cta,
-  &__service-item,
-  &__bottom {
-    visibility: hidden;
-  }
 
   // ── Header ──
   &__header {
