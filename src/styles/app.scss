@@ -115,3 +115,51 @@ main {
   z-index: 1;
   background: $grey-color; // must be opaque to hide the footer beneath
 }
+
+/* ==================================================================
+ * Route transitions
+ *
+ * THE FLASH FIX — .route-backdrop is a non-fading layer behind the page,
+ *   tinted to match the destination page's theme. <body>/<main> are light
+ *   grey, but pages paint #000; while .page-fade animates from opacity 0
+ *   the page is transparent and that light backdrop showed through as a
+ *   white flash. Matching the backdrop to the page means fading in changes
+ *   no background color — only the content appears. (Route theme is set in
+ *   App.js: .is-dark for everything except legal + /pricing/:slug.)
+ *
+ * .route-fallback — shown while a lazy chunk loads. Transparent: it just
+ *   lets the matching .route-backdrop show, so the load never flashes.
+ *
+ * .page-fade — fades each routed view in on mount. Opacity-only (no
+ *   transform) so it can't break position: sticky/fixed, and its resting
+ *   opacity is 1 (the 0 lives only inside the keyframe) so content can
+ *   never get stuck invisible the way the old GSAP entrance did.
+ * ================================================================== */
+.route-backdrop {
+  min-height: 100vh;
+
+  &.is-dark {
+    background: #000;
+  }
+
+  &.is-light {
+    background: $grey-color;
+  }
+}
+
+.route-fallback {
+  min-height: 100vh;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.page-fade {
+  animation: pageFadeIn 0.4s ease;
+}
