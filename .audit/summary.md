@@ -135,7 +135,17 @@
 - [x] Day 2 — LandingPageProof + Services B2B copy
 - [x] Day 3 — ClientStrip + mock metrics
 - [x] Day 6 — Meta tags + code splitting + build verified ✅
-- [ ] **Day 7 — Mobile QA + final review + merge to main**
+- [x] Day 7 — Mobile QA + merge to main ✅ (merged in `5839a7c`)
+
+### POST-MERGE WORK (on main, after audit branch) ✅
+- Standalone pages: About / Projects / Pricing / Services / Testimonials / Contact + nav wiring
+- SEO & performance: sitemap, structured data, image compression, font optimization
+- Pricing copy aligned to new brand voice
+- Bug fixes: blank page on direct nav, invisible lazy content, removed aggressive GSAP scroll anims, Sass warnings
+
+### STILL OPEN
+- **C1 — real metrics:** Zahav / Crimson / Prodani still MOCK; FL Energy + Jo Marketing placeholders. Needs Moses's real numbers.
+- **T4 — analytics:** confirmed NONE in codebase. Blocks measuring all conversion work.
 
 ## DAY 1 CHANGES — SHIPPED ✅
 Branch: `audit/pre-pitch-fixes`
