@@ -112,16 +112,29 @@ const ProjectsTiles = ({ projects }) => {
 
   useBentoSpotlight(gridRef, { disabled });
 
-  // Tile-by-tile entrance. The parent .row-tiles reveal that previously
-  // lived in Projects.js was removed — it overlapped this animation.
+  // Tile-by-tile entrance. Built so tiles can NEVER stay hidden (see
+  // CLAUDE.md): a flaky scroll reveal used to leave corner cards stuck dim.
   useLayoutEffect(() => {
-    if (reduced) return;
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    const tiles = gsap.utils.toArray('.tile', grid);
+    if (!tiles.length) return;
+
+    // Reduced motion: no animation, just make sure tiles are visible.
+    if (reduced) {
+      gsap.set(tiles, { clearProps: 'all' });
+      return;
+    }
 
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        '.tile',
-        { autoAlpha: 0, y: 30, scale: 0.98, rotate: -0.4 },
-        {
+      // Set the hidden start state explicitly with gsap.set — NOT fromTo's
+      // immediateRender, which re-applies on ScrollTrigger.refresh() (other
+      // components refresh during initial font/image load) and re-hides tiles.
+      gsap.set(tiles, { autoAlpha: 0, y: 30, scale: 0.98, rotate: -0.4 });
+
+      const reveal = () =>
+        gsap.to(tiles, {
           autoAlpha: 1,
           y: 0,
           scale: 1,
@@ -129,14 +142,43 @@ const ProjectsTiles = ({ projects }) => {
           ease: 'power2.out',
           duration: 0.7,
           stagger: { from: 'center', amount: 0.35 },
-          scrollTrigger: {
-            trigger: gridRef.current,
-            start: 'top 80%',
+          overwrite: 'auto',
+        });
+
+      const trigger = ScrollTrigger.create({
+        trigger: grid,
+        start: 'top 85%',
+        once: true,
+        onEnter: reveal,
+      });
+
+      // Already in view at mount (deep link to #projects, short viewport)?
+      // onEnter won't fire for a trigger created already-past, so reveal now.
+      if (grid.getBoundingClientRect().top < window.innerHeight * 0.85) {
+        reveal();
+      }
+
+      // Lazy cover images shift layout after the trigger is measured; refresh
+      // so 'start' is recomputed against the final geometry.
+      grid.querySelectorAll('.tile-image').forEach((img) => {
+        if (!img.complete) {
+          img.addEventListener('load', () => ScrollTrigger.refresh(), {
             once: true,
-          },
-        },
-      );
-    }, gridRef);
+          });
+        }
+      });
+
+      // Safety net: tiles must never stay hidden. If the reveal hasn't run
+      // within 2s (trigger never fired, refresh race, etc.), force it.
+      const safety = gsap.delayedCall(2, () => {
+        if (tiles.some((t) => gsap.getProperty(t, 'opacity') < 1)) reveal();
+      });
+
+      return () => {
+        trigger.kill();
+        safety.kill();
+      };
+    }, grid);
 
     return () => ctx.revert();
   }, [reduced]);
