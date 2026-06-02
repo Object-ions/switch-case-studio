@@ -1,27 +1,36 @@
-# Switch Case Studio – React Web App
+# Switch Case Studio – React + Vite
 
-Portfolio + marketing site for **Switch Case Studio**. This is a Create React App project with a component-driven UI, SCSS styling, and JSON-powered content (projects, services, pricing, testimonials).
+Portfolio + marketing site for **Switch Case Studio**, a design-led digital
+studio. React 18 with a component-driven UI, SCSS styling, and JSON-powered
+content (projects, services, pricing, testimonials). Bundled with **Vite**.
 
 ---
 
 ## What’s inside
 
-- **Marketing pages**: Home, Work, Services, About, Testimonials, Contact
-- **Portfolio/projects**: tiles + detail views powered by JSON + images under `public/projects/*`
-- **UI components**: animated headings/paragraphs, marquee/scrolling text, loader, lightbox, custom cursor, menu modal
-- **Content as data**: update most copy/content in `src/data/*.json` without touching components
-- **Media**: videos, lottie animations, fonts, images, and a 3D model (`moon.glb`)
+- **Marketing pages**: Home, Work/About, Services, Testimonials, Contact
+- **Portfolio**: project tiles + detail pages powered by JSON + images under `public/projects/*`. Each case study leads with a frameless, auto-scrolling live-site preview.
+- **UI components**: animated headings/paragraphs, marquee/scrolling text, lightbox, custom cursor, menu modal, a 3D moon (Three.js, lazy-loaded)
+- **Content as data**: most copy lives in `src/data/*.json` — edit without touching components
+- **Analytics**: GA4 with a Consent Mode v2 cookie banner (`src/analytics/`)
+- **SEO**: per-page `<Helmet>` tags, `sitemap.xml`, structured data in `index.html`
 
 ---
 
 ## Tech stack
 
-- **React (Create React App)**
-- **SCSS** (global variables + mixins + component SCSS files)
+- **React 18** bundled with **Vite 5** (`@vitejs/plugin-react`)
+- **SCSS** (global variables + mixins + per-component files)
+- **Routing**: `react-router-dom` v6 + `react-router-hash-link`
+- **Animation**: GSAP (+ ScrollTrigger), Three.js via `@react-three/fiber` + `@react-three/drei`, `motion`, `typed.js`
+- **SEO**: `react-helmet-async`
+- **Forms**: `@emailjs/browser` (contact form)
+- **Icons**: Font Awesome
 - **JSON data layer** for content (`src/data`)
-- **Static assets** served from `public/` and bundled assets from `src/assets/`
 
-> Note: This repo includes `package-lock.json`, so the default package manager is **npm**.
+> JSX lives in `.js` files (not `.jsx`). `vite.config.js` configures esbuild to
+> treat `src/**/*.js` as JSX, so files don’t need renaming. The package manager
+> is **npm** (`package-lock.json` is committed).
 
 ---
 
@@ -36,91 +45,77 @@ npm install
 ### 2) Run the dev server
 
 ```bash
-npm start
+npm run dev      # (npm start is an alias)
 ```
 
-- App runs at `http://localhost:3000`
-- Hot reload is enabled
+- App runs at `http://localhost:3000` (opens automatically)
+- Hot Module Replacement is enabled
 
 ### 3) Build for production
 
 ```bash
-npm run build
+npm run build    # output → build/
+npm run preview  # serve the production build locally to smoke-test
 ```
-
-Build output is generated in `build/`.
 
 ---
 
 ## Available scripts
 
-These are the standard CRA scripts (plus anything you may have added in `package.json`):
+- `npm run dev` / `npm start` – Vite dev server (port 3000)
+- `npm run build` – production build to `build/`
+- `npm run preview` – serve the built `build/` locally
+- `postinstall` – writes a stub sourcemap for `@mediapipe/tasks-vision` (a
+  transitive dependency of `@react-three/drei`) to silence a missing-sourcemap
+  warning during build
 
-- `npm start` – run locally in development
-- `npm run build` – production build
-- `npm test` – run tests in watch mode
-- `npm run eject` – eject CRA config (one-way)
+There is no test runner or `eject` step (this is Vite, not Create React App).
 
 ---
 
 ## Project structure
 
-High-level layout (based on the repo tree you shared):
-
 ```txt
-public/
-  index.html
-  images/                 # static images (e.g., dani, sean, ori)
-  projects/               # project images grouped by project
-  models/                 # 3D assets (moon.glb)
+index.html               # app entry (root-level, Vite)
+vite.config.js           # Vite + React plugin + SCSS options
+netlify.toml             # deploy config (SPA redirect, Node 20 pin)
+
+public/                  # served as-is at the site root (/)
+  images/                # static images
+  projects/              # project images grouped by slug
+  models/                # 3D assets (moon.glb)
+  fonts/                 # NeueMachina-Ultrabold.otf
   manifest.json
   robots.txt
+  sitemap.xml
 
 src/
-  index.js
-  App.js
-  reportWebVitals.js
-  setupTests.js
+  index.js               # React root
+  App.js                 # routes + layout, lazy-loaded route pages
 
   components/
-    pages/                # route-level pages (Home, Work, Services, etc.)
-    layout/               # Header, MainLayout, Footer, CTAs
-    ...                   # shared UI components
+    pages/               # route-level pages + home sections (Work, Services, ProjectPage…)
+    layout/              # Header, MainLayout, Footer, menu
+    ...                  # shared UI (ScrollingShot, ZoomLightbox, Moon, ClientStrip…)
 
-  data/
-    navigation.js
-    projects.json
-    services.json
-    testimonials.json
-    pricingData.json
-
-  styles/
-    _variables.scss
-    _mixins.scss
-    app.scss
-    components/           # per-component scss files
-
-  assets/
-    images/
-    videos/
-    lottie/
-    fonts/
-    mockups/
+  analytics/             # ga.js, RouteAnalytics.js, ConsentBanner.js
+  hooks/                 # useReducedMotion, useScrollLock, useBento* 
+  utils/                 # bentoEffects.js
+  data/                  # navigation.js + content JSON
+  styles/                # _variables.scss, _mixins.scss, app.scss, components/*
+  assets/                # images, videos (imported + bundled by Vite)
 ```
 
 ---
 
 ## Content editing
 
-Most site content is intentionally stored as JSON so you can update the site quickly.
+Most site content is stored as JSON so you can update the site quickly.
 
 ### Projects
 
 - **Data**: `src/data/projects.json`
-- **Images**: `public/projects/<project-slug>/...`  
-  Includes cover tiles and long/hero images like:
-  - `public/projects/zahav/zahav-cover-tile.webp`
-  - `public/projects/zahav/long.webp`
+- **Images**: `public/projects/<project-slug>/...` (cover tiles, `long.webp`, detail images)
 
 If you add a new project:
 
@@ -146,21 +141,18 @@ shown on the project card + detail page). They currently mirror each other.
 Set `type` to one of the above, and `badge` to match (unless you want a
 different display label on the card).
 
-### Services
+#### Optional project media (bento tiles)
 
-- `src/data/services.json`
+The detail page renders extra media tiles only when the field is present —
+missing fields are simply omitted (no empty placeholders). Optional fields:
+`mediaMobile`, `mediaCopy`, `mediaCta` (each with an optional `*Alt`).
 
-### Testimonials
+### Other content
 
-- `src/data/testimonials.json`
-
-### Pricing
-
-- `src/data/pricingData.json`
-
-### Navigation
-
-- `src/data/navigation.js`
+- Services: `src/data/services.json`
+- Testimonials: `src/data/testimonials.json`
+- Pricing: `src/data/pricingData.json`
+- Navigation: `src/data/navigation.js`
 
 ---
 
@@ -168,93 +160,91 @@ different display label on the card).
 
 Styling is SCSS-based:
 
-- Global tokens:
-  - `src/styles/_variables.scss`
-  - `src/styles/_mixins.scss`
-- App-level stylesheet:
-  - `src/styles/app.scss`
-- Component styles:
-  - `src/styles/components/*.scss`
+- Global tokens: `src/styles/_variables.scss`, `src/styles/_mixins.scss`
+- App-level stylesheet: `src/styles/app.scss`
+- Component styles: `src/styles/components/*.scss`
 
-Best practice in this repo:
+Conventions:
 
 - Put global variables/mixins in the shared files
-- Keep component-specific styling inside its matching SCSS file
-- Prefer consistent naming between component file and SCSS file (many are already aligned)
+- Keep component-specific styling in its matching SCSS file (names align with components)
+- Stylesheets still use `@import`; the build silences the related Sass deprecation warnings (see `vite.config.js`)
 
 ---
 
 ## Assets
 
-There are two main asset patterns here:
-
 ### `public/` assets (served as-is)
 
-Use when you want stable URLs and don’t need bundling:
+Stable URLs, no bundling. Reference with a leading `/`:
 
-- `public/projects/...`
-- `public/images/...`
+- `public/projects/...`, `public/images/...`
 - `public/models/moon.glb`
+- `public/fonts/NeueMachina-Ultrabold.otf`
 
-### `src/assets/` assets (bundled by build)
+> Fonts live in `public/` on purpose: Vite does **not** rewrite `url()`
+> references pulled in through a Sass `@import`, so the `@font-face` uses a
+> root-absolute path (`/fonts/...`) rather than a bundled import.
 
-Use when importing directly in React:
+### `src/assets/` assets (bundled by Vite)
 
-- `src/assets/videos/new_hero_video_SCS.mp4`
-- `src/assets/lottie/*.json`
-- `src/assets/fonts/NeueMachina-Ultrabold.otf`
+Use when importing directly in a component:
+
+- `src/assets/videos/*.mp4`, `*.webm`
+- `src/assets/images/*`
 
 ---
 
-## Performance + quality notes
+## Performance notes
 
-- Consider running Lighthouse on production builds for best signal.
-- If you add large images:
-  - prefer `webp` or `avif`
-  - keep “cover tiles” lightweight
-- If you add new animations:
-  - respect reduced motion (there is a `useReducedMotion` hook in `src/hooks/`)
+- **Three.js is lazy-loaded** — the 3D moon is split into its own chunk
+  (`React.lazy`) so the ~490 KB engine stays off the critical path for every
+  route and loads only when the Work section needs it.
+- **`moon.glb` is texture-compressed** (1024² WebP) — keep it that way if you
+  swap the model; a full-res texture balloons the asset to ~10 MB.
+- Route pages are code-split via `React.lazy` + `<Suspense>` in `App.js`.
+- New images: prefer `webp`/`avif`, keep cover tiles light.
+- New animations: respect reduced motion (`src/hooks/useReducedMotion.js`).
 
 ---
 
 ## Deployment
 
-This is a static build once you run:
+Deployed on **Netlify**; config in `netlify.toml`:
 
-```bash
-npm run build
-```
+- Build command `npm run build`, publish directory `build/`
+- Node version pinned to **20**
+- SPA fallback: all routes rewrite to `/index.html` (so deep links and refresh don’t 404)
 
-You can deploy the `build/` directory to any static host:
-
-- Netlify / Vercel (static)
-- Cloudflare Pages
-- Hostinger (static hosting)
-- Any Nginx/Apache static server
-
-If your host supports SPA routing, make sure it rewrites all routes to `index.html`.
+The `build/` output is a static bundle and can be hosted on any static host
+(Netlify, Vercel, Cloudflare Pages, Nginx/Apache) as long as SPA rewrites are
+configured.
 
 ---
 
 ## Troubleshooting
 
-### Blank page after deploy
+### Blank page / 404 on deep links after deploy
 
-Most common causes:
+- Ensure SPA rewrites to `index.html` (handled by `netlify.toml` on Netlify)
+- Check asset paths if you changed the base path
 
-- Missing SPA rewrite rules (routes not pointing to `index.html`)
-- Wrong asset paths if you changed homepage/base path
+### Styles not updating
 
-### SCSS not updating / styles weird
+- Confirm the component SCSS is imported (directly or via `app.scss`)
+- Watch filename casing — Linux hosts are case-sensitive where macOS isn’t
 
-- Confirm the component SCSS file is imported (directly or via `app.scss`)
-- Check for name mismatches like `ProjectsHeader.scss` vs `ProjectsHeader.js` (case sensitivity matters on some hosts)
+### Images / fonts not loading
 
-### Images not loading
+- Anything under `public/` is referenced with a leading `/` (e.g. `/projects/zahav/1.avif`)
+- Double-check folder/filename casing
 
-- Anything under `public/` should be referenced with a leading `/`  
-  Example: `/projects/zahav/1.avif`
-- Double-check folder and filename casing (macOS can hide issues that Linux servers won’t)
+---
+
+## Working notes for AI assistance
+
+Living instructions and accumulated review fixes are in
+[`CLAUDE.md`](./CLAUDE.md). Audit/status tracking is in `.audit/summary.md`.
 
 ---
 
@@ -270,7 +260,7 @@ This is a studio site codebase. If you’re collaborating:
 
 ## License
 
-All rights reserved, unless you explicitly add an open-source license.
+All rights reserved, unless an open-source license is explicitly added.
 
 ---
 
