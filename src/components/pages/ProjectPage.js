@@ -46,7 +46,8 @@ const ProjectPage = () => {
   const reducedMotion = useReducedMotion();
   const rootRef = useRef(null);
 
-  const [zoomOpen, setZoomOpen] = useState(false);
+  // null = closed. Holds the src of the image being zoomed (any media tile).
+  const [zoomSrc, setZoomSrc] = useState(null);
 
   // Find project + compute neighbour for "View next →"
   const { project, nextProject } = useMemo(() => {
@@ -111,12 +112,109 @@ const ProjectPage = () => {
     ctaUrl,
     imageAlt,
     viewport,
+    // ── Optional bento media. Each tile renders ONLY if its field exists. ──
+    mediaMobile,
+    mediaMobileAlt,
+    mediaCopy,
+    mediaCopyAlt,
+    mediaCta,
+    mediaCtaAlt,
   } = project;
 
   const metaDescription =
     outcome ||
     description?.slice(0, 155) ||
     `${title} — case study by Switch Case Studio.`;
+
+  /* ── Media tiles, declared once, rendered conditionally ──
+     Missing data → tile is filtered out, so no empty placeholder boxes.
+     `longWeb`/`imageSrc` fill two slots today; the rest are optional
+     fields you can add to projects.json later and they light up. */
+
+  // Small tiles that live in the Results column (right of the summary).
+  const detailTiles = [
+    mediaMobile && {
+      key: 'mobile',
+      src: mediaMobile,
+      caption: 'Mobile view',
+      alt: mediaMobileAlt || `${title} — mobile view`,
+      zoom: true,
+    },
+    publicImageSrc &&
+      detailImageOK && {
+        key: 'hero-detail',
+        src: publicImageSrc,
+        caption: 'Hero detail',
+        alt: imageAlt || `${title} — hero detail`,
+        zoom: true,
+      },
+  ].filter(Boolean);
+
+  // Larger tiles in the gallery band below the result quote.
+  const galleryTiles = [
+    publicLongWeb &&
+      mockupOK && {
+        key: 'desktop',
+        type: 'mockup',
+        caption: 'Desktop — landing page',
+      },
+    mediaCopy && {
+      key: 'copy',
+      type: 'img',
+      src: mediaCopy,
+      caption: 'Copy / offer block',
+      alt: mediaCopyAlt || `${title} — copy and offer block`,
+      zoom: true,
+    },
+    mediaCta && {
+      key: 'cta',
+      type: 'img',
+      src: mediaCta,
+      caption: 'CTA / form',
+      alt: mediaCtaAlt || `${title} — CTA and form`,
+      zoom: true,
+    },
+  ].filter(Boolean);
+
+  const hasResults = metrics.length > 0 || detailTiles.length > 0;
+  const hasSummary = !!description || highlights.length > 0 || hasResults;
+
+  /* ── Reusable image tile (optionally click-to-zoom) ── */
+  const ImageTile = ({ tile, className = '' }) => {
+    const body = (
+      <>
+        <img
+          src={tile.src}
+          alt={tile.alt}
+          className="project-page__tile-img"
+          loading="lazy"
+        />
+        {tile.caption && (
+          <span className="project-page__tile-caption">{tile.caption}</span>
+        )}
+      </>
+    );
+
+    if (tile.zoom) {
+      return (
+        <button
+          type="button"
+          className={`project-page__tile project-page__tile--media project-page__tile--zoom ${className}`}
+          onClick={() => setZoomSrc(tile.src)}
+          aria-label={`Zoom into ${tile.alt}`}
+        >
+          {body}
+        </button>
+      );
+    }
+    return (
+      <figure
+        className={`project-page__tile project-page__tile--media ${className}`}
+      >
+        {body}
+      </figure>
+    );
+  };
 
   return (
     <>
@@ -150,7 +248,7 @@ const ProjectPage = () => {
       </Helmet>
 
       <article
-        className="project-page"
+        className="project-page project-page--bento"
         ref={rootRef}
         aria-labelledby="project-title"
       >
@@ -193,114 +291,122 @@ const ProjectPage = () => {
           )}
         </header>
 
-        {/* ── Scope + Metrics two-column ── */}
-        <section
-          className="project-page__scope-grid reveal"
-          aria-label="Scope and metrics"
-        >
-          {description && (
-            <div className="project-page__scope-narrative">
-              <h2 className="project-page__section-label">Overview</h2>
-              <p className="project-page__desc">{description}</p>
+        {/* ── Summary bento: Overview + Scope (left) · Results (right) ── */}
+        {hasSummary && (
+          <section
+            className="project-page__summary reveal"
+            aria-label="Overview, scope and results"
+          >
+            {(description || highlights.length > 0) && (
+              <div className="project-page__col">
+                {description && (
+                  <div className="project-page__tile project-page__tile--text">
+                    <h2 className="project-page__section-label">Overview</h2>
+                    <p className="project-page__desc">{description}</p>
+                  </div>
+                )}
 
-              {highlights.length > 0 && (
-                <>
-                  <h2 className="project-page__section-label">Scope</h2>
-                  <dl className="project-page__scope-list">
-                    {highlights.map((item) => (
-                      <div
-                        key={item.title}
-                        className="project-page__scope-item"
-                      >
-                        <dt className="project-page__scope-title">
-                          {item.title}
-                        </dt>
-                        <dd className="project-page__scope-summary">
-                          {item.summary}
-                        </dd>
-                      </div>
-                    ))}
-                  </dl>
-                </>
-              )}
-            </div>
-          )}
+                {highlights.length > 0 && (
+                  <div className="project-page__tile project-page__tile--text">
+                    <h2 className="project-page__section-label">Scope</h2>
+                    <dl className="project-page__scope-list">
+                      {highlights.map((item) => (
+                        <div
+                          key={item.title}
+                          className="project-page__scope-item"
+                        >
+                          <dt className="project-page__scope-title">
+                            {item.title}
+                          </dt>
+                          <dd className="project-page__scope-summary">
+                            {item.summary}
+                          </dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                )}
+              </div>
+            )}
 
-          {metrics.length > 0 && (
-            <aside
-              className="project-page__metrics"
-              aria-label="Project metrics"
-            >
-              <h2 className="project-page__section-label">Results</h2>
-              <ul className="project-page__metrics-list">
-                {metrics.map((m) => (
-                  <li key={m.label} className="project-page__metric">
-                    <span className="project-page__metric-value">
-                      {m.value}
-                    </span>
-                    <span className="project-page__metric-label">
-                      {m.label}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </aside>
-          )}
-        </section>
+            {hasResults && (
+              <div
+                className="project-page__col project-page__col--results"
+                aria-label="Results"
+              >
+                <h2 className="project-page__section-label">Results</h2>
+                <div className="project-page__results-grid">
+                  {metrics.map((m, i) => (
+                    <div
+                      key={m.label}
+                      className={`project-page__tile project-page__metric${
+                        i === 0 ? ' project-page__metric--lead' : ''
+                      }`}
+                    >
+                      <span className="project-page__metric-value">
+                        {m.value}
+                      </span>
+                      <span className="project-page__metric-label">
+                        {m.label}
+                      </span>
+                    </div>
+                  ))}
 
-        {/* ── Result block ── */}
+                  {detailTiles.map((tile) => (
+                    <ImageTile key={tile.key} tile={tile} />
+                  ))}
+                </div>
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* ── Result quote band ── */}
         {result && (
           <section className="project-page__result reveal" aria-label="Outcome">
-            <h2 className="project-page__section-label">Outcome</h2>
             <p className="project-page__result-text">{result}</p>
           </section>
         )}
 
-        {/* ── Device mockup (if available) ── */}
-        {mockupOK && publicLongWeb && (
+        {/* ── Media gallery bento ── */}
+        {galleryTiles.length > 0 && (
           <section
-            className="project-page__media-block reveal"
-            aria-label="Live site preview"
+            className="project-page__gallery reveal"
+            data-count={galleryTiles.length}
+            aria-label="Project visuals"
           >
-            <DeviceMockup
-              key={slug}
-              frameSrc={macbookFrame}
-              contentSrc={publicLongWeb}
-              alt={imageAlt || `${title} preview`}
-              viewport={viewport || DEFAULT_VIEWPORT}
-              speed={35}
-              hold={0.6}
-              pauseOnHover
-              controls
-              className="project-page__mockup"
-            />
+            {galleryTiles.map((tile) =>
+              tile.type === 'mockup' ? (
+                <figure
+                  key={tile.key}
+                  className="project-page__tile project-page__tile--mockup project-page__tile--lead"
+                >
+                  <DeviceMockup
+                    key={slug}
+                    frameSrc={macbookFrame}
+                    contentSrc={publicLongWeb}
+                    alt={imageAlt || `${title} preview`}
+                    viewport={viewport || DEFAULT_VIEWPORT}
+                    speed={35}
+                    hold={0.6}
+                    pauseOnHover
+                    controls
+                    className="project-page__mockup"
+                  />
+                  {tile.caption && (
+                    <span className="project-page__tile-caption">
+                      {tile.caption}
+                    </span>
+                  )}
+                </figure>
+              ) : (
+                <ImageTile key={tile.key} tile={tile} />
+              )
+            )}
           </section>
         )}
 
-        {/* ── Detail image (if available, click to zoom) ── */}
-        {detailImageOK && publicImageSrc && (
-          <section
-            className="project-page__media-block reveal"
-            aria-label="Project detail image"
-          >
-            <button
-              type="button"
-              className="project-page__img-trigger"
-              onClick={() => setZoomOpen(true)}
-              aria-label={`Zoom into ${imageAlt || title}`}
-            >
-              <img
-                src={publicImageSrc}
-                alt={imageAlt || `${title} detail`}
-                className="project-page__img"
-                loading="lazy"
-              />
-              <span className="project-page__img-hint">Click to zoom</span>
-            </button>
-          </section>
-        )}
-
-        {/* ── CTA bar ── */}
+        {/* ── CTA footer bar ── */}
         <footer className="project-page__cta-bar reveal">
           <div className="project-page__cta-info">
             {kicker && (
@@ -339,13 +445,13 @@ const ProjectPage = () => {
           </div>
         </footer>
 
-        {/* ── Lightbox ── */}
-        {detailImageOK && publicImageSrc && (
+        {/* ── Lightbox (any zoomable tile) ── */}
+        {zoomSrc && (
           <ZoomLightbox
-            src={publicImageSrc}
+            src={zoomSrc}
             alt={imageAlt || title}
-            open={zoomOpen}
-            onClose={() => setZoomOpen(false)}
+            open={!!zoomSrc}
+            onClose={() => setZoomSrc(null)}
           />
         )}
       </article>
