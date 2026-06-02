@@ -145,7 +145,13 @@
 
 ### STILL OPEN
 - **C1 — real metrics:** Zahav / Crimson / Prodani still MOCK; FL Energy + Jo Marketing placeholders. Needs Moses's real numbers.
-- **T4 — analytics:** confirmed NONE in codebase. Blocks measuring all conversion work.
+- **V2 — LP badges:** landing-page projects not visually flagged in the tile grid.
+- **GA4 consent:** no cookie banner / Consent Mode v2 yet (needed if EU/UK traffic).
+
+### DONE SINCE AUDIT
+- White-flash fix on route navigation (per-route backdrop + opacity fade).
+- **T4 — analytics:** GA4 fully implemented (page_view + book_call_click conversion); guides in GA4-*.md. Awaiting Measurement ID + redeploy on Moses's side.
+- **Security:** `npm audit fix` — all production-runtime vulns resolved (react-router-dom 6.30.1→6.30.4, critical form-data gone). 63→28 remaining are dev/build-only, CRA-locked (svgo/nth-check/postcss/webpack-dev-server/workbox/jest); full fix needs migrating off Create React App.
 
 ## DAY 1 CHANGES — SHIPPED ✅
 Branch: `audit/pre-pitch-fixes`
