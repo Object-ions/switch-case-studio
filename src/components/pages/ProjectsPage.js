@@ -41,6 +41,9 @@ const ProjectsPage = () => {
               aria-label={`View case study: ${project.title}`}
             >
               <div className="projects-page__card-img">
+                {project.badge && (
+                  <span className="projects-page__card-badge">{project.badge}</span>
+                )}
                 <img
                   src={process.env.PUBLIC_URL + project.coverTile}
                   alt={project.imageAlt || project.title}

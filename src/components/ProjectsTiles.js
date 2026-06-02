@@ -65,6 +65,8 @@ const Tile = ({ proj, disabled }) => {
     >
       <div className="tile-bento-glow" aria-hidden="true" />
 
+      {proj.badge && <span className="tile-badge">{proj.badge}</span>}
+
       <div className="tile-media" aria-hidden="true">
         <img
           className="tile-image"

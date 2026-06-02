@@ -2,6 +2,7 @@
   {
     "id": 1,
     "slug": "florida-energy-assistance",
+    "badge": "Landing Page",
     "panelClass": "panel-card-3",
     "coverTile": "/projects/florida-energy-assistance/florida-energy-assistance-cover-tile.webp",
     "imageSrc": "/projects/florida-energy-assistance/1.avif",
@@ -53,6 +54,7 @@
   {
     "id": 2,
     "slug": "jo-marketing-11",
+    "badge": "Landing Page",
     "panelClass": "panel-card-2",
     "coverTile": "/projects/jo-marketing-11/jo-marketing-11-cover-tile.webp",
     "imageSrc": "/projects/jo-marketing-11/1.avif",
