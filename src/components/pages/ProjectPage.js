@@ -14,6 +14,7 @@ import useReducedMotion from '../../hooks/useReducedMotion';
 
 import ScrollingShot from '../ScrollingShot';
 import ZoomLightbox from '../ZoomLightbox';
+import MagneticButton from '../MagneticButton';
 
 import '../../styles/components/projectPage.scss';
 
@@ -278,18 +279,20 @@ const ProjectPage = () => {
           {(ctaUrl || (nextProject && nextProject.slug !== slug)) && (
             <div className="project-page__hero-actions">
               {ctaUrl && (
-                <a
-                  href={ctaUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="project-page__cta-button project-page__cta-button--primary"
-                >
-                  {ctaLabel || 'View Live'}{' '}
-                  <FontAwesomeIcon
-                    icon={faArrowUpRightFromSquare}
-                    aria-hidden="true"
-                  />
-                </a>
+                <MagneticButton>
+                  <a
+                    href={ctaUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-page__cta-button project-page__cta-button--primary"
+                  >
+                    {ctaLabel || 'View Live'}{' '}
+                    <FontAwesomeIcon
+                      icon={faArrowUpRightFromSquare}
+                      aria-hidden="true"
+                    />
+                  </a>
+                </MagneticButton>
               )}
 
               {nextProject && nextProject.slug !== slug && (
