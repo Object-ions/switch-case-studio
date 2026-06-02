@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion, useReducedMotion } from 'motion/react';
 import servicesData from '../../data/services.json';
+import ServiceRow from '../ServiceRow';
 import {
   headerVariants,
   lineVariant,
@@ -9,8 +9,6 @@ import {
   cardVariants,
 } from '../../utils/motionVariants';
 import '../../styles/components/pricingOverviewPage.scss';
-
-const MotionLink = motion.create(Link);
 
 const PricingOverviewPage = () => {
   const reduced = useReducedMotion();
@@ -42,7 +40,7 @@ const PricingOverviewPage = () => {
           viewport={{ once: true, amount: 0.3 }}
         >
           <motion.p className="pop-page__kicker" variants={v(lineVariant)}>
-            Services
+            Pricing
           </motion.p>
           <motion.h1 className="pop-page__title" variants={v(lineVariant)}>
             What we do,
@@ -55,9 +53,9 @@ const PricingOverviewPage = () => {
           </motion.p>
         </motion.header>
 
-        {/* ── Services grid ── */}
+        {/* ── Services index ── */}
         <motion.section
-          className="pop-page__grid"
+          className="pop-page__list"
           aria-label="Service list"
           variants={v(containerVariants)}
           initial="hidden"
@@ -65,23 +63,14 @@ const PricingOverviewPage = () => {
           viewport={{ once: true, amount: 0.1 }}
         >
           {servicesData.map((service) => (
-            <MotionLink
+            <ServiceRow
               key={service.slug}
               to={`/pricing/${service.slug}`}
-              className="pop-page__card"
-              aria-label={`View pricing for ${service.title}`}
+              iconName={service.icon}
+              title={service.title}
+              subtitle={service.subTitle}
               variants={v(cardVariants)}
-              whileHover={reduced ? undefined : { y: -4, transition: { duration: 0.25 } }}
-            >
-              <div className="pop-page__card-head">
-                <h2 className="pop-page__card-title">{service.title}</h2>
-                <p className="pop-page__card-sub">{service.subTitle}</p>
-              </div>
-
-              <span className="pop-page__card-cta" aria-hidden="true">
-                See pricing →
-              </span>
-            </MotionLink>
+            />
           ))}
         </motion.section>
 

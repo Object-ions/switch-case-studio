@@ -1,0 +1,80 @@
+@import '../_variables.scss';
+
+// Full-width service index row. Single column, scanned top→down.
+// Default: icon + name + arrow. Hover: row tint, arrow fills, subtitle reveals.
+.svc-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.6rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+  transition: background-color 0.3s ease, padding-left 0.3s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba($g6, 0.05);
+    padding-left: 2rem;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: 1.6rem;
+    font-size: 1.2rem;
+    color: $g6;
+    text-align: center;
+  }
+
+  &__title {
+    flex-shrink: 0;
+    // Inter Light — NeueMachina (display) read too bold/black for a list.
+    // 300 is loaded via the Inter <link> in index.html.
+    font-family: $font-text;
+    font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    color: #fff;
+  }
+
+  // Subtitle pushed to the right; revealed on hover.
+  &__sub {
+    margin-left: auto;
+    max-width: 42ch;
+    text-align: right;
+    font-family: $font-text;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.55);
+
+    @media (max-width: 860px) {
+      display: none; // hover-only content; no room (and no hover) on small screens
+    }
+  }
+
+  &__word {
+    display: inline-block;
+    margin-right: 0.25em;
+    will-change: opacity, filter;
+  }
+
+  &__arrow {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+
+    @media (max-width: 860px) {
+      margin-left: auto; // takes the spacer role once the subtitle is hidden
+    }
+  }
+}

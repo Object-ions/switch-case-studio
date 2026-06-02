@@ -10,10 +10,10 @@
   &__header {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 8rem 6rem 5rem;
+    padding: 8rem 6rem 6.5rem;
 
-    @media (max-width: 1024px) { padding: 6rem 3rem 4rem; }
-    @media (max-width: 768px)  { padding: 5rem 1.5rem 3.5rem; }
+    @media (max-width: 1024px) { padding: 6rem 3rem 5rem; }
+    @media (max-width: 768px)  { padding: 5rem 1.5rem 4rem; }
   }
 
   &__kicker {
@@ -26,10 +26,12 @@
   }
 
   &__title {
-    font-family: $font-special;
-    font-size: clamp(2.75rem, 6.5vw, 5.5rem);
-    font-weight: 800;
-    line-height: 1.0;
+    // Inter (not NeueMachina) so the weight is adjustable — Ultrabold read
+    // too heavy here. Inter ships 400–800; 600 keeps presence without the bulk.
+    font-family: $font-text;
+    font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+    font-weight: 600;
+    line-height: 1.08;
     letter-spacing: -0.03em;
     margin: 0 0 1.75rem;
     color: #fff;
@@ -47,86 +49,15 @@
     margin: 0;
   }
 
-  // ── Grid ──
-  &__grid {
-    max-width: 1200px;
+  // ── Service index list (single column of ServiceRows) ──
+  &__list {
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 0 6rem 5rem;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
+    padding: 2.5rem 6rem 8rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 
-    @media (max-width: 1024px) {
-      padding: 0 3rem 4rem;
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    @media (max-width: 640px) {
-      padding: 0 1.5rem 3.5rem;
-      grid-template-columns: 1fr;
-    }
-  }
-
-  // ── Card ──
-  &__card {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    min-height: 190px;
-    padding: 2rem;
-    background: #0a0a0a;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    text-decoration: none;
-    color: #fff;
-    transition:
-      border-color 0.3s ease,
-      transform 0.3s ease,
-      background 0.3s ease;
-
-    &:hover {
-      border-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-3px);
-      background: #0f0f0f;
-
-      .pop-page__card-cta {
-        color: $orange-color;
-      }
-    }
-
-    &-head {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    &-title {
-      font-family: $font-special;
-      font-size: clamp(1.4rem, 2vw, 1.65rem);
-      font-weight: 800;
-      line-height: 1.1;
-      letter-spacing: -0.01em;
-      margin: 0;
-      color: #fff;
-    }
-
-    &-sub {
-      font-size: 0.9rem;
-      line-height: 1.45;
-      color: rgba(255, 255, 255, 0.6);
-      margin: 0;
-      font-weight: 500;
-    }
-
-    &-cta {
-      margin-top: auto;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.35);
-      transition: color 0.3s ease;
-    }
+    @media (max-width: 1024px) { padding: 2rem 3rem 6.5rem; }
+    @media (max-width: 640px)  { padding: 1.5rem 1.5rem 5rem; }
   }
 
   // ── Bottom CTA ──
