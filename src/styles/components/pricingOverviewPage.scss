@@ -72,6 +72,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
+    min-height: 190px;
     padding: 2rem;
     background: #0a0a0a;
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -96,60 +97,25 @@
     &-head {
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
-      padding-bottom: 1.25rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      gap: 0.5rem;
     }
 
     &-title {
       font-family: $font-special;
-      font-size: 1.2rem;
+      font-size: clamp(1.4rem, 2vw, 1.65rem);
       font-weight: 800;
+      line-height: 1.1;
       letter-spacing: -0.01em;
       margin: 0;
       color: #fff;
     }
 
     &-sub {
-      font-size: 0.82rem;
-      color: $orange-color;
+      font-size: 0.9rem;
+      line-height: 1.45;
+      color: rgba(255, 255, 255, 0.6);
       margin: 0;
       font-weight: 500;
-    }
-
-    &-desc {
-      font-size: 0.875rem;
-      line-height: 1.65;
-      color: rgba(255, 255, 255, 0.5);
-      margin: 0;
-    }
-
-    &-items {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      flex: 1;
-    }
-
-    &-item {
-      display: flex;
-      align-items: baseline;
-      gap: 0.625rem;
-      font-size: 0.82rem;
-      color: rgba(255, 255, 255, 0.55);
-
-      &-dot {
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        background: $orange-color;
-        flex-shrink: 0;
-        position: relative;
-        top: -1px;
-      }
     }
 
     &-cta {

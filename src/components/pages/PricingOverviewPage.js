@@ -78,19 +78,6 @@ const PricingOverviewPage = () => {
                 <p className="pop-page__card-sub">{service.subTitle}</p>
               </div>
 
-              <p className="pop-page__card-desc">{service.description}</p>
-
-              {service.items?.length > 0 && (
-                <ul className="pop-page__card-items" aria-label="Included">
-                  {service.items.map((item) => (
-                    <li key={item} className="pop-page__card-item">
-                      <span className="pop-page__card-item-dot" aria-hidden="true" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              )}
-
               <span className="pop-page__card-cta" aria-hidden="true">
                 See pricing →
               </span>
