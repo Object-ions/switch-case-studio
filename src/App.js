@@ -15,6 +15,7 @@ import Contact from "./components/pages/Contact";
 import Faq from "./components/Faq";
 import GradientStripe from "./components/StripeSection";
 import ScrollToTop from "./components/ScrollToTop";
+import RouteAnalytics from "./analytics/RouteAnalytics";
 import Orb from "./assets/images/orb.avif";
 import "./styles/app.scss";
 
@@ -95,6 +96,7 @@ function App() {
   return (
     <HelmetProvider>
       <ScrollToTop />
+      <RouteAnalytics />
 
       <Routes>
         <Route element={<Layout />}>
