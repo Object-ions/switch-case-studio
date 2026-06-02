@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion, useReducedMotion } from 'motion/react';
 import projectsData from '../../data/projects.json';
+import HoverPeek from '../HoverPeek';
 import {
   headerVariants,
   lineVariant,
@@ -62,8 +63,12 @@ const ProjectsPage = () => {
           viewport={{ once: true, amount: 0.1 }}
         >
           {projectsData.map((project) => (
-            <MotionLink
+            <HoverPeek
               key={project.slug}
+              imageSrc={project.longWeb}
+              alt={`${project.title} — website preview`}
+            >
+            <MotionLink
               to={`/projects/${project.slug}`}
               className="projects-page__card"
               aria-label={`View case study: ${project.title}`}
@@ -107,6 +112,7 @@ const ProjectsPage = () => {
                 </span>
               </div>
             </MotionLink>
+            </HoverPeek>
           ))}
         </motion.section>
 

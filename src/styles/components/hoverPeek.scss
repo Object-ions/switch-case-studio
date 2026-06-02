@@ -1,0 +1,37 @@
+@import '../_variables.scss';
+
+// Floating screenshot preview shown on card hover (Radix HoverCard content).
+// Dark card to match the /projects page; perspective enables the flip-in.
+.hover-peek {
+  perspective: 800px;
+  z-index: 50;
+
+  &__card {
+    padding: 4px;
+    border-radius: 12px;
+    background: #0a0a0a;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 22px 55px -20px rgba(0, 0, 0, 0.7);
+    transform-origin: center center;
+  }
+
+  &__img {
+    display: block;
+    border-radius: 8px;
+    // The source is a tall full-page screenshot — crop to the top so the
+    // peek shows the hero rather than squashing the whole page.
+    object-fit: cover;
+    object-position: top;
+  }
+
+  &__fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.5);
+    font-family: $font-text;
+    font-size: 0.75rem;
+  }
+}
