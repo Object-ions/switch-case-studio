@@ -70,7 +70,7 @@ const Tile = ({ proj, disabled }) => {
       <div className="tile-media" aria-hidden="true">
         <img
           className="tile-image"
-          src={process.env.PUBLIC_URL + proj.coverTile}
+          src={proj.coverTile}
           alt=""
           loading="lazy"
         />

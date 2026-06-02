@@ -58,12 +58,8 @@ const ProjectPage = () => {
     };
   }, [slug]);
 
-  const publicLongWeb = project?.longWeb
-    ? process.env.PUBLIC_URL + project.longWeb
-    : null;
-  const publicImageSrc = project?.imageSrc
-    ? process.env.PUBLIC_URL + project.imageSrc
-    : null;
+  const publicLongWeb = project?.longWeb ? project.longWeb : null;
+  const publicImageSrc = project?.imageSrc ? project.imageSrc : null;
 
   const mockupOK = useImagePreload(publicLongWeb);
   const detailImageOK = useImagePreload(publicImageSrc);

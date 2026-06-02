@@ -1,26 +1,25 @@
 /**
  * Google Analytics 4 (gtag.js) — dependency-free integration.
  *
- * Configuration is via environment variables (Create React App bakes these in
- * at BUILD time, so you must rebuild/redeploy after changing them):
+ * Configuration is via environment variables (Vite inlines these at BUILD time,
+ * so you must rebuild/redeploy after changing them):
  *
- *   REACT_APP_GA_MEASUREMENT_ID   GA4 Measurement ID, e.g. "G-XXXXXXXXXX"
- *   REACT_APP_GA_DEBUG=true       (optional) also send from a local/dev build
+ *   VITE_GA_MEASUREMENT_ID   GA4 Measurement ID, e.g. "G-XXXXXXXXXX"
+ *   VITE_GA_DEBUG=true       (optional) also send from a local/dev build
  *
- * Analytics is OFF unless a Measurement ID is present AND the build is a
- * production build (or REACT_APP_GA_DEBUG=true). This keeps local dev and the
- * test runner from polluting real reports.
+ * Analytics is OFF unless a Measurement ID is present AND this is a production
+ * build (or VITE_GA_DEBUG=true). This keeps local dev from polluting real
+ * reports.
  *
  * See GA4-SETUP.md for the Google-side setup that produces the Measurement ID.
  */
 
-export const GA_MEASUREMENT_ID = process.env.REACT_APP_GA_MEASUREMENT_ID;
+export const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
 
-const FORCE_DEBUG = process.env.REACT_APP_GA_DEBUG === "true";
+const FORCE_DEBUG = import.meta.env.VITE_GA_DEBUG === "true";
 
 export const analyticsEnabled =
-  Boolean(GA_MEASUREMENT_ID) &&
-  (process.env.NODE_ENV === "production" || FORCE_DEBUG);
+  Boolean(GA_MEASUREMENT_ID) && (import.meta.env.PROD || FORCE_DEBUG);
 
 // URL fragment that identifies the primary conversion CTA (the booking calendar).
 const BOOKING_URL_MATCH = "calendar.app.google";

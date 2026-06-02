@@ -27,7 +27,7 @@ const ClientStrip = () => {
           {[...CLIENTS, ...CLIENTS].map((c, i) => (
             <li key={i} className="client-strip__item">
               <img
-                src={process.env.PUBLIC_URL + c.tile}
+                src={c.tile}
                 alt={c.name}
                 className="client-strip__logo"
                 loading="lazy"
