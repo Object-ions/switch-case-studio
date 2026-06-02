@@ -53,6 +53,19 @@ const ServiceRow = ({ to, iconName, title, subtitle, variants }) => {
       onFocus={() => setHovered(true)}
       onBlur={() => setHovered(false)}
     >
+      {!reduced && (
+        <motion.span
+          className="svc-row__glow"
+          aria-hidden="true"
+          initial={false}
+          animate={{ opacity: hovered ? 0.55 : 0, scale: hovered ? 1 : 0.8 }}
+          transition={{ duration: 0.35, ease: 'easeOut' }}
+          style={{
+            background: `radial-gradient(circle, ${BLOB} 0%, rgba(255,255,255,0) 70%)`,
+          }}
+        />
+      )}
+
       <span className="svc-row__icon" aria-hidden="true">
         <FontAwesomeIcon icon={icon} />
       </span>

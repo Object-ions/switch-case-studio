@@ -10,6 +10,7 @@
   padding: 1.6rem 1.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   text-decoration: none;
+  overflow: hidden; // clip the glow to the row
   transition: background-color 0.3s ease, padding-left 0.3s ease;
 
   &:hover,
@@ -22,7 +23,23 @@
     outline: none;
   }
 
+  // Lilac glow blooming from the lower-left on hover.
+  &__glow {
+    position: absolute;
+    left: -2rem;
+    bottom: -5rem;
+    width: 26rem;
+    height: 13rem;
+    border-radius: 50%;
+    filter: blur(24px);
+    transform-origin: center;
+    pointer-events: none;
+    z-index: 0;
+  }
+
   &__icon {
+    position: relative;
+    z-index: 1;
     flex-shrink: 0;
     width: 1.6rem;
     font-size: 1.2rem;
@@ -31,6 +48,8 @@
   }
 
   &__title {
+    position: relative;
+    z-index: 1;
     flex-shrink: 0;
     // Inter Light — NeueMachina (display) read too bold/black for a list.
     // 300 is loaded via the Inter <link> in index.html.
@@ -44,6 +63,8 @@
 
   // Subtitle pushed to the right; revealed on hover.
   &__sub {
+    position: relative;
+    z-index: 1;
     margin-left: auto;
     max-width: 42ch;
     text-align: right;
@@ -64,6 +85,8 @@
   }
 
   &__arrow {
+    position: relative;
+    z-index: 1;
     flex-shrink: 0;
     width: 42px;
     height: 42px;
