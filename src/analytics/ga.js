@@ -27,18 +27,43 @@ const BOOKING_URL_MATCH = "calendar.app.google";
 
 let scriptInjected = false;
 
+// localStorage key holding the visitor's consent choice ("granted" | "denied").
+export const CONSENT_KEY = "scs-analytics-consent";
+
+/** The stored consent choice, or null if the visitor hasn't chosen yet. */
+export function getStoredConsent() {
+  try {
+    return window.localStorage.getItem(CONSENT_KEY);
+  } catch {
+    return null;
+  }
+}
+
+const GRANTED = {
+  ad_storage: "granted",
+  analytics_storage: "granted",
+  ad_user_data: "granted",
+  ad_personalization: "granted",
+};
+const DENIED = {
+  ad_storage: "denied",
+  analytics_storage: "denied",
+  ad_user_data: "denied",
+  ad_personalization: "denied",
+};
+
 /**
  * Inject gtag.js once and configure the property. page_view is sent manually
  * (send_page_view:false) because this is a single-page app — see trackPageView.
+ *
+ * Consent Mode v2: consent defaults to DENIED, so until the visitor opts in GA
+ * runs cookieless (no analytics/ads cookies — only anonymous, modeled pings).
+ * A previously stored "granted" choice is re-applied so returning visitors
+ * aren't re-prompted.
  */
 export function initGA() {
   if (!analyticsEnabled || scriptInjected || typeof window === "undefined") return;
   scriptInjected = true;
-
-  const script = document.createElement("script");
-  script.async = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-  document.head.appendChild(script);
 
   window.dataLayer = window.dataLayer || [];
   function gtag() {
@@ -46,11 +71,35 @@ export function initGA() {
   }
   window.gtag = gtag;
 
+  // Must be set before config (and before any event) — queued ahead in dataLayer.
+  gtag("consent", "default", { ...DENIED, wait_for_update: 500 });
+  if (getStoredConsent() === "granted") {
+    gtag("consent", "update", GRANTED);
+  }
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+  document.head.appendChild(script);
+
   gtag("js", new Date());
   gtag("config", GA_MEASUREMENT_ID, {
     send_page_view: false, // SPA: we fire page_view on each route change
     ...(FORCE_DEBUG ? { debug_mode: true } : {}),
   });
+}
+
+/** Persist the visitor's consent choice and update gtag's consent state live. */
+export function setConsent(granted) {
+  const value = granted ? "granted" : "denied";
+  try {
+    window.localStorage.setItem(CONSENT_KEY, value);
+  } catch {
+    /* storage unavailable (private mode) — choice just won't persist */
+  }
+  if (typeof window.gtag === "function") {
+    window.gtag("consent", "update", granted ? GRANTED : DENIED);
+  }
 }
 
 /** Send a SPA page_view. Call after the route (and document.title) has updated. */

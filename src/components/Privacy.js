@@ -31,8 +31,14 @@ const Privacy = () => {
         </li>
       </ul>
       <p>
-        We do not use tracking cookies, analytics pixels (like Google Analytics
-        or Facebook Pixel), or third-party advertising trackers on this website.
+        <strong>Analytics:</strong> We use Google Analytics 4 to understand how
+        visitors use our site (for example, which pages are viewed and which
+        links are clicked) so we can improve it. This is governed by consent:
+        analytics are <strong>off by default</strong> and only run if you select
+        “Accept” in our cookie banner. If you decline, no analytics cookies are
+        set and tracking stays off. You can change your choice by clearing this
+        site’s data in your browser. We do not use advertising trackers or sell
+        any data.
       </p>
 
       <h2>2. How We Use Your Information</h2>

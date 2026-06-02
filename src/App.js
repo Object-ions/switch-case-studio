@@ -16,6 +16,7 @@ import Faq from "./components/Faq";
 import GradientStripe from "./components/StripeSection";
 import ScrollToTop from "./components/ScrollToTop";
 import RouteAnalytics from "./analytics/RouteAnalytics";
+import ConsentBanner from "./analytics/ConsentBanner";
 import Orb from "./assets/images/orb.avif";
 import "./styles/app.scss";
 
@@ -97,6 +98,7 @@ function App() {
     <HelmetProvider>
       <ScrollToTop />
       <RouteAnalytics />
+      <ConsentBanner />
 
       <Routes>
         <Route element={<Layout />}>
