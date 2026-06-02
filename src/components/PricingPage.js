@@ -1,7 +1,6 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
 import pricingData from '../data/pricingData.json';
 import { PricingGuide } from './PricingGuide';
-import glitchEffect from '../assets/videos/glitch-effect.mp4';
 
 const slugToServiceId = {
   'web-development': 'web-development',
@@ -52,7 +51,7 @@ function PricingPage() {
   const exists = pricingData.services.some((s) => s.id === serviceId);
   if (!exists) return <Navigate to="/pricing" replace />;
 
-  return <PricingGuide serviceId={serviceId} heroSrc={glitchEffect} />;
+  return <PricingGuide serviceId={serviceId} />;
 }
 
 export default PricingPage;

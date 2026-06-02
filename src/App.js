@@ -56,9 +56,9 @@ const HomeContent = () => (
 // Routes whose pages are LIGHT-themed (dark text on a light surface) and
 // therefore rely on a light backdrop. Everything else is dark (#000).
 // - /privacy, /terms, /accessibility  → .legal-page (dark text, no own bg)
-// - /pricing/:serviceSlug             → PricingGuide ($grey-color surface)
-// NOTE: /pricing (overview) is dark, so only /pricing/<slug> matches.
-const LIGHT_ROUTES = /^\/(privacy|terms|accessibility)(\/|$)|^\/pricing\/[^/]+/;
+// NOTE: /pricing/:slug is now dark (black surface, light cards), so it is
+// intentionally NOT in this list.
+const LIGHT_ROUTES = /^\/(privacy|terms|accessibility)(\/|$)/;
 
 /**
  * Layout route element — renders MainLayout once and lets nested

@@ -3,69 +3,46 @@
 
 .pricing-guide {
   --pad: clamp(16px, 3vw, 48px);
-  background: $grey-color;
-  color: $orange-color;
+  background: #000;
+  color: $g6;
   font-family: $font-text;
   padding: var(--pad);
 }
 
-/* Giant “PRICING GUIDE” headline */
+/* Clean page header — matches the other standalone pages. */
 .pg-head {
   position: relative;
-  margin-bottom: clamp(24px, 5vw, 56px);
+  max-width: 1100px;
+  margin: 0 auto clamp(28px, 5vw, 56px);
 }
 
-.pg-title {
+.pg-kicker {
+  font-family: $font-text;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: $g6;
+  margin: 0 0 1.25rem;
+}
+
+.pg-h1 {
   font-family: $font-special;
-  text-transform: uppercase;
-  line-height: 0.85;
-  letter-spacing: 0.01em;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: $white-color;
+  margin: 0 0 1.25rem;
+}
+
+.pg-sub {
+  font-family: $font-text;
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 52ch;
   margin: 0;
-  font-size: clamp(56px, 16vw, 180px);
-  max-width: 15ch;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Service left / Company right */
-.pg-meta {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: end;
-  margin-top: clamp(6px, 1.6vw, 12px);
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  font-size: clamp(12px, 1.4vw, 18px);
-}
-
-.pg-service {
-  justify-self: start;
-}
-.pg-company {
-  justify-self: end;
-}
-
-/* Organic blob image overlapping headline */
-.pg-blob {
-  position: absolute;
-  right: -35px;
-  top: 50%;
-  transform: translateY(-20%);
-  width: clamp(160px, 28vw, 360px);
-  aspect-ratio: 1/1;
-  margin: 0;
-  border-radius: 58% 42% 52% 48% / 62% 44% 56% 38%;
-  overflow: hidden;
-  z-index: 1;
-
-  img,
-  video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
 }
 
 /* Packages */
@@ -73,9 +50,21 @@
   margin-top: clamp(24px, 4vw, 48px);
 }
 
+// Stack of SinglePricingCards (one per tier).
+.pg-cards {
+  position: relative;
+  z-index: 10;
+  margin-top: clamp(24px, 4vw, 48px);
+  display: grid;
+  gap: clamp(20px, 3vw, 32px);
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .pg-package {
   padding: 10px;
-  color: $orange-color;
+  color: $g6;
   transition: background 0.25s ease, color 0.25s ease;
   z-index: 10;
   position: relative;
@@ -105,7 +94,7 @@
   margin: 10px 0;
   height: 0;
   background: none;
-  border-top: 3px dotted $orange-color; // default orange
+  border-top: 3px dotted $g6; // default orange
   transition: border-color 0.25s ease;
 
   .pg-package:hover & {
@@ -197,7 +186,7 @@
     font-weight: 700;
     letter-spacing: 0.02em;
     text-decoration: underline;
-    color: $orange-color;
+    color: $g6;
     font-size: clamp(12px, 1.6vw, 16px);
     word-break: break-word;
   }

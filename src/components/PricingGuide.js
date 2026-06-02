@@ -1,7 +1,36 @@
 import React, { useMemo } from 'react';
+import { motion, useReducedMotion } from 'motion/react';
+import {
+  faBolt,
+  faClock,
+  faHeart,
+} from '@fortawesome/free-solid-svg-icons';
+
 import pricingData from '../data/pricingData.json';
+import testimonialsData from '../data/testimonials.json';
+import SinglePricingCard from './SinglePricingCard';
+import { headerVariants, lineVariant } from '../utils/motionVariants';
 
 import '../styles/components/pricingGuide.scss';
+
+const BOOK_CALL = 'https://calendar.app.google/83UCJjis2FHUrr1s6';
+
+// Shared studio reassurances shown on every tier.
+const BENEFITS = [
+  { text: 'Built from scratch — no templates', icon: faBolt },
+  { text: 'Most builds ship in under 2 weeks', icon: faClock },
+  { text: 'Work directly with the people building it', icon: faHeart },
+];
+
+// Rotating social proof, mapped from the testimonials data.
+const TESTIMONIALS = testimonialsData.map((t) => ({
+  id: t.id,
+  name: t.name,
+  role: t.title,
+  content: t.highlight,
+  rating: 5,
+  avatar: t.image,
+}));
 
 const formatMoney = (n) =>
   n.toLocaleString(undefined, {
@@ -10,7 +39,10 @@ const formatMoney = (n) =>
     maximumFractionDigits: 0,
   });
 
-export const PricingGuide = ({ serviceId, heroSrc }) => {
+export const PricingGuide = ({ serviceId }) => {
+  const reduced = useReducedMotion();
+  const v = (variant) => (reduced ? undefined : variant);
+
   const service = useMemo(
     () => pricingData.services.find((s) => s.id === serviceId),
     [serviceId]
@@ -18,65 +50,51 @@ export const PricingGuide = ({ serviceId, heroSrc }) => {
 
   if (!service) {
     return (
-      <section className={`pricing-guide`}>
+      <section className="pricing-guide">
         <p className="pg-empty">No pricing found for this service.</p>
       </section>
     );
   }
 
   return (
-    <section className={`pricing-guide`} aria-labelledby="pg-title">
-      <header className="pg-head">
-        <h1 id="pg-title" className="pg-title" aria-label="Pricing Guide">
-          <span aria-hidden style={{ textAlign: 'left' }}>
-            PRICING
-          </span>
-          <span
-            aria-hidden
-            style={{ textAlign: 'right', paddingRight: '250px' }}
-          >
-            GUIDE
-          </span>
-        </h1>
+    <section className="pricing-guide" aria-labelledby="pg-title">
+      <motion.header
+        className="pg-head"
+        variants={v(headerVariants)}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+      >
+        <motion.p className="pg-kicker" variants={v(lineVariant)}>
+          Pricing
+        </motion.p>
+        <motion.h1 id="pg-title" className="pg-h1" variants={v(lineVariant)}>
+          {service.title}
+        </motion.h1>
+        <motion.p className="pg-sub" variants={v(lineVariant)}>
+          {service.subtitle}
+        </motion.p>
+      </motion.header>
 
-        <div className="pg-meta">
-          <div className="pg-service">For: {service.title.toUpperCase()}</div>
-          <div className="pg-company">Switch Case Studio</div>
-        </div>
-
-        {heroSrc && (
-          <figure className="pg-blob">
-            <video
-              src={heroSrc}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              aria-hidden="true"
-            />
-          </figure>
-        )}
-      </header>
-
-      <div className="pg-packages">
+      <div className="pg-cards">
         {service.tiers.map((tier, idx) => (
-          <article key={tier.name} className="pg-package" role="listitem">
-            <div className="pg-row">
-              <div className="pg-row__name">{tier.name}</div>
-              <div className="pg-row__leader" aria-hidden />
-              <div className="pg-row__price">
-                {formatMoney(tier.price)}
-                {tier.billing === 'monthly' ? '/mo' : ''}
-              </div>
-            </div>
-
-            <ul className="pg-list">
-              {tier.includes.map((item, i) => (
-                <li key={i}>{item}</li>
-              ))}
-            </ul>
-          </article>
+          <SinglePricingCard
+            key={tier.name}
+            badge={service.title}
+            title={tier.name}
+            subtitle={tier.description}
+            price={{
+              current: formatMoney(tier.price),
+              note: tier.billing === 'monthly' ? 'per month' : 'one-time',
+            }}
+            benefits={BENEFITS}
+            features={tier.includes}
+            featuresTitle="What's included"
+            primaryButton={{ text: 'Book a free call', href: BOOK_CALL }}
+            secondaryButton={{ text: 'See our work', href: '/projects' }}
+            testimonials={TESTIMONIALS}
+            rotationSpeed={5000 + idx * 600}
+          />
         ))}
       </div>
 
@@ -93,7 +111,7 @@ export const PricingGuide = ({ serviceId, heroSrc }) => {
       <footer className="pg-footer" aria-label="Contact">
         <a
           className="pg-link"
-          href="https://calendar.app.google/83UCJjis2FHUrr1s6"
+          href={BOOK_CALL}
           target="_blank"
           rel="noreferrer"
         >
@@ -107,7 +125,6 @@ export const PricingGuide = ({ serviceId, heroSrc }) => {
         >
           hello@switchcasestudio.com
         </a>
-        {/* <div className="pg-phone">TEL. +1-234-567-8910</div> */}
       </footer>
     </section>
   );
