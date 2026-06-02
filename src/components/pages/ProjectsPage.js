@@ -45,7 +45,7 @@ const ProjectsPage = () => {
                   <span className="projects-page__card-badge">{project.badge}</span>
                 )}
                 <img
-                  src={process.env.PUBLIC_URL + project.coverTile}
+                  src={project.coverTile}
                   alt={project.imageAlt || project.title}
                   loading="lazy"
                 />

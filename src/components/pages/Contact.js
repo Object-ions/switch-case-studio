@@ -9,10 +9,10 @@ import '../../styles/components/contact.scss';
 gsap.registerPlugin(ScrollTrigger);
 
 const {
-  REACT_APP_EMAILJS_SERVICE_ID,
-  REACT_APP_EMAILJS_TEMPLATE_ID,
-  REACT_APP_EMAILJS_USER_ID,
-} = process.env;
+  VITE_EMAILJS_SERVICE_ID,
+  VITE_EMAILJS_TEMPLATE_ID,
+  VITE_EMAILJS_USER_ID,
+} = import.meta.env;
 
 /* ------------------------------------------------------------------ *
  * Social links (left column)
@@ -47,10 +47,10 @@ const Contact = () => {
 
     emailjs
       .sendForm(
-        REACT_APP_EMAILJS_SERVICE_ID,
-        REACT_APP_EMAILJS_TEMPLATE_ID,
+        VITE_EMAILJS_SERVICE_ID,
+        VITE_EMAILJS_TEMPLATE_ID,
         formRef.current,
-        REACT_APP_EMAILJS_USER_ID,
+        VITE_EMAILJS_USER_ID,
       )
       .then(
         () => {
