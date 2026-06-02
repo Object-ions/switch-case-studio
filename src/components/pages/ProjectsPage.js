@@ -1,9 +1,20 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { motion, useReducedMotion } from 'motion/react';
 import projectsData from '../../data/projects.json';
+import {
+  headerVariants,
+  lineVariant,
+  containerVariants,
+  cardVariants,
+} from '../../utils/motionVariants';
 import '../../styles/components/projectsPage.scss';
 
+const MotionLink = motion.create(Link);
+
 const ProjectsPage = () => {
+  const reduced = useReducedMotion();
+  const v = (variant) => (reduced ? undefined : variant);
 
   return (
     <>
@@ -23,22 +34,41 @@ const ProjectsPage = () => {
 
       <article className="projects-page" aria-label="Case studies">
         {/* ── Header ── */}
-        <header className="projects-page__header">
-          <p className="projects-page__kicker">Portfolio</p>
-          <h1 className="projects-page__title">Selected Work</h1>
-          <p className="projects-page__lede">
+        <motion.header
+          className="projects-page__header"
+          variants={v(headerVariants)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.p className="projects-page__kicker" variants={v(lineVariant)}>
+            Portfolio
+          </motion.p>
+          <motion.h1 className="projects-page__title" variants={v(lineVariant)}>
+            Selected Work
+          </motion.h1>
+          <motion.p className="projects-page__lede" variants={v(lineVariant)}>
             {projectsData.length} projects. All built from scratch.
-          </p>
-        </header>
+          </motion.p>
+        </motion.header>
 
         {/* ── Grid ── */}
-        <section className="projects-page__grid" aria-label="Project list">
+        <motion.section
+          className="projects-page__grid"
+          aria-label="Project list"
+          variants={v(containerVariants)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
           {projectsData.map((project) => (
-            <Link
+            <MotionLink
               key={project.slug}
               to={`/projects/${project.slug}`}
               className="projects-page__card"
               aria-label={`View case study: ${project.title}`}
+              variants={v(cardVariants)}
+              whileHover={reduced ? undefined : { y: -4, transition: { duration: 0.25 } }}
             >
               <div className="projects-page__card-img">
                 {project.badge && (
@@ -76,12 +106,18 @@ const ProjectsPage = () => {
                   View case study →
                 </span>
               </div>
-            </Link>
+            </MotionLink>
           ))}
-        </section>
+        </motion.section>
 
         {/* ── Bottom CTA ── */}
-        <div className="projects-page__bottom">
+        <motion.div
+          className="projects-page__bottom"
+          variants={v(cardVariants)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
           <p className="projects-page__bottom-text">
             Want to see what we can build for you?
           </p>
@@ -93,7 +129,7 @@ const ProjectsPage = () => {
           >
             Book a Free Call
           </a>
-        </div>
+        </motion.div>
       </article>
     </>
   );

@@ -1,9 +1,18 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { motion, useReducedMotion } from 'motion/react';
 import servicesData from '../../data/services.json';
+import {
+  headerVariants,
+  lineVariant,
+  containerVariants,
+  cardVariants,
+} from '../../utils/motionVariants';
 import '../../styles/components/servicesPage.scss';
 
 const ServicesPage = () => {
+  const reduced = useReducedMotion();
+  const v = (variant) => (reduced ? undefined : variant);
 
   return (
     <>
@@ -22,22 +31,41 @@ const ServicesPage = () => {
       </Helmet>
 
       <article className="services-page" aria-label="Services">
-        <header className="services-page__header">
-          <p className="services-page__kicker">What we do</p>
-          <h1 className="services-page__title">
+        <motion.header
+          className="services-page__header"
+          variants={v(headerVariants)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.p className="services-page__kicker" variants={v(lineVariant)}>
+            What we do
+          </motion.p>
+          <motion.h1 className="services-page__title" variants={v(lineVariant)}>
             Everything your
             <br />
             <span className="services-page__title--accent">digital presence needs.</span>
-          </h1>
-          <p className="services-page__lede">
+          </motion.h1>
+          <motion.p className="services-page__lede" variants={v(lineVariant)}>
             Design, development, marketing, and automation — we handle the
             full stack of what a growing business needs online.
-          </p>
-        </header>
+          </motion.p>
+        </motion.header>
 
-        <section className="services-page__list" aria-label="Service list">
+        <motion.section
+          className="services-page__list"
+          aria-label="Service list"
+          variants={v(containerVariants)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.05 }}
+        >
           {servicesData.map((service, i) => (
-            <div key={service.slug} className="services-page__service">
+            <motion.div
+              key={service.slug}
+              className="services-page__service"
+              variants={v(cardVariants)}
+            >
               <div className="services-page__service-index">
                 {String(i + 1).padStart(2, '0')}
               </div>
@@ -69,11 +97,17 @@ const ServicesPage = () => {
                   See pricing →
                 </Link>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </section>
+        </motion.section>
 
-        <div className="services-page__bottom">
+        <motion.div
+          className="services-page__bottom"
+          variants={v(cardVariants)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
           <h2 className="services-page__bottom-heading">
             Not sure what you need?
           </h2>
@@ -88,7 +122,7 @@ const ServicesPage = () => {
           >
             Book a Free Call
           </a>
-        </div>
+        </motion.div>
       </article>
     </>
   );

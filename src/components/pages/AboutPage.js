@@ -1,5 +1,12 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { motion, useReducedMotion } from 'motion/react';
+import {
+  headerVariants,
+  lineVariant,
+  containerVariants,
+  cardVariants,
+} from '../../utils/motionVariants';
 import '../../styles/components/aboutPage.scss';
 
 const CAPABILITIES = [
@@ -37,6 +44,8 @@ const VALUES = [
 ];
 
 const AboutPage = () => {
+  const reduced = useReducedMotion();
+  const v = (variant) => (reduced ? undefined : variant);
 
   return (
     <>
@@ -56,23 +65,37 @@ const AboutPage = () => {
 
       <article className="about-page" aria-label="About Switch Case Studio">
         {/* ── Hero ── */}
-        <header className="about-page__hero">
-          <p className="about-page__kicker">Our Studio</p>
-          <h1 className="about-page__title">
+        <motion.header
+          className="about-page__hero"
+          variants={v(headerVariants)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.p className="about-page__kicker" variants={v(lineVariant)}>
+            Our Studio
+          </motion.p>
+          <motion.h1 className="about-page__title" variants={v(lineVariant)}>
             Design-led.
             <br />
             <span className="about-page__title--accent">Results-driven.</span>
-          </h1>
-          <p className="about-page__lede">
+          </motion.h1>
+          <motion.p className="about-page__lede" variants={v(lineVariant)}>
             Switch Case Studio is a boutique digital studio building websites,
             e-commerce stores, and web apps from scratch — for businesses that
             take their digital presence seriously.
-          </p>
-        </header>
+          </motion.p>
+        </motion.header>
 
         {/* ── Story ── */}
         <section className="about-page__story" aria-labelledby="about-story-heading">
-          <div className="about-page__story-inner">
+          <motion.div
+            className="about-page__story-inner"
+            variants={v(cardVariants)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+          >
             <div className="about-page__story-text">
               <h2 id="about-story-heading" className="about-page__section-label">
                 The Studio
@@ -105,7 +128,7 @@ const AboutPage = () => {
                 <span className="about-page__stat-label">Templates used</span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </section>
 
         {/* ── Capabilities ── */}
@@ -114,14 +137,24 @@ const AboutPage = () => {
             <h2 id="about-caps-heading" className="about-page__section-label">
               What we build
             </h2>
-            <div className="about-page__caps-grid">
+            <motion.div
+              className="about-page__caps-grid"
+              variants={v(containerVariants)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
               {CAPABILITIES.map((cap) => (
-                <div key={cap.title} className="about-page__cap">
+                <motion.div
+                  key={cap.title}
+                  className="about-page__cap"
+                  variants={v(cardVariants)}
+                >
                   <h3 className="about-page__cap-title">{cap.title}</h3>
                   <p className="about-page__cap-body">{cap.body}</p>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -131,19 +164,36 @@ const AboutPage = () => {
             <h2 id="about-values-heading" className="about-page__section-label">
               How we work
             </h2>
-            <div className="about-page__values-grid">
-              {VALUES.map((v) => (
-                <div key={v.label} className="about-page__value">
-                  <strong className="about-page__value-label">{v.label}</strong>
-                  <p className="about-page__value-desc">{v.desc}</p>
-                </div>
+            <motion.div
+              className="about-page__values-grid"
+              variants={v(containerVariants)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              {VALUES.map((value) => (
+                <motion.div
+                  key={value.label}
+                  className="about-page__value"
+                  variants={v(cardVariants)}
+                >
+                  <strong className="about-page__value-label">{value.label}</strong>
+                  <p className="about-page__value-desc">{value.desc}</p>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
         {/* ── CTA ── */}
-        <section className="about-page__cta" aria-labelledby="about-cta-heading">
+        <motion.section
+          className="about-page__cta"
+          aria-labelledby="about-cta-heading"
+          variants={v(cardVariants)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
           <h2 id="about-cta-heading" className="about-page__cta-heading">
             Ready to build something?
           </h2>
@@ -163,7 +213,7 @@ const AboutPage = () => {
               See Our Work →
             </Link>
           </div>
-        </section>
+        </motion.section>
       </article>
     </>
   );

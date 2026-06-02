@@ -1,37 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 import { motion, useReducedMotion } from 'motion/react';
 import testimonialsData from '../../data/testimonials.json';
+import {
+  headerVariants,
+  lineVariant,
+  containerVariants,
+  cardVariants,
+} from '../../utils/motionVariants';
 import '../../styles/components/testimonialsPage.scss';
-
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.97 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] },
-  },
-};
-
-const headerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-};
-
-const lineVariant = {
-  hidden: { opacity: 0, y: 24, clipPath: 'inset(0 0 100% 0)' },
-  visible: {
-    opacity: 1,
-    y: 0,
-    clipPath: 'inset(0 0 0% 0)',
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
-  },
-};
 
 const TestimonialsPage = () => {
   const reducedMotion = useReducedMotion();

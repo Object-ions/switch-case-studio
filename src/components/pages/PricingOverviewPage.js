@@ -1,9 +1,20 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { motion, useReducedMotion } from 'motion/react';
 import servicesData from '../../data/services.json';
+import {
+  headerVariants,
+  lineVariant,
+  containerVariants,
+  cardVariants,
+} from '../../utils/motionVariants';
 import '../../styles/components/pricingOverviewPage.scss';
 
+const MotionLink = motion.create(Link);
+
 const PricingOverviewPage = () => {
+  const reduced = useReducedMotion();
+  const v = (variant) => (reduced ? undefined : variant);
 
   return (
     <>
@@ -23,27 +34,44 @@ const PricingOverviewPage = () => {
 
       <article className="pop-page" aria-label="Services and pricing">
         {/* ── Header ── */}
-        <header className="pop-page__header">
-          <p className="pop-page__kicker">Services</p>
-          <h1 className="pop-page__title">
+        <motion.header
+          className="pop-page__header"
+          variants={v(headerVariants)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.p className="pop-page__kicker" variants={v(lineVariant)}>
+            Services
+          </motion.p>
+          <motion.h1 className="pop-page__title" variants={v(lineVariant)}>
             What we do,
             <br />
             <span className="pop-page__title--accent">and what it costs.</span>
-          </h1>
-          <p className="pop-page__lede">
+          </motion.h1>
+          <motion.p className="pop-page__lede" variants={v(lineVariant)}>
             Pick a service to see the full breakdown — scope, deliverables,
             and transparent pricing.
-          </p>
-        </header>
+          </motion.p>
+        </motion.header>
 
         {/* ── Services grid ── */}
-        <section className="pop-page__grid" aria-label="Service list">
+        <motion.section
+          className="pop-page__grid"
+          aria-label="Service list"
+          variants={v(containerVariants)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
           {servicesData.map((service) => (
-            <Link
+            <MotionLink
               key={service.slug}
               to={`/pricing/${service.slug}`}
               className="pop-page__card"
               aria-label={`View pricing for ${service.title}`}
+              variants={v(cardVariants)}
+              whileHover={reduced ? undefined : { y: -4, transition: { duration: 0.25 } }}
             >
               <div className="pop-page__card-head">
                 <h2 className="pop-page__card-title">{service.title}</h2>
@@ -66,12 +94,18 @@ const PricingOverviewPage = () => {
               <span className="pop-page__card-cta" aria-hidden="true">
                 See pricing →
               </span>
-            </Link>
+            </MotionLink>
           ))}
-        </section>
+        </motion.section>
 
         {/* ── Bottom CTA ── */}
-        <div className="pop-page__bottom">
+        <motion.div
+          className="pop-page__bottom"
+          variants={v(cardVariants)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
           <h2 className="pop-page__bottom-heading">Not sure which service you need?</h2>
           <p className="pop-page__bottom-body">
             Book a free call — we'll figure it out together.
@@ -84,7 +118,7 @@ const PricingOverviewPage = () => {
           >
             Book a Free Call
           </a>
-        </div>
+        </motion.div>
       </article>
     </>
   );
