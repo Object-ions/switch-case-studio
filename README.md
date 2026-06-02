@@ -127,6 +127,24 @@ If you add a new project:
 1. Create a new folder under `public/projects/<new-slug>/`
 2. Add its images (`*-cover-tile.webp`, `long.webp`, etc.)
 3. Add an entry in `src/data/projects.json` that references those paths
+4. Set its `type` and `badge` (see **Project types** below)
+
+#### Project types
+
+Each project carries a `type` (canonical category) and a `badge` (the label
+shown on the project card + detail page). They currently mirror each other.
+
+| Type | What it means | Example projects |
+|------|---------------|------------------|
+| **Landing Page** | Single-purpose conversion page | Florida Energy Assistance |
+| **E-Commerce** | Online store / checkout | Prodani Miami (Shopify) |
+| **Business Website** | Multi-page company / brand site | Jo Marketing 11, Zahav Medspa, Crimson Equities |
+| **Portfolio Site** | Showcase / creative studio site | Sha Design Studio |
+| **Web App** | Full-stack application + API | Jelly Belly Wiki |
+| **Interactive Experience** | Creative / experiential build | Birth of Venus |
+
+Set `type` to one of the above, and `badge` to match (unless you want a
+different display label on the card).
 
 ### Services
 

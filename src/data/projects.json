@@ -2,6 +2,7 @@
   {
     "id": 1,
     "slug": "florida-energy-assistance",
+    "type": "Landing Page",
     "badge": "Landing Page",
     "panelClass": "panel-card-3",
     "coverTile": "/projects/florida-energy-assistance/florida-energy-assistance-cover-tile.webp",
@@ -54,7 +55,8 @@
   {
     "id": 2,
     "slug": "jo-marketing-11",
-    "badge": "Landing Page",
+    "type": "Business Website",
+    "badge": "Business Website",
     "panelClass": "panel-card-2",
     "coverTile": "/projects/jo-marketing-11/jo-marketing-11-cover-tile.webp",
     "imageSrc": "/projects/jo-marketing-11/1.avif",
@@ -106,6 +108,8 @@
   {
     "id": 3,
     "slug": "zahav-medspa",
+    "type": "Business Website",
+    "badge": "Business Website",
     "featured": true,
     "panelClass": "panel-hero",
     "coverTile": "/projects/zahav/zahav-cover-tile.webp",
@@ -167,6 +171,8 @@
   {
     "id": 4,
     "slug": "crimson-equities",
+    "type": "Business Website",
+    "badge": "Business Website",
     "featured": true,
     "panelClass": "panel-card-1",
     "coverTile": "/projects/crimson/crimson-cover-tile.webp",
@@ -217,6 +223,8 @@
   {
     "id": 5,
     "slug": "prodani-miami",
+    "type": "E-Commerce",
+    "badge": "E-Commerce",
     "featured": true,
     "panelClass": "panel-hero",
     "coverTile": "/projects/prodani/prodani-cover-tile.webp",
@@ -277,6 +285,8 @@
   {
     "id": 6,
     "slug": "sha-design-studio",
+    "type": "Portfolio Site",
+    "badge": "Portfolio Site",
     "panelClass": "panel-hero",
     "coverTile": "/projects/sha-design-studio/sha-design-studio-cover-tile.webp",
     "imageSrc": "/projects/sha-design-studio/1.avif",
@@ -325,6 +335,8 @@
   {
     "id": 7,
     "slug": "jelly-belly-wiki",
+    "type": "Web App",
+    "badge": "Web App",
     "featured": true,
     "panelClass": "panel-hero",
     "coverTile": "/projects/jelly-belly-wiki/jelly-belly-wiki-cover-tile.webp",
@@ -383,6 +395,8 @@
   {
     "id": 7,
     "slug": "birth-of-venus",
+    "type": "Interactive Experience",
+    "badge": "Interactive Experience",
     "panelClass": "panel-card-1",
     "coverTile": "/projects/birth-of-venus/birth-of-venus-cover-tile.webp",
     "imageSrc": "/projects/birth-of-venus/1.avif",
