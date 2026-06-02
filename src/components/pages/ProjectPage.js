@@ -12,18 +12,10 @@ import {
 import projectsData from '../../data/projects.json';
 import useReducedMotion from '../../hooks/useReducedMotion';
 
-import DeviceMockup from '../DeviceMockup';
+import ScrollingShot from '../ScrollingShot';
 import ZoomLightbox from '../ZoomLightbox';
-import macbookFrame from '../../assets/mockups/macbook-frame.png';
 
 import '../../styles/components/projectPage.scss';
-
-const DEFAULT_VIEWPORT = {
-  leftPct: 17.8468,
-  topPct: 14.9473,
-  widthPct: 64.4509,
-  heightPct: 70.0188,
-};
 
 /* ── Image preload (returns true when image loads, false on error) ── */
 const useImagePreload = (src) => {
@@ -107,11 +99,9 @@ const ProjectPage = () => {
     metrics = [],
     result,
     kicker,
-    productName,
     ctaLabel,
     ctaUrl,
     imageAlt,
-    viewport,
     // ── Optional bento media. Each tile renders ONLY if its field exists. ──
     mediaMobile,
     mediaMobileAlt,
@@ -150,17 +140,13 @@ const ProjectPage = () => {
       },
   ].filter(Boolean);
 
-  // Larger tiles in the gallery band below the result quote.
+  // The live desktop preview leads the page as a hero band (see below).
+  const liveOK = !!(publicLongWeb && mockupOK);
+
+  // Supporting shots in the gallery band below the result quote.
   const galleryTiles = [
-    publicLongWeb &&
-      mockupOK && {
-        key: 'desktop',
-        type: 'mockup',
-        caption: 'Desktop — landing page',
-      },
     mediaCopy && {
       key: 'copy',
-      type: 'img',
       src: mediaCopy,
       caption: 'Copy / offer block',
       alt: mediaCopyAlt || `${title} — copy and offer block`,
@@ -168,7 +154,6 @@ const ProjectPage = () => {
     },
     mediaCta && {
       key: 'cta',
-      type: 'img',
       src: mediaCta,
       caption: 'CTA / form',
       alt: mediaCtaAlt || `${title} — CTA and form`,
@@ -289,7 +274,59 @@ const ProjectPage = () => {
               ))}
             </ul>
           )}
+
+          {(ctaUrl || (nextProject && nextProject.slug !== slug)) && (
+            <div className="project-page__hero-actions">
+              {ctaUrl && (
+                <a
+                  href={ctaUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-page__cta-button project-page__cta-button--primary"
+                >
+                  {ctaLabel || 'View Live'}{' '}
+                  <FontAwesomeIcon
+                    icon={faArrowUpRightFromSquare}
+                    aria-hidden="true"
+                  />
+                </a>
+              )}
+
+              {nextProject && nextProject.slug !== slug && (
+                <Link
+                  to={`/projects/${nextProject.slug}`}
+                  className="project-page__cta-button project-page__cta-button--secondary"
+                >
+                  Next: {nextProject.title}{' '}
+                  <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
+                </Link>
+              )}
+            </div>
+          )}
         </header>
+
+        {/* ── Live site (hero band) — the real, working proof, up top ── */}
+        {liveOK && (
+          <section
+            className="project-page__live reveal"
+            aria-label="Live site preview"
+          >
+            <div className="project-page__live-tile">
+              <span className="project-page__live-badge">
+                <span
+                  className="project-page__live-dot"
+                  aria-hidden="true"
+                />
+                Live
+              </span>
+              <ScrollingShot
+                key={slug}
+                src={publicLongWeb}
+                alt={imageAlt || `${title} — landing page`}
+              />
+            </div>
+          </section>
+        )}
 
         {/* ── Summary bento: Overview + Scope (left) · Results (right) ── */}
         {hasSummary && (
@@ -375,75 +412,11 @@ const ProjectPage = () => {
             data-count={galleryTiles.length}
             aria-label="Project visuals"
           >
-            {galleryTiles.map((tile) =>
-              tile.type === 'mockup' ? (
-                <figure
-                  key={tile.key}
-                  className="project-page__tile project-page__tile--mockup project-page__tile--lead"
-                >
-                  <DeviceMockup
-                    key={slug}
-                    frameSrc={macbookFrame}
-                    contentSrc={publicLongWeb}
-                    alt={imageAlt || `${title} preview`}
-                    viewport={viewport || DEFAULT_VIEWPORT}
-                    speed={35}
-                    hold={0.6}
-                    pauseOnHover
-                    controls
-                    className="project-page__mockup"
-                  />
-                  {tile.caption && (
-                    <span className="project-page__tile-caption">
-                      {tile.caption}
-                    </span>
-                  )}
-                </figure>
-              ) : (
-                <ImageTile key={tile.key} tile={tile} />
-              )
-            )}
+            {galleryTiles.map((tile) => (
+              <ImageTile key={tile.key} tile={tile} />
+            ))}
           </section>
         )}
-
-        {/* ── CTA footer bar ── */}
-        <footer className="project-page__cta-bar reveal">
-          <div className="project-page__cta-info">
-            {kicker && (
-              <span className="project-page__cta-kicker">{kicker}</span>
-            )}
-            {productName && (
-              <span className="project-page__cta-product">{productName}</span>
-            )}
-          </div>
-
-          <div className="project-page__cta-actions">
-            {ctaUrl && (
-              <a
-                href={ctaUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="project-page__cta-button project-page__cta-button--primary"
-              >
-                {ctaLabel || 'View Live'}{' '}
-                <FontAwesomeIcon
-                  icon={faArrowUpRightFromSquare}
-                  aria-hidden="true"
-                />
-              </a>
-            )}
-
-            {nextProject && nextProject.slug !== slug && (
-              <Link
-                to={`/projects/${nextProject.slug}`}
-                className="project-page__cta-button project-page__cta-button--secondary"
-              >
-                Next: {nextProject.title}{' '}
-                <FontAwesomeIcon icon={faArrowRight} aria-hidden="true" />
-              </Link>
-            )}
-          </div>
-        </footer>
 
         {/* ── Lightbox (any zoomable tile) ── */}
         {zoomSrc && (

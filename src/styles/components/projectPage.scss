@@ -123,6 +123,20 @@ $pp-tile-bg: rgba(255, 255, 255, 0.02);
     color: rgba(255, 255, 255, 0.75);
   }
 
+  // ── Hero actions (View Live + Next), moved up from the footer ──
+  &__hero-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: space-between; // View Live left · Next right
+    margin-top: 2rem;
+
+    @media (max-width: 520px) {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+
   // ── Section labels ───────────────────────────────────
   &__section-label {
     font-family: $font-text;
@@ -351,124 +365,99 @@ $pp-tile-bg: rgba(255, 255, 255, 0.02);
     border-left: 3px solid $g6;
   }
 
-  // ── Media gallery bento ──────────────────────────────
+  // ── Live site hero band ──────────────────────────────
+  // The real, working site leads the page. Orange-accented + glowing so it
+  // outranks the neutral metric/scope tiles. Hosts the frameless ScrollingShot.
+  &__live {
+    max-width: $pp-max;
+    margin: 0 auto;
+    padding: 0.5rem 1.5rem 2.5rem;
+
+    @media (max-width: 768px) {
+      padding: 0.25rem 1.25rem 2rem;
+    }
+  }
+
+  &__live-tile {
+    position: relative;
+    height: clamp(380px, 56vw, 620px);
+    border: 1px solid rgba($g6, 0.55);
+    border-radius: $pp-radius;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgba($g6, 0.14),
+      0 24px 70px -24px rgba($g6, 0.45);
+
+    @media (max-width: 600px) {
+      height: clamp(360px, 90vw, 460px);
+    }
+  }
+
+  &__live-badge {
+    position: absolute;
+    top: 0.875rem;
+    left: 0.875rem;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.75rem 0.35rem 0.6rem;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba($g6, 0.6);
+    border-radius: 999px;
+    font-family: $font-text;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: $g6;
+  }
+
+  &__live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: $g6;
+    animation: pp-live-pulse 2s ease-out infinite;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  // ── Media gallery (supporting shots: copy/offer, CTA/form) ───
   &__gallery {
     max-width: $pp-max;
     margin: 0 auto;
     padding: 0 1.5rem;
     display: grid;
     gap: $pp-gap;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
     @media (max-width: 768px) {
       padding: 0 1.25rem;
-    }
-
-    // One tile → full width (the common case today: desktop mockup only).
-    &[data-count='1'] {
       grid-template-columns: 1fr;
     }
 
-    // Two+ tiles → lead tile on the left, the rest stacked on the right.
-    &[data-count='2'],
-    &[data-count='3'] {
-      grid-template-columns: 1.6fr 1fr;
-      grid-auto-rows: 1fr;
-
-      .project-page__tile--lead {
-        grid-row: 1 / -1;
-      }
-
-      @media (max-width: 768px) {
-        grid-template-columns: 1fr;
-
-        .project-page__tile--lead {
-          grid-row: auto;
-        }
-      }
+    // A lone supporting shot stays contained + centred rather than huge.
+    &[data-count='1'] {
+      grid-template-columns: minmax(0, 680px);
+      justify-content: center;
     }
-  }
-
-  // The desktop mockup tile is framed transparently — no border/bg box,
-  // so the laptop frame reads as the visual itself.
-  &__tile--mockup {
-    border: none;
-    background: transparent;
-    overflow: visible;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .project-page__tile-caption {
-      bottom: 0;
-      left: 0.875rem;
-    }
-  }
-
-  &__mockup {
-    width: 100%;
-    max-width: 980px;
-    margin: 0 auto;
   }
 
   // ── CTA footer bar ───────────────────────────────────
-  &__cta-bar {
-    max-width: $pp-max;
-    margin: 4rem auto 0;
-    padding: 2rem 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    flex-wrap: wrap;
-
-    @media (max-width: 768px) {
-      padding: 2rem 1.25rem;
-      flex-direction: column;
-      align-items: stretch;
-    }
-  }
-
-  &__cta-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  &__cta-kicker {
-    font-family: $font-text;
-    font-size: 0.6875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: rgba(255, 255, 255, 0.5);
-  }
-
-  &__cta-product {
-    font-family: $font-special;
-    font-size: 1.125rem;
-    color: $white-color;
-    line-height: 1.2;
-  }
-
-  &__cta-actions {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-    }
-  }
-
+  // ── CTA buttons (live in the hero via __hero-actions) ──
   &__cta-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.625rem;
-    min-height: 48px;
-    padding: 0.875rem 1.5rem;
+    gap: 0.5rem;
+    min-height: 42px;
+    padding: 0.6rem 1.2rem;
     font-family: $font-text;
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -477,21 +466,26 @@ $pp-tile-bg: rgba(255, 255, 255, 0.02);
     transition:
       background-color 0.2s ease,
       color 0.2s ease,
-      border-color 0.2s ease;
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
 
     &:focus-visible {
-      outline: 2px solid $g6;
+      outline: 2px solid $orange-color;
       outline-offset: 4px;
     }
 
+    // Primary = View Live. Orange fill + orange border + light text;
+    // on hover it inverts to the page black with the orange border kept.
     &--primary {
-      background: $g6;
-      color: $black-color;
-      border: 1px solid $g6;
+      background: $orange-color;
+      color: $white-color;
+      border: 1px solid $orange-color;
+      box-shadow: 0 10px 30px -12px rgba($orange-color, 0.6);
 
       &:hover {
-        background: $g7;
-        border-color: $g7;
+        background: #000;
+        border-color: $orange-color;
+        color: $white-color;
       }
     }
 
@@ -505,5 +499,18 @@ $pp-tile-bg: rgba(255, 255, 255, 0.02);
         background: rgba(255, 255, 255, 0.05);
       }
     }
+  }
+}
+
+// Pulsing ring on the LIVE badge dot — signals a real, breathing site.
+@keyframes pp-live-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba($g6, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 7px rgba($g6, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba($g6, 0);
   }
 }

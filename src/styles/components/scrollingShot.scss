@@ -1,0 +1,54 @@
+@import '../_variables.scss';
+
+// Frameless website preview that fills its bento tile. The tall screenshot
+// scrolls inside __viewport; an optional slim chrome bar reads as a browser.
+.scrolling-shot {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: #0a0a0a;
+  border-radius: inherit;
+  overflow: hidden;
+
+  &__bar {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    height: 34px;
+    padding: 0 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    @media (max-width: 600px) {
+      height: 28px;
+      padding: 0 10px;
+    }
+  }
+
+  &__dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+
+    @media (max-width: 600px) {
+      width: 7px;
+      height: 7px;
+    }
+  }
+
+  &__viewport {
+    position: relative;
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    will-change: transform;
+  }
+}
