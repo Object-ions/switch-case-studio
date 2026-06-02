@@ -1,10 +1,14 @@
+import { lazy, Suspense } from 'react';
 import WorkHeading from '../WorkHeading';
 import WorkText from '../WorkText';
 import WorkCTA from '../WorkCTA';
 import WorkMarquee from '../WorkMarquee';
 
 import Squares from '../Squares';
-import Moon from '../Moon';
+// Lazy-loaded: pulls in the entire Three.js stack (~490 KB gzip). The moon is
+// decorative and below the fold, so deferring its code keeps it off the
+// critical path for every route without changing how it renders.
+const Moon = lazy(() => import('../Moon'));
 import '../../styles/components/work.scss';
 
 const Work = () => {
@@ -28,7 +32,9 @@ const Work = () => {
         <div className="work-content">
           <WorkText />
           <div className="work-moon">
-            <Moon />
+            <Suspense fallback={null}>
+              <Moon />
+            </Suspense>
           </div>
         </div>
 

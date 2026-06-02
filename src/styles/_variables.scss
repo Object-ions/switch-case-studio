@@ -27,11 +27,14 @@ $g-bot: #a5b2ba; // darker
 $max-width: 1200px;
 
 // Font-face definitions
-// Inter loaded via <link> in public/index.html (non-blocking)
+// Inter loaded via <link> in index.html (non-blocking)
 
 @font-face {
   font-family: 'NeueMachina';
-  src: url('../assets/fonts/NeueMachina-Ultrabold.otf') format('opentype');
+  // Served from public/ with a root-absolute path: Vite does not rewrite
+  // url()s pulled in through Sass @import, so a relative ../assets path
+  // 404s in the production build. See netlify SPA fallback note.
+  src: url('/fonts/NeueMachina-Ultrabold.otf') format('opentype');
   font-weight: 800;
   font-style: normal;
   font-display: swap;
