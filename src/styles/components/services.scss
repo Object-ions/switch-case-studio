@@ -12,6 +12,8 @@
 .services {
   &__menu {
     width: 100%;
+    max-width: $max-width;
+    margin-inline: auto;
     padding-bottom: 6rem;
   }
 
@@ -130,7 +132,7 @@
   .services {
     &__link,
     &__overlay-inner {
-      padding-inline: 3rem;
+      padding-inline: 2rem;
     }
   }
 }
@@ -144,15 +146,6 @@
     &__icon {
       width: 3rem;
       height: 3rem;
-    }
-  }
-}
-
-@media (min-width: 1024px) {
-  .services {
-    &__link,
-    &__overlay-inner {
-      padding-inline: 6rem;
     }
   }
 }
