@@ -1,0 +1,18 @@
+// Standalone /contact page: vertically centre the contact block in the
+// viewport (minus the sticky header) instead of letting it stick to the top.
+// Scoped to .contact-page so the homepage Contact section is unaffected.
+// Desktop only — on mobile the stacked form is tall and fills naturally.
+.contact-page {
+  @media (min-width: 769px) {
+    min-height: calc(100vh - 110px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .contact-section {
+      width: 100%;
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import Contact from './Contact';
+import '../../styles/components/contactPage.scss';
 
 const ContactPage = () => (
   <>
@@ -16,7 +17,9 @@ const ContactPage = () => (
         content="Ready to start? Book a free call or send us a message — we'll get back to you fast."
       />
     </Helmet>
-    <Contact />
+    <div className="contact-page">
+      <Contact />
+    </div>
   </>
 );
 
