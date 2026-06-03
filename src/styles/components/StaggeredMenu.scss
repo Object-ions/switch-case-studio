@@ -138,6 +138,10 @@
 
 .sm-panel-itemLabel {
   display: inline-block;
+  // Inherit the trigger's font — the accordion label is an <a>, which would
+  // otherwise pick up a lighter global link weight (200) instead of 600.
+  font: inherit;
+  text-transform: inherit;
   will-change: transform;
   transform-origin: 50% 100%;
 }
