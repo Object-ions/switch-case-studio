@@ -23,15 +23,15 @@ import "./styles/app.scss";
 // Route-only pages — lazy loaded (not needed on initial home visit)
 const CaseStudyPage        = lazy(() => import("./components/pages/CaseStudyPage"));
 const CaseStudiesPage       = lazy(() => import("./components/pages/CaseStudiesPage"));
-const PricingPage        = lazy(() => import("./components/PricingPage"));
+const PricingPage        = lazy(() => import("./components/pages/PricingPage"));
 const PricingOverviewPage = lazy(() => import("./components/pages/PricingOverviewPage"));
 const AboutPage          = lazy(() => import("./components/pages/AboutPage"));
 const ServicesPage       = lazy(() => import("./components/pages/ServicesPage"));
 const ReviewsPage   = lazy(() => import("./components/pages/ReviewsPage"));
 const ContactPage        = lazy(() => import("./components/pages/ContactPage"));
-const Privacy            = lazy(() => import("./components/Privacy"));
-const Terms              = lazy(() => import("./components/Terms"));
-const Accessibility      = lazy(() => import("./components/Accessibility"));
+const Privacy            = lazy(() => import("./components/pages/Privacy"));
+const Terms              = lazy(() => import("./components/pages/Terms"));
+const Accessibility      = lazy(() => import("./components/pages/Accessibility"));
 
 const HomeContent = () => (
   <>

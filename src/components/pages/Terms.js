@@ -1,4 +1,4 @@
-import '../styles/components/legal.scss';
+import '../../styles/components/legal.scss';
 
 const Terms = () => {
   return (

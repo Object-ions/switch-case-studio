@@ -1,5 +1,5 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
-import pricingData from '../data/pricingData.json';
+import pricingData from '../../data/pricingData.json';
 import { PricingGuide } from './PricingGuide';
 
 const slugToServiceId = {

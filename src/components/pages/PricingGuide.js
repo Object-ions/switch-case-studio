@@ -6,12 +6,12 @@ import {
   faHeart,
 } from '@fortawesome/free-solid-svg-icons';
 
-import pricingData from '../data/pricingData.json';
-import testimonialsData from '../data/testimonials.json';
-import SinglePricingCard from './SinglePricingCard';
-import { headerVariants, lineVariant } from '../utils/motionVariants';
+import pricingData from '../../data/pricingData.json';
+import testimonialsData from '../../data/testimonials.json';
+import SinglePricingCard from '../SinglePricingCard';
+import { headerVariants, lineVariant } from '../../utils/motionVariants';
 
-import '../styles/components/pricingGuide.scss';
+import '../../styles/components/pricingGuide.scss';
 
 const BOOK_CALL = 'https://calendar.app.google/83UCJjis2FHUrr1s6';
 
