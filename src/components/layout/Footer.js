@@ -123,26 +123,70 @@ const Footer = () => {
   const footerRef = useRef(null);
   const currentYear = new Date().getFullYear();
 
+  // Column reveal, built so the footer can NEVER stay invisible (see
+  // CLAUDE.md): the old fromTo + toggleActions:reverse left the columns stuck
+  // at opacity 0 on mobile (a tall blank void above the footer).
   useEffect(() => {
+    const footer = footerRef.current;
+    if (!footer) return;
+
+    const cols = gsap.utils.toArray('.footer-col-animate', footer);
+    if (!cols.length) return;
+
+    const reduced =
+      typeof window !== 'undefined' &&
+      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduced) {
+      gsap.set(cols, { clearProps: 'all' });
+      return;
+    }
+
     const ctx = gsap.context(() => {
-      const cols = gsap.utils.toArray('.footer-col-animate');
-      gsap.fromTo(
-        cols,
-        { opacity: 0, y: 16 },
-        {
+      // gsap.set (not fromTo immediateRender, which re-hides on refresh).
+      gsap.set(cols, { opacity: 0, y: 16 });
+
+      const reveal = () =>
+        gsap.to(cols, {
           opacity: 1,
           y: 0,
           duration: 0.5,
           stagger: 0.06,
           ease: 'power2.out',
-          scrollTrigger: {
-            trigger: footerRef.current,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-        },
-      );
-    }, footerRef);
+          overwrite: 'auto',
+        });
+
+      const trigger = ScrollTrigger.create({
+        trigger: footer,
+        start: 'top 90%',
+        once: true,
+        onEnter: reveal,
+      });
+
+      // Already in view at mount? An already-past `once` trigger won't fire.
+      if (footer.getBoundingClientRect().top < window.innerHeight * 0.9) {
+        reveal();
+      }
+
+      // Lazy images shift layout after the trigger is measured.
+      footer.querySelectorAll('img').forEach((img) => {
+        if (!img.complete) {
+          img.addEventListener('load', () => ScrollTrigger.refresh(), {
+            once: true,
+          });
+        }
+      });
+
+      // Safety net: the footer must never stay hidden.
+      const safety = gsap.delayedCall(2.5, () => {
+        if (cols.some((c) => gsap.getProperty(c, 'opacity') < 1)) reveal();
+      });
+
+      return () => {
+        trigger.kill();
+        safety.kill();
+      };
+    }, footer);
 
     return () => ctx.revert();
   }, []);
