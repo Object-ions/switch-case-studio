@@ -23,6 +23,10 @@
     border: 1px solid $orange-color;
     color: $white-color;
     transition: all 0.2s ease;
+    // When the phrase wraps (display:inline on small screens), give each line
+    // fragment its own complete border instead of cutting it at the wrap.
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
 
     &:hover {
       background-color: $orange-color;
