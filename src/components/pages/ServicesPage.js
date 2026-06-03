@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion, useReducedMotion } from 'motion/react';
 import servicesData from '../../data/services.json';
+import ServiceRow from '../ServiceRow';
 import {
   headerVariants,
   lineVariant,
@@ -44,7 +44,9 @@ const ServicesPage = () => {
           <motion.h1 className="services-page__title" variants={v(lineVariant)}>
             Everything your
             <br />
-            <span className="services-page__title--accent">digital presence needs.</span>
+            <span className="services-page__title--accent">
+              digital presence needs.
+            </span>
           </motion.h1>
           <motion.p className="services-page__lede" variants={v(lineVariant)}>
             Design, development, marketing, and automation — we handle the
@@ -60,44 +62,15 @@ const ServicesPage = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.05 }}
         >
-          {servicesData.map((service, i) => (
-            <motion.div
+          {servicesData.map((service) => (
+            <ServiceRow
               key={service.slug}
-              className="services-page__service"
+              to={`/pricing/${service.slug}`}
+              iconName={service.icon}
+              title={service.title}
+              subtitle={service.subTitle}
               variants={v(cardVariants)}
-            >
-              <div className="services-page__service-index">
-                {String(i + 1).padStart(2, '0')}
-              </div>
-
-              <div className="services-page__service-body">
-                <div className="services-page__service-head">
-                  <h2 className="services-page__service-title">{service.title}</h2>
-                  <p className="services-page__service-sub">{service.subTitle}</p>
-                </div>
-
-                <p className="services-page__service-desc">{service.description}</p>
-
-                {service.items?.length > 0 && (
-                  <ul className="services-page__service-items" aria-label="Includes">
-                    {service.items.map((item) => (
-                      <li key={item} className="services-page__service-item">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-
-              <div className="services-page__service-cta">
-                <Link
-                  to={`/pricing/${service.slug}`}
-                  className="services-page__service-btn"
-                >
-                  See pricing →
-                </Link>
-              </div>
-            </motion.div>
+            />
           ))}
         </motion.section>
 
