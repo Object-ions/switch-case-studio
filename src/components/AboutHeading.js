@@ -4,7 +4,7 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const WorkHeading = () => {
+const AboutHeading = () => {
   useEffect(() => {
     const words = gsap.utils.toArray('.word');
 
@@ -43,4 +43,4 @@ const WorkHeading = () => {
   );
 };
 
-export default WorkHeading;
+export default AboutHeading;

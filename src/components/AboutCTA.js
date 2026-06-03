@@ -6,7 +6,7 @@ import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const WorkCTA = () => {
+const AboutCTA = () => {
   const ctaRef = useRef(null);
 
   useEffect(() => {
@@ -48,4 +48,4 @@ const WorkCTA = () => {
   );
 };
 
-export default WorkCTA;
+export default AboutCTA;

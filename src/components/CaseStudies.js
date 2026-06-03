@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import projectsData from '../data/projects.json';
-import ProjectsTiles from './ProjectsTiles';
+import CaseStudyTiles from './CaseStudyTiles';
 import TextPressure from './TextPressure';
 
 import '../styles/components/projects.scss';
 
 const featured = projectsData.filter((p) => p.featured);
 
-const Projects = () => {
+const CaseStudies = () => {
   return (
     <section
       className="projects"
@@ -47,7 +47,7 @@ const Projects = () => {
         Selected work
       </h2>
 
-      <ProjectsTiles projects={featured} />
+      <CaseStudyTiles projects={featured} />
 
       <div className="projects-viewall">
         <Link to="/projects" className="projects-viewall__link">
@@ -59,4 +59,4 @@ const Projects = () => {
   );
 };
 
-export default Projects;
+export default CaseStudies;

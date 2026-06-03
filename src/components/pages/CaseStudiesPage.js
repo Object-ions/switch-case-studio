@@ -13,7 +13,7 @@ import '../../styles/components/projectsPage.scss';
 
 const MotionLink = motion.create(Link);
 
-const ProjectsPage = () => {
+const CaseStudiesPage = () => {
   const reduced = useReducedMotion();
   const v = (variant) => (reduced ? undefined : variant);
 
@@ -141,4 +141,4 @@ const ProjectsPage = () => {
   );
 };
 
-export default ProjectsPage;
+export default CaseStudiesPage;

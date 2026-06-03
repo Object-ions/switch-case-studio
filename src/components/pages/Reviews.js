@@ -14,7 +14,7 @@ import '../../styles/components/testimonials.scss';
 const AUTO_ADVANCE_MS = 10000;
 const CURSOR_HIDE_CLASS = 'is-carousel-hover';
 
-const Testimonials = () => {
+const Reviews = () => {
   const [current, setCurrent] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
   const containerRef = useRef(null);
@@ -251,4 +251,4 @@ const Testimonials = () => {
   );
 };
 
-export default Testimonials;
+export default Reviews;

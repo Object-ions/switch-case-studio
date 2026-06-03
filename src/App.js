@@ -8,9 +8,9 @@ import Hero from "./components/Hero";
 import ClientStrip from "./components/ClientStrip";
 import LandingPageProof from "./components/LandingPageProof";
 import Services from "./components/pages/Services";
-import Work from "./components/pages/Work";
-import Testimonials from "./components/pages/Testimonials";
-import Projects from "./components/Projects";
+import About from "./components/pages/About";
+import Reviews from "./components/pages/Reviews";
+import CaseStudies from "./components/CaseStudies";
 import Contact from "./components/pages/Contact";
 import Faq from "./components/Faq";
 import GradientStripe from "./components/StripeSection";
@@ -21,13 +21,13 @@ import Orb from "./assets/images/orb.avif";
 import "./styles/app.scss";
 
 // Route-only pages — lazy loaded (not needed on initial home visit)
-const ProjectPage        = lazy(() => import("./components/pages/ProjectPage"));
-const ProjectsPage       = lazy(() => import("./components/pages/ProjectsPage"));
+const CaseStudyPage        = lazy(() => import("./components/pages/CaseStudyPage"));
+const CaseStudiesPage       = lazy(() => import("./components/pages/CaseStudiesPage"));
 const PricingPage        = lazy(() => import("./components/PricingPage"));
 const PricingOverviewPage = lazy(() => import("./components/pages/PricingOverviewPage"));
 const AboutPage          = lazy(() => import("./components/pages/AboutPage"));
 const ServicesPage       = lazy(() => import("./components/pages/ServicesPage"));
-const TestimonialsPage   = lazy(() => import("./components/pages/TestimonialsPage"));
+const ReviewsPage   = lazy(() => import("./components/pages/ReviewsPage"));
 const ContactPage        = lazy(() => import("./components/pages/ContactPage"));
 const Privacy            = lazy(() => import("./components/Privacy"));
 const Terms              = lazy(() => import("./components/Terms"));
@@ -45,9 +45,9 @@ const HomeContent = () => (
       travel={60}
       orbSrc={Orb}
     />
-    <Projects />
-    <Work />
-    <Testimonials />
+    <CaseStudies />
+    <About />
+    <Reviews />
     <Contact />
     <Faq />
   </>
@@ -109,8 +109,8 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
 
           {/* Case studies */}
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/projects/:slug" element={<ProjectPage />} />
+          <Route path="/projects" element={<CaseStudiesPage />} />
+          <Route path="/projects/:slug" element={<CaseStudyPage />} />
 
           {/* Pricing */}
           <Route path="/pricing" element={<PricingOverviewPage />} />
@@ -118,7 +118,7 @@ function App() {
 
           {/* Standalone section pages */}
           <Route path="/services" element={<ServicesPage />} />
-          <Route path="/testimonials" element={<TestimonialsPage />} />
+          <Route path="/testimonials" element={<ReviewsPage />} />
           <Route path="/contact" element={<ContactPage />} />
 
           {/* Legal */}

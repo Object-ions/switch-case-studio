@@ -5,7 +5,7 @@ import useReducedMotion from '../hooks/useReducedMotion';
 import '../styles/components/marquee.scss';
 gsap.registerPlugin(ScrollTrigger);
 
-const WorkMarquee = () => {
+const AboutMarquee = () => {
   const wrap = useRef(null);
   const reduced = useReducedMotion();
 
@@ -61,4 +61,4 @@ const WorkMarquee = () => {
   );
 };
 
-export default WorkMarquee;
+export default AboutMarquee;

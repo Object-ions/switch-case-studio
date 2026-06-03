@@ -91,9 +91,9 @@ const Tile = ({ proj, disabled }) => {
 };
 
 /* ═══════════════════════════════════════════
-   ProjectsTiles — grid wrapper
+   CaseStudyTiles — grid wrapper
    ═══════════════════════════════════════════ */
-const ProjectsTiles = ({ projects }) => {
+const CaseStudyTiles = ({ projects }) => {
   const gridRef = useRef(null);
   const reduced = useReducedMotion();
   const [isMobile, setIsMobile] = useState(false);
@@ -192,4 +192,4 @@ const ProjectsTiles = ({ projects }) => {
   );
 };
 
-export default ProjectsTiles;
+export default CaseStudyTiles;

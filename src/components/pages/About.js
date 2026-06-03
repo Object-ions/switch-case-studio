@@ -1,8 +1,8 @@
 import { lazy, Suspense } from 'react';
-import WorkHeading from '../WorkHeading';
-import WorkText from '../WorkText';
-import WorkCTA from '../WorkCTA';
-import WorkMarquee from '../WorkMarquee';
+import AboutHeading from '../AboutHeading';
+import AboutText from '../AboutText';
+import AboutCTA from '../AboutCTA';
+import AboutMarquee from '../AboutMarquee';
 
 import Squares from '../Squares';
 // Lazy-loaded: pulls in the entire Three.js stack (~490 KB gzip). The moon is
@@ -11,7 +11,7 @@ import Squares from '../Squares';
 const Moon = lazy(() => import('../Moon'));
 import '../../styles/components/work.scss';
 
-const Work = () => {
+const About = () => {
   return (
     <div id="about">
       {/* Animated grid background */}
@@ -26,11 +26,11 @@ const Work = () => {
       </div>
 
       <div className="work-wrapper">
-        <WorkHeading />
-        <WorkMarquee />
+        <AboutHeading />
+        <AboutMarquee />
 
         <div className="work-content">
-          <WorkText />
+          <AboutText />
           <div className="work-moon">
             <Suspense fallback={null}>
               <Moon />
@@ -38,10 +38,10 @@ const Work = () => {
           </div>
         </div>
 
-        <WorkCTA />
+        <AboutCTA />
       </div>
     </div>
   );
 };
 
-export default Work;
+export default About;

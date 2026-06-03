@@ -9,7 +9,7 @@ import {
 } from '../../utils/motionVariants';
 import '../../styles/components/testimonialsPage.scss';
 
-const TestimonialsPage = () => {
+const ReviewsPage = () => {
   const reducedMotion = useReducedMotion();
 
   const animate = reducedMotion ? {} : undefined;
@@ -119,4 +119,4 @@ const TestimonialsPage = () => {
   );
 };
 
-export default TestimonialsPage;
+export default ReviewsPage;

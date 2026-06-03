@@ -34,7 +34,7 @@ const useImagePreload = (src) => {
   return loaded;
 };
 
-const ProjectPage = () => {
+const CaseStudyPage = () => {
   const { slug } = useParams();
   const reducedMotion = useReducedMotion();
   const rootRef = useRef(null);
@@ -435,4 +435,4 @@ const ProjectPage = () => {
   );
 };
 
-export default ProjectPage;
+export default CaseStudyPage;

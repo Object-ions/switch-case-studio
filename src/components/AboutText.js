@@ -4,7 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const WorkText = () => {
+const AboutText = () => {
   const rootRef = useRef(null);
 
   useLayoutEffect(() => {
@@ -68,4 +68,4 @@ const WorkText = () => {
   );
 };
 
-export default WorkText;
+export default AboutText;
