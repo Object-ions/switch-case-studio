@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion, useReducedMotion } from 'motion/react';
 import projectsData from '../../data/projects.json';
-import HoverPeek from '../HoverPeek';
+import HoverPeek from '../ui/HoverPeek';
 import {
   headerVariants,
   lineVariant,

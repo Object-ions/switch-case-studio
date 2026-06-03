@@ -1,14 +1,14 @@
 import { lazy, Suspense } from 'react';
-import AboutHeading from '../AboutHeading';
-import AboutText from '../AboutText';
-import AboutCTA from '../AboutCTA';
-import AboutMarquee from '../AboutMarquee';
+import AboutHeading from './AboutHeading';
+import AboutText from './AboutText';
+import AboutCTA from './AboutCTA';
+import AboutMarquee from './AboutMarquee';
 
-import Squares from '../Squares';
+import Squares from '../ui/Squares';
 // Lazy-loaded: pulls in the entire Three.js stack (~490 KB gzip). The moon is
 // decorative and below the fold, so deferring its code keeps it off the
 // critical path for every route without changing how it renders.
-const Moon = lazy(() => import('../Moon'));
+const Moon = lazy(() => import('../ui/Moon'));
 import '../../styles/components/work.scss';
 
 const About = () => {

@@ -2,9 +2,9 @@ import { useLayoutEffect, useRef } from 'react';
 import { HashLink } from 'react-router-hash-link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import useReducedMotion from '../hooks/useReducedMotion';
+import useReducedMotion from '../../hooks/useReducedMotion';
 
-import '../styles/components/landingPageProof.scss';
+import '../../styles/components/landingPageProof.scss';
 
 gsap.registerPlugin(ScrollTrigger);
 

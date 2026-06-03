@@ -1,4 +1,4 @@
-import '../styles/components/scsLogo.scss';
+import '../../styles/components/scsLogo.scss';
 
 const SCSLogo = ({ className = '', ariaLabel = 'Switch Case Studio' }) => (
   <span className={`scsLogo ${className}`}>

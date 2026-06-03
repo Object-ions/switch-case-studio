@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import '../styles/components/Squares.scss';
+import '../../styles/components/Squares.scss';
 
 const Squares = ({
   direction = 'right',

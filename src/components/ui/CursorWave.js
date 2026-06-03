@@ -6,7 +6,7 @@ import React, {
   useRef,
 } from 'react';
 
-import '../styles/components/cursorWave.scss';
+import '../../styles/components/cursorWave.scss';
 
 /* ------------------------------------------------------------------ */
 /*  Defaults                                                          */

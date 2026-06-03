@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import Contact from './Contact';
+import Contact from '../sections/Contact';
 import '../../styles/components/contactPage.scss';
 
 const ContactPage = () => (

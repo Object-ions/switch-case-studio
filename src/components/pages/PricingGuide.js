@@ -8,7 +8,7 @@ import {
 
 import pricingData from '../../data/pricingData.json';
 import testimonialsData from '../../data/testimonials.json';
-import SinglePricingCard from '../SinglePricingCard';
+import SinglePricingCard from '../ui/SinglePricingCard';
 import { headerVariants, lineVariant } from '../../utils/motionVariants';
 
 import '../../styles/components/pricingGuide.scss';

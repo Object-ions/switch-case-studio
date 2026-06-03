@@ -1,5 +1,5 @@
-import useReducedMotion from '../hooks/useReducedMotion';
-import '../styles/components/clientStrip.scss';
+import useReducedMotion from '../../hooks/useReducedMotion';
+import '../../styles/components/clientStrip.scss';
 
 const CLIENTS = [
   { name: 'Zahav Medspa',              tile: '/projects/zahav/zahav-cover-tile.webp' },

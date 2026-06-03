@@ -12,9 +12,9 @@ import {
 import projectsData from '../../data/projects.json';
 import useReducedMotion from '../../hooks/useReducedMotion';
 
-import ScrollingShot from '../ScrollingShot';
-import ZoomLightbox from '../ZoomLightbox';
-import MagneticButton from '../MagneticButton';
+import ScrollingShot from '../ui/ScrollingShot';
+import ZoomLightbox from '../ui/ZoomLightbox';
+import MagneticButton from '../ui/MagneticButton';
 
 import '../../styles/components/projectPage.scss';
 

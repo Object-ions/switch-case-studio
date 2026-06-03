@@ -13,7 +13,7 @@ import {
   faCircle,
 } from '@fortawesome/free-solid-svg-icons';
 
-import '../styles/components/serviceRow.scss';
+import '../../styles/components/serviceRow.scss';
 
 // services.json stores icon names as strings; faSearchengin is a brand icon
 // (not in free-solid) → use faChartLine.

@@ -7,7 +7,7 @@ import {
   useReducedMotion,
 } from 'motion/react';
 
-import TestimonialHeading from '../TestimonialHeading';
+import TestimonialHeading from './TestimonialHeading';
 import testimonialsData from '../../data/testimonials.json';
 import '../../styles/components/testimonials.scss';
 

@@ -4,17 +4,17 @@ import { HelmetProvider } from "react-helmet-async";
 import MainLayout from "./components/layout/MainLayout";
 
 // Home sections — synchronous (must be ready on first paint)
-import Hero from "./components/Hero";
-import ClientStrip from "./components/ClientStrip";
-import LandingPageProof from "./components/LandingPageProof";
-import Services from "./components/pages/Services";
-import About from "./components/pages/About";
-import Reviews from "./components/pages/Reviews";
-import CaseStudies from "./components/CaseStudies";
-import Contact from "./components/pages/Contact";
-import Faq from "./components/Faq";
-import GradientStripe from "./components/StripeSection";
-import ScrollToTop from "./components/ScrollToTop";
+import Hero from "./components/sections/Hero";
+import ClientStrip from "./components/sections/ClientStrip";
+import LandingPageProof from "./components/sections/LandingPageProof";
+import Services from "./components/sections/Services";
+import About from "./components/sections/About";
+import Reviews from "./components/sections/Reviews";
+import CaseStudies from "./components/sections/CaseStudies";
+import Contact from "./components/sections/Contact";
+import Faq from "./components/sections/Faq";
+import GradientStripe from "./components/sections/StripeSection";
+import ScrollToTop from "./components/util/ScrollToTop";
 import RouteAnalytics from "./analytics/RouteAnalytics";
 import ConsentBanner from "./analytics/ConsentBanner";
 import Orb from "./assets/images/orb.avif";

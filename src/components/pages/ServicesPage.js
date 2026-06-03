@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { motion, useReducedMotion } from 'motion/react';
 import servicesData from '../../data/services.json';
-import ServiceRow from '../ServiceRow';
+import ServiceRow from '../ui/ServiceRow';
 import {
   headerVariants,
   lineVariant,

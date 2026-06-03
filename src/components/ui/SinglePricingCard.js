@@ -9,7 +9,7 @@ import {
   faArrowUpRightFromSquare,
 } from '@fortawesome/free-solid-svg-icons';
 
-import '../styles/components/singlePricingCard.scss';
+import '../../styles/components/singlePricingCard.scss';
 
 /**
  * SinglePricingCard — a focused "one offer" card: price + benefits + CTA on the

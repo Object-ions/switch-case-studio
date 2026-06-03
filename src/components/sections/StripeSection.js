@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import '../styles/components/stripeSection.scss';
+import '../../styles/components/stripeSection.scss';
 
 export default function GradientStripe({
   // Responsive default: min 160px, scales with viewport, caps at 420px

@@ -1,7 +1,7 @@
-import CursorComponent from '../CursorComponent';
+import CursorComponent from '../ui/CursorComponent';
 import Header from './Header';
 import Footer from './Footer';
-import ScrollTriggerRefresher from '../ScrollTriggerRefresher';
+import ScrollTriggerRefresher from '../util/ScrollTriggerRefresher';
 
 const MainLayout = ({ children }) => {
   return (

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import Typed from 'typed.js';
-import useReducedMotion from '../hooks/useReducedMotion';
+import useReducedMotion from '../../hooks/useReducedMotion';
 
 const STRINGS = ['design', 'build', 'launch', 'ship', 'craft'];
 

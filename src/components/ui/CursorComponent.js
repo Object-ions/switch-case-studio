@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import gsap from 'gsap';
-import '../styles/components/cursorComponent.scss';
+import '../../styles/components/cursorComponent.scss';
 
 const PURPLE = '#d99cff'; // $g6
 

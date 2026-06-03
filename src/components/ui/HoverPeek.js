@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import * as HoverCard from '@radix-ui/react-hover-card';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 
-import '../styles/components/hoverPeek.scss';
+import '../../styles/components/hoverPeek.scss';
 
 /**
  * HoverPeek — floats a small screenshot preview above the hovered element.

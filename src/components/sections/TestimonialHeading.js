@@ -1,5 +1,5 @@
-import GradientText from './GradientText';
-import '../styles/components/testimonialHeading.scss';
+import GradientText from '../ui/GradientText';
+import '../../styles/components/testimonialHeading.scss';
 
 const TITLE_GRADIENT_COLORS = ['#ff834a', '#d99cff', '#f0d7ff'];
 

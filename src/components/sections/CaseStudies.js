@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import projectsData from '../data/projects.json';
+import projectsData from '../../data/projects.json';
 import CaseStudyTiles from './CaseStudyTiles';
-import TextPressure from './TextPressure';
+import TextPressure from '../ui/TextPressure';
 
-import '../styles/components/projects.scss';
+import '../../styles/components/projects.scss';
 
 const featured = projectsData.filter((p) => p.featured);
 

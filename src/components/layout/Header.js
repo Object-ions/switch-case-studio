@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { gsap } from "gsap";
 import HeaderCTA from "./HeaderCTA";
 import StaggeredMenu from "./StaggeredMenu";
-import SCSLogo from "../SCSLogo";
+import SCSLogo from "../ui/SCSLogo";
 import { PRICING_LINKS, PROJECT_LINKS } from "../../data/navigation";
 import useReducedMotion from "../../hooks/useReducedMotion";
 import "../../styles/components/header.scss";

@@ -1,8 +1,8 @@
 import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import useReducedMotion from '../hooks/useReducedMotion';
-import '../styles/components/marquee.scss';
+import useReducedMotion from '../../hooks/useReducedMotion';
+import '../../styles/components/marquee.scss';
 gsap.registerPlugin(ScrollTrigger);
 
 const AboutMarquee = () => {

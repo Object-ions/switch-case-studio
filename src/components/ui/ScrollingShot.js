@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import PropTypes from 'prop-types';
-import '../styles/components/scrollingShot.scss';
+import '../../styles/components/scrollingShot.scss';
 
 /**
  * Frameless auto-scrolling website preview.

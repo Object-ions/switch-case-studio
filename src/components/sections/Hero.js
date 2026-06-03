@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { HashLink } from "react-router-hash-link";
 import WelcomeTyped from "./WelcomeTyped";
-import CursorWave from "./CursorWave";
-import useReducedMotion from "../hooks/useReducedMotion";
+import CursorWave from "../ui/CursorWave";
+import useReducedMotion from "../../hooks/useReducedMotion";
 
-import "../styles/components/hero.scss";
+import "../../styles/components/hero.scss";
 
 /* Brand shape + color config for the Hero background.
    Repeating shapes in the array biases the random distribution —
