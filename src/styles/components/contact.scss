@@ -39,10 +39,14 @@
   grid-template-columns: 1fr;
   gap: 3rem;
 
-  @media (min-width: 1024px) {
+  // Row layout as soon as it fits — only true mobile stacks.
+  @media (min-width: 769px) {
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
     align-items: start;
+  }
+
+  @media (min-width: 1024px) {
+    gap: 4rem;
   }
 }
 
@@ -82,7 +86,7 @@
     background: $g1; // matches the video bg, prevents flash before load
     line-height: 0;
 
-    @media (max-width: 1023px) {
+    @media (max-width: 768px) {
       max-height: 60vh;
       margin: 0 auto;
     }
