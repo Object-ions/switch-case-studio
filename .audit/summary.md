@@ -253,7 +253,18 @@ Baseline (mobile PageSpeed, live): Perf 44, LCP 8.4s, FCP 4.5s — 2KB empty-she
 - Home document: **75KB real HTML (was ~2KB shell), TTFB 143ms**; all 25 routes 200 as real files; `/x/`→301→`/x` matches canonicals; unknown paths → real 404.
 - **SEO 100 restored on prod** (draft's 69 was the noindex header, confirmed gone); exactly one title/canonical/og set + one h1 per page; per-page JSON-LD; sitemap 24 URLs.
 - GA4 + Consent Mode v2 verified live (G100 cookieless → accept → G111; `book_call_click` fires); hero reads "We build" pre-JS; CLS: typed-verb reflow fixed (mobile 0.008, desktop residual ≈0.16 is font-swap → perf steps 4–5).
-- **Official PSI before/after still pending**: API quota was exhausted; Moses runs pagespeed.web.dev on `https://switchcasestudio.com` (mobile + desktop) and records here. Draft-deploy local LH showed LCP 8.4s→5.4s mobile / 1.1s desktop; local numbers after that are machine-load noise — trust only PSI.
+- **Crawlability confirmed on live domain (2026-06-04, direct header check):** `curl -sI https://switchcasestudio.com | grep -i x-robots` → **header absent** (grep exit 1; full header set has no robots directive). The draft-deploy noindex was Netlify preview behavior only, as expected.
+- **Official PSI before/after — BLOCKED on API quota (retried post-ship 2026-06-04, both strategies: "Quota exceeded… Queries per day", anonymous shared project, resets midnight PT). Moses: run https://pagespeed.web.dev on `https://switchcasestudio.com`, mobile AND desktop, and report — record below.**
+
+  | | Baseline (PSI mobile, pre-SSG) | PROD mobile (PSI) | PROD desktop (PSI) |
+  |---|---|---|---|
+  | Perf | 44 | *(awaiting Moses)* | *(awaiting Moses)* |
+  | FCP | 4.5s | | |
+  | LCP | 8.4s | | |
+  | CLS | 0.008 | | *(see note)* |
+
+  *Desktop CLS note: a residual ~0.16 is **KNOWN / DEFERRED to perf steps 4–5** — Lighthouse root cause "Web font loaded" (font-swap reflows the hero). NOT a migration regression: the typed-verb reflow component of CLS was fixed and verified pixel-stable; the font-swap component predates the migration and only became measurable once content paints early. The font diet (step 4) removes it.*
+  Reference points from the draft deploy (identical code, local LH): LCP 5.4s mobile / 1.1s desktop vs 8.4s baseline.
 - **Next session (perf plan steps 2–5):** WebGL out of critical path, prune unused JS, font diet (also kills the remaining desktop CLS — "Web font loaded" reflow), preload LCP asset.
 - **Open for Moses:** real metrics for Zahav/Crimson/Prodani (C1, unchanged); missing `1.avif` images for 6 projects (now truly 404 — no SPA fallback masking); contact-form live submit test.
 
