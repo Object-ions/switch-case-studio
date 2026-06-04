@@ -27,43 +27,18 @@
     <meta name="theme-color" content="#000000" />
     <meta name="author" content="Switch Case Studio" />
     <!--
-      Route-variable head tags (title, description, canonical, og:title/
-      og:description/og:url/og:type, twitter:title/description) are managed
-      per-route by src/components/util/Seo.js — react-helmet-async can only
-      REPLACE the <title>; any other static tag here would duplicate and
-      conflict with the per-route one (two canonicals = Google picks at
-      random). Only site-wide constants live below. The OG/Twitter fallback
-      block stays because social scrapers don't run JS — a shared link always
-      resolves to these tags.
+      Route-variable head tags (title, description, canonical, og:*, twitter:*)
+      are managed per-route by src/components/util/Seo.js and BAKED INTO each
+      page's static HTML by vite-react-ssg at build time — injected right after
+      <head>. Any static copy here would duplicate them in every built file
+      (two titles / two og:titles = scrapers and Google pick at random). The
+      old "fallback for non-JS scrapers" block is obsolete: with SSG, scrapers
+      get the real per-route tags without running JS. Only true site-wide
+      constants live below (favicons, og:site_name/locale, Org/WebSite JSON-LD,
+      fonts, manifest).
     -->
-
-    <!-- Open Graph / Twitter — site-wide fallback for non-JS scrapers -->
     <meta property="og:site_name" content="Switch Case Studio" />
     <meta property="og:locale" content="en_US" />
-    <meta
-      property="og:title"
-      content="Switch Case Studio — Landing Pages That Convert"
-    />
-    <meta
-      property="og:description"
-      content="Conversion-focused landing pages and websites, designed and built from scratch. Built for paid traffic, delivered in days."
-    />
-    <meta
-      property="og:image"
-      content="https://switchcasestudio.com/images/og/og.png"
-    />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:type" content="image/png" />
-    <meta
-      property="og:image:alt"
-      content="Switch Case Studio — landing pages and websites that convert."
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:image"
-      content="https://switchcasestudio.com/images/og/og.png"
-    />
 
     <!-- Structured data — Organization + WebSite (site-wide) -->
     <script type="application/ld+json">
@@ -117,7 +92,8 @@
 
     <!-- Web Manifest Link (Pointing to your custom favicon folder) -->
     <link rel="manifest" href="/images/favicon/site.webmanifest" />
-    <title>Switch Case Studio — Landing Pages That Convert</title>
+    <!-- No static <title>: every route's title is injected at build time by
+         vite-react-ssg from <Seo>; a static one would ship two titles. -->
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
