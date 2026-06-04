@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import MainLayout from "./components/layout/MainLayout";
 
 // Home sections — synchronous (must be ready on first paint)
@@ -136,9 +136,13 @@ export const routes = [
       { path: "privacy", lazy: page(() => import("./components/pages/Privacy")) },
       { path: "terms", lazy: page(() => import("./components/pages/Terms")) },
       { path: "accessibility", lazy: page(() => import("./components/pages/Accessibility")) },
+
+      // 404 — emitted as build/404.html, which Netlify serves (with a real
+      // 404 status) for any URL that has no static file. The "*" catch-all
+      // below renders the same page for unknown in-app navigations (it used
+      // to silently redirect home, masking broken links).
+      { path: "404", lazy: page(() => import("./components/pages/NotFoundPage")) },
+      { path: "*", lazy: page(() => import("./components/pages/NotFoundPage")) },
     ],
   },
-
-  // Catch-all → home
-  { path: "*", element: <Navigate to="/" replace /> },
 ];

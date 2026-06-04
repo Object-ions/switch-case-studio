@@ -1,17 +1,14 @@
-# Netlify deploy config — made explicit during the Vite migration.
-# Previously the SPA fallback relied on Netlify's Create React App detection;
-# Vite isn't guaranteed to get that automatically, so it's declared here.
+# Netlify deploy config.
+# Since the vite-react-ssg migration the build emits one HTML file per route
+# (build/about.html, build/projects/<slug>.html, …), so deep links resolve to
+# real files — the old SPA catch-all (`/* → /index.html 200`) is GONE. It
+# would have been harmless for existing pages (Netlify prefers real files)
+# but it masked genuinely missing paths as 200-HTML (fonts bug, the missing
+# 1.avif images). Unmatched paths now get build/404.html with a real 404.
 
 [build]
-  command = "npm run build"
+  command = "npm run build"  # = vite-react-ssg build (package.json)
   publish = "build"          # matches vite.config.js `build.outDir`
 
 [build.environment]
   NODE_VERSION = "20"        # Vite 5 + Sass require Node 18+; pin to 20
-
-# Single-page-app fallback: serve index.html for any path the static files
-# don't cover, so client-side routes (deep links, refresh) don't 404.
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200

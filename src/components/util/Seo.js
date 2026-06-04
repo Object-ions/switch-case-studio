@@ -28,6 +28,7 @@ const Seo = ({
   image,
   imageAlt,
   jsonLd,
+  noindex = false, // error/utility pages (404) must not enter the index
 }) => {
   const url = `${SITE}${path}`;
   const img = image
@@ -40,6 +41,7 @@ const Seo = ({
     <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
+      {noindex && <meta name="robots" content="noindex" />}
       <link rel="canonical" href={url} />
 
       <meta property="og:type" content={ogType} />
