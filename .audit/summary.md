@@ -246,6 +246,16 @@ LandingPageProof now carries the narrative weight ValueProp had, without the scr
 
 Build output: main.js = 1.6MB (Three.js + GSAP + OGL — animation system, expected). Lazy chunks: 2–14KB each, load on demand only.
 
+## SSG MIGRATION (started 2026-06-04) — vite-react-ssg, work order `~/Downloads/CC-handoff-ssg-migration.md`
+Baseline (mobile PageSpeed, live): Perf 44, LCP 8.4s, FCP 4.5s — 2KB empty-shell HTML. Goal: real content per route in static HTML.
+
+- **Phase 0 — recon ✅** (`.audit/ssg-recon.md`, branch `ssg/phase-0-recon`). Review corrections: pin 0.9.0; vite-react-ssg uses helmet-async (1.x bundled) not unhead → dedupe required; SSR hero verb "build"; client-gate whole R3F Canvas; no window-branching above the fold.
+- **Phase 1 — wire ✅** (branch `ssg/phase-1-wire`): 0.9.0 installed; helmet dedupe done (Seo.js → `Head` from vite-react-ssg, root helmet uninstalled, single 1.3.0 instance); `src/routes.js` route records (+`getStaticPaths` from projects/services JSON); entry → `ViteReactSSG`; scripts → `vite-react-ssg dev|build`; `ssr.noExternal: ['gsap']`. **Build emits all 24 HTML files with correct unique title/canonical/OG/JSON-LD verified file-by-file.** Findings: jsdom shim masks crashes (Phase 2 = warnings + hydration, not crashes); index.html static title/OG fallbacks now duplicate per-route tags (Phase 3 = strip); `vite preview` 200s everything (verify against `build/` files).
+- **Phase 2 — SSR safety** ⏳ next: kill `useLayoutEffect` warning (StaggeredMenu:87), guards (CursorComponent portal, Moon/R3F client-gate, module matchMedia), hero verb "build" SSR text, zero hydration mismatches.
+- **Phase 3** — strip index.html duplicate fallbacks, verify single title/og set per page.
+- **Phase 4** — Netlify: drop SPA catch-all, 404 page (none exists — `*` redirects home), build cmd; branch deploy first. **Production deploy gate = Phase 5 pass.**
+- **Phase 6** — PageSpeed before/after (mobile + desktop) into this doc.
+
 ## NEXT SESSION ENTRY POINT (updated 2026-06-03)
 Audit phases + 7-day plan + post-merge polish: all shipped on `main` (clean at `f9278f7`).
 
