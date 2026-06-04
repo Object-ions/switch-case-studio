@@ -246,8 +246,16 @@ LandingPageProof now carries the narrative weight ValueProp had, without the scr
 
 Build output: main.js = 1.6MB (Three.js + GSAP + OGL — animation system, expected). Lazy chunks: 2–14KB each, load on demand only.
 
-## SSG MIGRATION (started 2026-06-04) — vite-react-ssg, work order `~/Downloads/CC-handoff-ssg-migration.md`
+## SSG MIGRATION ✅ SHIPPED TO PRODUCTION 2026-06-04 — vite-react-ssg, work order `~/Downloads/CC-handoff-ssg-migration.md`
 Baseline (mobile PageSpeed, live): Perf 44, LCP 8.4s, FCP 4.5s — 2KB empty-shell HTML. Goal: real content per route in static HTML.
+
+**FINAL STATE (merged `main` @ `9145831`, Netlify prod deploy verified):**
+- Home document: **75KB real HTML (was ~2KB shell), TTFB 143ms**; all 25 routes 200 as real files; `/x/`→301→`/x` matches canonicals; unknown paths → real 404.
+- **SEO 100 restored on prod** (draft's 69 was the noindex header, confirmed gone); exactly one title/canonical/og set + one h1 per page; per-page JSON-LD; sitemap 24 URLs.
+- GA4 + Consent Mode v2 verified live (G100 cookieless → accept → G111; `book_call_click` fires); hero reads "We build" pre-JS; CLS: typed-verb reflow fixed (mobile 0.008, desktop residual ≈0.16 is font-swap → perf steps 4–5).
+- **Official PSI before/after still pending**: API quota was exhausted; Moses runs pagespeed.web.dev on `https://switchcasestudio.com` (mobile + desktop) and records here. Draft-deploy local LH showed LCP 8.4s→5.4s mobile / 1.1s desktop; local numbers after that are machine-load noise — trust only PSI.
+- **Next session (perf plan steps 2–5):** WebGL out of critical path, prune unused JS, font diet (also kills the remaining desktop CLS — "Web font loaded" reflow), preload LCP asset.
+- **Open for Moses:** real metrics for Zahav/Crimson/Prodani (C1, unchanged); missing `1.avif` images for 6 projects (now truly 404 — no SPA fallback masking); contact-form live submit test.
 
 - **Phase 0 — recon ✅** (`.audit/ssg-recon.md`, branch `ssg/phase-0-recon`). Review corrections: pin 0.9.0; vite-react-ssg uses helmet-async (1.x bundled) not unhead → dedupe required; SSR hero verb "build"; client-gate whole R3F Canvas; no window-branching above the fold.
 - **Phase 1 — wire ✅** (branch `ssg/phase-1-wire`): 0.9.0 installed; helmet dedupe done (Seo.js → `Head` from vite-react-ssg, root helmet uninstalled, single 1.3.0 instance); `src/routes.js` route records (+`getStaticPaths` from projects/services JSON); entry → `ViteReactSSG`; scripts → `vite-react-ssg dev|build`; `ssr.noExternal: ['gsap']`. **Build emits all 24 HTML files with correct unique title/canonical/OG/JSON-LD verified file-by-file.** Findings: jsdom shim masks crashes (Phase 2 = warnings + hydration, not crashes); index.html static title/OG fallbacks now duplicate per-route tags (Phase 3 = strip); `vite preview` 200s everything (verify against `build/` files).
