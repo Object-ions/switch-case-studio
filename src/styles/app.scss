@@ -1,6 +1,37 @@
 @import './_variables.scss';
 @import './_mixins.scss';
 
+// Font-face definitions — ALL self-hosted from public/fonts/, latin subset
+// only, woff2 only. The old Google Fonts <link> shipped 31+ cross-origin
+// files (6 weights × 7 subsets) and drove mobile FCP + desktop CLS
+// (font-swap reflow). They live HERE (imported once) and not in
+// _variables.scss (imported 40+ times — emitted CSS duplicates per import).
+// Root-absolute url()s: Vite does not rewrite url()s pulled in through Sass
+// @import, so a relative ../assets path 404s in the production build.
+
+@font-face {
+  font-family: 'NeueMachina';
+  src: url('/fonts/NeueMachina-Ultrabold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Inter statics — exactly the weights the CSS uses (300–800), latin only.
+// Statics, not the variable font: out-of-range declarations used to snap
+// (200→300, 900→800) under the Google link; a variable font would render
+// them thinner/heavier than the site has ever looked. Those declarations are
+// now fixed at source, and statics keep rendering identical by construction.
+@each $w in 300, 400, 500, 600, 700, 800 {
+  @font-face {
+    font-family: 'Inter';
+    src: url('/fonts/Inter-#{$w}.woff2') format('woff2');
+    font-weight: $w;
+    font-style: normal;
+    font-display: swap;
+  }
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -26,11 +57,13 @@ ul {
 a {
   text-decoration: none;
   color: inherit;
-  font-weight: 200;
+  // 300, not 200: weight 200 was never loaded — browsers snapped it to 300
+  // under the old Google link. Declared weights must exist as files.
+  font-weight: 300;
 }
 
 p {
-  font-weight: 200;
+  font-weight: 300; // same: 200 always rendered as 300
 }
 
 h1,

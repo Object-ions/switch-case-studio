@@ -14,7 +14,9 @@
   background: #000;
   color: $white-color;
   padding: 4rem 1.5rem;
-  font-family: 'Roboto Mono', monospace;
+  // System monospace — 'Roboto Mono' was declared here but never loaded
+  // anywhere (no @font-face, not in any font link); it always fell back.
+  font-family: monospace;
 
   @media (min-width: 640px) {
     padding: 6rem 2rem;

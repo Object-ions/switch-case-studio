@@ -71,7 +71,7 @@
   &__item-cta {
     flex-shrink: 0;
     font-size: 0.875rem;
-    font-weight: 100;
+    font-weight: 300; // was 100 — never loaded, always rendered as 300
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: $g6;

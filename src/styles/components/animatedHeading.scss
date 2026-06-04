@@ -7,7 +7,7 @@
     text-transform: uppercase;
     font-size: 3rem;
     line-height: 0.8;
-    font-weight: 900;
+    font-weight: 800; // was 900 — never loaded, always rendered as 800
     color: $g6 !important;
     opacity: 0;
     transform: translateY(30px);
