@@ -26,4 +26,4 @@ yarn-error.log*
 # Graphify
 graphify-out/manifest.json
 graphify-out/cost.json
-graphify-out/cache/
+graphify-out/cache/.netlify
