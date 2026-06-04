@@ -161,9 +161,16 @@ const TextPressure = ({
     return () => cancelAnimationFrame(rafId);
   }, [width, weight, italic, alpha]);
 
+  // dangerouslySetInnerHTML, NOT a JSX text child: the server renderer
+  // HTML-escapes text children (the CSS's quotes become &#x27;) while the
+  // client does not — a guaranteed hydration text mismatch that made React
+  // throw away the whole server-rendered page. innerHTML bypasses escaping
+  // on both sides.
   const styleElement = useMemo(() => {
     return (
-      <style>{`
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
         @font-face {
           font-family: '${fontFamily}';
           src: url('${fontUrl}');
@@ -193,7 +200,9 @@ const TextPressure = ({
         .text-pressure-title {
           color: ${textColor};
         }
-      `}</style>
+      `,
+        }}
+      />
     );
   }, [fontFamily, fontUrl, textColor, strokeColor]);
 
