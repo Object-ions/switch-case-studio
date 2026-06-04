@@ -40,7 +40,14 @@
   right: 0;
   height: 100%;
   width: 100%;
-  transform: translateX(0);
+  /* Offscreen by default — the static (SSG) HTML must paint the menu closed
+     without JS. GSAP re-asserts this as an inline transform on mount and
+     animates from it; inline always wins over this base. */
+  transform: translateX(100%);
+}
+
+[data-position='left'] .sm-prelayer {
+  transform: translateX(-100%);
 }
 
 /* ── Slide-in panel ───────────────────────────── */
@@ -63,6 +70,9 @@
      — prevents the offscreen panel from intercepting
      stray clicks due to sub-pixel rounding. */
   pointer-events: none;
+
+  /* Offscreen by default — see .sm-prelayer note (SSG paints menu closed). */
+  transform: translateX(100%);
 }
 
 [data-open] .staggered-menu-panel {
@@ -74,6 +84,7 @@
   left: 0;
   border-left: none;
   border-right: 1px solid #222;
+  transform: translateX(-100%);
 }
 
 .sm-panel-inner {

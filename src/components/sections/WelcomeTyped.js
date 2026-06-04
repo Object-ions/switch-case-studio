@@ -2,7 +2,11 @@ import { useEffect, useRef } from 'react';
 import Typed from 'typed.js';
 import useReducedMotion from '../../hooks/useReducedMotion';
 
-const STRINGS = ['design', 'build', 'launch', 'ship', 'craft'];
+// "build" leads: it's the brand verb (hero + OG copy say "built for paid
+// traffic") AND the word baked into the static HTML — the SSG hero must read
+// "We build landing pages…" before any JS runs. typed.js takes over the span
+// post-hydration; reduced-motion keeps the static word.
+const STRINGS = ['build', 'design', 'launch', 'ship', 'craft'];
 
 const WelcomeTyped = () => {
   const targetRef = useRef(null);
@@ -25,11 +29,9 @@ const WelcomeTyped = () => {
 
   return (
     <span className="typed-cursor">
-      {reducedMotion ? (
-        <span className="typed-container">{STRINGS[0]}</span>
-      ) : (
-        <span ref={targetRef} className="typed-container" />
-      )}
+      <span ref={targetRef} className="typed-container">
+        {STRINGS[0]}
+      </span>
       <span className="typed-blinker" aria-hidden="true">
         |
       </span>

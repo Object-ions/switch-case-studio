@@ -3,7 +3,6 @@ import useIsomorphicLayoutEffect from "../../hooks/useIsomorphicLayoutEffect";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
 
 const AboutText = () => {
   const rootRef = useRef(null);

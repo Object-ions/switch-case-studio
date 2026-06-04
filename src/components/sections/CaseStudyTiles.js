@@ -9,7 +9,6 @@ import useBentoParticles from '../../hooks/useBentoParticles';
 import useBentoSpotlight from '../../hooks/useBentoSpotlight';
 import { MOBILE_BREAKPOINT } from '../../utils/bentoEffects';
 
-gsap.registerPlugin(ScrollTrigger);
 
 /* ═══════════════════════════════════════════
    Tile — single project card

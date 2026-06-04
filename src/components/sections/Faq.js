@@ -3,7 +3,6 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "../../styles/components/faq.scss";
 
-gsap.registerPlugin(ScrollTrigger);
 
 /* ------------------------------------------------------------------ *
  * FAQ content

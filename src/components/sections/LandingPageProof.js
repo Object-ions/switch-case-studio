@@ -7,7 +7,6 @@ import useReducedMotion from '../../hooks/useReducedMotion';
 
 import '../../styles/components/landingPageProof.scss';
 
-gsap.registerPlugin(ScrollTrigger);
 
 const FEATURES = [
   {

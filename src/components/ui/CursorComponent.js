@@ -1,19 +1,27 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import gsap from 'gsap';
 import '../../styles/components/cursorComponent.scss';
 
 const PURPLE = '#d99cff'; // $g6
 
-const isPointerDevice =
-  typeof window !== 'undefined' &&
-  window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
 const INTERACTIVE_SELECTOR =
   "a, button, [role='button'], input[type='button'], input[type='submit'], summary, label, [data-cursor-color]";
 
 const CursorComponent = () => {
   const dotRef = useRef(null);
+
+  // Pointer detection lives in an effect, not at module scope: the SSG render
+  // has no window (server output = null, same as the first client render —
+  // no hydration divergence), and the portal target (document.body) must not
+  // be touched until we're mounted in a real browser.
+  const [isPointerDevice, setIsPointerDevice] = useState(false);
+
+  useEffect(() => {
+    setIsPointerDevice(
+      window.matchMedia('(hover: hover) and (pointer: fine)').matches,
+    );
+  }, []);
 
   useEffect(() => {
     if (!isPointerDevice) return;
@@ -62,7 +70,7 @@ const CursorComponent = () => {
       document.removeEventListener('pointerover', onOver, true);
       document.removeEventListener('pointerout', onOut, true);
     };
-  }, []);
+  }, [isPointerDevice]);
 
   if (!isPointerDevice) return null;
 

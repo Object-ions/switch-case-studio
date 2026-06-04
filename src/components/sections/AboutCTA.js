@@ -4,7 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 
-gsap.registerPlugin(ScrollTrigger);
 
 const AboutCTA = () => {
   const ctaRef = useRef(null);

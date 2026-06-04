@@ -4,7 +4,6 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useReducedMotion from '../../hooks/useReducedMotion';
 import '../../styles/components/marquee.scss';
-gsap.registerPlugin(ScrollTrigger);
 
 const AboutMarquee = () => {
   const wrap = useRef(null);

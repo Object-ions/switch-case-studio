@@ -6,7 +6,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import bannerVideo from '../../assets/videos/switch-case-studio-banner.webm';
 import '../../styles/components/contact.scss';
 
-gsap.registerPlugin(ScrollTrigger);
 
 const {
   VITE_EMAILJS_SERVICE_ID,

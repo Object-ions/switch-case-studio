@@ -1,4 +1,4 @@
-import { Suspense, useRef, useEffect } from "react";
+import { Suspense, useRef, useEffect, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
   OrbitControls,
@@ -43,9 +43,19 @@ function MoonModel(props) {
   );
 }
 
-useGLTF.preload("/models/moon.glb");
-
 export default function Moon() {
+  // The whole R3F <Canvas> is client-gated: the SSG render must never start
+  // the WebGL/loader machinery (useGLTF.preload at module scope fired a GLTF
+  // fetch at import time in Node — moved into the mount effect below). The
+  // moon is decorative; static HTML ships an empty slot of the same size.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    useGLTF.preload("/models/moon.glb");
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return <div style={{ width: "100%", height: "100%" }} />;
+
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <Canvas camera={{ position: [0, 0, CAM_DIST], fov: FOV }} dpr={[1, 2]}>

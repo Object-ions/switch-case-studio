@@ -6,7 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import servicesData from "../../data/services.json";
 import "../../styles/components/services.scss";
 
-gsap.registerPlugin(ScrollTrigger);
 
 function ServiceItem({ service, index }) {
   const itemRef = useRef(null);

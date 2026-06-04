@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import PropTypes from 'prop-types';
+import useReducedMotion from '../../hooks/useReducedMotion';
 import '../../styles/components/scrollingShot.scss';
 
 /**
@@ -27,13 +28,10 @@ const ScrollingShot = ({
   const inViewRef = useRef(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const prefersReduced = useMemo(
-    () =>
-      typeof window !== 'undefined' &&
-      window.matchMedia &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    []
-  );
+  // Effect-based (starts false, updates after mount) — never read matchMedia
+  // in the render body: the SSG render must produce environment-independent
+  // output, and all consumers of this flag are effects anyway.
+  const prefersReduced = useReducedMotion();
 
   const killTL = () => {
     if (tlRef.current) {

@@ -24,12 +24,12 @@ const DEFAULT_SHAPES = ['square', 'star', 'asterisk', 'circle'];
 
 const TAU = Math.PI * 2;
 
-/* Touch / no-hover detection at module level — same pattern as the
-   custom cursor. We use this to decide which listeners attach, but
-   we keep the canvas mounted either way so taps can still trigger
-   bursts and an auto-burst gives mobile users immediate motion. */
-const IS_TOUCH =
-  typeof window !== 'undefined' &&
+/* Touch / no-hover detection — client-only, queried where needed (inside
+   effects / post-mount state), never at module scope: the SSG render has no
+   real matchMedia, and module-time answers can't react to environment. The
+   canvas stays mounted either way so taps can still trigger bursts and an
+   auto-burst gives mobile users immediate motion. */
+const isTouchDevice = () =>
   typeof window.matchMedia === 'function' &&
   window.matchMedia('(hover: none)').matches;
 
@@ -399,7 +399,7 @@ const CursorWave = React.forwardRef(
 
       /* Touch devices and explicit opt-in get an auto-burst from
          center on mount, so users see motion immediately. */
-      if (autoBurstOnMount || IS_TOUCH) {
+      if (autoBurstOnMount || isTouchDevice()) {
         /* Defer one frame so the lattice has size when the ripple
            seeds. */
         requestAnimationFrame(() => triggerBurst());
@@ -579,9 +579,17 @@ const CursorWave = React.forwardRef(
       buildLattice();
     }, [structuralKey, buildLattice]);
 
-    /* Pointer handlers — move/leave only attach on hover-capable devices.
-       Pointer-down (the burst trigger) attaches on every device. */
+    /* Pointer handlers — move/leave bail on touch devices (checked inside,
+       via a ref set on mount, so the rendered props are identical between
+       the SSG render and the client — no environment branching in render).
+       Pointer-down (the burst trigger) works on every device. */
+    const touchRef = useRef(false);
+    useEffect(() => {
+      touchRef.current = isTouchDevice();
+    }, []);
+
     const onPointerMove = useCallback((e) => {
+      if (touchRef.current) return;
       const rt = runtimeRef.current;
       const container = containerRef.current;
       if (!rt || !container) return;
@@ -594,6 +602,7 @@ const CursorWave = React.forwardRef(
     }, []);
 
     const onPointerLeave = useCallback(() => {
+      if (touchRef.current) return;
       const rt = runtimeRef.current;
       if (!rt) return;
       rt.pointer = null;
@@ -611,8 +620,8 @@ const CursorWave = React.forwardRef(
         ref={containerRef}
         className={`cursor-wave ${className}`.trim()}
         style={{ width, height, backgroundColor }}
-        onPointerMove={IS_TOUCH ? undefined : onPointerMove}
-        onPointerLeave={IS_TOUCH ? undefined : onPointerLeave}
+        onPointerMove={onPointerMove}
+        onPointerLeave={onPointerLeave}
         onPointerDown={onPointerDown}
       >
         <canvas ref={canvasRef} className="cursor-wave__canvas" />

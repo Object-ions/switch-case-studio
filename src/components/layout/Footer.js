@@ -6,7 +6,6 @@ import SCSLogo from '../ui/SCSLogo';
 import { PROJECT_LINKS, LEGAL_LINKS } from '../../data/navigation';
 import '../../styles/components/footer.scss';
 
-gsap.registerPlugin(ScrollTrigger);
 
 /* ------------------------------------------------------------------ *
  * Social links

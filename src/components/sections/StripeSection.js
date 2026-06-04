@@ -71,7 +71,11 @@ export default function GradientStripe({
           alt=""
           decoding="async"
           loading="eager"
-          fetchPriority={fetchPriority}
+          // lowercase: React 18's renderer doesn't know the camelCase prop
+          // (that's React 19) — it warns on every SSG page render and would
+          // emit nothing; the lowercase form passes through as the real
+          // HTML attribute.
+          fetchpriority={fetchPriority}
         />
       </div>
     </div>
