@@ -26,6 +26,12 @@ export default defineConfig({
       },
     },
   },
+  ssr: {
+    // gsap ships CJS; if left external, the SSG's Node render hits
+    // "Named export 'ScrollTrigger' not found" (Node ESM can't named-import
+    // CJS). Bundling it through Vite's SSR transform fixes the interop.
+    noExternal: ["gsap"],
+  },
   esbuild: {
     loader: "jsx",
     include: /src\/.*\.js$/,

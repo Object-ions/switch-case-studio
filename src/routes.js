@@ -1,6 +1,5 @@
-import { lazy, Suspense } from "react";
-import { Routes, Route, Navigate, Outlet, useLocation } from "react-router-dom";
-import { HelmetProvider } from "react-helmet-async";
+import { Suspense } from "react";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import MainLayout from "./components/layout/MainLayout";
 
 // Home sections — synchronous (must be ready on first paint)
@@ -19,20 +18,15 @@ import Seo from "./components/util/Seo";
 import RouteAnalytics from "./analytics/RouteAnalytics";
 import ConsentBanner from "./analytics/ConsentBanner";
 import Orb from "./assets/images/orb.avif";
+import projects from "./data/projects.json";
+import services from "./data/services.json";
 import "./styles/app.scss";
 
-// Route-only pages — lazy loaded (not needed on initial home visit)
-const CaseStudyPage        = lazy(() => import("./components/pages/CaseStudyPage"));
-const CaseStudiesPage       = lazy(() => import("./components/pages/CaseStudiesPage"));
-const PricingPage        = lazy(() => import("./components/pages/PricingPage"));
-const PricingOverviewPage = lazy(() => import("./components/pages/PricingOverviewPage"));
-const AboutPage          = lazy(() => import("./components/pages/AboutPage"));
-const ServicesPage       = lazy(() => import("./components/pages/ServicesPage"));
-const ReviewsPage   = lazy(() => import("./components/pages/ReviewsPage"));
-const ContactPage        = lazy(() => import("./components/pages/ContactPage"));
-const Privacy            = lazy(() => import("./components/pages/Privacy"));
-const Terms              = lazy(() => import("./components/pages/Terms"));
-const Accessibility      = lazy(() => import("./components/pages/Accessibility"));
+// Route-only pages — lazy route records: vite-react-ssg resolves them during
+// the static build (full content in the HTML) and React Router code-splits
+// them on the client, same chunks as the old React.lazy setup.
+const page = (loader) => () =>
+  loader().then((m) => ({ Component: m.default }));
 
 const HomeContent = () => (
   <>
@@ -77,17 +71,24 @@ const LIGHT_ROUTES = /^\/(privacy|terms|accessibility)(\/|$)/;
  * backdrop shows through. If the backdrop matches the page, fading in
  * changes no color — only the content appears.
  *
- * Suspense lives HERE (not around the whole app) so header/footer stay
- * mounted during a lazy chunk load; its fallback is transparent and simply
- * shows the matching .route-backdrop. The keyed wrapper re-mounts per route
- * to replay the opacity-only fade (resting opacity is 1, so content can
- * never get stuck invisible).
+ * ScrollToTop / RouteAnalytics / ConsentBanner need the router context
+ * (useLocation), so they live here now that the router is owned by
+ * vite-react-ssg instead of an app-level <BrowserRouter>.
+ *
+ * Suspense stays for any nested lazy component (e.g. the Moon); page-level
+ * code-splitting moved to route-record `lazy`, which React Router resolves
+ * before rendering the route. The keyed wrapper re-mounts per route to
+ * replay the opacity-only fade (resting opacity is 1, so content can never
+ * get stuck invisible).
  */
 const Layout = () => {
   const { pathname } = useLocation();
   const theme = LIGHT_ROUTES.test(pathname) ? "is-light" : "is-dark";
   return (
     <MainLayout>
+      <ScrollToTop />
+      <RouteAnalytics />
+      <ConsentBanner />
       <div className={`route-backdrop ${theme}`}>
         <Suspense fallback={<div className="route-fallback" aria-hidden="true" />}>
           <div key={pathname} className="page-fade">
@@ -99,45 +100,45 @@ const Layout = () => {
   );
 };
 
-function App() {
-  return (
-    <HelmetProvider>
-      <ScrollToTop />
-      <RouteAnalytics />
-      <ConsentBanner />
+export const routes = [
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      // Landing
+      { index: true, element: <HomeContent /> },
 
-      <Routes>
-        <Route element={<Layout />}>
-          {/* Landing */}
-          <Route path="/" element={<HomeContent />} />
+      // About
+      { path: "about", lazy: page(() => import("./components/pages/AboutPage")) },
 
-          {/* About */}
-          <Route path="/about" element={<AboutPage />} />
+      // Case studies
+      { path: "projects", lazy: page(() => import("./components/pages/CaseStudiesPage")) },
+      {
+        path: "projects/:slug",
+        lazy: page(() => import("./components/pages/CaseStudyPage")),
+        getStaticPaths: () => projects.map((p) => `/projects/${p.slug}`),
+      },
 
-          {/* Case studies */}
-          <Route path="/projects" element={<CaseStudiesPage />} />
-          <Route path="/projects/:slug" element={<CaseStudyPage />} />
+      // Pricing
+      { path: "pricing", lazy: page(() => import("./components/pages/PricingOverviewPage")) },
+      {
+        path: "pricing/:serviceSlug",
+        lazy: page(() => import("./components/pages/PricingPage")),
+        getStaticPaths: () => services.map((s) => `/pricing/${s.slug}`),
+      },
 
-          {/* Pricing */}
-          <Route path="/pricing" element={<PricingOverviewPage />} />
-          <Route path="/pricing/:serviceSlug" element={<PricingPage />} />
+      // Standalone section pages
+      { path: "services", lazy: page(() => import("./components/pages/ServicesPage")) },
+      { path: "testimonials", lazy: page(() => import("./components/pages/ReviewsPage")) },
+      { path: "contact", lazy: page(() => import("./components/pages/ContactPage")) },
 
-          {/* Standalone section pages */}
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/testimonials" element={<ReviewsPage />} />
-          <Route path="/contact" element={<ContactPage />} />
+      // Legal
+      { path: "privacy", lazy: page(() => import("./components/pages/Privacy")) },
+      { path: "terms", lazy: page(() => import("./components/pages/Terms")) },
+      { path: "accessibility", lazy: page(() => import("./components/pages/Accessibility")) },
+    ],
+  },
 
-          {/* Legal */}
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/accessibility" element={<Accessibility />} />
-        </Route>
-
-        {/* Catch-all → home */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </HelmetProvider>
-  );
-}
-
-export default App;
+  // Catch-all → home
+  { path: "*", element: <Navigate to="/" replace /> },
+];

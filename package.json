@@ -14,7 +14,6 @@
     "motion": "^12.35.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-helmet-async": "^3.0.0",
     "react-router-dom": "^6.30.1",
     "react-router-hash-link": "^2.4.3",
     "sass": "^1.77.8",
@@ -23,13 +22,14 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
-    "vite": "^5.4.11"
+    "vite": "^5.4.11",
+    "vite-react-ssg": "0.9.0"
   },
   "scripts": {
     "start": "vite",
-    "dev": "vite",
+    "dev": "vite-react-ssg dev",
     "prebuild": "node scripts/generate-sitemap.mjs",
-    "build": "vite build",
+    "build": "vite-react-ssg build",
     "preview": "vite preview",
     "postinstall": "node -e \"const fs=require('fs'),p='node_modules/@mediapipe/tasks-vision/vision_bundle_mjs.js.map'; if(!fs.existsSync(p)){fs.mkdirSync(require('path').dirname(p),{recursive:true}); fs.writeFileSync(p,'{\\\"version\\\":3,\\\"sources\\\":[],\\\"names\\\":[],\\\"mappings\\\":\\\"\\\"}');}\""
   }
