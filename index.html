@@ -25,80 +25,68 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Switch Case Studio builds custom websites, e-commerce stores, and web apps from scratch. Design-led, performance-focused, fast turnaround."
-    />
-    <meta
-      name="keywords"
-      content="web design, e-commerce development, web app development, custom website design, conversion-focused design, Switch Case Studio"
-    />
     <meta name="author" content="Switch Case Studio" />
-    <link rel="canonical" href="https://switchcasestudio.com/" />
+    <!--
+      Route-variable head tags (title, description, canonical, og:title/
+      og:description/og:url/og:type, twitter:title/description) are managed
+      per-route by src/components/util/Seo.js — react-helmet-async can only
+      REPLACE the <title>; any other static tag here would duplicate and
+      conflict with the per-route one (two canonicals = Google picks at
+      random). Only site-wide constants live below. The OG/Twitter fallback
+      block stays because social scrapers don't run JS — a shared link always
+      resolves to these tags.
+    -->
 
-    <!-- Open Graph Tags -->
+    <!-- Open Graph / Twitter — site-wide fallback for non-JS scrapers -->
+    <meta property="og:site_name" content="Switch Case Studio" />
+    <meta property="og:locale" content="en_US" />
     <meta
       property="og:title"
-      content="Switch Case Studio — Design-Led Digital Studio"
+      content="Switch Case Studio — Landing Pages That Convert"
     />
     <meta
       property="og:description"
-      content="Switch Case Studio builds custom websites, e-commerce stores, and web apps from scratch. Design-led, performance-focused, fast turnaround."
+      content="Conversion-focused landing pages and websites, designed and built from scratch. Built for paid traffic, delivered in days."
     />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.switchcasestudio.com/" />
-    <meta property="og:site_name" content="Switch Case Studio" />
-    <meta property="og:locale" content="en_US" />
-
-    <!-- OG Image Tags (Using your custom subfolder and absolute URL) -->
     <meta
       property="og:image"
-      content="https://www.switchcasestudio.com/images/og/og.png"
+      content="https://switchcasestudio.com/images/og/og.png"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/png" />
     <meta
       property="og:image:alt"
-      content="Switch Case Studio — bespoke web design and development. Built with intent."
+      content="Switch Case Studio — landing pages and websites that convert."
     />
-
-    <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta
-      name="twitter:title"
-      content="Switch Case Studio — Design-Led Digital Studio"
-    />
-    <meta
-      name="twitter:description"
-      content="Switch Case Studio builds custom websites, e-commerce stores, and web apps from scratch. Design-led, performance-focused, fast turnaround."
-    />
-    <meta
       name="twitter:image"
-      content="https://www.switchcasestudio.com/images/og/og.png"
-    />
-    <meta
-      name="twitter:image:alt"
-      content="Switch Case Studio — bespoke web design and development. Built with intent."
+      content="https://switchcasestudio.com/images/og/og.png"
     />
 
-    <!-- Structured data — Organization -->
+    <!-- Structured data — Organization + WebSite (site-wide) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Switch Case Studio",
-        "url": "https://switchcasestudio.com",
-        "logo": "https://switchcasestudio.com/images/og/og.png",
-        "description": "Design-led digital studio building custom websites, e-commerce stores, and web apps from scratch.",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Portland",
-          "addressRegion": "OR",
-          "addressCountry": "US"
-        },
-        "email": "hello@switchcasestudio.com",
-        "sameAs": []
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://switchcasestudio.com/#org",
+            "name": "Switch Case Studio",
+            "url": "https://switchcasestudio.com",
+            "logo": "https://switchcasestudio.com/images/og/og.png",
+            "description": "Studio building conversion-focused landing pages, websites, e-commerce stores, and web apps from scratch.",
+            "email": "hello@switchcasestudio.com"
+          },
+          {
+            "@type": "WebSite",
+            "name": "Switch Case Studio",
+            "alternateName": "SCS",
+            "url": "https://switchcasestudio.com",
+            "publisher": { "@id": "https://switchcasestudio.com/#org" }
+          }
+        ]
       }
     </script>
 
@@ -112,7 +100,7 @@
 
     <!-- Web Manifest Link (Pointing to your custom favicon folder) -->
     <link rel="manifest" href="/images/favicon/site.webmanifest" />
-    <title>Switch Case Studio — Design-Led Digital Studio</title>
+    <title>Switch Case Studio — Landing Pages That Convert</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

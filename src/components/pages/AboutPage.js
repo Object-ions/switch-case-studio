@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import Seo from '../util/Seo';
 import { motion, useReducedMotion } from 'motion/react';
 import {
   headerVariants,
@@ -49,19 +49,11 @@ const AboutPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>About — Switch Case Studio</title>
-        <meta
-          name="description"
-          content="Switch Case Studio is a design-led digital studio building websites, e-commerce stores, and apps from scratch. Fast turnaround, personal attention, no templates."
-        />
-        <link rel="canonical" href="https://switchcasestudio.com/about" />
-        <meta property="og:title" content="About — Switch Case Studio" />
-        <meta
-          property="og:description"
-          content="Design-led digital studio building websites, e-commerce stores, and apps from scratch."
-        />
-      </Helmet>
+      <Seo
+        title="About — Switch Case Studio"
+        description="The studio behind conversion-focused landing pages and websites. Built from scratch, delivered fast — personal attention, no templates."
+        path="/about"
+      />
 
       <article className="about-page" aria-label="About Switch Case Studio">
         {/* ── Hero ── */}

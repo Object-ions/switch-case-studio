@@ -1,8 +1,14 @@
+import Seo from '../util/Seo';
 import '../../styles/components/legal.scss';
 
 const Privacy = () => {
   return (
     <div className="legal-page">
+      <Seo
+        title="Privacy Policy — Switch Case Studio"
+        description="How Switch Case Studio collects, uses, and protects your personal information."
+        path="/privacy"
+      />
       <h1>Privacy Policy</h1>
       <span className="last-updated">Last Updated: January 8, 2026</span>
 

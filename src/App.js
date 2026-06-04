@@ -15,6 +15,7 @@ import Contact from "./components/sections/Contact";
 import Faq from "./components/sections/Faq";
 import GradientStripe from "./components/sections/StripeSection";
 import ScrollToTop from "./components/util/ScrollToTop";
+import Seo from "./components/util/Seo";
 import RouteAnalytics from "./analytics/RouteAnalytics";
 import ConsentBanner from "./analytics/ConsentBanner";
 import Orb from "./assets/images/orb.avif";
@@ -35,6 +36,11 @@ const Accessibility      = lazy(() => import("./components/pages/Accessibility")
 
 const HomeContent = () => (
   <>
+    <Seo
+      title="Switch Case Studio — Landing Pages That Convert"
+      description="Conversion-focused landing pages and websites, built from scratch for paid traffic and delivered in days — including white-label work for agencies."
+      path="/"
+    />
     <Hero />
     <ClientStrip />
     <LandingPageProof />

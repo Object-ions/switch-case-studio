@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import Seo from '../util/Seo';
 import { motion, useReducedMotion } from 'motion/react';
 import projectsData from '../../data/projects.json';
 import HoverPeek from '../ui/HoverPeek';
@@ -19,19 +19,11 @@ const CaseStudiesPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Case Studies — Switch Case Studio</title>
-        <meta
-          name="description"
-          content="Browse Switch Case Studio's portfolio — websites, e-commerce stores, and apps built from scratch for clients across the US."
-        />
-        <link rel="canonical" href="https://switchcasestudio.com/projects" />
-        <meta property="og:title" content="Case Studies — Switch Case Studio" />
-        <meta
-          property="og:description"
-          content="Websites, e-commerce stores, and apps built from scratch for clients across the US."
-        />
-      </Helmet>
+      <Seo
+        title="Case Studies — Switch Case Studio"
+        description="Browse Switch Case Studio's portfolio — landing pages, websites, e-commerce stores, and apps built from scratch for clients across the US."
+        path="/projects"
+      />
 
       <article className="projects-page" aria-label="Case studies">
         {/* ── Header ── */}

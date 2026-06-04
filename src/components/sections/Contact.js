@@ -27,7 +27,9 @@ const socials = [
   // { key: 'yt', label: 'YouTube',   href: 'https://youtube.com/@your-handle' },
 ];
 
-const Contact = () => {
+// headingTag: 'h1' when Contact IS the page (/contact), 'h2' when it's a
+// section on the home page — a page must have exactly one h1.
+const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
   const sectionRef = useRef(null);
   const formRef = useRef(null);
   const videoRef = useRef(null);
@@ -173,9 +175,9 @@ const Contact = () => {
 
           {/* ---------- Right Column: Form ---------- */}
           <div className="contact-right">
-            <h1 className="contact-right__heading contact-animate">
+            <HeadingTag className="contact-right__heading contact-animate">
               Contact us
-            </h1>
+            </HeadingTag>
 
             <form
               ref={formRef}

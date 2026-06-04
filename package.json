@@ -28,6 +28,7 @@
   "scripts": {
     "start": "vite",
     "dev": "vite",
+    "prebuild": "node scripts/generate-sitemap.mjs",
     "build": "vite build",
     "preview": "vite preview",
     "postinstall": "node -e \"const fs=require('fs'),p='node_modules/@mediapipe/tasks-vision/vision_bundle_mjs.js.map'; if(!fs.existsSync(p)){fs.mkdirSync(require('path').dirname(p),{recursive:true}); fs.writeFileSync(p,'{\\\"version\\\":3,\\\"sources\\\":[],\\\"names\\\":[],\\\"mappings\\\":\\\"\\\"}');}\""

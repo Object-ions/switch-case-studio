@@ -48,14 +48,15 @@ const AboutMarquee = () => {
   return (
     <div className="projects-row row-header" ref={wrap}>
       <div className="panel panel-header">
-        <h1 className="marquee" aria-label="Selected Projects">
+        {/* h2, not h1 — the home page's single h1 is the hero headline. */}
+        <h2 className="marquee" aria-label="Selected Projects">
           <span className="marquee-track">
             Websites that convert — e-commerce stores that sell — apps built to last — Switch Case Studio
           </span>
           <span className="marquee-track">
             Websites that convert — e-commerce stores that sell — apps built to last — Switch Case Studio
           </span>
-        </h1>
+        </h2>
       </div>
     </div>
   );

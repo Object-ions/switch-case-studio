@@ -67,7 +67,7 @@ export default function GradientStripe({
       <div className="orb-wrap" ref={orbRef} aria-hidden="true">
         <img
           src={orbSrc}
-          alt="gradient orb"
+          alt=""
           decoding="async"
           loading="eager"
           fetchPriority={fetchPriority}

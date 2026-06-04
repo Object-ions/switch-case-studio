@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+import Seo from '../util/Seo';
 import { motion, useReducedMotion } from 'motion/react';
 import servicesData from '../../data/services.json';
 import ServiceRow from '../ui/ServiceRow';
@@ -16,19 +16,11 @@ const ServicesPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Services — Switch Case Studio</title>
-        <meta
-          name="description"
-          content="Web development, e-commerce, design & branding, marketing, automation, and email marketing — all built from scratch by Switch Case Studio."
-        />
-        <link rel="canonical" href="https://switchcasestudio.com/services" />
-        <meta property="og:title" content="Services — Switch Case Studio" />
-        <meta
-          property="og:description"
-          content="From websites to full e-commerce stores — explore what Switch Case Studio builds and how we can help your business grow."
-        />
-      </Helmet>
+      <Seo
+        title="Services — Switch Case Studio"
+        description="Web development, e-commerce, design & branding, marketing, automation, and email marketing — all built from scratch by Switch Case Studio."
+        path="/services"
+      />
 
       <article className="services-page" aria-label="Services">
         <motion.header

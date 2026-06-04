@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import Seo from '../util/Seo';
 import gsap from 'gsap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -204,34 +204,50 @@ const CaseStudyPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{`${title} — Switch Case Studio`}</title>
-        <meta name="description" content={metaDescription} />
-        <link
-          rel="canonical"
-          href={`https://switchcasestudio.com/projects/${slug}`}
-        />
-
-        {/* Open Graph */}
-        <meta property="og:type" content="article" />
-        <meta property="og:title" content={`${title} — Switch Case Studio`} />
-        <meta property="og:description" content={metaDescription} />
-        <meta
-          property="og:url"
-          content={`https://switchcasestudio.com/projects/${slug}`}
-        />
-        {publicImageSrc && (
-          <meta
-            property="og:image"
-            content={`https://switchcasestudio.com${project.imageSrc}`}
-          />
-        )}
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${title} — Switch Case Studio`} />
-        <meta name="twitter:description" content={metaDescription} />
-      </Helmet>
+      <Seo
+        title={`${title} — Switch Case Studio`}
+        description={metaDescription}
+        path={`/projects/${slug}`}
+        ogType="article"
+        image={publicImageSrc || undefined}
+        imageAlt={imageAlt || title}
+        jsonLd={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'CreativeWork',
+            name: title,
+            url: `https://switchcasestudio.com/projects/${slug}`,
+            description: metaDescription,
+            creator: {
+              '@type': 'Organization',
+              name: 'Switch Case Studio',
+              url: 'https://switchcasestudio.com',
+            },
+            ...(year ? { dateCreated: String(year) } : {}),
+            ...(publicImageSrc
+              ? { image: `https://switchcasestudio.com${publicImageSrc}` }
+              : {}),
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Case Studies',
+                item: 'https://switchcasestudio.com/projects',
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: title,
+                item: `https://switchcasestudio.com/projects/${slug}`,
+              },
+            ],
+          },
+        ]}
+      />
 
       <article
         className="project-page project-page--bento"

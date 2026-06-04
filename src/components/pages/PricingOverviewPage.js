@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+import Seo from '../util/Seo';
 import { motion, useReducedMotion } from 'motion/react';
 import servicesData from '../../data/services.json';
 import ServiceRow from '../ui/ServiceRow';
@@ -16,19 +16,11 @@ const PricingOverviewPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Services & Pricing — Switch Case Studio</title>
-        <meta
-          name="description"
-          content="Explore Switch Case Studio's services — web development, e-commerce, design & branding, marketing, automation, and more. Transparent pricing, fast delivery."
-        />
-        <link rel="canonical" href="https://switchcasestudio.com/pricing" />
-        <meta property="og:title" content="Services & Pricing — Switch Case Studio" />
-        <meta
-          property="og:description"
-          content="Explore our services — web development, e-commerce, design, marketing, and automation. Transparent pricing, fast delivery."
-        />
-      </Helmet>
+      <Seo
+        title="Services & Pricing — Switch Case Studio"
+        description="Explore Switch Case Studio's services — web development, e-commerce, design & branding, marketing, automation, and more. Transparent pricing, fast delivery."
+        path="/pricing"
+      />
 
       <article className="pop-page" aria-label="Services and pricing">
         {/* ── Header ── */}

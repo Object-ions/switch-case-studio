@@ -216,7 +216,9 @@ const TextPressure = ({
       }}
     >
       {styleElement}
-      <h1
+      {/* h2, not h1 — this is a decorative section heading; the page's single
+          h1 belongs to the hero (home) or the page header (route pages). */}
+      <h2
         ref={titleRef}
         className={`text-pressure-title ${dynamicClassName}`}
         style={{
@@ -247,7 +249,7 @@ const TextPressure = ({
             {char}
           </span>
         ))}
-      </h1>
+      </h2>
     </div>
   );
 };

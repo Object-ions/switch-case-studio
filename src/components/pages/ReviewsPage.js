@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+import Seo from '../util/Seo';
 import { motion, useReducedMotion } from 'motion/react';
 import testimonialsData from '../../data/testimonials.json';
 import {
@@ -16,19 +16,11 @@ const ReviewsPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Client Reviews — Switch Case Studio</title>
-        <meta
-          name="description"
-          content="See what clients say about Switch Case Studio — real results from real businesses we've helped grow."
-        />
-        <link rel="canonical" href="https://switchcasestudio.com/testimonials" />
-        <meta property="og:title" content="Client Reviews — Switch Case Studio" />
-        <meta
-          property="og:description"
-          content="Real words from real clients. See how Switch Case Studio has helped businesses grow with design, development, and marketing."
-        />
-      </Helmet>
+      <Seo
+        title="Client Reviews — Switch Case Studio"
+        description="See what clients say about Switch Case Studio — real results from real businesses we've helped grow."
+        path="/testimonials"
+      />
 
       <article className="testimonials-page" aria-label="Client reviews">
         <motion.header

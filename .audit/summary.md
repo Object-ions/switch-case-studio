@@ -143,15 +143,28 @@
 - Pricing copy aligned to new brand voice
 - Bug fixes: blank page on direct nav, invisible lazy content, removed aggressive GSAP scroll anims, Sass warnings
 
-### STILL OPEN
-- **C1 — real metrics:** Zahav / Crimson / Prodani still MOCK; FL Energy + Jo Marketing placeholders. Needs Moses's real numbers.
-- **V2 — LP badges:** landing-page projects not visually flagged in the tile grid.
-- **GA4 consent:** no cookie banner / Consent Mode v2 yet (needed if EU/UK traffic).
+### STILL OPEN (verified vs code 2026-06-03)
+- **C1 — real metrics:** Zahav / Crimson / Prodani still MOCK; FL Energy + Jo Marketing placeholders. Needs Moses's real numbers. *Only blocker left.*
+- ~~GA4 admin~~ done: `book_call_click` marked key event 2026-06-03.
+
+### SEO PASS — 2026-06-03 ✅
+On-page/technical SEO fixed across the app (verified headless on the prod build, all 24 routes clean):
+- **Per-route head manager** `src/components/util/Seo.js` — unique title/description/canonical/og/twitter on every route. Previously: 4 routes had NO meta (6 pricing pages + legal), home had none (stale title on back-nav), and a static canonical in index.html pointed every page at the homepage (double-canonical conflict).
+- **index.html**: removed conflicting static canonical/description/keywords; restored LP-positioned title (lost in Vite migration); fixed www/non-www mix; Organization+WebSite JSON-LD (`@graph`); dropped unverified Portland OR address.
+- **Structured data per page**: CreativeWork+BreadcrumbList on project pages, Service+BreadcrumbList on pricing pages.
+- **Sitemap auto-generated at build** (`scripts/generate-sitemap.mjs`, prebuild): 24 URLs, git-derived lastmod, birth-of-venus no longer missing.
+- **Headings**: home had 5 h1s → 1 (TextPressure/marquee → h2, Contact takes headingTag prop).
+- **Alts**: all imgs covered; decorative orb alt cleared.
+- Next: deploy → submit sitemap in Google Search Console.
 
 ### DONE SINCE AUDIT
 - White-flash fix on route navigation (per-route backdrop + opacity fade).
 - **T4 — analytics:** GA4 fully implemented (page_view + book_call_click conversion); guides in GA4-*.md. Awaiting Measurement ID + redeploy on Moses's side.
-- **Security:** `npm audit fix` — all production-runtime vulns resolved (react-router-dom 6.30.1→6.30.4, critical form-data gone). 63→28 remaining are dev/build-only, CRA-locked (svgo/nth-check/postcss/webpack-dev-server/workbox/jest); full fix needs migrating off Create React App.
+- **Security:** `npm audit fix` — all production-runtime vulns resolved (react-router-dom 6.30.1→6.30.4, critical form-data gone). 63→28 remaining were dev/build-only, CRA-locked.
+- **CRA → Vite migration:** done (vite 5.4). Killed the CRA-locked dev-dep vulns; font `url()` paths moved to `public/` (see CLAUDE.md rule).
+- **V2 — LP badges:** done. `.tile-badge` on landing-page tiles; in-flow above title on mobile (`b439345`).
+- **GA4 consent:** done in code — Consent Mode v2, default denied, `src/analytics/ConsentBanner.js` + localStorage choice.
+- **UI polish sprint (~15 commits to `f9278f7`):** /pricing redesigned as vertical index + scannable cards; /services matched to it; hover-peek previews on /projects cards; tile-reveal + white-flash fixes; component refactor into `sections/ ui/ util/ pages/`; mobile QA fixes (hero centering, contact 2-col, menu weights, services 1200px cap).
 
 ## DAY 1 CHANGES — SHIPPED ✅
 Branch: `audit/pre-pitch-fixes`
@@ -233,19 +246,15 @@ LandingPageProof now carries the narrative weight ValueProp had, without the scr
 
 Build output: main.js = 1.6MB (Three.js + GSAP + OGL — animation system, expected). Lazy chunks: 2–14KB each, load on demand only.
 
-## NEXT SESSION ENTRY POINT
-**Day 7 — Mobile QA + merge to main**
-Branch: `git checkout audit/pre-pitch-fixes`
+## NEXT SESSION ENTRY POINT (updated 2026-06-03)
+Audit phases + 7-day plan + post-merge polish: all shipped on `main` (clean at `f9278f7`).
 
-Tasks for Moses (browser):
-1. Open site on mobile (or DevTools → iPhone viewport)
-2. Check these sections specifically:
-   - ClientStrip — logos visible and marquee running?
-   - LandingPageProof — 4 features collapse to 2-col then 1-col correctly?
-   - Hero — headline wraps cleanly? CTAs stack correctly?
-   - Projects grid — tiles readable, hover state functional?
-3. Report any visual issues → fix → merge
+**GA4 verified live in production** (headless test 2026-06-03): `G-DWY90CQY6P` in bundle; cookieless `gcs=G100` pre-consent → banner → `gcs=G111` page_view for granted visitors, no re-prompt. Ops doc: `GA4.md` (root).
 
-Tasks for Claude (after QA):
-1. Commit all changes on branch
-2. Merge to main / push for deploy
+Tasks for Moses:
+1. **Real metrics** (C1) — supply actual numbers for Zahav / Crimson / Prodani; mocks live in `src/data/projects.json`.
+2. **GA4 admin** — toggle `book_call_click` to key event (steps in `GA4.md`).
+
+Tasks for Claude (when numbers arrive):
+1. Replace mock metrics in `projects.json`; drop the metric tiles for any project with no real numbers (renders conditionally already).
+2. Post-deploy smoke check: fonts by content-type, tile reveal on hard reload + throttled network.

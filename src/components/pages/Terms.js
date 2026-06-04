@@ -1,8 +1,14 @@
+import Seo from '../util/Seo';
 import '../../styles/components/legal.scss';
 
 const Terms = () => {
   return (
     <div className="legal-page">
+      <Seo
+        title="Terms of Use — Switch Case Studio"
+        description="The terms governing your use of the Switch Case Studio website and services."
+        path="/terms"
+      />
       <h1>Terms of Use</h1>
       <span className="last-updated">Last Updated: January 8, 2026</span>
 
