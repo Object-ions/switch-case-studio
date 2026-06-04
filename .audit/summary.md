@@ -267,7 +267,7 @@ Baseline (mobile PageSpeed, live): Perf 44, LCP 8.4s, FCP 4.5s — 2KB empty-she
 
   *Local LH on this iMac overestimates CPU costs vs PSI's calibrated hardware — Perf/TBT/SI not comparable to the PSI baseline; LCP/FCP/CLS are. Real wins: document is full HTML (was 2KB shell), LCP −3s mobile even uncalibrated. Remaining mobile cost = 3MB JS main-thread → that's perf-plan steps 2–5, as predicted.
   - **SEO 69 on draft = noindex artifact**: Netlify stamps `X-Robots-Tag: noindex` on ALL draft/preview deploys (by design). Every other SEO audit passes; prod won't have the header.
-  - **Desktop CLS 0.177 — typed.js hero verb reflow** (word widths differ → headline reflows each cycle; pre-existing mechanism, first measured now). Needs Moses's call: reserve fixed width for the typed slot (`min-width: longest word` — kills CLS, leaves a visible gap after short words) vs. other typography fix. Mobile CLS unaffected (0.008).
+  - **Desktop CLS — two stacked causes, one fixed:** (1) typed.js hero verb reflow → **FIXED** (fixed-width slot, `min-width: 6ch` inline on the typed span; verified pixel-stable across cycles on draft `6a21df00ca2f…`); (2) remaining ~0.16 is **web-font swap reflow** (Lighthouse root cause: "Web font loaded") → that's perf-plan **steps 4–5 (font diet / preload), out of scope here** by the work order. Mobile CLS 0.008 throughout.
 
 ## NEXT SESSION ENTRY POINT (updated 2026-06-03)
 Audit phases + 7-day plan + post-merge polish: all shipped on `main` (clean at `f9278f7`).

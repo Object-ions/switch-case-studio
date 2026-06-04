@@ -8,6 +8,18 @@ import useReducedMotion from '../../hooks/useReducedMotion';
 // post-hydration; reduced-motion keeps the static word.
 const STRINGS = ['build', 'design', 'launch', 'ship', 'craft'];
 
+// Fixed-width slot for the cycling word — words of different widths reflowed
+// the headline every cycle (desktop CLS 0.177 once SSG painted it early
+// enough to be measured). The hero font is monospace (Roboto Mono), so the
+// longest word's character count in `ch` units reserves exact width. Inline
+// style so it can never drift from STRINGS.
+const slotCh = Math.max(...STRINGS.map((s) => s.length));
+const SLOT_STYLE = {
+  display: 'inline-block',
+  minWidth: `${slotCh}ch`,
+  textAlign: 'left',
+};
+
 const WelcomeTyped = () => {
   const targetRef = useRef(null);
   const reducedMotion = useReducedMotion();
@@ -29,7 +41,10 @@ const WelcomeTyped = () => {
 
   return (
     <span className="typed-cursor">
-      <span ref={targetRef} className="typed-container">
+      {/* One span serves both roles: SSR/static word AND typed.js target —
+          the slot width applies identically before and after hydration, so
+          the takeover can't shift anything. */}
+      <span ref={targetRef} className="typed-container" style={SLOT_STYLE}>
         {STRINGS[0]}
       </span>
       <span className="typed-blinker" aria-hidden="true">
