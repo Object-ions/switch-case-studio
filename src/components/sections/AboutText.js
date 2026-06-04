@@ -1,4 +1,5 @@
-import { useLayoutEffect, useRef } from "react";
+import { useRef } from "react";
+import useIsomorphicLayoutEffect from "../../hooks/useIsomorphicLayoutEffect";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -7,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 const AboutText = () => {
   const rootRef = useRef(null);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     // scope all selectors to this component
     const ctx = gsap.context(() => {
       const paragraphs = gsap.utils.toArray(".work-text p");

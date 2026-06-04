@@ -1,4 +1,5 @@
-import { useLayoutEffect, useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -114,7 +115,7 @@ const CaseStudyTiles = ({ projects }) => {
 
   // Tile-by-tile entrance. Built so tiles can NEVER stay hidden (see
   // CLAUDE.md): a flaky scroll reveal used to leave corner cards stuck dim.
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const grid = gridRef.current;
     if (!grid) return;
 

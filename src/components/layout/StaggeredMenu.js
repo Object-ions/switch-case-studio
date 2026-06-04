@@ -1,6 +1,5 @@
 import {
   useCallback,
-  useLayoutEffect,
   useRef,
   useState,
   useEffect,
@@ -81,8 +80,12 @@ const StaggeredMenu = ({
   // Scroll lock — preserves position across iOS + desktop
   useScrollLock(open);
 
-  /* ── GSAP initial setup ─────────────────────── */
-  useLayoutEffect(() => {
+  /* ── GSAP initial setup ─────────────────────────
+     useEffect, not useLayoutEffect: the offscreen start position lives in CSS
+     (see staggeredMenu.scss) so the SSG HTML paints the menu closed without
+     JS; this just re-asserts it inline for the GSAP timelines. useLayoutEffect
+     warns on every server-rendered route ("does nothing on the server"). */
+  useEffect(() => {
     const ctx = gsap.context(() => {
       const panel = panelRef.current;
       const preContainer = preLayersRef.current;

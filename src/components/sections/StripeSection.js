@@ -1,4 +1,5 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useRef } from 'react';
+import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 import { gsap } from 'gsap';
 import '../../styles/components/stripeSection.scss';
 
@@ -15,7 +16,7 @@ export default function GradientStripe({
   const stripeRef = useRef(null);
   const orbRef = useRef(null);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const stripe = stripeRef.current;
     const orb = orbRef.current;
     if (!stripe || !orb) return;

@@ -1,4 +1,5 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useRef } from 'react';
+import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useReducedMotion from '../../hooks/useReducedMotion';
@@ -9,7 +10,7 @@ const AboutMarquee = () => {
   const wrap = useRef(null);
   const reduced = useReducedMotion();
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (reduced) return;
     const ctx = gsap.context(() => {
       const tracks = gsap.utils.toArray('.marquee-track');

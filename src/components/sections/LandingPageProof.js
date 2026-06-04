@@ -1,4 +1,5 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useRef } from 'react';
+import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 import { HashLink } from 'react-router-hash-link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -31,7 +32,7 @@ const LandingPageProof = () => {
   const sectionRef = useRef(null);
   const reducedMotion = useReducedMotion();
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (reducedMotion) return;
 
     const ctx = gsap.context(() => {

@@ -1,4 +1,5 @@
-import { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
+import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import Seo from '../util/Seo';
 import gsap from 'gsap';
@@ -59,7 +60,7 @@ const CaseStudyPage = () => {
   const detailImageOK = useImagePreload(publicImageSrc);
 
   /* ── Entrance animation. GSAP owns start + end state. ── */
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!project) return;
 
     const ctx = gsap.context(() => {
