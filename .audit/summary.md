@@ -263,31 +263,37 @@ Baseline (mobile PageSpeed, live): Perf 44, LCP 8.4s, FCP 4.5s — 2KB empty-she
   | LCP | **8.4s** | **4.0s** | 1.2s |
   | CLS | 0.008 | — | 0.108 |
 
-  **SSG verdict: mobile LCP 8.4s → 4.0s (−52%), Perf 44 → 62.** Remaining drivers: 31 Google-font files (→ font task below), JS main-thread (steps 2–3).
-- **Next sessions (perf plan):** steps 2–3 — WebGL/Draco off critical path, prune unused JS.
+  **⚠ BASELINE CORRECTION (2026-06-04, after font-era runs):** the "mobile LCP 4.0s / Perf 62" above was a **lucky single run, not the real state**. Calibrated mobile LCP reproduces at **~16–17s cold across three separate runs** (2 draft + 1 prod) — it is NOT draft noise. The honest mobile picture post-SSG is LCP ~16–17s, **JS-bound** (3MB bundle / WebGL on the critical path), and it is the top perf priority. Desktop is healthy. Don't plan from the 4.0s number.
+- **Next sessions (perf plan):** steps 2–3 — WebGL/Draco off critical path, prune unused JS — now priority #1 (owns mobile LCP).
 - **Contact form ✅ verified end-to-end in a real deploy (2026-06-04):** Moses live-submitted on the deployed branch — email arrived via EmailJS, not in spam. Closed; do not resurface.
 - **Open for Moses:** real metrics for Zahav/Crimson/Prodani (C1, unchanged); missing `1.avif` images for 6 projects (now truly 404 — no SPA fallback masking).
 
-## FONT SELF-HOST ✅ SHIPPED TO PRODUCTION 2026-06-04 — branch `perf/self-host-fonts`, merged `main` @ `f61db28`
+## FONT SELF-HOST ✅ COMPLETE — SHIPPED TO PRODUCTION 2026-06-04 — branch `perf/self-host-fonts`, merged `main` @ `f61db28`
 Why: 31 font files from fonts.gstatic.com (6 weights × 7 subsets) drove mobile FCP 3.8s + desktop CLS 0.108 (font-swap reflow).
 - **Done:** Google Fonts `<link>` removed; 7 self-hosted latin woff2 (Inter 300–800 statics + NeueMachina 59KB OTF → 10KB subset woff2 — CloudConvert converts but does NOT subset, re-subset with pyftsubset); `@font-face` in `app.scss` (NOT `_variables.scss` — 40× imports duplicated emitted CSS ×20); NeueMachina (hero face) preloaded — no longer in CLS causes; phantom weights fixed at source (200/100→300, 900→800); dead 'Roboto Mono' ref removed (never loaded, always fell back).
 - **Prod verified post-deploy (2026-06-04):** x-robots absent (raw grep, exit 1); zero `fonts.googleapis`/`fonts.gstatic` refs in served HTML+CSS (the `gstatic/draco` string in Moon-*.js is the 3D decoder, not a font); all 7 woff2 → 200 `content-type: font/woff2` from our origin; preload tag present.
-- **Official PSI, font era — API quota-blocked again (2026-06-04); Moses runs pagespeed.web.dev and reports. (Draft PSI runs were noise: mobile cold-run LCP spiked to 16.6s twice while desktop on the same runs was fine.)**
+- **Official PROD PSI, font era (2026-06-04, pagespeed.web.dev, Moses):**
 
-  | | SSG era (pre-font) | Font era PROD mobile (PSI) | Font era PROD desktop (PSI) |
-  |---|---|---|---|
-  | Perf | 62 mob / 81 desk | *(awaiting Moses)* | *(awaiting Moses)* |
-  | FCP | 3.8s mob / 1.2s desk | | |
-  | LCP | 4.0s mob / 1.2s desk | | |
-  | CLS | 0.108 desk | | *(see note)* |
+  | | PROD mobile (PSI) | PROD desktop (PSI) |
+  |---|---|---|
+  | Perf | **50** | **84** |
+  | FCP | 4.4s | 0.8s |
+  | LCP | **16.9s** ⚠ | 0.8s |
+  | TBT | 430ms | 240ms |
+  | CLS | **0** ✓ | 0.107 *(see note)* |
+  | SI | 6.6s | 1.9s |
 
-  *Desktop CLS note: still ~0.11–0.13 expected — **KNOWN / DEFERRED**. Self-hosting did not resolve the swap shift (`font-display: swap` still reflows when Inter lands; Lighthouse names Inter-300…700 as causes; preloaded NeueMachina is clean). Next lever: **size-adjusted metric-compatible fallback** (Arial with `size-adjust`/`ascent-override` tuned to Inter) — separate task.*
+  **What the font work actually delivered (honest):** removed 31 render-blocking Google Font requests; 7 trimmed latin woff2 self-hosted from origin; **improved FCP**; desktop FCP/LCP 0.8s, Perf 84; mobile CLS clean 0 (the fixed-width typed slot holds). **It fixed nothing on mobile LCP — mobile LCP is JS-bound, not font-bound.** Desktop CLS 0.107 essentially unchanged — font swap wasn't the main contributor; size-adjusted fallback still pending.
 
-### CARRIED FORWARD (open)
-1. **Desktop CLS** — size-adjusted fallback font for Inter (metric-compatible Arial). Separate task.
-2. **Compressa (TextPressure)** — DEFERRED, license-restricted (commercial, preussTYPE; no redistributable version). Current Cloudinary fetch is a third-party demo copy — **possibly not licensed for this site at all**; decide whether TextPressure switches to NeueMachina or an open variable font.
-3. **Perf steps 2–3** — WebGL/Draco off the critical path, prune unused JS.
-4. Real metrics (C1) + missing `1.avif` images (6 projects) — unchanged, Moses.
+  *Desktop CLS note: ~0.107 — **KNOWN / DEFERRED**. Next lever: **size-adjusted metric-compatible fallback** (Arial with `size-adjust`/`ascent-override` tuned to Inter) — separate task.*
+
+  **⚠ Mobile LCP truth: ~16–17s cold, reproduced across three separate calibrated runs (2 draft + 1 prod).** The earlier-recorded pre-font "mobile LCP 4.0s / Perf 62" was an outlier single run — corrected above. The next session starts from 16.9s, and it's owned by the 3MB JS bundle / WebGL on the critical path.
+
+### CARRIED FORWARD (priority order, next sessions — none started)
+1. **MOBILE PERF — perf steps 2–3:** WebGL/Moon/Draco off the critical path + prune the 3MB bundle. **#1 — owns the 16.9s mobile LCP.**
+2. **Desktop CLS** — size-adjusted fallback font for Inter (metric-compatible Arial).
+3. **Compressa (TextPressure)** — license-restricted (commercial, preussTYPE), Cloudinary copy possibly unlicensed for this site at all; decide TextPressure → NeueMachina (or an open variable font).
+4. **C1 real metrics** (Zahav/Crimson/Prodani) + **missing `1.avif` images** (6 projects) — Moses.
 
 - **Phase 0 — recon ✅** (`.audit/ssg-recon.md`, branch `ssg/phase-0-recon`). Review corrections: pin 0.9.0; vite-react-ssg uses helmet-async (1.x bundled) not unhead → dedupe required; SSR hero verb "build"; client-gate whole R3F Canvas; no window-branching above the fold.
 - **Phase 1 — wire ✅** (branch `ssg/phase-1-wire`): 0.9.0 installed; helmet dedupe done (Seo.js → `Head` from vite-react-ssg, root helmet uninstalled, single 1.3.0 instance); `src/routes.js` route records (+`getStaticPaths` from projects/services JSON); entry → `ViteReactSSG`; scripts → `vite-react-ssg dev|build`; `ssr.noExternal: ['gsap']`. **Build emits all 24 HTML files with correct unique title/canonical/OG/JSON-LD verified file-by-file.** Findings: jsdom shim masks crashes (Phase 2 = warnings + hydration, not crashes); index.html static title/OG fallbacks now duplicate per-route tags (Phase 3 = strip); `vite preview` 200s everything (verify against `build/` files).
