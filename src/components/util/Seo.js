@@ -1,4 +1,9 @@
-import { Helmet } from 'react-helmet-async';
+// Head is vite-react-ssg's <Helmet> passthrough, bound to ITS react-helmet-async
+// instance — the one its HelmetProvider and static-build collector share. The
+// app must never import react-helmet-async directly: the repo had 3.0.0 while
+// vite-react-ssg bundles 1.x, and two copies = two contexts = tags silently
+// missing from the static HTML.
+import { Head } from 'vite-react-ssg';
 
 const SITE = 'https://switchcasestudio.com';
 const DEFAULT_IMAGE = `${SITE}/images/og/og.png`;
@@ -32,7 +37,7 @@ const Seo = ({
     : DEFAULT_IMAGE;
 
   return (
-    <Helmet>
+    <Head>
       <title>{title}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={url} />
@@ -52,7 +57,7 @@ const Seo = ({
       {jsonLd && (
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       )}
-    </Helmet>
+    </Head>
   );
 };
 
