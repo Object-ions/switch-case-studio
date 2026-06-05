@@ -1,5 +1,11 @@
 # JS Critical Path Recon — Phase A (read-only)
 
+> ## ⚠ WAVE 1 OUTCOME (2026-06-04, draft PSI median) — THESIS DISPROVED, STOP-CONDITION TRIGGERED
+> Wave 1 (TextPressure gate + Moon import defer) shipped to draft `6a221c8d…`. PSI median: **mobile LCP ~6.2s, TBT 430→50ms — but LCP render delay STILL 2,790ms** (was 2,890ms). Clearing the main thread did NOT release the hero paint → **render delay is NOT main-thread contention; this doc's §3 conclusion was wrong.**
+> **Real cause (network dependency tree):** the hero span is render-blocked by the **font critical-path chain** — HTML → app.css → Inter-300…700 woff2 (~650ms each); the hero can't paint until its font resolves.
+> **Branch state:** `perf/js-critical-path` stays pushed + UNMERGED. The Moon-defer + TextPressure fixes are good (TBT proof) and ride along with the real fix later.
+> **Next session target — font delivery on the critical path:** confirm `font-display: swap` actually applies to the hero face; preload the specific hero weight(s); size-adjusted fallback so the fallback paint is metric-stable. Secondary suspect to rule out: `.page-fade` (0.4s opacity animation over the routed view — verify it isn't disqualifying the early hero paint from LCP).
+
 Date: 2026-06-04 · Branch: `perf/js-critical-path` · Target: mobile LCP 16.9s (prod PSI), element = hero text `span.hero-line--accent`, render delay 2,890ms (main-thread bound, NOT network/preload).
 
 ## 1. Forced reflow hunt — what's inside `app-*.js` (prod `app-BOR3H2a2.js` ≡ local `app-D_HRat7c.js`)

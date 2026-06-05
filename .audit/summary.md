@@ -289,11 +289,18 @@ Why: 31 font files from fonts.gstatic.com (6 weights × 7 subsets) drove mobile 
 
   **⚠ Mobile LCP truth: ~16–17s cold, reproduced across three separate calibrated runs (2 draft + 1 prod).** The earlier-recorded pre-font "mobile LCP 4.0s / Perf 62" was an outlier single run — corrected above. The next session starts from 16.9s, and it's owned by the 3MB JS bundle / WebGL on the critical path.
 
+## JS CRITICAL PATH — WAVE 1 BUILT, **UNMERGED** (branch `perf/js-critical-path` @ `cf44341`), STOP-CONDITION TRIGGERED 2026-06-04
+- **Built & verified on draft:** TextPressure forced-reflow loop fixed (batched reads/writes, IO gate, touch = single static pass, settle-on-convergence) + Moon 990KB import deferred behind IO (was fetching at hydration, no scroll). Recon: `.audit/js-critical-path-recon.md`.
+- **PSI draft median: mobile LCP ~6.2s; TBT 430→50ms — but render delay STILL 2,790ms (was 2,890ms). Wave 1 thesis DISPROVED: render delay is NOT main-thread contention.**
+- **Real cause (network dependency tree): font-blocked hero paint** — HTML → app.css → Inter-300…700 woff2 (~650ms each) chains in front of the hero span. JS was never the blocker for this metric.
+- Branch stays pushed/unmerged; the fixes are good (TBT proof) and ride along with the real fix.
+
 ### CARRIED FORWARD (priority order, next sessions — none started)
-1. **MOBILE PERF — perf steps 2–3:** WebGL/Moon/Draco off the critical path + prune the 3MB bundle. **#1 — owns the 16.9s mobile LCP.**
-2. **Desktop CLS** — size-adjusted fallback font for Inter (metric-compatible Arial).
-3. **Compressa (TextPressure)** — license-restricted (commercial, preussTYPE), Cloudinary copy possibly unlicensed for this site at all; decide TextPressure → NeueMachina (or an open variable font).
-4. **C1 real metrics** (Zahav/Crimson/Prodani) + **missing `1.avif` images** (6 projects) — Moses.
+1. **MOBILE LCP — font delivery on the critical path:** confirm `font-display: swap` actually applies to the hero face; preload the specific hero weight(s); size-adjusted fallback (metric-stable swap). Rule out `.page-fade` (0.4s opacity animation) as an LCP-qualification suspect. **#1.**
+2. Merge-and-measure `perf/js-critical-path` together with the font fix (Moon defer + TextPressure are proven by TBT but don't move LCP alone).
+3. **Desktop CLS** — size-adjusted fallback doubles for this (same mechanism as #1).
+4. **Compressa (TextPressure)** — license-restricted (commercial, preussTYPE), Cloudinary copy possibly unlicensed for this site at all; decide TextPressure → NeueMachina (or an open variable font).
+5. **C1 real metrics** (Zahav/Crimson/Prodani) + **missing `1.avif` images** (6 projects) — Moses.
 
 - **Phase 0 — recon ✅** (`.audit/ssg-recon.md`, branch `ssg/phase-0-recon`). Review corrections: pin 0.9.0; vite-react-ssg uses helmet-async (1.x bundled) not unhead → dedupe required; SSR hero verb "build"; client-gate whole R3F Canvas; no window-branching above the fold.
 - **Phase 1 — wire ✅** (branch `ssg/phase-1-wire`): 0.9.0 installed; helmet dedupe done (Seo.js → `Head` from vite-react-ssg, root helmet uninstalled, single 1.3.0 instance); `src/routes.js` route records (+`getStaticPaths` from projects/services JSON); entry → `ViteReactSSG`; scripts → `vite-react-ssg dev|build`; `ssr.noExternal: ['gsap']`. **Build emits all 24 HTML files with correct unique title/canonical/OG/JSON-LD verified file-by-file.** Findings: jsdom shim masks crashes (Phase 2 = warnings + hydration, not crashes); index.html static title/OG fallbacks now duplicate per-route tags (Phase 3 = strip); `vite preview` 200s everything (verify against `build/` files).
