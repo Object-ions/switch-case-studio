@@ -7,6 +7,7 @@ import {
   containerVariants,
   cardVariants,
 } from '../../utils/motionVariants';
+import teamData from '../../data/team.json';
 import '../../styles/components/aboutPage.scss';
 
 const CAPABILITIES = [
@@ -43,6 +44,26 @@ const VALUES = [
   },
 ];
 
+// Entries missing name or role are skipped; empty file hides the section.
+const TEAM = teamData.filter((p) => p.name && p.role);
+
+// Merges with the Organization in index.html via the shared @id, adding the
+// team as Person members (sameAs from whichever profile links exist).
+const teamJsonLd = TEAM.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      '@id': 'https://switchcasestudio.com/#org',
+      member: TEAM.map((p) => ({
+        '@type': 'Person',
+        name: p.name,
+        jobTitle: p.role,
+        ...(p.bio ? { description: p.bio } : {}),
+        sameAs: [p.linkedin, p.github, p.website].filter(Boolean),
+      })),
+    }
+  : undefined;
+
 const AboutPage = () => {
   const reduced = useReducedMotion();
   const v = (variant) => (reduced ? undefined : variant);
@@ -53,6 +74,7 @@ const AboutPage = () => {
         title="About — Switch Case Studio"
         description="The studio behind conversion-focused landing pages and websites. Built from scratch, delivered fast — personal attention, no templates."
         path="/about"
+        jsonLd={teamJsonLd}
       />
 
       <article className="about-page" aria-label="About Switch Case Studio">
@@ -122,6 +144,84 @@ const AboutPage = () => {
             </div>
           </motion.div>
         </section>
+
+        {/* ── Team ── */}
+        {TEAM.length > 0 && (
+          <section className="about-page__team" aria-labelledby="about-team-heading">
+            <div className="about-page__section-wrap">
+              <h2 id="about-team-heading" className="about-page__section-label">
+                The Team
+              </h2>
+              <motion.div
+                className="about-page__team-grid"
+                variants={v(containerVariants)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+              >
+                {TEAM.map((p) => (
+                  <motion.div
+                    key={p.name}
+                    className="about-page__person"
+                    variants={v(cardVariants)}
+                  >
+                    {p.photo ? (
+                      <img
+                        className="about-page__person-photo"
+                        src={p.photo}
+                        alt={p.photoAlt || p.name}
+                        loading="lazy"
+                        width="96"
+                        height="96"
+                      />
+                    ) : (
+                      <div className="about-page__person-monogram" aria-hidden="true">
+                        {p.name.charAt(0)}
+                      </div>
+                    )}
+                    <h3 className="about-page__person-name">{p.name}</h3>
+                    <p className="about-page__person-role">{p.role}</p>
+                    {p.bio && <p className="about-page__person-bio">{p.bio}</p>}
+                    {(p.linkedin || p.github || p.website) && (
+                      <p className="about-page__person-links">
+                        {p.linkedin && (
+                          <a
+                            href={p.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`${p.name} on LinkedIn`}
+                          >
+                            LinkedIn ↗
+                          </a>
+                        )}
+                        {p.github && (
+                          <a
+                            href={p.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`${p.name} on GitHub`}
+                          >
+                            GitHub ↗
+                          </a>
+                        )}
+                        {p.website && (
+                          <a
+                            href={p.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`${p.name}'s website`}
+                          >
+                            Site ↗
+                          </a>
+                        )}
+                      </p>
+                    )}
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+          </section>
+        )}
 
         {/* ── Capabilities ── */}
         <section className="about-page__capabilities" aria-labelledby="about-caps-heading">
