@@ -98,7 +98,11 @@ const StaggeredMenu = ({
       preLayerElsRef.current = preLayers;
 
       const offscreen = position === 'left' ? -100 : 100;
-      gsap.set([panel, ...preLayers], { xPercent: offscreen });
+      // x: 0 is load-bearing — GSAP parses the CSS `translateX(100%)` base via
+      // getComputedStyle, which resolves it to a PIXEL matrix (x: <panelWidth>,
+      // xPercent: 0). Without clearing x, every later xPercent tween adds to
+      // that stale pixel offset and the panel animates offscreen → offscreen.
+      gsap.set([panel, ...preLayers], { x: 0, xPercent: offscreen });
     });
     return () => ctx.revert();
   }, [position]);
