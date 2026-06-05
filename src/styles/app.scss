@@ -89,15 +89,6 @@ h6 {
   color: white;
 }
 
-// Decorative layers must never intercept pointer events
-.statue,
-.statue-svg,
-#Layer_1,
-.loader,
-.loader-overlay {
-  pointer-events: none !important;
-}
-
 // Project tiles must remain clickable above any decorative overlay
 .projects .panel {
   position: relative;
