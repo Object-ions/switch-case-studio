@@ -49,6 +49,11 @@ const TextPressure = ({
 
   const mouseRef = useRef({ x: 0, y: 0 });
   const cursorRef = useRef({ x: 0, y: 0 });
+  // Last settings WE wrote, per span. Never compare against
+  // span.style.fontVariationSettings: CSSOM normalizes the string (quote
+  // style, number formatting), so a read-back !== comparison is always true
+  // — which made `changed` permanently true and the settle-stop impossible.
+  const lastWrittenRef = useRef([]);
 
   const [fontSize, setFontSize] = useState(minFontSize);
   const [scaleY, setScaleY] = useState(1);
@@ -117,20 +122,59 @@ const TextPressure = ({
     return () => window.removeEventListener('resize', debouncedSetSize);
   }, [setSize]);
 
+  /* The pressure loop — rewritten for the JS critical path (this was the
+     forced-reflow source PSI traced through app-*.js: 109/78/62ms entries
+     inflating the hero's 2,890ms render delay):
+     1. BATCHED frames: ALL rect reads happen first, then ALL style writes —
+        the original interleaved read→write→read per span forced a synchronous
+        layout for every character, every frame. One layout flush max now.
+        (Cross-frame rect caching is deliberately NOT done: the 'wdth' writes
+        move glyphs, so frame-stale rects would misplace the effect.)
+     2. SETTLE-STOP: the loop ends when the smoothed virtual mouse converges
+        onto the cursor (<0.5px) — output is static by construction from
+        there; pointer movement wakes it.
+     3. IntersectionObserver gate: no loop while the title is offscreen.
+     4. Touch / reduced-motion: the loop never starts. One batched pass paints
+        the same resting state the old loop converged to (cursor initializes
+        at the container center and never moves on touch), then stops — the
+        static look on mobile is pixel-identical to before. */
   useEffect(() => {
-    let rafId;
-    const animate = () => {
+    let rafId = 0;
+    let running = false;
+    let visible = false;
+
+    const noLoop =
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      window.matchMedia('(hover: none)').matches;
+
+    const frame = () => {
+      rafId = 0;
       mouseRef.current.x += (cursorRef.current.x - mouseRef.current.x) / 15;
       mouseRef.current.y += (cursorRef.current.y - mouseRef.current.y) / 15;
 
+      /* Settle = the smoothing has converged (virtual mouse reached the
+         cursor) — NOT "no styles changed": distant spans clamp at their min
+         while the mouse is still traveling, which reads as a false calm and
+         stopped the loop mid-flight. Once mouse == cursor, output is static
+         by construction. Snap to kill float residue. */
+      const settled =
+        Math.abs(cursorRef.current.x - mouseRef.current.x) < 0.5 &&
+        Math.abs(cursorRef.current.y - mouseRef.current.y) < 0.5;
+      if (settled) {
+        mouseRef.current.x = cursorRef.current.x;
+        mouseRef.current.y = cursorRef.current.y;
+      }
+
       if (titleRef.current) {
+        /* -- read phase: every rect, no writes in between -- */
         const titleRect = titleRef.current.getBoundingClientRect();
         const maxDist = titleRect.width / 2;
+        const spans = spansRef.current.filter(Boolean);
+        const rects = spans.map((span) => span.getBoundingClientRect());
 
-        spansRef.current.forEach((span) => {
-          if (!span) return;
-
-          const rect = span.getBoundingClientRect();
+        /* -- write phase -- */
+        spans.forEach((span, i) => {
+          const rect = rects[i];
           const charCenter = {
             x: rect.x + rect.width / 2,
             y: rect.y + rect.height / 2,
@@ -145,20 +189,72 @@ const TextPressure = ({
 
           const newFontVariationSettings = `'wght' ${wght}, 'wdth' ${wdth}, 'ital' ${italVal}`;
 
-          if (span.style.fontVariationSettings !== newFontVariationSettings) {
+          const last = lastWrittenRef.current[i];
+          if (!last || last.fvs !== newFontVariationSettings) {
             span.style.fontVariationSettings = newFontVariationSettings;
           }
-          if (alpha && span.style.opacity !== alphaVal) {
+          if (alpha && (!last || last.alpha !== alphaVal)) {
             span.style.opacity = alphaVal;
           }
+          lastWrittenRef.current[i] = { fvs: newFontVariationSettings, alpha: alphaVal };
         });
       }
 
-      rafId = requestAnimationFrame(animate);
+      if (running && visible && !settled) {
+        rafId = requestAnimationFrame(frame);
+      } else {
+        running = false;
+      }
     };
 
-    animate();
-    return () => cancelAnimationFrame(rafId);
+    const wake = () => {
+      if (noLoop || running || !visible) return;
+      running = true;
+      if (!rafId) rafId = requestAnimationFrame(frame);
+    };
+
+    const onPointerMove = () => wake();
+    window.addEventListener('mousemove', onPointerMove, { passive: true });
+
+    // Resize/orientation moves the glyphs — recompute (the old always-on
+    // loop self-corrected; the gated one must do it explicitly).
+    const onResize = () => {
+      if (!visible) return;
+      if (noLoop) frame();
+      else wake();
+    };
+    window.addEventListener('resize', onResize);
+
+    let io;
+    if (typeof IntersectionObserver !== 'undefined' && containerRef.current) {
+      io = new IntersectionObserver((entries) => {
+        visible = entries.some((e) => e.isIntersecting);
+        if (visible) {
+          if (noLoop) {
+            /* single batched pass = the converged static state */
+            frame();
+          } else {
+            wake();
+          }
+        } else if (rafId) {
+          cancelAnimationFrame(rafId);
+          rafId = 0;
+          running = false;
+        }
+      });
+      io.observe(containerRef.current);
+    } else {
+      visible = true;
+      if (noLoop) frame();
+      else wake();
+    }
+
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      window.removeEventListener('mousemove', onPointerMove);
+      window.removeEventListener('resize', onResize);
+      if (io) io.disconnect();
+    };
   }, [width, weight, italic, alpha]);
 
   // dangerouslySetInnerHTML, NOT a JSX text child: the server renderer
