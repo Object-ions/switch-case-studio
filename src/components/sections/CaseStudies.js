@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import projectsData from '../../data/projects.json';
 import CaseStudyTiles from './CaseStudyTiles';
-import TextPressure from '../ui/TextPressure';
 
 import '../../styles/components/projects.scss';
 
@@ -15,32 +14,8 @@ const CaseStudies = () => {
       aria-labelledby="projects-heading"
     >
       <div className="projects-header" aria-hidden="true">
-        <div className="projects-header__word">
-          <TextPressure
-            text="Case"
-            alpha={false}
-            stroke={true}
-            width
-            weight
-            italic
-            textColor="#ffffff"
-            strokeColor="#f0d7ff"
-            minFontSize={60}
-          />
-        </div>
-        <div className="projects-header__word">
-          <TextPressure
-            text="Studies"
-            alpha={false}
-            stroke={true}
-            width
-            weight
-            italic
-            textColor="#ffffff"
-            strokeColor="#f0d7ff"
-            minFontSize={60}
-          />
-        </div>
+        <span className="projects-header__word">Case</span>
+        <span className="projects-header__word">Studies</span>
       </div>
 
       <h2 id="projects-heading" className="sr-only">

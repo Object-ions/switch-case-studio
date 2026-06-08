@@ -32,6 +32,20 @@
   }
 }
 
+// Metric-compatible fallback for Inter — a local face (Arial) with Inter's
+// metrics applied via overrides, so text paints INSTANTLY in the fallback and
+// swaps to real Inter with ZERO reflow. Targets the font-swap layout shift
+// (desktop CLS 0.108). Override values match Inter's metrics over Arial.
+// Used via the font stack: 'Inter', 'Inter Fallback', sans-serif (_variables).
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  ascent-override: 90.20%;
+  descent-override: 22.48%;
+  line-gap-override: 0.00%;
+  size-adjust: 107.40%;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

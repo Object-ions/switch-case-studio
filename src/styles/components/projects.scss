@@ -5,13 +5,17 @@
 @import './projects-tiles';
 @import './projects-bento';
 
-/* ── Decorative TextPressure header ──
-   Replaces the inline style block previously in Projects.js. */
+/* ── Decorative "Case Studies" wordmark ──
+   Static NeueMachina display type. Replaced the Compressa-VF TextPressure
+   effect (third-party Cloudinary font fetch on the critical path + a
+   licensing question); on mobile the old effect was already static, so this
+   is visually unchanged there. */
 .projects-header {
   position: relative;
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  align-items: baseline;
+  gap: 1.5rem;
   width: 100%;
   max-width: 1200px;
   margin: 5rem auto 0;
@@ -19,11 +23,16 @@
   &__word {
     flex: 1;
     min-width: 0;
+    font-family: $font-special; // NeueMachina (already preloaded)
+    font-size: clamp(3.5rem, 13vw, 10rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin: 0;
   }
 
-  /* On mobile, two words side-by-side at large font sizes wrap mid-word
-     ("CASE STUDIES" → "C A S ESTUDIES"). Stack vertically and tighten
-     the top margin. */
+  /* On mobile, two words side-by-side at large font sizes wrap mid-word.
+     Stack vertically and tighten the top margin. */
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 0.25rem;
@@ -37,7 +46,7 @@
 }
 
 /* ── Visually-hidden heading for accessibility/SEO. ──
-   The TextPressure wordmark is decorative; this is the real h2. */
+   The wordmark above is decorative; this is the real h2. */
 .sr-only {
   position: absolute;
   width: 1px;
