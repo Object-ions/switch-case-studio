@@ -1,58 +1,5 @@
 [
   {
-    "id": 1,
-    "slug": "florida-energy-assistance",
-    "type": "Landing Page",
-    "badge": "Landing Page",
-    "panelClass": "panel-card-3",
-    "coverTile": "/projects/florida-energy-assistance/florida-energy-assistance-cover-tile.webp",
-    "imageSrc": "/projects/florida-energy-assistance/1.avif",
-    "longWeb": "/projects/florida-energy-assistance/long.webp",
-    "imageAlt": "Florida Energy Assistance landing page preview",
-    "backLabel": "Back to Projects",
-    "title": "Florida Energy Assistance",
-    "subtitle": "Landing Page for Florida Home Energy Programs",
-    "outcome": "",
-    "year": "2026",
-    "metrics": [
-      { "value": "Single CTA", "label": "one conversion path, zero friction" },
-      { "value": "Mobile-first", "label": "built for paid traffic sources" },
-      { "value": "< 2 weeks", "label": "design to live" }
-    ],
-    "description": "A performance landing page for a Florida home energy lead campaign. The brief was simple: explain a complex government program in plain English, build trust fast, and make it easy for homeowners to submit their eligibility. Built mobile-first, form-first, with a single conversion path and zero friction. This is the type of page we build for Google Ads and Meta campaigns — structured for quality score, designed for conversion.",
-    "tileVersion": "Landing page design and development for a Florida home energy program campaign.",
-    "services": [
-      { "label": "#Landing Page Design" },
-      { "label": "#Frontend Development" },
-      { "label": "#Lead Generation" },
-      { "label": "#Responsive Design" },
-      { "label": "#Form UX" }
-    ],
-    "highlights": [
-      {
-        "title": "Clear Offer",
-        "summary": "Presented the program benefits in a simple way, including $0 down, financing, and grant options."
-      },
-      {
-        "title": "Lead-Focused Structure",
-        "summary": "Built the page around one main action: checking eligibility."
-      },
-      {
-        "title": "Trust-Driven Design",
-        "summary": "Used a clean, calm layout with program details, steps, and contact information."
-      },
-      {
-        "title": "Responsive Build",
-        "summary": "Designed and developed the page to work smoothly across desktop and mobile."
-      }
-    ],
-    "result": "A focused landing page engineered for paid traffic — clear offer, single CTA, and a form flow that removes every reason to leave without converting.",
-    "kicker": "In depth on",
-    "productName": "Our Work",
-    "ctaLabel": "View Live",
-    "ctaUrl": "https://floridaenergyassistance.com/"
-  },
-  {
     "id": 2,
     "slug": "jo-marketing-11",
     "type": "Business Website",
@@ -445,5 +392,58 @@
     "productName": "Our Work",
     "ctaLabel": "View Live",
     "ctaUrl": "https://birth-of-venus.netlify.app/"
+  },
+  {
+    "id": 1,
+    "slug": "florida-energy-assistance",
+    "type": "Landing Page",
+    "badge": "Landing Page",
+    "panelClass": "panel-card-3",
+    "coverTile": "/projects/florida-energy-assistance/florida-energy-assistance-cover-tile.webp",
+    "imageSrc": "/projects/florida-energy-assistance/1.avif",
+    "longWeb": "/projects/florida-energy-assistance/long.webp",
+    "imageAlt": "Florida Energy Assistance landing page preview",
+    "backLabel": "Back to Projects",
+    "title": "Florida Energy Assistance",
+    "subtitle": "Landing Page for Florida Home Energy Programs",
+    "outcome": "",
+    "year": "2026",
+    "metrics": [
+      { "value": "Single CTA", "label": "one conversion path, zero friction" },
+      { "value": "Mobile-first", "label": "built for paid traffic sources" },
+      { "value": "< 2 weeks", "label": "design to live" }
+    ],
+    "description": "A performance landing page for a Florida home energy lead campaign. The brief was simple: explain a complex government program in plain English, build trust fast, and make it easy for homeowners to submit their eligibility. Built mobile-first, form-first, with a single conversion path and zero friction. This is the type of page we build for Google Ads and Meta campaigns — structured for quality score, designed for conversion.",
+    "tileVersion": "Landing page design and development for a Florida home energy program campaign.",
+    "services": [
+      { "label": "#Landing Page Design" },
+      { "label": "#Frontend Development" },
+      { "label": "#Lead Generation" },
+      { "label": "#Responsive Design" },
+      { "label": "#Form UX" }
+    ],
+    "highlights": [
+      {
+        "title": "Clear Offer",
+        "summary": "Presented the program benefits in a simple way, including $0 down, financing, and grant options."
+      },
+      {
+        "title": "Lead-Focused Structure",
+        "summary": "Built the page around one main action: checking eligibility."
+      },
+      {
+        "title": "Trust-Driven Design",
+        "summary": "Used a clean, calm layout with program details, steps, and contact information."
+      },
+      {
+        "title": "Responsive Build",
+        "summary": "Designed and developed the page to work smoothly across desktop and mobile."
+      }
+    ],
+    "result": "A focused landing page engineered for paid traffic — clear offer, single CTA, and a form flow that removes every reason to leave without converting.",
+    "kicker": "In depth on",
+    "productName": "Our Work",
+    "ctaLabel": "View Live",
+    "ctaUrl": "https://floridaenergyassistance.com/"
   }
 ]
