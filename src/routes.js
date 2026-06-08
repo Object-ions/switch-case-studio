@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useRef, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import MainLayout from "./components/layout/MainLayout";
 
@@ -84,6 +84,19 @@ const LIGHT_ROUTES = /^\/(privacy|terms|accessibility)(\/|$)/;
 const Layout = () => {
   const { pathname } = useLocation();
   const theme = LIGHT_ROUTES.test(pathname) ? "is-light" : "is-dark";
+
+  // The page fade is a route-transition touch — but it animates from opacity:0,
+  // and the hero (LCP element) lives inside it. Running it on first paint gates
+  // LCP behind the 0.4s fade. So skip the class on the initial render (server +
+  // first client render both see prevPath === null → no class → no hydration
+  // mismatch, no opacity flash) and only apply it once a client navigation has
+  // changed the path.
+  const prevPath = useRef(null);
+  const isInitial = prevPath.current === null;
+  useEffect(() => {
+    prevPath.current = pathname;
+  }, [pathname]);
+
   return (
     <MainLayout>
       <ScrollToTop />
@@ -91,7 +104,7 @@ const Layout = () => {
       <ConsentBanner />
       <div className={`route-backdrop ${theme}`}>
         <Suspense fallback={<div className="route-fallback" aria-hidden="true" />}>
-          <div key={pathname} className="page-fade">
+          <div key={pathname} className={isInitial ? undefined : "page-fade"}>
             <Outlet />
           </div>
         </Suspense>
