@@ -1,7 +1,9 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
-.pop-page {
+// Shared by /services and /pricing (ServiceIndexPage). Copy differs per
+// route; layout is identical.
+.service-index {
   background: #000;
   color: #fff;
   font-family: $font-text;
