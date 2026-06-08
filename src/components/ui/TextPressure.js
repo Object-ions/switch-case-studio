@@ -189,7 +189,10 @@ const TextPressure = ({
           // Flex uses 'slnt'). Using the extremes so the warp reads as strongly
           // as it did on Compressa.
           const wdth = width ? Math.floor(getAttr(d, maxDist, 25, 151)) : 100;
-          const wght = weight ? Math.floor(getAttr(d, maxDist, 100, 1000)) : 400;
+          // Weight floor 300 (not 100): the resting/far-from-cursor state read
+          // too thin. +200 gives the static wordmark presence; the warp still
+          // peaks at the 1000 max near the cursor.
+          const wght = weight ? Math.floor(getAttr(d, maxDist, 300, 1000)) : 400;
           // getAttr peaks near the cursor; slant leans negative toward it.
           const slnt = italic ? -getAttr(d, maxDist, 0, 10).toFixed(1) : 0;
           const alphaVal = alpha ? getAttr(d, maxDist, 0, 1).toFixed(2) : 1;
