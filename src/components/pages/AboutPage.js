@@ -130,7 +130,7 @@ const AboutPage = () => {
             </div>
             <div className="about-page__stat-col">
               <div className="about-page__stat">
-                <span className="about-page__stat-value">7+</span>
+                <span className="about-page__stat-value">19+</span>
                 <span className="about-page__stat-label">Clients launched</span>
               </div>
               <div className="about-page__stat">
