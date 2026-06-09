@@ -52,9 +52,9 @@
   // ── Headline ──
   .hero-headline {
     font-family: $font-special;
-    font-size: clamp(2.75rem, 7.5vw, 6.5rem);
+    font-size: clamp(3.08rem, 8.4vw, 7.28rem); // ~+12% over 2.75/7.5vw/6.5 — SCS Display is lighter/narrower than NeueMachina, needs more size for the same hero presence; whole clamp scaled so it stays responsive
     color: #fff;
-    line-height: 0.95; // was 1.1 — tightened to pull the 3 hero lines together
+    line-height: 1; // was 0.95 — bigger font risks descender collision at 0.95; 1.0 stays tight but clears
     letter-spacing: 0.03em; // looser letters on SCS Display (was -0.02em); easy to re-tune
     margin: 0;
     // 6.86em == 18ch in SCS Display (18 × the font's "0" advance, 0.3809em), so
