@@ -9,12 +9,38 @@
 // Root-absolute url()s: Vite does not rewrite url()s pulled in through Sass
 // @import, so a relative ../assets path 404s in the production build.
 
+// SCS Display — Moses's custom single-weight display face (GlyphrStudio),
+// the hero/heading font (replaced NeueMachina). Subsetted woff2 (printable
+// ASCII U+0020–007E, ~7KB). Declared as a weight RANGE so every heading weight
+// (h1–h6 ask 500; hero inherits) maps to the one design with NO faux-bold
+// synthesis. Preloaded in index.html (it's the LCP element).
+// NOTE: GlyphrStudio re-zeroes the empty space glyph's CFF width on export
+// (the recurring gotcha) — the subset pipeline patches CFF defaultWidthX to
+// match hmtx (669) so the space has width in BOTH tables. Re-apply on any
+// future re-export of the .otf.
 @font-face {
-  font-family: 'NeueMachina';
-  src: url('/fonts/NeueMachina-Ultrabold.woff2') format('woff2');
-  font-weight: 800;
+  font-family: 'SCS Display';
+  src: url('/fonts/SCS-Display.woff2') format('woff2');
+  font-weight: 400 700;
   font-style: normal;
   font-display: swap;
+}
+
+// Metric-compatible fallback for SCS Display — local Arial with SCS Display's
+// metrics applied, so the headline (LCP element) paints instantly in the
+// fallback and swaps to the real face with ZERO reflow. SCS Display is much
+// narrower than Arial, so size-adjust matters MORE here than it did for
+// NeueMachina (which shipped no fallback). ascent/descent/line-gap read from
+// the OTF (1550/-440/0 over 2048 upm); size-adjust RE-MEASURED on the real
+// subsetted font (avg-advance ratio vs Arial, spaces included) and verified
+// empirically until the swap shift measured ~0.
+@font-face {
+  font-family: 'SCS Display Fallback';
+  src: local('Arial');
+  ascent-override: 75.68%;
+  descent-override: 21.48%;
+  line-gap-override: 0.00%;
+  size-adjust: 69.4%;
 }
 
 // Inter statics — exactly the weights the CSS uses (300–800), latin only.

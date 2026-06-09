@@ -10,7 +10,7 @@ const STRINGS = ['build', 'design', 'launch', 'ship', 'craft'];
 
 // Fixed-width slot for the cycling word — words of different widths reflowed
 // the headline every cycle (desktop CLS 0.177 once SSG painted it early
-// enough to be measured). The hero face is NeueMachina via `font: inherit`
+// enough to be measured). The hero face is SCS Display via `font: inherit`
 // (NOT monospace — an earlier version of this comment claimed Roboto Mono,
 // which is loaded nowhere). `ch` = the width of "0" in that face; 6ch
 // comfortably covers the longest word ("design"/"launch") — verified
