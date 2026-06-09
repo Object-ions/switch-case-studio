@@ -309,6 +309,7 @@ Baseline (PSI mobile, post page-fade): **LCP 6.2s, Perf 67, FCP 3.8s**. After: *
 
 ### CARRIED FORWARD (priority order, next sessions)
 1. **MOBILE LCP — remaining ~2.9s is JS-bound, NOT fonts.** The LCP element is the preloaded NeueMachina headline; its residual render-delay is the ~3MB JS bundle + the hero **CursorWave (WebGL/OGL)** executing in the first-paint window. Next lever: defer the hero WebGL / trim the bundle. (Fonts and the third-party hop are now resolved.) **#1.**
+   - ✗ **Critical-CSS (beasties home-only) tried on `perf/critical-css` 2026-06-08 — mechanically worked** (app.css off critical chain) **but NEUTRAL on LCP**: LCP element is preloaded NeueMachina, never network-bound. Branch abandoned. **Do NOT re-attempt the CSS/font critical-path lever — the gate is main-thread JS.**
 2. ~~Desktop CLS — size-adjusted fallback~~ ✅ **done** (Inter metric-fallback shipped on `perf/font-critical-path`).
 3. ~~Compressa license/decision~~ ✅ **done** (→ self-hosted OFL Roboto Flex, lazy).
 4. **C1 real metrics** (Zahav/Crimson/Prodani) + **missing `1.avif` images** (6 projects) — Moses.
