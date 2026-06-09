@@ -54,10 +54,17 @@
     font-family: $font-special;
     font-size: clamp(2.75rem, 7.5vw, 6.5rem);
     color: #fff;
-    line-height: 1.05;
-    letter-spacing: -0.02em; // optical tightening on display type (audit §03)
+    line-height: 1.1; // was 1.05 — Moses to eyeball/iterate
+    letter-spacing: 0.03em; // looser letters on SCS Display (was -0.02em); easy to re-tune
     margin: 0;
-    max-width: 18ch;
+    // 6.86em == 18ch in SCS Display (18 × the font's "0" advance, 0.3809em), so
+    // the real-font hero is pixel-identical to the old `18ch`. But `ch` is
+    // FONT-DEPENDENT: the swap fallback (Arial) has a much narrower "0", so its
+    // 18ch container was too tight and rewrapped "that actually perform." to a
+    // 2nd line on first paint — a one-line CLS jump on font-swap that the new
+    // 0.03em letter-spacing tipped over. `em` is font-independent → identical
+    // container for fallback and real → no rewrap. Keep this in em, not ch.
+    max-width: 6.86em;
     text-shadow: 0 2px 40px rgba(0, 0, 0, 0.5);
     // Re-enable pointer events so the masked area corresponds to a real
     // hit region; without this the headline can't capture hover/clicks.
