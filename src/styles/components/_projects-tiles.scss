@@ -20,12 +20,6 @@ $tile-radius-inner-mobile: $tile-radius-mobile - $tile-border-width;
   transition:
     filter 0.3s ease,
     opacity 0.3s ease;
-
-  &.is-blurred {
-    filter: grayscale(100%) blur(5px);
-    opacity: 0.4;
-    pointer-events: none;
-  }
 }
 
 /* ── Single tile ──

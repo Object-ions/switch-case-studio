@@ -107,15 +107,6 @@
     color: rgba(0, 0, 0, 0.65);
   }
 
-  &__overlay-cta {
-    font-size: 0.875rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #000;
-    white-space: nowrap;
-  }
-
   &__overlay-char {
     display: inline-block;
   }
@@ -179,8 +170,7 @@
       padding-inline: 1.25rem;
     }
 
-    &__overlay-subtitle,
-    &__overlay-cta {
+    &__overlay-subtitle {
       display: none;
     }
 
