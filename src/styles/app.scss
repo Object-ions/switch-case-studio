@@ -18,15 +18,17 @@
 // width on export (the recurring gotcha) — the space must have width in BOTH
 // hmtx AND the CFF charstring (current export: 487). On any re-export, gate the
 // space width in both tables before subsetting; patch CFF to match hmtx if zeroed.
-// SECOND gotcha (this export): a batch outline scale (~2.1x) was NOT applied to
-// some glyphs' hmtx ADVANCES — b x u q z r " * / ? | had ink spilling far past
-// their advance (neg RSB) → letters collided regardless of CSS. Fixed via
-// scripts/fix_font.py (bounds-based advance = inkXmax + 80, LSB = inkXmin),
-// verified full-glyph sweep xMax<=adv. On any re-export, RUN fix_font.py and
-// confirm PASS before subsetting. v2 = the fixed subset.
+// SECOND gotcha: a batch outline scale (~2.1x) was NOT applied to some glyphs'
+// hmtx ADVANCES — b x u q z r " * / ? | had ink spilling past their advance
+// (neg RSB) → letters collided regardless of CSS. Moses fixed these in the
+// SOURCE otf (v3: letters + 't' redraw + punctuation advances + q left-bearing).
+// On any re-export, sweep the FULL glyph order asserting BOTH xMax<=advance AND
+// xMin>=0 (right + left ink spill) before wiring — scripts/fix_font.py can patch
+// right-spill metrics if needed; left-spill (xMin<0) needs an outline nudge.
+// v3 = current shipped subset (full two-sided sweep PASS).
 @font-face {
   font-family: 'SCS Display';
-  src: url('/fonts/SCS-Display-v2.woff2') format('woff2');
+  src: url('/fonts/SCS-Display-v3.woff2') format('woff2');
   font-weight: 400 700;
   font-style: normal;
   font-display: swap;
