@@ -14,12 +14,12 @@ generalizable lessons go to `CLAUDE.md` (Rule: instructions that learn).
 | # | Phase | Status |
 |---|-------|--------|
 | 0 | Branch + protocol setup | done |
-| 1 | Dead SCSS files (unimported → emit no CSS) | in progress |
-| 2 | Imported-but-unrendered JS (components/hooks/utils/exports) | pending |
-| 3 | Dead selectors inside live SCSS (class ↔ JSX cross-ref) | pending |
-| 4 | Unreferenced assets (public/, src/assets, fonts, models) | pending |
-| 5 | Unused npm dependencies | pending |
-| 6 | Final verification (build diff, route-by-route pixels) + summary | pending |
+| 1 | Dead SCSS files (unimported → emit no CSS) | done — F1, `34cf546` |
+| 2 | Imported-but-unrendered JS (components/hooks/utils/exports) | done — F2, nothing to remove |
+| 3 | Dead selectors inside live SCSS (class ↔ JSX cross-ref) | done — F4/F5, see below |
+| 4 | Unreferenced assets (public/, src/assets, fonts, models) | done — F3, `ea91541` |
+| 5 | Unused npm dependencies | done — F2, all deps used |
+| 6 | Final verification + instructions feedback (Rule 5) | done — F6 |
 
 ## Evidence base
 
@@ -78,6 +78,53 @@ Phase 5 (deps) closes with Phase 2: nothing to remove.
 - Verification: build green; CSS identical; removed files absent from `build/`;
   no string in emitted JS/HTML references them. **PASS.**
 
-## Lessons → CLAUDE.md
+### F4 — 19 dead selectors inside live SCSS (Phase 3)
+Method: extract every class from the COMPILED css (459 unique; nesting like
+`&__heading` already resolved), string-check each against all JS + index.html,
+then manually review survivors for dynamic construction before removal.
 
-(added as phases complete)
+Removed (each verified: no JS renders/toggles the name, none dynamically built,
+none library-injected):
+- `pricingGuide.scss` — the entire pre-card pricing layout: `pg-packages`,
+  `pg-package` (+hover cascade), `pg-row`/`__leader`/`__name`/`__price`,
+  `pg-list`, `pg-book`, `pg-phone`, `pg-blob`. Current markup uses `pg-cards`
+  + SinglePricingCard (`spc-*`).
+- `_projects-layout.scss` — old projects info row: `row-info` (whole block incl.
+  nested `.panel` overrides), `panel-tagline`, `panel-link`, + media-query copies.
+- `_projects-tiles.scss` — `is-blurred` tile state (no JS applies it).
+- `header.scss` — `brand_logotype` (old image logotype; logo is inline-SVG
+  SCSLogo now), both breakpoints.
+- `footer.scss` — `footer-divider`. `contact.scss` — `contact-left__heading`.
+- `services.scss` — `services__overlay-cta` (both the rule and a hide-on-mobile
+  selector — compiled-CSS check caught the second one after source grep missed it).
+- `app.scss` — `background-video`.
+- Verification: compiled class set lost exactly the 19 flagged names, gained 0;
+  removed selectors matched no DOM node, so rendered output is provably
+  unchanged. **PASS.** Committed (chore(styles): remove 19 dead selectors).
+
+### F5 — Process error caught: a broken sweep flagged all 459 classes dead
+First sweep passed `src/App.js` to grep — that file no longer exists (renamed
+to `routes.js`), and BSD grep exits 2 on any missing path arg EVEN when other
+paths match → `! grep -q` read every class as dead. A ~100%-positive result is
+a broken detector, not a dead codebase. Root cause of the bad path: CLAUDE.md
+itself still cited `src/App.js` and `src/components/ProjectsTiles.js` (→ now
+`sections/CaseStudyTiles.js`) — instruction doc rot. Both references fixed.
+
+### F6 — Final state
+- 4 commits on `chore/legacy-cleanup`; every phase independently revertable.
+- Removed: 17 SCSS files, 19 selectors, 2 CRA fossils, ~2.8MB dead video, 11KB
+  dead font; source OTF un-deployed; `fix_font.py` paths updated; CLAUDE.md
+  references corrected; 2 new rules added to CLAUDE.md.
+- Every build along the way green (`vite-react-ssg build`, all routes emitted);
+  CSS verified by content hash (P1) and class-set diff (P3); removed assets
+  verified absent from `build/` with no dangling references in emitted JS/HTML.
+
+## Lessons → CLAUDE.md (Rule 5 — applied)
+
+1. Dead-code sweeps: prove death (compiled-CSS class extraction, import graphs,
+   no Sass additionalData), then prove the removal changed nothing (content-hash
+   / class-set diff). Dynamic construction review is mandatory before trusting
+   "no grep hit". CRA fossils live outside src; `public/` ships everything.
+2. A `! grep -q` sweep with one nonexistent path flags everything dead (BSD
+   grep exit 2). Sanity-check sweep output rates; keep file references in
+   CLAUDE.md current across renames.
