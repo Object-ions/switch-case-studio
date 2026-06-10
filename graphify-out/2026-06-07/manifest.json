@@ -1,0 +1,472 @@
+{
+  "/Users/imac/Desktop/switch-case-studio/.unimportedrc.json": {
+    "mtime": 1780345447.8268454,
+    "ast_hash": "eb417bfee6192c5c0fb6d05c9a50cbfa",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/package.json": {
+    "mtime": 1780379921.8078623,
+    "ast_hash": "c5d4de2616216266eda63186d04f3f62",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/manifest.json": {
+    "mtime": 1780345447.8482044,
+    "ast_hash": "a9ae100a2372b82f8af929fccf2c8623",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/index.js": {
+    "mtime": 1780345448.0782418,
+    "ast_hash": "d665ebebc5990eeeadd048c1cdc2ce3a",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/App.js": {
+    "mtime": 1780362790.8174353,
+    "ast_hash": "fe8542aaf16f7d37e464202a28aa35dd",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/utils/bentoEffects.js": {
+    "mtime": 1780345448.0873501,
+    "ast_hash": "dff53a785088f5ee5ce547e567787240",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/SCSLogo.js": {
+    "mtime": 1780345448.0703976,
+    "ast_hash": "f8e176470541bb8d65bc0611b071d2aa",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/TestimonialHeading.js": {
+    "mtime": 1780345448.0719726,
+    "ast_hash": "5bebdb22fc3d5a9d1257b38976e38613",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/CursorComponent.js": {
+    "mtime": 1780345448.0676777,
+    "ast_hash": "de125f7465c28f5d30bdcbaeeb0de946",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/WelcomeTyped.js": {
+    "mtime": 1780345448.0723193,
+    "ast_hash": "568442c080aa77f36e71a53e6622c2b0",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/Terms.js": {
+    "mtime": 1780345448.071781,
+    "ast_hash": "f9805d1fd634f0911564d23d9de33995",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/WorkMarquee.js": {
+    "mtime": 1780345448.0727904,
+    "ast_hash": "0bd4fb87d05a1e13481c83832207d3ef",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/PricingGuide.js": {
+    "mtime": 1780345448.069412,
+    "ast_hash": "b1645ea0892baec66ae5c40e04e62c22",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/WorkText.js": {
+    "mtime": 1780345448.0729542,
+    "ast_hash": "64875fc46307b4f3aeaae2ef2698d9c0",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/Moon.js": {
+    "mtime": 1780345448.0692422,
+    "ast_hash": "0544dd544a247f4f68209242c42bec41",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/Projects.js": {
+    "mtime": 1780345448.0700595,
+    "ast_hash": "b9ce3ddc6416f8ae11cfb5968f26bc0b",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/Faq.js": {
+    "mtime": 1780345448.068553,
+    "ast_hash": "351c3fecd11005743f5c2698932ed485",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/TextPressure.js": {
+    "mtime": 1780345448.0721688,
+    "ast_hash": "c36446aed83bd17ddea68085fcdd0f6d",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/ZoomLightbox.js": {
+    "mtime": 1780345448.0731428,
+    "ast_hash": "6b5f10b5fedd2a20d00cea58a9faaee4",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/Accessibility.js": {
+    "mtime": 1780345448.0671809,
+    "ast_hash": "b63b9d205fce1d45f7312c7b6cf3ba08",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/CursorWave.js": {
+    "mtime": 1780345448.0679684,
+    "ast_hash": "fc95655750b089f822b3096305599406",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/Privacy.js": {
+    "mtime": 1780362843.8640134,
+    "ast_hash": "28d859dee0f73b9520699b74da449f60",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/ScrollToTop.js": {
+    "mtime": 1780345448.0708923,
+    "ast_hash": "348fe91096b346dda8bf0b0986334935",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/WorkCTA.js": {
+    "mtime": 1780345448.0724754,
+    "ast_hash": "aa2bbddc62052d129bd0bda1a2d141c3",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/GradientText.js": {
+    "mtime": 1780345448.068712,
+    "ast_hash": "feefbfa2a8f3c9887018faddc813fa14",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/Hero.js": {
+    "mtime": 1780345448.068879,
+    "ast_hash": "ba0da3cc8f113115aa452d8067e3a8c0",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/ProjectsTiles.js": {
+    "mtime": 1780379921.8096337,
+    "ast_hash": "3fa2685b74d9492c28b66ac76c89ef85",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/LandingPageProof.js": {
+    "mtime": 1780345448.0690556,
+    "ast_hash": "56e60f0820dd1e2342d8ac4f5bc9e2ef",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/WorkHeading.js": {
+    "mtime": 1780345448.0726335,
+    "ast_hash": "75c933f41557fee825e2bb1630cb3501",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/ScrollTriggerRefresher.js": {
+    "mtime": 1780345448.0712461,
+    "ast_hash": "8f04f1e964576e0907106a711fda369b",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/PricingPage.js": {
+    "mtime": 1780345448.069554,
+    "ast_hash": "61cd2297715c79c145bb810ec8ecc9c4",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/StripeSection.js": {
+    "mtime": 1780345448.0716188,
+    "ast_hash": "afd34eb10de30959e0ebe545ee32598e",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/ClientStrip.js": {
+    "mtime": 1780379921.8090737,
+    "ast_hash": "f448271c892b455de451b7f9123afe66",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/Squares.js": {
+    "mtime": 1780345448.071434,
+    "ast_hash": "251770579e1aaa364d7e7991b2646ddf",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/DeviceMockup.js": {
+    "mtime": 1780345448.0683622,
+    "ast_hash": "a80c5aeebfb0d61255738ec26809cef2",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/layout/HeaderCTA.js": {
+    "mtime": 1780345448.0738437,
+    "ast_hash": "a031f188b25aae55b8f7ddd5357b7ec4",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/layout/MainLayout.js": {
+    "mtime": 1780345448.0739863,
+    "ast_hash": "6612765eefdbdabfd45c2e55db1c3bfb",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/layout/Header.js": {
+    "mtime": 1780345448.0736728,
+    "ast_hash": "b7c5bf272d19e77bbe9585e2cbcb1188",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/layout/StaggeredMenu.js": {
+    "mtime": 1780345448.0741844,
+    "ast_hash": "858ec79573eaffbc5a409887b2f51d92",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/layout/Footer.js": {
+    "mtime": 1780345448.0734465,
+    "ast_hash": "8f23410df387fec01f98bdb5a527b9eb",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/pages/ContactPage.js": {
+    "mtime": 1780345448.0748563,
+    "ast_hash": "aa3ff9c46548be03c8345a566ff059e9",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/pages/PricingOverviewPage.js": {
+    "mtime": 1780345448.075049,
+    "ast_hash": "f7d7e99756ec6a97a1a8e29bec288496",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/pages/Services.js": {
+    "mtime": 1780345448.0755353,
+    "ast_hash": "b1aa08df6c4f4473a0f01fa8ad629823",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/pages/ServicesPage.js": {
+    "mtime": 1780345448.0756934,
+    "ast_hash": "4591f674f47a1f881f8a362eeaf21366",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/pages/Testimonials.js": {
+    "mtime": 1780345448.075848,
+    "ast_hash": "b27a6d7f0fa4d0182065cff7cf6ebff8",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/pages/AboutPage.js": {
+    "mtime": 1780345448.0744672,
+    "ast_hash": "c4464667febee4782c72eea99ca77b03",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/pages/Contact.js": {
+    "mtime": 1780379921.8102496,
+    "ast_hash": "67710b07e39e65bcaa43ffe6a72d6533",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/pages/TestimonialsPage.js": {
+    "mtime": 1780345448.076013,
+    "ast_hash": "47ba395f506ffe52410dd71679a560f8",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/pages/ProjectPage.js": {
+    "mtime": 1780379921.8107965,
+    "ast_hash": "45643e3dd7e48893f090609b78c98328",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/pages/Work.js": {
+    "mtime": 1780345448.0761695,
+    "ast_hash": "a6e374eaed9beaee89d32ea4dae4eeeb",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/components/pages/ProjectsPage.js": {
+    "mtime": 1780379921.8112898,
+    "ast_hash": "197650f86c1b87a8667a102fcb4486a1",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/hooks/useScrollLock.js": {
+    "mtime": 1780345448.078051,
+    "ast_hash": "38b6c02f708c1ab23cdd6ffd7008476e",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/hooks/useBentoParticles.js": {
+    "mtime": 1780345448.077423,
+    "ast_hash": "d7deeb93f47ce03fde85ad8e728d3b0f",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/hooks/useReducedMotion.js": {
+    "mtime": 1780345448.0777245,
+    "ast_hash": "d8d29406fa3c8e07f348836ce07285f6",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/hooks/useBentoSpotlight.js": {
+    "mtime": 1780345448.077588,
+    "ast_hash": "3163bd0a458e6e6a0919ac0a7680cd77",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/data/services.json": {
+    "mtime": 1780345448.077011,
+    "ast_hash": "66d3613ffdc3cecb5a9b01d3210d459c",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/data/projects.json": {
+    "mtime": 1780362611.4361043,
+    "ast_hash": "2acfa6ff96366bc77e02dd42022187b4",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/data/navigation.js": {
+    "mtime": 1780345448.076389,
+    "ast_hash": "1e4add1512e8c07c7ddb99022e314bfc",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/data/testimonials.json": {
+    "mtime": 1780345448.0771608,
+    "ast_hash": "47ced714538051fee2349b738d62d8bb",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/data/pricingData.json": {
+    "mtime": 1780345448.0765624,
+    "ast_hash": "809b62be86026e7420677bf3b82512be",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/README.md": {
+    "mtime": 1780345447.8270094,
+    "ast_hash": "f34fe7b9fc551f0a148bfc8a8fb3ad84",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/.audit/summary.md": {
+    "mtime": 1780361901.9223835,
+    "ast_hash": "b402bc81957b0242116053b0b984160c",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/robots.txt": {
+    "mtime": 1780345448.0351007,
+    "ast_hash": "a66f5a18e37cc41411e7cabc7ecd1a2a",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/images/favicon/favicon-16x16.png": {
+    "mtime": 1780345447.8377964,
+    "ast_hash": "58bb42a99f0998632d3aa7636c71be55",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/images/favicon/android-chrome-192x192.png": {
+    "mtime": 1780345447.8369741,
+    "ast_hash": "bf5d16bd2fe4797f19f98410b7192725",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/images/favicon/apple-touch-icon.png": {
+    "mtime": 1780345447.8376467,
+    "ast_hash": "fda5b63eb84b03c6ccb281c0ff4801a6",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/images/favicon/android-chrome-512x512.png": {
+    "mtime": 1780345447.8372846,
+    "ast_hash": "47c50e67cefb7e43f09b3224ca80e8a8",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/images/favicon/favicon-32x32.png": {
+    "mtime": 1780345447.83793,
+    "ast_hash": "3601e1f5e8637cb726191d2efb594af6",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/images/og/og.png": {
+    "mtime": 1780345447.8430173,
+    "ast_hash": "adeb40718aeb17635a5062a238d382a5",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/projects/zahav/zahav-cover-tile.webp": {
+    "mtime": 1780345448.0346997,
+    "ast_hash": "523b60c951007e5299bfe38241b57d7b",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/projects/zahav/long.webp": {
+    "mtime": 1780345448.033072,
+    "ast_hash": "488e8be4c7de051e82e4fd65649d902c",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/projects/jelly-belly-wiki/long.webp": {
+    "mtime": 1780345447.9950464,
+    "ast_hash": "3b5a891aea25105fe745f4fd38deef28",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/projects/jelly-belly-wiki/jelly-belly-wiki-cover-tile.webp": {
+    "mtime": 1780345447.9844046,
+    "ast_hash": "77d6e44c8ab5b72bd98be4c67b02792e",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/projects/crimson/crimson-cover-tile.webp": {
+    "mtime": 1780345447.9496365,
+    "ast_hash": "e6f3ec4f36d614b6c8b101239ff9af06",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/projects/crimson/long.webp": {
+    "mtime": 1780345447.9769998,
+    "ast_hash": "0689810c73ffe103a8807e7c881c13af",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/projects/sha-design-studio/sha-design-studio-cover-tile.webp": {
+    "mtime": 1780345448.0224795,
+    "ast_hash": "a56f19e8ee10c7ac6ba82478cd100b9b",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/projects/jo-marketing-11/long.webp": {
+    "mtime": 1780345447.9999826,
+    "ast_hash": "bad3bee289c1ea0c5e94c50edbff9a2f",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/projects/jo-marketing-11/jo-marketing-11-cover-tile.webp": {
+    "mtime": 1780345447.9959726,
+    "ast_hash": "af00ecd28a55494c5f9bec4f8a087423",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/projects/prodani/long.webp": {
+    "mtime": 1780345448.0205927,
+    "ast_hash": "be59b0a0781a9c9e4d55e20e6671bef9",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/projects/prodani/prodani-cover-tile.webp": {
+    "mtime": 1780345448.0221448,
+    "ast_hash": "61b3aa4a161b346cfddadc49e168f46c",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/projects/birth-of-venus/long.webp": {
+    "mtime": 1780345447.9452786,
+    "ast_hash": "8568d7030cb5412fe376f4061d0d1309",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/projects/birth-of-venus/birth-of-venus-cover-tile.webp": {
+    "mtime": 1780345447.939856,
+    "ast_hash": "482aea8e1501e88004bc27be5c795a07",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/projects/florida-energy-assistance/long.webp": {
+    "mtime": 1780345447.980222,
+    "ast_hash": "4cf04e7e5b2d2ff347086cdd8a04f81f",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/public/projects/florida-energy-assistance/florida-energy-assistance-cover-tile.webp": {
+    "mtime": 1780345447.977584,
+    "ast_hash": "9487624a9a45d127f8743cb2bd7c5e7d",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/assets/mockups/macbook-frame.png": {
+    "mtime": 1780345448.0376654,
+    "ast_hash": "a00c339edee0a3ae171c8c33b0a67d38",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/assets/videos/switch-case-studio-banner.webm": {
+    "mtime": 1780345448.0660224,
+    "ast_hash": "115936f54fe47bf520622a181551a0cb",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/assets/videos/glitch-effect.mp4": {
+    "mtime": 1780345448.0625439,
+    "ast_hash": "3aab38dc5e6cab182698e50ccaf1ec21",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/vite.config.js": {
+    "mtime": 1780379921.8117254,
+    "ast_hash": "0b7b456e28e376f198b079256364c8cf",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/analytics/ConsentBanner.js": {
+    "mtime": 1780362768.897438,
+    "ast_hash": "a1f380daf5ca9ec061211324a52b6fb2",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/analytics/RouteAnalytics.js": {
+    "mtime": 1780355089.6806545,
+    "ast_hash": "4e193bd39448e5b77895433a6fac58bb",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/src/analytics/ga.js": {
+    "mtime": 1780379921.808504,
+    "ast_hash": "2a018d3d0c6d0c4f2f6e1c2128e7b073",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/index.html": {
+    "mtime": 1780379921.7907908,
+    "ast_hash": "d90b49f1eff23b36122f625164e7fcb0",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/GA4-CONSENT-ADDENDUM.md": {
+    "mtime": 1780363535.7206385,
+    "ast_hash": "7cbd34903328e6336daf0d8f532a1a2a",
+    "semantic_hash": ""
+  },
+  "/Users/imac/Desktop/switch-case-studio/CLAUDE.md": {
+    "mtime": 1780353497.4310076,
+    "ast_hash": "0c012b0e5fdb8019ac0b5d02fabb4553",
+    "semantic_hash": ""
+  }
+}

@@ -48,8 +48,35 @@ Notable: `gradientText.scss` and `welcomeTyped.scss` are dead while
 Phase 2: either the components style themselves another way, or they're
 imported-but-unrendered.
 
-- Verification: `npm run build` before/after → emitted CSS must be byte-identical.
-- Status: pending verification.
+- Verification: `npm run build` before/after → emitted CSS byte-identical
+  (content-hashed filenames unchanged). **PASS.** Committed `34cf546`.
+
+### F2 — Phase 2 result: zero dead components, hooks, utils, or deps
+Every suspect (incl. `GradientText`, `WelcomeTyped` from F1) is genuinely
+rendered; their orphan stylesheets were superseded (GradientText styles inline,
+WelcomeTyped styled via `hero.scss`). All `package.json` deps have import sites.
+Phase 5 (deps) closes with Phase 2: nothing to remove.
+
+### F3 — CRA fossils + dead assets (Phase 4)
+- `public/manifest.json` — the stock CRA sample manifest ("Create React App
+  Sample", icons point at a `logo512.png` that doesn't exist). The real manifest
+  is `/images/favicon/site.webmanifest`, linked from index.html. Removed.
+- `.unimportedrc.json` — config for the `unimported` tool, ignore-listing
+  `react-scripts`/`web-vitals`/`@testing-library/*`, none of which are deps
+  anymore. Removed.
+- `public/fonts/NeueMachina-Ultrabold.woff2` (11KB) — replaced by SCS Display;
+  survives only in code comments (kept: they document decisions). Removed.
+- `src/assets/videos/glitch-effect.mp4` (**2.8MB**) — zero references. Removed.
+- `public/fonts/SCS-heading-font-Regular.otf` — the SOURCE otf for the display
+  face, used only by `scripts/fix_font.py`, but it lived in `public/` so every
+  deploy shipped the unsubsetted source font publicly. Moved to `fonts-src/`,
+  `fix_font.py` IN/OUT paths updated.
+- False positives correctly kept: `-256/-512.webp` srcset derivatives (paths
+  built dynamically via `.replace()` in `CaseStudyTiles.js`/`ClientStrip.js`),
+  `Inter-*.woff2` (Sass `#{$w}` interpolation), `robots.txt`/`sitemap.xml`
+  (fetched by convention, never imported).
+- Verification: build green; CSS identical; removed files absent from `build/`;
+  no string in emitted JS/HTML references them. **PASS.**
 
 ## Lessons → CLAUDE.md
 
