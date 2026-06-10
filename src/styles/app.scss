@@ -16,12 +16,17 @@
 // synthesis. Preloaded in index.html (it's the LCP element).
 // NOTE: GlyphrStudio has historically re-zeroed the empty space glyph's CFF
 // width on export (the recurring gotcha) — the space must have width in BOTH
-// hmtx AND the CFF charstring (669). On any re-export, gate the space width in
-// both tables before subsetting; patch CFF to match hmtx if zeroed. (Moses's
-// re-refined export landed clean — CFF already carried 669, no patch needed.)
+// hmtx AND the CFF charstring (current export: 487). On any re-export, gate the
+// space width in both tables before subsetting; patch CFF to match hmtx if zeroed.
+// SECOND gotcha (this export): a batch outline scale (~2.1x) was NOT applied to
+// some glyphs' hmtx ADVANCES — b x u q z r " * / ? | had ink spilling far past
+// their advance (neg RSB) → letters collided regardless of CSS. Fixed via
+// scripts/fix_font.py (bounds-based advance = inkXmax + 80, LSB = inkXmin),
+// verified full-glyph sweep xMax<=adv. On any re-export, RUN fix_font.py and
+// confirm PASS before subsetting. v2 = the fixed subset.
 @font-face {
   font-family: 'SCS Display';
-  src: url('/fonts/SCS-Display.woff2') format('woff2');
+  src: url('/fonts/SCS-Display-v2.woff2') format('woff2');
   font-weight: 400 700;
   font-style: normal;
   font-display: swap;
