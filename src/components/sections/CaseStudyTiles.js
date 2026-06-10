@@ -71,6 +71,10 @@ const Tile = ({ proj, disabled }) => {
         <img
           className="tile-image"
           src={proj.coverTile}
+          srcSet={`${proj.coverTile.replace(/\.webp$/, '')}-256.webp 256w, ${proj.coverTile.replace(/\.webp$/, '')}-512.webp 512w, ${proj.coverTile} 1034w`}
+          sizes="(max-width: 768px) 96px, (max-width: 1239px) 45vw, 584px"
+          width="1034"
+          height="1446"
           alt=""
           loading="lazy"
         />

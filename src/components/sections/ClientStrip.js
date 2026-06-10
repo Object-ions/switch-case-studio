@@ -11,6 +11,14 @@ const CLIENTS = [
   { name: 'Jelly Belly Wiki',          tile: '/projects/jelly-belly-wiki/jelly-belly-wiki-cover-tile.webp' },
 ];
 
+// Logos render at 96px (≤96 desktop) / 76px (mobile) in a square object-fit
+// box, so the full 1034w source was ~5x oversampled. Serve small derivatives
+// only — the 1034w original stays the no-srcset fallback but is never picked.
+const srcsetFor = (p) => {
+  const b = p.replace(/\.webp$/, '');
+  return `${b}-256.webp 256w, ${b}-512.webp 512w`;
+};
+
 const ClientStrip = () => {
   const reduced = useReducedMotion();
 
@@ -28,6 +36,10 @@ const ClientStrip = () => {
             <li key={i} className="client-strip__item">
               <img
                 src={c.tile}
+                srcSet={srcsetFor(c.tile)}
+                sizes="(max-width: 668px) 76px, 96px"
+                width="1034"
+                height="1446"
                 alt={c.name}
                 className="client-strip__logo"
                 loading="lazy"
