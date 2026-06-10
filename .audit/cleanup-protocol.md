@@ -110,6 +110,14 @@ a broken detector, not a dead codebase. Root cause of the bad path: CLAUDE.md
 itself still cited `src/App.js` and `src/components/ProjectsTiles.js` (→ now
 `sections/CaseStudyTiles.js`) — instruction doc rot. Both references fixed.
 
+### Note — `graphify-out/2026-06-07/` rode along in `ea91541`
+A `git add -A` swept the previously-untracked `graphify-out/2026-06-07/`
+(+6.2k lines) into the assets commit. Kept tracked: the repo's convention is to
+track graphify output (`f61db28` "restore tracked graphify output"), but it's
+flagged here because it's unrelated to the cleanup — drop it from the branch if
+unwanted. Lesson: stage cleanup commits by explicit path, not `add -A`, when
+untracked artifacts are present.
+
 ### F6 — Final state
 - 4 commits on `chore/legacy-cleanup`; every phase independently revertable.
 - Removed: 17 SCSS files, 19 selectors, 2 CRA fossils, ~2.8MB dead video, 11KB
