@@ -347,11 +347,21 @@ Tasks for Claude (when numbers arrive):
 1. Replace mock metrics in `projects.json`; drop the metric tiles for any project with no real numbers (renders conditionally already).
 2. Post-deploy smoke check: fonts by content-type, tile reveal on hard reload + throttled network.
 
-## Legacy cleanup (2026-06-10, branch `chore/legacy-cleanup`)
+## Legacy cleanup (2026-06-10) ✅ MERGED TO MAIN 2026-06-15 (`e14760a`, `--no-ff`)
 Full dead-code sweep — protocol + findings: `.audit/cleanup-protocol.md`.
 Removed: 17 unimported SCSS files, 19 dead selectors in live files, stock CRA
 `public/manifest.json`, `.unimportedrc.json`, NeueMachina woff2, 2.8MB unused
 glitch video; source OTF moved out of `public/` (`fonts-src/`). Zero dead JS
 files/deps found. Every removal build-verified (CSS content-hash / class-set
 diff). CLAUDE.md: 2 stale file refs fixed (App.js→routes.js, ProjectsTiles→
-sections/CaseStudyTiles), 2 new rules added. Branch awaits review/merge.
+sections/CaseStudyTiles), 2 new rules added. `graphify-out/2026-06-07/` kept
+tracked (repo convention). Merged build green (all 25 routes), pushed to origin.
+
+## README refresh 2026-06-15
+`README.md` was pre-SSG and pre-cleanup — corrected against current code:
+SSG build model (one HTML/route, no SPA catch-all), `App.js`→`routes.js`,
+`components/{pages,sections,layout,ui,util}`, self-hosted fonts (SCS Display +
+Inter + Roboto Flex woff2; NeueMachina/manifest.json/glitch.mp4 gone; source OTF
+in `fonts-src/`), `Seo.js` per-route heads, prebuild sitemap, Moon IO-gate +
+~990KB chunk, `npm start` (plain vite) vs `npm run dev` (vite-react-ssg) now
+distinct, added `team.json`.
