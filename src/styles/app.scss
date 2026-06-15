@@ -156,11 +156,6 @@ video {
   height: auto;
 }
 
-.background-video {
-  max-width: 100%;
-  height: auto;
-}
-
 // Responsive typography scaling
 // NOTE: Audit §04 flags <16px on mobile inputs as an iOS auto-zoom trigger.
 // This body shrink affects every rem-based component on small screens — keep

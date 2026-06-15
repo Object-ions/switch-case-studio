@@ -4,8 +4,8 @@ from fontTools.pens.boundsPen import BoundsPen
 
 # Source of truth = the full OTF. We fix metrics on a COPY; the original is
 # never written. The woff2 subset is regenerated from the fixed OTF afterwards.
-IN = "public/fonts/SCS-heading-font-Regular.otf"
-OUT = "public/fonts/SCS-heading-font-Regular-fixed.otf"
+IN = "fonts-src/SCS-heading-font-Regular.otf"
+OUT = "fonts-src/SCS-heading-font-Regular-fixed.otf"
 TARGET_RSB = 27   # right sidebearing in font units. Tuned to the face's own
                   # rhythm: the correctly-scaled glyphs have RSB median ~27
                   # (lowercase ~24). 80 left the fixed glyphs ~3x looser than

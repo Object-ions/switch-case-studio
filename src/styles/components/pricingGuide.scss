@@ -45,11 +45,6 @@
   margin: 0;
 }
 
-/* Packages */
-.pg-packages {
-  margin-top: clamp(24px, 4vw, 48px);
-}
-
 // Stack of SinglePricingCards (one per tier).
 .pg-cards {
   position: relative;
@@ -62,33 +57,6 @@
   margin-right: auto;
 }
 
-.pg-package {
-  padding: 10px;
-  color: $g6;
-  transition: background 0.25s ease, color 0.25s ease;
-  z-index: 10;
-  position: relative;
-
-  &:hover {
-    background: $g6;
-    color: #fff;
-
-    .pg-row,
-    .pg-list li {
-      color: #fff;
-      font-weight: 500;
-    }
-
-    .pg-row__leader {
-      border-bottom-color: currentColor;
-    }
-
-    .pg-list li::before {
-      color: currentColor;
-    }
-  }
-}
-
 .pg-sep {
   border: 0;
   margin: 10px 0;
@@ -97,60 +65,8 @@
   border-top: 3px dotted $g6; // default orange
   transition: border-color 0.25s ease;
 
-  .pg-package:hover & {
-    border-top-color: #fff; // turns white when parent article is hovered
-  }
-
   &.pg-sep--wide {
     margin-top: clamp(28px, 5vw, 40px);
-  }
-}
-
-.pg-row {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 12px;
-  align-items: baseline;
-  margin-bottom: 8px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  text-transform: none;
-  font-size: clamp(16px, 2.1vw, 20px);
-}
-
-.pg-row__leader {
-  align-self: center;
-  border: 0;
-  border-bottom: 3px dotted currentColor;
-  transform: translateY(-2px);
-  transition: border-color 180ms ease;
-}
-
-.pg-row__name,
-.pg-row__price {
-  color: inherit;
-  white-space: nowrap;
-}
-
-.pg-list {
-  list-style: none;
-  padding-left: 0;
-  margin: 0 0 clamp(6px, 2vw, 12px);
-
-  li {
-    position: relative;
-    padding-left: 18px;
-    line-height: 1.35;
-    font-size: clamp(11px, 1.8vw, 15px);
-    font-weight: 300;
-
-    &::before {
-      content: '-';
-      position: absolute;
-      left: 0;
-      top: 0;
-      color: inherit;
-    }
   }
 }
 
@@ -175,14 +91,7 @@
   justify-items: center;
   margin-top: clamp(10px, 2.4vw, 16px);
 
-  .pg-book {
-    font-weight: 800;
-    letter-spacing: 0.04em;
-    font-size: clamp(12px, 1.6vw, 16px);
-  }
-
-  .pg-link,
-  .pg-phone {
+  .pg-link {
     font-weight: 700;
     letter-spacing: 0.02em;
     text-decoration: underline;
@@ -208,15 +117,4 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-}
-
-/* Small screens */
-@media (max-width: 720px) {
-  .pg-blob {
-    position: relative;
-    right: auto;
-    top: auto;
-    transform: none;
-    margin-top: clamp(8px, 3vw, 12px);
-  }
 }
