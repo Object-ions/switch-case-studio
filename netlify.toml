@@ -12,3 +12,21 @@
 
 [build.environment]
   NODE_VERSION = "20"        # Vite 5 + Sass require Node 18+; pin to 20
+
+# Security response headers, applied to every route.
+# The first four are set-and-forget (no runtime risk) and are ENFORCED.
+# CSP ships as Report-Only ON PURPOSE: it never blocks anything, it only reports
+# violations to the browser console (and a report endpoint if one is added), so
+# we can confirm the allowlist is complete against real traffic before enforcing.
+# Allowlist derived from runtime recon: gtag.js (googletagmanager) + GA4 collect
+# endpoints, EmailJS XHR (api.emailjs.com), self-hosted fonts/images/video,
+# beasties + TextPressure inline <style> ('unsafe-inline'), and the Moon's
+# Meshopt decoder (WASM in a blob: worker → 'wasm-unsafe-eval' + worker-src blob:).
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+    Content-Security-Policy-Report-Only = "default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://api.emailjs.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; media-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; frame-ancestors 'none'"
