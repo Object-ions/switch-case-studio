@@ -11,7 +11,7 @@
   publish = "build"          # matches vite.config.js `build.outDir`
 
 [build.environment]
-  NODE_VERSION = "20"        # Vite 5 + Sass require Node 18+; pin to 20
+  NODE_VERSION = "22"        # Vite 7 requires node ^20.19.0 || >=22.12.0; pin to 22
 
 # Security response headers, applied to every route.
 # All headers here are ENFORCED. The CSP blocks violating resources (not just
