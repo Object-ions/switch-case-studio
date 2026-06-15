@@ -14,10 +14,12 @@
   NODE_VERSION = "20"        # Vite 5 + Sass require Node 18+; pin to 20
 
 # Security response headers, applied to every route.
-# The first four are set-and-forget (no runtime risk) and are ENFORCED.
-# CSP ships as Report-Only ON PURPOSE: it never blocks anything, it only reports
-# violations to the browser console (and a report endpoint if one is added), so
-# we can confirm the allowlist is complete against real traffic before enforcing.
+# All headers here are ENFORCED. The CSP blocks violating resources (not just
+# reports them). It first ran as Content-Security-Policy-Report-Only against live
+# prod traffic and was confirmed clean (zero violations across all flows), then
+# promoted to this enforcing header. ROLLBACK: rename the key back to
+# Content-Security-Policy-Report-Only to instantly revert to non-blocking
+# (reports only, same policy string) — no other change needed.
 # Allowlist derived from runtime recon: gtag.js (googletagmanager) + GA4 collect
 # endpoints, EmailJS XHR (api.emailjs.com), self-hosted fonts/images/video/HDRI,
 # beasties + TextPressure inline <style> ('unsafe-inline'), and the Moon's
