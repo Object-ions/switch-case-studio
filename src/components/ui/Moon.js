@@ -70,8 +70,10 @@ export default function Moon() {
             <MoonModel scale={MODEL_SCALE} />
           </Center>
 
-          {/* Image-based lighting */}
-          <Environment preset="city" />
+          {/* Image-based lighting — self-hosted HDRI (was drei preset="city",
+              which fetched potsdamer_platz_1k.hdr from raw.githack.com; vendored
+              to public/models/ to keep connect-src 'self' under CSP). */}
+          <Environment files="/models/potsdamer_platz_1k.hdr" />
 
           {/* Controls aimed at model center */}
           <OrbitControls
