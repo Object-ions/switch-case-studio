@@ -161,8 +161,12 @@
 
 .contact-right {
   &__heading {
+    // SCS Display (the section root is monospace) — brand face for the heading.
+    // Positive tracking: SCS Display collides under tight/negative spacing.
+    font-family: $font-special;
     font-size: clamp(3rem, 8vw, 5rem);
-    font-weight: 400;
+    font-weight: 800;
+    letter-spacing: 0.02em;
     color: $white-color;
     line-height: 1;
     margin: 0 0 3rem;
