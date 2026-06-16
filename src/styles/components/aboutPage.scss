@@ -49,7 +49,8 @@
     font-size: clamp(3rem, 7vw, 6rem);
     font-weight: 800;
     line-height: 1.0;
-    letter-spacing: -0.03em;
+    // SCS Display collides under negative tracking — keep it positive (see hero).
+    letter-spacing: 0.02em;
     margin: 0 0 2rem;
     color: #fff;
 

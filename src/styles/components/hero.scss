@@ -133,9 +133,13 @@
       transform: translateY(0);
     }
 
+    // Stack full-width on phones — side-by-side pills get too cramped to read
+    // (~170px each at 393px). More top gap separates them from the subtitle.
     @media (max-width: 668px) {
-      margin-top: 1.5rem;
-      gap: 0.75rem;
+      flex-direction: column;
+      align-items: stretch;
+      margin-top: 2.75rem;
+      gap: 0.875rem;
       width: 100%;
     }
   }
@@ -176,8 +180,9 @@
     }
 
     @media (max-width: 668px) {
-      flex: 1 1 auto;
-      font-size: 0.95rem;
+      width: 100%;
+      min-height: 52px;
+      font-size: 1rem;
     }
   }
 

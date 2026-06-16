@@ -91,19 +91,19 @@
 
   &__email {
     display: inline-block;
-    font-family: $font-special;
-    font-weight: 500;
-    font-size: clamp(1.75rem, 5vw, 6rem);
+    // Regular text face — the display face is hard to read at email length.
+    font-family: $font-text;
+    font-weight: 600;
+    // Must stay on ONE line at every width (no splitting hello / @ / domain).
+    // white-space: nowrap holds it together; the small clamp floor + vw scale
+    // keep the single line fitting the viewport down to ~300px without overflow.
+    white-space: nowrap;
+    font-size: clamp(1rem, 5.4vw, 4.75rem);
     line-height: 1;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
     color: #fef7ed;
     text-decoration: none;
-    word-break: break-all;
     transition: opacity 0.2s ease;
-
-    @media (min-width: 640px) {
-      word-break: normal;
-    }
 
     &:hover {
       opacity: 0.8;

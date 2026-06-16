@@ -28,13 +28,14 @@
   }
 
   &__title {
-    // Inter (not NeueMachina) so the weight is adjustable — Ultrabold read
-    // too heavy here. Inter ships 400–800; 600 keeps presence without the bulk.
-    font-family: $font-text;
+    // SCS Display — the brand display face, consistent with the About and
+    // Reviews page hero titles. Positive letter-spacing: SCS Display is a tight
+    // display face and negative tracking collides its glyphs (see hero.scss).
+    font-family: $font-special;
     font-size: clamp(2.5rem, 5.5vw, 4.5rem);
-    font-weight: 600;
+    font-weight: 800;
     line-height: 1.08;
-    letter-spacing: -0.03em;
+    letter-spacing: 0.02em;
     margin: 0 0 1.75rem;
     color: #fff;
 

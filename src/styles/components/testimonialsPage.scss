@@ -30,7 +30,8 @@
     font-size: clamp(3rem, 7vw, 6rem);
     font-weight: 800;
     line-height: 1.0;
-    letter-spacing: -0.03em;
+    // SCS Display collides under negative tracking — keep it positive (see hero).
+    letter-spacing: 0.02em;
     margin: 0 0 2rem;
     color: #fff;
 
@@ -115,9 +116,10 @@
   }
 
   &__card-highlight {
-    font-family: $font-special;
+    // Regular text face — the display face is hard to read at quote length.
+    font-family: $font-text;
     font-size: clamp(1rem, 1.6vw, 1.2rem);
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1.45;
     letter-spacing: -0.01em;
     color: #fff;
