@@ -365,3 +365,22 @@ Inter + Roboto Flex woff2; NeueMachina/manifest.json/glitch.mp4 gone; source OTF
 in `fonts-src/`), `Seo.js` per-route heads, prebuild sitemap, Moon IO-gate +
 ~990KB chunk, `npm start` (plain vite) vs `npm run dev` (vite-react-ssg) now
 distinct, added `team.json`.
+
+## Accepted dependency residuals 2026-06-15
+After the dep-upgrade pass (form-data→4.0.6, vite 5→7.3.5), `npm audit` shows two
+residual **esbuild** advisories — both ACCEPTED, documented here so they're not
+re-triaged from scratch:
+- **GHSA-gv7w-rqvm-qjhr** (high) — missing binary-integrity verification in the
+  esbuild **Deno** module → RCE via `NPM_CONFIG_REGISTRY`.
+- **GHSA-g7r4-m6w7-qqqr** (low) — arbitrary file read via the esbuild **dev
+  server on Windows** (introduced 0.27.3; surfaced only because vite@7 moved
+  esbuild 0.21.5→0.27.7).
+
+Why accepted: both are **dev/build-only** (esbuild ships in no `build/assets/`
+bundle) and **non-exploitable here** — we don't use Deno, don't run a Windows dev
+server, and deploy a static Linux/Netlify build (dev server never exposed). Both
+are fixed only in **esbuild 0.28.1**, unreachable on vite@7 (peer-pins esbuild
+`^0.27.0`); the only routes to 0.28.1 are vite@8 (breaks vite-react-ssg's
+`^2..^7` peer range) or an esbuild `overrides` — declined for build-interop risk
+on a pre-1.0 lib past vite's pin. **Revisit when vite ships a release on esbuild
+≥0.28.1** (then drop this note and the residuals clear without an override).
