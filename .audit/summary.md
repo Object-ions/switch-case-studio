@@ -384,3 +384,12 @@ are fixed only in **esbuild 0.28.1**, unreachable on vite@7 (peer-pins esbuild
 `^2..^7` peer range) or an esbuild `overrides` — declined for build-interop risk
 on a pre-1.0 lib past vite's pin. **Revisit when vite ships a release on esbuild
 ≥0.28.1** (then drop this note and the residuals clear without an override).
+
+## security.txt added 2026-06-17
+RFC 9116 disclosure file at `public/.well-known/security.txt` →
+`build/.well-known/security.txt` (Contact `hello@switchcasestudio.com`,
+Canonical, `Preferred-Languages: en`, **Expires 2027-06-17** — bump before then,
+a past Expires invalidates the file). No build config needed: Vite 7's
+`copyDir` (`fs.readdirSync`) copies dotfolders, verified byte-identical in
+`build/`. Netlify serves it `text/plain` (no `.txt` override); the SPA catch-all
+is gone so the real file resolves. On `chore/security-txt`, unmerged.
