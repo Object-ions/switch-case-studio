@@ -72,7 +72,7 @@ const AboutPage = () => {
     <>
       <Seo
         title="About — Switch Case Studio"
-        description="The studio behind conversion-focused landing pages and websites. Built from scratch, delivered fast — personal attention, no templates."
+        description="The studio behind conversion-focused websites, stores, and web apps. Built from scratch, delivered fast — personal attention, no templates."
         path="/about"
         jsonLd={teamJsonLd}
       />

@@ -2,10 +2,10 @@ import { useEffect, useRef } from 'react';
 import Typed from 'typed.js';
 import useReducedMotion from '../../hooks/useReducedMotion';
 
-// "build" leads: it's the brand verb (hero + OG copy say "built for paid
-// traffic") AND the word baked into the static HTML — the SSG hero must read
-// "We build landing pages…" before any JS runs. typed.js takes over the span
-// post-hydration; reduced-motion keeps the static word.
+// "build" leads: it's the brand verb AND the word baked into the static HTML
+// — the SSG hero must read "We build websites & stores…" before any JS runs.
+// typed.js takes over the span post-hydration; reduced-motion keeps the
+// static word.
 const STRINGS = ['build', 'design', 'launch', 'ship', 'craft'];
 
 // Fixed-width slot for the cycling word — words of different widths reflowed

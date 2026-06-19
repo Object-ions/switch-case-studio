@@ -31,8 +31,8 @@ const page = (loader) => () =>
 const HomeContent = () => (
   <>
     <Seo
-      title="Switch Case Studio — Landing Pages That Convert"
-      description="Conversion-focused landing pages and websites, built from scratch for paid traffic and delivered in days — including white-label work for agencies."
+      title="Switch Case Studio — Web Design & Development Studio"
+      description="Websites, branding, and SEO built from scratch and delivered in days — including white-label work for agencies."
       path="/"
     />
     <Hero />
