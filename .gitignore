@@ -29,3 +29,8 @@ graphify-out/cost.json
 graphify-out/cache/.netlify
 graphify-out/cache
 .netlify
+
+# Illustrator source files (kept locally, not in repo)
+*.ai
+
+*.ai
