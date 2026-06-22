@@ -23,12 +23,12 @@ $g-top: #dbe3e6; // light
 $g-mid: #c3cdd3; // medium
 $g-bot: #a5b2ba; // darker
 
-// Promo palette — the OG-image Swiss look used by the /30-off promo landing
-// page (and only there). Scoped names so they don't bleed into the site theme.
-$promo-terra: #c2563b; // terracotta (page field / circle-square morph end)
-$promo-lilac: #c8a8e6; // lilac (module modules / morph start)
-$promo-cream: #f7f0e4; // cream (brand + helper labels)
-$promo-mint: #a0dab6; // mint (hero box behind the h1)
+// Promo palette — the flat Swiss artboard (design-src/promo/ad-30.svg) look
+// used by the /30-off promo landing page (and only there). TRUE artboard hexes.
+// Cream is already defined as $white-color (#fef7ed) — reused there, not duped.
+$promo-terra: #f06637; // terracotta (page field / circle-square morph end)
+$promo-lilac: #dbaae2; // lilac (grid modules / morph start)
+$promo-mint: #79ccb6; // mint (hero box behind the h1)
 $promo-ink: #141414; // ink (CTA, body text on light)
 
 // Size variables

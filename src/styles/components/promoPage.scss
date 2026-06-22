@@ -1,15 +1,15 @@
 @use '../variables' as *;
 
 /* ==================================================================
- * /30-off promo landing page
+ * /30-off promo landing page — FLAT SWISS (design-src/promo/ad-30.svg)
  *
- * Visual system = the OG-image Swiss look: terracotta field, lilac/
- * terracotta morphing module grid behind the content, opaque cream/
- * mint/ink boxes carrying the text so contrast holds while the grid
- * animates underneath.
+ * Solid colour blocks, NO outline borders or hard-edge card frames.
+ * Terracotta field; lilac↔terracotta morphing module grid behind the
+ * content; cream / mint / ink solid blocks carry the text with generous
+ * padding so contrast holds while the grid animates underneath.
  *
- * Mobile-first; desktop overrides live in the min-width blocks at the
- * bottom of each section.
+ * Tokens only — zero hardcoded colour literals. Cream = $white-color.
+ * Mobile-first; desktop overrides at the bottom.
  * ================================================================== */
 
 .promo {
@@ -58,40 +58,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
+/* ---------- Splat brand mark (cream artboard asset) ---------- */
 .promo__splat {
-  position: relative;
-  display: inline-grid;
-  place-items: center;
-  width: 104px;
-  height: 104px;
+  display: block;
+  width: 108px;
+  height: auto;
   align-self: flex-start;
-
-  .splat-badge__shape {
-    grid-area: 1 / 1;
-    width: 100%;
-    height: 100%;
-    fill: $promo-ink;
-  }
-
-  .splat-badge__label {
-    grid-area: 1 / 1;
-    font-family: $font-text;
-    font-weight: 800;
-    font-size: 0.95rem;
-    line-height: 0.95;
-    letter-spacing: 0.02em;
-    color: $promo-cream;
-    transform: rotate(-12deg);
-  }
 }
 
+/* Solid label blocks — flat, no borders. */
 %promo-box {
   display: inline-block;
   max-width: 100%;
-  padding: 0.55rem 1rem;
+  padding: 0.6rem 1.1rem;
   font-family: $font-text;
   font-weight: 700;
   line-height: 1.15;
@@ -99,7 +81,7 @@
 
 .promo__brand {
   @extend %promo-box;
-  background: $promo-cream;
+  background: $white-color;
   color: $promo-ink;
   letter-spacing: 0.01em;
   text-transform: uppercase;
@@ -108,8 +90,7 @@
 
 .promo__hero {
   background: $promo-mint;
-  padding: 1rem 1.25rem;
-  border: 3px solid $promo-ink;
+  padding: 1.5rem 1.75rem;
 }
 
 .promo__title {
@@ -124,7 +105,7 @@
 
 .promo__sub {
   @extend %promo-box;
-  background: $promo-cream;
+  background: $white-color;
   color: $promo-ink;
   font-size: clamp(0.95rem, 4vw, 1.25rem);
 }
@@ -133,7 +114,7 @@
   margin: 0;
   font-family: $font-text;
   font-weight: 700;
-  color: $promo-cream;
+  color: $white-color;
   font-size: clamp(0.85rem, 3.5vw, 1.1rem);
   letter-spacing: 0.02em;
 }
@@ -142,22 +123,20 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  padding: 0.75rem 1.5rem;
+  padding: 0.85rem 1.75rem;
   background: $promo-ink;
-  color: $promo-cream;
+  color: $white-color;
   font-family: $font-text;
   font-weight: 800;
   font-size: 1.05rem;
   text-decoration: none;
-  border-radius: 999px;
 
-  &:hover,
-  &:focus-visible {
-    background: color-mix(in srgb, $promo-ink, $promo-cream 14%);
+  &:hover {
+    background: color-mix(in srgb, $promo-ink, $white-color 14%);
   }
 
   &:focus-visible {
-    outline: 3px solid $promo-cream;
+    outline: 3px solid $white-color;
     outline-offset: 3px;
   }
 }
@@ -167,18 +146,17 @@
   font-family: $font-text;
   font-weight: 600;
   font-size: 0.85rem;
-  color: $promo-cream;
+  color: $white-color;
   opacity: 0.85;
 }
 
-/* ---------- Lead form ---------- */
+/* ---------- Lead form (flat cream block, no frame) ---------- */
 .promo-form {
   width: 100%;
   max-width: 420px;
   margin-top: 1.5rem;
-  padding: 1.5rem;
-  background: $promo-cream;
-  border: 3px solid $promo-ink;
+  padding: 2rem;
+  background: $white-color;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -214,12 +192,14 @@
       font-family: $font-text;
       font-size: 1rem;
       color: $promo-ink;
-      background: #fff;
-      border: 2px solid $promo-ink;
+      // Subtle filled field — no border, flat Swiss. Slight ink tint of the
+      // cream so the field reads against the cream panel without a stroke.
+      background: color-mix(in srgb, $white-color, $promo-ink 7%);
+      border: 0;
       border-radius: 0;
 
       &:focus-visible {
-        outline: 3px solid $promo-terra;
+        outline: 3px solid $promo-ink;
         outline-offset: 2px;
       }
     }
@@ -229,24 +209,33 @@
     }
   }
 
+  /* Inline validation message (interface voice). */
+  &__error {
+    margin: 0;
+    font-family: $font-text;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: $promo-terra;
+  }
+
   &__submit {
     min-height: 44px;
-    padding: 0.75rem 1.25rem;
+    padding: 0.85rem 1.25rem;
     background: $promo-ink;
-    color: $promo-cream;
+    color: $white-color;
     font-family: $font-text;
     font-weight: 800;
     font-size: 1rem;
-    border: none;
+    border: 0;
     cursor: pointer;
 
-    &:hover:not(:disabled),
-    &:focus-visible {
+    &:hover:not(:disabled) {
       background: color-mix(in srgb, $promo-ink, $promo-terra 30%);
     }
 
     &:focus-visible {
-      outline: 3px solid $promo-terra;
+      outline: 3px solid $promo-ink;
       outline-offset: 2px;
     }
 
@@ -263,10 +252,10 @@
     font-weight: 600;
 
     &--ok {
-      color: color-mix(in srgb, $promo-ink, #2e7d32 55%);
+      color: $promo-ink;
     }
     &--err {
-      color: color-mix(in srgb, $promo-ink, #c62828 55%);
+      color: $promo-terra;
     }
   }
 }
@@ -278,15 +267,10 @@
   }
 
   .promo__inner {
-    gap: 1.25rem;
+    gap: 1.5rem;
   }
 
   .promo__splat {
-    width: 132px;
-    height: 132px;
-
-    .splat-badge__label {
-      font-size: 1.15rem;
-    }
+    width: 136px;
   }
 }
