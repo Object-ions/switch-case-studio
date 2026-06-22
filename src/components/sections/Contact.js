@@ -35,6 +35,7 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
 
   const [agreed, setAgreed] = useState(false);
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
+  const [phoneError, setPhoneError] = useState('');
 
   /* ------------------------------------------------------------------ *
    * Submit handler — EmailJS using existing template fields:
@@ -43,6 +44,19 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!agreed || status === 'sending') return;
+
+    // Phone is required. Lenient format: allow + spaces dashes parens dots,
+    // need ~7+ actual digits. Form has noValidate, so this gate (not the
+    // browser) is what blocks an empty/garbage submit.
+    const phone = formRef.current?.elements?.phone?.value?.trim() || '';
+    const phoneValid =
+      /^[+\d\s().-]+$/.test(phone) && phone.replace(/\D/g, '').length >= 7;
+    if (!phoneValid) {
+      setPhoneError('Add a phone number we can reach you on');
+      formRef.current?.elements?.phone?.focus();
+      return;
+    }
+    setPhoneError('');
 
     setStatus('sending');
 
@@ -216,6 +230,34 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
                   required
                   aria-label="Email"
                 />
+              </div>
+
+              <div className="contact-form__field contact-form__field--phone">
+                <label htmlFor="phone" className="sr-only">
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  id="phone"
+                  inputMode="tel"
+                  autoComplete="tel"
+                  placeholder="Phone"
+                  required
+                  aria-required="true"
+                  aria-invalid={phoneError ? 'true' : undefined}
+                  aria-describedby={phoneError ? 'phone-error' : undefined}
+                  onChange={() => phoneError && setPhoneError('')}
+                />
+                {phoneError && (
+                  <p
+                    id="phone-error"
+                    className="contact-form__error"
+                    role="alert"
+                  >
+                    {phoneError}
+                  </p>
+                )}
               </div>
 
               <div className="contact-form__field">

@@ -225,6 +225,40 @@
     }
   }
 
+  /* Phone field — required, 44px tap target + visible focus ring. Scoped so
+     the existing underline fields are untouched. */
+  &__field--phone {
+    input {
+      min-height: 44px;
+
+      &:focus-visible {
+        outline: 2px solid $g6;
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  /* Inline validation message (interface voice). $g1 = brand orange accent. */
+  &__error {
+    margin: 0.5rem 0 0;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: $g1;
+  }
+
+  /* Visually-hidden label kept for screen readers (form is placeholder-driven). */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
   /* ---------- Consent ---------- */
   &__consent {
     display: flex;
