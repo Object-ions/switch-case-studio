@@ -140,6 +140,10 @@ export const routes = [
         getStaticPaths: () => services.map((s) => `/pricing/${s.slug}`),
       },
 
+      // Promo landing — noindex (PROMO_INDEXABLE), intentionally absent from
+      // the sitemap. Lazy so it never enters the other pages' bundles.
+      { path: "30-off", lazy: page(() => import("./components/pages/PromoPage")) },
+
       // Standalone section pages
       { path: "services", lazy: page(() => import("./components/pages/ServicesPage")) },
       { path: "testimonials", lazy: page(() => import("./components/pages/ReviewsPage")) },
