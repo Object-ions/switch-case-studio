@@ -65,6 +65,12 @@ const PromoPage = () => {
     setPhoneError('');
 
     setStatus('sending');
+    // Fire synchronously in the submit gesture stack (like book_call_click),
+    // not inside the async EmailJS .then — an event fired after the network
+    // round-trip was being lost. Counts a valid submit (passed validation, not
+    // the honeypot). trackEvent is consent-safe: Consent Mode v2 still sends a
+    // cookieless ping when denied.
+    trackEvent('generate_lead', { source: SOURCE });
 
     emailjs
       .sendForm(
@@ -77,8 +83,6 @@ const PromoPage = () => {
         () => {
           setStatus('success');
           formRef.current?.reset();
-          // Consent-gated inside trackEvent — fires only with granted consent.
-          trackEvent('generate_lead', { source: SOURCE });
         },
         () => setStatus('error'),
       );
