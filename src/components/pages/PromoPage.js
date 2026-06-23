@@ -3,7 +3,6 @@ import emailjs from '@emailjs/browser';
 import Seo from '../util/Seo';
 import { trackEvent } from '../../analytics/ga';
 import ModuleGrid from '../promo/ModuleGrid';
-import SplatBadge from '../promo/SplatBadge';
 import '../../styles/components/promoPage.scss';
 
 /* ------------------------------------------------------------------ *
@@ -103,8 +102,6 @@ const PromoPage = () => {
       <ModuleGrid className="promo__grid" />
 
       <div className="promo__inner">
-        <SplatBadge className="promo__splat" />
-
         <p className="promo__brand">Design. Development. Marketing.</p>
 
         <div className="promo__hero">
@@ -145,8 +142,14 @@ const PromoPage = () => {
           {/* Origin tag for EmailJS — add {{source}} to the template to surface */}
           <input type="hidden" name="source" value={SOURCE} readOnly />
 
+          <p className="promo-form__legend">
+            <span aria-hidden="true">*</span> Required
+          </p>
+
           <div className="promo-form__field">
-            <label htmlFor="promo-name">Full name</label>
+            <label htmlFor="promo-name">
+              Full name <span className="promo-form__req" aria-hidden="true">*</span>
+            </label>
             <input
               type="text"
               id="promo-name"
@@ -157,7 +160,9 @@ const PromoPage = () => {
           </div>
 
           <div className="promo-form__field">
-            <label htmlFor="promo-email">Email</label>
+            <label htmlFor="promo-email">
+              Email <span className="promo-form__req" aria-hidden="true">*</span>
+            </label>
             <input
               type="email"
               id="promo-email"
@@ -168,7 +173,9 @@ const PromoPage = () => {
           </div>
 
           <div className="promo-form__field">
-            <label htmlFor="promo-phone">Phone</label>
+            <label htmlFor="promo-phone">
+              Phone <span className="promo-form__req" aria-hidden="true">*</span>
+            </label>
             <input
               type="tel"
               id="promo-phone"
@@ -193,7 +200,10 @@ const PromoPage = () => {
           </div>
 
           <div className="promo-form__field">
-            <label htmlFor="promo-type">Project type</label>
+            <label htmlFor="promo-type">
+              Project type{' '}
+              <span className="promo-form__optional">(optional)</span>
+            </label>
             <select id="promo-type" name="project_type" defaultValue="">
               <option value="">Choose one (optional)</option>
               {PROJECT_TYPES.map((t) => (
@@ -205,7 +215,9 @@ const PromoPage = () => {
           </div>
 
           <div className="promo-form__field">
-            <label htmlFor="promo-message">Message</label>
+            <label htmlFor="promo-message">
+              Message <span className="promo-form__req" aria-hidden="true">*</span>
+            </label>
             <textarea
               id="promo-message"
               name="message"

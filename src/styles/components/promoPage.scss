@@ -15,6 +15,7 @@
 .promo {
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh; // dvh excludes mobile browser chrome; 100vh fallback above
   overflow: hidden;
   background: $promo-terra;
   color: $promo-ink;
@@ -59,14 +60,6 @@
   flex-direction: column;
   align-items: center;
   gap: 1.25rem;
-}
-
-/* ---------- Splat brand mark (cream artboard asset) ---------- */
-.promo__splat {
-  display: block;
-  width: 108px;
-  height: auto;
-  align-self: flex-start;
 }
 
 /* Solid label blocks — flat, no borders. */
@@ -114,7 +107,10 @@
   margin: 0;
   font-family: $font-text;
   font-weight: 700;
-  color: $white-color;
+  // Ink, not cream: this text sits over the live-animating grid with no solid
+  // block behind it. Cream fails WCAG on terracotta (2.96:1) and is near-
+  // invisible over a lilac cell (1.82:1). Ink passes both (5.84 / 9.53:1).
+  color: $promo-ink;
   font-size: clamp(0.85rem, 3.5vw, 1.1rem);
   letter-spacing: 0.02em;
 }
@@ -146,8 +142,9 @@
   font-family: $font-text;
   font-weight: 600;
   font-size: 0.85rem;
-  color: $white-color;
-  opacity: 0.85;
+  // Ink, not cream — same over-the-grid legibility reason as .promo__services.
+  // No opacity: it would cut the contrast this fix is restoring.
+  color: $promo-ink;
 }
 
 /* ---------- Lead form (flat cream block, no frame) ---------- */
@@ -171,6 +168,15 @@
     white-space: nowrap;
   }
 
+  /* "* Required" legend above the fields. */
+  &__legend {
+    margin: 0;
+    font-family: $font-text;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: color-mix(in srgb, $promo-ink, $white-color 35%);
+  }
+
   &__field {
     display: flex;
     flex-direction: column;
@@ -182,6 +188,20 @@
       font-size: 0.85rem;
       color: $promo-ink;
     }
+  }
+
+  /* Required asterisk — darkened terracotta (6.13:1 on cream), alert-toned. */
+  &__req {
+    color: color-mix(in srgb, $promo-terra, $promo-ink 40%);
+  }
+
+  /* "(optional)" hint — de-emphasised, still ≥4.5:1 on cream. */
+  &__optional {
+    font-weight: 400;
+    color: color-mix(in srgb, $promo-ink, $white-color 35%);
+  }
+
+  &__field {
 
     input,
     select,
@@ -216,7 +236,9 @@
     font-size: 0.85rem;
     font-weight: 600;
     line-height: 1.4;
-    color: $promo-terra;
+    // Darkened terracotta — raw $promo-terra on cream is 2.96:1 (fails WCAG
+    // for error text); this mix is 6.13:1 and stays warm/alert-toned.
+    color: color-mix(in srgb, $promo-terra, $promo-ink 40%);
   }
 
   &__submit {
@@ -255,7 +277,7 @@
       color: $promo-ink;
     }
     &--err {
-      color: $promo-terra;
+      color: color-mix(in srgb, $promo-terra, $promo-ink 40%);
     }
   }
 }
@@ -268,9 +290,5 @@
 
   .promo__inner {
     gap: 1.5rem;
-  }
-
-  .promo__splat {
-    width: 136px;
   }
 }
