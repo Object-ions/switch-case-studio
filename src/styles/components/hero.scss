@@ -144,11 +144,12 @@
       transform: translateY(0);
     }
 
-    // Stack full-width on phones — side-by-side pills get too cramped to read
-    // (~170px each at 393px). More top gap separates them from the subtitle.
+    // Stack on phones — side-by-side pills get too cramped to read (~170px
+    // each at 393px). More top gap separates them from the subtitle.
+    // align-items: center (not stretch): the pills size themselves below.
     @media (max-width: 668px) {
       flex-direction: column;
-      align-items: stretch;
+      align-items: center;
       margin-top: 2.75rem;
       gap: 0.875rem;
       width: 100%;
@@ -190,8 +191,20 @@
       outline-offset: 4px;
     }
 
+    // Stacked-pill sizing (2026-07 tweak, Moses): NOT full-bleed. Measured
+    // against the hero text block at mobile widths: widest headline ink line
+    // = 87% of the container, subhead = 52%; the requested ~80% sits between
+    // — pills read inset from the headline, wider than the sub. Mechanics:
+    // width:auto + min-width lets the pill GROW past 80% on very narrow
+    // screens (320px) instead of wrapping the label — a two-line primary
+    // button is never acceptable; nowrap + the 20rem cap bound both ends
+    // (the cap also stops over-widening at tablet widths up to 668px).
     @media (max-width: 668px) {
-      width: 100%;
+      width: auto;
+      min-width: min(80%, 20rem);
+      max-width: 100%;
+      white-space: nowrap;
+      padding-inline: 1.25rem; // trimmed so "Book a Free Strategy Call" holds one line at 320-390px
       min-height: 52px;
       font-size: 1rem;
     }
