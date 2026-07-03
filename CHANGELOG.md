@@ -2,6 +2,12 @@
 
 User-facing changes only; process detail lives in `.audit/summary.md`. Newest first.
 
+## 2026-07-03 — Pre-P1 tweaks from Moses's on-device review (awaiting visual verify)
+
+- **/contact is form-first** (`7f45b75`): form → contact-info → banner graphic top-to-bottom; the info|graphic pair is one closing band on desktop. Applies to the home Contact section too (shared component). Form column capped at 46rem. The "dark void above /contact at desktop" from earlier captures = `contactPage.scss`'s intentional vertical centering, visible only in 2400px+ capture windows — no real-viewport issue.
+- **One booking label everywhere** (`2d82bb0`): 13 labels / 7 variants → **"Book a Free Strategy Call"**. Footer's redundant FREE badge dropped. Excluded on purpose: promo + partners pages (separate funnels). Centralized CTA module still queued as P1.
+- **Hero pills no longer full-bleed on phones** (`8c7174b`): `min(80%, 20rem)` centered — measured against the hero text block (headline ink 87%, sub 52%); grow-not-wrap guarantees the longer label stays one line down to 320px.
+
 ## 2026-07-03 — Phase 2 / P0 (awaiting owner visual verification)
 
 ### Hero (`027c9df`)

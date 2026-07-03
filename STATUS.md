@@ -1,7 +1,7 @@
 # STATUS — design refresh
 
-**Branch:** `design-audit-refresh` (2 + 3 commits ahead of main; NOTHING pushed — never push without explicit instruction)
-**Phase:** 2, step 1 of 4 — **P0s implemented, STOPPED at the owner-verification gate**
+**Branch:** `design-audit-refresh` (9 commits ahead of main; NOTHING pushed — never push without explicit instruction)
+**Phase:** 2 — **P0s + Moses's 3 pre-P1 tweaks implemented, STOPPED at the owner-verification gate** (P1 batch NOT started)
 
 ## Gate: owner verifies in-browser (authoritative signal)
 
@@ -10,9 +10,11 @@ npm run build && npm run preview   # http://localhost:4173
 ```
 
 Check, desktop AND a real phone (or devtools device mode):
-1. **/** hero — "Book a Free Call" solid primary; whole headline + both CTAs above the fold; no text under the header; headline never bleeds off a phone screen.
-2. **/contact** — labels visible on all 4 fields; phone marked optional; tapping inputs on iPhone does NOT zoom; "Send message" looks alive; clicking it unticked shows the orange explanation and focuses the checkbox.
-3. While there: check /contact top spacing at desktop ~1440 wide (an old headless capture suggested a large dark gap above the content — believed to be a capture artifact; one human look settles it).
+1. **/** hero — "Book a Free Strategy Call" solid primary, ONE line even on small phones; pills ~80% width, centered, not full-bleed; whole headline + both CTAs above the fold; no text under the header.
+2. **/contact** — FORM is the first thing on the page (info + orange banner below it); labels on all 4 fields; phone optional; no iOS zoom on tap; "Send message" alive; clicking it unticked → orange explanation + focus moves to the checkbox.
+3. Booking CTA label reads "Book a Free Strategy Call" in: header pill, mobile menu, hero, Reviews, footer Connect, /pricing/:slug guide, /about, /projects, /testimonials, /services bottom CTAs. (Promo + partners pages intentionally keep their own funnel labels.)
+4. Home page Contact section (shared component) — confirm the form-first order reads well there too, above the FAQ.
+   [resolved] the old "/contact dark gap at desktop" = intentional vertical centering in contactPage.scss; only visible in extra-tall capture windows.
 
 ## Verification evidence so far (agent-side)
 - Headless screenshots 1440×900 + 390×844 before/after; live-DOM measurement (`centerOffset: 0` — centered, no overflow-shift); consent-error flow + 16px inputs verified in live browser. Build green (27 routes).
