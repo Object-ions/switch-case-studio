@@ -241,7 +241,7 @@ const Reviews = () => {
           rel="noopener noreferrer"
           className="testimonials-cta-button"
         >
-          Book a Call
+          Book a Free Strategy Call
           <span className="cta-arrow" aria-hidden="true">
             &rarr;
           </span>

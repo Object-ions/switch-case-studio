@@ -10,7 +10,7 @@ const HeaderCTA = () => {
       rel="noreferrer"
       className="headingCTA"
     >
-      Book a Free Call{" "}
+      Book a Free Strategy Call{" "}
       <FontAwesomeIcon icon={faArrowRight} style={{ fontSize: "12px" }} />
     </a>
   );

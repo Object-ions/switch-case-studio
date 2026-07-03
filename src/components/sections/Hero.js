@@ -102,7 +102,7 @@ const Hero = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Book a Free Call
+              Book a Free Strategy Call
               <span className="cta-arrow" aria-hidden="true">
                 &rarr;
               </span>

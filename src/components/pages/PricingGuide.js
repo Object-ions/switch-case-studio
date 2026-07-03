@@ -90,7 +90,7 @@ export const PricingGuide = ({ serviceId }) => {
             benefits={BENEFITS}
             features={tier.includes}
             featuresTitle="What's included"
-            primaryButton={{ text: 'Book a free call', href: BOOK_CALL }}
+            primaryButton={{ text: 'Book a Free Strategy Call', href: BOOK_CALL }}
             secondaryButton={{ text: 'See our work', href: '/projects' }}
             testimonials={TESTIMONIALS}
             rotationSpeed={5000 + idx * 600}
@@ -115,7 +115,7 @@ export const PricingGuide = ({ serviceId }) => {
           target="_blank"
           rel="noreferrer"
         >
-          BOOK A FREE CALL NOW
+          Book a Free Strategy Call
         </a>
         <a
           className="pg-link"

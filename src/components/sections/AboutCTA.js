@@ -36,7 +36,7 @@ const AboutCTA = () => {
           rel="noreferrer"
           className="highlight-block"
         >
-          & Book a Free Call{' '}
+          & Book a Free Strategy Call{' '}
           <FontAwesomeIcon
             icon={faArrowUpRightFromSquare}
             style={{ fontSize: '12px' }}

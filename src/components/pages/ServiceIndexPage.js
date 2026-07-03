@@ -111,7 +111,7 @@ const ServiceIndexPage = ({ variant }) => {
             rel="noopener noreferrer"
             className="service-index__bottom-btn"
           >
-            Book a Free Call
+            Book a Free Strategy Call
           </a>
         </motion.div>
       </article>

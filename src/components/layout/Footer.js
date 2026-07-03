@@ -107,10 +107,12 @@ const EXPLORE_LINKS = [
 
 const CONNECT_LINKS = [
   {
-    label: 'Book a Call',
+    // Unified CTA label (2026-07). The old 'free' badge is dropped: the
+    // word is in the label now — "Book a Free Strategy Call  FREE" would
+    // say it twice.
+    label: 'Book a Free Strategy Call',
     href: 'https://calendar.app.google/83UCJjis2FHUrr1s6',
     external: true,
-    badge: 'free',
   },
   { label: 'Email Us', href: 'mailto:hello@switchcasestudio.com' },
 ];

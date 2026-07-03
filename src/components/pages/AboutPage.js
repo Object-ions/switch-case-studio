@@ -299,7 +299,7 @@ const AboutPage = () => {
               rel="noopener noreferrer"
               className="about-page__cta-btn about-page__cta-btn--primary"
             >
-              Book a Free Call
+              Book a Free Strategy Call
             </a>
             <Link to="/projects" className="about-page__cta-btn about-page__cta-btn--secondary">
               See Our Work →

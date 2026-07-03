@@ -125,7 +125,7 @@ const CaseStudiesPage = () => {
             rel="noopener noreferrer"
             className="projects-page__bottom-btn"
           >
-            Book a Free Call
+            Book a Free Strategy Call
           </a>
         </motion.div>
       </article>

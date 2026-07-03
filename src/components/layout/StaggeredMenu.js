@@ -421,7 +421,7 @@ const StaggeredMenu = ({
                   rel="noopener noreferrer"
                   className="sm-socials-link sm-cta-link"
                 >
-                  Book a Free Call
+                  Book a Free Strategy Call
                 </a>
               </li>
               {LEGAL_LINKS.map((link) => (

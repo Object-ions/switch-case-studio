@@ -103,7 +103,7 @@ const ReviewsPage = () => {
             rel="noopener noreferrer"
             className="testimonials-page__bottom-btn"
           >
-            Book a Free Call
+            Book a Free Strategy Call
           </a>
         </motion.div>
       </article>
