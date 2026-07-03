@@ -91,20 +91,14 @@ const Hero = () => {
             className={`hero-ctas ${revealed ? "is-visible" : ""}`}
             data-cursor-wave-mask
           >
-            <HashLink
-              to="/#projects"
-              smooth
-              className="hero-cta hero-cta--primary"
-            >
-              See Our Work
-              <span className="cta-arrow" aria-hidden="true">
-                &darr;
-              </span>
-            </HashLink>
-
+            {/* Booking is the business goal, so it gets the solid primary
+                treatment (2026-07 design refresh, DESIGN_AUDIT P0-1). This
+                deliberately REVERSES the 2026-06 pre-pitch decision (S3 in
+                .audit/summary.md) that made "See Our Work" primary for a
+                portfolio-first pitch — the goal is now booked calls. */}
             <a
               href="https://calendar.app.google/83UCJjis2FHUrr1s6"
-              className="hero-cta hero-cta--secondary"
+              className="hero-cta hero-cta--primary"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -113,6 +107,17 @@ const Hero = () => {
                 &rarr;
               </span>
             </a>
+
+            <HashLink
+              to="/#projects"
+              smooth
+              className="hero-cta hero-cta--secondary"
+            >
+              See Our Work
+              <span className="cta-arrow cta-arrow--down" aria-hidden="true">
+                &darr;
+              </span>
+            </HashLink>
           </div>
         </div>
       </div>

@@ -52,19 +52,30 @@
   // ── Headline ──
   .hero-headline {
     font-family: $font-special;
-    font-size: clamp(3.08rem, 8.4vw, 7.28rem); // ~+12% over 2.75/7.5vw/6.5 — SCS Display is lighter/narrower than NeueMachina, needs more size for the same hero presence; whole clamp scaled so it stays responsive
+    // Max 6rem (was 7.28rem): the +12% presence bump was never re-checked
+    // against the em container below — at 7.28rem the forced 3-line lockup
+    // ("We {verb}" / "websites & stores" / "that actually perform.") rewrapped
+    // to 6 lines, overflowing the centered 100svh hero: line 1 clipped under
+    // the header and BOTH CTAs fell below the desktop fold (DESIGN_AUDIT
+    // P0-2, verified at 1440×900). 6rem × 3 lines + sub + CTAs fits every
+    // common fold. Font-size and max-width are a PAIR — retune both together.
+    font-size: clamp(3.08rem, 8.4vw, 6rem);
     color: #fff;
     line-height: 1; // was 0.95 — bigger font risks descender collision at 0.95; 1.0 stays tight but clears
     letter-spacing: 0.03em; // looser letters on SCS Display (was -0.02em); easy to re-tune
     margin: 0;
-    // 6.86em == 18ch in SCS Display (18 × the font's "0" advance, 0.3809em), so
-    // the real-font hero is pixel-identical to the old `18ch`. But `ch` is
-    // FONT-DEPENDENT: the swap fallback (Arial) has a much narrower "0", so its
-    // 18ch container was too tight and rewrapped "that actually perform." to a
-    // 2nd line on first paint — a one-line CLS jump on font-swap that the new
-    // 0.03em letter-spacing tipped over. `em` is font-independent → identical
-    // container for fallback and real → no rewrap. Keep this in em, not ch.
-    max-width: 6.86em;
+    // Two caps, both load-bearing:
+    // • 12em — wide enough that the LONGEST forced line ("that actually
+    //   perform." ≈11.5em with 0.03em tracking) stays on ONE line at the
+    //   clamp max, keeping the desktop lockup at exactly 3 lines. Stays in
+    //   `em` (NOT ch): em is font-independent, so the Arial size-adjust
+    //   fallback gets an identical container and font-swap can't rewrap a
+    //   line (the old 18ch container caused exactly that one-line CLS jump).
+    // • 100% — the flex parent centers children at FIT-CONTENT width, so an
+    //   em-only cap let the h1 grow wider than the phone viewport (566px at
+    //   390px → headline bled off the right edge, DESIGN_AUDIT P0-2/verify).
+    //   Capping at 100% forces wrapping inside the padded container instead.
+    max-width: min(12em, 100%);
     text-shadow: 0 2px 40px rgba(0, 0, 0, 0.5);
     // Re-enable pointer events so the masked area corresponds to a real
     // hit region; without this the headline can't capture hover/clicks.
@@ -208,15 +219,16 @@
       border-color: #fff;
       background: rgba(255, 255, 255, 0.08);
     }
+  }
 
-    .cta-arrow {
-      // Down-arrow shouldn't slide horizontally; override the shared rule.
-      transition: transform 0.3s ease;
-    }
-
-    &:hover .cta-arrow {
-      transform: translateY(3px);
-    }
+  // Arrow motion follows the arrow's DIRECTION, not the button's rank —
+  // the ↓ arrow slides down on hover wherever it lives (P0-1 swapped which
+  // button is primary; binding motion to rank broke on that swap).
+  .hero-cta .cta-arrow--down {
+    transition: transform 0.3s ease;
+  }
+  .hero-cta:hover .cta-arrow--down {
+    transform: translateY(3px);
   }
 
   // ── Reduced-motion fallback ──
