@@ -9,11 +9,11 @@ import {
 import pricingData from '../../data/pricingData.json';
 import testimonialsData from '../../data/testimonials.json';
 import SinglePricingCard from '../ui/SinglePricingCard';
+import BookCallCta from '../ui/BookCallCta';
+import { BOOK_CALL_URL, BOOK_CALL_LABEL } from '../../data/cta';
 import { headerVariants, lineVariant } from '../../utils/motionVariants';
 
 import '../../styles/components/pricingGuide.scss';
-
-const BOOK_CALL = 'https://calendar.app.google/83UCJjis2FHUrr1s6';
 
 // Shared studio reassurances shown on every tier.
 const BENEFITS = [
@@ -90,7 +90,7 @@ export const PricingGuide = ({ serviceId }) => {
             benefits={BENEFITS}
             features={tier.includes}
             featuresTitle="What's included"
-            primaryButton={{ text: 'Book a Free Strategy Call', href: BOOK_CALL }}
+            primaryButton={{ text: BOOK_CALL_LABEL, href: BOOK_CALL_URL }}
             secondaryButton={{ text: 'See our work', href: '/projects' }}
             testimonials={TESTIMONIALS}
             rotationSpeed={5000 + idx * 600}
@@ -109,14 +109,7 @@ export const PricingGuide = ({ serviceId }) => {
       <hr className="pg-sep pg-sep--wide" />
 
       <footer className="pg-footer" aria-label="Contact">
-        <a
-          className="pg-link"
-          href={BOOK_CALL}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Book a Free Strategy Call
-        </a>
+        <BookCallCta className="pg-link" />
         <a
           className="pg-link"
           href="mailto:hello@switchcasestudio.com"

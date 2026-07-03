@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { HashLink } from "react-router-hash-link";
 import WelcomeTyped from "./WelcomeTyped";
 import CursorWave from "../ui/CursorWave";
+import BookCallCta from "../ui/BookCallCta";
 import useReducedMotion from "../../hooks/useReducedMotion";
 
 import "../../styles/components/hero.scss";
@@ -96,17 +97,11 @@ const Hero = () => {
                 deliberately REVERSES the 2026-06 pre-pitch decision (S3 in
                 .audit/summary.md) that made "See Our Work" primary for a
                 portfolio-first pitch — the goal is now booked calls. */}
-            <a
-              href="https://calendar.app.google/83UCJjis2FHUrr1s6"
-              className="hero-cta hero-cta--primary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Book a Free Strategy Call
+            <BookCallCta className="hero-cta hero-cta--primary">
               <span className="cta-arrow" aria-hidden="true">
                 &rarr;
               </span>
-            </a>
+            </BookCallCta>
 
             <HashLink
               to="/#projects"

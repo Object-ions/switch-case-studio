@@ -9,6 +9,7 @@ import {
   containerVariants,
   cardVariants,
 } from '../../utils/motionVariants';
+import BookCallCta from '../ui/BookCallCta';
 import '../../styles/components/projectsPage.scss';
 
 const MotionLink = motion.create(Link);
@@ -119,14 +120,7 @@ const CaseStudiesPage = () => {
           <p className="projects-page__bottom-text">
             Want to see what we can build for you?
           </p>
-          <a
-            href="https://calendar.app.google/83UCJjis2FHUrr1s6"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="projects-page__bottom-btn"
-          >
-            Book a Free Strategy Call
-          </a>
+          <BookCallCta className="projects-page__bottom-btn" />
         </motion.div>
       </article>
     </>

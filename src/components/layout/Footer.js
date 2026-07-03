@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SCSLogo from '../ui/SCSLogo';
 import { PROJECT_LINKS, LEGAL_LINKS } from '../../data/navigation';
+import { BOOK_CALL_URL, BOOK_CALL_LABEL } from '../../data/cta';
 import '../../styles/components/footer.scss';
 
 
@@ -107,17 +108,17 @@ const EXPLORE_LINKS = [
 
 const CONNECT_LINKS = [
   {
-    // Unified CTA label (2026-07). The old 'free' badge is dropped: the
-    // word is in the label now — "Book a Free Strategy Call  FREE" would
-    // say it twice.
-    label: 'Book a Free Strategy Call',
-    href: 'https://calendar.app.google/83UCJjis2FHUrr1s6',
+    // Unified CTA (label + URL from src/data/cta.js). The old 'free' badge
+    // is dropped: the word is in the label now — "Book a Free Strategy Call
+    // FREE" would say it twice.
+    label: BOOK_CALL_LABEL,
+    href: BOOK_CALL_URL,
     external: true,
   },
   { label: 'Email Us', href: 'mailto:hello@switchcasestudio.com' },
 ];
 
-const CALENDAR_URL = 'https://calendar.app.google/83UCJjis2FHUrr1s6';
+const CALENDAR_URL = BOOK_CALL_URL;
 const CONTACT_EMAIL = 'hello@switchcasestudio.com';
 
 const Footer = () => {

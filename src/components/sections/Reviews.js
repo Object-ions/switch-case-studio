@@ -8,6 +8,7 @@ import {
 } from 'motion/react';
 
 import TestimonialHeading from './TestimonialHeading';
+import BookCallCta from '../ui/BookCallCta';
 import testimonialsData from '../../data/testimonials.json';
 import '../../styles/components/testimonials.scss';
 
@@ -235,17 +236,11 @@ const Reviews = () => {
       {/* Section CTA — unchanged */}
       <div className="testimonials-cta">
         <p className="testimonials-cta-text">Ready to be next?</p>
-        <a
-          href="https://calendar.app.google/83UCJjis2FHUrr1s6"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="testimonials-cta-button"
-        >
-          Book a Free Strategy Call
+        <BookCallCta className="testimonials-cta-button">
           <span className="cta-arrow" aria-hidden="true">
             &rarr;
           </span>
-        </a>
+        </BookCallCta>
       </div>
     </section>
   );

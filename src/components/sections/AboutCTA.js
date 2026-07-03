@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
+import BookCallCta from '../ui/BookCallCta';
 
 
 const AboutCTA = () => {
@@ -30,18 +31,13 @@ const AboutCTA = () => {
     <div className="work-cta" ref={ctaRef}>
       <div className="text-wrapper">
         <p>Let's Bring Your Idea To life</p>
-        <a
-          href="https://calendar.app.google/83UCJjis2FHUrr1s6"
-          target="_blank"
-          rel="noreferrer"
-          className="highlight-block"
-        >
-          & Book a Free Strategy Call{' '}
+        <BookCallCta className="highlight-block" prefix="& ">
+          {' '}
           <FontAwesomeIcon
             icon={faArrowUpRightFromSquare}
             style={{ fontSize: '12px' }}
           />
-        </a>
+        </BookCallCta>
       </div>
     </div>
   );

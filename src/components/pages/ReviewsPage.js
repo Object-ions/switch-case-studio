@@ -7,6 +7,7 @@ import {
   containerVariants,
   cardVariants,
 } from '../../utils/motionVariants';
+import BookCallCta from '../ui/BookCallCta';
 import '../../styles/components/testimonialsPage.scss';
 
 const ReviewsPage = () => {
@@ -97,14 +98,7 @@ const ReviewsPage = () => {
           <p className="testimonials-page__bottom-body">
             Book a free call and let's talk about your project.
           </p>
-          <a
-            href="https://calendar.app.google/83UCJjis2FHUrr1s6"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="testimonials-page__bottom-btn"
-          >
-            Book a Free Strategy Call
-          </a>
+          <BookCallCta className="testimonials-page__bottom-btn" />
         </motion.div>
       </article>
     </>

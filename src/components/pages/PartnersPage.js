@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Seo from '../util/Seo';
+import { BOOK_CALL_URL } from '../../data/cta';
 import '../../styles/components/partnersPage.scss';
 
 /* ------------------------------------------------------------------ *
@@ -18,11 +19,11 @@ const CONTACT_EMAIL = 'hello@switchcasestudio.com';
 const MAILTO = `mailto:${CONTACT_EMAIL}`;
 
 // TODO: replace with the dedicated 20-min intro-call booking link
-// (Cal.com / Calendly / Google Calendar). Defaulted to the studio's
-// existing booking calendar so the button works until the real link lands.
-// The delegated GA listener (initInteractionTracking) auto-fires
-// book_call_click on any calendar.app.google href.
-const INTRO_CALL_URL = 'https://calendar.app.google/83UCJjis2FHUrr1s6';
+// (Cal.com / Calendly / Google Calendar). Falls back to the studio's main
+// booking calendar (src/data/cta.js) so the button works until the real
+// link lands. The delegated GA listener (initInteractionTracking)
+// auto-fires book_call_click on any calendar.app.google href.
+const INTRO_CALL_URL = BOOK_CALL_URL;
 
 const AUDIENCE = [
   'Performance marketing agencies',

@@ -4,6 +4,7 @@ import emailjs from '@emailjs/browser';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import bannerVideo from '../../assets/videos/switch-case-studio-banner.webm';
+import BookCallCta from '../ui/BookCallCta';
 import '../../styles/components/contact.scss';
 
 
@@ -333,14 +334,7 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
                 hello@switchcasestudio.com
               </a>
 
-              <a
-                className="contact-left__cta"
-                href="https://calendar.app.google/83UCJjis2FHUrr1s6"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Book a Free Strategy Call →
-              </a>
+              <BookCallCta className="contact-left__cta"> →</BookCallCta>
 
               {socials.length > 0 && (
                 <div className="contact-left__socials">
