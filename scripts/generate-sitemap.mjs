@@ -39,6 +39,10 @@ const projectsMod = lastmodOf('src/data/projects.json');
 const servicesMod = lastmodOf('src/data/pricingData.json');
 const siteMod = lastmodOf('src'); // any source change touches the static pages
 
+// NOTE: hidden routes are deliberately NOT listed here — /30-off (promo) and
+// the agency-wholesale page (served from an unguessable /p/wm-… slug) are
+// noindex and linked only from emails/ads, so they must stay out of the
+// sitemap. Adding a PUBLIC page? Add its loc below.
 const urls = [
   { loc: '/', lastmod: siteMod, priority: '1.0' },
   { loc: '/about', lastmod: siteMod, priority: '0.8' },
