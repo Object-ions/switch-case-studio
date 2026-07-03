@@ -98,27 +98,48 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
   };
 
   /* ------------------------------------------------------------------ *
-   * Subtle fade-up entrance — matches the new Footer pattern
+   * Fade-up entrance, house safe-reveal pattern (CLAUDE.md; DESIGN_AUDIT
+   * P1-7). The old fromTo + toggleActions:'reverse' was caught LIVE
+   * frozen mid-flight on /contact (opacities stuck at 0.55/0.30/0/0 —
+   * ScrollTrigger refreshes from late layout (video/fonts) interrupt the
+   * tween and re-toggle it), leaving the conversion page half-invisible.
+   * Now: set hidden → onEnter play-ONCE → already-in-view fallback →
+   * timed safety net; reduced-motion never hides anything.
    * ------------------------------------------------------------------ */
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return undefined; // SSG content is visible by default — leave it be
+    }
+
     const ctx = gsap.context(() => {
       const targets = gsap.utils.toArray('.contact-animate');
-      gsap.fromTo(
-        targets,
-        { opacity: 0, y: 16 },
-        {
-          opacity: 1,
+      if (!targets.length) return;
+
+      gsap.set(targets, { autoAlpha: 0, y: 16 });
+
+      const reveal = () =>
+        gsap.to(targets, {
+          autoAlpha: 1,
           y: 0,
           duration: 0.5,
           stagger: 0.06,
           ease: 'power2.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse',
-          },
-        },
-      );
+          overwrite: 'auto',
+        });
+
+      const st = ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top 80%',
+        once: true,
+        onEnter: reveal,
+      });
+
+      // Already past the trigger at mount (direct /contact load) — an
+      // unfired `once` trigger never calls onEnter.
+      if (st.progress > 0) reveal();
+
+      // Whatever happens, the form ends fully visible.
+      gsap.delayedCall(2.5, () => gsap.set(targets, { autoAlpha: 1, y: 0 }));
     }, sectionRef);
 
     return () => ctx.revert();
