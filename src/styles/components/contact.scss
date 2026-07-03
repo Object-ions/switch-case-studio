@@ -37,20 +37,27 @@
  * ================================================================== */
 
 .contact-grid {
-  // Stacked flow (2026-07): form first, info + graphic below. The old
-  // 1fr/1fr row put the graphic column ahead of the form in DOM order,
-  // burying the form below the fold on phones.
+  // Stacked flow below desktop (2026-07): form first, info + graphic below.
+  // The old 1fr/1fr row put the graphic column ahead of the form in DOM
+  // order, burying the form below the fold on phones.
   display: flex;
   flex-direction: column;
   gap: 3.5rem;
 
+  // Desktop (Moses's review 2026-07): ONE row, two top-aligned columns —
+  // form left, graphic-over-info right — instead of the graphic stranded
+  // below a full-width form beside a black void. DOM order is unchanged;
+  // below this breakpoint the approved mobile/tablet stack is untouched.
   @media (min-width: 1024px) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
     gap: 5rem;
   }
 }
 
 /* ==================================================================
- * Info + banner band (now BELOW the form)
+ * Info + banner band (below the form on mobile; right COLUMN on desktop)
  * ================================================================== */
 
 .contact-left {
@@ -59,13 +66,28 @@
   gap: 2.5rem;
   align-items: center;
 
-  // One row on wider screens: info left, banner card right — a closing
-  // "signature" band under the form.
-  @media (min-width: 769px) {
+  // Tablet only: info left, banner card right — a closing "signature"
+  // band under the form. (Capped at 1023px: from 1024 up the band becomes
+  // the right-hand column of the two-column row below.)
+  @media (min-width: 769px) and (max-width: 1023px) {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     gap: 3rem;
+  }
+
+  // Desktop right column: graphic on TOP (order lift — DOM keeps
+  // details-first so the mobile stack order stays form → info → graphic),
+  // contact info beneath, both flush to the card's left edge.
+  @media (min-width: 1024px) {
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+
+    .contact-left__media {
+      order: -1;
+    }
   }
 
   /* ---------- Brand video ----------
@@ -162,10 +184,15 @@
  * ================================================================== */
 
 .contact-right {
-  // Cap the form column now that it's full-width in the stacked flow —
-  // 1400px-wide underline inputs read as a wall of line.
+  // Cap the form column — full-width underline inputs read as a wall of
+  // line. On the desktop two-column row this is the LEFT column; flex-basis
+  // keeps the cap while letting it shrink before the fixed right column.
   width: 100%;
   max-width: 46rem;
+
+  @media (min-width: 1024px) {
+    flex: 0 1 46rem;
+  }
 
   &__heading {
     // SCS Display (the section root is monospace) — brand face for the heading.
