@@ -435,3 +435,14 @@ explicit instruction.
 - **Protect:** proof density (metrics/testimonials), perf moat (LCP 2.9s
   history, SSG, font pipeline), FAQ-orange + footer-star brand moments,
   "Ready to be next?" beat.
+
+## Design refresh — P0s shipped 2026-07-03 (027c9df hero, a5d0845 contact)
+All three P0s implemented + verified (headless 1440×900/390×844 + live-DOM
+measurement + live consent-flow test). STOPPED at the owner in-browser gate
+before P1s (see STATUS.md for the checklist). Evidence corrections folded
+back into DESIGN_AUDIT.md: P0-2's real mechanism was the headline
+font-size×container pair overflowing the fold (NOT "two empty mobile
+viewports" — a 565×1568 review-window artifact); typed slot was already
+SSG-seeded (hole = backspace phase, timing-tuned); "mobile right-shift" =
+headless-capture artifact (live centerOffset 0); "white square at 0,0" =
+custom cursor pre-mousemove (queued P2). New docs: CHANGELOG.md + STATUS.md.

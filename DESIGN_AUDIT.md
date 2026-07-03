@@ -36,11 +36,11 @@ Phase 2 will elevate the real system. No font or palette swaps unless you ask fo
 **Why it matters:** the page's strongest visual affordance points away from revenue. Visitors do what the biggest button says.
 **Fix:** swap treatments: `Book a Free Call` = solid (orange or cream) primary; `See Our Work` = ghost. Keep both. Repeat the solid treatment for every booking CTA site-wide (see P1-5 for the copy system).
 
-### P0-2 · Mobile hero wastes the first two viewports and reads broken while loading
-**Where:** `Hero.js`, `WelcomeTyped.js`, `hero.scss`; confirmed visually at 565px.
-**Finding:** (a) ~1 full viewport of empty dot-grid sits above the headline; CTAs land ~970–1035px down — below the fold of every phone. (b) Until typed.js fires, the headline shows a blank slot: **"We ␣␣␣ | websites & stores"** — the reserved `ch` width (the CLS fix) leaves a hole mid-sentence, so the first impression is a broken sentence. (c) After the CTAs, another ~500px of empty dots before "Trusted by".
-**Why it matters:** 5-second test fails on mobile: no complete value prop, no CTA visible above the fold. This is the top of the funnel.
-**Fix:** compress mobile hero vertical padding so headline + subhead + both CTAs fit the first viewport (~700px budget); seed the typed slot with the first verb server-side (SSG renders "ship", typed.js takes over on hydrate — no hole, no CLS, no hydration mismatch since suppress/swap happens in an effect); halve the trailing dot-field gap.
+### P0-2 · Hero headline overflows the fold; CTAs pushed below it *(mechanism corrected during implementation)*
+**Where:** `hero.scss` (`.hero-headline` font-size × max-width pair), `WelcomeTyped.js`.
+**Finding (verified):** the +12% clamp bump (`7.28rem`) was never re-checked against the `6.86em` container — the intended 3-line lockup rewrapped to **6 lines**, overflowing the centered `100svh` hero: at 1440×900 line 1 clipped under the header and **both CTAs fell below the fold**; on phones the fit-content h1 could exceed the viewport width. Plus: typed.js's backspace phase empties the verb slot ~13% of each cycle ("We ␣ websites…").
+**Corrections to the original write-up (evidence honesty):** the "two empty viewports on mobile" was an artifact of a 565×1568 review window inflating `svh` — at a real 390×844 the hero content fits the fold. The typed slot was **already SSG-seeded** ("build"); the hole is the backspace phase, not hydration. The screenshots' "content shifted right on mobile" = headless-Chrome capture artifact (live DOM measures `centerOffset: 0`); the "white square at 0,0" = the custom cursor parked at origin pre-mousemove (→ P2: hide until first mousemove).
+**Fix (shipped `027c9df`):** clamp max → `6rem`, container → `min(12em, 100%)` (the `100%` cap stops phone-viewport bleed; `em` retained so the size-adjust fallback can't rewrap). Typed timing `backSpeed 35 / backDelay 2400` cuts the hole to ~6% of the cycle. Verified above-fold at 1440×900 + 390×844.
 
 ### P0-3 · The contact form fights the people trying to convert
 **Where:** `Contact.js:203–305`, `contact.scss:208`, confirmed live on `/contact`.
@@ -125,9 +125,10 @@ Body 13px at ≤768px (`app.scss:169`) drags every rem value down: footer meta *
 
 Tracking: `CHANGELOG.md` + `STATUS.md` per step; every fix verified mobile + desktop with real pixels (house rule); LCP/CLS re-checked after steps 1, 4, 5.
 
-## Verify during implementation
+## Verify during implementation — outcomes (2026-07-03 P0 pass)
 
-- Small white/teal square artifact top-center in scrolled mobile screenshots (3 occurrences) — identify (suspect: ScrollingShot progress chip or CursorWave canvas) before assuming it's a screenshot artifact.
-- Desktop `/contact` headless capture showed ~700px black above content — confirm at a real 1440×900 viewport (may be the 100vh route-backdrop, may be real).
-- White-on-orange instances beyond FAQ (badge chips, promo) — sweep with a contrast checker.
-- Headless `/pricing`/`/projects` rendered black under virtual-time — confirmed fine live; keep using live-browser verification for any reveal-related fix (per CLAUDE.md, `scrollIntoView` is a no-op under smooth scroll — use `window.scrollTo({behavior:'instant'})`).
+- ~~White square artifact~~ **RESOLVED:** the custom cursor visual parked at 0,0 before any mousemove (`pointer-events:none`, so `elementsFromPoint` missed it). Benign live; queued as P2: hide cursor until first mousemove.
+- ~~Mobile content shifted right~~ **RESOLVED — headless artifact:** both old and new headless Chrome render the shift; the live DOM measures `centerOffset: 0` on headline/CTAs/content. Related true finding: `100vw` sections are `scrollbar-width` wider than the client area (symmetric ~7px bleed, clipped) — P2 note.
+- Desktop `/contact` ~700px black gap — **downgraded to likely capture artifact** (same virtual-time class as the black `/pricing` render; mobile live shows no gap). One human look at ~1440 during the owner gate settles it.
+- White-on-orange beyond FAQ (badge chips, promo) — still open, sweep with a contrast checker during P1-8.
+- Standing rule confirmed useful: verify reveal-related work in a live browser; `scrollIntoView` under smooth-scroll is a silent no-op (use `window.scrollTo({behavior:'instant'})` or instant `scrollIntoView`).
