@@ -37,23 +37,20 @@
  * ================================================================== */
 
 .contact-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
-
-  // Row layout as soon as it fits — only true mobile stacks.
-  @media (min-width: 769px) {
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
-  }
+  // Stacked flow (2026-07): form first, info + graphic below. The old
+  // 1fr/1fr row put the graphic column ahead of the form in DOM order,
+  // burying the form below the fold on phones.
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
 
   @media (min-width: 1024px) {
-    gap: 4rem;
+    gap: 5rem;
   }
 }
 
 /* ==================================================================
- * Left column
+ * Info + banner band (now BELOW the form)
  * ================================================================== */
 
 .contact-left {
@@ -62,7 +59,12 @@
   gap: 2.5rem;
   align-items: center;
 
-  @media (min-width: 1024px) {
+  // One row on wider screens: info left, banner card right — a closing
+  // "signature" band under the form.
+  @media (min-width: 769px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     gap: 3rem;
   }
 
@@ -160,6 +162,11 @@
  * ================================================================== */
 
 .contact-right {
+  // Cap the form column now that it's full-width in the stacked flow —
+  // 1400px-wide underline inputs read as a wall of line.
+  width: 100%;
+  max-width: 46rem;
+
   &__heading {
     // SCS Display (the section root is monospace) — brand face for the heading.
     // Positive tracking: SCS Display collides under tight/negative spacing.

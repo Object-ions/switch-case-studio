@@ -142,68 +142,14 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
   return (
     <section id="contact" ref={sectionRef} className="contact-section">
       <div className="contact-section__inner">
+        {/* Stacked flow (2026-07 pre-P1 tweak, Moses's on-device review):
+            the FORM is the first thing a visitor sees; the contact-info block
+            and the decorative banner card follow BELOW it (mobile top-to-
+            bottom: form → info → graphic; ≥769px the bottom pair sits as one
+            row, info left / graphic right). Was a side-by-side grid with the
+            graphic + info first in DOM, which buried the form on phones. */}
         <div className="contact-grid">
-          {/* ---------- Left Column ---------- */}
-          <div className="contact-left">
-            <div className="contact-left__media contact-animate">
-              <video
-                ref={videoRef}
-                className="contact-left__video"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-hidden="true"
-              >
-                <source src={bannerVideo} type="video/webm" />
-                {/* Add an mp4 fallback here once you've encoded one:
-                <source src={bannerVideoMp4} type="video/mp4" />
-                */}
-              </video>
-            </div>
-
-            <div className="contact-left__details contact-animate">
-              <p className="contact-left__address">
-                Switch Case Studio
-                <br />
-                Portland, Oregon
-              </p>
-
-              <a
-                className="contact-left__email"
-                href="mailto:hello@switchcasestudio.com"
-              >
-                hello@switchcasestudio.com
-              </a>
-
-              <a
-                className="contact-left__cta"
-                href="https://calendar.app.google/83UCJjis2FHUrr1s6"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Book a Strategy Call →
-              </a>
-
-              {socials.length > 0 && (
-                <div className="contact-left__socials">
-                  {socials.map((s) => (
-                    <a
-                      key={s.key}
-                      href={s.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {s.label}
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* ---------- Right Column: Form ---------- */}
+          {/* ---------- Form (first) ---------- */}
           <div className="contact-right">
             <HeadingTag className="contact-right__heading contact-animate">
               Contact us
@@ -369,6 +315,66 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
                 )}
               </div>
             </form>
+          </div>
+
+          {/* ---------- Contact info + banner graphic (below the form) ---------- */}
+          <div className="contact-left">
+            <div className="contact-left__details contact-animate">
+              <p className="contact-left__address">
+                Switch Case Studio
+                <br />
+                Portland, Oregon
+              </p>
+
+              <a
+                className="contact-left__email"
+                href="mailto:hello@switchcasestudio.com"
+              >
+                hello@switchcasestudio.com
+              </a>
+
+              <a
+                className="contact-left__cta"
+                href="https://calendar.app.google/83UCJjis2FHUrr1s6"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Book a Free Strategy Call →
+              </a>
+
+              {socials.length > 0 && (
+                <div className="contact-left__socials">
+                  {socials.map((s) => (
+                    <a
+                      key={s.key}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {s.label}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="contact-left__media contact-animate">
+              <video
+                ref={videoRef}
+                className="contact-left__video"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-hidden="true"
+              >
+                <source src={bannerVideo} type="video/webm" />
+                {/* Add an mp4 fallback here once you've encoded one:
+                <source src={bannerVideoMp4} type="video/mp4" />
+                */}
+              </video>
+            </div>
           </div>
         </div>
       </div>
