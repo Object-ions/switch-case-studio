@@ -2,7 +2,11 @@
 
 User-facing changes only; process detail lives in `.audit/summary.md`. Newest first.
 
-## 2026-07-03 — P1 step 1: centralized CTA module (awaiting visual verify)
+## 2026-07-03 — P1 step 2: mid-page booking moment (awaiting visual verify)
+
+- **AboutCTA promoted from 13px text link to a real conversion beat** (`98e90d8`): centered SCS-Display lead + cream pill (`BookCallCta`), rhyming with the Reviews "Ready to be next?" beat. Reveal rebuilt to the safe pattern (onEnter play-once + safety net + reduced-motion static + proper ScrollTrigger cleanup — the old effect leaked its trigger). Copy: "To life" → "to life".
+
+## 2026-07-03 — P1 step 1: centralized CTA module (verified by Moses)
 
 - **One source of truth for the booking CTA** (`934d074`): `src/data/cta.js` (label + calendar URL) + `src/components/ui/BookCallCta.js`. All 13 callsites swapped; styling untouched (classNames stay at callsites). Changing the label or calendar is now a one-line edit. Promo + partners funnels remain deliberately separate (documented in cta.js).
 

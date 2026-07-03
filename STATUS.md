@@ -1,7 +1,7 @@
 # STATUS — design refresh
 
-**Branch:** `design-audit-refresh` (11 commits ahead of main; NOTHING pushed — never push without explicit instruction)
-**Phase:** 2 — **P1 step 1 (centralized CTA module) done, STOPPED at the owner-verification gate.** Phone stays optional (Moses-confirmed). Remaining P1s queued below.
+**Branch:** `design-audit-refresh` (13 commits ahead of main; NOTHING pushed — never push without explicit instruction)
+**Phase:** 2 — **P1 step 2 (AboutCTA promotion, `98e90d8`) done, STOPPED at the conversion-critical verify gate.**
 
 ## Gate: owner verifies in-browser (authoritative signal)
 
@@ -9,15 +9,14 @@
 npm run build && npm run preview   # http://localhost:4173
 ```
 
-CTA-module gate — every booking CTA now renders through one component/constant pair. Click through each and confirm it renders, reads "Book a Free Strategy Call", and opens the calendar:
-1. **/** — header pill, mobile menu (Quick Links), hero primary, About "& Book a Free Strategy Call ↗" text link, Reviews "Ready to be next?" button, contact-info link, footer Connect link.
-2. **/about /projects /testimonials /services** — bottom CTA buttons.
-3. **/pricing/web-development** — the pricing-card primary button + the page-footer link.
-4. **/30-off** — still says "Book a call →" (own funnel/calendar — intentional).
-Prior gates (P0s + pre-P1 tweaks) were verified by Moses on-device.
+AboutCTA gate (conversion-critical) — on **/** scroll to the end of the About narrative (below the moon):
+1. "Let's bring your idea to life." lead + cream **BOOK A FREE STRATEGY CALL →** pill, centered, desktop AND phone.
+2. It reveals once and STAYS visible (scroll past, scroll back — never re-hides); with OS reduced-motion it's simply there.
+3. It visually rhymes with the "Ready to be next?" beat further down.
+Prior gates (P0s, pre-P1 tweaks, CTA module) verified by Moses.
 
 ## Next (on owner go-ahead) — remaining P1s in order
-AboutCTA mid-page booking moment (weak 13px text link → real button) → FAQ white-on-orange AA contrast → missing h1s (/about /projects /testimonials /services) → ClientStrip recycled/invisible logos → scrub-tied half-opacity reveals → onEnter → 2.2MB case-study images.
+FAQ white-on-orange AA contrast (report before/after ratio) → missing h1s (/about /projects /testimonials /services) → ClientStrip logos (report + propose, STOP for Moses's approach pick) → scrub-tied reveals → onEnter → case-study image weight (report per-image before/after).
 
 ## Verification evidence so far (agent-side)
 - Headless screenshots 1440×900 + 390×844 before/after; live-DOM measurement (`centerOffset: 0` — centered, no overflow-shift); consent-error flow + 16px inputs verified in live browser. Build green (27 routes).
