@@ -1,7 +1,7 @@
 # STATUS — design refresh
 
-**Branch:** `design-audit-refresh` (13 commits ahead of main; NOTHING pushed — never push without explicit instruction)
-**Phase:** 2 — **P1 step 2 (AboutCTA promotion, `98e90d8`) done, STOPPED at the conversion-critical verify gate.**
+**Branch:** `design-audit-refresh` (16 commits ahead of main; NOTHING pushed — never push without explicit instruction)
+**Phase:** 2 — **Desktop contact layout (`ffd7633`) + contact reveal hardening (`ed9fe2b`) done, STOPPED at the verify gate.**
 
 ## Gate: owner verifies in-browser (authoritative signal)
 
@@ -9,11 +9,12 @@
 npm run build && npm run preview   # http://localhost:4173
 ```
 
-AboutCTA gate (conversion-critical) — on **/** scroll to the end of the About narrative (below the moon):
-1. "Let's bring your idea to life." lead + cream **BOOK A FREE STRATEGY CALL →** pill, centered, desktop AND phone.
-2. It reveals once and STAYS visible (scroll past, scroll back — never re-hides); with OS reduced-motion it's simply there.
-3. It visually rhymes with the "Ready to be next?" beat further down.
-Prior gates (P0s, pre-P1 tweaks, CTA module) verified by Moses.
+Desktop-contact gate — check on a screen ≥1024px wide:
+1. **/contact**: ONE row — form (heading/fields/consent/Send) on the LEFT; EYES-ON graphic on top of the RIGHT column with address/email/booking link beneath it; columns top-aligned, no black void.
+2. Same section on the home page (above the FAQ) — same two-column behavior.
+3. Phone (or ≤1023px): EXACTLY the approved stack — form → info → graphic, unchanged.
+4. Section content fades up once and stays visible (never re-hides on scroll-back).
+Prior gates (P0s, pre-P1 tweaks, CTA module, AboutCTA) verified by Moses.
 
 ## Next (on owner go-ahead) — remaining P1s in order
 FAQ white-on-orange AA contrast (report before/after ratio) → missing h1s (/about /projects /testimonials /services) → ClientStrip logos (report + propose, STOP for Moses's approach pick) → scrub-tied reveals → onEnter → case-study image weight (report per-image before/after).

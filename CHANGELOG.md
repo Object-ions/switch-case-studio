@@ -2,7 +2,12 @@
 
 User-facing changes only; process detail lives in `.audit/summary.md`. Newest first.
 
-## 2026-07-03 — P1 step 2: mid-page booking moment (awaiting visual verify)
+## 2026-07-03 — Desktop contact layout (awaiting visual verify)
+
+- **/contact desktop is one two-column row** (`ffd7633`): form left (46rem cap), EYES-ON graphic over contact-info right, top-aligned — no more stranded graphic beside a black void. ≥1024px only; approved mobile/tablet layouts render identically (geometry-probed at 1440 + 390).
+- **Contact entrance hardened to the safe-reveal pattern** (`ed9fe2b`, P1-7 slice pulled forward): play-once onEnter + in-view fallback + safety net + reduced-motion no-hide + trigger cleanup. (Investigation note: the live "frozen tween" turned out to be an occluded browser window suspending RAF — code ships as robustness/pattern consistency.)
+
+## 2026-07-03 — P1 step 2: mid-page booking moment (verified by Moses)
 
 - **AboutCTA promoted from 13px text link to a real conversion beat** (`98e90d8`): centered SCS-Display lead + cream pill (`BookCallCta`), rhyming with the Reviews "Ready to be next?" beat. Reveal rebuilt to the safe pattern (onEnter play-once + safety net + reduced-motion static + proper ScrollTrigger cleanup — the old effect leaked its trigger). Copy: "To life" → "to life".
 
