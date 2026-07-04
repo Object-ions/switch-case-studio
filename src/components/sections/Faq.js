@@ -84,44 +84,59 @@ const Faq = () => {
   const titleRef = useRef(null);
 
   useEffect(() => {
+    // House safe-reveal (DESIGN_AUDIT P1-7): both timelines were scrub:1 —
+    // stop scrolling mid-window and the title/items sat stranded at partial
+    // opacity. Play-once onEnter + safety net now; reduced-motion leaves
+    // the SSG-visible content untouched.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return undefined;
+    }
+
     const ctx = gsap.context(() => {
-      // Title entrance
-      gsap.fromTo(
-        titleRef.current,
-        { y: 60, opacity: 0 },
-        {
+      const title = titleRef.current;
+      const items = gsap.utils.toArray(".faq__item");
+
+      gsap.set(title, { autoAlpha: 0, y: 60 });
+      gsap.set(items, { autoAlpha: 0, y: 40 });
+
+      const revealTitle = () =>
+        gsap.to(title, {
+          autoAlpha: 1,
           y: 0,
-          opacity: 1,
           duration: 1,
           ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 75%",
-            end: "top 50%",
-            scrub: 1,
-          },
-        },
-      );
-
-      // Items entrance — stagger across all items at once
-      const items = gsap.utils.toArray(".faq__item");
-      gsap.fromTo(
-        items,
-        { y: 40, opacity: 0 },
-        {
+          overwrite: "auto",
+        });
+      const revealItems = () =>
+        gsap.to(items, {
+          autoAlpha: 1,
           y: 0,
-          opacity: 1,
           duration: 0.6,
           stagger: 0.08,
           ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".faq__list",
-            start: "top 85%",
-            end: "top 55%",
-            scrub: 1,
-          },
-        },
-      );
+          overwrite: "auto",
+        });
+
+      const stTitle = ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top 75%",
+        once: true,
+        onEnter: revealTitle,
+      });
+      const stItems = ScrollTrigger.create({
+        trigger: ".faq__list",
+        start: "top 85%",
+        once: true,
+        onEnter: revealItems,
+      });
+      if (stTitle.progress > 0) revealTitle();
+      if (stItems.progress > 0) revealItems();
+
+      // Whatever happens, the FAQ ends fully visible.
+      gsap.delayedCall(3, () => {
+        gsap.set(title, { autoAlpha: 1, y: 0 });
+        gsap.set(items, { autoAlpha: 1, y: 0 });
+      });
     }, sectionRef);
 
     return () => ctx.revert();

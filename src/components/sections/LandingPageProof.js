@@ -37,22 +37,32 @@ const LandingPageProof = () => {
     const ctx = gsap.context(() => {
       const targets = gsap.utils.toArray('.lpp-animate', sectionRef.current);
 
-      gsap.fromTo(
-        targets,
-        { autoAlpha: 0, y: 28 },
-        {
+      // House safe-reveal (DESIGN_AUDIT P1-7): the old fromTo+once carried
+      // the immediateRender trap (a ScrollTrigger.refresh() during load
+      // re-applies the hidden from-state — the CaseStudyTiles bug class),
+      // and an already-past `once` trigger never fires onEnter. set →
+      // onEnter → in-view fallback → safety net.
+      gsap.set(targets, { autoAlpha: 0, y: 28 });
+
+      const reveal = () =>
+        gsap.to(targets, {
           autoAlpha: 1,
           y: 0,
           duration: 0.7,
           ease: 'power2.out',
           stagger: 0.1,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 78%',
-            once: true,
-          },
-        },
-      );
+          overwrite: 'auto',
+        });
+
+      const st = ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top 78%',
+        once: true,
+        onEnter: reveal,
+      });
+      if (st.progress > 0) reveal();
+
+      gsap.delayedCall(3, () => gsap.set(targets, { autoAlpha: 1, y: 0 }));
     }, sectionRef);
 
     return () => ctx.revert();

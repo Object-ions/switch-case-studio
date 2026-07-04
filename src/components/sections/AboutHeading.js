@@ -23,7 +23,11 @@ const AboutHeading = () => {
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      // Scoped kill (was ScrollTrigger.getAll().forEach(kill) — that nuked
+      // EVERY component's triggers app-wide on unmount, e.g. on route
+      // change). Only this timeline's own trigger dies with it.
+      tl.scrollTrigger?.kill();
+      tl.kill();
     };
   }, []);
 
