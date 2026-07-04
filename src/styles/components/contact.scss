@@ -54,8 +54,13 @@
   @media (min-width: 1024px) {
     flex-direction: row;
     align-items: flex-start;
-    justify-content: space-between;
-    gap: 5rem;
+    // A fixed, comfortable gap instead of space-between: the old rule
+    // justified the two columns to opposite container edges, leaving a
+    // cavernous dead middle. With the 46rem form + 6rem gap + 18rem card
+    // the pair reads as one unit (~1120px of the 1200px container), the
+    // card pulled in from the right edge rather than stranded on it.
+    justify-content: flex-start;
+    gap: 6rem;
   }
 }
 
