@@ -6,6 +6,7 @@
   width: 100%;
   padding: 6rem 1.5rem;
   background: $g1;
+  background-image: $grain-url; // VE-6 print grain — static, sits behind content
   // Ink on the orange field (DESIGN_AUDIT P1-8): white measured 2.44:1
   // against $g1 — below AA (4.5) and even AA-large (3.0). $black-color
   // measures 5.83:1 (AA at every tier) and keeps the FAQ-on-orange brand
