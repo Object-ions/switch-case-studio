@@ -91,6 +91,16 @@
   padding: 0;
 }
 
+// Motion tokens exported as custom properties so @use-scoped partials and
+// the shared mixins can read them (single source: _variables.scss).
+:root {
+  --dur-fast: #{$dur-fast};
+  --dur-med: #{$dur-med};
+  --dur-slow: #{$dur-slow};
+  --ease-out: #{$ease-out};
+  --ease-brand: #{$ease-brand};
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;

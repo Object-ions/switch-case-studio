@@ -65,6 +65,8 @@
     border-radius: 20px;
     border: 2px solid transparent;
 
+    @include arrow-nudge('svg'); // VE-5 site link grammar (FA arrow icon)
+
     &:hover,
     &:focus-visible {
       border-color: $g6;

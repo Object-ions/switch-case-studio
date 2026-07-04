@@ -170,6 +170,23 @@ $tile-radius-inner-mobile: $tile-radius-mobile - $tile-border-width;
     letter-spacing: 0.1em;
     opacity: 0.9;
     color: $white-color;
+
+    .cta-arrow {
+      display: inline-block;
+      transition: transform $dur-fast ease;
+    }
+  }
+}
+
+// VE-5: the excerpt's arrow nudges while the tile is hovered (the excerpt
+// itself only appears on tile hover, so the gesture keys off .tile).
+.tile:hover .panel-excerpt .cta-arrow {
+  transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile .panel-excerpt .cta-arrow {
+    transition: none;
   }
 }
 
@@ -207,6 +224,8 @@ $tile-radius-inner-mobile: $tile-radius-mobile - $tile-border-width;
       color: #fff;
       background: rgba(255, 255, 255, 0.05);
     }
+
+    @include arrow-nudge; // VE-5 site link grammar
   }
 }
 

@@ -224,7 +224,13 @@
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
-    transition: color 0.2s ease;
+    @include underline-sweep; // VE-5 site link grammar
+
+    // Declared after the mixin so both properties animate (the mixin's own
+    // transition only covers background-size).
+    transition:
+      color 0.2s ease,
+      background-size $dur-fast ease;
 
     &:hover {
       color: $g6;
