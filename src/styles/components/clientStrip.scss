@@ -51,7 +51,9 @@
   &__track {
     display: flex;
     align-items: center;
-    gap: 3.5rem; // text wordmarks need air; 1.25rem was tuned for 96px squares
+    // Half of the original 3.5rem air — the other half lives inside each
+    // item (name→star), so the name✳name rhythm totals the same 3.5rem.
+    gap: 1.75rem;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -65,6 +67,25 @@
 
   &__item {
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 1.75rem; // star sits mid-gap: this + track gap = even name✳name rhythm
+  }
+
+  // Brand eight-point star between wordmarks — decorative rhythm (VE-3).
+  &__sep {
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    line-height: 1;
+    color: $orange-color;
+    opacity: 0.8;
+    user-select: none;
+  }
+
+  // Pause the marquee while reading (also a WCAG 2.2.2 pause affordance).
+  &:hover &__track,
+  &:focus-within &__track {
+    animation-play-state: paused;
   }
 
   // Text wordmark (option B). Neutral Inter — SCS Display here would brand
@@ -124,7 +145,11 @@
     }
 
     &__track {
-      gap: 2.25rem;
+      gap: 1.125rem;
+    }
+
+    &__item {
+      gap: 1.125rem;
     }
 
     &__logo-img {

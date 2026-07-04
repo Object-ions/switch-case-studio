@@ -25,7 +25,10 @@ const CLIENTS = [
   { name: 'Jelly Belly Wiki', logo: null },
 ];
 
-/* One rendered cell — text wordmark now, image later when `logo` lands. */
+/* One rendered cell — text wordmark now, image later when `logo` lands.
+ * Each mark is followed by the brand's eight-point star (VE-2026-07
+ * elevation): decorative rhythm only, hidden from AT, fixed-size so the
+ * loop geometry is unchanged. */
 const ClientMark = ({ client }) =>
   client.logo ? (
     <img
@@ -38,6 +41,12 @@ const ClientMark = ({ client }) =>
   ) : (
     <span className="client-strip__name">{client.name}</span>
   );
+
+const StarSep = () => (
+  <span className="client-strip__sep" aria-hidden="true">
+    &#10035;
+  </span>
+);
 
 const ClientStrip = () => {
   const reduced = useReducedMotion();
@@ -56,6 +65,7 @@ const ClientStrip = () => {
           {CLIENTS.map((c) => (
             <li key={c.name} className="client-strip__item">
               <ClientMark client={c} />
+              <StarSep />
             </li>
           ))}
           {/* Second set exists only for the seamless CSS loop — hidden from
@@ -67,6 +77,7 @@ const ClientStrip = () => {
               aria-hidden="true"
             >
               <ClientMark client={c} />
+              <StarSep />
             </li>
           ))}
         </ul>
