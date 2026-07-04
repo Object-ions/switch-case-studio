@@ -27,7 +27,10 @@
   }
 
   &__inner {
-    max-width: 1400px;
+    // Site container token — was a hardcoded 1400px, 200px wider than every
+    // other section (the CLAUDE.md $max-width rule; matches services__menu,
+    // testimonials inner/cta, notFound, partners).
+    max-width: $max-width;
     margin: 0 auto;
   }
 }
