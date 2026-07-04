@@ -72,7 +72,7 @@
     font-size: 3rem;
     font-family: $font-special;
     text-align: center;
-    max-width: 1200px;
+    max-width: $max-width;
     z-index: 11;
 
     p {
@@ -99,7 +99,7 @@
 
   // ─── Text + Moon side-by-side ───
   .work-content {
-    max-width: 1200px;
+    max-width: $max-width;
     display: flex;
     align-items: center;
     justify-content: space-between;

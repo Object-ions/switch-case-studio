@@ -14,7 +14,7 @@ $tile-radius-inner-mobile: $tile-radius-mobile - $tile-border-width;
 .row-tiles {
   grid-template-columns: repeat(2, 1fr);
   grid-auto-rows: auto;
-  max-width: 1200px;
+  max-width: $max-width;
   position: relative;
   user-select: none;
   transition:
@@ -183,7 +183,7 @@ $tile-radius-inner-mobile: $tile-radius-mobile - $tile-border-width;
 /* ── "View all case studies" CTA ── */
 .projects-viewall {
   width: 100%;
-  max-width: 1200px;
+  max-width: $max-width;
   display: flex;
   justify-content: center;
   padding: 1rem 0 2rem;

@@ -23,7 +23,7 @@
   }
 
   &_inner {
-    max-width: 1200px;
+    max-width: $max-width;
     margin: 0 auto;
     display: grid;
     grid-template-columns: auto 1fr;
