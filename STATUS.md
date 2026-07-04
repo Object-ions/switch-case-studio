@@ -1,14 +1,15 @@
 # STATUS — design refresh
 
-**Branch:** `design-audit-refresh` (20 commits ahead of main; NOTHING pushed — never push without explicit instruction)
-**Phase:** 2 — P1 queue: **FAQ contrast shipped (`2f56ea9`); h1 item closed as a false audit finding; STOPPED at the ClientStrip decision checkpoint** (options below). onEnter reveals + image weight queued behind the pick.
+**Branch:** `design-audit-refresh` (26 commits ahead of main; NOTHING pushed — never push without explicit instruction)
+**Phase:** 2 — **ALL P1 items complete** (`d91dfa5` strip, `0ae7028` tokens, `a0b11aa` reveals, `1859c08` images + earlier `2f56ea9` FAQ). **STOPPED at the P1-batch verify gate.** P2 polish queued behind Moses's sign-off. ClientStrip option A (real logos) remains open pending assets from Moses.
 
-## ClientStrip decision (Moses picks one)
-Current state: `ClientStrip.js:4-12` marquees the 7 project **cover-tile images** (1034×1446 case-study art in 76–96px squares, `clientStrip.scss:70-78`) under "Trusted by" — screenshots posing as logos; the darkest covers (florida-energy, crimson) read as empty black squares on #000.
-- **A. Real client logos** — the proper fix; needs logo files from Moses (or written OK to source them; provenance rule: we don't scrape logos without permission).
-- **B. Text wordmarks (recommended interim, zero assets)** — client NAMES as styled cream text in the same marquee; honest, clean, upgrade path to A later.
-- **C. Keep tiles, fix treatment** — light cream backing + border behind each cover so dark ones never vanish; fastest, but still screenshots-as-logos.
-- **D. Remove the strip** — let the case-study tiles carry proof.
+## P1-batch gate — Moses verifies
+1. **/** "Trusted by": client names as cream text wordmarks scrolling; readable, nothing invisible; screen reader hears the 7 names once.
+2. **/** Services rows, "Built to perform. Whatever the format." block, and FAQ: scroll INTO each slowly, stop mid-way — everything settles at FULL opacity (nothing stranded dim); scroll back — nothing re-hides.
+3. FAQ: ink text on orange (was white) — readable at every size.
+4. FAQ + footer are now the same width as other sections (were 200px wider).
+5. /projects/birth-of-venus, /jo-marketing-11, /florida-energy-assistance: scrolling screenshots look sharp (they're 86% lighter).
+NOTE for #2: agent-side live settle-check was blocked by window occlusion (RAF suspends when the browser window is hidden); logic is the same pattern verified visible on AboutCTA. Your visible-window pass is the authoritative check.
 
 ## Gate: owner verifies in-browser (authoritative signal)
 

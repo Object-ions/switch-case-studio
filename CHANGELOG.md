@@ -2,7 +2,14 @@
 
 User-facing changes only; process detail lives in `.audit/summary.md`. Newest first.
 
-## 2026-07-03 — P1 batch resumed (FAQ contrast shipped; h1 finding corrected; ClientStrip at decision checkpoint)
+## 2026-07-03 — P1 batch complete (awaiting visual verify)
+
+- **ClientStrip → text wordmarks** (`d91dfa5`, option B, logo-ready for A): 7 client names as cream Inter marks in the same "Trusted by" marquee; first set now in the accessibility tree (only the loop-duplicates are aria-hidden); no more invisible dark tiles.
+- **Container tokens** (`0ae7028`): faq + footer carried contact's 1400px bug → `$max-width`; 17 more literals tokenized (zero visual change); deliberate 1100px prose columns left + documented.
+- **Reveals safe everywhere** (`a0b11aa`, P1-7 complete): Services rows + FAQ (were scrub-tied) and LandingPageProof (fromTo+once trap) → play-once onEnter + safety nets. AboutHeading's cleanup no longer kills every trigger app-wide. Left as-is: AboutHeading color sweep + AboutMarquee drift (non-opacity scrubs, always readable).
+- **Case-study screenshots −86%** (`1859c08`): the 2×-oversampled trio resized to 1318w/q80 — 4.64MB → 0.67MB (birth-of-venus 2.10→0.26, jo-marketing 1.59→0.27, florida 0.95→0.14); five already-right-sized files untouched.
+
+## 2026-07-03 — P1 batch resumed (FAQ contrast shipped; h1 finding corrected; ClientStrip decision: option B)
 
 - **FAQ passes AA on orange** (`2f56ea9`): all text tiers + the +/− icon moved from white (2.44:1 — fail) to `$black-color` ink (5.83:1 — AA at every tier), the promo-proven ink-on-orange recipe; brand moment intact.
 - **h1 audit finding was FALSE** — all 26 built routes already have exactly one h1 (the sweep missed `motion.h1`). DESIGN_AUDIT.md corrected; no code change.
