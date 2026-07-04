@@ -1,50 +1,72 @@
 import useReducedMotion from '../../hooks/useReducedMotion';
 import '../../styles/components/clientStrip.scss';
 
+/* ------------------------------------------------------------------ *
+ * "Trusted by" marquee — TEXT wordmarks (2026-07, DESIGN_AUDIT P1-6,
+ * Moses's pick: option B now, real logos later).
+ *
+ * The old version marqueed the case-study COVER-TILE images as 96px
+ * squares — screenshots posing as logos, and the darkest covers read
+ * as empty black squares on the #000 page. Client names as styled text
+ * are honest proof and can't vanish.
+ *
+ * LOGO-READY: each entry may carry `logo` (path to a real wordmark
+ * asset) + `logoAlt`. When `logo` is present it renders instead of the
+ * text — upgrading to option A is a data edit, not a refactor. Before
+ * adding a logo, verify its provenance/permission (CLAUDE.md rule).
+ * ------------------------------------------------------------------ */
 const CLIENTS = [
-  { name: 'Zahav Medspa',              tile: '/projects/zahav/zahav-cover-tile.webp' },
-  { name: 'Crimson Equities',          tile: '/projects/crimson/crimson-cover-tile.webp' },
-  { name: 'Jo Marketing 11',           tile: '/projects/jo-marketing-11/jo-marketing-11-cover-tile.webp' },
-  { name: 'Prodani Miami',             tile: '/projects/prodani/prodani-cover-tile.webp' },
-  { name: 'Florida Energy Assistance', tile: '/projects/florida-energy-assistance/florida-energy-assistance-cover-tile.webp' },
-  { name: 'Sha Design Studio',         tile: '/projects/sha-design-studio/sha-design-studio-cover-tile.webp' },
-  { name: 'Jelly Belly Wiki',          tile: '/projects/jelly-belly-wiki/jelly-belly-wiki-cover-tile.webp' },
+  { name: 'Zahav Medspa', logo: null },
+  { name: 'Crimson Equities', logo: null },
+  { name: 'Jo Marketing 11', logo: null },
+  { name: 'Prodani Miami', logo: null },
+  { name: 'Florida Energy Assistance', logo: null },
+  { name: 'Sha Design Studio', logo: null },
+  { name: 'Jelly Belly Wiki', logo: null },
 ];
 
-// Logos render at 96px (≤96 desktop) / 76px (mobile) in a square object-fit
-// box, so the full 1034w source was ~5x oversampled. Serve small derivatives
-// only — the 1034w original stays the no-srcset fallback but is never picked.
-const srcsetFor = (p) => {
-  const b = p.replace(/\.webp$/, '');
-  return `${b}-256.webp 256w, ${b}-512.webp 512w`;
-};
+/* One rendered cell — text wordmark now, image later when `logo` lands. */
+const ClientMark = ({ client }) =>
+  client.logo ? (
+    <img
+      src={client.logo}
+      alt={client.logoAlt || client.name}
+      className="client-strip__logo-img"
+      loading="lazy"
+      draggable="false"
+    />
+  ) : (
+    <span className="client-strip__name">{client.name}</span>
+  );
 
 const ClientStrip = () => {
   const reduced = useReducedMotion();
 
   return (
-    <section className="client-strip" aria-label="Selected clients">
+    <section className="client-strip" aria-label="Clients we've worked with">
       <p className="client-strip__label">Trusted by</p>
 
-      <div className="client-strip__track-wrap" aria-hidden="true">
+      <div className="client-strip__track-wrap">
         <ul
           className={`client-strip__track ${reduced ? 'client-strip__track--paused' : ''}`}
-          role="presentation"
         >
-          {/* Duplicated for seamless loop */}
-          {[...CLIENTS, ...CLIENTS].map((c, i) => (
-            <li key={i} className="client-strip__item">
-              <img
-                src={c.tile}
-                srcSet={srcsetFor(c.tile)}
-                sizes="(max-width: 668px) 76px, 96px"
-                width="1034"
-                height="1446"
-                alt={c.name}
-                className="client-strip__logo"
-                loading="lazy"
-                draggable="false"
-              />
+          {/* First set is REAL content: client names are legitimate proof
+              and belong in the accessibility tree (the old all-hidden track
+              made sense for decorative image squares, not for names). */}
+          {CLIENTS.map((c) => (
+            <li key={c.name} className="client-strip__item">
+              <ClientMark client={c} />
+            </li>
+          ))}
+          {/* Second set exists only for the seamless CSS loop — hidden from
+              AT so nobody hears the client list twice. */}
+          {CLIENTS.map((c) => (
+            <li
+              key={`${c.name}-dup`}
+              className="client-strip__item"
+              aria-hidden="true"
+            >
+              <ClientMark client={c} />
             </li>
           ))}
         </ul>
