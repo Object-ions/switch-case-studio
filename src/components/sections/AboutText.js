@@ -2,37 +2,61 @@ import { useRef } from "react";
 import useIsomorphicLayoutEffect from "../../hooks/useIsomorphicLayoutEffect";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import useReducedMotion from "../../hooks/useReducedMotion";
+import {
+  DUR_SLOW,
+  EASE_OUT_SOFT,
+  REVEAL_Y,
+  REVEAL_SAFETY_DELAY,
+} from "../../animation/motionTokens";
 
 const AboutText = () => {
   const rootRef = useRef(null);
+  const reducedMotion = useReducedMotion();
 
+  /* VE-10: migrated off toggleActions:'play none none reverse' (the last
+   * reverse-on-scroll-out reveal — the pattern P1-7 removed everywhere
+   * else) onto the house safe-reveal: play-once onEnter per paragraph +
+   * in-view fallback + safety net + reduced-motion static. */
   useIsomorphicLayoutEffect(() => {
-    // scope all selectors to this component
+    if (reducedMotion) return undefined;
+
     const ctx = gsap.context(() => {
       const paragraphs = gsap.utils.toArray(".work-text p");
 
-      // start hidden to avoid flash
-      gsap.set(paragraphs, { y: 30, autoAlpha: 0 });
+      gsap.set(paragraphs, { y: REVEAL_Y, autoAlpha: 0 });
 
-      // create a trigger for each <p>
-      paragraphs.forEach((p) => {
+      const reveal = (p) =>
         gsap.to(p, {
           y: 0,
           autoAlpha: 1,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: p,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
-          },
+          duration: DUR_SLOW,
+          ease: EASE_OUT_SOFT,
+          overwrite: "auto",
+        });
+
+      paragraphs.forEach((p) => {
+        ScrollTrigger.create({
+          trigger: p,
+          start: "top 80%",
+          once: true,
+          onEnter: () => reveal(p),
+        });
+
+        if (p.getBoundingClientRect().top < window.innerHeight * 0.8) {
+          reveal(p);
+        }
+      });
+
+      gsap.delayedCall(REVEAL_SAFETY_DELAY, () => {
+        paragraphs.forEach((p) => {
+          if (gsap.getProperty(p, "opacity") < 1) reveal(p);
         });
       });
     }, rootRef);
 
     return () => ctx.revert(); // clean up
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <div className="work-text" ref={rootRef}>

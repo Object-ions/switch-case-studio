@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+import useReducedMotion from '../../hooks/useReducedMotion';
 import '../../styles/components/Squares.scss';
 
 const Squares = ({
@@ -15,6 +16,7 @@ const Squares = ({
   const numSquaresY = useRef();
   const gridOffset = useRef({ x: 0, y: 0 });
   const hoveredSquare = useRef(null);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -131,6 +133,15 @@ const Squares = ({
       hoveredSquare.current = null;
     };
 
+    // VE-10: reduced motion — draw the grid once (the texture stays, the
+    // drift and hover-fill loop never start).
+    if (reducedMotion) {
+      drawGrid();
+      return () => {
+        window.removeEventListener('resize', resizeCanvas);
+      };
+    }
+
     canvas.addEventListener('mousemove', handleMouseMove);
     canvas.addEventListener('mouseleave', handleMouseLeave);
 
@@ -142,7 +153,7 @@ const Squares = ({
       canvas.removeEventListener('mousemove', handleMouseMove);
       canvas.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [direction, speed, borderColor, hoverFillColor, squareSize]);
+  }, [direction, speed, borderColor, hoverFillColor, squareSize, reducedMotion]);
 
   return (
     <canvas ref={canvasRef} className={`squares-canvas ${className}`}></canvas>
