@@ -116,6 +116,44 @@
       max-height: 60vh;
       margin: 0 auto;
     }
+
+    // ≥1024 the inner frame takes over clipping so its tilt + hard shadow
+    // aren't cut off by this wrapper.
+    @media (min-width: 1024px) {
+      border-radius: 0;
+      overflow: visible;
+      background: none;
+    }
+  }
+
+  /* Sticker presentation of the hand-drawn brand card — desktop only;
+   * the approved ≤1023px card is untouched. CSS is the single transform
+   * owner here (GSAP animates the parent .contact-animate). */
+  &__media-frame {
+    @media (min-width: 1024px) {
+      border-radius: 0.75rem;
+      overflow: hidden;
+      background: $g1;
+      border: 4px solid $white-color;
+      box-shadow: 0.5rem 0.625rem 0 rgba($g5, 0.5);
+      transform: rotate(-2deg);
+      transition:
+        transform $dur-med $ease-brand,
+        box-shadow $dur-med $ease-brand;
+
+      .contact-left__media:hover & {
+        transform: rotate(0deg) translateY(-4px);
+        box-shadow: 0.625rem 0.875rem 0 rgba($g5, 0.65);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+
+        .contact-left__media:hover & {
+          transform: rotate(-2deg); // stays put — tilt is static decoration
+        }
+      }
+    }
   }
 
   &__video {

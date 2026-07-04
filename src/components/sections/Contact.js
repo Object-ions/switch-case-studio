@@ -374,21 +374,26 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
             </div>
 
             <div className="contact-left__media contact-animate">
-              <video
-                ref={videoRef}
-                className="contact-left__video"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-hidden="true"
-              >
-                <source src={bannerVideo} type="video/webm" />
-                {/* Add an mp4 fallback here once you've encoded one:
-                <source src={bannerVideoMp4} type="video/mp4" />
-                */}
-              </video>
+              {/* Frame owns the sticker presentation (tilt/border/shadow) in
+                  CSS; GSAP owns the outer .contact-animate reveal — one
+                  transform owner per element. */}
+              <div className="contact-left__media-frame">
+                <video
+                  ref={videoRef}
+                  className="contact-left__video"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-hidden="true"
+                >
+                  <source src={bannerVideo} type="video/webm" />
+                  {/* Add an mp4 fallback here once you've encoded one:
+                  <source src={bannerVideoMp4} type="video/mp4" />
+                  */}
+                </video>
+              </div>
             </div>
           </div>
         </div>
