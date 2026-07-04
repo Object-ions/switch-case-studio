@@ -57,6 +57,26 @@
   margin-right: auto;
 }
 
+// VE-8: hover lift on the card itself (CSS owns .spc's transform; the
+// .pg-card-slot wrapper is GSAP's reveal target — one owner per element).
+.pg-card-slot .spc {
+  @media (hover: hover) and (pointer: fine) {
+    transition: transform var(--dur-fast, 0.2s) ease;
+
+    &:hover {
+      transform: translateY(-4px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
 .pg-sep {
   border: 0;
   margin: 10px 0;
