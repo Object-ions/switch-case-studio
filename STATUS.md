@@ -1,7 +1,7 @@
 # STATUS — design refresh
 
-**Branch:** `design-audit-refresh` (16 commits ahead of main; NOTHING pushed — never push without explicit instruction)
-**Phase:** 2 — **Desktop contact layout (`ffd7633`) + contact reveal hardening (`ed9fe2b`) done, STOPPED at the verify gate.**
+**Branch:** `design-audit-refresh` (18 commits ahead of main; NOTHING pushed — never push without explicit instruction)
+**Phase:** 2 — **Desktop contact container + balance fixes (`c860f0d`, `20b7f2e`) done, STOPPED at the verify gate.** P1 queue paused per Moses.
 
 ## Gate: owner verifies in-browser (authoritative signal)
 
@@ -9,11 +9,12 @@
 npm run build && npm run preview   # http://localhost:4173
 ```
 
-Desktop-contact gate — check on a screen ≥1024px wide:
-1. **/contact**: ONE row — form (heading/fields/consent/Send) on the LEFT; EYES-ON graphic on top of the RIGHT column with address/email/booking link beneath it; columns top-aligned, no black void.
-2. Same section on the home page (above the FAQ) — same two-column behavior.
-3. Phone (or ≤1023px): EXACTLY the approved stack — form → info → graphic, unchanged.
-4. Section content fades up once and stays visible (never re-hides on scroll-back).
+Desktop-contact gate v2 (container + balance) — on a screen ≥1024px wide:
+1. **/contact** section no longer bleeds wider than other sections — same content width as Services/Reviews (1200px container; probe-verified: inner exactly 1200 at 1440).
+2. ONE cohesive pair: form left (736px), 96px gap, graphic-over-info right (288px card) — card pulled ~80px in from the container edge; no dead middle, nothing stranded.
+3. Home-page contact section — same behavior.
+4. Phone/≤1023px: approved stack unchanged (probe-verified at 390).
+5. Content fades up once, stays visible.
 Prior gates (P0s, pre-P1 tweaks, CTA module, AboutCTA) verified by Moses.
 
 ## Next (on owner go-ahead) — remaining P1s in order
