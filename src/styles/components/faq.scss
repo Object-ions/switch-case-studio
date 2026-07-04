@@ -6,7 +6,11 @@
   width: 100%;
   padding: 6rem 1.5rem;
   background: $g1;
-  color: #fff;
+  // Ink on the orange field (DESIGN_AUDIT P1-8): white measured 2.44:1
+  // against $g1 — below AA (4.5) and even AA-large (3.0). $black-color
+  // measures 5.83:1 (AA at every tier) and keeps the FAQ-on-orange brand
+  // moment — the same ink-on-orange recipe the promo page proved.
+  color: $black-color;
 
   @media (min-width: 640px) {
     padding: 7rem 2rem;
@@ -36,7 +40,7 @@
     line-height: 1;
     letter-spacing: -0.02em;
     margin: 0;
-    color: #fff;
+    color: $black-color; // was #fff — 2.44:1 on orange; ink = 5.83:1
 
     @media (max-width: 639px) {
       font-size: clamp(1.875rem, 7vw, 2.25rem);
@@ -126,7 +130,9 @@
 
   &__icon-line {
     position: absolute;
-    background: #fff;
+    // Ink, not white: the +/− is a UI indicator and needs ≥3:1 on orange
+    // (white was 2.44:1; ink is 5.83:1) — and it now matches the question text.
+    background: $black-color;
     border-radius: 1px;
 
     &--horizontal {
@@ -160,9 +166,8 @@
     padding: 0 1.75rem 1.5rem;
     font-size: 0.9rem;
     line-height: 1.65;
-    // color: rgba(255, 255, 255, 0.75);
     margin: 0;
-    color: #000;
+    color: $black-color; // token (was raw #000); 5.83:1 on orange — AA
     font-weight: 300;
 
     @media (min-width: 640px) {
