@@ -7,10 +7,21 @@ import {
   useReducedMotion,
 } from 'motion/react';
 
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 import TestimonialHeading from './TestimonialHeading';
 import BookCallCta from '../ui/BookCallCta';
 import MagneticButton from '../ui/MagneticButton';
 import testimonialsData from '../../data/testimonials.json';
+import {
+  DUR_MED,
+  EASE_OUT_SOFT,
+  REVEAL_Y,
+  REVEAL_SAFETY_DELAY,
+} from '../../animation/motionTokens';
+
+gsap.registerPlugin(ScrollTrigger);
 import '../../styles/components/testimonials.scss';
 
 const AUTO_ADVANCE_MS = 10000;
@@ -58,6 +69,56 @@ const Reviews = () => {
     const id = setInterval(next, AUTO_ADVANCE_MS);
     return () => clearInterval(id);
   }, [next, isHovering, current]);
+
+  /* ── VE-7: "Ready to be next?" beat entrance — house safe-reveal.
+   * Primary CTA, so strand-proof is non-negotiable: SSG HTML ships
+   * visible, hidden state applied only at runtime via gsap.set, revealed
+   * play-once onEnter with in-view fallback + timed safety net; reduced
+   * motion never hides it. Same proven shape as AboutCTA. ── */
+  useEffect(() => {
+    const el = document.querySelector('.testimonials-cta');
+    if (!el) return undefined;
+
+    if (prefersReducedMotion) {
+      gsap.set(el, { clearProps: 'all' });
+      return undefined;
+    }
+
+    const ctx = gsap.context(() => {
+      gsap.set(el, { autoAlpha: 0, y: REVEAL_Y });
+
+      const reveal = () =>
+        gsap.to(el, {
+          autoAlpha: 1,
+          y: 0,
+          duration: DUR_MED,
+          ease: EASE_OUT_SOFT,
+          overwrite: 'auto',
+        });
+
+      const trigger = ScrollTrigger.create({
+        trigger: el,
+        start: 'top 90%',
+        once: true,
+        onEnter: reveal,
+      });
+
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.9) {
+        reveal();
+      }
+
+      const safety = gsap.delayedCall(REVEAL_SAFETY_DELAY, () => {
+        if (gsap.getProperty(el, 'opacity') < 1) reveal();
+      });
+
+      return () => {
+        trigger.kill();
+        safety.kill();
+      };
+    }, el);
+
+    return () => ctx.revert();
+  }, [prefersReducedMotion]);
 
   /* ── Hide global cursor while hovering the carousel ── */
   const handleMouseEnter = () => {
