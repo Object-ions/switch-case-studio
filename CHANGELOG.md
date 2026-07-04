@@ -2,7 +2,13 @@
 
 User-facing changes only; process detail lives in `.audit/summary.md`. Newest first.
 
-## 2026-07-03 — Desktop contact layout (awaiting visual verify)
+## 2026-07-03 — P1 batch resumed (FAQ contrast shipped; h1 finding corrected; ClientStrip at decision checkpoint)
+
+- **FAQ passes AA on orange** (`2f56ea9`): all text tiers + the +/− icon moved from white (2.44:1 — fail) to `$black-color` ink (5.83:1 — AA at every tier), the promo-proven ink-on-orange recipe; brand moment intact.
+- **h1 audit finding was FALSE** — all 26 built routes already have exactly one h1 (the sweep missed `motion.h1`). DESIGN_AUDIT.md corrected; no code change.
+- **ClientStrip**: reported + proposals delivered; awaiting Moses's pick (see STATUS.md).
+
+## 2026-07-03 — Desktop contact layout (verified by Moses)
 
 - **/contact desktop is one two-column row** (`ffd7633`): form left (46rem cap), EYES-ON graphic over contact-info right, top-aligned — no more stranded graphic beside a black void. ≥1024px only; approved mobile/tablet layouts render identically (geometry-probed at 1440 + 390).
 - **Contact entrance hardened to the safe-reveal pattern** (`ed9fe2b`, P1-7 slice pulled forward): play-once onEnter + in-view fallback + safety net + reduced-motion no-hide + trigger cleanup. (Investigation note: the live "frozen tween" turned out to be an occluded browser window suspending RAF — code ships as robustness/pattern consistency.)

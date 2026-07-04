@@ -73,8 +73,8 @@ Form fields rely on `aria-label` + placeholder (`Contact.js:203+`) — sighted u
 ### P1-10 · Reduced-motion gaps in always-on loops
 No `prefers-reduced-motion` gate on: `Squares.js` RAF dot-grid (runs whenever mounted), `CursorComponent` GSAP tween, `Moon.js` auto-rotate, Reviews auto-advance `setInterval` (`Reviews.js:54`), `SinglePricingCard` rotator (`:65`). Coverage elsewhere is genuinely good (21 components use the hook). **Fix:** wire the existing `useReducedMotion` hook into these five; Squares should also pause off-screen (IO) — it's the only unconditional RAF on the site.
 
-### P1-11 · Heading/H1 gaps on four routes (SEO + structure)
-No h1 renders on: **/about** (`AboutPage.js` — h2s only), **/projects** (`CaseStudiesPage.js` — card h2s only), **/testimonials** (`ReviewsPage.js`), and `/services` index (`ServiceIndexPage.js`). Reviews section skips h2→h4 (`Reviews.js:195`). House rule says one h1 per page. **Fix:** add a real (or `sr-only`, like `PricingPage.js:32`) h1 per route; Reviews name → h3 or p.
+### P1-11 · ~~Heading/H1 gaps on four routes~~ **FALSE FINDING — corrected 2026-07-03**
+The code sweep grepped `<h1` and missed `<motion.h1>`: /about, /projects, /testimonials, and /services all render proper h1 titles (`AboutPage.js:93`, `CaseStudiesPage.js:41`, `ReviewsPage.js:37`, `ServiceIndexPage.js:66`). Verified in the authoritative source: **all 26 built routes carry exactly one `<h1>` in their static HTML.** No fix needed. (Sweep lesson: framework-wrapped elements — `motion.h1`, `styled.h1` — escape naive tag greps.) Residual true sub-item: Reviews section's h2→h4 skip (`Reviews.js:195`) — P2-grade.
 
 ### P1-12 · Tiny type + sub-44px targets on mobile
 Body 13px at ≤768px (`app.scss:169`) drags every rem value down: footer meta **8px** (`footer.scss:243`), FAQ answers ~11.7px, promo helpers ~10.4px, form errors ~11px. Carousel dots are ~40×2px lines (`Reviews.js:206`); header nav items `padding: 4px 2px` (`header.scss:100`). **Fix:** raise the mobile body floor to 14–15px (audit each shrink victim), give dots/nav a ≥44px hit area via padding, floor all meta text at 11px.

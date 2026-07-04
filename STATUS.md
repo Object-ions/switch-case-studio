@@ -1,7 +1,14 @@
 # STATUS — design refresh
 
-**Branch:** `design-audit-refresh` (18 commits ahead of main; NOTHING pushed — never push without explicit instruction)
-**Phase:** 2 — **Desktop contact container + balance fixes (`c860f0d`, `20b7f2e`) done, STOPPED at the verify gate.** P1 queue paused per Moses.
+**Branch:** `design-audit-refresh` (20 commits ahead of main; NOTHING pushed — never push without explicit instruction)
+**Phase:** 2 — P1 queue: **FAQ contrast shipped (`2f56ea9`); h1 item closed as a false audit finding; STOPPED at the ClientStrip decision checkpoint** (options below). onEnter reveals + image weight queued behind the pick.
+
+## ClientStrip decision (Moses picks one)
+Current state: `ClientStrip.js:4-12` marquees the 7 project **cover-tile images** (1034×1446 case-study art in 76–96px squares, `clientStrip.scss:70-78`) under "Trusted by" — screenshots posing as logos; the darkest covers (florida-energy, crimson) read as empty black squares on #000.
+- **A. Real client logos** — the proper fix; needs logo files from Moses (or written OK to source them; provenance rule: we don't scrape logos without permission).
+- **B. Text wordmarks (recommended interim, zero assets)** — client NAMES as styled cream text in the same marquee; honest, clean, upgrade path to A later.
+- **C. Keep tiles, fix treatment** — light cream backing + border behind each cover so dark ones never vanish; fastest, but still screenshots-as-logos.
+- **D. Remove the strip** — let the case-study tiles carry proof.
 
 ## Gate: owner verifies in-browser (authoritative signal)
 
