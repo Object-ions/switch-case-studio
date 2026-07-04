@@ -9,6 +9,7 @@ import {
 
 import TestimonialHeading from './TestimonialHeading';
 import BookCallCta from '../ui/BookCallCta';
+import MagneticButton from '../ui/MagneticButton';
 import testimonialsData from '../../data/testimonials.json';
 import '../../styles/components/testimonials.scss';
 
@@ -236,11 +237,13 @@ const Reviews = () => {
       {/* Section CTA — unchanged */}
       <div className="testimonials-cta">
         <p className="testimonials-cta-text">Ready to be next?</p>
-        <BookCallCta className="testimonials-cta-button">
-          <span className="cta-arrow" aria-hidden="true">
-            &rarr;
-          </span>
-        </BookCallCta>
+        <MagneticButton distance={0.35}>
+          <BookCallCta className="testimonials-cta-button">
+            <span className="cta-arrow" aria-hidden="true">
+              &rarr;
+            </span>
+          </BookCallCta>
+        </MagneticButton>
       </div>
     </section>
   );

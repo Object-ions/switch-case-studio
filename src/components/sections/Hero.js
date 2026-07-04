@@ -3,6 +3,7 @@ import { HashLink } from "react-router-hash-link";
 import WelcomeTyped from "./WelcomeTyped";
 import CursorWave from "../ui/CursorWave";
 import BookCallCta from "../ui/BookCallCta";
+import MagneticButton from "../ui/MagneticButton";
 import useReducedMotion from "../../hooks/useReducedMotion";
 
 import "../../styles/components/hero.scss";
@@ -97,11 +98,16 @@ const Hero = () => {
                 deliberately REVERSES the 2026-06 pre-pitch decision (S3 in
                 .audit/summary.md) that made "See Our Work" primary for a
                 portfolio-first pitch — the goal is now booked calls. */}
-            <BookCallCta className="hero-cta hero-cta--primary">
-              <span className="cta-arrow" aria-hidden="true">
-                &rarr;
-              </span>
-            </BookCallCta>
+            {/* Magnetic pull on the booking pill only (VE-2) — subtle
+                distance; inert on touch + reduced-motion (MagneticButton
+                handles both). */}
+            <MagneticButton distance={0.35}>
+              <BookCallCta className="hero-cta hero-cta--primary">
+                <span className="cta-arrow" aria-hidden="true">
+                  &rarr;
+                </span>
+              </BookCallCta>
+            </MagneticButton>
 
             <HashLink
               to="/#projects"

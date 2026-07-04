@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import BookCallCta from '../ui/BookCallCta';
+import MagneticButton from '../ui/MagneticButton';
 import useReducedMotion from '../../hooks/useReducedMotion';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -67,11 +68,13 @@ const AboutCTA = () => {
     <div className="work-cta" ref={ctaRef}>
       <div className="work-cta__inner">
         <p className="work-cta__lead">Let&apos;s bring your idea to life.</p>
-        <BookCallCta className="work-cta__button">
-          <span className="cta-arrow" aria-hidden="true">
-            &rarr;
-          </span>
-        </BookCallCta>
+        <MagneticButton distance={0.35}>
+          <BookCallCta className="work-cta__button">
+            <span className="cta-arrow" aria-hidden="true">
+              &rarr;
+            </span>
+          </BookCallCta>
+        </MagneticButton>
       </div>
     </div>
   );
