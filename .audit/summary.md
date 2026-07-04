@@ -446,3 +446,21 @@ viewports" — a 565×1568 review-window artifact); typed slot was already
 SSG-seeded (hole = backspace phase, timing-tuned); "mobile right-shift" =
 headless-capture artifact (live centerOffset 0); "white square at 0,0" =
 custom cursor pre-mousemove (queued P2). New docs: CHANGELOG.md + STATUS.md.
+
+## Visual-elevation pass 2026-07-03 (branch `design-audit-refresh`) ✅ BUILT, verify gate open
+Proposal `VISUAL_ELEVATION.md` (68369bf) → Moses approved freehand → all 13 items
+shipped, one commit each (47e8923…643afee), build green (27 routes) per commit,
+end-states DOM-probed at 1440+390. Ledger with per-item deviations lives in
+VISUAL_ELEVATION.md; owner gate in STATUS.md. Highlights: contact video card →
+sticker frame (desktop only); MagneticButton on the 3 booking pills; strip star
+separators + pause; footer wordmark scrub drift; link grammar mixins (arrow-nudge
+/underline-sweep on :root motion tokens); grain on FAQ+stripe; Ready-to-be-next +
+pricing house reveals; orb parallax; reduced-motion complete; FAQ focus parity;
+cursor press + hide-until-mousemove.
+**Two real bugs found & fixed mid-pass:** (1) pricing h1 shipped `opacity:0` in
+static HTML (motion whileInView SSR initial — P1-7 class, conversion page);
+(2) stripe orb + cursor dot both lost their CSS -50% centering to the
+percentage-transform poison the moment a new-axis tween touched them.
+**New environment fact:** occluded automation window freezes CSS transitions AND
+the GSAP ticker — only end states are observable agent-side (rule added to
+CLAUDE.md).

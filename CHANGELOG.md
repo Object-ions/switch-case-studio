@@ -2,6 +2,26 @@
 
 User-facing changes only; process detail lives in `.audit/summary.md`. Newest first.
 
+## 2026-07-03 — Visual-elevation pass (13 commits, freehand-approved; awaiting Moses's visible-window verify)
+
+Proposal menu: `VISUAL_ELEVATION.md` (committed first, then Moses approved freehand). All 13 items shipped, one commit each, build green (27 routes) at every step.
+
+- **The hand-drawn brand card is now a sticker** (`3dc8645`): the contact-section video card (EYES ON / INBOX WINS / BUILT TO SHIP) gets a cream frame, −2° tilt, lilac offset shadow; hover straightens + lifts. Desktop-only — the approved mobile card is byte-identical.
+- **Booking pills are magnetic** (`3e24647`): hero, AboutCTA, and "Ready to be next?" CTAs pull toward the cursor (existing MagneticButton, subtle 0.35). Inert on touch/reduced-motion; calendar link verified intact.
+- **"Trusted by" strip** (`3f85a7a`): orange eight-point stars between client names (rhythm unchanged — gap split in half); marquee pauses on hover/focus.
+- **Footer wordmark drifts with scroll** (`bc538d9`): the giant outline "switch case" slides ±30px as the footer scrolls — position-only scrub.
+- **One link grammar** (`b0d0e58`): arrow-links nudge +4px, text links get an underline sweep — viewall pill, tile CTAs, header CTA, footer nav — with focus-visible parity everywhere.
+- **Print grain on the color moments** (`aef2d79`): 5.5% static SVG noise on the FAQ orange + gradient stripe (masks banding); ~1KB, no JS.
+- **"Ready to be next?" gets an entrance** (`16d97fb`): house safe-reveal, strand-proof.
+- **Pricing pages join the motion system** (`f959dba`): header/cards/outro/footer stagger in + card hover lift — and this FIXED a real bug: the old `whileInView` header baked `opacity:0` into the static HTML, so pricing h1s were invisible without JS. All 6 routes now ship visible.
+- **Stripe orb parallax** (`1ba5181`): the orb floats ±7% as the band scrolls past (plus a transform-ownership fix that kept it correctly centered).
+- **Reduced-motion complete** (`3517d6a`): the last 4 unguarded animations (About heading scrub, About paragraphs, gradient heading, Squares canvas) now rest static; About paragraphs also migrated off the reverse-on-scroll-out pattern.
+- **FAQ keyboard parity** (`1abd59b`): focused questions read like hovered ones + ink focus ring (there was none).
+- **Cursor: press feedback + no phantom square** (`643afee`): dot tightens on click; hidden until the first mousemove (kills the white square at 0,0 — the queued P2) and now correctly centered (fixed a shipped corner-anchor offset).
+- **Foundation** (`47e8923`): motion tokens (durations/eases) in `_variables.scss` + JS mirror; new motion consumes them.
+
+Verify-gate notes for Moses: transitions/tweens can't be watched to completion agent-side (occluded-window RAF freeze — known limitation); every END state was proven via DOM probes + settled screenshots. Your visible-window pass is the authoritative check for the glides.
+
 ## 2026-07-03 — P1 batch complete (awaiting visual verify)
 
 - **ClientStrip → text wordmarks** (`d91dfa5`, option B, logo-ready for A): 7 client names as cream Inter marks in the same "Trusted by" marquee; first set now in the accessibility tree (only the loop-duplicates are aria-hidden); no more invisible dark tiles.

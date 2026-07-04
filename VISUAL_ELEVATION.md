@@ -1,6 +1,28 @@
-# VISUAL ELEVATION — Phase 1 proposal (audit only, no code changed)
+# VISUAL ELEVATION — proposal + implementation ledger
 
-**Branch:** `design-audit-refresh` · **Date:** 2026-07-03 · **Status:** awaiting Moses's line-item approval.
+**Branch:** `design-audit-refresh` · **Date:** 2026-07-03 · **Status:** ✅ ALL ITEMS SHIPPED (Moses approved freehand; 13 commits `47e8923`…`643afee`; verify gate in STATUS.md).
+
+## Implementation ledger (deviations from the proposal, honesty first)
+
+| Item | Commit | Deviation |
+|---|---|---|
+| F-1 | `47e8923` | Also exported as `:root` custom props — SCSS `$tokens` can't cross `@use` module scope; mixins consume `var(--dur-fast)`. |
+| VE-1 | `3dc8645` | Entrance rotate-settle DROPPED: GSAP owns the reveal wrapper, CSS owns the frame tilt — animating rotation from JS would double-own the frame transform. Sticker reads via static tilt + hover straighten. |
+| VE-2 | `3e24647` | As proposed. |
+| VE-3 | `3f85a7a` | Gap split half-track/half-item so name→name rhythm stays 3.5rem. |
+| VE-4 | `bc538d9` | As proposed (±2.5 xPercent ≈ ±30px). |
+| VE-5 | `b0d0e58` | Services row SEE PRICING skipped — its overlay wipe covers the row on hover, a nudge underneath is invisible. |
+| VE-6 | `aef2d79` | Contact-card grain skipped — the video covers the frame entirely. FAQ + stripe only. |
+| VE-7 | `16d97fb` | As proposed. |
+| VE-8 | `f959dba` | Bonus bug fix: the motion `whileInView` header baked `opacity:0` into SSG HTML — pricing h1 was invisible without JS. Now ships visible on all 6 routes. |
+| VE-9 | `1ba5181` | First cut hit the CLAUDE.md percentage-transform poison (orb dropped 210px); GSAP now claims the full transform up front. |
+| VE-10 | `3517d6a` | As proposed; AboutText also migrated off `toggleActions:reverse`. |
+| VE-11 | `1abd59b` | Hover lift dropped (GSAP owns item transforms from the entrance — inline style beats CSS `:hover`); scope became keyboard-focus parity, which was the real gap (zero focus styles). |
+| VE-12 | `643afee` | Includes the queued P2 (hide-until-mousemove) + fixed a shipped bug: the dot was corner-anchored (CSS -50% centering lost to the pixel-matrix poison on first tween). |
+
+---
+
+Original proposal below, kept for the record.
 Walked the production build (`npm run build && npm run preview`) with real pixels at 1440×900 and 390×844, plus a full code motion-inventory. This is a menu — approve items individually; each approved item ships as its own verified commit.
 
 ## Constraints I'm holding (stated back, non-negotiable)

@@ -1,42 +1,39 @@
 # STATUS — design refresh
 
-**Branch:** `design-audit-refresh` (26 commits ahead of main; NOTHING pushed — never push without explicit instruction)
-**Phase:** 2 — **ALL P1 items complete** (`d91dfa5` strip, `0ae7028` tokens, `a0b11aa` reveals, `1859c08` images + earlier `2f56ea9` FAQ). **STOPPED at the P1-batch verify gate.** P2 polish queued behind Moses's sign-off. ClientStrip option A (real logos) remains open pending assets from Moses.
+**Branch:** `design-audit-refresh` (41 commits ahead of main; NOTHING pushed — never push without explicit instruction)
+**Phase:** 3 — **visual-elevation pass COMPLETE** (13 commits, `47e8923`…`643afee`, freehand-approved by Moses after the `VISUAL_ELEVATION.md` proposal). P1 batch also still awaiting its verify pass — both gates below. ClientStrip option A (real logos) remains open pending assets from Moses.
 
-## P1-batch gate — Moses verifies
-1. **/** "Trusted by": client names as cream text wordmarks scrolling; readable, nothing invisible; screen reader hears the 7 names once.
-2. **/** Services rows, "Built to perform. Whatever the format." block, and FAQ: scroll INTO each slowly, stop mid-way — everything settles at FULL opacity (nothing stranded dim); scroll back — nothing re-hides.
-3. FAQ: ink text on orange (was white) — readable at every size.
-4. FAQ + footer are now the same width as other sections (were 200px wider).
-5. /projects/birth-of-venus, /jo-marketing-11, /florida-energy-assistance: scrolling screenshots look sharp (they're 86% lighter).
-NOTE for #2: agent-side live settle-check was blocked by window occlusion (RAF suspends when the browser window is hidden); logic is the same pattern verified visible on AboutCTA. Your visible-window pass is the authoritative check.
-
-## Gate: owner verifies in-browser (authoritative signal)
+## Elevation gate — Moses verifies (visible window; agent can't watch transitions under occlusion)
 
 ```bash
 npm run build && npm run preview   # http://localhost:4173
 ```
 
-Desktop-contact gate v2 (container + balance) — on a screen ≥1024px wide:
-1. **/contact** section no longer bleeds wider than other sections — same content width as Services/Reviews (1200px container; probe-verified: inner exactly 1200 at 1440).
-2. ONE cohesive pair: form left (736px), 96px gap, graphic-over-info right (288px card) — card pulled ~80px in from the container edge; no dead middle, nothing stranded.
-3. Home-page contact section — same behavior.
-4. Phone/≤1023px: approved stack unchanged (probe-verified at 390).
-5. Content fades up once, stays visible.
-Prior gates (P0s, pre-P1 tweaks, CTA module, AboutCTA) verified by Moses.
+1. **/#contact** (desktop ≥1024): the hand-drawn video card sits tilted −2° in a cream frame with a lilac offset shadow; hover straightens + lifts it. At 390 the card is exactly as before (no frame, no tilt).
+2. **Hero / About CTA / "Ready to be next?"** booking pills pull gently toward the cursor on hover and the calendar still opens on click.
+3. **"Trusted by"**: orange ✳ between names; strip pauses while you hover it.
+4. **Footer**: the outline "switch case" slides slowly sideways as you scroll it into view; footer links get an underline sweep on hover.
+5. **Gradient stripe + FAQ orange**: faint print grain (very subtle — compare banding on the stripe); orb floats slightly up/down with scroll and stays vertically centered.
+6. **/pricing/web-development** (and any other pricing page): header, cards, outro stagger in; cards lift on hover; **with JS disabled the h1 is still visible** (it wasn't before this pass).
+7. **Arrow links** (View all case studies, tile "View Case Study", header CTA): arrow nudges right on hover.
+8. **Cursor**: no white square at top-left on load; dot appears on first mouse move, tightens while clicking.
+9. **Reduced motion** (System Settings → Accessibility → Display → Reduce motion): everything readable and static — About heading rests orange, About paragraphs visible, gradient heading static, About grid static, no marquee/typed/motion anywhere.
+10. **Scroll the whole home page slowly, stop mid-section** — nothing ever strands dim (same discipline as the P1 gate).
 
-## Next (on owner go-ahead) — remaining P1s in order
-FAQ white-on-orange AA contrast (report before/after ratio) → missing h1s (/about /projects /testimonials /services) → ClientStrip logos (report + propose, STOP for Moses's approach pick) → scrub-tied reveals → onEnter → case-study image weight (report per-image before/after).
+## P1-batch gate — still open (from the previous session)
+1. **/** "Trusted by": wordmarks readable, screen reader hears the 7 names once.
+2. Services rows / "Built to perform" block / FAQ: settle at full opacity mid-scroll, nothing re-hides.
+3. FAQ ink-on-orange readable at every size.
+4. FAQ + footer same width as other sections.
+5. The three re-compressed case-study screenshots look sharp.
 
-## Verification evidence so far (agent-side)
-- Headless screenshots 1440×900 + 390×844 before/after; live-DOM measurement (`centerOffset: 0` — centered, no overflow-shift); consent-error flow + 16px inputs verified in live browser. Build green (27 routes).
-- **Audit corrections logged during implementation** (honesty pass, now in DESIGN_AUDIT.md):
-  - P0-2's real mechanism = headline size/container pair overflow (NOT "two empty viewports" — that was a 565×1568 window artifact; typed slot was already SSG-seeded, the hole is the backspace phase).
-  - The "content shifted right on mobile" and "white square at 0,0" in screenshots = headless-capture artifact and the custom cursor parked at 0,0 respectively (cursor-hide-until-mousemove is queued as P2).
+## Verification evidence (agent-side, this pass)
+- Every item: build green (27 routes) → live-DOM probe of the END state (transforms, opacity, computed backgrounds) + settled screenshots at 1440 + 390. Two real bugs found & fixed mid-pass: stripe orb lost its -50% centering to the percentage-transform poison (VE-9 hardened), pricing h1 shipped `opacity:0` in static HTML (VE-8 fixed).
+- Known limitation: with the automation window occluded, CSS transitions AND the GSAP ticker freeze — in-flight animation can't be observed, only end states. Documented in CLAUDE.md.
 
-## After the P1s: P2s (11)
-Incl. cursor-at-origin hide, GradientText swap, marquee clipping, video poster, pricing "from $X", labels/focus/reduced-motion wiring, mobile type/tap floors, token/z-index/breakpoint debt (opportunistic).
+## After this: remaining P2s
+Marquee clipping, raw "Loading..." Moon fallback, video poster (needs an encoded poster frame — no ffmpeg on this machine), pricing "from $X" index anchors, eyebrow grammar diet, mobile type/tap floors, z-index/breakpoint debt (opportunistic). GradientText swap (P2-14) softened: it now has a reduced-motion guard; full swap still optional.
 
 ## Standing constraints
-- Tokens from `_variables.scss` only; single transform owner per property; `useReducedMotion` on new motion; ScrollTrigger cleanup on unmount; protect proof density, perf moat (LCP/CLS budget), FAQ-orange + footer-star moments, "Ready to be next?" beat.
+- Tokens from `_variables.scss` only (motion tokens now exist: `$dur-*`/`$ease-*` + `src/animation/motionTokens.js` + `:root` custom props); single transform owner per property; `useReducedMotion` on new motion; ScrollTrigger cleanup on unmount; protect proof density, perf moat (LCP/CLS budget), FAQ-orange + footer-star moments, "Ready to be next?" beat.
 - Canonical worklog `.audit/summary.md`; user-facing log `CHANGELOG.md`.
