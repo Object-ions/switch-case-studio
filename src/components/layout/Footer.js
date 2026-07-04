@@ -184,9 +184,37 @@ const Footer = () => {
         if (cols.some((c) => gsap.getProperty(c, 'opacity') < 1)) reveal();
       });
 
+      // VE-4: the stenciled wordmark drifts sideways with scroll.
+      // Position-only scrub (never opacity — content stays visible at
+      // every scroll position); decorative aria-hidden element; GSAP is
+      // the sole transform owner (no CSS transform on it). Skipped
+      // entirely under reduced motion via the early return above.
+      const word = footer.querySelector('.footer-wordmark__text');
+      let drift;
+      if (word) {
+        drift = gsap.fromTo(
+          word,
+          { xPercent: 2.5 },
+          {
+            xPercent: -2.5,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '.footer-wordmark',
+              start: 'top bottom',
+              end: 'bottom bottom',
+              scrub: 0.5,
+            },
+          },
+        );
+      }
+
       return () => {
         trigger.kill();
         safety.kill();
+        if (drift) {
+          drift.scrollTrigger?.kill();
+          drift.kill();
+        }
       };
     }, footer);
 
