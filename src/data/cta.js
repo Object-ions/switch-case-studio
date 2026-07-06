@@ -10,7 +10,7 @@
  * Deliberately SEPARATE funnels that do NOT use these (each has its own
  * calendar/label so leads stay attributable):
  *   - /30-off promo   → PromoPage.js BOOKING_URL (own calendar)
- *   - /p/:token       → PartnersPage.js INTRO_CALL_URL (wholesale; currently
+ *   - /partners       → PartnersPage.js INTRO_CALL_URL (wholesale; currently
  *                       falls back to this URL until its own link exists)
  *
  * Analytics needs no wiring: ga.js's delegated listener fires

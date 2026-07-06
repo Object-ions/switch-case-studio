@@ -1,0 +1,174 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
+/* ==================================================================
+ * /partners password gate — the lock screen shown before a partner
+ * unlocks the wholesale offer (PartnersGate.js).
+ *
+ * House dark look: ink field, cream text, orange primary accent, lilac
+ * focus ring — mirrors the contact form's input/submit treatment so the
+ * two feel like one system. Tokens only, zero hardcoded colour literals.
+ * ================================================================== */
+
+.partners-gate {
+  min-height: 72vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $promo-ink;
+  color: $white-color;
+  padding: 4rem 1.75rem;
+
+  @media (min-width: 640px) {
+    padding: 6rem 2rem;
+  }
+
+  &__card {
+    width: 100%;
+    max-width: 30rem;
+  }
+
+  &__eyebrow {
+    margin: 0 0 1rem;
+    font-family: $font-text;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: $orange-color;
+  }
+
+  &__title {
+    margin: 0 0 1rem;
+    font-family: $font-special;
+    // SCS Display collides under tight tracking — keep it positive (see hero).
+    letter-spacing: 0.02em;
+    font-weight: 800;
+    line-height: 1.05;
+    font-size: clamp(1.9rem, 5vw, 2.75rem);
+    color: $white-color;
+  }
+
+  &__lede {
+    margin: 0 0 2rem;
+    font-family: $font-text;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba($white-color, 0.6);
+    max-width: 28rem;
+  }
+
+  &__link {
+    color: rgba($white-color, 0.85);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: $g6;
+    }
+  }
+
+  /* ---------- Form: password input + unlock button ---------- */
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    @media (min-width: 480px) {
+      flex-direction: row;
+      align-items: stretch;
+    }
+  }
+
+  &__input {
+    flex: 1 1 auto;
+    min-width: 0;
+    background: rgba($white-color, 0.04);
+    border: 1px solid rgba($white-color, 0.2);
+    border-radius: 0.75rem;
+    padding: 0.875rem 1.1rem;
+    color: $white-color;
+    font-family: $font-text;
+    // 16px floor: the ≤768px body shrink makes 1rem = 13px, and any input
+    // under 16px triggers iOS auto-zoom on tap (matches the contact form).
+    font-size: max(1rem, 16px);
+    line-height: 1.4;
+    outline: none;
+    transition:
+      border-color 0.2s ease,
+      background 0.2s ease;
+
+    &::placeholder {
+      color: rgba($white-color, 0.45);
+    }
+
+    &:focus {
+      border-color: $g6;
+      background: rgba($white-color, 0.06);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 2px;
+    }
+
+    &[aria-invalid='true'] {
+      border-color: $orange-color;
+    }
+  }
+
+  &__submit {
+    flex: 0 0 auto;
+    border: 0;
+    border-radius: 0.75rem;
+    background: $orange-color;
+    color: $promo-ink;
+    padding: 0.875rem 1.75rem;
+    font-family: $font-text;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+
+    &:hover:not(:disabled) {
+      transform: scale(1.03);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+  }
+
+  &__error {
+    margin: 1rem 0 0;
+    font-family: $font-text;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: $orange-color;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+// Touch tap feedback for the unlock button (global :active opacity lives in
+// app.scss; this keeps the press consistent with the site).
