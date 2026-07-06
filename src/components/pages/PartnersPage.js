@@ -94,9 +94,9 @@ const FAQS = [
     answer: 'Yes — $200 per variant after the first.',
   },
   {
-    question: 'Will you ever go around me to my client?',
+    question: 'Will my client ever find out you built it?',
     answer:
-      'Never. Your client works with you, and only you. They don’t know we exist, and we won’t reach out, take credit, or deal with them directly.',
+      'Only if you tell them. We stay invisible, take no credit, and never contact them.',
   },
   {
     question: 'What stack do you build in?',
