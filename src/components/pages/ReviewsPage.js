@@ -45,13 +45,17 @@ const ReviewsPage = () => {
           </motion.p>
         </motion.header>
 
+        {/* Reveal on MOUNT — the grid is the primary content in the first
+            viewport under a short header; a scroll `amount` threshold on this
+            tall (single-column on mobile) section is never met on load and
+            strands every card at opacity:0 until you scroll. See
+            CaseStudiesPage grid for the full note. */}
         <motion.section
           className="testimonials-page__grid"
           aria-label="Client testimonials"
           variants={reducedMotion ? undefined : containerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          animate="visible"
         >
           {testimonialsData.map((review) => (
             <motion.article

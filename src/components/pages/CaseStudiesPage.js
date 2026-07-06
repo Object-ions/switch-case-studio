@@ -46,14 +46,19 @@ const CaseStudiesPage = () => {
           </motion.p>
         </motion.header>
 
-        {/* ── Grid ── */}
+        {/* ── Grid ──
+            Reveal on MOUNT (animate), not on scroll (whileInView). The grid
+            is the page's primary content and sits in the first viewport under
+            a short header — but it's a very tall section, so a scroll-based
+            `amount` threshold is never met on load (esp. single-column
+            mobile), stranding every card at opacity:0 until you scroll. The
+            staggered cascade still plays on load; cards keep their hover. */}
         <motion.section
           className="projects-page__grid"
           aria-label="Project list"
           variants={v(containerVariants)}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          animate="visible"
         >
           {projectsData.map((project) => (
             <HoverPeek
