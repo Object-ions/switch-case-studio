@@ -16,25 +16,38 @@ function ServiceItem({ service, index }) {
   const animationDefaults = { duration: 0.6, ease: "expo" };
 
   useEffect(() => {
-    if (!itemRef.current) return;
+    if (!itemRef.current) return undefined;
+
+    // House safe-reveal (DESIGN_AUDIT P1-7): the old scrub:1 tied row
+    // opacity to scroll position — stop scrolling mid-window and the row
+    // sat stranded half-transparent. Play-once onEnter + safety net now;
+    // reduced-motion leaves the SSG-visible row untouched.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return undefined;
+    }
 
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        itemRef.current,
-        { x: -60, opacity: 0 },
-        {
+      const el = itemRef.current;
+      gsap.set(el, { autoAlpha: 0, x: -60 });
+
+      const reveal = () =>
+        gsap.to(el, {
+          autoAlpha: 1,
           x: 0,
-          opacity: 1,
           duration: 0.8,
           ease: "power3.out",
-          scrollTrigger: {
-            trigger: itemRef.current,
-            start: "top 90%",
-            end: "top 70%",
-            scrub: 1,
-          },
-        },
-      );
+          overwrite: "auto",
+        });
+
+      const st = ScrollTrigger.create({
+        trigger: el,
+        start: "top 90%",
+        once: true,
+        onEnter: reveal,
+      });
+      if (st.progress > 0) reveal();
+
+      gsap.delayedCall(3, () => gsap.set(el, { autoAlpha: 1, x: 0 }));
     }, itemRef);
 
     return () => ctx.revert();

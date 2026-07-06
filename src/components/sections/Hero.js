@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { HashLink } from "react-router-hash-link";
 import WelcomeTyped from "./WelcomeTyped";
 import CursorWave from "../ui/CursorWave";
+import BookCallCta from "../ui/BookCallCta";
+import MagneticButton from "../ui/MagneticButton";
 import useReducedMotion from "../../hooks/useReducedMotion";
 
 import "../../styles/components/hero.scss";
@@ -91,28 +93,32 @@ const Hero = () => {
             className={`hero-ctas ${revealed ? "is-visible" : ""}`}
             data-cursor-wave-mask
           >
+            {/* Booking is the business goal, so it gets the solid primary
+                treatment (2026-07 design refresh, DESIGN_AUDIT P0-1). This
+                deliberately REVERSES the 2026-06 pre-pitch decision (S3 in
+                .audit/summary.md) that made "See Our Work" primary for a
+                portfolio-first pitch — the goal is now booked calls. */}
+            {/* Magnetic pull on the booking pill only (VE-2) — subtle
+                distance; inert on touch + reduced-motion (MagneticButton
+                handles both). */}
+            <MagneticButton distance={0.35}>
+              <BookCallCta className="hero-cta hero-cta--primary">
+                <span className="cta-arrow" aria-hidden="true">
+                  &rarr;
+                </span>
+              </BookCallCta>
+            </MagneticButton>
+
             <HashLink
               to="/#projects"
               smooth
-              className="hero-cta hero-cta--primary"
+              className="hero-cta hero-cta--secondary"
             >
               See Our Work
-              <span className="cta-arrow" aria-hidden="true">
+              <span className="cta-arrow cta-arrow--down" aria-hidden="true">
                 &darr;
               </span>
             </HashLink>
-
-            <a
-              href="https://calendar.app.google/83UCJjis2FHUrr1s6"
-              className="hero-cta hero-cta--secondary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Book a Free Call
-              <span className="cta-arrow" aria-hidden="true">
-                &rarr;
-              </span>
-            </a>
           </div>
         </div>
       </div>

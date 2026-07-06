@@ -89,7 +89,7 @@ const CaseStudies = () => {
       <div className="projects-viewall">
         <Link to="/projects" className="projects-viewall__link">
           View all case studies
-          <span aria-hidden="true"> →</span>
+          <span className="cta-arrow" aria-hidden="true"> →</span>
         </Link>
       </div>
     </section>

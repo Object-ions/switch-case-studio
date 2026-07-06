@@ -23,7 +23,7 @@
   }
 
   &_inner {
-    max-width: 1200px;
+    max-width: $max-width;
     margin: 0 auto;
     display: grid;
     grid-template-columns: auto 1fr;
@@ -64,6 +64,8 @@
     padding: 10px 16px;
     border-radius: 20px;
     border: 2px solid transparent;
+
+    @include arrow-nudge('svg'); // VE-5 site link grammar (FA arrow icon)
 
     &:hover,
     &:focus-visible {

@@ -23,6 +23,24 @@
   will-change: transform;
 }
 
+/* VE-12: invisible until the first real mousemove — no white square
+   parked at 0,0 on load (the old P2 capture artifact). */
+#cursor-dot.is-parked {
+  opacity: 0;
+}
+
+/* VE-12: press feedback — dot tightens while the mouse button is down.
+   Width/height only; GSAP owns this element's transform. */
+#cursor-dot.is-pressed {
+  width: 17px;
+  height: 17px;
+}
+
+#cursor-dot.is-hovering.is-pressed {
+  width: 27px;
+  height: 27px;
+}
+
 /* hover: empty square, border color driven by --cursor-color */
 #cursor-dot.is-hovering {
   mix-blend-mode: normal;

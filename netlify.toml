@@ -10,6 +10,17 @@
   command = "npm run build"  # = vite-react-ssg build (package.json)
   publish = "build"          # matches vite.config.js `build.outDir`
 
+# Hidden agency-wholesale page. Its route is a param (/p/:token) gated by a
+# SHA-256 check (src/components/pages/PartnersGate.js), so it's deliberately
+# NOT pre-rendered to a static file — without this rewrite Netlify would 404
+# it. Scoped to /p/* ONLY: the global SPA catch-all stays removed on purpose
+# (see the header note below) so real 404s elsewhere are preserved. The
+# browser URL is kept; the app shell boots and the gate resolves the token.
+[[redirects]]
+  from = "/p/*"
+  to = "/index.html"
+  status = 200
+
 [build.environment]
   NODE_VERSION = "22"        # Vite 7 requires node ^20.19.0 || >=22.12.0; pin to 22
 
@@ -37,3 +48,12 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' blob: https://api.emailjs.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; media-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; frame-ancestors 'none'"
+
+# Hidden /p/* pages are served from the (indexable) app shell via the rewrite
+# above, so enforce noindex at the HTTP layer — authoritative for crawlers
+# regardless of the shell's HTML or whether JS runs. Belt-and-suspenders on top
+# of the page's own <Seo robots="noindex, nofollow"> and the unguessable token.
+[[headers]]
+  for = "/p/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

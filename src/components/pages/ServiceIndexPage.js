@@ -8,9 +8,8 @@ import {
   containerVariants,
   cardVariants,
 } from '../../utils/motionVariants';
+import BookCallCta from '../ui/BookCallCta';
 import '../../styles/components/serviceIndexPage.scss';
-
-const BOOK_CALL_URL = 'https://calendar.app.google/83UCJjis2FHUrr1s6';
 
 // Per-route copy + SEO. The page body below is identical for both — only
 // these strings change with the route (see ServicesPage / PricingOverviewPage).
@@ -105,14 +104,7 @@ const ServiceIndexPage = ({ variant }) => {
         >
           <h2 className="service-index__bottom-heading">{c.bottomHeading}</h2>
           <p className="service-index__bottom-body">{c.bottomBody}</p>
-          <a
-            href={BOOK_CALL_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="service-index__bottom-btn"
-          >
-            Book a Free Call
-          </a>
+          <BookCallCta className="service-index__bottom-btn" />
         </motion.div>
       </article>
     </>

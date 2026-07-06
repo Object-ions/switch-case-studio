@@ -7,6 +7,7 @@ import {
   containerVariants,
   cardVariants,
 } from '../../utils/motionVariants';
+import BookCallCta from '../ui/BookCallCta';
 import '../../styles/components/testimonialsPage.scss';
 
 const ReviewsPage = () => {
@@ -44,13 +45,17 @@ const ReviewsPage = () => {
           </motion.p>
         </motion.header>
 
+        {/* Reveal on MOUNT — the grid is the primary content in the first
+            viewport under a short header; a scroll `amount` threshold on this
+            tall (single-column on mobile) section is never met on load and
+            strands every card at opacity:0 until you scroll. See
+            CaseStudiesPage grid for the full note. */}
         <motion.section
           className="testimonials-page__grid"
           aria-label="Client testimonials"
           variants={reducedMotion ? undefined : containerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          animate="visible"
         >
           {testimonialsData.map((review) => (
             <motion.article
@@ -97,14 +102,7 @@ const ReviewsPage = () => {
           <p className="testimonials-page__bottom-body">
             Book a free call and let's talk about your project.
           </p>
-          <a
-            href="https://calendar.app.google/83UCJjis2FHUrr1s6"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="testimonials-page__bottom-btn"
-          >
-            Book a Free Call
-          </a>
+          <BookCallCta className="testimonials-page__bottom-btn" />
         </motion.div>
       </article>
     </>

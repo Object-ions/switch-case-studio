@@ -9,6 +9,7 @@ import {
   containerVariants,
   cardVariants,
 } from '../../utils/motionVariants';
+import BookCallCta from '../ui/BookCallCta';
 import '../../styles/components/projectsPage.scss';
 
 const MotionLink = motion.create(Link);
@@ -45,14 +46,19 @@ const CaseStudiesPage = () => {
           </motion.p>
         </motion.header>
 
-        {/* ── Grid ── */}
+        {/* ── Grid ──
+            Reveal on MOUNT (animate), not on scroll (whileInView). The grid
+            is the page's primary content and sits in the first viewport under
+            a short header — but it's a very tall section, so a scroll-based
+            `amount` threshold is never met on load (esp. single-column
+            mobile), stranding every card at opacity:0 until you scroll. The
+            staggered cascade still plays on load; cards keep their hover. */}
         <motion.section
           className="projects-page__grid"
           aria-label="Project list"
           variants={v(containerVariants)}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          animate="visible"
         >
           {projectsData.map((project) => (
             <HoverPeek
@@ -66,6 +72,7 @@ const CaseStudiesPage = () => {
               aria-label={`View case study: ${project.title}`}
               variants={v(cardVariants)}
               whileHover={reduced ? undefined : { y: -4, transition: { duration: 0.25 } }}
+              whileTap={reduced ? undefined : { scale: 0.97, transition: { duration: 0.15 } }}
             >
               <div className="projects-page__card-img">
                 {project.badge && (
@@ -119,14 +126,7 @@ const CaseStudiesPage = () => {
           <p className="projects-page__bottom-text">
             Want to see what we can build for you?
           </p>
-          <a
-            href="https://calendar.app.google/83UCJjis2FHUrr1s6"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="projects-page__bottom-btn"
-          >
-            Book a Free Call
-          </a>
+          <BookCallCta className="projects-page__bottom-btn" />
         </motion.div>
       </article>
     </>

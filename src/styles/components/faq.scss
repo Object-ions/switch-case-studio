@@ -6,7 +6,12 @@
   width: 100%;
   padding: 6rem 1.5rem;
   background: $g1;
-  color: #fff;
+  background-image: $grain-url; // VE-6 print grain — static, sits behind content
+  // Ink on the orange field (DESIGN_AUDIT P1-8): white measured 2.44:1
+  // against $g1 — below AA (4.5) and even AA-large (3.0). $black-color
+  // measures 5.83:1 (AA at every tier) and keeps the FAQ-on-orange brand
+  // moment — the same ink-on-orange recipe the promo page proved.
+  color: $black-color;
 
   @media (min-width: 640px) {
     padding: 7rem 2rem;
@@ -17,7 +22,7 @@
   }
 
   &__container {
-    max-width: 1400px;
+    max-width: $max-width; // was 1400px — 200px over the site container (same bug as contact)
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr;
@@ -36,7 +41,7 @@
     line-height: 1;
     letter-spacing: -0.02em;
     margin: 0;
-    color: #fff;
+    color: $black-color; // was #fff — 2.44:1 on orange; ink = 5.83:1
 
     @media (max-width: 639px) {
       font-size: clamp(1.875rem, 7vw, 2.25rem);
@@ -68,6 +73,13 @@
       background: rgba(255, 255, 255, 0.04);
     }
 
+    // VE-11: keyboard parity — focused question reads like a hovered one,
+    // plus an ink ring on the button itself (there was NO focus style).
+    &:focus-within {
+      border-color: $g5;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
     &.is-open {
       border-color: rgba($g5, 0.5);
       background: rgba(255, 255, 255, 0.04);
@@ -93,6 +105,12 @@
     border: none;
     color: inherit;
     font-family: inherit;
+
+    &:focus-visible {
+      outline: 3px solid $black-color;
+      outline-offset: -3px;
+      border-radius: 1rem;
+    }
     text-align: left;
     cursor: none; // matches site-wide custom cursor
 
@@ -126,7 +144,9 @@
 
   &__icon-line {
     position: absolute;
-    background: #fff;
+    // Ink, not white: the +/− is a UI indicator and needs ≥3:1 on orange
+    // (white was 2.44:1; ink is 5.83:1) — and it now matches the question text.
+    background: $black-color;
     border-radius: 1px;
 
     &--horizontal {
@@ -160,9 +180,8 @@
     padding: 0 1.75rem 1.5rem;
     font-size: 0.9rem;
     line-height: 1.65;
-    // color: rgba(255, 255, 255, 0.75);
     margin: 0;
-    color: #000;
+    color: $black-color; // token (was raw #000); 5.83:1 on orange — AA
     font-weight: 300;
 
     @media (min-width: 640px) {

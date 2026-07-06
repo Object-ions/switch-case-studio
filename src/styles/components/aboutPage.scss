@@ -8,7 +8,7 @@
 
   // ── Shared section wrapper ──
   &__section-wrap {
-    max-width: 1200px;
+    max-width: $max-width;
     margin: 0 auto;
     padding: 6rem 6rem;
 
@@ -27,7 +27,7 @@
 
   // ── Hero ──
   &__hero {
-    max-width: 1200px;
+    max-width: $max-width;
     margin: 0 auto;
     padding: 8rem 6rem 7rem;
 
@@ -72,7 +72,7 @@
     border-top: 1px solid rgba(255, 255, 255, 0.08);
 
     &-inner {
-      max-width: 1200px;
+      max-width: $max-width;
       margin: 0 auto;
       padding: 6rem 6rem;
       display: grid;
@@ -313,7 +313,7 @@
   // ── CTA ──
   &__cta {
     border-top: 1px solid rgba(255, 255, 255, 0.08);
-    max-width: 1200px;
+    max-width: $max-width;
     margin: 0 auto;
     padding: 7rem 6rem 8rem;
     text-align: center;

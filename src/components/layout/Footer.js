@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SCSLogo from '../ui/SCSLogo';
 import { PROJECT_LINKS, LEGAL_LINKS } from '../../data/navigation';
+import { BOOK_CALL_URL, BOOK_CALL_LABEL } from '../../data/cta';
 import '../../styles/components/footer.scss';
 
 
@@ -107,15 +108,17 @@ const EXPLORE_LINKS = [
 
 const CONNECT_LINKS = [
   {
-    label: 'Book a Call',
-    href: 'https://calendar.app.google/83UCJjis2FHUrr1s6',
+    // Unified CTA (label + URL from src/data/cta.js). The old 'free' badge
+    // is dropped: the word is in the label now — "Book a Free Strategy Call
+    // FREE" would say it twice.
+    label: BOOK_CALL_LABEL,
+    href: BOOK_CALL_URL,
     external: true,
-    badge: 'free',
   },
   { label: 'Email Us', href: 'mailto:hello@switchcasestudio.com' },
 ];
 
-const CALENDAR_URL = 'https://calendar.app.google/83UCJjis2FHUrr1s6';
+const CALENDAR_URL = BOOK_CALL_URL;
 const CONTACT_EMAIL = 'hello@switchcasestudio.com';
 
 const Footer = () => {
@@ -181,9 +184,37 @@ const Footer = () => {
         if (cols.some((c) => gsap.getProperty(c, 'opacity') < 1)) reveal();
       });
 
+      // VE-4: the stenciled wordmark drifts sideways with scroll.
+      // Position-only scrub (never opacity — content stays visible at
+      // every scroll position); decorative aria-hidden element; GSAP is
+      // the sole transform owner (no CSS transform on it). Skipped
+      // entirely under reduced motion via the early return above.
+      const word = footer.querySelector('.footer-wordmark__text');
+      let drift;
+      if (word) {
+        drift = gsap.fromTo(
+          word,
+          { xPercent: 2.5 },
+          {
+            xPercent: -2.5,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '.footer-wordmark',
+              start: 'top bottom',
+              end: 'bottom bottom',
+              scrub: 0.5,
+            },
+          },
+        );
+      }
+
       return () => {
         trigger.kill();
         safety.kill();
+        if (drift) {
+          drift.scrollTrigger?.kill();
+          drift.kill();
+        }
       };
     }, footer);
 

@@ -27,8 +27,24 @@ const CursorComponent = () => {
     if (!isPointerDevice) return;
 
     const dot = dotRef.current;
+    let parked = true; // VE-12: hidden until the first real mousemove
 
     const onMove = (e) => {
+      if (parked) {
+        // First move: snap into place (no tween from 0,0) and claim the
+        // -50% centering in GSAP terms — the CSS translate parses into a
+        // pixel matrix that the x/y tweens would otherwise discard,
+        // leaving the dot anchored by its corner.
+        parked = false;
+        gsap.set(dot, {
+          x: e.clientX,
+          y: e.clientY,
+          xPercent: -50,
+          yPercent: -50,
+        });
+        dot.classList.remove('is-parked');
+        return;
+      }
       gsap.to(dot, {
         x: e.clientX,
         y: e.clientY,
@@ -36,6 +52,11 @@ const CursorComponent = () => {
         ease: 'power2.out',
       });
     };
+
+    // VE-12: physical press feedback — the dot tightens while the button
+    // is down (width/height only; GSAP owns the transform).
+    const onDown = () => dot.classList.add('is-pressed');
+    const onUp = () => dot.classList.remove('is-pressed');
 
     const onOver = (e) => {
       const target = e.target.closest(INTERACTIVE_SELECTOR);
@@ -64,17 +85,26 @@ const CursorComponent = () => {
     document.addEventListener('mousemove', onMove);
     document.addEventListener('pointerover', onOver, true);
     document.addEventListener('pointerout', onOut, true);
+    document.addEventListener('mousedown', onDown, true);
+    document.addEventListener('mouseup', onUp, true);
+    window.addEventListener('blur', onUp);
 
     return () => {
       document.removeEventListener('mousemove', onMove);
       document.removeEventListener('pointerover', onOver, true);
       document.removeEventListener('pointerout', onOut, true);
+      document.removeEventListener('mousedown', onDown, true);
+      document.removeEventListener('mouseup', onUp, true);
+      window.removeEventListener('blur', onUp);
     };
   }, [isPointerDevice]);
 
   if (!isPointerDevice) return null;
 
-  return createPortal(<div id="cursor-dot" ref={dotRef} />, document.body);
+  return createPortal(
+    <div id="cursor-dot" className="is-parked" ref={dotRef} />,
+    document.body,
+  );
 };
 
 export default CursorComponent;

@@ -8,6 +8,7 @@ import {
   cardVariants,
 } from '../../utils/motionVariants';
 import teamData from '../../data/team.json';
+import BookCallCta from '../ui/BookCallCta';
 import '../../styles/components/aboutPage.scss';
 
 const CAPABILITIES = [
@@ -293,14 +294,7 @@ const AboutPage = () => {
             Tell us about your project. We'll come back with a plan.
           </p>
           <div className="about-page__cta-actions">
-            <a
-              href="https://calendar.app.google/83UCJjis2FHUrr1s6"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="about-page__cta-btn about-page__cta-btn--primary"
-            >
-              Book a Free Call
-            </a>
+            <BookCallCta className="about-page__cta-btn about-page__cta-btn--primary" />
             <Link to="/projects" className="about-page__cta-btn about-page__cta-btn--secondary">
               See Our Work →
             </Link>

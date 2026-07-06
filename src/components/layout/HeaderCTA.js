@@ -1,18 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import BookCallCta from "../ui/BookCallCta";
 
+// Label + URL live in src/data/cta.js via <BookCallCta>. (The old markup
+// also carried a stray invalid `as="a"` attribute — dropped in the refactor.)
 const HeaderCTA = () => {
   return (
-    <a
-      as="a"
-      href="https://calendar.app.google/83UCJjis2FHUrr1s6"
-      target="_blank"
-      rel="noreferrer"
-      className="headingCTA"
-    >
-      Book a Free Call{" "}
+    <BookCallCta className="headingCTA">
+      {" "}
       <FontAwesomeIcon icon={faArrowRight} style={{ fontSize: "12px" }} />
-    </a>
+    </BookCallCta>
   );
 };
 

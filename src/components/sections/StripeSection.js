@@ -1,7 +1,10 @@
 import React, { useRef } from 'react';
 import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import '../../styles/components/stripeSection.scss';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function GradientStripe({
   // Responsive default: min 160px, scales with viewport, caps at 420px
@@ -25,9 +28,17 @@ export default function GradientStripe({
       '(prefers-reduced-motion: reduce)'
     )?.matches;
     if (reduce) {
-      gsap.set(orb, { x: 0 });
+      // Leave the transform to the CSS translate(-50%,-50%) centering.
+      gsap.set(orb, { clearProps: 'transform' });
       return;
     }
+
+    // Claim the whole transform in GSAP terms before any tween runs: the
+    // CSS translate(-50%,-50%) parses into a PIXEL matrix (CLAUDE.md
+    // StaggeredMenu rule), so a later yPercent tween silently drops the
+    // vertical centering. xPercent stays 0 to preserve the shipped drift
+    // geometry (the x tween has always replaced the horizontal offset).
+    gsap.set(orb, { xPercent: 0, x: 0, yPercent: -50, y: 0 });
 
     const build = () => {
       const W = stripe.clientWidth;
@@ -46,9 +57,31 @@ export default function GradientStripe({
     });
     ro.observe(stripe);
 
+    // VE-9: vertical parallax as the band scrolls past — scrub-tied
+    // yPercent on the orb. Different property from the x drift tween, same
+    // owner (GSAP), composes with the CSS -50% centering (GSAP tracks
+    // percent components separately from the parsed pixel matrix).
+    // Position-only scrub; the orb is decorative aria-hidden.
+    const parallax = gsap.fromTo(
+      orb,
+      { yPercent: -57 }, // -50 (centering) ± 7 travel
+      {
+        yPercent: -43,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: stripe,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 0.5,
+        },
+      }
+    );
+
     return () => {
       ro.disconnect();
       tween.kill();
+      parallax.scrollTrigger?.kill();
+      parallax.kill();
     };
   }, [duration]);
 

@@ -13,6 +13,7 @@ import {
 } from '../../data/navigation';
 import useScrollLock from '../../hooks/useScrollLock';
 import useReducedMotion from '../../hooks/useReducedMotion';
+import BookCallCta from '../ui/BookCallCta';
 import '../../styles/components/StaggeredMenu.scss';
 
 /* ──────────────────────────────────────────────
@@ -415,14 +416,7 @@ const StaggeredMenu = ({
             <h3 className="sm-socials-title">Quick Links</h3>
             <ul className="sm-socials-list">
               <li className="sm-socials-item">
-                <a
-                  href="https://calendar.app.google/83UCJjis2FHUrr1s6"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="sm-socials-link sm-cta-link"
-                >
-                  Book a Free Call
-                </a>
+                <BookCallCta className="sm-socials-link sm-cta-link" />
               </li>
               {LEGAL_LINKS.map((link) => (
                 <li key={link.to} className="sm-socials-item">

@@ -64,6 +64,44 @@
   }
 }
 
+// VE-5 link grammar — the site-wide arrow gesture (hero owns it): the
+// trailing arrow nudges +4px on hover/focus of the parent link.
+@mixin arrow-nudge($arrow: '.cta-arrow') {
+  #{$arrow} {
+    display: inline-block;
+    transition: transform var(--dur-fast, 0.2s) ease;
+  }
+
+  &:hover #{$arrow},
+  &:focus-visible #{$arrow} {
+    transform: translateX(4px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #{$arrow} {
+      transition: none;
+    }
+  }
+}
+
+// VE-5 link grammar — 1px underline sweeps left→right on hover/focus.
+@mixin underline-sweep {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size var(--dur-fast, 0.2s) ease;
+
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
 @mixin grid-bg-light {
   background-color: #f1f5f7;
   background-image:

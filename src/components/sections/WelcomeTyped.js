@@ -30,11 +30,18 @@ const WelcomeTyped = () => {
   useEffect(() => {
     if (reducedMotion || !targetRef.current) return;
 
+    // Timing tuned so the "empty verb" phase is rare and brief: each cycle
+    // backspaces to an empty slot before the next word, and during that
+    // window the headline reads "We ␣ websites…" — a broken sentence if a
+    // visitor's first glance lands there (DESIGN_AUDIT P0-2). Longer rest
+    // (backDelay) + faster deletion (backSpeed) cut the hole from ~13% to
+    // ~6% of the cycle. The slot itself is seeded with "build" in the SSG
+    // HTML, so pre-hydration is never empty.
     const typed = new Typed(targetRef.current, {
       strings: STRINGS,
       typeSpeed: 80,
-      backSpeed: 50,
-      backDelay: 1400,
+      backSpeed: 35,
+      backDelay: 2400,
       loop: true,
       showCursor: false,
     });

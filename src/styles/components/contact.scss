@@ -13,7 +13,9 @@
   width: 100%;
   background: #000;
   color: $white-color;
-  padding: 4rem 1.5rem;
+  // A touch more horizontal room on phones so the fields don't read
+  // edge-to-edge (was 1.5rem).
+  padding: 4rem 1.75rem;
   // System monospace — 'Roboto Mono' was declared here but never loaded
   // anywhere (no @font-face, not in any font link); it always fell back.
   font-family: monospace;
@@ -27,7 +29,10 @@
   }
 
   &__inner {
-    max-width: 1400px;
+    // Site container token — was a hardcoded 1400px, 200px wider than every
+    // other section (the CLAUDE.md $max-width rule; matches services__menu,
+    // testimonials inner/cta, notFound, partners).
+    max-width: $max-width;
     margin: 0 auto;
   }
 }
@@ -37,32 +42,52 @@
  * ================================================================== */
 
 .contact-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
+  // Form-forward single column at EVERY width (2026-07-05). The form is the
+  // conversion priority and should read as one full, balanced column with
+  // the contact info + brand card as a signature band beneath it.
+  //
+  // This replaces the ≥1024 two-column (form 736px left + 288px card
+  // top-aligned right): because the card column is short and the form is
+  // tall, it stranded a large empty void down the bottom-right beside the
+  // message/submit rows — the imbalance the owner flagged. Single-column,
+  // centered, removes the void and matches the balanced full-form look.
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
 
-  // Row layout as soon as it fits — only true mobile stacks.
+  // Center the column on wider screens so the form isn't stranded against
+  // the left edge. Both children cap at the same max-width (46rem), so the
+  // heading, fields, and the signature band below all share one left edge.
   @media (min-width: 769px) {
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
-  }
-
-  @media (min-width: 1024px) {
+    align-items: center;
     gap: 4rem;
   }
 }
 
 /* ==================================================================
- * Left column
+ * Info + banner band (below the form on mobile; right COLUMN on desktop)
  * ================================================================== */
 
 .contact-left {
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
-  align-items: center;
+  width: 100%;
+  // Left-align info + card to the form's left edge on mobile. Was centered,
+  // which clashed with the left-aligned form and Send button (the button
+  // sat flush left while the info block and card sat centered — the exact
+  // misalignment the owner flagged).
+  align-items: flex-start;
 
-  @media (min-width: 1024px) {
+  // ≥769: the info + brand card become a "signature" band under the form —
+  // info left, card right — capped to the form's width so the info's left
+  // edge lines up with the form fields, the card sits at the form's right
+  // edge. (Was tablet-only; now the single-column layout at every width.)
+  @media (min-width: 769px) {
+    max-width: 46rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     gap: 3rem;
   }
 
@@ -82,7 +107,51 @@
 
     @media (max-width: 768px) {
       max-height: 60vh;
-      margin: 0 auto;
+      // Left-aligned (was `0 auto` = centered) to match the form + info edge.
+      margin: 0;
+      // Fill the content width on phones so the card's right edge lines up
+      // with the form fields (a contained 18rem card left-aligned left a
+      // lopsided gap on its right). Capped so it doesn't balloon on the
+      // larger sub-769 tablet widths.
+      max-width: 24rem;
+    }
+
+    // ≥1024 the inner frame takes over clipping so its tilt + hard shadow
+    // aren't cut off by this wrapper.
+    @media (min-width: 1024px) {
+      border-radius: 0;
+      overflow: visible;
+      background: none;
+    }
+  }
+
+  /* Sticker presentation of the hand-drawn brand card — desktop only;
+   * the approved ≤1023px card is untouched. CSS is the single transform
+   * owner here (GSAP animates the parent .contact-animate). */
+  &__media-frame {
+    @media (min-width: 1024px) {
+      border-radius: 0.75rem;
+      overflow: hidden;
+      background: $g1;
+      border: 4px solid $white-color;
+      box-shadow: 0.5rem 0.625rem 0 rgba($g5, 0.5);
+      transform: rotate(-2deg);
+      transition:
+        transform $dur-med $ease-brand,
+        box-shadow $dur-med $ease-brand;
+
+      .contact-left__media:hover & {
+        transform: rotate(0deg) translateY(-4px);
+        box-shadow: 0.625rem 0.875rem 0 rgba($g5, 0.65);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+
+        .contact-left__media:hover & {
+          transform: rotate(-2deg); // stays put — tilt is static decoration
+        }
+      }
     }
   }
 
@@ -160,6 +229,12 @@
  * ================================================================== */
 
 .contact-right {
+  // The form column, capped so the underline inputs don't stretch into a
+  // wall of line. Centered within the section by the grid (align-items) at
+  // ≥769; its left edge lines up with the signature band below.
+  width: 100%;
+  max-width: 46rem;
+
   &__heading {
     // SCS Display (the section root is monospace) — brand face for the heading.
     // Positive tracking: SCS Display collides under tight/negative spacing.
@@ -186,13 +261,25 @@
   flex-direction: column;
   gap: 2rem;
 
-  &__row--split {
-    display: grid;
-    gap: 2rem;
+  // (__row--split removed 2026-07: the first/last-name pair it laid out was
+  // merged into one Name field — DESIGN_AUDIT P0-3. No other usage existed.)
 
-    @media (min-width: 640px) {
-      grid-template-columns: 1fr 1fr;
-    }
+  /* Visible persistent label above each field (2026-07 refresh P0-3 —
+     placeholder-only labels vanished on focus and doubled as the sole
+     affordance). Mono voice matches the section root. */
+  &__label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: max(0.8rem, 12px);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  &__optional {
+    text-transform: none;
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.55);
   }
 
   &__field {
@@ -205,17 +292,27 @@
       padding: 0 0 0.75rem;
       color: $white-color;
       font-family: inherit;
-      font-size: 1rem;
+      // max() keeps a hard 16px floor: the ≤768px body shrink (app.scss)
+      // makes 1rem = 13px, and any input under 16px triggers iOS auto-zoom
+      // on tap (audit §04 + DESIGN_AUDIT P0-3).
+      font-size: max(1rem, 16px);
       outline: none;
       transition: border-color 0.2s ease;
       resize: none;
 
       &::placeholder {
-        color: rgba(255, 255, 255, 0.4);
+        // 0.55 (was 0.4): placeholders are now examples, not labels, but
+        // still need to be readable on #000.
+        color: rgba(255, 255, 255, 0.55);
       }
 
       &:focus {
         border-color: $g6;
+      }
+
+      &:focus-visible {
+        outline: 2px solid $g6;
+        outline-offset: 2px;
       }
     }
 
@@ -241,7 +338,7 @@
   /* Inline validation message (interface voice). $g1 = brand orange accent. */
   &__error {
     margin: 0.5rem 0 0;
-    font-size: 0.85rem;
+    font-size: max(0.85rem, 12px);
     line-height: 1.4;
     color: $g1;
   }

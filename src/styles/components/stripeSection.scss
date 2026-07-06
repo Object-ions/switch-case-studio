@@ -13,14 +13,11 @@
 .stripe-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    $g1 0%,
-    $g2 20%,
-    $g3 50%,
-    $g4 75%,
-    $g5 100%
-  );
+  // VE-6: grain layered over the gradient — masks banding, adds print
+  // texture. Static image, painted once.
+  background-image:
+    $grain-url,
+    linear-gradient(90deg, $g1 0%, $g2 20%, $g3 50%, $g4 75%, $g5 100%);
   filter: contrast(1.02) saturate(1.03);
 }
 

@@ -1,0 +1,591 @@
+@use '../variables' as *;
+@use '../mixins' as *;
+
+/* ==================================================================
+ * /partners — hidden agency-partner wholesale landing page.
+ *
+ * House dark look: ink field, cream text, orange as the primary accent;
+ * mint (teal) and lilac (pink) used sparingly as secondary accents.
+ * Tokens only — zero hardcoded colour literals. Mobile-first; every text
+ * section caps at $max-width and centres. Mirrors the /30-off promo page's
+ * token-only, flat-block conventions and the shared FAQ accordion.
+ * ================================================================== */
+
+$partners-line: rgba($white-color, 0.12); // hairline dividers on ink
+
+.partners {
+  background: $promo-ink;
+  color: $white-color;
+  font-family: $font-text;
+  overflow: hidden;
+
+  &__container {
+    width: 100%;
+    max-width: $max-width;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+
+    @media (min-width: 768px) {
+      padding-inline: 2rem;
+    }
+  }
+
+  /* ---------- Shared eyebrow / kicker / headings ---------- */
+  &__eyebrow {
+    font-family: $font-text;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: $orange-color;
+    margin-bottom: 1.15rem;
+  }
+
+  &__kicker {
+    font-family: $font-special;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: $orange-color;
+    margin-bottom: 0.6rem;
+
+    &--on-dark {
+      color: $promo-ink;
+    }
+  }
+
+  &__h2 {
+    font-family: $font-special;
+    font-weight: 500;
+    font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.75rem;
+    color: $white-color;
+  }
+
+  /* ---------- Section rhythm ---------- */
+  &__section {
+    padding-block: 3.25rem;
+    border-top: 1px solid $partners-line;
+
+    @media (min-width: 768px) {
+      padding-block: 4.25rem;
+    }
+  }
+
+  /* ---------- HERO ---------- */
+  &__hero {
+    padding-block: 4rem 3.5rem;
+
+    @media (min-width: 768px) {
+      padding-block: 5.5rem 4.5rem;
+    }
+  }
+
+  &__headline {
+    font-family: $font-special;
+    font-weight: 500;
+    font-size: clamp(2.1rem, 6vw, 3.6rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+
+    span {
+      display: block;
+    }
+
+    &-accent {
+      color: $orange-color;
+    }
+  }
+
+  &__lede {
+    max-width: 46ch;
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    line-height: 1.55;
+    font-weight: 300;
+    color: rgba($white-color, 0.82);
+    margin-bottom: 2rem;
+  }
+
+  /* ---------- Buttons ---------- */
+  &__cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    &--center {
+      justify-content: center;
+    }
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.4rem;
+    border-radius: 999px;
+    font-family: $font-text;
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1;
+    cursor: none; // site-wide custom cursor
+    transition:
+      background 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease,
+      transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    &--primary {
+      background: $orange-color;
+      color: $promo-ink;
+
+      &:hover {
+        background: $white-color;
+      }
+    }
+
+    &--ghost {
+      background: transparent;
+      color: $white-color;
+      border: 1px solid rgba($white-color, 0.35);
+
+      &:hover {
+        border-color: $orange-color;
+        color: $orange-color;
+      }
+    }
+  }
+
+  &__btn-arrow {
+    font-size: 0.95em;
+  }
+
+  /* ---------- WHO THIS IS FOR — pills ---------- */
+  &__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+  }
+
+  &__pill {
+    padding: 0.85rem 1.25rem;
+    border: 1px solid $partners-line;
+    border-radius: 0.75rem;
+    background: rgba($white-color, 0.02);
+    font-size: 0.95rem;
+    line-height: 1.4;
+    font-weight: 300;
+    transition:
+      border-color 0.3s ease,
+      background 0.3s ease;
+
+    &:hover {
+      border-color: $promo-mint;
+      background: rgba($white-color, 0.04);
+    }
+  }
+
+  /* ---------- HOW IT WORKS — numbered steps ---------- */
+  &__steps {
+    display: grid;
+    gap: 1.35rem;
+    counter-reset: none;
+  }
+
+  &__step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.1rem;
+    align-items: start;
+    padding-bottom: 1.35rem;
+    border-bottom: 1px solid $partners-line;
+
+    &:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    @media (min-width: 640px) {
+      gap: 1.5rem;
+    }
+  }
+
+  &__step-num {
+    font-family: $font-special;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    line-height: 0.95;
+    color: $orange-color;
+    min-width: 1.6ch;
+  }
+
+  &__step-title {
+    font-family: $font-text;
+    font-weight: 600;
+    font-size: clamp(1.02rem, 2vw, 1.2rem);
+    line-height: 1.35;
+    margin-bottom: 0.3rem;
+    color: $white-color;
+  }
+
+  &__step-text {
+    font-weight: 300;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    color: rgba($white-color, 0.72);
+  }
+
+  /* ---------- INCLUDED / NOT INCLUDED — two columns ---------- */
+  &__cols {
+    display: grid;
+    gap: 1.5rem;
+
+    @media (min-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+  }
+
+  &__col {
+    padding: 1.5rem;
+    border: 1px solid $partners-line;
+    border-radius: 1rem;
+    background: rgba($white-color, 0.02);
+
+    @media (min-width: 768px) {
+      padding: 1.75rem;
+    }
+  }
+
+  &__col-label {
+    font-family: $font-text;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 1.15rem;
+    color: rgba($white-color, 0.55);
+  }
+
+  &__list {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  &__list-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.85rem;
+    align-items: start;
+    font-size: 0.98rem;
+    line-height: 1.5;
+    font-weight: 300;
+    color: rgba($white-color, 0.9);
+  }
+
+  &__mark {
+    font-family: $font-special;
+    font-size: 1.1rem;
+    line-height: 1.35;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+
+    &--yes {
+      color: $promo-ink;
+      background: $promo-mint;
+    }
+
+    &--no {
+      color: $white-color;
+      background: rgba($white-color, 0.12);
+    }
+  }
+
+  /* ---------- WHY $400 vs $800 — emphasis block ---------- */
+  &__why {
+    background: $orange-color;
+    color: $promo-ink;
+    padding-block: 3.5rem;
+
+    @media (min-width: 768px) {
+      padding-block: 4.75rem;
+    }
+  }
+
+  &__why-prices {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem 1.75rem;
+    margin-bottom: 1.75rem;
+  }
+
+  &__price {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+
+    &--retail .partners__price-tag {
+      color: rgba($promo-ink, 0.5);
+      text-decoration: line-through;
+      text-decoration-thickness: 3px;
+    }
+  }
+
+  &__price-tag {
+    font-family: $font-special;
+    font-size: clamp(2.4rem, 7vw, 4rem);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+  }
+
+  &__price-note {
+    font-family: $font-text;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba($promo-ink, 0.7);
+  }
+
+  &__price-vs {
+    font-family: $font-special;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: rgba($promo-ink, 0.5);
+  }
+
+  &__why-h2 {
+    font-family: $font-special;
+    font-weight: 500;
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.15rem;
+    color: $promo-ink;
+  }
+
+  &__why-text {
+    max-width: 62ch;
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    line-height: 1.6;
+    font-weight: 300;
+    color: rgba($promo-ink, 0.9);
+
+    strong {
+      font-weight: 700;
+      color: $promo-ink;
+    }
+  }
+
+  /* ---------- EXAMPLE PARTNERS — fit list ---------- */
+  &__fit {
+    display: grid;
+    gap: 1rem;
+  }
+
+  &__fit-item {
+    position: relative;
+    padding-left: 1.6rem;
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    line-height: 1.5;
+    font-weight: 300;
+    color: rgba($white-color, 0.9);
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 0.6rem;
+      height: 0.6rem;
+      border-radius: 50%;
+      background: $promo-lilac;
+    }
+  }
+
+  /* ---------- WHAT WE NEED — numbered rows ---------- */
+  &__needs {
+    display: grid;
+    gap: 1.15rem;
+  }
+
+  &__need {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.1rem;
+    align-items: baseline;
+    padding-bottom: 1.15rem;
+    border-bottom: 1px solid $partners-line;
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    line-height: 1.5;
+    font-weight: 300;
+    color: rgba($white-color, 0.9);
+
+    &:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  &__need-num {
+    font-family: $font-special;
+    font-size: 1.05rem;
+    color: $promo-mint;
+  }
+
+  /* ---------- FINAL CTA ---------- */
+  &__final {
+    padding-block: 4.25rem;
+    border-top: 1px solid $partners-line;
+    text-align: center;
+
+    @media (min-width: 768px) {
+      padding-block: 5.5rem;
+    }
+  }
+
+  &__final-h2 {
+    font-family: $font-special;
+    font-weight: 500;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.75rem;
+    color: $white-color;
+  }
+}
+
+/* ==================================================================
+ * FAQ accordion — same mechanics as the shared Faq component (button +
+ * plus/minus icon that rotates 45°, grid-template-rows 0fr → 1fr reveal),
+ * re-scoped to the ink page palette.
+ * ================================================================== */
+.partners-faq {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__item {
+    border: 1px solid $partners-line;
+    border-radius: 1rem;
+    background: rgba($white-color, 0.02);
+    overflow: hidden;
+    transition:
+      border-color 0.3s ease,
+      background 0.3s ease;
+
+    &:hover {
+      border-color: rgba($orange-color, 0.5);
+      background: rgba($white-color, 0.04);
+    }
+
+    &.is-open {
+      border-color: rgba($orange-color, 0.6);
+      background: rgba($white-color, 0.04);
+
+      .partners-faq__icon {
+        transform: rotate(45deg);
+      }
+
+      .partners-faq__answer-wrap {
+        grid-template-rows: 1fr;
+      }
+    }
+  }
+
+  &__button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.15rem 1.4rem;
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    text-align: left;
+    cursor: none;
+
+    @media (min-width: 640px) {
+      padding: 1.3rem 1.6rem;
+    }
+  }
+
+  &__question {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.4;
+    flex: 1;
+    color: $white-color;
+
+    @media (min-width: 640px) {
+      font-size: 1.125rem;
+    }
+  }
+
+  &__icon {
+    position: relative;
+    flex-shrink: 0;
+    width: 1.15rem;
+    height: 1.15rem;
+    transition: transform 0.3s ease;
+  }
+
+  &__icon-line {
+    position: absolute;
+    background: $orange-color;
+    border-radius: 1px;
+
+    &--horizontal {
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      transform: translateY(-50%);
+    }
+
+    &--vertical {
+      top: 0;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__answer-wrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s ease;
+  }
+
+  &__answer-inner {
+    overflow: hidden;
+  }
+
+  &__answer {
+    padding: 0 1.6rem 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    font-weight: 300;
+    margin: 0;
+    color: rgba($white-color, 0.75);
+
+    @media (min-width: 640px) {
+      padding: 0 1.9rem 1.7rem;
+      font-size: 1rem;
+    }
+  }
+}

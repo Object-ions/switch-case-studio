@@ -7,7 +7,7 @@
 ## PHASE 1 — DISCOVERY ✅ COMPLETE
 
 ### Stack
-- **Create React App** (react-scripts 5.0.1), React 18.3.1
+- ~~**Create React App** (react-scripts 5.0.1)~~ ← **HISTORICAL discovery-time snapshot. Since 2026-06 the stack is Vite 7 + vite-react-ssg 0.9, output `build/` (see the "Stack fact" entry at the end of this file). CRA references below record the past, not the present.** React 18.3.1
 - Animation: GSAP 3.13 + Three.js 0.180 + OGL 1.0 + Motion 12.35 + typed.js
 - Styles: SCSS + Google Fonts (Inter) + local NeueMachina Ultrabold
 - Heavy JS bundle — no route code-splitting
@@ -393,3 +393,107 @@ a past Expires invalidates the file). No build config needed: Vite 7's
 `copyDir` (`fs.readdirSync`) copies dotfolders, verified byte-identical in
 `build/`. Netlify serves it `text/plain` (no `.txt` override); the SPA catch-all
 is gone so the real file resolves. On `chore/security-txt`, unmerged.
+
+## Stack fact (kills the CRA assumption) 2026-07-03
+**The project is Vite 7.3.5 + vite-react-ssg 0.9.0. It has NOT been CRA since
+the 2026-06 SSG migration** (react-scripts removed; `chore/legacy-cleanup`
+merged at e14760a deleted the last fossils: `public/manifest.json`,
+`.unimportedrc.json`). Build output is **`build/`** (CRA's dir kept on purpose
+— Netlify `publish = "build"`), NOT Vite's default `dist/`. A 2026-07-03 sweep
+(`rg` for create-react-app|react-scripts|craco|react-app-env|PUBLIC_URL|
+reportWebVitals|\bCRA\b) found zero live-file residue; remaining mentions are
+historical narration (this file's discovery header, CLAUDE.md lessons,
+vite.config.js migration comments — all now explicitly marked historical) and
+generated `graphify-out/*` snapshots (dated artifacts, left as-is by design).
+
+## Design refresh — Phase 1 audit 2026-07-03 (branch `design-audit-refresh`)
+Full design/responsiveness/CRO audit committed as `DESIGN_AUDIT.md` (38ad243)
++ `PRODUCT.md` (impeccable-skill context). Scores: 30/40 heuristics, 11/20
+technical, AI-slop PASS. Approved for Phase 2 implementation on this branch —
+staged: P0s first → user visual verify → P1s → P2s. Never push to main without
+explicit instruction.
+- **P0 (3):** hero CTA hierarchy inverted ("See Our Work" solid vs "Book a
+  Free Call" ghost); mobile hero = 2 empty viewports + typed-slot hole ("We ␣␣
+  | websites"); contact form friction (5 required fields, placeholder-only
+  labels, 13px mobile inputs → iOS zoom, disabled-looking Submit).
+- **P1 (10):** AboutCTA booking moment styled as 13px text link; 7 CTA copy
+  variants + 2 calendar URLs (centralize in src/data/cta.js); ClientStrip uses
+  project screenshots as "logos"; scrub-tied opacity strands content dim
+  (Services/Faq/About/Contact) → onEnter reveals; white-on-orange FAQ ≈2.2:1
+  fails AA (ink text like promo page); placeholder-only labels + 5 files with
+  outline:none unreplaced; reduced-motion gaps (Squares RAF, cursor tween,
+  Moon, Reviews+PricingCard intervals); no h1 on /about /projects
+  /testimonials /services + Reviews h2→h4 skip; 13px mobile body floor (8px
+  footer meta, 2px carousel dots, <44px targets); 2.2MB long.webp case images.
+- **P2 (11):** GradientText (detector hit) → solid spans; marquee clipping
+  ("witch Case Studio"); raw "Loading..." Moon fallback; eyebrow-label grammar
+  diet; contact video needs poster; stripe band height on mobile; case tiles
+  lose screenshots ≤768px; pricing index lacks "from $X" anchors; ~126
+  hardcoded hexes + z-index 999/9999/2147483647 + ~20 breakpoints (consolidate
+  to 480/768/1024/1280) + no type scale; 4 missing alts; footer socials
+  commented out.
+- **Protect:** proof density (metrics/testimonials), perf moat (LCP 2.9s
+  history, SSG, font pipeline), FAQ-orange + footer-star brand moments,
+  "Ready to be next?" beat.
+
+## Design refresh — P0s shipped 2026-07-03 (027c9df hero, a5d0845 contact)
+All three P0s implemented + verified (headless 1440×900/390×844 + live-DOM
+measurement + live consent-flow test). STOPPED at the owner in-browser gate
+before P1s (see STATUS.md for the checklist). Evidence corrections folded
+back into DESIGN_AUDIT.md: P0-2's real mechanism was the headline
+font-size×container pair overflowing the fold (NOT "two empty mobile
+viewports" — a 565×1568 review-window artifact); typed slot was already
+SSG-seeded (hole = backspace phase, timing-tuned); "mobile right-shift" =
+headless-capture artifact (live centerOffset 0); "white square at 0,0" =
+custom cursor pre-mousemove (queued P2). New docs: CHANGELOG.md + STATUS.md.
+
+## Visual-elevation pass 2026-07-03 (branch `design-audit-refresh`) ✅ BUILT, verify gate open
+Proposal `VISUAL_ELEVATION.md` (68369bf) → Moses approved freehand → all 13 items
+shipped, one commit each (47e8923…643afee), build green (27 routes) per commit,
+end-states DOM-probed at 1440+390. Ledger with per-item deviations lives in
+VISUAL_ELEVATION.md; owner gate in STATUS.md. Highlights: contact video card →
+sticker frame (desktop only); MagneticButton on the 3 booking pills; strip star
+separators + pause; footer wordmark scrub drift; link grammar mixins (arrow-nudge
+/underline-sweep on :root motion tokens); grain on FAQ+stripe; Ready-to-be-next +
+pricing house reveals; orb parallax; reduced-motion complete; FAQ focus parity;
+cursor press + hide-until-mousemove.
+**Two real bugs found & fixed mid-pass:** (1) pricing h1 shipped `opacity:0` in
+static HTML (motion whileInView SSR initial — P1-7 class, conversion page);
+(2) stripe orb + cursor dot both lost their CSS -50% centering to the
+percentage-transform poison the moment a new-axis tween touched them.
+**New environment fact:** occluded automation window freezes CSS transitions AND
+the GSAP ticker — only end states are observable agent-side (rule added to
+CLAUDE.md).
+
+## Mobile empty-page fix + tap feedback 2026-07-05 (branch `design-audit-refresh`)
+Owner reported (phone screenshots) `/testimonials` + `/projects` landing as
+header-over-void on mobile. Root cause: motion/react `whileInView`
+`viewport.amount:0.1` on the grid — a very tall single-column mobile grid never
+clears 10%-in-view on load, so the IO never fires and every card stays at the
+SSR-baked opacity:0 (short amount:0.3 headers revealed fine → "heading but no
+content"). Fix (`5ec90af`): grids → `animate="visible"` (reveal on mount, keep
+cascade, cards keep whileHover). Verified all cards settle opacity 1; About
+audited (hero fills first screen, no void). Also owner asked why mobile feels
+more static than desktop + whether speed opt caused it — DIAGNOSIS: no, it's the
+pointer-only reactive layer (cursor field, magnetic buttons, TextPressure warp,
+all hover-lifts) which can't run on touch; only real perf gates are the
+IO-deferred Moon + tile particles. Added touch tap feedback (`8c88ea7`): global
+`:active` opacity press under `@media (hover:none)+(pointer:coarse)` (opacity-only
+to avoid GSAP/motion transform conflicts) + whileTap scale on /projects cards.
+Two rules added to CLAUDE.md (whileInView tall-section stranding; mobile-static
+is pointer-inherent).
+
+## Contact section relayout 2026-07-05 (branch `design-audit-refresh`, `0c5929b`)
+Owner flagged 3 contact issues (screenshots): desktop form width/balance, mobile
+side padding, mobile alignment. Diagnosed live: the ≥1024 two-column (form 736
+left + 288 card top-aligned right) left a tall void bottom-right beside
+message/submit; mobile `.contact-left` was center-aligned while the form + Send
+button were left → button flush-left, info/card centered (the reported clash).
+Fix: **form-forward single column at every width ≥769** — form centered (heading,
+fields, signature band share one left edge), info + brand card as a signature band
+below (info left / card right); the 769-1023 tablet row extended up, the ≥1024
+two-column removed. Mobile: `.contact-left` align-items center→flex-start, card
+margin auto→0 + fills content width (max 24rem <769), section padding 1.5→1.75rem.
+VE-1 sticker tilt (≥1024) preserved. Verified 1440/860/500 + home contact.
+Used impeccable skill (register: brand, PRODUCT.md). Supersedes the prior
+"Desktop-contact gate v2" two-column note.

@@ -144,6 +144,16 @@ export const routes = [
       // the sitemap. Lazy so it never enters the other pages' bundles.
       { path: "30-off", lazy: page(() => import("./components/pages/PromoPage")) },
 
+      // Agency-partner wholesale offer — hidden behind a SHA-256 gate. The
+      // route is a PARAM (/p/:token), so the real token never appears in the
+      // bundle; PartnersGate hashes the URL token and only loads the offer on
+      // a match (see PartnersGate.js). noindex,nofollow (page <Seo> + an
+      // X-Robots-Tag header in netlify.toml), NOT linked anywhere, and absent
+      // from the sitemap. These param URLs aren't pre-rendered, so netlify.toml
+      // rewrites /p/* → the app shell (200). Put the full URL in the pitch
+      // email only. Lazy so it never enters the other pages' bundles.
+      { path: "p/:token", lazy: page(() => import("./components/pages/PartnersGate")) },
+
       // Standalone section pages
       { path: "services", lazy: page(() => import("./components/pages/ServicesPage")) },
       { path: "testimonials", lazy: page(() => import("./components/pages/ReviewsPage")) },

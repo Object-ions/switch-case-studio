@@ -13,7 +13,7 @@
   flex-direction: row;
   gap: 1rem;
   width: 100%;
-  max-width: 1200px;
+  max-width: $max-width;
   margin: 5rem auto 0;
   // Reserve height so the IO-gated wordmark can't shift the tiles below when
   // it lazy-mounts. Row layout tracks the warp's container-derived font-size

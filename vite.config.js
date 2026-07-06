@@ -1,10 +1,12 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// CRA-style migration: this project keeps JSX inside `.js` files (not `.jsx`),
-// which esbuild does not treat as JSX by default. The esbuild loader override
-// (for source) + optimizeDeps loader (for any dep shipping JSX in .js) handle
-// that without renaming every component file.
+// This project MIGRATED from Create React App to Vite + vite-react-ssg
+// (2026-06; CRA is gone — react-scripts removed, no CRA config remains).
+// One CRA-era convention was kept on purpose: JSX lives inside `.js` files
+// (not `.jsx`), which esbuild does not treat as JSX by default. The esbuild
+// loader override (for source) + optimizeDeps loader (for any dep shipping
+// JSX in .js) handle that without renaming every component file.
 export default defineConfig({
   plugins: [react({ include: /\.(js|jsx)$/ })],
   server: {
@@ -12,7 +14,9 @@ export default defineConfig({
     open: true,
   },
   build: {
-    outDir: "build", // keep CRA's output dir so existing deploy config still works
+    // "build" (CRA's old dir), NOT Vite's default "dist" — kept deliberately so
+    // Netlify's `publish = "build"` and all docs/scripts stay valid.
+    outDir: "build",
   },
   css: {
     preprocessorOptions: {

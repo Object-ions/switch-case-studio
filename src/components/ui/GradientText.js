@@ -4,6 +4,7 @@ import {
   useMotionValue,
   useAnimationFrame,
   useTransform,
+  useReducedMotion,
 } from 'motion/react';
 
 /**
@@ -25,12 +26,16 @@ const GradientText = ({
   yoyo = true,
 }) => {
   const [isPaused, setIsPaused] = useState(false);
+  const reducedMotion = useReducedMotion();
   const progress = useMotionValue(0);
   const elapsedRef = useRef(0);
   const lastTimeRef = useRef(null);
   const animationDuration = animationSpeed * 1000;
 
   useAnimationFrame((time) => {
+    // VE-10: reduced motion — the gradient rests as a static multi-color
+    // fill (progress stays 0), the RAF callback does nothing each frame.
+    if (reducedMotion) return;
     if (isPaused) {
       lastTimeRef.current = null;
       return;

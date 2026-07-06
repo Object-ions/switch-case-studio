@@ -34,6 +34,21 @@ $promo-ink: #141414; // ink (CTA, body text on light)
 // Size variables
 $max-width: 1200px;
 
+// Print-grain texture (VE-6) — static SVG noise (~1KB inline), opacity baked
+// into the SVG rect. Layer it as a background-image over a color field:
+//   background-image: $grain-url;          (solid fills)
+//   background-image: $grain-url, $grad;   (gradients — grain on top)
+// Scoped to the color moments (FAQ orange, gradient stripe) only.
+$grain-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+
+// Motion tokens — durations + eases for all NEW motion (JS mirror:
+// src/animation/motionTokens.js — keep the two files in sync).
+$dur-fast: 0.2s; // hovers, color/underline state changes
+$dur-med: 0.4s; // accordion, small entrances
+$dur-slow: 0.7s; // section reveals
+$ease-out: cubic-bezier(0.22, 1, 0.36, 1); // standard decel (≈ GSAP power3.out)
+$ease-brand: cubic-bezier(0.34, 1.56, 0.64, 1); // playful overshoot (logo hover)
+
 // @font-face rules live in app.scss, NOT here: this file is @imported by
 // 40+ partials, and any CSS it EMITS duplicates per import (the old OTF
 // @font-face shipped ~20 copies). Variables/mixins only.

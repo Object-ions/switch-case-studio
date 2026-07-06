@@ -87,7 +87,12 @@ const Tile = ({ proj, disabled }) => {
       {proj.tileVersion && (
         <p className="panel-excerpt">
           <span className="panel-excerpt-text">{proj.tileVersion}</span>
-          <b>View Case Study →</b>
+          <b>
+            View Case Study{' '}
+            <span className="cta-arrow" aria-hidden="true">
+              →
+            </span>
+          </b>
         </p>
       )}
     </Link>

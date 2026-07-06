@@ -91,6 +91,16 @@
   padding: 0;
 }
 
+// Motion tokens exported as custom properties so @use-scoped partials and
+// the shared mixins can read them (single source: _variables.scss).
+:root {
+  --dur-fast: #{$dur-fast};
+  --dur-med: #{$dur-med};
+  --dur-slow: #{$dur-slow};
+  --ease-out: #{$ease-out};
+  --ease-brand: #{$ease-brand};
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -113,6 +123,26 @@ a {
   // 300, not 200: weight 200 was never loaded — browsers snapped it to 300
   // under the old Google link. Declared weights must exist as files.
   font-weight: 300;
+}
+
+/* Touch tap feedback. The effects that make desktop feel "reactive" —
+   the hero cursor field, magnetic buttons, tile/card hover-lifts, the
+   custom cursor — are all pointer-driven and can't fire without a cursor.
+   Touch devices got no equivalent acknowledgement on press. This gives
+   every interactive element an instant press response. Opacity only: it
+   never fights the GSAP / motion transforms that own the tiles, cards,
+   and magnetic wrappers (a CSS transform here would be silently
+   overridden by their inline transform, or worse, conflict). Desktop is
+   excluded by the media query, so its hover states are untouched. */
+@media (hover: none) and (pointer: coarse) {
+  a:active,
+  button:active,
+  [role='button']:active,
+  summary:active,
+  label:active {
+    opacity: 0.6;
+    transition: opacity 0.08s ease;
+  }
 }
 
 p {
