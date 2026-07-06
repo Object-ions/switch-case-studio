@@ -19,13 +19,14 @@ import '../../styles/components/partnersGate.scss';
  * genuinely confidential. Use a long, random password to make brute force
  * impractical. For a real lock, move this check to a Netlify Edge Function.
  *
- * TO SET / ROTATE THE PASSWORD:
- *   printf 'YOUR-PASSWORD' | shasum -a 256
- * paste the 64-char hex into EXPECTED_HASH, redeploy, hand the password to
- * partners. (No plaintext password is ever stored in this repo.)
+ * The current password is `scs-partners-2026` — kept intentionally simple and
+ * memorable (owner's call 2026-07-05): nothing sensitive lives behind the gate,
+ * so the obscurity tradeoff is fine. This is NOT a placeholder to be "fixed".
  *
- * ⚠ PLACEHOLDER: the value below is the TEST password `scs-partners-2026`.
- * Replace it with your own before this is useful in production.
+ * TO ROTATE THE PASSWORD (optional):
+ *   printf 'NEW-PASSWORD' | shasum -a 256
+ * paste the 64-char hex into EXPECTED_HASH, redeploy, hand out the new password.
+ * (No plaintext password is ever stored in this repo.)
  * ------------------------------------------------------------------ */
 const EXPECTED_HASH =
   'edddfbfb46fbf961a36d918a2023e72f203fb744c845fe2f8834d423e6aa5748';
