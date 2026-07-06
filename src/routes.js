@@ -144,15 +144,15 @@ export const routes = [
       // the sitemap. Lazy so it never enters the other pages' bundles.
       { path: "30-off", lazy: page(() => import("./components/pages/PromoPage")) },
 
-      // Agency-partner wholesale offer — hidden behind a SHA-256 gate. The
-      // route is a PARAM (/p/:token), so the real token never appears in the
-      // bundle; PartnersGate hashes the URL token and only loads the offer on
-      // a match (see PartnersGate.js). noindex,nofollow (page <Seo> + an
-      // X-Robots-Tag header in netlify.toml), NOT linked anywhere, and absent
-      // from the sitemap. These param URLs aren't pre-rendered, so netlify.toml
-      // rewrites /p/* → the app shell (200). Put the full URL in the pitch
-      // email only. Lazy so it never enters the other pages' bundles.
-      { path: "p/:token", lazy: page(() => import("./components/pages/PartnersGate")) },
+      // Agency-partner wholesale offer — behind a password gate at /partners.
+      // The pre-rendered /partners.html ships ONLY the lock screen; PartnersGate
+      // SHA-256-checks the typed password in the browser and lazy-loads the
+      // offer (PartnersPage) only on a match, so the offer markup never reaches
+      // a visitor who hasn't unlocked. noindex,nofollow (page <Seo> + an
+      // X-Robots-Tag header in netlify.toml), NOT linked anywhere, absent from
+      // the sitemap. Hand partners the URL + password. Lazy so the offer never
+      // enters the other pages' bundles.
+      { path: "partners", lazy: page(() => import("./components/pages/PartnersGate")) },
 
       // Standalone section pages
       { path: "services", lazy: page(() => import("./components/pages/ServicesPage")) },

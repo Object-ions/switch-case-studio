@@ -4,15 +4,14 @@ import { BOOK_CALL_URL } from '../../data/cta';
 import '../../styles/components/partnersPage.scss';
 
 /* ------------------------------------------------------------------ *
- * Hidden agency-wholesale offer — the content behind the /p/:token gate.
+ * Hidden agency-wholesale offer — the content behind the /partners
+ * password gate.
  *
- * Reached ONLY through PartnersGate after its SHA-256 check passes, so this
- * chunk never loads for a visitor without the link. The canonical URL is
- * built from the `token` prop (the verified URL param) — the plaintext
- * token is never written in this file. NOT linked from nav/footer, absent
- * from the sitemap, and noindex,nofollow (below + an X-Robots-Tag header in
- * netlify.toml). Dark (is-dark) route, so it inherits the #000 backdrop —
- * no LIGHT_ROUTES entry needed.
+ * Reached ONLY through PartnersGate after its SHA-256 password check passes,
+ * so this chunk never loads for a visitor who hasn't unlocked. Canonical is
+ * the fixed /partners. NOT linked from nav/footer, absent from the sitemap,
+ * noindex,nofollow (below + an X-Robots-Tag header in netlify.toml). Dark
+ * (is-dark) route, so it inherits the #000 backdrop — no LIGHT_ROUTES entry.
  * ------------------------------------------------------------------ */
 
 const CONTACT_EMAIL = 'hello@switchcasestudio.com';
@@ -137,13 +136,13 @@ function FaqItem({ question, answer }) {
   );
 }
 
-const PartnersPage = ({ token = '' }) => {
+const PartnersPage = () => {
   return (
     <main className="partners">
       <Seo
         title="Agency Partners — Wholesale Landing Pages | Switch Case Studio"
         description="White-label landing pages for agencies at $400 per page. You sell the strategy, we build the pages. 5–7 day turnaround, conversion-optimized, handed off in your stack."
-        path={`/p/${token}`}
+        path="/partners"
         robots="noindex, nofollow"
       />
 
