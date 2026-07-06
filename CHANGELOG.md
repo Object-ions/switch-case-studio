@@ -2,6 +2,11 @@
 
 User-facing changes only; process detail lives in `.audit/summary.md`. Newest first.
 
+## 2026-07-05 — Contact section relayout
+
+- **Desktop is now one centered, form-forward column** (`0c5929b`): the previous two-column (form left, small brand card top-right) left a large empty void down the bottom-right beside the message/submit rows. The form is now centered as a balanced column with the contact info + brand card as a signature band beneath it — no void, the form reads as the clear focus.
+- **Mobile alignment fixed**: the Send button, contact info, and card now share the form's left edge (they were left / centered / centered before). The card fills the width on phones. A little more side padding for breathing room. The desktop sticker-card tilt is unchanged.
+
 ## 2026-07-05 — Mobile: empty-page fix + tap feedback
 
 - **`/projects` and `/testimonials` no longer land empty** (`5ec90af`): both grids waited for a scroll-into-view threshold that a tall mobile (single-column) grid never clears on load, so every card sat invisible until you scrolled — the page looked like just a heading over a void (reported with screenshots). The grids now reveal on load with their staggered cascade. `/about` was checked and is fine (its hero fills the first screen; below-hero sections correctly reveal on scroll).

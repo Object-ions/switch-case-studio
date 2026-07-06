@@ -482,3 +482,18 @@ IO-deferred Moon + tile particles. Added touch tap feedback (`8c88ea7`): global
 to avoid GSAP/motion transform conflicts) + whileTap scale on /projects cards.
 Two rules added to CLAUDE.md (whileInView tall-section stranding; mobile-static
 is pointer-inherent).
+
+## Contact section relayout 2026-07-05 (branch `design-audit-refresh`, `0c5929b`)
+Owner flagged 3 contact issues (screenshots): desktop form width/balance, mobile
+side padding, mobile alignment. Diagnosed live: the ≥1024 two-column (form 736
+left + 288 card top-aligned right) left a tall void bottom-right beside
+message/submit; mobile `.contact-left` was center-aligned while the form + Send
+button were left → button flush-left, info/card centered (the reported clash).
+Fix: **form-forward single column at every width ≥769** — form centered (heading,
+fields, signature band share one left edge), info + brand card as a signature band
+below (info left / card right); the 769-1023 tablet row extended up, the ≥1024
+two-column removed. Mobile: `.contact-left` align-items center→flex-start, card
+margin auto→0 + fills content width (max 24rem <769), section padding 1.5→1.75rem.
+VE-1 sticker tilt (≥1024) preserved. Verified 1440/860/500 + home contact.
+Used impeccable skill (register: brand, PRODUCT.md). Supersedes the prior
+"Desktop-contact gate v2" two-column note.

@@ -31,6 +31,16 @@ npm run build && npm run preview   # http://localhost:4173
 - Every item: build green (27 routes) → live-DOM probe of the END state (transforms, opacity, computed backgrounds) + settled screenshots at 1440 + 390. Two real bugs found & fixed mid-pass: stripe orb lost its -50% centering to the percentage-transform poison (VE-9 hardened), pricing h1 shipped `opacity:0` in static HTML (VE-8 fixed).
 - Known limitation: with the automation window occluded, CSS transitions AND the GSAP ticker freeze — in-flight animation can't be observed, only end states. Documented in CLAUDE.md.
 
+## Contact relayout (2026-07-05, `0c5929b`) — owner to confirm on device
+Owner flagged the contact section: desktop form-width/balance, mobile padding,
+and mobile alignment (Send button left vs info/card centered). Fixed: the ≥1024
+two-column (form left + 288px card top-right, which stranded a bottom-right void)
+→ **form-forward single column at every width ≥769**, form centered, info + brand
+card as a signature band below (info left / card right, one shared left edge).
+Mobile: form/Send/info/card all left-aligned, card fills width on phones, side
+padding 1.5→1.75rem. Sticker tilt (≥1024) preserved. Verified 1440/860/500 + home
+contact section (same component). This SUPERSEDES the earlier "two-column" gate.
+
 ## After this: remaining P2s
 Marquee clipping, raw "Loading..." Moon fallback, video poster (needs an encoded poster frame — no ffmpeg on this machine), pricing "from $X" index anchors, eyebrow grammar diet, mobile type/tap floors, z-index/breakpoint debt (opportunistic). GradientText swap (P2-14) softened: it now has a reduced-motion guard; full swap still optional.
 
