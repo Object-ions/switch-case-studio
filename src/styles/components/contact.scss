@@ -13,7 +13,9 @@
   width: 100%;
   background: #000;
   color: $white-color;
-  padding: 4rem 1.5rem;
+  // A touch more horizontal room on phones so the fields don't read
+  // edge-to-edge (was 1.5rem).
+  padding: 4rem 1.75rem;
   // System monospace — 'Roboto Mono' was declared here but never loaded
   // anywhere (no @font-face, not in any font link); it always fell back.
   font-family: monospace;
@@ -40,27 +42,25 @@
  * ================================================================== */
 
 .contact-grid {
-  // Stacked flow below desktop (2026-07): form first, info + graphic below.
-  // The old 1fr/1fr row put the graphic column ahead of the form in DOM
-  // order, burying the form below the fold on phones.
+  // Form-forward single column at EVERY width (2026-07-05). The form is the
+  // conversion priority and should read as one full, balanced column with
+  // the contact info + brand card as a signature band beneath it.
+  //
+  // This replaces the ≥1024 two-column (form 736px left + 288px card
+  // top-aligned right): because the card column is short and the form is
+  // tall, it stranded a large empty void down the bottom-right beside the
+  // message/submit rows — the imbalance the owner flagged. Single-column,
+  // centered, removes the void and matches the balanced full-form look.
   display: flex;
   flex-direction: column;
   gap: 3.5rem;
 
-  // Desktop (Moses's review 2026-07): ONE row, two top-aligned columns —
-  // form left, graphic-over-info right — instead of the graphic stranded
-  // below a full-width form beside a black void. DOM order is unchanged;
-  // below this breakpoint the approved mobile/tablet stack is untouched.
-  @media (min-width: 1024px) {
-    flex-direction: row;
-    align-items: flex-start;
-    // A fixed, comfortable gap instead of space-between: the old rule
-    // justified the two columns to opposite container edges, leaving a
-    // cavernous dead middle. With the 46rem form + 6rem gap + 18rem card
-    // the pair reads as one unit (~1120px of the 1200px container), the
-    // card pulled in from the right edge rather than stranded on it.
-    justify-content: flex-start;
-    gap: 6rem;
+  // Center the column on wider screens so the form isn't stranded against
+  // the left edge. Both children cap at the same max-width (46rem), so the
+  // heading, fields, and the signature band below all share one left edge.
+  @media (min-width: 769px) {
+    align-items: center;
+    gap: 4rem;
   }
 }
 
@@ -72,30 +72,23 @@
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
-  align-items: center;
+  width: 100%;
+  // Left-align info + card to the form's left edge on mobile. Was centered,
+  // which clashed with the left-aligned form and Send button (the button
+  // sat flush left while the info block and card sat centered — the exact
+  // misalignment the owner flagged).
+  align-items: flex-start;
 
-  // Tablet only: info left, banner card right — a closing "signature"
-  // band under the form. (Capped at 1023px: from 1024 up the band becomes
-  // the right-hand column of the two-column row below.)
-  @media (min-width: 769px) and (max-width: 1023px) {
+  // ≥769: the info + brand card become a "signature" band under the form —
+  // info left, card right — capped to the form's width so the info's left
+  // edge lines up with the form fields, the card sits at the form's right
+  // edge. (Was tablet-only; now the single-column layout at every width.)
+  @media (min-width: 769px) {
+    max-width: 46rem;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     gap: 3rem;
-  }
-
-  // Desktop right column: graphic on TOP (order lift — DOM keeps
-  // details-first so the mobile stack order stays form → info → graphic),
-  // contact info beneath, both flush to the card's left edge.
-  @media (min-width: 1024px) {
-    flex: 0 0 auto;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2rem;
-
-    .contact-left__media {
-      order: -1;
-    }
   }
 
   /* ---------- Brand video ----------
@@ -114,7 +107,13 @@
 
     @media (max-width: 768px) {
       max-height: 60vh;
-      margin: 0 auto;
+      // Left-aligned (was `0 auto` = centered) to match the form + info edge.
+      margin: 0;
+      // Fill the content width on phones so the card's right edge lines up
+      // with the form fields (a contained 18rem card left-aligned left a
+      // lopsided gap on its right). Capped so it doesn't balloon on the
+      // larger sub-769 tablet widths.
+      max-width: 24rem;
     }
 
     // ≥1024 the inner frame takes over clipping so its tilt + hard shadow
@@ -230,15 +229,11 @@
  * ================================================================== */
 
 .contact-right {
-  // Cap the form column — full-width underline inputs read as a wall of
-  // line. On the desktop two-column row this is the LEFT column; flex-basis
-  // keeps the cap while letting it shrink before the fixed right column.
+  // The form column, capped so the underline inputs don't stretch into a
+  // wall of line. Centered within the section by the grid (align-items) at
+  // ≥769; its left edge lines up with the signature band below.
   width: 100%;
   max-width: 46rem;
-
-  @media (min-width: 1024px) {
-    flex: 0 1 46rem;
-  }
 
   &__heading {
     // SCS Display (the section root is monospace) — brand face for the heading.
