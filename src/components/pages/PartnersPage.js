@@ -94,8 +94,9 @@ const FAQS = [
     answer: 'Yes — $200 per variant after the first.',
   },
   {
-    question: 'What if my client wants to keep working with you after?',
-    answer: 'We refer them back to you. Always.',
+    question: 'Will you ever go around me to my client?',
+    answer:
+      'Never. Your client works with you, and only you. They don’t know we exist, and we won’t reach out, take credit, or deal with them directly.',
   },
   {
     question: 'What stack do you build in?',
