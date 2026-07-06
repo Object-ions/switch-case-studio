@@ -2,6 +2,11 @@
 
 User-facing changes only; process detail lives in `.audit/summary.md`. Newest first.
 
+## 2026-07-05 — Mobile: empty-page fix + tap feedback
+
+- **`/projects` and `/testimonials` no longer land empty** (`5ec90af`): both grids waited for a scroll-into-view threshold that a tall mobile (single-column) grid never clears on load, so every card sat invisible until you scrolled — the page looked like just a heading over a void (reported with screenshots). The grids now reveal on load with their staggered cascade. `/about` was checked and is fine (its hero fills the first screen; below-hero sections correctly reveal on scroll).
+- **Touch tap feedback** (`8c88ea7`): every link/button now gives an instant press response on touch (the desktop hover/cursor/magnetic effects are pointer-only and can't run on a touchscreen). `/projects` cards also press-scale on tap. Desktop hover states unchanged.
+
 ## 2026-07-03 — Visual-elevation pass (13 commits, freehand-approved; awaiting Moses's visible-window verify)
 
 Proposal menu: `VISUAL_ELEVATION.md` (committed first, then Moses approved freehand). All 13 items shipped, one commit each, build green (27 routes) at every step.

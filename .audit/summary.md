@@ -464,3 +464,21 @@ percentage-transform poison the moment a new-axis tween touched them.
 **New environment fact:** occluded automation window freezes CSS transitions AND
 the GSAP ticker — only end states are observable agent-side (rule added to
 CLAUDE.md).
+
+## Mobile empty-page fix + tap feedback 2026-07-05 (branch `design-audit-refresh`)
+Owner reported (phone screenshots) `/testimonials` + `/projects` landing as
+header-over-void on mobile. Root cause: motion/react `whileInView`
+`viewport.amount:0.1` on the grid — a very tall single-column mobile grid never
+clears 10%-in-view on load, so the IO never fires and every card stays at the
+SSR-baked opacity:0 (short amount:0.3 headers revealed fine → "heading but no
+content"). Fix (`5ec90af`): grids → `animate="visible"` (reveal on mount, keep
+cascade, cards keep whileHover). Verified all cards settle opacity 1; About
+audited (hero fills first screen, no void). Also owner asked why mobile feels
+more static than desktop + whether speed opt caused it — DIAGNOSIS: no, it's the
+pointer-only reactive layer (cursor field, magnetic buttons, TextPressure warp,
+all hover-lifts) which can't run on touch; only real perf gates are the
+IO-deferred Moon + tile particles. Added touch tap feedback (`8c88ea7`): global
+`:active` opacity press under `@media (hover:none)+(pointer:coarse)` (opacity-only
+to avoid GSAP/motion transform conflicts) + whileTap scale on /projects cards.
+Two rules added to CLAUDE.md (whileInView tall-section stranding; mobile-static
+is pointer-inherent).
