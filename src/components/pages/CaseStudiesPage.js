@@ -72,6 +72,7 @@ const CaseStudiesPage = () => {
               aria-label={`View case study: ${project.title}`}
               variants={v(cardVariants)}
               whileHover={reduced ? undefined : { y: -4, transition: { duration: 0.25 } }}
+              whileTap={reduced ? undefined : { scale: 0.97, transition: { duration: 0.15 } }}
             >
               <div className="projects-page__card-img">
                 {project.badge && (
