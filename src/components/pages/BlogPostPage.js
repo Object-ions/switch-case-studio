@@ -17,14 +17,44 @@ const formatDate = (iso) => {
   });
 };
 
+/* Turn a YouTube watch/share/embed URL into an embeddable /embed/<id> URL.
+   Returns null if it isn't a YouTube URL we recognize. */
+const youTubeEmbed = (url) => {
+  if (!url) return null;
+  const m = String(url).match(
+    /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/,
+  );
+  return m ? `https://www.youtube-nocookie.com/embed/${m[1]}` : null;
+};
+
 /* Render one body block. The block vocabulary is intentionally small so an
    automation (Beau via n8n) can emit posts as plain JSON:
-   { type: 'paragraph' | 'heading' | 'list' | 'quote', ... }.
+   { type: 'paragraph' | 'heading' | 'list' | 'quote' | 'video', ... }.
    Unknown types are ignored rather than crashing the page. */
 const Block = ({ block }) => {
   switch (block.type) {
     case 'heading':
       return <h2 className="blog-post__h2">{block.text}</h2>;
+    case 'video': {
+      const embed = youTubeEmbed(block.url);
+      if (!embed) return null;
+      return (
+        <figure className="blog-post__video">
+          <div className="blog-post__video-frame">
+            <iframe
+              src={embed}
+              title={block.title || 'Embedded video'}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
+          {block.caption && (
+            <figcaption className="blog-post__video-caption">{block.caption}</figcaption>
+          )}
+        </figure>
+      );
+    }
     case 'paragraph':
       return <p className="blog-post__p">{block.text}</p>;
     case 'list':

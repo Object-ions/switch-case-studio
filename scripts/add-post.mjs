@@ -39,7 +39,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const POSTS = resolve(root, 'src/data/posts.json');
-const BLOCK_TYPES = new Set(['paragraph', 'heading', 'list', 'quote']);
+const BLOCK_TYPES = new Set(['paragraph', 'heading', 'list', 'quote', 'video']);
 
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
@@ -81,6 +81,9 @@ const validateBlock = (b, i) => {
   if (b.type === 'list') {
     if (!Array.isArray(b.items) || b.items.length === 0)
       return `body[${i}] (list) needs a non-empty items array`;
+  } else if (b.type === 'video') {
+    if (typeof b.url !== 'string' || !b.url.trim())
+      return `body[${i}] (video) needs a url`;
   } else if (typeof b.text !== 'string' || !b.text.trim()) {
     return `body[${i}] (${b.type}) needs non-empty text`;
   }

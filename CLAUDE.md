@@ -22,7 +22,10 @@ commits `posts.json`, pushes → Netlify deploys). Pages: `BlogPage.js` (list) +
 `projectsPage` parity, article is a 760px reading column).
 
 - **A post is a flat object** with a `body` array of blocks; block `type` ∈ `paragraph` |
-  `heading` | `list` (items[]) | `quote` (text, cite?). Unknown block types render nothing (safe).
+  `heading` | `list` (items[]) | `quote` (text, cite?) | `video` (url, caption?/title?).
+  `video` embeds a YouTube URL (watch/share/shorts/embed all accepted) as a lazy, responsive
+  16:9 `youtube-nocookie` iframe — embedding only, no video files hosted. Unknown types render
+  nothing (safe).
   Required: `slug` (unique kebab), `title`, `excerpt`, `category`, `body`. The rest have defaults.
 - **Never hand-edit `posts.json` from an automation** — insert via `node scripts/add-post.mjs
   <post.json>` (validates schema + unique slug, fills date/readingTime/author, inserts newest-first,
