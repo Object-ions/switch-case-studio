@@ -20,6 +20,7 @@ import ConsentBanner from "./analytics/ConsentBanner";
 import Orb from "./assets/images/orb.avif";
 import projects from "./data/projects.json";
 import services from "./data/services.json";
+import posts from "./data/posts.json";
 import "./styles/app.scss";
 
 // Route-only pages — lazy route records: vite-react-ssg resolves them during
@@ -153,6 +154,14 @@ export const routes = [
       // the sitemap. Hand partners the URL + password. Lazy so the offer never
       // enters the other pages' bundles.
       { path: "partners", lazy: page(() => import("./components/pages/PartnersGate")) },
+
+      // Blog
+      { path: "blog", lazy: page(() => import("./components/pages/BlogPage")) },
+      {
+        path: "blog/:slug",
+        lazy: page(() => import("./components/pages/BlogPostPage")),
+        getStaticPaths: () => posts.map((p) => `/blog/${p.slug}`),
+      },
 
       // Standalone section pages
       { path: "services", lazy: page(() => import("./components/pages/ServicesPage")) },

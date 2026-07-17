@@ -20,6 +20,9 @@ const projects = JSON.parse(
 const services = JSON.parse(
   readFileSync(resolve(root, 'src/data/services.json'), 'utf8'),
 );
+const posts = JSON.parse(
+  readFileSync(resolve(root, 'src/data/posts.json'), 'utf8'),
+);
 
 /** Last commit date (YYYY-MM-DD) of a file, falling back to today. */
 const lastmodOf = (file) => {
@@ -36,6 +39,7 @@ const lastmodOf = (file) => {
 };
 
 const projectsMod = lastmodOf('src/data/projects.json');
+const postsMod = lastmodOf('src/data/posts.json');
 const servicesMod = lastmodOf('src/data/pricingData.json');
 const siteMod = lastmodOf('src'); // any source change touches the static pages
 
@@ -51,6 +55,12 @@ const urls = [
   { loc: '/pricing', lastmod: servicesMod, priority: '0.8' },
   { loc: '/testimonials', lastmod: siteMod, priority: '0.7' },
   { loc: '/contact', lastmod: siteMod, priority: '0.7' },
+  { loc: '/blog', lastmod: postsMod, priority: '0.7' },
+  ...posts.map((p) => ({
+    loc: `/blog/${p.slug}`,
+    lastmod: p.date || postsMod,
+    priority: '0.6',
+  })),
   ...services.map((s) => ({
     loc: `/pricing/${s.slug}`,
     lastmod: servicesMod,

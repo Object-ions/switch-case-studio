@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "why-fast-sites-win-more-clients",
+    "title": "Why Fast Sites Win More Clients",
+    "excerpt": "Speed isn't a vanity metric — it's the first impression, the SEO signal, and the conversion lever all at once. Here's how we build sites that load before your visitor blinks.",
+    "kicker": "Performance",
+    "category": "Web Development",
+    "author": "Beau",
+    "authorRole": "Studio Strategist",
+    "date": "2026-07-16",
+    "readingTime": "5 min read",
+    "coverImage": "",
+    "imageAlt": "",
+    "tags": ["Performance", "SEO", "Conversion"],
+    "featured": true,
+    "body": [
+      { "type": "paragraph", "text": "Every second your site takes to load is a second your visitor spends deciding whether to leave. The data is brutal and consistent: bounce rates climb sharply after the two-second mark, and mobile users are the least patient of all. A fast site isn't a nice-to-have — it's the price of being taken seriously." },
+      { "type": "heading", "text": "Speed is your first impression" },
+      { "type": "paragraph", "text": "Before a visitor reads your headline, judges your design, or considers your offer, they experience your load time. A page that snaps into view signals competence. A page that stutters signals the opposite — and no amount of polished copy recovers a first impression spent watching a spinner." },
+      { "type": "heading", "text": "Google is watching too" },
+      { "type": "paragraph", "text": "Core Web Vitals are a ranking factor, not a suggestion. Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint all feed directly into how you rank. A slow site is quietly taxed on every search result it appears in." },
+      { "type": "list", "items": [
+        "Ship less JavaScript — every kilobyte is parsed on the user's device, not yours.",
+        "Serve modern image formats (AVIF, WebP) and size them for the viewport.",
+        "Pre-render static content so the first paint doesn't wait on the network.",
+        "Lazy-load anything below the fold — the hero should never wait on the footer."
+      ] },
+      { "type": "quote", "text": "We build every site static-first. The HTML arrives complete, so the page is readable before a single script runs.", "cite": "Switch Case Studio" },
+      { "type": "heading", "text": "The bottom line" },
+      { "type": "paragraph", "text": "Fast sites rank higher, convert better, and cost less to run. When we build from scratch, performance isn't a phase we bolt on at the end — it's the constraint we design within from the first line of code. That's how a site earns trust in the half-second before anyone has read a word." }
+    ]
+  },
+  {
+    "slug": "what-a-brand-actually-is",
+    "title": "What a Brand Actually Is (It's Not Your Logo)",
+    "excerpt": "Founders often think branding starts with a logo. It doesn't. A brand is the promise you keep before anyone reads a word — and it lives in every decision you make.",
+    "kicker": "Brand Identity",
+    "category": "Brand Identity",
+    "author": "Beau",
+    "authorRole": "Studio Strategist",
+    "date": "2026-07-10",
+    "readingTime": "4 min read",
+    "coverImage": "",
+    "imageAlt": "",
+    "tags": ["Branding", "Strategy", "Design"],
+    "featured": false,
+    "body": [
+      { "type": "paragraph", "text": "Ask ten founders what a brand is and nine will point to a logo. The logo is real, and it matters — but it's the smallest, last part of the story. A brand is the sum of every impression you leave, and most of those happen long before someone notices your mark." },
+      { "type": "heading", "text": "A brand is a promise" },
+      { "type": "paragraph", "text": "Before the logo, before the color palette, there's a promise: this is who we are, this is what you can expect from us. Everything else — type, color, tone, motion — exists to make that promise legible at a glance. Get the promise wrong and the prettiest logo in the world can't save you." },
+      { "type": "heading", "text": "Consistency is the whole game" },
+      { "type": "paragraph", "text": "A brand becomes recognizable through repetition. The same voice in your emails and your ads. The same spacing on your homepage and your invoice. The same feeling walking in the door as scrolling the site. Consistency is what turns a collection of assets into something a customer can trust." },
+      { "type": "list", "items": [
+        "Voice — how you sound when you're excited, and when you're apologizing.",
+        "System — the type, color, and spacing rules that make every screen feel related.",
+        "Behavior — the way you respond, deliver, and follow up.",
+        "Mark — yes, the logo, sitting on top of all of the above."
+      ] },
+      { "type": "quote", "text": "A logo is what people recognize. A brand is why they come back." },
+      { "type": "paragraph", "text": "When we build a brand identity, we start with the promise and work outward. The logo is the last thing we design, because it's the easiest thing to get right once everything underneath it is true." }
+    ]
+  }
+]
