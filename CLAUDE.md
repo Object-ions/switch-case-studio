@@ -13,6 +13,27 @@ Living instructions for AI work on this project. **Every fix from a review goes 
 
 Running audit + status doc: `.audit/summary.md` — keep it current with git, not behind it.
 
+## Blog (`/blog`, `/blog/:slug`) — data contract, do not break
+
+The blog is data-driven from `src/data/posts.json` and pre-rendered per post via `getStaticPaths`
+in `routes.js`. It's the publish target for the **Studio Journal Factory** (Beau writes weekly,
+commits `posts.json`, pushes → Netlify deploys). Pages: `BlogPage.js` (list) + `BlogPostPage.js`
+(article), styles `blogPage.scss` / `blogPostPage.scss` (dark, reuse the existing tokens; list is
+`projectsPage` parity, article is a 760px reading column).
+
+- **A post is a flat object** with a `body` array of blocks; block `type` ∈ `paragraph` |
+  `heading` | `list` (items[]) | `quote` (text, cite?). Unknown block types render nothing (safe).
+  Required: `slug` (unique kebab), `title`, `excerpt`, `category`, `body`. The rest have defaults.
+- **Never hand-edit `posts.json` from an automation** — insert via `node scripts/add-post.mjs
+  <post.json>` (validates schema + unique slug, fills date/readingTime/author, inserts newest-first,
+  rejects malformed posts). Adding a block type means updating BOTH `add-post.mjs`'s `BLOCK_TYPES`
+  and `BlogPostPage.js`'s `Block` switch, or posts using it silently render blank.
+- `coverImage` is optional — the list card shows a branded gradient stand-in when it's empty (so
+  automation posts with no art don't read as broken). The article omits the cover figure entirely.
+- The sitemap generator (`generate-sitemap.mjs`) already emits `/blog` + every post; it derives
+  from `posts.json`, so new posts appear automatically. Both pages render `<Seo>` (Blog /
+  BlogPosting + breadcrumb JSON-LD) — keep that.
+
 ## Review fixes → rules
 <!-- One line per fix: what broke in review → the rule it becomes. Newest on top. -->
 - **Dead-code sweeps: prove death, then prove the removal changed nothing.** (Legacy cleanup 2026-06-10, protocol: `.audit/cleanup-protocol.md`.) Unimported SCSS emits no CSS (no Sass `additionalData` here) — delete it and confirm the content-hashed build output is unchanged. For selectors inside live files: extract class names from the COMPILED css (nesting resolved), string-check against src — but "no grep hit" only counts after reviewing dynamic construction (`.replace(/\.webp$/,'')-256.webp` srcsets, Sass `Inter-#{$w}` url interpolation, library-injected classes like `.typed-cursor`). Verify by class-set diff: removed exactly the flagged names, added none. CRA fossils lived OUTSIDE src too (all removed by the merged 2026-06 cleanup — the stack is now Vite 7 + vite-react-ssg with zero CRA residue in live files): stock `public/manifest.json`, `.unimportedrc.json` ignore-listing long-removed deps — and `public/` ships everything in it, so source artifacts (the unsubsetted display OTF) don't belong there (→ `fonts-src/`).
