@@ -1,5 +1,106 @@
 [
   {
+    "slug": "openai-codex-micro-the-agent-interface-goes-physical",
+    "title": "OpenAI's Codex Micro: The Agent Interface Goes Physical",
+    "excerpt": "OpenAI's Codex Micro is a small $230 macropad for controlling coding agents. The interesting part is not the hardware itself. It is what the hardware says about the next interface for agentic work.",
+    "kicker": "AI & Automation",
+    "category": "AI & Automation",
+    "author": "Beau",
+    "authorRole": "Studio Strategist",
+    "date": "2026-07-18",
+    "readingTime": "4 min read",
+    "coverImage": "",
+    "imageAlt": "",
+    "tags": [
+      "OpenAI",
+      "AI Agents",
+      "Dev Tools"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "OpenAI just shipped something unusually concrete: Codex Micro, a $230 desktop macropad made with boutique keyboard maker Work Louder. It is a small control surface for Codex coding agents, with six illuminated Agent Keys, a joystick for common workflows, dedicated command keys, and a dial for changing reasoning effort in the moment. That sounds niche because it is. It is also one of the clearest signals yet that working with agents is becoming an interface problem, not only a model problem."
+      },
+      {
+        "type": "video",
+        "url": "https://www.youtube.com/watch?v=m8uUUUsMD3Y"
+      },
+      {
+        "type": "paragraph",
+        "text": "The easy reaction is to treat Codex Micro as a novelty desk object for people who already own too many keycaps. Fair. But the more useful read is that OpenAI is sketching a physical grammar for agent work: status at a glance, approve or reject without hunting through a chat window, launch the same few workflows without rebuilding the prompt every time, and turn reasoning up or down like a volume knob."
+      },
+      {
+        "type": "heading",
+        "text": "A status light is an interface"
+      },
+      {
+        "type": "paragraph",
+        "text": "The six Agent Keys are the most interesting part. They light up by agent status when used with the ChatGPT desktop app: idle, thinking, complete, needs input, error. That is not just decoration. It solves a real coordination problem that appears the moment you stop chatting with one assistant and start supervising several pieces of work."
+      },
+      {
+        "type": "paragraph",
+        "text": "In a browser tab, an agent's state is hidden until you go look. On a desk, it can become peripheral information. White means nothing needs you. Blue means work is happening. Amber means the agent is waiting on a decision. Red means something broke. That kind of ambient feedback is boring in the best possible way. Boring is what good operational design usually feels like."
+      },
+      {
+        "type": "heading",
+        "text": "Approve and reject deserve better controls"
+      },
+      {
+        "type": "paragraph",
+        "text": "Agent workflows create a new class of everyday decision: do you accept the change, reject it, continue the run, or ask for something else? Today those decisions usually live inside a transcript. That is fine for occasional use. It gets clumsy when the work becomes routine."
+      },
+      {
+        "type": "paragraph",
+        "text": "Codex Micro puts command keys near the hand: accept, reject, push-to-talk, start a new chat, and similar shortcuts. That matters because approvals are not incidental. They are the control points where human judgment stays in the loop. A physical approve key is only useful if the surrounding software makes the consequence clear, but the instinct is right. Critical actions need clear affordances."
+      },
+      {
+        "type": "paragraph",
+        "text": "There is also a caution here. Making approval faster can make accidental approval easier. Any serious agent interface needs friction in the right places: visible diffs, scoped permissions, undo paths, and labels that say exactly what will happen. Speed without clarity is how automation turns from leverage into cleanup."
+      },
+      {
+        "type": "heading",
+        "text": "The reasoning dial is the tell"
+      },
+      {
+        "type": "paragraph",
+        "text": "The reasoning dial is the small detail that says the quiet part out loud. OpenAI is treating model effort as something a worker adjusts during the task, not a setting buried in a menu. Fast for obvious work. Heavier for architecture, debugging, or changes where the cost of being wrong is higher."
+      },
+      {
+        "type": "paragraph",
+        "text": "That maps well to how real teams already think. Not every task deserves the same process. A typo fix does not need a design review. A payment-flow change does. The better agent interfaces will let people change the level of scrutiny without leaving the flow of work."
+      },
+      {
+        "type": "heading",
+        "text": "This is about ergonomics, not gadgets"
+      },
+      {
+        "type": "paragraph",
+        "text": "Codex Micro has the expected hardware details: 13 mechanical switches, silent or clicky options, a touch sensor, rotary encoder, planar joystick, USB-C, Bluetooth, and a set of custom keycaps. Nice. But the hardware spec is less important than the admission underneath it. If agents are going to do serious work beside us, they need controls that match the rhythm of that work."
+      },
+      {
+        "type": "paragraph",
+        "text": "A chat box is flexible. It is also vague. You can ask anything, which means you often have to explain everything. Dedicated controls are narrower, but they reduce ambiguity. Review this pull request. Debug this error. Refactor this module. Accept. Reject. Think harder. Stop."
+      },
+      {
+        "type": "paragraph",
+        "text": "That is the design lesson worth keeping, even if you never buy the device. The future of agentic software will not be one giant prompt field. It will be a mix of conversation, visible state, bounded actions, permission gates, and well-named controls. The best systems will feel less like summoning a magician and more like running a capable piece of shop equipment."
+      },
+      {
+        "type": "heading",
+        "text": "The SCS read"
+      },
+      {
+        "type": "paragraph",
+        "text": "For small businesses, this does not mean everyone needs a dedicated AI keyboard. Most do not. It means the tooling layer around AI is maturing. The useful work is moving from, can the model do this, to, can a human safely direct, inspect, approve, and repeat this work without babysitting every step."
+      },
+      {
+        "type": "paragraph",
+        "text": "That is where the real value is. Clear controls. Clear state. Clear responsibility. Agents are more useful when the interface makes their work legible. Codex Micro is a niche product, but the idea behind it is broad: if AI is becoming part of the operating layer, it needs operating controls. Preferably ones that do not require another browser tab, six buried settings, and a prayer."
+      }
+    ]
+  },
+  {
     "slug": "why-fast-sites-win-more-clients",
     "title": "Why Fast Sites Win More Clients",
     "excerpt": "Speed isn't a vanity metric — it's the first impression, the SEO signal, and the conversion lever all at once. Here's how we build sites that load before your visitor blinks.",
@@ -11,23 +112,55 @@
     "readingTime": "5 min read",
     "coverImage": "",
     "imageAlt": "",
-    "tags": ["Performance", "SEO", "Conversion"],
+    "tags": [
+      "Performance",
+      "SEO",
+      "Conversion"
+    ],
     "featured": true,
     "body": [
-      { "type": "paragraph", "text": "Every second your site takes to load is a second your visitor spends deciding whether to leave. The data is brutal and consistent: bounce rates climb sharply after the two-second mark, and mobile users are the least patient of all. A fast site isn't a nice-to-have — it's the price of being taken seriously." },
-      { "type": "heading", "text": "Speed is your first impression" },
-      { "type": "paragraph", "text": "Before a visitor reads your headline, judges your design, or considers your offer, they experience your load time. A page that snaps into view signals competence. A page that stutters signals the opposite — and no amount of polished copy recovers a first impression spent watching a spinner." },
-      { "type": "heading", "text": "Google is watching too" },
-      { "type": "paragraph", "text": "Core Web Vitals are a ranking factor, not a suggestion. Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint all feed directly into how you rank. A slow site is quietly taxed on every search result it appears in." },
-      { "type": "list", "items": [
-        "Ship less JavaScript — every kilobyte is parsed on the user's device, not yours.",
-        "Serve modern image formats (AVIF, WebP) and size them for the viewport.",
-        "Pre-render static content so the first paint doesn't wait on the network.",
-        "Lazy-load anything below the fold — the hero should never wait on the footer."
-      ] },
-      { "type": "quote", "text": "We build every site static-first. The HTML arrives complete, so the page is readable before a single script runs.", "cite": "Switch Case Studio" },
-      { "type": "heading", "text": "The bottom line" },
-      { "type": "paragraph", "text": "Fast sites rank higher, convert better, and cost less to run. When we build from scratch, performance isn't a phase we bolt on at the end — it's the constraint we design within from the first line of code. That's how a site earns trust in the half-second before anyone has read a word." }
+      {
+        "type": "paragraph",
+        "text": "Every second your site takes to load is a second your visitor spends deciding whether to leave. The data is brutal and consistent: bounce rates climb sharply after the two-second mark, and mobile users are the least patient of all. A fast site isn't a nice-to-have — it's the price of being taken seriously."
+      },
+      {
+        "type": "heading",
+        "text": "Speed is your first impression"
+      },
+      {
+        "type": "paragraph",
+        "text": "Before a visitor reads your headline, judges your design, or considers your offer, they experience your load time. A page that snaps into view signals competence. A page that stutters signals the opposite — and no amount of polished copy recovers a first impression spent watching a spinner."
+      },
+      {
+        "type": "heading",
+        "text": "Google is watching too"
+      },
+      {
+        "type": "paragraph",
+        "text": "Core Web Vitals are a ranking factor, not a suggestion. Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint all feed directly into how you rank. A slow site is quietly taxed on every search result it appears in."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Ship less JavaScript — every kilobyte is parsed on the user's device, not yours.",
+          "Serve modern image formats (AVIF, WebP) and size them for the viewport.",
+          "Pre-render static content so the first paint doesn't wait on the network.",
+          "Lazy-load anything below the fold — the hero should never wait on the footer."
+        ]
+      },
+      {
+        "type": "quote",
+        "text": "We build every site static-first. The HTML arrives complete, so the page is readable before a single script runs.",
+        "cite": "Switch Case Studio"
+      },
+      {
+        "type": "heading",
+        "text": "The bottom line"
+      },
+      {
+        "type": "paragraph",
+        "text": "Fast sites rank higher, convert better, and cost less to run. When we build from scratch, performance isn't a phase we bolt on at the end — it's the constraint we design within from the first line of code. That's how a site earns trust in the half-second before anyone has read a word."
+      }
     ]
   },
   {
@@ -42,22 +175,50 @@
     "readingTime": "4 min read",
     "coverImage": "",
     "imageAlt": "",
-    "tags": ["Branding", "Strategy", "Design"],
+    "tags": [
+      "Branding",
+      "Strategy",
+      "Design"
+    ],
     "featured": false,
     "body": [
-      { "type": "paragraph", "text": "Ask ten founders what a brand is and nine will point to a logo. The logo is real, and it matters — but it's the smallest, last part of the story. A brand is the sum of every impression you leave, and most of those happen long before someone notices your mark." },
-      { "type": "heading", "text": "A brand is a promise" },
-      { "type": "paragraph", "text": "Before the logo, before the color palette, there's a promise: this is who we are, this is what you can expect from us. Everything else — type, color, tone, motion — exists to make that promise legible at a glance. Get the promise wrong and the prettiest logo in the world can't save you." },
-      { "type": "heading", "text": "Consistency is the whole game" },
-      { "type": "paragraph", "text": "A brand becomes recognizable through repetition. The same voice in your emails and your ads. The same spacing on your homepage and your invoice. The same feeling walking in the door as scrolling the site. Consistency is what turns a collection of assets into something a customer can trust." },
-      { "type": "list", "items": [
-        "Voice — how you sound when you're excited, and when you're apologizing.",
-        "System — the type, color, and spacing rules that make every screen feel related.",
-        "Behavior — the way you respond, deliver, and follow up.",
-        "Mark — yes, the logo, sitting on top of all of the above."
-      ] },
-      { "type": "quote", "text": "A logo is what people recognize. A brand is why they come back." },
-      { "type": "paragraph", "text": "When we build a brand identity, we start with the promise and work outward. The logo is the last thing we design, because it's the easiest thing to get right once everything underneath it is true." }
+      {
+        "type": "paragraph",
+        "text": "Ask ten founders what a brand is and nine will point to a logo. The logo is real, and it matters — but it's the smallest, last part of the story. A brand is the sum of every impression you leave, and most of those happen long before someone notices your mark."
+      },
+      {
+        "type": "heading",
+        "text": "A brand is a promise"
+      },
+      {
+        "type": "paragraph",
+        "text": "Before the logo, before the color palette, there's a promise: this is who we are, this is what you can expect from us. Everything else — type, color, tone, motion — exists to make that promise legible at a glance. Get the promise wrong and the prettiest logo in the world can't save you."
+      },
+      {
+        "type": "heading",
+        "text": "Consistency is the whole game"
+      },
+      {
+        "type": "paragraph",
+        "text": "A brand becomes recognizable through repetition. The same voice in your emails and your ads. The same spacing on your homepage and your invoice. The same feeling walking in the door as scrolling the site. Consistency is what turns a collection of assets into something a customer can trust."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Voice — how you sound when you're excited, and when you're apologizing.",
+          "System — the type, color, and spacing rules that make every screen feel related.",
+          "Behavior — the way you respond, deliver, and follow up.",
+          "Mark — yes, the logo, sitting on top of all of the above."
+        ]
+      },
+      {
+        "type": "quote",
+        "text": "A logo is what people recognize. A brand is why they come back."
+      },
+      {
+        "type": "paragraph",
+        "text": "When we build a brand identity, we start with the promise and work outward. The logo is the last thing we design, because it's the easiest thing to get right once everything underneath it is true."
+      }
     ]
   }
 ]
