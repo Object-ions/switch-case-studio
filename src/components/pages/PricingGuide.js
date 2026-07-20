@@ -4,7 +4,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   faBolt,
   faClock,
+  faGaugeHigh,
   faHeart,
+  faRobot,
+  faWrench,
 } from '@fortawesome/free-solid-svg-icons';
 
 import pricingData from '../../data/pricingData.json';
@@ -31,6 +34,25 @@ const BENEFITS = [
   { text: 'Most builds ship in under 2 weeks', icon: faClock },
   { text: 'Work directly with the people building it', icon: faHeart },
 ];
+
+// A tier may carry its own bullets in pricingData.json as
+// { text, icon: <key> }; unknown keys fall back to faBolt.
+const BENEFIT_ICONS = {
+  bolt: faBolt,
+  clock: faClock,
+  gauge: faGaugeHigh,
+  heart: faHeart,
+  robot: faRobot,
+  wrench: faWrench,
+};
+
+const tierBenefits = (tier) =>
+  tier.benefits
+    ? tier.benefits.map((b) => ({
+        text: b.text,
+        icon: BENEFIT_ICONS[b.icon] || faBolt,
+      }))
+    : BENEFITS;
 
 // Rotating social proof, mapped from the testimonials data.
 const TESTIMONIALS = testimonialsData.map((t) => ({
@@ -150,7 +172,7 @@ export const PricingGuide = ({ serviceId }) => {
                 current: formatMoney(tier.price),
                 note: tier.billing === 'monthly' ? 'per month' : 'one-time',
               }}
-              benefits={BENEFITS}
+              benefits={tierBenefits(tier)}
               features={tier.includes}
               featuresTitle="What's included"
               primaryButton={{ text: BOOK_CALL_LABEL, href: BOOK_CALL_URL }}

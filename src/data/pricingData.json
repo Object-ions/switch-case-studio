@@ -130,6 +130,28 @@
             "Basic conversion-rate optimization (CRO)",
             "Performance dashboard with insights and recommendations"
           ]
+        },
+        {
+          "name": "SEO + GEO Optimization Sprint",
+          "price": 3500,
+          "billing": "one-time",
+          "description": "One-time technical SEO + AI-search optimization — from audit to full implementation.",
+          "benefits": [
+            { "text": "Full implementation — not just a report", "icon": "wrench" },
+            { "text": "89+ scores at handoff (SEO, Performance, Accessibility, Best Practices)", "icon": "gauge" },
+            { "text": "Includes GEO / AI-search readiness", "icon": "robot" }
+          ],
+          "includes": [
+            "Discovery call to map your goals and current search + AI visibility",
+            "Full technical and on-page SEO audit with a detailed written report",
+            "Follow-up strategy call to walk through the fix plan before any work begins",
+            "Image modernization to WebP + AVIF with correct sizing and compression",
+            "Complete meta tags across all pages — titles, descriptions, canonical, Open Graph",
+            "Structured data (JSON-LD) + GEO readiness: AI-crawler access, llms.txt, entity clarity, FAQ schema",
+            "Google Analytics 4 + Google Tag Manager setup with conversion tracking",
+            "Core Web Vitals and Lighthouse fixes to 89+, measured at handoff on the delivered site",
+            "Iterative fixes until the agreed targets are met"
+          ]
         }
       ]
     },
