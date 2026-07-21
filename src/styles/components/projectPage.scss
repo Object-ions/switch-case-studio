@@ -326,7 +326,7 @@ $pp-tile-bg: rgba(255, 255, 255, 0.02);
 
   &__metric-value {
     display: block;
-    font-family: $font-special;
+    font-family: $font-text;
     font-size: clamp(2rem, 3vw, 2.75rem);
     font-weight: 800;
     line-height: 1.05;
@@ -354,7 +354,7 @@ $pp-tile-bg: rgba(255, 255, 255, 0.02);
   }
 
   &__result-text {
-    font-family: $font-special;
+    font-family: $font-text;
     font-size: clamp(1.25rem, 2.2vw, 1.85rem);
     font-weight: 500;
     line-height: 1.4;
