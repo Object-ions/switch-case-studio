@@ -70,7 +70,7 @@
     margin: 0 auto;
     padding: 5rem 0 0;
     font-size: 3rem;
-    font-family: $font-special;
+    font-family: $font-text;
     text-align: center;
     max-width: $max-width;
     z-index: 11;
@@ -184,7 +184,7 @@
     }
 
     &__lead {
-      font-family: $font-special;
+      font-family: $font-text;
       font-size: clamp(1.5rem, 3vw, 2.25rem);
       font-weight: 500;
       line-height: 1.1;
