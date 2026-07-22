@@ -1022,6 +1022,34 @@ as an intentional top-down cascade (kicker → h1 → lede), not a glitch** — 
 caveat that motion FEEL is the owner's visible-window judgement per house rule; frame-stepped
 capture verifies order and end-state, not tempo.
 
+#### LC-26a — Device-pass framing, PRE-REGISTERED (2026-07-22, recorded BEFORE the pass)
+
+Owner-directed, written ahead of the result so the reasoning cannot be fitted to it:
+
+The pass runs as a **comparison**: `/about` against `/pricing/web-development`, same device,
+same cold-load conditions. PricingGuide has shipped this exact reveal pattern since VE-8
+(`f959dba`, 2026-07-03) without anyone flagging it in production. The question is therefore
+NOT "is there a visible window" — the timing capture settled that (~0.9s typical, every prod
+cold load, both pages by construction) — but **"does /about's window read differently from
+the pricing page's, which has been live and unremarked since VE-8."** If /about reads the
+same, LC-26a passes on PRECEDENT (the artifact is already accepted in production), not on an
+absolute judgement of the artifact.
+
+**Open sub-question this raises (recorded now, answered only by the pass):** if the pattern
+reads fine on pricing but NOT on /about, the differentiators are **header size and
+above-the-fold position** (pricing's h1 is smaller and shares the fold with cards; /about's
+header IS the fold) — which would mean the house safe-reveal has a **scope limit nobody has
+articulated**: "static-ships-visible + hide-at-hydration" may be sound for content-scale
+elements and unsound for hero-scale ones. That would be a finding about the PATTERN itself,
+not about this branch — it would gate not just LC-26b–e's adoption but a re-look at
+PricingGuide's own usage.
+
+Pass outcomes, enumerated ahead of time: (a) reads same → LC-26a passes on precedent,
+b–e release as planned; (b) both read badly → the artifact was never actually accepted,
+pattern-level finding, b–e stay held and the hide-window lever (e.g. pre-hydration inline
+hide) gets designed as its own item; (c) /about reads worse than pricing → scope-limit
+finding above, b–e held, per-route judgement replaces blanket adoption.
+
 ### LC-33 — motion/react consumer census (batch 2 recon)
 Category: Dependency
 Files: 12 import sites (all `motion/react`; no `framer-motion` imports — only two comments
