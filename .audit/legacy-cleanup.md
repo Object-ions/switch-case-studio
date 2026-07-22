@@ -881,6 +881,45 @@ its own PSI verification.
 Risk: don't touch (this batch)
 Blast radius: header text rendering on 5+ routes; banner layout sitewide
 
+### LC-36 — Prod /about LCP: 600ms element render delay against 30ms TTFB
+Category: Correctness (performance) — OPENED 2026-07-21 (owner-directed; originally dropped
+from the batch-2 PR-workflow message when the merge reordered the flow). DO NOT ACT, record only.
+Element: `span.footer-wordmark__text` (sticky footer outline wordmark, ~186K px)
+Evidence: PSI desktop prod LCP breakdown — TTFB 30ms + **element render delay 600ms** (run
+`tbtahye033`; post-merge run `rjbabfpgmr` shows the same shape, 30ms + 630ms). LCP element
+confirmed unchanged across all six runs (three baseline, three post-merge).
+Finding: a 600ms render delay against a 30ms TTFB is not a network problem — the element is
+waiting on something: font load (the wordmark renders in a display face), JS/hydration, or
+paint order. **Candidate causes only; nothing established.** Also unexamined: why a
+bottom-of-page sticky footer element is the desktop LCP candidate at all (viewport-visibility
+at initial paint is implied but unverified).
+Note: same category as LC-35 — a production performance finding this audit surfaced
+incidentally, not batch-2 work.
+Verdict: LIVE (pre-existing behavior; unmoved by LC-26a — verified)
+Proposed change: none — record only. Any investigation is its own item.
+Risk: don't touch
+Blast radius: n/a (observation)
+
+### LC-37 — esbuild 0.27.7 → 0.28.1: residual advisories now clearable by routine update
+Category: Dependency — OPENED 2026-07-21, APPROVAL-GATED, NOT EXECUTED
+Files: `package-lock.json` only
+Evidence: vite 7.3.6 (PR #8) widened its esbuild range to `^0.27.0 || ^0.28.0` — the 0.28.1
+fix version for GHSA-gv7w-rqvm-qjhr (high, Deno module) and GHSA-g7r4-m6w7-qqqr (low, Windows
+dev server) is now in-range; the lockfile still resolves 0.27.7. The 2026-06-15 acceptance
+rationale was never severity — it was that the fix was unreachable without a Vite major; that
+rationale is now obsolete (see summary.md status update, same date).
+Proposed change (scope, exact):
+- `npm update esbuild` — lockfile-only. **`npm audit fix` and `--force` remain banned.**
+- Target 0.28.1+; confirm BOTH advisories clear (`npm audit` shows 0 for these two).
+- Verification: clean-install sim (`rm -rf node_modules && npm ci && npm run build`), 31
+  routes by filesystem count, and **asset content-hash comparison against current `main`** —
+  esbuild is pre-1.0, so 0.27→0.28 is a minor bump that can still carry breaking output
+  changes even inside Vite's declared range. **The hash comparison is the real check, not the
+  build exit code.** Any hash drift = inspect the diff before concluding anything.
+Verdict: actionable, queued
+Risk: safe-if-hashes-hold; needs the hash gate precisely because pre-1.0 minors can break
+Blast radius: every built asset (esbuild transforms all src); dev server; SSG render
+
 ### LC-33 — motion/react consumer census (batch 2 recon)
 Category: Dependency
 Files: 12 import sites (all `motion/react`; no `framer-motion` imports — only two comments

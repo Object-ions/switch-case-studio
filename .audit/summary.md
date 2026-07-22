@@ -393,7 +393,8 @@ kept the in-range esbuild), so GHSA-gv7w-rqvm-qjhr + GHSA-g7r4-m6w7-qqqr still
 apply to the tree today — still dev/build-only and non-exploitable here, so
 acceptance holds — but the "fix unreachable" rationale is OBSOLETE. Clearing
 them is now a routine `npm update esbuild` (lockfile-only, verify clean build)
-— a normal approval-gated dep change, queued rather than executed.
+— a normal approval-gated dep change, queued rather than executed (tracked as
+LC-37 in `.audit/legacy-cleanup.md`, incl. the pre-1.0 hash-comparison gate).
 
 ## security.txt added 2026-06-17
 RFC 9116 disclosure file at `public/.well-known/security.txt` →
