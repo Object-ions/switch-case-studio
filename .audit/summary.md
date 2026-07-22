@@ -483,6 +483,23 @@ to avoid GSAP/motion transform conflicts) + whileTap scale on /projects cards.
 Two rules added to CLAUDE.md (whileInView tall-section stranding; mobile-static
 is pointer-inherent).
 
+## Legacy cleanup Phase 0 + Phase 1 Batch 1 — 2026-07-21 (branch `fix/dependency-correctness`, UNPUSHED)
+Phase 0 recon (read-only, five parallel sweeps) delivered `.audit/legacy-cleanup.md` — 32 line
+items LC-01…LC-32, owner-approved with a resequenced 6-slot batch plan. Headlines: zero live CRA
+residue (re-verified); all suspected orphan components LIVE (only orphans: 2 projects.json
+fields + 5 dead SCSS tokens); CONFIRMED bug LC-26 — five routes (/about /testimonials /projects
+/blog /services) ship `<h1 style="opacity:0;clip-path:…">` in static SSG HTML (motion/react
+`initial="hidden"` serialized; fix mechanism documented under LC-26, batch 2); one real GSAP/CSS
+double-owner (LC-16 `.sm-socials-link` opacity); phantom dep `prop-types`.
+**Batch 1 (LC-19+LC-20) ✅ COMMITTED, not pushed** — `prop-types ^15.8.1` declared,
+`vite-react-ssg 0.9.0` moved devDeps→deps (specifier untouched). Lockfile diff = dev-flag
+cascade + 19-line environmental optional-peer prune (control-tested on HEAD). Verified: clean
+`rm -rf node_modules && npm ci && npm run build` → 31 routes (filesystem count), asset hashes
+identical to baseline (rendered output unchanged), 74/74 JSX + 6/6 JSON parse. esbuild audit
+residuals untouched (still ACCEPTED, see 2026-06-15 note). Next: batch 2 = LC-26 on its own
+branch, PSI median-of-3 CLS gate; batch 2 recon must also grep whether the five headers are the
+last motion/react consumers (they are not expected to be — report only). Moses holds push/merge.
+
 ## Contact section relayout 2026-07-05 (branch `design-audit-refresh`, `0c5929b`)
 Owner flagged 3 contact issues (screenshots): desktop form width/balance, mobile
 side padding, mobile alignment. Diagnosed live: the ≥1024 two-column (form 736
