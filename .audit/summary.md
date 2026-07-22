@@ -385,6 +385,16 @@ are fixed only in **esbuild 0.28.1**, unreachable on vite@7 (peer-pins esbuild
 on a pre-1.0 lib past vite's pin. **Revisit when vite ships a release on esbuild
 ≥0.28.1** (then drop this note and the residuals clear without an override).
 
+**STATUS UPDATE 2026-07-21 (post PR #8, vite 7.3.5→7.3.6 — check only, nothing
+changed):** vite 7.3.6 WIDENED its esbuild range to `^0.27.0 || ^0.28.0` — the
+0.28.1 fix is now IN-RANGE and reachable without an override or vite@8. The
+lockfile still resolves **esbuild 0.27.7** (dependabot bumped vite only; npm
+kept the in-range esbuild), so GHSA-gv7w-rqvm-qjhr + GHSA-g7r4-m6w7-qqqr still
+apply to the tree today — still dev/build-only and non-exploitable here, so
+acceptance holds — but the "fix unreachable" rationale is OBSOLETE. Clearing
+them is now a routine `npm update esbuild` (lockfile-only, verify clean build)
+— a normal approval-gated dep change, queued rather than executed.
+
 ## security.txt added 2026-06-17
 RFC 9116 disclosure file at `public/.well-known/security.txt` →
 `build/.well-known/security.txt` (Contact `hello@switchcasestudio.com`,

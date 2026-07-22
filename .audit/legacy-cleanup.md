@@ -767,6 +767,78 @@ standalone finding for the ledger (worst known desktop CLS on the site; home was
 candidates: size-adjusted fallback audit for the about header faces + banner slot reservation.
 Owner to run the BRANCH side of the median-of-3 after push (I cannot deploy).
 
+**Push + preview attempt (2026-07-21, post-approval):** branch pushed
+(`origin/fix/ssg-visible-headers` @ `4608036`). **No Netlify build exists for it** — the
+predictable branch-deploy URL (`fix-ssg-visible-headers--switchcasestudio.netlify.app`) 404'd
+for 5+ minutes (site slug verified: `switchcasestudio.netlify.app` → 200), no PR exists (none
+opened — owner gate), commit status API shows `pending` with zero attached statuses → Netlify
+only builds this repo's production branch and PR deploy previews; ad-hoc branch deploys are not
+enabled. Netlify CLI present but not logged in. **Set B blocked pending one of:** (1) enable
+branch deploys for this branch in the Netlify UI, (2) authorize a PR (auto deploy-preview), or
+(3) `netlify login` for a CLI draft deploy (builds with site env — faithful to prod per house
+note). Set A NOT pre-run in full — the A/B control requires same-session back-to-back runs.
+**Banked meanwhile (single drift spot-check + LCP element identification, PSI desktop prod
+/about, run `tbtahye033`):** Perf 87, FCP 0.5s, LCP 0.5s, TBT 10ms, **CLS 0.608** (baseline
+holds today), LCP breakdown TTFB 30ms + render delay 600ms, and **LCP element =
+`span.footer-wordmark__text`** — the giant sticky-footer outline wordmark, matching the local
+report exactly. The earlier "window-size artifact" hypothesis is RETRACTED: the footer wordmark
+genuinely is the desktop LCP element on /about (the h1 cannot be — prod ships it hidden until
+hydration). Implication for Set B: h1 becoming visible-at-paint should not displace a 186K-px
+candidate; expectation stays LCP element/time unchanged — verify per run, don't assume.
+
+#### LC-26a — POST-MERGE PSI RECONCILIATION ✅ PASS (2026-07-21, prod, merge `1b570b3`)
+
+Owner merged the branch to `main` (PR #9, merge `1b570b33e1…`), obsoleting the preview-vs-prod
+environment mismatch — prod /about is now directly comparable to the captured baseline. Note:
+the measured artifact also includes PR #8 (dependabot, `vite ^7.3.5→^7.3.6` — build-tool patch,
+no runtime bundle change expected) which merged just before.
+
+**Live-artifact pass conditions (production, path-guarded curl):** /about serves
+`<h1 class="about-page__title page-head-animate">` + kicker + lede with NO inline hidden state
+(PASS); pricing invariant `<h1 id="pg-title" class="pg-h1 pg-animate">` unchanged; **31/31
+routes → 200** on production.
+
+**Same-session control (pre-merge prod, run `tbtahye033`, ~30min before deploy):** Perf 87 /
+FCP 0.5s / LCP 0.5s / TBT 10ms / **CLS 0.608** / SI 0.7s / LCP el `span.footer-wordmark__text`
+— baseline held on the day; no drift.
+
+**Post-merge production, desktop, median-of-3:**
+
+| Run (report id) | Perf | FCP | LCP | LCP element | TBT | CLS | SI |
+|---|---|---|---|---|---|---|---|
+| 1 `rjbabfpgmr` | 77 | 0.3s | 0.3s | span.footer-wordmark__text | 80ms | 0.609 | 0.7s |
+| 2 `jdijfgvtyq` | 78 | 0.4s | 0.4s | span.footer-wordmark__text | 20ms | 0.609 | 0.6s |
+| 3 `2din2gph5a` | 78 | 0.5s | 0.5s | span.footer-wordmark__text | 10ms | 0.609 | 0.7s |
+| **median** | **78** | **0.4s** | **0.4s** | — | **20ms** | **0.609** | **0.7s** |
+
+**Delta vs baseline (median | baseline → post-merge):** Perf 78 → 78 (0) · FCP 0.5 → 0.4s
+(−0.1, run noise) · LCP 0.5 → 0.4s (−0.1, run noise — no regression) · TBT 30 → 20ms (noise) ·
+**CLS 0.609 → 0.609 (0.000) — explicit PASS against the ≈0.609 expectation** · SI 0.8 → 0.7s.
+**LCP element verdict: unchanged** — `span.footer-wordmark__text` on every run, both sides; the
+newly-visible h1 did NOT register a later LCP candidate (LCP actually ticked down within
+noise). CLS culprit decomposition post-merge is byte-identical to baseline
+(`about-page__hero → 0.449`, `main → 0.150`) — confirming LC-35's causes are untouched, as
+predicted. Perf-gauge caveat: the DOM score extraction is unreliable (grabs the hidden panel's
+gauge); scores above read from the visible desktop gauge in screenshots.
+
+**Rollback path (recorded for findability under pressure):**
+`git revert -m 1 1b570b33e1225e4a56964c3b3faa76c9093dbcf1` on `main`.
+What that RESTORES (the explicit tradeoff): the five... four held routes are unaffected either
+way, but /about goes back to shipping its h1/kicker/lede `opacity:0` in static HTML (the LC-26
+SEO/no-JS defect returns), the `usePageHeaderReveal` hook is deleted, and LC-34's broken
+reduced-motion guard returns on /testimonials (RM users get the header animation again). CLS
+would stay 0.609 either way (LC-35's causes are independent). Revert only makes sense if the
+reveal itself misbehaves on real devices — the throttled true-390 pass is the open judgement.
+
+**Batch-1 verification closure status (LC-19/LC-20):** the production deploy of this merge
+built green on Netlify from a clean environment against the post-batch-1 manifest — the
+artifact being live is install-level proof the manifest resolves. **The log-line-level check
+("prop-types/vite-react-ssg listed in the install from `dependencies`") remains OPEN** — it
+needs Netlify log access (CLI not logged in), and note a Netlify default install includes
+devDependencies, so build success alone cannot distinguish the classification; the semantic
+fix is already contract-verified locally (`npm ci` sim in batch 1). Close fully when owner
+grants log access or reads the deploy log directly.
+
 ### LC-35 — Prod /about desktop CLS 0.609: deterministic, pre-existing, worst known on the site
 Category: Correctness (performance) — OPENED 2026-07-21, DO NOT ACT (owner-directed record only)
 Files: `src/styles/components/aboutPage.scss` (header text faces), `src/analytics/ConsentBanner.js` + `src/routes.js:105` (sitewide mount), fonts in `public/fonts/`
