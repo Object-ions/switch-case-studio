@@ -830,14 +830,17 @@ reduced-motion guard returns on /testimonials (RM users get the header animation
 would stay 0.609 either way (LC-35's causes are independent). Revert only makes sense if the
 reveal itself misbehaves on real devices — the throttled true-390 pass is the open judgement.
 
-**Batch-1 verification closure status (LC-19/LC-20):** the production deploy of this merge
-built green on Netlify from a clean environment against the post-batch-1 manifest — the
-artifact being live is install-level proof the manifest resolves. **The log-line-level check
-("prop-types/vite-react-ssg listed in the install from `dependencies`") remains OPEN** — it
-needs Netlify log access (CLI not logged in), and note a Netlify default install includes
-devDependencies, so build success alone cannot distinguish the classification; the semantic
-fix is already contract-verified locally (`npm ci` sim in batch 1). Close fully when owner
-grants log access or reads the deploy log directly.
+**Batch-1 verification closure status (LC-19/LC-20): CLOSED 2026-07-21 — not answerable via
+deploy log.** Owner read the Netlify log for `56288a0`: `npm ci` prints `added N packages in
+Ns` WITHOUT enumerating names — `prop-types` appears nowhere (expected), and every
+`vite-react-ssg` hit is a build-command invocation (`> vite-react-ssg build`,
+`[vite-react-ssg] Build for client...`), not an install line. The log cannot distinguish
+dependency classification; no amount of access closes this strand by that route. **Binding
+evidence is and remains the batch-1 local clean-install simulation** (`rm -rf node_modules &&
+npm ci && npm run build`, 31 routes, asset hashes unchanged) — stronger than a log line would
+have been. Recorded so nobody reopens this looking for the log. Confirmed from the log while
+there: Vite 7.3.6, 31 pages rendered, build green in 13.4s, flat path shape
+(`build/about.html` etc.).
 
 ### LC-35 — Prod /about desktop CLS 0.609: deterministic, pre-existing, worst known on the site
 Category: Correctness (performance) — OPENED 2026-07-21, DO NOT ACT (owner-directed record only)
@@ -919,6 +922,105 @@ Proposed change (scope, exact):
 Verdict: actionable, queued
 Risk: safe-if-hashes-hold; needs the hash gate precisely because pre-1.0 minors can break
 Blast radius: every built asset (esbuild transforms all src); dev server; SSG render
+
+### LC-38 — Sitemap 28 URLs vs 31 rendered routes: all three exclusions DELIBERATE — no SEO defect
+Category: Correctness (SEO) — investigated 2026-07-21, NO FIX (record only, per owner)
+Files: `scripts/generate-sitemap.mjs`, `public/sitemap.xml` (generated)
+Evidence: deploy log `sitemap.xml: 28 URLs written` vs `Rendering Pages... (31)`. Route-set
+diff (rendered build/ HTML basenames vs live sitemap `<loc>`s): exactly **`/30-off`,
+`/partners`, `/404`**. Live cross-check: `switchcasestudio.com/sitemap.xml` serves 28 URLs;
+all three absent (verified individually). Exclusion logic: the generator builds its URL list
+from explicit entries + data files only (`generate-sitemap.mjs:50-77`); hidden routes are
+deliberately not listed — documented in the script comment (`:47-49`).
+Per-route verdict:
+- **`/404` — correct by definition.** Error page; never sitemapped.
+- **`/30-off` — deliberate and documented.** Promo funnel, `noindex`, linked only from
+  emails/ads; the script comment names it.
+- **`/partners` — deliberate, and MORE than a judgement call in practice:** it is
+  `noindex,nofollow` at the HTTP layer (`netlify.toml` X-Robots-Tag) + page `<Seo>` robots.
+  Sitemapping a noindex URL would be a contradiction crawlers flag, so exclusion is the
+  consistent choice. If the owner ever wants /partners discoverable, that's a
+  positioning decision first, sitemap second.
+**No route is excluded by accident — no live SEO defect; nothing promoted.**
+Cosmetic doc-rot found in passing: the script comment (`generate-sitemap.mjs:47`) still
+describes partners as "served from an unguessable `/p/wm-…` slug" — that link-gate was
+replaced by the password gate at `/partners` (`feat/partners-password`). Comment-only fix,
+queue with batch-4 housekeeping.
+Verdict: LIVE and correct
+Proposed change: none (comment fix queued to docs/housekeeping batch)
+Risk: n/a
+Blast radius: n/a
+
+### LC-39 — Build chunk-size warning: two CLIENT chunks over 500 kB (record only)
+Category: Correctness (performance) — record only, NO manualChunks work
+Files: build output (vite chunking)
+Evidence (current `main` build + deploy log line 103 agree):
+- `build/assets/Moon-Cdr-5ERC.js` — **989.04 kB** (gzip 272.69 kB) — CLIENT chunk, over the
+  limit; ships to users but ONLY via the IO-gated lazy import when the About moon slot
+  approaches the viewport (never in the initial load — the documented MoonSlot pattern).
+- `build/assets/app-q3zBkI08.js` — **699.87 kB** (gzip 237.24 kB) — CLIENT chunk, over the
+  limit, ships to EVERY visitor in the initial load. This is the known "~3MB JS / mobile LCP
+  is JS-bound" carry-forward from the perf plan (summary.md), not news — recorded here so the
+  warning line has a ledger home.
+- `index.mjs` ~480 kB — SSR server bundle, never ships to users, and under the limit anyway.
+Verdict: known debt, tracked elsewhere (perf plan step: trim bundle / defer hero WebGL)
+Proposed change: none — no manualChunks work in this audit
+Risk: don't touch
+Blast radius: n/a
+
+#### LC-26a — Production timing capture: paint-vs-hide gap (2026-07-21)
+
+**Environment constraint, disclosed up front:** the automation Chrome window was OCCLUDED for
+these runs (`document.visibilityState: "hidden"`, rAF verified frozen) — the exact CLAUDE.md
+occluded-window condition. Consequences observed live and worth their own record:
+- With no frames, the page NEVER paints (paint entries empty; FCP fired at 53.9s = the moment
+  a screenshot forced the first frame) and the GSAP ticker is frozen, so the run-1 probe found
+  the header at `opacity:0` 6s after load — **a false stranding**: forcing frames resumed the
+  ticker and the reveal played correctly (caught mid-stagger: kicker 0.59 → title 0.17 → lede
+  queued). NOT a production bug; mechanism proven end-to-end.
+- **New rule-refinement candidate:** `gsap.delayedCall` safety nets are ALSO ticker-driven —
+  on a background-tab load the net cannot fire until the tab becomes visible. Acceptable
+  (invisibility without frames is unobservable, and the reveal completes on tab-switch), but
+  "the safety net guarantees visibility by T+3s" is only true on a foreground tab.
+
+**What IS measurable occluded (JS timeline is rAF-independent), 3 cold loads, ms from nav:**
+
+| Run | app chunk fetch (start→respEnd) | hydration long task (start+dur → end) | ≈hide executes |
+|---|---|---|---|
+| 1 (cold cache) | 395 → 901 | 1215+325 → 1540 | ~1540 |
+| 2 (semi-warm) | 300 → 603 | 893+393 → 1286 | ~1286 |
+| 3 (warm) | 69 → 190 | 310+179 → 489 | ~489 |
+
+("≈hide" = end of the hydration long task; `usePageHeaderReveal`'s effect runs in the effects
+flush of that commit and `gsap.set` is synchronous inside it — a derivation, not a direct
+timestamp; labeled as such.)
+
+**The derived number, honestly constructed (cross-source, caveated):** FCP on a VISIBLE load
+of this page is 0.3–0.5s (PSI prod desktop, median 0.4s; local visible-tab run measured 464ms).
+Hide lands at ≈0.5–1.5s depending on cache (median cold-ish ≈1.3s). So on production:
+**the hide happens ≈ +0.1s (warm) to +1.1s (cold), ≈ +0.9s typical, AFTER first paint — N is
+POSITIVE on prod.** This REVERSES the local-preview finding (reveal before paint): that was a
+same-origin instant-network artifact; on the real network the app chunk fetch pushes hydration
+past paint. Answering the owner's threshold question in its real form: **JS does not need to
+be "slower" for the artifact to appear — it already appears on every prod cold load** (header
+visible ~0.1–1.1s, blink, ~0.56s staggered re-entrance). The artifact only DISAPPEARS when
+hydration beats paint (warm cache + instant network, e.g. local preview). The device-pass
+judgement is therefore not "does it happen" but "how does a ~1s-visible → blink → re-enter
+sequence read" — and throttling lengthens only the visible phase, not the blink.
+**The one number this capture could not produce single-environment: same-run FCP+hide. A
+visible-window rerun (owner keeps Chrome frontmost ~2 min) upgrades N from estimate band to
+measurement — optional.**
+
+**Narrow-viewport reveal sequence — ACTUAL WIDTH 500px (window manager floor; NOT 390 — floor
+confirmed twice: resize accepted, `innerWidth` stayed 500):** forced-frame progression under
+the frozen ticker (each screenshot advances the tween — house rule applied deliberately as the
+capture mechanism, since 150ms wall-clock intervals are impossible at ~1s/screenshot):
+frame 1 = kicker fully in, h1 mid-rise dim, lede absent → frame 2 = h1 ~in, lede rising →
+frame 3-4 = settled. Final probed state: kicker/title/lede opacity 0.99+/0.99/0.91→1,
+transforms → 0, all `visibility: visible` — nothing stuck. **Stagger verdict at 500px: reads
+as an intentional top-down cascade (kicker → h1 → lede), not a glitch** — with the standing
+caveat that motion FEEL is the owner's visible-window judgement per house rule; frame-stepped
+capture verifies order and end-state, not tempo.
 
 ### LC-33 — motion/react consumer census (batch 2 recon)
 Category: Dependency
