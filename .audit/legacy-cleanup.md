@@ -323,6 +323,12 @@ Proposed change: remove `opacity` from the transition list and scope the hover-d
 `:hover`-only transition (or animate the dim with GSAP)
 Risk: safe (one-line property-list change) + quick visual check of menu open/hover on mobile
 Blast radius: staggered-menu social links only
+**Scope extension (batch-2 recon, owner-promoted 2026-07-21):** same defect class found twice
+more — `.projects-page__card` (projectsPage.scss:69-72) and `.blog-page__card`
+(blogPage.scss:70-73) declare `transition: … transform 0.3s ease …` on the same nodes where
+motion `cardVariants` (and /projects `whileTap`) write inline transforms. Two instances is a
+pattern: batch 3 fixes all three together (narrow each transition's property list so the
+library-owned property isn't CSS-transitioned).
 
 ### LC-17 — Clean bills: no sticky-breaking ancestors, no orphaned partials
 Category: SCSS token
@@ -592,6 +598,259 @@ directional only (CLAUDE.md: local LH on this hardware isn't comparable to PSI).
   today — the grids/CTAs on the same five pages, SinglePricingCard, ServiceRow, etc., so
   likely NOT the last, but verify). Report only. A `motion` removal is its own item with its
   own bundle-size story — not a free rider on an h1 fix.
+
+#### LC-26 — Batch 2 recon (2026-07-21, RECON ONLY — no branch, no src edits)
+
+**Freshness verdict: LC-26 is CURRENT on `main` @ `522fe94`.** PR #6 (`e6170e0`, merged
+`441267c`) is SCSS-only — 16 scss files + 1 CLAUDE.md line, all `font-family: $font-special →
+$font-text` swaps on card titles / stat values / CTA headings. Zero JS files touched; the five
+page components, `motionVariants.js`, and the `__title` h1 classes' hide mechanism are untouched
+(scoped diff verified — the swapped selectors are `&-title`/`&-heading`/`&-name` card-level
+elements, not the page `__title` h1s). Fresh build from current `main` (post-batch-1) re-greps
+identically on all five routes:
+
+```
+about         <h1 class="about-page__title"        style="opacity:0;clip-path:inset(0 0 100% 0);transform:translateY(24px)">
+testimonials  <h1 class="testimonials-page__title" style="opacity:0;clip-path:inset(0 0 100% 0);transform:translateY(24px)">
+projects      <h1 class="projects-page__title"     style="opacity:0;clip-path:inset(0 0 100% 0);transform:translateY(24px)">
+blog          <h1 class="blog-page__title"         style="opacity:0;clip-path:inset(0 0 100% 0);transform:translateY(24px)">
+services      <h1 class="service-index__title"     style="opacity:0;clip-path:inset(0 0 100% 0);transform:translateY(24px)">
+pricing ref   <h1 id="pg-title" class="pg-h1 pg-animate">                        ← visible, unchanged
+```
+
+**Scope correction: the defect is the whole header block, not just the h1.** On every route the
+kicker `<p>`, `<h1>`, and lede `<p>` are all `lineVariant` children of a `headerVariants`
+stagger parent — all three ship the same hidden inline style. The fix unit is the header block.
+
+**Per-route table** (all five: `initial="hidden" whileInView="visible"
+viewport={{once:true, amount:0.3}}` on the `motion.header`, `lineVariant` on the three children;
+serialized style identical: `opacity:0;clip-path:inset(0 0 100% 0);transform:translateY(24px)`):
+
+| Route | Component (h1 line) | Reduced-motion mechanism | RM correct today? | CSS conflict on header props | CLS surface |
+|---|---|---|---|---|---|
+| /about | `AboutPage.js:93` (header :83-103) | `v()` nulls variants on parent+children (`:70`) | yes (client) | none | paint-only |
+| /testimonials | `ReviewsPage.js:37` (header :27-46) | **DIVERGENT+BROKEN**: parent `variants={reducedMotion ? undefined : headerVariants}` but children keep UNWRAPPED `lineVariant` and the `{...animate}` spread is a no-op both branches (`const animate = reducedMotion ? {} : undefined` — spreading `{}` or `undefined` does nothing, `ReviewsPage.js:16`). Reduced-motion users still get the full hidden→wipe animation on the header children | **no — latent RM defect** | none | paint-only |
+| /projects | `CaseStudiesPage.js:41` (header :31-47) | `v()` (`:19`) | yes (client) | none | paint-only |
+| /blog | `BlogPage.js:76` (header :66-83) | `v()` (`:34`) | yes (client) | none | paint-only |
+| /services | `ServiceIndexPage.js:88` (header :78-96) | `v()` (`:69`) | yes (client) | none | paint-only |
+
+Notes on the table:
+- "RM correct today (client)" refers to hydrated behavior only — during SSG, `useReducedMotion()`
+  returns `false` in Node, so `v()` passes real variants and the hidden state serializes for
+  EVERY visitor regardless of their OS setting. That is the LC-26 defect itself.
+- **CSS conflict check (header elements): CLEAN on all five.** Every `transition:` in the five
+  page stylesheets targets cards/links/CTA buttons (aboutPage.scss:168,208,266,295,355;
+  testimonialsPage.scss:72,176; projectsPage.scss:69,99,186,221; blogPage.scss:70,95,201,236;
+  serviceIndexPage.scss:110) — none touch `__kicker`/`__title`/`__lede`. Option A introduces no
+  double-owner on the header.
+- Pre-existing, OUT OF SCOPE (informational, do not fold into batch 2):
+  `.projects-page__card` and `.blog-page__card` declare `transition: … transform 0.3s ease …`
+  (projectsPage.scss:69-72, blogPage.scss:70-73) on the same nodes where motion `cardVariants`
+  writes inline transforms — same conflict class as LC-16. Queue with LC-16's batch if desired.
+- **ScrollTrigger cleanup:** none of the five pages currently create any GSAP/ScrollTrigger
+  (motion-only pages — no gsap import). The fix ADDS one; it must carry the full PricingGuide
+  cleanup (`trigger.kill() + safety.kill()` in the context cleanup + `ctx.revert()` on unmount —
+  reference `PricingGuide.js:96-116`).
+
+**Option A mechanism — CONFIRMED, with two revisions:**
+1. (unchanged) Strip `motion.*`/variants from the header block on each route; plain
+   `<header>/<p>/<h1>/<p>` ships in static HTML with zero inline style. Client-side `useEffect`
+   applies the PricingGuide safe-reveal to a `.page-head-animate` (name TBD) class: reduced →
+   `gsap.set(items, {clearProps:'all'})` early-return; else `gsap.set(autoAlpha:0, y:REVEAL_Y)` →
+   `ScrollTrigger.create({once, onEnter:reveal})` + immediate reveal when already in view +
+   `delayedCall` safety net; cleanup kills trigger+safety, `ctx.revert()` on unmount. GSAP is
+   sole owner of `autoAlpha`/`y` on header nodes (CSS conflict check above: clean); `clip-path`
+   is dropped entirely (paint flourish not worth a second contested property; PricingGuide
+   doesn't use it either).
+2. (revision) **ReviewsPage additionally sheds its broken RM mechanism** — the no-op
+   `{...animate}` spread and unwrapped child variants go away WITH the motion header, fixing the
+   latent reduced-motion defect as a side effect of the same edit, not as an extra scope item.
+3. (revision) The five effects are near-identical — implement as one shared hook (e.g.
+   `src/hooks/usePageHeaderReveal.js`, consuming `motionTokens.js` constants like PricingGuide
+   does) with five one-line consumers, rather than five pasted copies. Approvable as its own
+   pre-item below; if rejected, the fallback is five per-page copies of the PricingGuide effect.
+
+**CLS risk surface:** identical on all five routes — the hidden state is `opacity` (paint),
+`clip-path` (paint), `translateY(24px)` (transform; composited, displaces nothing in flow), so
+the header's box geometry in today's broken HTML is already final; shipping it visible changes
+pixels, not layout, and nothing below the header (lede, grids) can reflow from the change. The
+replacement reveal (`autoAlpha`+`y`) is equally flow-inert. Prediction stands at ≈0 — and per
+the carry-forward note above, the prediction does not waive the gate: **median-of-3 PSI,
+desktop, prod, branch vs `main` (owner's captured `main` baseline as reference), before merge.**
+Local Lighthouse directional only.
+
+**Exact pass condition (against built output, not a browser):**
+```
+grep -o '<h1[^>]*>' build/about.html build/testimonials.html build/projects.html build/blog.html build/services.html
+! grep -E '<(h1|p)[^>]*style="[^"]*opacity: ?0' build/about.html build/testimonials.html build/projects.html build/blog.html build/services.html
+grep -o '<h1[^>]*>' build/pricing/web-development.html   # invariant: still visible
+```
+Pass per route = the `<h1>` (and the kicker/lede `<p>`s — hence the second grep covering both
+tags) carries NO inline `style` containing `opacity:0`/`clip-path`/`translateY`; expected form
+`<h1 class="…__title page-head-animate">`. All five paths verified to exist first (BSD grep
+exit-2 rule). Pricing invariant unchanged.
+
+**Proposed change list — one approvable item per route (STATUSES per owner sign-off 2026-07-21):**
+- **LC-26-pre — APPROVED** — shared `usePageHeaderReveal` hook (PricingGuide pattern,
+  motionTokens constants, full cleanup). **Recorded tradeoff: a shared hook means all five
+  routes fail together if it's wrong — which is why it gets verified on ONE route (LC-26a
+  pilot) before the rest adopt it.** No route behavior until consumed.
+- **LC-26a — /about — APPROVED (pilot)**: AboutPage.js:83-103 header → plain elements + hook.
+  Ships with the pre-item; PSI reconciliation runs on /about ALONE (median-of-3, desktop, prod,
+  branch vs the owner's captured `main` baseline) and must match the ≈0 CLS prediction before
+  b–e adopt.
+- **LC-26b — /testimonials — HELD** (approved in principle, released after 26a verifies green):
+  ReviewsPage.js:27-46 header → plain elements + hook. Includes the LC-34 reduced-motion fix —
+  which does NOT ride silently: own line in the commit body, own doc entry (LC-34 below).
+- **LC-26c — /projects — HELD**: CaseStudiesPage.js:31-47 header → plain elements + hook.
+- **LC-26d — /blog — HELD**: BlogPage.js:66-83 header → plain elements + hook.
+- **LC-26e — /services — HELD**: ServiceIndexPage.js:78-96 header → plain elements + hook.
+- **clip-path dropped from the reveal — APPROVED.**
+- Sequencing: one branch off current `main`; pre+26a first; b–e land as ONE follow-up commit on
+  the same branch after the 26a gate. Pass condition covers all three header elements (kicker,
+  h1, lede), not the h1 alone, plus the pricing invariant.
+- The `.projects-page__card`/`.blog-page__card` transform conflict is NOT informational —
+  **promoted to batch 3 with LC-16** (owner: two instances is a pattern; see LC-16 scope
+  extension).
+
+#### LC-26a — pre-commit verification round (2026-07-21, owner conditions 1-5)
+
+**Hook corrections applied before commit:**
+- **Double-reveal fixed (owner condition 1) — adjudicated by instrumented test, not reasoning.**
+  Manual already-in-view fallback REMOVED; ScrollTrigger's creation-time evaluation fires
+  `onEnter` itself. Instrumented `reveal()` on cold loads of /about (production build, local
+  preview): `revealCount: 1` at **588ms**, **353ms**, **1035ms** across three cold loads (all ≪
+  the 3000ms safety window, so trigger-fired, not net-fired; the old code would have counted 2).
+  **This contradicts the CLAUDE.md CaseStudyTiles clause "an already-past `once` trigger won't
+  fire `onEnter`"** — empirically false for a trigger created at hydration on a top-of-route
+  element in this GSAP version; scope note to be added to CLAUDE.md at commit.
+- **Safety net guarded (condition 2):** fires only when `!items.some(gsap.isTweening)` AND
+  something is still hidden — an in-flight reveal no longer restarts.
+- **ScrollTrigger registration (condition 3) confirmed:** `src/index.js:18`
+  `gsap.registerPlugin(ScrollTrigger)` inside the `ViteReactSSG(({isClient}) => …)` bootstrap —
+  executes at app startup before any route effect; same path PricingGuide already relies on.
+
+**Browser verification (production build via `vite preview`, Chrome):**
+- Console: **zero messages** on full load of /about — no hydration errors (#418/#422/#425 absent).
+- Flash-of-visible-then-hidden (condition 5): at local speed the reveal fires BEFORE first paint
+  (reveal 353ms < FCP 464ms) — **zero visible flash**; the first painted frame is already the
+  entrance. The artifact only materializes when JS lags paint (throttled/slow devices): header
+  visible for (JS-delay − FCP), then blinks out and re-animates ~0.55s — same accepted profile
+  as PricingGuide, bigger element. **Environment limits disclosed:** CPU/network throttling and
+  true 390px width are not drivable through the extension (window manager ignored sub-500px
+  resizes); verified at 500px (mobile breakpoint active): reveal 1×@1035ms, all elements
+  opacity 1, layout correct. The throttled-flash pixel judgement at true 390 remains for the
+  owner's device pass.
+- LCP note (condition 4): local run reports the LCP element as `footer-wordmark__text`, not the
+  h1 — local-window artifact; the h1-as-LCP question is answered by the PSI comparison.
+
+**PSI BASELINE — captured 2026-07-21 via pagespeed.web.dev UI (API anon quota 429'd), desktop,
+production https://switchcasestudio.com/about (= pre-change `main`), 3 runs:**
+
+| Run | Perf | FCP | LCP | TBT | CLS | SI |
+|---|---|---|---|---|---|---|
+| 1 (`exvg2cbp9o`) | 43 | 0.7s | 0.7s | 2,080ms | 0.609 | 2.1s |
+| 2 (`r7odllwbd2`) | 78 | 0.5s | 0.5s | 30ms | 0.609 | 0.7s |
+| 3 (`72fd8gwuts`) | 88 | 0.5s | 0.5s | 20ms | 0.608 | 0.8s |
+| **median** | **78** | **0.5s** | **0.5s** | **30ms** | **0.609** | **0.8s** |
+
+(Mobile run 1 for reference: Perf 88. Run-1 desktop TBT 2,080ms is an outlier — runs 2-3 say
+20-30ms.)
+**Baseline finding — desktop CLS 0.609 is deterministic (×3) and PRE-EXISTING, dominated by the
+very header LC-26a rewrites:** PSI layout-shift culprits attribute **0.449 to
+`<header class="about-page__hero">`** with Inter web-font rows (`Inter-800.woff2`,
+`Inter-300.woff2`) cited — i.e. **font-swap reflow of the header text**, NOT the hide/reveal
+mechanism (paint-only) — plus **0.150 to `<main>`** (consent-banner insertion), and unsized-flag
+noise on team photos. Neither cause is touched by this branch, so the gate comparison expects
+branch CLS ≈ 0.609 (unchanged); any IMPROVEMENT would be incidental. The 0.609 itself is a new
+standalone finding for the ledger (worst known desktop CLS on the site; home was ~0.107) —
+candidates: size-adjusted fallback audit for the about header faces + banner slot reservation.
+Owner to run the BRANCH side of the median-of-3 after push (I cannot deploy).
+
+### LC-35 — Prod /about desktop CLS 0.609: deterministic, pre-existing, worst known on the site
+Category: Correctness (performance) — OPENED 2026-07-21, DO NOT ACT (owner-directed record only)
+Files: `src/styles/components/aboutPage.scss` (header text faces), `src/analytics/ConsentBanner.js` + `src/routes.js:105` (sitewide mount), fonts in `public/fonts/`
+Evidence — PSI desktop, production https://switchcasestudio.com/about, 3 runs 2026-07-21
+(pagespeed.web.dev UI; run IDs exvg2cbp9o / r7odllwbd2 / 72fd8gwuts):
+
+| Run | Perf | FCP | LCP | TBT | CLS | SI |
+|---|---|---|---|---|---|---|
+| 1 | 43 | 0.7s | 0.7s | 2,080ms | 0.609 | 2.1s |
+| 2 | 78 | 0.5s | 0.5s | 30ms | 0.609 | 0.7s |
+| 3 | 88 | 0.5s | 0.5s | 20ms | 0.608 | 0.8s |
+| **median** | **78** | **0.5s** | **0.5s** | **30ms** | **0.609** | **0.8s** |
+
+CLS 0.609 is deterministic (±0.001 across three runs) and exceeds the Core Web Vitals "poor"
+threshold (0.25) by ~2.4×. PSI's layout-shift culprits:
+- **0.449 — `<header class="about-page__hero">`**, with Inter web-font rows cited
+  (`Inter-800.woff2`, `Inter-300.woff2`) → **font-swap reflow of the header text**. The
+  paint-only hide/reveal (old motion or new GSAP alike) is NOT the cause — opacity/clip-path/
+  transform shift nothing.
+- **0.150 — consent banner insertion shifting `<main>`**.
+- Noise: team photos flagged despite explicit width/height attributes.
+Neither cause is touched by branch `fix/ssg-visible-headers`; **the LC-26a gate expectation is
+branch CLS ≈ 0.609 unchanged** — any improvement would be incidental.
+**Failure-class note:** the font-swap component is the same class the SCS Display size-adjust /
+metric-fallback work addressed — fallback metrics not matching the real face, text reflowing at
+swap. The 'Inter Fallback' size-adjusted face exists (font-critical-path, 2026-06-08) yet PSI
+still attributes shift to Inter loads here — whether the fallback isn't covering these
+weights/elements, or the `$font-special` h1 (which has NO metric fallback) is the real mover
+with Inter co-cited, is UNESTABLISHED. The empirical in-browser size-adjust method applies. Do
+not start this work.
+**Cross-page check (grep-level, per owner — no PSI run):** the 0.609 pattern is structurally
+expected on ALL five standalone pages, not singular to /about — identical header anatomy
+(`$font-special` `__title` + `$font-text`/Inter `__kicker`/`__lede` on all five, verified in
+each page's scss) and the consent banner mounts sitewide (`routes.js:105`, every route).
+Per-page PSI confirmation pending, deliberately not run yet.
+Verdict: LIVE bug (pre-existing; independent of batch 2)
+Proposed change: none yet — future item: size-adjust audit for the header faces (incl. whether
+SCS Display needs its own metric fallback) + consent-banner slot reservation. Its own branch,
+its own PSI verification.
+Risk: don't touch (this batch)
+Blast radius: header text rendering on 5+ routes; banner layout sitewide
+
+### LC-33 — motion/react consumer census (batch 2 recon)
+Category: Dependency
+Files: 12 import sites (all `motion/react`; no `framer-motion` imports — only two comments
+citing snippet provenance: HoverPeek.js:10, MagneticButton.js:13, SinglePricingCard.js:18):
+```
+pages:    AboutPage.js:3, BlogPage.js:3, CaseStudiesPage.js:3, ReviewsPage.js:2, ServiceIndexPage.js:2
+sections: Reviews.js:8
+ui:       GradientText.js:8, HoverPeek.js:3, MagneticButton.js:7, ServiceRow.js:2, SinglePricingCard.js:3
+```
+Evidence: the five page headers are NOT the last consumers — even after LC-26 strips motion from
+the headers, the same five pages keep motion on their grids/CTAs, and six other components
+(Reviews, GradientText, HoverPeek, MagneticButton, ServiceRow, SinglePricingCard) use it
+independently. `motion` (^12.35.0) remains a live dependency.
+Verdict: UNCERTAIN (removability is a distant question contingent on migrating 11 remaining
+consumers — its own item, its own bundle-size story, its own branch; NOT part of batch 2)
+Proposed change: none — informational
+Risk: don't touch
+Blast radius: n/a (census only)
+
+### LC-34 — ReviewsPage reduced-motion guard is a no-op: reduced-motion users get the full header animation
+Category: Correctness (accessibility)
+Files: `src/components/pages/ReviewsPage.js:16` (`const animate = reducedMotion ? {} : undefined;`),
+`:34,:37,:42` (`{...animate}` spreads), `:29` (parent `variants={reducedMotion ? undefined : headerVariants}`)
+Evidence: spreading `{}` or `undefined` are BOTH no-ops, so `{...animate}` never does anything;
+and while the parent's variants are nulled under reduced motion, its `initial="hidden"
+whileInView="visible"` labels still propagate to the children, whose `variants={lineVariant}`
+are UNWRAPPED — so the kicker/h1/lede run the full hidden→wipe entrance for reduced-motion users
+in production today. The other four pages' `v()` wrapper nulls variants on parent AND children,
+which is why they behave. Independent of LC-26 (this is who-gets-animated; LC-26 is
+what-ships-in-HTML) — found during batch-2 recon, owner-directed to stand on its own terms.
+Verdict: LIVE bug (a11y — violates the house zero-gap reduced-motion rule)
+Proposed change: ~~ships WITH LC-26b~~ **SPLIT OUT — ships in the 26a batch as its OWN commit**
+(owner offered the choice 2026-07-21; decided deliberately). Reason: a live accessibility defect
+had been gated behind LC-26b's pilot verification, a dependency it doesn't have. The minimal fix
+(delete the no-op `animate` spread; wrap the three child variants in a `v()` null-guard matching
+the other four pages) changes only reduced-motion conditional wiring — SSG renders with
+`reducedMotion=false`, so serialized HTML is byte-identical and the fix cannot contaminate the
+/about PSI pilot. LC-26b later deletes the whole patched block wholesale and supersedes this.
+Own commit = findable in history on its own terms.
+Risk: safe (strictly less animation for RM users; zero static-HTML change — verified by
+testimonials.html hidden-state invariant in the batch build)
+Blast radius: /testimonials header for reduced-motion users
 
 ### LC-27 — SinglePricingCard inner `whileInView` can strand card content on tall mobile cards
 Category: Correctness

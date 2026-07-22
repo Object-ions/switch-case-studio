@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import Seo from '../util/Seo';
+import { useRef } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
+import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
 import {
-  headerVariants,
-  lineVariant,
   containerVariants,
   cardVariants,
 } from '../../utils/motionVariants';
@@ -68,6 +68,10 @@ const teamJsonLd = TEAM.length
 const AboutPage = () => {
   const reduced = useReducedMotion();
   const v = (variant) => (reduced ? undefined : variant);
+  /* LC-26a: header is GSAP-revealed (static HTML ships visible) — see
+   * usePageHeaderReveal. motion still owns the story/values/team blocks. */
+  const heroRef = useRef(null);
+  usePageHeaderReveal(heroRef);
 
   return (
     <>
@@ -80,27 +84,21 @@ const AboutPage = () => {
 
       <article className="about-page" aria-label="About Switch Case Studio">
         {/* ── Hero ── */}
-        <motion.header
-          className="about-page__hero"
-          variants={v(headerVariants)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <motion.p className="about-page__kicker" variants={v(lineVariant)}>
+        <header className="about-page__hero" ref={heroRef}>
+          <p className="about-page__kicker page-head-animate">
             Our Studio
-          </motion.p>
-          <motion.h1 className="about-page__title" variants={v(lineVariant)}>
+          </p>
+          <h1 className="about-page__title page-head-animate">
             Design-led.
             <br />
             <span className="about-page__title--accent">Results-driven.</span>
-          </motion.h1>
-          <motion.p className="about-page__lede" variants={v(lineVariant)}>
+          </h1>
+          <p className="about-page__lede page-head-animate">
             Switch Case Studio is a boutique digital studio building websites,
             e-commerce stores, and web apps from scratch — for businesses that
             take their digital presence seriously.
-          </motion.p>
-        </motion.header>
+          </p>
+        </header>
 
         {/* ── Story ── */}
         <section className="about-page__story" aria-labelledby="about-story-heading">
