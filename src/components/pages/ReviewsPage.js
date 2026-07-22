@@ -13,7 +13,10 @@ import '../../styles/components/testimonialsPage.scss';
 const ReviewsPage = () => {
   const reducedMotion = useReducedMotion();
 
-  const animate = reducedMotion ? {} : undefined;
+  /* LC-34: variants must be nulled per element under reduced motion — the
+   * parent's initial/whileInView labels still propagate to children, so an
+   * unwrapped child variant animates regardless of the parent's variants. */
+  const v = (variant) => (reducedMotion ? undefined : variant);
 
   return (
     <>
@@ -26,20 +29,20 @@ const ReviewsPage = () => {
       <article className="testimonials-page" aria-label="Client reviews">
         <motion.header
           className="testimonials-page__header"
-          variants={reducedMotion ? undefined : headerVariants}
+          variants={v(headerVariants)}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <motion.p className="testimonials-page__kicker" variants={lineVariant} {...animate}>
+          <motion.p className="testimonials-page__kicker" variants={v(lineVariant)}>
             What clients say
           </motion.p>
-          <motion.h1 className="testimonials-page__title" variants={lineVariant} {...animate}>
+          <motion.h1 className="testimonials-page__title" variants={v(lineVariant)}>
             Real words.
             <br />
             <span className="testimonials-page__title--accent">Real results.</span>
           </motion.h1>
-          <motion.p className="testimonials-page__lede" variants={lineVariant} {...animate}>
+          <motion.p className="testimonials-page__lede" variants={v(lineVariant)}>
             Every project is built around one goal — making our clients' businesses
             grow. Here's what they had to say.
           </motion.p>

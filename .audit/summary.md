@@ -491,7 +491,20 @@ fields + 5 dead SCSS tokens); CONFIRMED bug LC-26 — five routes (/about /testi
 /blog /services) ship `<h1 style="opacity:0;clip-path:…">` in static SSG HTML (motion/react
 `initial="hidden"` serialized; fix mechanism documented under LC-26, batch 2); one real GSAP/CSS
 double-owner (LC-16 `.sm-socials-link` opacity); phantom dep `prop-types`.
-**Batch 1 (LC-19+LC-20) ✅ COMMITTED, not pushed** — `prop-types ^15.8.1` declared,
+**Batch 2 (LC-26-pre + LC-26a + LC-34) ✅ COMMITTED on `fix/ssg-visible-headers`, not pushed**
+(2026-07-21, off main @ 522fe94 — batch 1 merged). Pilot route only: /about header → plain
+elements + shared `usePageHeaderReveal` (PricingGuide/VE-8 pattern; no manual in-view fallback —
+ScrollTrigger fires onEnter at creation, instrumented 3×; isTweening-guarded safety net).
+LC-34 (ReviewsPage RM no-op guard) split out as its own commit — a11y fix, zero HTML change.
+Verified: /about ships kicker+h1+lede visible in static HTML (path-guarded greps), pricing +
+testimonials invariants hold, 31 routes, 75/75 JSX, zero console errors on prod build, reveal
+1×@353-1035ms (fires BEFORE first paint locally — no flash at full speed). **PSI baseline
+captured (median-of-3 desktop prod /about): Perf 78 / LCP 0.5s / CLS 0.609 — the 0.609 is
+deterministic, PRE-EXISTING (header font-swap 0.449 + consent banner 0.150 → LC-35, worst known
+CLS on site, all five standalone pages structurally share the causes). Branch gate: CLS ≈ 0.609
+unchanged.** OPEN: owner's true-390 throttled device pass → then push + branch-side PSI → then
+LC-26b–e (held) in one follow-up commit.
+**Batch 1 (LC-19+LC-20) ✅ MERGED to main @ 522fe94** — `prop-types ^15.8.1` declared,
 `vite-react-ssg 0.9.0` moved devDeps→deps (specifier untouched). Lockfile diff = dev-flag
 cascade + 19-line environmental optional-peer prune (control-tested on HEAD). Verified: clean
 `rm -rf node_modules && npm ci && npm run build` → 31 routes (filesystem count), asset hashes
