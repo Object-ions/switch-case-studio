@@ -1,11 +1,11 @@
+import { useRef } from 'react';
 import Seo from '../util/Seo';
 import { motion, useReducedMotion } from 'motion/react';
 import servicesData from '../../data/services.json';
 import pricingData from '../../data/pricingData.json';
 import ServiceRow from '../ui/ServiceRow';
+import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
 import {
-  headerVariants,
-  lineVariant,
   containerVariants,
   cardVariants,
 } from '../../utils/motionVariants';
@@ -67,6 +67,12 @@ const fromPrice = (slug) => {
 const ServiceIndexPage = ({ variant }) => {
   const reduced = useReducedMotion();
   const v = (motionVariant) => (reduced ? undefined : motionVariant);
+  /* LC-26e: header is GSAP-revealed (static HTML ships visible) — see
+   * usePageHeaderReveal. This component serves BOTH /services and the
+   * /pricing overview, so the fix repairs both routes' headers. motion
+   * still owns the row list + CTA below. */
+  const headerRef = useRef(null);
+  usePageHeaderReveal(headerRef);
   const c = COPY[variant];
 
   return (
@@ -75,25 +81,19 @@ const ServiceIndexPage = ({ variant }) => {
 
       <article className="service-index" aria-label={c.ariaLabel}>
         {/* ── Header ── */}
-        <motion.header
-          className="service-index__header"
-          variants={v(headerVariants)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <motion.p className="service-index__kicker" variants={v(lineVariant)}>
+        <header className="service-index__header" ref={headerRef}>
+          <p className="service-index__kicker page-head-animate">
             {c.kicker}
-          </motion.p>
-          <motion.h1 className="service-index__title" variants={v(lineVariant)}>
+          </p>
+          <h1 className="service-index__title page-head-animate">
             {c.titleTop}
             <br />
             <span className="service-index__title--accent">{c.titleAccent}</span>
-          </motion.h1>
-          <motion.p className="service-index__lede" variants={v(lineVariant)}>
+          </h1>
+          <p className="service-index__lede page-head-animate">
             {c.lede}
-          </motion.p>
-        </motion.header>
+          </p>
+        </header>
 
         {/* ── Service index ── */}
         {/* Reveal on MOUNT (animate), not on scroll: a scroll `amount`

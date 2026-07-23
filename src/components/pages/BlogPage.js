@@ -1,10 +1,10 @@
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Seo from '../util/Seo';
 import { motion, useReducedMotion } from 'motion/react';
 import postsData from '../../data/posts.json';
+import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
 import {
-  headerVariants,
-  lineVariant,
   containerVariants,
   cardVariants,
 } from '../../utils/motionVariants';
@@ -32,6 +32,10 @@ const formatDate = (iso) => {
 const BlogPage = () => {
   const reduced = useReducedMotion();
   const v = (variant) => (reduced ? undefined : variant);
+  /* LC-26d: header is GSAP-revealed (static HTML ships visible) — see
+   * usePageHeaderReveal. motion still owns the grid + CTA below. */
+  const headerRef = useRef(null);
+  usePageHeaderReveal(headerRef);
 
   return (
     <>
@@ -63,24 +67,18 @@ const BlogPage = () => {
 
       <article className="blog-page" aria-label="Blog">
         {/* ── Header ── */}
-        <motion.header
-          className="blog-page__header"
-          variants={v(headerVariants)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <motion.p className="blog-page__kicker" variants={v(lineVariant)}>
+        <header className="blog-page__header" ref={headerRef}>
+          <p className="blog-page__kicker page-head-animate">
             Field Notes
-          </motion.p>
-          <motion.h1 className="blog-page__title" variants={v(lineVariant)}>
+          </p>
+          <h1 className="blog-page__title page-head-animate">
             The Studio Journal
-          </motion.h1>
-          <motion.p className="blog-page__lede" variants={v(lineVariant)}>
+          </h1>
+          <p className="blog-page__lede page-head-animate">
             Practical thinking on design, development, branding, and growth —
             from the team that builds from scratch.
-          </motion.p>
-        </motion.header>
+          </p>
+        </header>
 
         {/* ── Grid ── */}
         <motion.section
