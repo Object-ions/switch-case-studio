@@ -1,11 +1,11 @@
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Seo from '../util/Seo';
 import { motion, useReducedMotion } from 'motion/react';
 import projectsData from '../../data/projects.json';
 import HoverPeek from '../ui/HoverPeek';
+import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
 import {
-  headerVariants,
-  lineVariant,
   containerVariants,
   cardVariants,
 } from '../../utils/motionVariants';
@@ -17,6 +17,10 @@ const MotionLink = motion.create(Link);
 const CaseStudiesPage = () => {
   const reduced = useReducedMotion();
   const v = (variant) => (reduced ? undefined : variant);
+  /* LC-26c: header is GSAP-revealed (static HTML ships visible) — see
+   * usePageHeaderReveal. motion still owns the grid + CTA below. */
+  const headerRef = useRef(null);
+  usePageHeaderReveal(headerRef);
 
   return (
     <>
@@ -28,23 +32,17 @@ const CaseStudiesPage = () => {
 
       <article className="projects-page" aria-label="Case studies">
         {/* ── Header ── */}
-        <motion.header
-          className="projects-page__header"
-          variants={v(headerVariants)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <motion.p className="projects-page__kicker" variants={v(lineVariant)}>
+        <header className="projects-page__header" ref={headerRef}>
+          <p className="projects-page__kicker page-head-animate">
             Portfolio
-          </motion.p>
-          <motion.h1 className="projects-page__title" variants={v(lineVariant)}>
+          </p>
+          <h1 className="projects-page__title page-head-animate">
             Selected Work
-          </motion.h1>
-          <motion.p className="projects-page__lede" variants={v(lineVariant)}>
+          </h1>
+          <p className="projects-page__lede page-head-animate">
             {projectsData.length} projects. All built from scratch.
-          </motion.p>
-        </motion.header>
+          </p>
+        </header>
 
         {/* ── Grid ──
             Reveal on MOUNT (animate), not on scroll (whileInView). The grid

@@ -1,9 +1,9 @@
+import { useRef } from 'react';
 import Seo from '../util/Seo';
 import { motion, useReducedMotion } from 'motion/react';
 import testimonialsData from '../../data/testimonials.json';
+import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
 import {
-  headerVariants,
-  lineVariant,
   containerVariants,
   cardVariants,
 } from '../../utils/motionVariants';
@@ -12,11 +12,11 @@ import '../../styles/components/testimonialsPage.scss';
 
 const ReviewsPage = () => {
   const reducedMotion = useReducedMotion();
-
-  /* LC-34: variants must be nulled per element under reduced motion — the
-   * parent's initial/whileInView labels still propagate to children, so an
-   * unwrapped child variant animates regardless of the parent's variants. */
-  const v = (variant) => (reducedMotion ? undefined : variant);
+  /* LC-26b: header is GSAP-revealed (static HTML ships visible) — see
+   * usePageHeaderReveal. This also supersedes the LC-34 v() guard, which
+   * existed only for the motion header removed here. */
+  const headerRef = useRef(null);
+  usePageHeaderReveal(headerRef);
 
   return (
     <>
@@ -27,26 +27,20 @@ const ReviewsPage = () => {
       />
 
       <article className="testimonials-page" aria-label="Client reviews">
-        <motion.header
-          className="testimonials-page__header"
-          variants={v(headerVariants)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <motion.p className="testimonials-page__kicker" variants={v(lineVariant)}>
+        <header className="testimonials-page__header" ref={headerRef}>
+          <p className="testimonials-page__kicker page-head-animate">
             What clients say
-          </motion.p>
-          <motion.h1 className="testimonials-page__title" variants={v(lineVariant)}>
+          </p>
+          <h1 className="testimonials-page__title page-head-animate">
             Real words.
             <br />
             <span className="testimonials-page__title--accent">Real results.</span>
-          </motion.h1>
-          <motion.p className="testimonials-page__lede" variants={v(lineVariant)}>
+          </h1>
+          <p className="testimonials-page__lede page-head-animate">
             Every project is built around one goal — making our clients' businesses
             grow. Here's what they had to say.
-          </motion.p>
-        </motion.header>
+          </p>
+        </header>
 
         {/* Reveal on MOUNT — the grid is the primary content in the first
             viewport under a short header; a scroll `amount` threshold on this

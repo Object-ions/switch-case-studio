@@ -699,12 +699,32 @@ exit-2 rule). Pricing invariant unchanged.
   Ships with the pre-item; PSI reconciliation runs on /about ALONE (median-of-3, desktop, prod,
   branch vs the owner's captured `main` baseline) and must match the ≈0 CLS prediction before
   b–e adopt.
-- **LC-26b — /testimonials — HELD** (approved in principle, released after 26a verifies green):
-  ReviewsPage.js:27-46 header → plain elements + hook. Includes the LC-34 reduced-motion fix —
-  which does NOT ride silently: own line in the commit body, own doc entry (LC-34 below).
-- **LC-26c — /projects — HELD**: CaseStudiesPage.js:31-47 header → plain elements + hook.
-- **LC-26d — /blog — HELD**: BlogPage.js:66-83 header → plain elements + hook.
-- **LC-26e — /services — HELD**: ServiceIndexPage.js:78-96 header → plain elements + hook.
+- **LC-26b — /testimonials — RELEASED 2026-07-23** (branch `fix/lc26-bcde-adopt-hook`):
+  header → plain elements + revised hook. **LC-34's patched v() guard is REPLACED ENTIRELY
+  here — expected supersession, not a regression** (the guard existed only for the motion
+  header this removes; the hook's reduced-motion path covers it).
+- **LC-26c — /projects — RELEASED 2026-07-23**: header → plain elements + hook.
+- **LC-26d — /blog — RELEASED 2026-07-23**: header → plain elements + hook.
+- **LC-26e — /services — RELEASED 2026-07-23**: header → plain elements + hook. **SIXTH ROUTE
+  REPAIRED — a genuine find (owner-classified), not a bonus: ServiceIndexPage also serves the
+  /pricing OVERVIEW.** Pre-fix defect evidence banked: `build/pricing.html` served
+  `<h1 class="service-index__title" style="opacity:0;clip-path:inset(0 0 100% 0);
+  transform:translateY(24px)">` — the /pricing overview shipped a hidden h1 in static HTML
+  from LC-26's introduction until this fix; post-fix it ships clean. **Why the Phase 0 census
+  missed it:** it enumerated affected routes BY PATH, and a single component covering two
+  paths fell through a path-based count. Rule added to CLAUDE.md: enumerate by component,
+  then map to paths — a path census undercounts when one component serves several routes.
+  **b–e verification (2026-07-23):** per-route path-guarded greps — testimonials, projects,
+  blog, services, AND pricing each individually PASS (kicker/h1/lede present, no inline
+  hidden state); pricing-detail + /about invariants unchanged; standing marker check passes;
+  31 routes; 76/76 JSX; 6/6 JSON. Browser: cold loads on all four → zero inline styles,
+  opacity 1/1/1, landing captured per route (headers cannot disappear — nothing hides);
+  client-nav entrances → all four choose the animate path (GSAP takes ownership); full
+  visible settle confirmed on /services (1/.98/.89→1, mid-cascade frame captured) and
+  /testimonials (.93/.78/.48→settled, frame captured) — /projects and /blog share the
+  identical single hook path and verified animate-path + ownership; safety net covers all.
+  **No PSI for this change (recorded per owner instruction): the revision adds no first-load
+  animation — first load ships and stays the static visible HTML.**
 - **clip-path dropped from the reveal — APPROVED.**
 - Sequencing: one branch off current `main`; pre+26a first; b–e land as ONE follow-up commit on
   the same branch after the 26a gate. Pass condition covers all three header elements (kicker,
@@ -1477,7 +1497,21 @@ Median culprits: **`about-page__hero` → 0.605** · `about-page__team` → 0.00
   is LARGER than every pre-LC-42 number suggested. Pricing leaves the worst tier but both
   pages remain CWV-"poor" (>0.25).
 - LCP element: wordmark on 5/6 runs; pricing run 1 reported `a.footer-cta__email` once —
-  recorded as observed, not explained.
+  recorded as observed, not explained. Do-not-investigate per owner.
+
+**PREDICTION POST-MORTEM (owner-recorded 2026-07-23) — the reasoning error, reusable:** the
+prediction subtracted FA's culprit rows from the page totals, **assuming culprit rows are
+independent additive contributions to CLS. They are not.** Lighthouse aggregates every element
+moving in the same frame into a single layout-shift entry scored on the union of before/after
+rects — same-frame shifts in opposing directions produce a SMALLER combined score than either
+alone. That makes the cancellation reading mechanically sound rather than merely arithmetically
+convenient (FA collapse = up; font-swap growth = down; /about arithmetic fits to ~0.01), and
+it means both old attributions were understated. Rule added to CLAUDE.md: predict the
+mechanism's removal, not the arithmetic. **Hypothesis stays UNCONFIRMED until the fresh
+sources trace runs (LC-35 step one).** The split verdict stands plainly: mechanism killed
+exactly as claimed on both pages; totals mispredicted. Standing measurement hazard also
+recorded: PSI lab `THROTTLED_TASK_LIMIT` errors are Google-side congestion — discard, re-run,
+expect them.
 
 ### LC-43 — Builds are not byte-reproducible across environments (record only)
 Category: Correctness (build) — OPENED 2026-07-23, RECORD ONLY, do not investigate
