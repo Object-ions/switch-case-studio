@@ -883,6 +883,12 @@ SCS Display needs its own metric fallback) + consent-banner slot reservation. It
 its own PSI verification.
 Risk: don't touch (this batch)
 Blast radius: header text rendering on 5+ routes; banner layout sitewide
+**Addendum 2026-07-22 (n=1, from the comparison capture):** /pricing/web-development desktop
+CLS = **1.013** (run `20ndfa5f9q`) — WORSE than /about's 0.609. Culprits: `<main>` → 0.916
+(consent-banner mechanism class, far larger than /about's 0.150), `pg-cards` → 0.092, quote
+avatars flagged unsized. Extends "not singular" beyond the five standalone pages to the
+CONVERSION page. Single run — needs median-of-3 before ranking; if it reproduces, the
+banner-slot fix likely outranks the font-swap fix in this item's eventual scope.
 
 ### LC-36 — Prod /about LCP: 600ms element render delay against 30ms TTFB
 Category: Correctness (performance) — OPENED 2026-07-21 (owner-directed; originally dropped
@@ -950,6 +956,10 @@ Verdict: LIVE and correct
 Proposed change: none (comment fix queued to docs/housekeeping batch)
 Risk: n/a
 Blast radius: n/a
+Re-verified 2026-07-22 (owner report round): live sitemap re-fetched — 28 `<loc>`s,
+**byte-identical to the local build output**, all three exclusions confirmed absent
+individually. Verdict unchanged: no accidental exclusion, no SEO defect, nothing jumps the
+queue.
 
 ### LC-39 — Build chunk-size warning: two CLIENT chunks over 500 kB (record only)
 Category: Correctness (performance) — record only, NO manualChunks work
@@ -1049,6 +1059,73 @@ b–e release as planned; (b) both read badly → the artifact was never actuall
 pattern-level finding, b–e stay held and the hide-window lever (e.g. pre-hydration inline
 hide) gets designed as its own item; (c) /about reads worse than pricing → scope-limit
 finding above, b–e held, per-route judgement replaces blanket adoption.
+
+#### LC-26a — Comparison capture: /about vs /pricing/web-development (2026-07-22, EVIDENCE ONLY — no verdict, per pre-registration)
+
+**Method disclosures, up front:** window occluded throughout (`visibilityState: hidden`, rAF
+frozen — same as the timing capture); viewport **500px actual** (window-manager floor, NOT
+390); **throttling cannot be driven** through this toolset — capture is unthrottled, which per
+the timing capture is still the relevant condition (the window is present unthrottled).
+~100ms-interval wall-clock screenshots are impossible (~1s/frame round-trip); sequences are
+**forced-frame stepped** (each screenshot advances the frozen GSAP ticker; lagSmoothing clamps
+resumed deltas), so frames are labeled by **step index + sampled computed opacities**, not
+ms-from-navigation — under a live ticker the same trajectories compress into 0.56s / 1.04s.
+Hide timestamps are the established derivation (route-chunk exec + commit-task end; the effect
+flushes in that commit) — refined this session: **the LAZY ROUTE CHUNK gates the hide** (the
+effect can't run before the route component mounts), which the earlier app-chunk-only
+derivation missed; cold-load hide is later than previously derived.
+
+**Timings (ms from navigation start; 3 cold loads per page, same session, back to back):**
+
+| | /about R1 (cold) | R2 | R3 | /pricing R1 (cold-ish) | R2 | R3 |
+|---|---|---|---|---|---|---|
+| app chunk (start→end) | 478→1075 | 72→201 | 101→194 | 279→419 | 64→179 | 63→151 |
+| route chunk(s) (→end) | 1129→**2020** | →364 | →361 | 458→**847** | →367 | →313 |
+| commit long task (→end) | ambiguous, post-2020 | 326+260→586 | 358+186→544 | 667+220→887 | 314+205→519 | 289+233→522 |
+| **≈hide executes** | **≈2.0–2.3s** | ≈586 | ≈544 | **≈887** | ≈519 | ≈522 |
+
+Medians (cache-state uneven — 1 cold + 2 warm per page, disclosed): hide ≈ **586ms /about**,
+**522ms /pricing**; cold-load hide ≈ **2.0–2.3s /about** vs **≈0.9s /pricing** — the gap is
+the route chunk: AboutPage's fetch ran 1129→2020 (≈0.9s) cold vs PricingPage+pricingData
+458→847 (≈0.4s).
+
+**FCP reference (PSI desktop prod):** /about **0.4s** (median-of-3 post-merge; 0.5s
+median-of-3 baseline); /pricing **0.5s** (**n=1**, run `20ndfa5f9q` — single run, disclosed;
+LCP element there: `span.footer-wordmark__text` again — the wordmark is the site-wide desktop
+LCP pattern, now confirmed on a second route).
+
+**Measured differences (numbers only — the judgement is pre-registered as the owner's):**
+- **Visible window (FCP → hide):** /about ≈ **0.15–0.2s warm, ≈1.6–1.9s cold**; /pricing ≈
+  **0.0–0.1s warm, ≈0.4s cold**. /about's window is consistently longer; the differentiating
+  mechanism is route-chunk weight, in addition to the pre-registered header-size candidates.
+- **Reveal cascade duration (token math; both DUR_MED 0.4s, stagger 0.08s):** /about 3 items →
+  **0.56s**; /pricing 9 items (`.pg-animate`: kicker, h1, sub, 3 card slots, +3) → **1.04s**.
+- **Header block (500px viewport):** /about hero **500×425px = 212,359px²** (top: 80) vs
+  /pricing header **468×122px = 56,953px²** (top: 96) — /about is **3.5× taller, 3.7× the
+  area**; /about's header IS the fold, pricing's shares it with the first card. h1 alone:
+  pricing 468×42px.
+
+**Frame sequences (stepped, opacity-labeled):**
+- /about: step1 kicker .75 / title .42 / lede 0 (dark mid-rise frame — screenshot shows
+  headline at low opacity, lede absent) → step2 .94/.80/.52 (visually near-settled) →
+  settled 1/1/1, transforms 0, all visible (verified this session and prior).
+- /pricing: step1 kicker .95 / h1 .83 / sub .64 / ALL 3 card slots 0 (screenshot: header text
+  present, large black void below — the cards are the payload and they're still hidden) →
+  step2 header ~1, card1 .63, card2 .14, card3 0 → step3-4 cards fill top-down
+  (1/.99/.97/.85/.63/.33 tail converging monotonically; nothing stuck; last items complete
+  under a live ticker inside the 1.04s cascade + safety net).
+- Observable structural difference the frames show: /about's window affects the HEADER
+  (decorative-first impression); /pricing's longer cascade holds back the CARDS — the page's
+  conversion payload — for up to ~1s after the header lands.
+
+**Settled states:** both pages converge to full visibility, monotonically, nothing stuck
+(about: 1/1/1 + transforms zeroed; pricing: strictly increasing per frame across all 9).
+
+**Incidental finding (n=1, → LC-35 addendum):** pricing desktop **CLS 1.013** — worse than
+/about's 0.609. Culprits: `<main>` → **0.916** (the consent-banner mechanism class, far larger
+here), `pg-cards` → 0.092, avatar rows unsized. Single run; needs its own median-of-3 before
+any ranking, but it extends LC-35's "not singular" beyond the five standalone pages to the
+conversion page.
 
 ### LC-33 — motion/react consumer census (batch 2 recon)
 Category: Dependency
