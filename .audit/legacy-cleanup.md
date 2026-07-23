@@ -1426,6 +1426,59 @@ check clears the v6/v7 mix; clean-install sim green; standing marker check passe
 median-of-3 vs banked baselines follows the deploy (prediction on record: pricing ~0.10–0.15,
 /about ~0.46).
 
+#### LC-42 — POST-DEPLOY MEASUREMENT (2026-07-23): mechanism KILLED as designed — **both totals MISS the prediction. Reported plainly, per instruction.**
+
+PSI desktop, production, median-of-3 per page, vs banked baselines. (One pricing and one
+about run each errored on Google's side — `THROTTLED_TASK_LIMIT`, PSI lab congestion — and
+were re-run; error runs discarded, not counted.)
+
+**/pricing/web-development (baseline 1.013 · prediction ~0.10–0.15):**
+
+| Run (id) | Perf | FCP | LCP | LCP element | TBT | CLS | SI |
+|---|---|---|---|---|---|---|---|
+| 1 `c55dk78uq0` | — | 0.3s | 0.3s | a.footer-cta__email | 40ms | 0.420 | 1.1s |
+| 2 `08utbcelyy` | — | 0.6s | 0.6s | span.footer-wordmark__text | 120ms | 0.390 | 1.3s |
+| 3 `ikljes2ys6` | — | 0.5s | 0.5s | span.footer-wordmark__text | 0ms | 0.393 | 0.9s |
+| **median** | | 0.5s | 0.5s | wordmark (2/3) | 40ms | **0.393** | 1.1s |
+
+Median culprits (runs 2–3 identical): **`pg-cards` → 0.379** · `pg-card-slot` → 0.006–0.010 ·
+quote avatars flagged · **the `<main>` → 0.916 row is GONE.**
+
+**/about (baseline 0.609 · prediction ~0.46):**
+
+| Run (id) | Perf | FCP | LCP | LCP element | TBT | CLS | SI |
+|---|---|---|---|---|---|---|---|
+| 1 `shv6vyernl` | — | 0.5s | 0.5s | span.footer-wordmark__text | 0ms | 0.615 | 0.7s |
+| 2 `tab8jz3sj5` | — | 0.5s | 0.5s | span.footer-wordmark__text | 20ms | 0.614 | 0.7s |
+| 3 `8clynillrk` | — | 0.6s | 0.6s | span.footer-wordmark__text | 10ms | 0.614 | 0.6s |
+| **median** | | 0.5s | 0.5s | wordmark (3/3) | 10ms | **0.614** | 0.7s |
+
+Median culprits: **`about-page__hero` → 0.605** · `about-page__team` → 0.008 ·
+**`headingCTA` → 0.000** (the FA row, now literally zero).
+
+**The plain readout:**
+- **The FA mechanism is dead, exactly as designed:** the `<main>`/headingCTA rows are zero or
+  absent on every run of both pages. The fix did what it claimed at the mechanism level.
+- **Pricing total: 1.013 → 0.393 (−0.62) — a large improvement, but a MISS vs ~0.10–0.15:**
+  `pg-cards` GREW 0.092 → 0.379 (deterministic ×3).
+- **/about total: 0.609 → 0.614 — NO improvement, a full MISS vs ~0.46:** `about-page__hero`
+  attribution GREW 0.449 → 0.605 (deterministic ×3), absorbing almost exactly what the FA
+  removal took out.
+- **What the miss says about the mechanism (candidate, post-hoc, flagged as such):** on both
+  pages the removed FA shift was UPWARD (header collapse pulled content up) while the
+  font-swap shifts are DOWNWARD (hero/cards grow). If they landed in overlapping frames, they
+  partially CANCELLED in Lighthouse's frame-level measurement — meaning the old culprit
+  attributions UNDERSTATED the font-swap component, and removing the FA bug exposed its full
+  magnitude. This is a hypothesis that fits the arithmetic (about: removed ≈0.144, hero grew
+  ≈0.156), NOT an established mechanism — the decisive check is a fresh layout-shift sources
+  trace on the new prod (hero rect deltas, single-mover expected).
+- **Consequence for the queue:** LC-35 (font metric fallback — SCS Display hero + whatever
+  drives `pg-cards`) is now unambiguously the dominant remaining CLS work, and its true size
+  is LARGER than every pre-LC-42 number suggested. Pricing leaves the worst tier but both
+  pages remain CWV-"poor" (>0.25).
+- LCP element: wordmark on 5/6 runs; pricing run 1 reported `a.footer-cta__email` once —
+  recorded as observed, not explained.
+
 ### LC-43 — Builds are not byte-reproducible across environments (record only)
 Category: Correctness (build) — OPENED 2026-07-23, RECORD ONLY, do not investigate
 Evidence: identical source (merge `0f01402`) produced entry chunk `app-DumU_WSP.js` locally
