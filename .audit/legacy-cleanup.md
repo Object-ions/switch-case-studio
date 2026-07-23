@@ -1229,6 +1229,193 @@ styles at all); the entrance still plays where it reads as one (in-app navigatio
 Approvable as: **LC-26a-rev** — revise `usePageHeaderReveal` per the above (one file + the
 latch wiring), re-verify /about (grep pass conditions + PSI + reveal-count instrumentation on
 BOTH load types), then release LC-26b–e against the revised hook. [approve/reject]
+**→ APPROVED 2026-07-22.** Owner specifically endorsed: the module-scope latch (render output
+never branches — hydration-safe by construction), the `useNavigationType` rejection (POP
+ambiguity), the first-consumer-mount rejection (lands-on-/-then-navigates), and the
+"what is lost" answer as the settling argument (cold loads never got an entrance — they got
+read-blink-reenter; the loss is warm-cache first-load entrances only). Scope:
+`usePageHeaderReveal.js` and nothing else; /about is the only consumer; b–e unreleased until
+the revision proves. Branch `fix/lc26a-rev`. NO PSI required for this change (it removes an
+animation from first load and cannot increase CLS — recorded here per owner instruction
+instead of running it).
+
+**LATCH-PLACEMENT FLAW (owner-caught, sign-off withheld) — CONFIRMED and fixed, twice:**
+1. **Flaw verified by artifact, not assertion:** the hook's literal lived only in the lazy
+   `AboutPage-*.js` chunk (grep of built chunks; not in `app-*`), dynamically imported from
+   the entry — a module-scope capture there evaluates DURING the first client navigation and
+   reads the post-nav pathname, killing the land-elsewhere-then-navigate entrance; and the
+   property flips if b–e adoption hoists the module to a shared chunk. Owner's analysis
+   correct on both counts.
+2. **Fix (scope extension approved):** `src/utils/landingPath.js` exporting
+   `LANDING_PATHNAME` (typeof-window-guarded — SSG-safe, null in Node), imported by
+   `src/index.js` so it evaluates at entry; the hook reads it instead of capturing.
+3. **Second regression caught during THIS fix — tree-shaking:** with the capture module
+   side-effect-free, rollup SHOOK the bare `import './utils/landingPath'` out of the entry
+   and re-bundled the module into `AboutPage-*.js` — the flaw resurrected silently (verified:
+   capture expression present in the lazy chunk, absent from entry). The instrumented build
+   had passed placement only because the temp debug global was a side effect. Resolution:
+   the global assignment (`window.__SCS_LANDING_PATHNAME__`) is now a DELIBERATE, PERMANENT,
+   documented side effect — it pins the module into the entry chunk and doubles as a
+   forever-greppable placement marker in the built artifact. **Rule-grade lesson: "confirm
+   by chunk placement, not by reasoning" must be re-run on the FINAL artifact — placement is
+   a per-build property that instrumentation itself can alter.**
+3b. **Pinning ACCEPTED by owner (2026-07-23) with standing guards:** the CLAUDE.md
+   verification checklist now carries the entry-chunk marker grep as a permanent suite step,
+   and the code comment states plainly that the global is load-bearing (tree-shaking incident
+   referenced). **Cleaner alternative NOT taken, recorded for future reference:** the latch
+   could live in `MainLayout` (already in the entry chunk, always mounted), making the module
+   genuinely used rather than artificially pinned — more files touched, not worth redoing
+   verified work now; this is the shape to revisit if the mechanism ever needs revising.
+4. **Case matrix, verified on the FINAL build** (cases 1-2 re-run post-instrumentation-removal;
+   3-4 verified on the functionally identical instrumented build, whose only delta was
+   logging): CASE 1 land-on-consumer → `first-load-skip`, style attr NULL on all three
+   elements, opacity 1/1/1 (zero inline styles — the revision's core claim, verified
+   directly); CASE 2 land-`/`-then-navigate → capture read `/` while on home (entry-time
+   proof), decision `animate`, entrance played to settle; CASE 3 land-leave-return →
+   `animate`, GSAP-owned style, settled 1; CASE 4 hash change → no new decision, style
+   untouched. Plus: placement marker in `app-*` only; 31 routes; about+pricing pass
+   conditions clean; 76/76 JSX; 6/6 JSON; no dist/.
+
+### LC-41 — The `<main>` layout shift (0.916 pricing / 0.150 about): BOTH named suspects disproven by measurement — mover unidentified
+Category: Correctness (performance) — RECON 2026-07-22, promoted to top of remaining queue. NO FIX YET.
+Files examined: `src/routes.js:105`, `src/analytics/ConsentBanner.js`, `consentBanner.scss`,
+`src/components/ui/SinglePricingCard.js`, `singlePricingCard.scss`, `MainLayout.js:12`,
+`app.scss:252` (route-fallback), `build/*.html`
+
+**Recon answers (numbered per the brief):**
+1. **Mount:** `<ConsentBanner />` at `routes.js:105`, inside `MainLayout` whose `:12` wraps
+   children in `<main>` — the banner is main's first RENDERED child (ScrollToTop /
+   RouteAnalytics render null).
+2. **In flow? NO.** `consentBanner.scss:4` — `position: fixed; bottom: 1rem; z-index: 9999`.
+   Out of flow; **it cannot displace `<main>`. The brief's displacement hypothesis is
+   DISPROVEN.**
+3. **SCSS:** fixed positioning, no reserved space — none is needed; an out-of-flow element
+   reserves nothing by definition.
+4. **SSG:** NOT in static HTML — `grep consent build/about.html build/pricing/*.html` → 0
+   matches on both. Client-only, mounts in an effect, and only when `analyticsEnabled` && no
+   stored consent.
+5. **Appear/dismiss:** NEITHER shifts flow — a fixed element can't; additionally Lighthouse
+   never dismisses it, so the lab number contains no dismissal at all.
+6. **Fixes — REFRAMED by the recon:** the banner needs NOTHING; **GA4 Consent Mode v2 is
+   untouched by any of this** (best possible compliance outcome — the fix, whatever it is,
+   isn't in the consent path). The three briefed candidates (overlay / reserved height / SSR
+   placeholder) are all fixes for a mechanism that isn't operating.
+7. **The 6× ratio — honest answer: still unexplained, and the SECOND suspect died too.**
+   The culprit rows' `spc__quote-avatar` hits pointed at SinglePricingCard's testimonial
+   rotator (setInterval `5000+idx*600`, all 6 highlights per card, AnimatePresence swaps).
+   Measured live on prod at BOTH 500px and 1400px: swapping the quote text between the real
+   longest/shortest highlights moves the quote block 22↔65px (1400px) — **but card height
+   (531px) and `<main>` height (2814px) are INVARIANT**; the card absorbs it. The rotator
+   does not move `<main>` at these widths. (Avatars: proper width/height attrs + CSS — the
+   "unsized" flag looks like a PSI heuristic artifact.)
+
+**Where that leaves the mover — candidates, explicitly unproven:**
+- **Hydration/Suspense content swap inside `<main>`:** every route is `React.lazy` under
+  Suspense whose fallback `.route-fallback` is `min-height: 100vh` (app.scss:252). IF
+  hydration ever demotes the server HTML to the fallback (full page → ~100vh → full page),
+  `<main>` undergoes exactly the kind of massive geometry change that could score 0.9 —
+  and page-height differences would explain the pricing/about ratio. Whether demotion
+  actually occurs is UNKNOWN (React 18 selective hydration normally preserves server HTML;
+  vite-react-ssg's static-loader manifest may preload route chunks).
+- **Sticky header height change** (font swap on nav/CTA text) shifting main's start.
+**Decisive next diagnostic (before ANY fix):** a `PerformanceObserver({type:'layout-shift',
+buffered:true})` session on a VISIBLE tab (occluded tabs produce no frames → no entries —
+verified this session), reading `entry.sources` (node + previous/current rects) on both
+pages. That names the mover exactly. Five-line snippet; needs a foreground window — next
+visible-window session or owner console.
+Verdict: LIVE bug, mover unidentified — recon prevented a wrong fix (a banner-slot
+reservation would have changed nothing)
+Proposed change: none until the layout-shift-sources trace runs
+Risk: don't touch
+Blast radius: TBD by the trace; consent chain explicitly NOT in scope
+**LC-35 scope-order correction:** "banner-slot → font-swap → avatars" is WITHDRAWN — replaced
+by "run the sources trace, then scope."
+
+#### LC-41 — TRACE RUN 2026-07-22 (foreground window obtained): MOVER IDENTIFIED — FontAwesome CSS injection. Both remaining candidates dead.
+
+Buffered `layout-shift` PerformanceObserver with `entry.sources` (node + before/after rects),
+foreground visible tab, production, both pages. Per-entry results:
+
+**/pricing/web-development (live total 0.2199 this env; PSI lab 1.013):**
+- t=605, 0.0853 — 7px ripple: `a.headingCTA` h278→271, nav/brand/main shuffle (font arrival).
+- t=623, **0.1345** — **`a.headingCTA` h271 → h44** (the header CTA arrow SVG collapsing to
+  its styled size); `nav.site-header_nav` y281→y69; `main` y317→y110 — **the entire page
+  shifts UP 207px when the giant unstyled icon collapses.** This is PSI's `<main>` row.
+
+**/about (live total 0.5157; PSI lab 0.609):**
+- t=673, 0.0091 — same 7px font-arrival ripple.
+- t=826, **0.3721** — **`header.about-page__hero` h116 → h406**: the SCS Display swap on the
+  h1 — fallback face renders the two-line headline at ~116px; the display face lands and the
+  hero nearly quadruples, shoving story/section-wrap down. **This is PSI's "hero 0.449" row —
+  LC-35's font-swap component, now source-confirmed (and it's the DISPLAY face, which has no
+  metric fallback — the Inter woff2 rows in PSI's list were co-travelers, not the mover).**
+- t=977, **0.1345** — the identical `headingCTA` 271→44 collapse; `main` y317→y110.
+
+**Root cause of the `<main>` shifts: `@fortawesome/react-fontawesome` injects its CSS at JS
+execution (`autoAddCss`), and the SSG static HTML ships FA SVGs with NO constraining CSS
+anywhere** — `svg-inline--fa` rules appear in ZERO built stylesheets and ZERO static heads
+(grepped). Until hydration, every FA icon renders at unstyled size (the header arrow: 271px
+tall). **The 6× ratio, fully explained by count: pricing's static HTML carries 68 unstyled
+FA SVGs** (card feature icons, button arrows) **vs exactly 1 on every other page** (the
+header CTA arrow). 68 collapses ⇒ 0.916; 1 ⇒ 0.150.
+
+**Candidate (a) — Suspense/route-fallback collapse — DEAD:** no `.route-fallback` or
+content-collapse entry appears in either trace; the owner's page-height ratio prediction is
+killed with it. **Banner formally exonerated** (recorded above: fixed-position, mechanism
+never operating; the recon prevented a fix to nothing). **Unification note, corrected:**
+LC-41 and LC-26 are NOT one root cause — the flash was route-chunk-gated hide timing; the
+shift is FA CSS injection timing (entry-chunk JS). Related family (SSG HTML depending on
+JS-delivered presentation), different mechanisms, different fixes.
+
+**Fix direction (its own item, NOT executed):** the standard FA/SSG recipe — static-import
+`@fortawesome/fontawesome-svg-core/styles.css` (lands in the built CSS, constrains icons at
+first paint) + `config.autoAddCss = false`. One-file class of change, app-wide effect,
+predicted to remove ~0.9 of pricing's 1.013 and ~0.13 of /about's. The hero 0.372 is LC-35's
+(SCS Display metric fallback — separate). Sequencing decision is the owner's.
+Verdict: mover IDENTIFIED and quantified; ready to scope
+Risk of the eventual fix: low (additive CSS, standard recipe) — but its own item, own verify
+Blast radius (eventual): every FA icon site-wide at first paint (currently all oversized pre-JS)
+
+### LC-42 — FontAwesome CSS injection: the site-wide CLS driver. Recipe confirmed against this stack. NOT EXECUTED.
+Category: Correctness (performance) — OPENED 2026-07-22 from the LC-41 trace. Top of queue.
+Files (recon only): package.json, src/index.js (eventual), 4 icon consumers
+(`HeaderCTA.js` — the sitewide header arrow; `SinglePricingCard.js` — the 68-SVG pricing
+payload; `BlogPostPage.js`; `CaseStudyPage.js`)
+Mechanism (source-confirmed in LC-41's trace): `@fortawesome/react-fontawesome` injects FA's
+CSS at hydration (`autoAddCss`); `svg-inline--fa` rules exist in ZERO built stylesheets and
+ZERO static heads, so SSG HTML renders every FA icon unstyled-giant until JS runs (header
+arrow: 271px tall → 44px). Collapse shifts everything: `<main>` 0.916 on
+/pricing/web-development (68 SVGs), 0.150 elsewhere (1 SVG).
+
+**Recipe confirmed against this stack — with three stack-specific findings:**
+1. **`@fortawesome/fontawesome-svg-core` is an UNDECLARED auto-installed peer** (of
+   react-fontawesome 0.2.6; resolved 7.2.0 in the lockfile, absent from package.json — the
+   LC-19 phantom-dependency class). The recipe imports from it (`styles.css` + `config`), so
+   **declaring it in `dependencies` (at the resolved `^7.2.0`) is a REQUIRED first step** —
+   importing from an undeclared transitive would re-create exactly the defect batch 1 fixed.
+2. **Major mix, allowed but flagged:** icons are v6 (free-solid-svg-icons 6.7.2) while
+   svg-core is v7.2.0 — inside react-fontawesome's peer range (`~1 || ~6 || ~7`), and
+   core-7's styles.css uses the same `.svg-inline--fa` classes (22 rules), so it constrains
+   v6-generated SVGs. Verify visually anyway (icon sizing/alignment) — and note aligning all
+   FA packages to one major is an UPGRADE decision, deliberately NOT bundled into this fix.
+3. **Cost:** styles.css = 15.6KB raw / **2.8KB gzip**, added to the built app.css → present
+   in every static head → icons constrained at first paint site-wide.
+Implementation sketch (one file + manifest): in `src/index.js` —
+`import { config } from '@fortawesome/fontawesome-svg-core'; import
+'@fortawesome/fontawesome-svg-core/styles.css'; config.autoAddCss = false;` — config runs in
+the entry body before any icon renders (injection happens at first icon RENDER, not import);
+pure JS, no window — SSG-safe; Vite extracts the CSS import into the emitted stylesheet. CSP
+side-benefit: removes a runtime `<style>` injection.
+Verification plan: build → `svg-inline--fa` present in built `app-*.css` and linked from
+every static head → 31 routes + suite → first-paint icon-size check (static HTML + fresh
+screenshot: no giant arrow) → owner deploys → **PSI median-of-3 on BOTH
+/pricing/web-development and /about vs the captured baselines (1.013 / 0.609 — already
+banked pre-branch, per method).** Prediction on record: pricing → ~0.10–0.15 (avatar noise
+remains), /about → ~0.46 (the 0.372 hero swap is LC-35's, untouched by this).
+Verdict: ready to execute on approval — own branch, own PSI gate
+Risk: low (additive CSS, standard SSR/SSG recipe) + the major-mix visual check
+Blast radius: every FA icon site-wide at first paint (currently ALL oversized pre-JS — the
+change makes them correct-at-paint everywhere)
 
 ### LC-40 — Pricing cascade holds the conversion payload ~1s behind the header (record only)
 Category: Correctness (conversion) — OPENED 2026-07-22, owner-directed, DO NOT ACT

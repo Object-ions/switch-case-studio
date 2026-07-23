@@ -2,6 +2,9 @@ import { ViteReactSSG } from 'vite-react-ssg';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { routes } from './routes';
+// Entry-chunk anchor for the landing-URL capture (LC-26a-rev): importing it
+// here guarantees it evaluates before any lazy route chunk can.
+import './utils/landingPath';
 
 // vite-react-ssg owns the root: it renders each route to static HTML at build
 // time (Node) and hydrates on the client. It also provides the router and the
