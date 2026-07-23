@@ -1416,6 +1416,29 @@ Verdict: ready to execute on approval — own branch, own PSI gate
 Risk: low (additive CSS, standard SSR/SSG recipe) + the major-mix visual check
 Blast radius: every FA icon site-wide at first paint (currently ALL oversized pre-JS — the
 change makes them correct-at-paint everywhere)
+**EXECUTED + APPROVED 2026-07-23** (branch `fix/lc42-fa-css`): svg-core declared `^7.2.0`
+(lockfile diff = manifest mirror + two `peer:true` flags dropped, no version changes);
+`config.autoAddCss = false` + `styles.css` import in `src/index.js`; nothing else. Verified:
+FA rules in built `app-*.css`, linked from 31/31 static heads; **structural first-paint proof
+accepted by owner: zero injected `<style>` tags carry FA rules — the linked stylesheet is the
+only source and precedes JS by definition**; 68 pricing SVGs ≤14px; four-consumer visual
+check clears the v6/v7 mix; clean-install sim green; standing marker check passes. PSI
+median-of-3 vs banked baselines follows the deploy (prediction on record: pricing ~0.10–0.15,
+/about ~0.46).
+
+### LC-43 — Builds are not byte-reproducible across environments (record only)
+Category: Correctness (build) — OPENED 2026-07-23, RECORD ONLY, do not investigate
+Evidence: identical source (merge `0f01402`) produced entry chunk `app-DumU_WSP.js` locally
+and `app-KAAFQd_B.js` on Netlify — first observed divergence (batch-1-era hashes matched).
+Candidate causes, deliberately unestablished: Node patch version, npm version, OS,
+timestamp-sensitive content.
+Consequence, already encoded as a CLAUDE.md rule: deploy verification = content markers, not
+hash equality (cross-environment); same-environment hash comparison remains valid and is
+LC-37's gate.
+Verdict: LIVE fact, harmless day-to-day
+Proposed change: none — record only
+Risk: don't touch
+Blast radius: n/a (verification methodology only)
 
 ### LC-40 — Pricing cascade holds the conversion payload ~1s behind the header (record only)
 Category: Correctness (conversion) — OPENED 2026-07-22, owner-directed, DO NOT ACT
