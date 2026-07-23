@@ -890,6 +890,29 @@ avatars flagged unsized. Extends "not singular" beyond the five standalone pages
 CONVERSION page. Single run — needs median-of-3 before ranking; if it reproduces, the
 banner-slot fix likely outranks the font-swap fix in this item's eventual scope.
 
+**REPRODUCED — median-of-3, 2026-07-22 (owner-directed, urgent):** desktop, prod
+/pricing/web-development, pagespeed.web.dev:
+
+| Run (report id) | Perf | FCP | LCP | LCP element | TBT | CLS | SI |
+|---|---|---|---|---|---|---|---|
+| 1 `20ndfa5f9q` | 75 | 0.5s | 0.5s | span.footer-wordmark__text | 20ms | 1.013 | 1.0s |
+| 2 `21ewkmcyap` | 75 | 0.3s | 0.3s | span.footer-wordmark__text | 40ms | 1.013 | 1.0s |
+| 3 `9s1v6f4l3h` | (gauge unread) | 0.4s | 0.5s | span.footer-wordmark__text | 20ms | 1.011 | 1.0s |
+| **median** | **75** | **0.4s** | **0.5s** | — | **20ms** | **1.013** | **1.0s** |
+
+Culprit decomposition, identical on the two median-value runs (1 & 2) and matching run 3
+within 0.001: **`<main>` → 0.916** · `pg-cards` → 0.092–0.093 · `spc__quote-avatar` rows
+flagged unsized · `footer-wordmark__text` → 0.003.
+
+**Consequences now on record:** (1) the `<main>` shift (consent-banner mechanism class)
+**OUTRANKS the font-swap component** in this item's eventual scope — 0.916 on the conversion
+page vs 0.449 font-swap on /about; (2) **LC-35 extends beyond the five standalone pages to
+the conversion pages** — the two worst CLS numbers on the site are now /pricing/web-development
+1.013 and /about 0.609, both deterministic, both dominated by mechanisms this audit surfaced
+incidentally; (3) the site's CWV picture on desktop is "poor" (>0.25) on every page measured
+so far. No action taken — record only, per direction. When this item is scoped: banner-slot
+reservation first, font-swap second, unsized avatars third.
+
 ### LC-36 — Prod /about LCP: 600ms element render delay against 30ms TTFB
 Category: Correctness (performance) — OPENED 2026-07-21 (owner-directed; originally dropped
 from the batch-2 PR-workflow message when the merge reordered the flow). DO NOT ACT, record only.
@@ -1126,6 +1149,102 @@ LCP pattern, now confirmed on a second route).
 here), `pg-cards` → 0.092, avatar rows unsized. Single run; needs its own median-of-3 before
 any ranking, but it extends LC-35's "not singular" beyond the five standalone pages to the
 conversion page.
+
+#### LC-26a — COMPARISON VERDICT (owner-recorded 2026-07-22): pre-registration FALSIFIED
+
+**The precedent argument fails.** The pre-registered pass condition was "/about reads the same
+as /pricing/web-development, which has shipped unremarked since VE-8." It does not. Cold
+visible window is ≈1.6–1.9s on /about vs ≈0.4s on pricing — roughly 4×. A 0.4s window reads
+as a beat before an entrance; a 1.6–1.9s window is long enough to read a headline before it
+disappears. **These are not the same artifact at different magnitudes.**
+
+**The pre-registered hypothesis was also wrong about the cause.** The prediction was header
+size and above-fold position. Header area does differ 3.7× (212,359px² vs 56,953px²), but the
+MEASURED driver is **route chunk weight**: the hide cannot fire until the lazy route chunk
+mounts the component, and /about's chunk costs ~0.9s cold vs pricing's ~0.4s. The hypothesis
+was falsified by measurement — chunk weight, not header geometry, is the differentiator.
+
+**Outcome obtained = pre-registered outcome (c):** /about reads worse → scope-limit finding —
+the house safe-reveal's flash window scales with route-chunk weight, a variable nobody had
+articulated. Per-route judgement replaces blanket adoption. **LC-26b–e DO NOT RELEASE under
+the current hook.** (They are now held on a finding, not pending verification.)
+
+Frame finding recorded without editorializing → **LC-40** (below): pricing's longer cascade
+(1.04s, 9 items) holds the cards — the conversion payload — for ~1s after its header lands.
+Separate concern from the flash; touches the "conversion is sacred" house rule.
+
+#### LC-26a — DESIGN PROPOSAL (documented for approval, NO src/ edits): do not hide on first load
+
+**Rejected lever, and why (owner-recorded):** pre-hydration inline-hide closes the flash by
+hiding content before JS runs — reintroducing precisely the non-JS-crawler defect LC-26 fixed.
+Wrong trade, off the table.
+
+**Proposal:** on SSG first load, the header is already visible and correct — there is nothing
+to reveal; the hook should DO NOTHING. Run the entrance ONLY on client-side route navigation,
+where no static HTML exists to preserve and the animation is genuinely additive.
+Consequences: flash window → **zero on first load, regardless of chunk weight** (the
+chunk-weight dependency dissolves — nothing waits on JS to un-hide); the LC-26 fix is
+untouched (static HTML still ships visible; in fact the first-load path now writes NO inline
+styles at all); the entrance still plays where it reads as one (in-app navigation).
+
+1. **Detection — recommended: a module-scope client-navigation latch, flipped on the first
+   location change.** A tiny module flag (`let hasClientNavigated = false`) plus a
+   location-change subscription (the hook already renders under router context — `useLocation`
+   in the hook, or the latch set in MainLayout's existing location effect). Hook behavior:
+   `if (!hasClientNavigated) return;` before any GSAP work. Alternatives considered:
+   `useNavigationType()==='POP'` (rejected: back/forward navs are also POP — would skip real
+   client navs); "flag set on first hook-consumer mount" (rejected: land on `/` then navigate
+   to /about → flag still unset → wrongly skips a genuine client-nav entrance). Failure modes
+   of the latch, stated: (a) hash-only location changes flip it (harmless — nothing remounts);
+   (b) dev StrictMode double-effects (idempotent flag, no effect); (c) after ANY nav, a
+   revisit of the landing route animates — correct per spec. **Hydration-safe by
+   construction:** detection lives entirely in effects; render output is identical on server
+   and first client render (plain visible elements, no branching) — no mismatch warning
+   possible.
+2. **Single source of truth:** unchanged — GSAP remains sole owner of `autoAlpha`/`y` on the
+   nav-entrance path; no CSS transitions exist on the header classes (verified batch-2 recon);
+   the first-load path writes zero styles from any system.
+3. **Reduced motion:** unchanged — the nav path keeps the early return (never hides,
+   `clearProps` guard); the first-load path never hides anything to begin with.
+4. **Cleanup:** unchanged on the nav path — `trigger.kill()` + `safety.kill()` in context
+   cleanup + `ctx.revert()` on unmount; the first-load path registers nothing, so nothing to
+   clean.
+5. **Pricing / VE-8 adoption — the case, stated not assumed:** the same revision applies in
+   principle and would remove BOTH pricing's ~0.4s cold flash AND the LC-40 card hold on
+   first loads (the payload would simply be present at paint). But it widens scope: 6 pricing
+   routes, a conversion surface that has shipped stable for ~3 weeks, and pricing's
+   `.pg-animate` set includes below-fold items whose onEnter scroll-reveals would be skipped
+   on first load (they'd sit statically visible — the pre-JS state, arguably fine, but a
+   visible behavior change). Recommendation: sequence it — revise the hook, prove on /about,
+   release b–e, THEN propose PricingGuide adoption as its own approvable item. Not a rider.
+6. **What is lost — plainly:** the first-load entrance. On the loads that matter most (cold —
+   ad-clicks, first visits), the current pattern never delivered a clean entrance anyway: it
+   delivered read-blink-reenter. The entrance only ever played "properly" on first load when
+   JS beat paint (warm cache / instant network — a minority slice, mostly returning
+   visitors). So the loss is: warm-cache first-load entrances. Assessment on the record: the
+   first-load entrance was largely compensating for a hide the pattern itself introduced;
+   the genuinely additive entrances (client-nav) are all retained. The residual real loss is
+   small but nonzero — owner's call whether it matters.
+
+Approvable as: **LC-26a-rev** — revise `usePageHeaderReveal` per the above (one file + the
+latch wiring), re-verify /about (grep pass conditions + PSI + reveal-count instrumentation on
+BOTH load types), then release LC-26b–e against the revised hook. [approve/reject]
+
+### LC-40 — Pricing cascade holds the conversion payload ~1s behind the header (record only)
+Category: Correctness (conversion) — OPENED 2026-07-22, owner-directed, DO NOT ACT
+Files: `src/components/pages/PricingGuide.js` (VE-8 reveal, 9 `.pg-animate` items, stagger 0.08)
+Evidence: comparison-capture frame sequence — at the step where pricing's header text is ~in
+(kicker .95 / h1 .83 / sub .64), ALL THREE card slots are still at opacity 0 (screenshot:
+header over a black void where the offer should be); cards fill top-down across the remaining
+~0.6s of the 1.04s cascade. On first loads this stacks on the hide window (≈0.4s cold): the
+prices/CTA — the page's payload — trail the headline by up to ~1s.
+Note: touches the "conversion is sacred" house rule. If LC-26a-rev is approved and later
+adopted for PricingGuide (proposal item 5), this item is largely mooted on first loads;
+client-nav cascade behavior would remain a taste call.
+Verdict: LIVE (shipped since VE-8)
+Proposed change: none — record only
+Risk: don't touch
+Blast radius: n/a (observation)
 
 ### LC-33 — motion/react consumer census (batch 2 recon)
 Category: Dependency
