@@ -5,6 +5,7 @@
   "type": "module",
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@radix-ui/react-hover-card": "^1.1.15",
