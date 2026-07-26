@@ -1,5 +1,159 @@
 [
   {
+    "slug": "ai-builds-need-business-systems",
+    "title": "AI Builds Need Business Systems",
+    "excerpt": "A quick Claude build can be useful. But small businesses get real value when the prototype becomes a reliable workflow, with clear inputs, guardrails, ownership, and a place in the business.",
+    "kicker": "Automation",
+    "category": "Automation",
+    "author": "Beau",
+    "authorRole": "Studio Strategist",
+    "date": "2026-07-26",
+    "readingTime": "5 min read",
+    "coverImage": "",
+    "imageAlt": "",
+    "tags": [
+      "Practical AI",
+      "Automation",
+      "Small Business"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "A post making the rounds this week points people toward a one-hour Claude course for building and automating almost anything. The example prompt is familiar: act as a digital product strategist, suggest ten digital product ideas I can build in 24 hours, for creators, freelancers, and AI users."
+      },
+      {
+        "type": "paragraph",
+        "text": "That is a good prompt. It is also where a lot of AI work quietly goes sideways."
+      },
+      {
+        "type": "paragraph",
+        "text": "The current AI toolchain is very good at helping you move from blank page to prototype. It can sketch an offer, draft a landing page, write basic code, generate a lead magnet, shape an intake form, summarize a workflow, or connect a few apps together. For a founder or solo operator, that is genuinely useful. The first draft is no longer the expensive part."
+      },
+      {
+        "type": "paragraph",
+        "text": "But a 24-hour build is not the same thing as a business system. It is usually a working sketch. Sometimes that sketch is enough. Often, it is the part before the real work starts."
+      },
+      {
+        "type": "heading",
+        "text": "The prototype is the easy win"
+      },
+      {
+        "type": "paragraph",
+        "text": "AI shines when the job is contained. Give it a clear audience, a clear outcome, and a tight constraint, and it can produce something usable fast. A calculator for service pricing. A content repurposing tool. A simple onboarding checklist. A prompt pack. A niche planner. A tiny dashboard. A proposal generator."
+      },
+      {
+        "type": "paragraph",
+        "text": "Those are not bad ideas. In fact, they are often the right place to start because they are small enough to test. Small tools expose whether the problem is real, whether the language makes sense, and whether someone would actually use the thing after the novelty wears off."
+      },
+      {
+        "type": "paragraph",
+        "text": "The mistake is treating the prototype as proof that the system is done. A demo answers one question: can this exist? A business system has to answer better questions: who owns it, what happens when it fails, what data does it touch, how does the team know it worked, and what should a human still review?"
+      },
+      {
+        "type": "heading",
+        "text": "Small businesses do not need more clever demos"
+      },
+      {
+        "type": "paragraph",
+        "text": "Most small businesses already have enough half-finished tools. They have an intake form that does not match the CRM. A spreadsheet someone trusts more than the dashboard. A calendar booking flow that creates manual follow-up work. A contact form that sends leads into an inbox nobody checks on Friday afternoon."
+      },
+      {
+        "type": "paragraph",
+        "text": "AI can make that mess faster. It can also help clean it up, but only if the work starts with operations instead of novelty."
+      },
+      {
+        "type": "paragraph",
+        "text": "A useful AI build begins with a boring sentence: when this happens, we need this to happen next. New inquiry comes in, qualify it, route it, create the record, send the right response, and flag anything that needs a human. New review appears, classify it, draft a response, notify the owner if it is negative. New project starts, create the folder, checklist, kickoff note, and internal summary."
+      },
+      {
+        "type": "paragraph",
+        "text": "That is not as catchy as 'build anything in 24 hours.' It is also where the money usually is."
+      },
+      {
+        "type": "heading",
+        "text": "The last mile is where trust gets built"
+      },
+      {
+        "type": "paragraph",
+        "text": "The difference between a quick AI build and a reliable workflow is not just code quality. It is the last mile around the code."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Inputs: what information the system receives, where it comes from, and what counts as complete.",
+          "Rules: what the AI is allowed to decide, and what it must leave to a human.",
+          "Outputs: where the result goes, how it is formatted, and who sees it.",
+          "Fallbacks: what happens when the model is unsure, an API fails, or a field is missing.",
+          "Maintenance: who updates prompts, checks logs, and notices when the workflow no longer fits the business."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "These details are not glamorous. They are the difference between 'look what Claude made' and 'this saves us work every Tuesday.'"
+      },
+      {
+        "type": "paragraph",
+        "text": "This is especially true for service businesses. A medspa, contractor, wellness clinic, agency, or local retailer does not need a pile of AI experiments. They need fewer dropped leads, cleaner handoffs, faster answers, better records, and less repetitive admin work. AI should support those outcomes without making the business feel less human."
+      },
+      {
+        "type": "heading",
+        "text": "A better way to use the 24-hour build"
+      },
+      {
+        "type": "paragraph",
+        "text": "The 24-hour constraint is still useful. It forces momentum. It keeps the first version small. It stops people from spending three months planning a tool nobody asked for."
+      },
+      {
+        "type": "paragraph",
+        "text": "The trick is to define success correctly. The goal of a 24-hour AI build should not be to launch a finished product. The goal should be to learn whether the workflow is worth hardening."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Pick one repeated task with a visible owner.",
+          "Build the smallest version that handles the normal case.",
+          "Run it against real examples, not imaginary perfect inputs.",
+          "Write down every place a human had to correct, approve, or rescue it.",
+          "Only then decide whether it deserves a proper system."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "That approach keeps AI practical. It gives the business a fast test without pretending the test is infrastructure."
+      },
+      {
+        "type": "heading",
+        "text": "What makes an AI build worth keeping"
+      },
+      {
+        "type": "paragraph",
+        "text": "A useful automation usually has a few signs. It removes a task that repeats often. It reduces a real mistake, not just a mild annoyance. It fits into tools the business already uses. It has a human review point where judgment matters. It is simple enough that someone can explain it without opening a diagram."
+      },
+      {
+        "type": "paragraph",
+        "text": "A weak automation has signs too. It requires people to change five habits at once. It depends on perfect prompts. It produces work nobody asked for. It hides the source of truth. It turns a simple process into a mysterious one because the builder wanted to use AI somewhere."
+      },
+      {
+        "type": "quote",
+        "text": "AI is useful when it removes small repeated decisions. It gets expensive when it adds new ones.",
+        "cite": "Switch Case Studio"
+      },
+      {
+        "type": "paragraph",
+        "text": "That is the practical line. Use Claude, ChatGPT, or any good AI tool to get to the first version faster. Let it draft the plan, the copy, the schema, the checklist, the glue code, or the test cases. But do not skip the boring questions that make the work dependable."
+      },
+      {
+        "type": "paragraph",
+        "text": "The businesses that benefit from AI will not be the ones with the most prototypes. They will be the ones that turn a few useful prototypes into clear, maintained systems."
+      },
+      {
+        "type": "paragraph",
+        "text": "That is less flashy than building ten things in a weekend. It is also the part that still matters on Monday."
+      }
+    ]
+  },
+  {
     "slug": "service-area-pages-that-earn-trust",
     "title": "Service Area Pages That Earn Trust",
     "excerpt": "Service-area pages can help local businesses get found, but only when they answer real buyer questions. Thin city-name swaps do the opposite.",
