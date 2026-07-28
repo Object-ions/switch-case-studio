@@ -538,3 +538,20 @@ margin auto→0 + fills content width (max 24rem <769), section padding 1.5→1.
 VE-1 sticker tilt (≥1024) preserved. Verified 1440/860/500 + home contact.
 Used impeccable skill (register: brand, PRODUCT.md). Supersedes the prior
 "Desktop-contact gate v2" two-column note.
+
+## Branch consolidation 2026-07-28 — repo is single-branch (`main` @ `f623d50`)
+Audited every branch against `origin/main`: all contained except
+`origin/feat/seo-geo-sprint-package` (1 commit, no PR — the $3.5k **SEO + GEO
+Optimization Sprint** tier in `pricingData.json` + per-tier `benefits` support in
+`PricingGuide.js`: tiers may carry own bullets with named icons, fallback to shared
+`BENEFITS`). Merged it `--no-ff` → `main` @ `f623d50`; 0 conflicts (its two files
+untouched on main since branch point), full SSG build clean, tier verified rendering
+in `build/pricing/marketing-ads.html` (Growth & Performance = id
+`marketing-advertisement`). Then deleted 5 local + 6 remote merged branches
+(design-audit-refresh, feat/partners-password, feat/service-index-redesign,
+fix/heading-font-h1-only, fix/partners-faq; remote also fix/dependency-correctness,
+fix/lc26-bcde-adopt-hook, fix/lc42-fa-css, fix/ssg-visible-headers,
+feat/seo-geo-sprint-package) — each verified 0 ahead of origin/main first.
+Supersedes earlier "UNPUSHED" claims (2026-07-21 entry): that work reached main
+before deletion. OPEN: 4 Dependabot alerts on main (2 high, 1 moderate, 1 low) —
+untriaged.
