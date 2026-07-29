@@ -259,8 +259,12 @@
 .footer-wordmark {
   position: relative;
   margin-top: 5rem;
-  width: 100%;
-  font-size: min(14.2vw, 210px);
+  // Full-bleed decorative mark: break out of the 1200px site container so the
+  // whole phrase renders at viewport scale (text max-width rule doesn't apply
+  // to background-like brand marks).
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  font-size: 13.5vw; // "switch case" ≈ 86-90vw — whole phrase visible, drift-safe
   height: 0.74em;
   -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent 95%);
   mask-image: linear-gradient(to bottom, #000 50%, transparent 95%);

@@ -30,6 +30,10 @@ const CursorComponent = () => {
   useEffect(() => {
     if (!isPointerDevice) return;
 
+    // Native cursor off everywhere while the custom square exists (class-
+    // gated so touch / non-mounting environments keep the OS cursor).
+    document.body.classList.add('has-custom-cursor');
+
     const dot = dotRef.current;
     let parked = true; // VE-12: hidden until the first real mousemove
     let morphTarget = null; // element the cursor is currently wrapped around
@@ -163,6 +167,7 @@ const CursorComponent = () => {
     window.addEventListener('blur', onUp);
 
     return () => {
+      document.body.classList.remove('has-custom-cursor');
       gsap.ticker.remove(morphTick);
       document.removeEventListener('mousemove', onMove);
       document.removeEventListener('pointerover', onOver, true);
