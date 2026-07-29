@@ -286,6 +286,40 @@
       1px -1px 0 rgba($g5, 0.7),
       -1px 1px 0 rgba($g5, 0.7);
   }
+
+  // Per-letter hover: the hollow letter fills with the purple→black
+  // gradient. The fill is a gradient-clipped ::after overlay of the same
+  // character (data-char) — the base letter's outline is text-shadow-driven,
+  // so its own fill must stay opaque #000; an overlay fades in cleanly.
+  &__letter {
+    position: relative;
+    white-space: pre; // the space span must not collapse in the flex row
+
+    &::after {
+      content: attr(data-char);
+      position: absolute;
+      inset: 0;
+      text-shadow: none;
+      background-image: linear-gradient(
+        180deg,
+        $g7 0%,
+        $g6 30%,
+        $g5 55%,
+        #000 95%
+      );
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    &:hover::after {
+      opacity: 1;
+    }
+  }
 }
 
 /* ==================================================================
