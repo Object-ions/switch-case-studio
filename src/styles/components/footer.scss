@@ -224,13 +224,9 @@
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
-    @include underline-sweep; // VE-5 site link grammar
-
-    // Declared after the mixin so both properties animate (the mixin's own
-    // transition only covers background-size).
-    transition:
-      color 0.2s ease,
-      background-size $dur-fast ease;
+    // No underline sweep here (2026-07-29): the cursor wraps footer links,
+    // an underline on top read as double emphasis.
+    transition: color 0.2s ease;
 
     &:hover {
       color: $g6;

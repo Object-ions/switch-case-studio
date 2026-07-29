@@ -6,7 +6,12 @@ import '../../styles/components/cursorComponent.scss';
 const PURPLE = '#d99cff'; // $g6
 
 const INTERACTIVE_SELECTOR =
-  "a, button, [role='button'], input[type='button'], input[type='submit'], summary, label, [data-cursor-color]";
+  "a, button, [role='button'], input[type='button'], input[type='submit'], summary, [data-cursor-color], [data-cursor-morph]";
+
+// Zones where wrapping looks wrong (logo art, accordion rows): the cursor
+// falls back to the classic hollow 35px square there instead of morphing.
+const NO_MORPH_ZONES = '.site-header, .faq';
+const HOVER_SIZE = 35;
 
 const BASE = 25; // resting square
 const PRESSED = 17; // VE-12 press tighten
@@ -119,6 +124,22 @@ const CursorComponent = () => {
         dot.style.removeProperty('--cursor-color');
       }
 
+      // No-morph zones: classic hollow square, no wrapping.
+      if (target.closest(NO_MORPH_ZONES)) {
+        if (morphTarget) {
+          morphTarget = null;
+          gsap.ticker.remove(morphTick);
+          gsap.to(dot, { borderRadius: 0, duration: 0.2, ease: 'power2.out' });
+        }
+        if (wTo) {
+          wTo(HOVER_SIZE);
+          hTo(HOVER_SIZE);
+        }
+        dot.classList.add('is-hovering');
+        dot.classList.remove('is-morphed');
+        return;
+      }
+
       // Become the element's border: wrap the hovered element, matching its
       // rounded corners (square elements get a hair of rounding so the
       // cursor never looks broken against them).
@@ -156,6 +177,11 @@ const CursorComponent = () => {
           xTo(lastX);
           yTo(lastY);
         }
+      } else if (wTo) {
+        // leaving a no-morph hover: shrink the hollow square back down
+        const size = pressed ? PRESSED : BASE;
+        wTo(size);
+        hTo(size);
       }
     };
 
