@@ -28,8 +28,7 @@ const SOCIALS = [
   { key: 'x', label: 'X (Twitter)', icon: faXTwitter, href: 'https://x.com/s_c_studio' },
   { key: 'fb', label: 'Facebook', icon: faFacebookF, href: 'https://www.facebook.com/profile.php?id=61592118681299' },
   { key: 'li', label: 'LinkedIn', icon: faLinkedinIn, href: 'https://www.linkedin.com/company/127224064' },
-  // Google Business profile — paste the GBP share link (g.page / maps.app.goo.gl) to enable
-  { key: 'gb', label: 'Google Business profile', icon: faGoogle, href: '' },
+  { key: 'gb', label: 'Google Business profile', icon: faGoogle, href: 'https://maps.google.com/?cid=875109400879972028' },
   { key: 'blog', label: 'Blog', icon: faRss, to: '/blog' },
 ];
 const liveSocials = SOCIALS.filter((s) => s.href || s.to);
