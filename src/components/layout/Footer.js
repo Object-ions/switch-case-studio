@@ -5,12 +5,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faInstagram,
+  faThreads,
   faLinkedinIn,
   faFacebookF,
   faXTwitter,
-  faYoutube,
-  faTiktok,
+  faGoogle,
 } from '@fortawesome/free-brands-svg-icons';
+import { faRss } from '@fortawesome/free-solid-svg-icons';
 import SCSLogo from '../ui/SCSLogo';
 import { PROJECT_LINKS, LEGAL_LINKS } from '../../data/navigation';
 import { BOOK_CALL_URL, BOOK_CALL_LABEL } from '../../data/cta';
@@ -22,14 +23,16 @@ import '../../styles/components/footer.scss';
  * An entry only renders when its href is filled in; leave '' to hide.
  * ------------------------------------------------------------------ */
 const SOCIALS = [
-  { key: 'ig', label: 'Instagram', icon: faInstagram, href: '' },
-  { key: 'li', label: 'LinkedIn', icon: faLinkedinIn, href: '' },
-  { key: 'fb', label: 'Facebook', icon: faFacebookF, href: '' },
-  { key: 'x', label: 'X (Twitter)', icon: faXTwitter, href: '' },
-  { key: 'yt', label: 'YouTube', icon: faYoutube, href: '' },
-  { key: 'tt', label: 'TikTok', icon: faTiktok, href: '' },
+  { key: 'ig', label: 'Instagram', icon: faInstagram, href: 'https://www.instagram.com/switchcasestudio' },
+  { key: 'th', label: 'Threads', icon: faThreads, href: 'https://www.threads.com/@switchcasestudio' },
+  { key: 'x', label: 'X (Twitter)', icon: faXTwitter, href: 'https://x.com/s_c_studio' },
+  { key: 'fb', label: 'Facebook', icon: faFacebookF, href: 'https://www.facebook.com/profile.php?id=61592118681299' },
+  { key: 'li', label: 'LinkedIn', icon: faLinkedinIn, href: 'https://www.linkedin.com/company/127224064' },
+  // Google Business profile — paste the GBP share link (g.page / maps.app.goo.gl) to enable
+  { key: 'gb', label: 'Google Business profile', icon: faGoogle, href: '' },
+  { key: 'blog', label: 'Blog', icon: faRss, to: '/blog' },
 ];
-const liveSocials = SOCIALS.filter((s) => s.href);
+const liveSocials = SOCIALS.filter((s) => s.href || s.to);
 
 /* ------------------------------------------------------------------ *
  * In-page anchor helper
@@ -295,18 +298,29 @@ const Footer = () => {
             </ul>
             {liveSocials.length > 0 && (
               <div className="footer-socials">
-                {liveSocials.map((s) => (
-                  <a
-                    key={s.key}
-                    href={s.href}
-                    aria-label={s.label}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="footer-socials__item"
-                  >
-                    <FontAwesomeIcon icon={s.icon} />
-                  </a>
-                ))}
+                {liveSocials.map((s) =>
+                  s.to ? (
+                    <Link
+                      key={s.key}
+                      to={s.to}
+                      aria-label={s.label}
+                      className="footer-socials__item"
+                    >
+                      <FontAwesomeIcon icon={s.icon} />
+                    </Link>
+                  ) : (
+                    <a
+                      key={s.key}
+                      href={s.href}
+                      aria-label={s.label}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="footer-socials__item"
+                    >
+                      <FontAwesomeIcon icon={s.icon} />
+                    </a>
+                  ),
+                )}
               </div>
             )}
           </div>
