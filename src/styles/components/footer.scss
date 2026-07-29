@@ -224,13 +224,9 @@
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
-    @include underline-sweep; // VE-5 site link grammar
-
-    // Declared after the mixin so both properties animate (the mixin's own
-    // transition only covers background-size).
-    transition:
-      color 0.2s ease,
-      background-size $dur-fast ease;
+    // No underline sweep here (2026-07-29): the cursor wraps footer links,
+    // an underline on top read as double emphasis.
+    transition: color 0.2s ease;
 
     &:hover {
       color: $g6;
@@ -259,8 +255,12 @@
 .footer-wordmark {
   position: relative;
   margin-top: 5rem;
-  width: 100%;
-  font-size: min(14.2vw, 210px);
+  // Full-bleed decorative mark: break out of the 1200px site container so the
+  // whole phrase renders at viewport scale (text max-width rule doesn't apply
+  // to background-like brand marks).
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  font-size: 13.5vw; // "switch case" ≈ 86-90vw — whole phrase visible, drift-safe
   height: 0.74em;
   -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent 95%);
   mask-image: linear-gradient(to bottom, #000 50%, transparent 95%);
@@ -285,6 +285,40 @@
       -1px -1px 0 rgba($g5, 0.7),
       1px -1px 0 rgba($g5, 0.7),
       -1px 1px 0 rgba($g5, 0.7);
+  }
+
+  // Per-letter hover: the hollow letter fills with the purple→black
+  // gradient. The fill is a gradient-clipped ::after overlay of the same
+  // character (data-char) — the base letter's outline is text-shadow-driven,
+  // so its own fill must stay opaque #000; an overlay fades in cleanly.
+  &__letter {
+    position: relative;
+    white-space: pre; // the space span must not collapse in the flex row
+
+    &::after {
+      content: attr(data-char);
+      position: absolute;
+      inset: 0;
+      text-shadow: none;
+      background-image: linear-gradient(
+        180deg,
+        $g7 0%,
+        $g6 30%,
+        $g5 55%,
+        #000 95%
+      );
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    &:hover::after {
+      opacity: 1;
+    }
   }
 }
 

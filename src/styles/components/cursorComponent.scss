@@ -1,7 +1,21 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
-/* default: solid square in difference mode */
+/* The custom square replaces the native cursor ENTIRELY on capable pointer
+   devices. Gated by a body class the component adds on mount — so touch
+   devices and machines that never mount the custom cursor keep the native
+   one as the fallback (and pre-hydration there's still a cursor). */
+body.has-custom-cursor,
+body.has-custom-cursor * {
+  cursor: none !important;
+}
+
+/* default: solid square in difference mode.
+   GEOMETRY (width/height/transform) IS OWNED BY JS — CursorComponent drives
+   position and size with GSAP quickTo, including the element-wrap morph and
+   the VE-12 press tighten. Do not add width/height rules or transitions here:
+   a CSS transition re-animates every per-frame GSAP write and the morph
+   turns to mush (same conflict class as the transform-owner rule). */
 #cursor-dot {
   width: 25px;
   height: 25px;
@@ -17,10 +31,8 @@
   transition:
     background-color 0.25s ease,
     border-color 0.25s ease,
-    width 0.25s ease,
-    height 0.25s ease,
     opacity 0.2s ease;
-  will-change: transform;
+  will-change: transform, width, height;
 }
 
 /* VE-12: invisible until the first real mousemove — no white square
@@ -29,25 +41,12 @@
   opacity: 0;
 }
 
-/* VE-12: press feedback — dot tightens while the mouse button is down.
-   Width/height only; GSAP owns this element's transform. */
-#cursor-dot.is-pressed {
-  width: 17px;
-  height: 17px;
-}
-
-#cursor-dot.is-hovering.is-pressed {
-  width: 27px;
-  height: 27px;
-}
-
-/* hover: empty square, border color driven by --cursor-color */
+/* hover: the cursor becomes the hovered element's border — a hollow
+   outline wrapped around it (geometry from JS; here only the paint). */
 #cursor-dot.is-hovering {
   mix-blend-mode: normal;
   background-color: transparent;
   border: 2px solid var(--cursor-color, $orange-color);
-  width: 35px;
-  height: 35px;
 }
 
 /* Hide while the testimonial carousel is hovered — the "Next" pill cursor

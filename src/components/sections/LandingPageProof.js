@@ -91,7 +91,7 @@ const LandingPageProof = () => {
 
         <div className="lpp__features" role="list">
           {FEATURES.map((f) => (
-            <div key={f.label} className="lpp__feature lpp-animate" role="listitem">
+            <div key={f.label} className="lpp__feature lpp-animate" role="listitem" data-cursor-morph>
               <strong className="lpp__feature-label">{f.label}</strong>
               <span className="lpp__feature-desc">{f.desc}</span>
             </div>

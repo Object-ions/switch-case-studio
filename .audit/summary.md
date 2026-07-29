@@ -555,3 +555,18 @@ feat/seo-geo-sprint-package) — each verified 0 ahead of origin/main first.
 Supersedes earlier "UNPUSHED" claims (2026-07-21 entry): that work reached main
 before deletion. OPEN: 4 Dependabot alerts on main (2 high, 1 moderate, 1 low) —
 untriaged.
+
+## Footer socials + wordmark hover + cursor morph — 2026-07-29 (branch `feat/footer-socials-wordmark-cursor`)
+Connect column: FontAwesome brand icons (IG/Threads/X/FB/LinkedIn/Google-Business/Blog-RSS)
+from one SOCIALS array — entries render only when href is filled; GBP link derived from the
+Maps CID (875109400879972028). Footer wordmark: full-bleed 100vw breakout (was cropped by the
+1200px container) at 13.5vw ≈ 85% of viewport at every width, verified with the real SCS
+Display loaded; per-letter spans fill with the purple→black gradient on hover via
+gradient-clipped ::after overlays (base fill must stay opaque — outline is text-shadow).
+Cursor: morphs into the hovered element's border (GSAP quickTo geometry glued per-frame to
+getBoundingClientRect; radius matched; returns to 25px square) with no-morph zones
+(.site-header, .faq → hollow 35px square), labels removed from the interactive selector
+(form highlight = :focus only), data-cursor-morph opt-in hook (lpp tiles use it), and
+`cursor: none` on everything behind body.has-custom-cursor (native cursor = fallback for
+touch/no-mount). Footer link underline-sweep removed (wrap carries hover). New CLAUDE.md
+rule: CSS transitions must not cover JS-per-frame-written properties.

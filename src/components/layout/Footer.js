@@ -2,6 +2,16 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faInstagram,
+  faThreads,
+  faLinkedinIn,
+  faFacebookF,
+  faXTwitter,
+  faGoogle,
+} from '@fortawesome/free-brands-svg-icons';
+import { faRss } from '@fortawesome/free-solid-svg-icons';
 import SCSLogo from '../ui/SCSLogo';
 import { PROJECT_LINKS, LEGAL_LINKS } from '../../data/navigation';
 import { BOOK_CALL_URL, BOOK_CALL_LABEL } from '../../data/cta';
@@ -9,63 +19,19 @@ import '../../styles/components/footer.scss';
 
 
 /* ------------------------------------------------------------------ *
- * Social links
- * Commented out until accounts exist. ESLint disabled for the unused
- * `socials` array so Netlify CI doesn't fail on `no-unused-vars`.
- * To enable: uncomment the relevant entries and the .map() block below.
+ * Social links — FontAwesome brand icons, rendered under Connect.
+ * An entry only renders when its href is filled in; leave '' to hide.
  * ------------------------------------------------------------------ */
-// eslint-disable-next-line no-unused-vars
-const socials = [
-  // {
-  //   key: 'x',
-  //   href: 'https://x.com/your-handle',
-  //   label: 'X (Twitter)',
-  //   icon: (
-  //     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-  //       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-  //     </svg>
-  //   ),
-  // },
-  // {
-  //   key: 'ig',
-  //   href: 'https://instagram.com/your-handle',
-  //   label: 'Instagram',
-  //   icon: (
-  //     <svg
-  //       width="18"
-  //       height="18"
-  //       viewBox="0 0 24 24"
-  //       fill="none"
-  //       stroke="currentColor"
-  //       strokeWidth="1.8"
-  //     >
-  //       <rect x="3" y="3" width="18" height="18" rx="5" />
-  //       <circle cx="12" cy="12" r="4" />
-  //       <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
-  //     </svg>
-  //   ),
-  // },
-  // {
-  //   key: 'li',
-  //   href: 'https://linkedin.com/company/your-handle',
-  //   label: 'LinkedIn',
-  //   icon: (
-  //     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-  //       <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zm7 0h3.8v1.7h.05c.53-1 1.84-2.05 3.78-2.05 4.04 0 4.78 2.66 4.78 6.12V21h-4v-5.5c0-1.3-.02-3-1.83-3s-2.11 1.43-2.11 2.9V21h-4z" />
-  //     </svg>
-  //   ),
-  // },
-  // {
-  //   key: 'yt',
-  //   href: 'https://youtube.com/@your-handle',
-  //   label: 'YouTube',
-  //   icon: (
-  //     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-  //       <path d="M23.5 6.5a3 3 0 0 0-2.1-2.1C19.5 4 12 4 12 4s-7.5 0-9.4.4A3 3 0 0 0 .5 6.5C0 8.4 0 12 0 12s0 3.6.5 5.5a3 3 0 0 0 2.1 2.1C4.5 20 12 20 12 20s7.5 0 9.4-.4a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.5.5-5.5s0-3.6-.5-5.5zM9.6 15.6V8.4l6.4 3.6z" />
-  //     </svg>
-  //   ),
-  // },
+const SOCIALS = [
+  { key: 'ig', label: 'Instagram', icon: faInstagram, href: 'https://www.instagram.com/switchcasestudio' },
+  { key: 'th', label: 'Threads', icon: faThreads, href: 'https://www.threads.com/@switchcasestudio' },
+  { key: 'x', label: 'X (Twitter)', icon: faXTwitter, href: 'https://x.com/s_c_studio' },
+  { key: 'fb', label: 'Facebook', icon: faFacebookF, href: 'https://www.facebook.com/profile.php?id=61592118681299' },
+  { key: 'li', label: 'LinkedIn', icon: faLinkedinIn, href: 'https://www.linkedin.com/company/127224064' },
+  { key: 'gb', label: 'Google Business profile', icon: faGoogle, href: 'https://maps.google.com/?cid=875109400879972028' },
+  { key: 'blog', label: 'Blog', icon: faRss, to: '/blog' },
 ];
+const liveSocials = SOCIALS.filter((s) => s.href || s.to);
 
 /* ------------------------------------------------------------------ *
  * In-page anchor helper
@@ -259,23 +225,6 @@ const Footer = () => {
               Websites, stores, and apps built to convert — designed from
               scratch, shipped fast.
             </p>
-            {/* Social icons — uncomment entries in the `socials` array above to enable */}
-            {socials.length > 0 && (
-              <div className="footer-socials">
-                {socials.map((s) => (
-                  <a
-                    key={s.key}
-                    href={s.href}
-                    aria-label={s.label}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="footer-socials__item"
-                  >
-                    {s.icon}
-                  </a>
-                ))}
-              </div>
-            )}
           </div>
 
           {/* Services */}
@@ -346,12 +295,49 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
+            {liveSocials.length > 0 && (
+              <div className="footer-socials">
+                {liveSocials.map((s) =>
+                  s.to ? (
+                    <Link
+                      key={s.key}
+                      to={s.to}
+                      aria-label={s.label}
+                      className="footer-socials__item"
+                    >
+                      <FontAwesomeIcon icon={s.icon} />
+                    </Link>
+                  ) : (
+                    <a
+                      key={s.key}
+                      href={s.href}
+                      aria-label={s.label}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="footer-socials__item"
+                    >
+                      <FontAwesomeIcon icon={s.icon} />
+                    </a>
+                  ),
+                )}
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Stenciled wordmark */}
+        {/* Stenciled wordmark — per-letter spans so each letter can fill with
+            the purple→black gradient on hover (see footer.scss) */}
         <div className="footer-wordmark" aria-hidden="true">
-          <span className="footer-wordmark__text">switch case</span>
+          <span className="footer-wordmark__text">
+            {'switch case'.split('').map((ch, i) => {
+              const c = ch === ' ' ? '\u00A0' : ch;
+              return (
+                <span className="footer-wordmark__letter" data-char={c} key={i}>
+                  {c}
+                </span>
+              );
+            })}
+          </span>
         </div>
 
         {/* ============================================================
