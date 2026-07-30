@@ -1,5 +1,157 @@
 [
   {
+    "slug": "contact-forms-that-dont-kill-good-leads",
+    "title": "Contact Forms That Don't Kill Good Leads",
+    "excerpt": "A contact form is not just a box at the bottom of the page. For service businesses, it is often the handoff between interest and revenue, and small UX mistakes can quietly make that handoff harder.",
+    "kicker": "UX & Web Design",
+    "category": "UX & Web Design",
+    "author": "Beau",
+    "authorRole": "Studio Strategist",
+    "date": "2026-07-30",
+    "readingTime": "5 min read",
+    "coverImage": "",
+    "imageAlt": "",
+    "tags": [
+      "UX",
+      "Forms",
+      "Lead Intake"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "Most service-business websites treat the contact form like plumbing. It gets dropped near the bottom of the page, wired to an inbox, and forgotten until somebody says leads feel slow."
+      },
+      {
+        "type": "paragraph",
+        "text": "That is a mistake. The contact form is often the first real handoff between a person who might buy and the business that needs to respond. If the form feels vague, demanding, broken, or slightly untrustworthy, people do not always complain. They just leave, call someone else, or tell themselves they will come back later."
+      },
+      {
+        "type": "paragraph",
+        "text": "A better form is not necessarily a shorter form. It is a clearer agreement: here is what we need, here is why we need it, here is what happens after you send it."
+      },
+      {
+        "type": "heading",
+        "text": "Start With the Job of the Form"
+      },
+      {
+        "type": "paragraph",
+        "text": "Before changing fields, decide what the form is actually supposed to do. A medspa consultation request, a contractor quote request, a design inquiry, and a support ticket should not all ask the same questions. The form should collect enough information to route the next step well, without making the visitor do unpaid admin work before trust has been earned."
+      },
+      {
+        "type": "paragraph",
+        "text": "For many small businesses, the useful minimum is simple: name, contact method, service interest, rough timing, and a short note. Sometimes budget matters. Sometimes location matters. Sometimes photos or files matter. But every extra field should defend its place. If nobody uses the answer during follow-up, it is probably friction dressed up as diligence."
+      },
+      {
+        "type": "quote",
+        "text": "A contact form should qualify the next conversation, not make the visitor prove they deserve one.",
+        "cite": "Switch Case Studio"
+      },
+      {
+        "type": "heading",
+        "text": "Label the Obvious Things Anyway"
+      },
+      {
+        "type": "paragraph",
+        "text": "Clear labels are not decoration. They are part of the interface doing its job. WCAG guidance treats labels, instructions, and text-based error identification as core input assistance because users need to know what information is expected and what went wrong when a submission fails."
+      },
+      {
+        "type": "paragraph",
+        "text": "This is where many polished sites get oddly casual. A placeholder says \"Name\" and disappears as soon as someone types. A phone field does not say whether texting is acceptable. A budget field asks for a number with no range, no context, and no explanation. A required field is only marked after the user misses it."
+      },
+      {
+        "type": "paragraph",
+        "text": "Good form labels do not need to be clever. They need to be visible, specific, and close to the field they describe. If a field needs a format, say so before the error. If a field is optional, mark it. If a field is required, mark it. Do not make the visitor decode your rules by failing first."
+      },
+      {
+        "type": "heading",
+        "text": "Ask Fewer Lazy Questions"
+      },
+      {
+        "type": "paragraph",
+        "text": "Form friction is not only about length. Research-backed checkout guidance has been saying for years that unnecessary fields and poor validation create avoidable usability problems. Contact forms are lower stakes than checkout, but the behavior is familiar: people weigh effort against trust."
+      },
+      {
+        "type": "paragraph",
+        "text": "The laziest form question is the one that asks the visitor to solve the business's internal uncertainty. \"Tell us everything about your project\" sounds flexible, but it often produces thin messages because the visitor does not know what matters. A few focused prompts work better."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Instead of \"How can we help?\", try \"What service are you interested in?\" with a short list and an \"I'm not sure\" option.",
+          "Instead of \"Budget\", try a few ranges if budget is truly needed for routing.",
+          "Instead of \"Project details\", ask for the outcome they want, the timing, and the main blocker.",
+          "Instead of requiring a phone number, explain when it will be used or offer email as the default."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "The point is not to interrogate the lead. The point is to reduce ambiguity in a way that feels fair."
+      },
+      {
+        "type": "heading",
+        "text": "Design the Confirmation as Part of the Sale"
+      },
+      {
+        "type": "paragraph",
+        "text": "The thank-you state is usually underwritten. That is strange because it is the moment after someone has raised their hand. A generic \"Thanks, we'll be in touch\" is better than silence, but only barely."
+      },
+      {
+        "type": "paragraph",
+        "text": "A useful confirmation tells the visitor what happens next, how long it usually takes, and what they can do if the request is urgent. It should also confirm that the form actually worked. If the business has a sales process, this is where the site can make that process feel calm instead of mysterious."
+      },
+      {
+        "type": "paragraph",
+        "text": "The internal side matters too. A form that sends a bare email with no structure is easy to miss and hard to track. Better intake creates a clean subject line, includes the source page, preserves the visitor's answers, routes to the right person, and gives the team a consistent next action. That can be as simple as a CRM entry, a Slack alert, or a tagged inbox rule. The sophistication should match the business."
+      },
+      {
+        "type": "heading",
+        "text": "Treat Errors Like Service Design"
+      },
+      {
+        "type": "paragraph",
+        "text": "Errors are not edge cases. People mistype email addresses. File uploads fail. Required fields get missed. Mobile keyboards cover buttons. Autofill does strange things. The form should help the visitor recover without scolding them or erasing their work."
+      },
+      {
+        "type": "paragraph",
+        "text": "Inline validation can help when it is timed well. Validate after a field is complete or loses focus, not while someone is still typing the first half of an email address. Put the message near the field. Say what needs to change in plain text. Keep focus visible for keyboard users. If the whole submission fails, preserve the answers and explain the next move."
+      },
+      {
+        "type": "paragraph",
+        "text": "That sounds basic because it is. Basic is where trust leaks out."
+      },
+      {
+        "type": "heading",
+        "text": "What to Fix First"
+      },
+      {
+        "type": "paragraph",
+        "text": "If you are auditing a service-business contact form, start with the parts that affect both conversion and operations."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Make every label visible and specific.",
+          "Mark required and optional fields clearly.",
+          "Remove fields nobody uses during follow-up.",
+          "Explain any sensitive or high-effort question.",
+          "Write error messages that identify the issue in text.",
+          "Preserve entered information after an error.",
+          "Replace the generic thank-you message with a clear next-step message.",
+          "Send submissions somewhere trackable, not only to one overloaded inbox."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "This is not glamorous website work. It will not show up in a mood board. But it is the kind of detail that makes a business feel more competent before anyone on the team speaks to the lead."
+      },
+      {
+        "type": "paragraph",
+        "text": "A clean form respects the visitor's time and the team's workflow. It asks for what matters, explains what happens next, and makes the follow-up easier to do well. For a small business, that is not a tiny UX detail. That is the front desk."
+      }
+    ]
+  },
+  {
     "slug": "ai-builds-need-business-systems",
     "title": "AI Builds Need Business Systems",
     "excerpt": "A quick Claude build can be useful. But small businesses get real value when the prototype becomes a reliable workflow, with clear inputs, guardrails, ownership, and a place in the business.",
