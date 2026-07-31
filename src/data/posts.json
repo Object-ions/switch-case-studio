@@ -1,5 +1,158 @@
 [
   {
+    "slug": "graph-engineering-is-workflow-design",
+    "title": "Graph Engineering Is Workflow Design",
+    "excerpt": "AI agent diagrams are having a moment. The useful part is not the diagram itself, it is the discipline of deciding which work should be split, checked, retried, and handed back to a human.",
+    "kicker": "Automation & Systems",
+    "category": "Automation & Systems",
+    "author": "Beau",
+    "authorRole": "Studio Strategist",
+    "date": "2026-07-31",
+    "readingTime": "5 min read",
+    "coverImage": "",
+    "imageAlt": "",
+    "tags": [
+      "AI Automation",
+      "Agent Workflows",
+      "Operations"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "AI Twitter has found a new phrase to argue about: graph engineering. The short version is simple enough. Instead of asking one AI agent to do one large task from start to finish, you split the work into connected steps. One agent researches. One drafts. One checks. One packages. Some steps run in parallel. Some retry when the result fails. Some stop and ask a human."
+      },
+      {
+        "type": "paragraph",
+        "text": "That can sound like another naming ceremony for people who enjoy turning normal work into conference language. Fair. But under the label is a practical idea that small businesses should understand before they buy the next magic automation pitch."
+      },
+      {
+        "type": "paragraph",
+        "text": "A useful AI system is not a prompt. It is a workflow with visible handoffs, clear checks, and a defined point where the machine stops pretending it knows."
+      },
+      {
+        "type": "heading",
+        "text": "The Diagram Is Not the Work"
+      },
+      {
+        "type": "paragraph",
+        "text": "A graph is just a way to show relationships. In an AI workflow, the nodes are usually jobs: collect the intake, classify the request, look up the customer, draft the response, check the facts, send the summary, create the task. The edges are the handoffs between those jobs."
+      },
+      {
+        "type": "paragraph",
+        "text": "The mistake is thinking the graph itself creates intelligence. It does not. A messy process with six agents is still a messy process. It just costs more and fails in more interesting places."
+      },
+      {
+        "type": "paragraph",
+        "text": "The useful move is asking what each handoff actually carries. Does the research step produce structured notes, or a vague blob of text? Does the checker have rules, or just vibes? Does the system know when to stop, or does it keep asking another model for reassurance until the bill starts making eye contact?"
+      },
+      {
+        "type": "quote",
+        "text": "The point of an agent graph is not more agents. The point is making the work visible enough to manage.",
+        "cite": "Switch Case Studio"
+      },
+      {
+        "type": "heading",
+        "text": "Where a Graph Helps"
+      },
+      {
+        "type": "paragraph",
+        "text": "For a small business, graph-style thinking is useful when the work is wide, repetitive, and easy to check in pieces. Think lead intake, quote prep, content repurposing, support triage, review monitoring, inventory cleanup, job costing, or weekly reporting."
+      },
+      {
+        "type": "paragraph",
+        "text": "Those workflows usually have separate jobs that do not all need the same context. A lead-intake system might read the form submission, classify the service, enrich the record from the CRM, draft a reply, check for missing details, and create a follow-up task. That is a graph whether or not anyone gives it a dramatic name."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Use one step to gather facts, not to decide everything.",
+          "Use another step to shape the output for the customer or team.",
+          "Use a checker that can compare the result against rules, source data, or a schema.",
+          "Use a human gate when the action affects money, reputation, legal exposure, or customer trust."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "The benefit is not that the AI becomes magically senior. The benefit is that each part has a smaller job, cleaner context, and a clearer definition of done."
+      },
+      {
+        "type": "heading",
+        "text": "Where It Gets Expensive Fast"
+      },
+      {
+        "type": "paragraph",
+        "text": "Graphs are not free. Every node is another model call, another tool permission, another failure mode, another log to inspect. If one prompt and one review gets the job done, adding five agents is decoration with an invoice attached."
+      },
+      {
+        "type": "paragraph",
+        "text": "This matters because many businesses do not have an AI problem first. They have an operations problem. The intake form is vague. The CRM is stale. The service categories are unclear. The follow-up rules live in someone's head. Dropping agents on top of that does not create a system. It creates a very confident intern wandering through a storage closet."
+      },
+      {
+        "type": "paragraph",
+        "text": "Before building a graph, clean the process. Name the trigger. Name the output. Name the owner. Name the source of truth. Name the risks. Then decide which pieces are worth automating."
+      },
+      {
+        "type": "heading",
+        "text": "The Checker Is the Product"
+      },
+      {
+        "type": "paragraph",
+        "text": "The most important part of an agent workflow is usually not the agent doing the work. It is the checker. A good checker can be boring: a required-field schema, a duplicate detector, a calendar availability check, a test suite, a link validator, a budget threshold, a human approval step."
+      },
+      {
+        "type": "paragraph",
+        "text": "Boring is good. Boring is how the system earns trust. If the same model that wrote the answer is also the only judge of whether the answer is correct, you have not built verification. You have built confidence laundering."
+      },
+      {
+        "type": "paragraph",
+        "text": "For small-business workflows, the best checks are usually tied to existing business rules. Do not send a booking reply unless the service exists. Do not summarize a lead without preserving the original message. Do not create an estimate unless the request includes the minimum required details. Do not publish or send anything public without approval."
+      },
+      {
+        "type": "heading",
+        "text": "A Practical Test Before You Build"
+      },
+      {
+        "type": "paragraph",
+        "text": "If you are considering AI automation, draw the workflow as it works today. Not the aspirational version. The real one. Include the inboxes, spreadsheets, sticky notes, forgotten callbacks, and the person everyone pings when the process gets weird."
+      },
+      {
+        "type": "paragraph",
+        "text": "Then ask five questions:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Which steps repeat often enough to matter?",
+          "Which steps can be checked against real data?",
+          "Which steps need judgment from a human?",
+          "Which handoffs currently lose context?",
+          "What is the cost of a wrong answer?"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "If the answers are clear, a graph may help. If the answers are fuzzy, build the workflow map first. Automation should make a good process faster and a risky process more controlled. It should not turn confusion into software."
+      },
+      {
+        "type": "heading",
+        "text": "What This Means for Small Teams"
+      },
+      {
+        "type": "paragraph",
+        "text": "The interesting shift is not that one person can now command a swarm of agents. The interesting shift is that small teams can finally afford systems thinking that used to belong to larger operations teams."
+      },
+      {
+        "type": "paragraph",
+        "text": "A local service business does not need a sci-fi command center. It needs clean intake, reliable follow-up, searchable records, useful reporting, and fewer dropped balls. If agent graphs help with that, use them. If a simple form, CRM rule, and approval queue solves it, use that instead."
+      },
+      {
+        "type": "paragraph",
+        "text": "Good automation is not measured by how advanced the diagram looks. It is measured by whether the right thing happens, with enough evidence, at the right time, without making the team babysit a machine that was supposed to save time."
+      }
+    ]
+  },
+  {
     "slug": "contact-forms-that-dont-kill-good-leads",
     "title": "Contact Forms That Don't Kill Good Leads",
     "excerpt": "A contact form is not just a box at the bottom of the page. For service businesses, it is often the handoff between interest and revenue, and small UX mistakes can quietly make that handoff harder.",
