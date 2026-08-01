@@ -11,32 +11,32 @@ const faqs = [
   {
     question: "What services does Switch Case Studio offer?",
     answer:
-      "Switch Case Studio offers web design and development, SEO, web hosting, email marketing, content writing, branding, graphic design, automation, and digital marketing support.",
+      "Web design and development, e-commerce, web apps, branding, SEO and AI-search optimization, hosting and VPS infrastructure, email marketing \u2014 and AI development: chatbots, custom agents, and workflow automation with n8n, Zapier, Make, and GoHighLevel.",
+  },
+  {
+    question: "What can AI and automation actually do for my business?",
+    answer:
+      "Concrete things: answer customer questions from your own docs 24/7, route and follow up on leads the minute they arrive, draft emails and quotes for your review, sync data between your CRM, calendar, and forms. We start by mapping where automation saves real hours, build it, and hand it over documented \u2014 and if AI isn\u2019t the right tool for a task, we\u2019ll say so.",
+  },
+  {
+    question: "Do you build AI chatbots and custom agents?",
+    answer:
+      "Yes \u2014 that\u2019s core work, not an add-on. Assistants trained on your business content, built on Claude or OpenAI APIs, with guardrails and human handoff. For heavier lifting we build multi-step agents that handle leads, quoting, and back-office tasks, self-hosted on a VPS so your data stays yours.",
   },
   {
     question: "Do you build custom websites or only use templates?",
     answer:
-      "Most projects are custom-built around the client\u2019s brand, goals, and budget. Depending on the project, we can build with React, Next.js, WordPress, WooCommerce, Shopify, or other tools that make sense for the business.",
+      "Custom, from scratch. Depending on the project we build with React, Next.js, Node, WordPress, WooCommerce, or Shopify \u2014 whatever fits the business. We use AI to move faster where it helps; every line that ships is engineered and reviewed by us.",
   },
   {
-    question: "Can you help with both design and development?",
+    question: "Do you offer ongoing support after launch?",
     answer:
-      "Yes. We handle the visual side and the technical side, including layout, branding, user experience, responsive design, development, deployment, hosting setup, and basic technical maintenance.",
+      "Yes. Hosting and maintenance plans, VPS and self-hosted app management (including n8n and AI agents), performance checks, SEO improvements, content changes, and ongoing automation and marketing support.",
   },
   {
-    question: "Do you offer ongoing support after the website is live?",
+    question: "How long does a project usually take?",
     answer:
-      "Yes. We can help with updates, hosting, performance checks, SEO improvements, content changes, landing pages, email setup, and ongoing marketing needs after launch.",
-  },
-  {
-    question: "How long does a website project usually take?",
-    answer:
-      "A simple landing page can often be completed faster, while a full business website or e-commerce project takes longer. Timeline depends on the number of pages, content, design complexity, integrations, and revision rounds.",
-  },
-  {
-    question: "Can you help with SEO and marketing after launch?",
-    answer:
-      "Yes. We can help with technical SEO, on-page SEO, blog content, Google Ads, Meta Ads, email marketing, landing pages, and campaign assets so the website can actually support business growth.",
+      "Most sites ship in under two weeks. A landing page or a first automation is usually days, not weeks; e-commerce builds and custom AI agent systems take longer depending on integrations and revision rounds. You get a concrete timeline before we start.",
   },
 ];
 

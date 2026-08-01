@@ -5,22 +5,22 @@ import Seo from '../util/Seo';
 import { PricingGuide } from './PricingGuide';
 
 const slugToServiceId = {
+  'ai-development': 'ai-development',
+  'automation-integrations': 'automation-integrations',
   'web-development': 'web-development',
   'marketing-ads': 'marketing-advertisement',
   'hosting-maintenance': 'web-hosting-maintenance',
   'design-branding': 'design-branding',
-  'automation-integrations': 'automation-integrations',
   'email-marketing': 'email-marketing',
 };
 
-const servicesIndex = [
-  { slug: 'web-development', label: 'Web Development' },
-  { slug: 'marketing-ads', label: 'Growth & Performance' },
-  { slug: 'hosting-maintenance', label: 'Hosting & Support' },
-  { slug: 'design-branding', label: 'Brand Identity' },
-  { slug: 'automation-integrations', label: 'Automation & Systems' },
-  { slug: 'email-marketing', label: 'Email & Retention' },
-];
+// Derived from services.json — another hand-written mirror of the service
+// list that could drift on a rename (same failure class as the old Footer
+// SERVICES_LINKS copy).
+const servicesIndex = servicesData.map((s) => ({
+  slug: s.slug,
+  label: s.title,
+}));
 
 function PricingPage() {
   const { serviceSlug } = useParams();

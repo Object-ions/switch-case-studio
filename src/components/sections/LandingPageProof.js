@@ -10,16 +10,16 @@ import '../../styles/components/landingPageProof.scss';
 
 const FEATURES = [
   {
-    label: 'Landing pages',
-    desc: 'One message. One CTA. Optimized for paid campaigns and built to convert.',
+    label: 'Websites & stores',
+    desc: 'Marketing sites, landing pages, and e-commerce — built from scratch to convert. Not a template, not a theme.',
   },
   {
-    label: 'E-commerce',
-    desc: 'Product-first stores that sell — not just display. Designed for the full buyer journey.',
+    label: 'Apps & dashboards',
+    desc: 'Web apps, client portals, and internal tools built with React and Node — the interfaces that run your business.',
   },
   {
-    label: 'Marketing sites',
-    desc: 'Full-brand web presence built from scratch. Not a template, not a theme.',
+    label: 'AI & automation',
+    desc: 'Chatbots trained on your business, agents that do real work, and n8n / Zapier workflows that kill busywork.',
   },
   {
     label: 'Agency-ready',
@@ -79,13 +79,13 @@ const LandingPageProof = () => {
         <div className="lpp__header">
           <p className="lpp__kicker lpp-animate">What we build best</p>
           <h2 className="lpp__heading lpp-animate">
-            Built to perform.<br />Whatever the format.
+            One studio.<br />Design, code &amp; AI.
           </h2>
           <p className="lpp__body lpp-animate">
-            E-commerce store, marketing site, or campaign page — every build
-            starts with the same question: what needs to happen for a visitor
-            to become a customer? We design and build with that answer in
-            mind, delivered fast and built to last.
+            Store, marketing site, web app, or the automation behind it —
+            every build starts with the same question: what needs to happen
+            for a visitor to become a customer? We design it, engineer it,
+            and wire in AI where it moves that number.
           </p>
         </div>
 

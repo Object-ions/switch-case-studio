@@ -1,13 +1,13 @@
 import projects from './projects.json';
+import services from './services.json';
 
-export const PRICING_LINKS = [
-  { label: 'Web Development', to: '/pricing/web-development' },
-  { label: 'Growth & Performance', to: '/pricing/marketing-ads' },
-  { label: 'Hosting & Support', to: '/pricing/hosting-maintenance' },
-  { label: 'Brand Identity', to: '/pricing/design-branding' },
-  { label: 'Automation & Systems', to: '/pricing/automation-integrations' },
-  { label: 'Email & Retention', to: '/pricing/email-marketing' },
-];
+// Derived from services.json (like PROJECT_LINKS below) — title, slug, and
+// ORDER all come from the data file, so a service rename/add/reorder can't
+// drift here. Consumers: Header dropdown, StaggeredMenu, Footer.
+export const PRICING_LINKS = services.map((service) => ({
+  label: service.title,
+  to: `/pricing/${service.slug}`,
+}));
 
 // Dynamically generate project links based on the slugs in projects.json
 export const PROJECT_LINKS = projects.map((project) => ({

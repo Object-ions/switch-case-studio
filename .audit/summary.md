@@ -570,3 +570,29 @@ getBoundingClientRect; radius matched; returns to 25px square) with no-morph zon
 `cursor: none` on everything behind body.has-custom-cursor (native cursor = fallback for
 touch/no-mount). Footer link underline-sweep removed (wrap carries hover). New CLAUDE.md
 rule: CSS transitions must not cover JS-per-frame-written properties.
+
+## AI-first repositioning — 2026-08-01 (branch `feat/ai-first-repositioning`)
+Full-site repositioning: "cute websites & WooCommerce" → multi-hyphenate AI-first studio
+(design × code × AI), calibrated deliberately BELOW mrbright.ai's "Your AI Marketing
+Department" over-promise — AI as infrastructure we engineer (named stack: n8n, Zapier, Make,
+GoHighLevel, Claude/OpenAI APIs, self-hosted agents on VPS), never autonomy theater.
+NEW SERVICE: `ai-development` (AI Development) — 4 tiers ($500 Roadmap Sprint / $1,800
+Assistant / $4,500 Custom Agent / $1,500mo AI Partner), slug live at /pricing/ai-development
+(sitemap auto-derived; 36 HTML files, was 35). Retitles (slugs UNCHANGED so no URLs break):
+automation-integrations → "Automation & AI Workflows" (3rd tier "AI System Builder" →
+"Automation Suite", self-hosted-n8n framing), hosting-maintenance → "Hosting &
+Infrastructure" (+ new VPS & Self-Hosted $150/mo tier). Copy surfaces rewritten: hero
+(h1 line 2 "websites, apps & AI"; typed verbs build/design/deploy/launch/ship — verbs
+capped ≤6ch, an 8ch verb widened the slot and left the blinker floating), hero sub, LPP
+(heading "One studio. Design, code & AI." + AI feature card), AboutHeading/Text/Marquee,
+AboutPage (AI-native title, capabilities, +2 values → 6 = even 2-col grid, "practice what
+we sell" story ¶), FAQ (3 new AI Q&As), Seo home/services/pricing/about/blog, index.html
+Org JSON-LD (+knowsAbout array), footer tagline. FIX FOUND DURING VERIFY: Footer had its
+own hardcoded SERVICES_LINKS copy that silently drifted from navigation.js on rename —
+now `SERVICES_LINKS = PRICING_LINKS` (rule added to CLAUDE.md). Verified: JSON parses,
+build clean, entry-chunk marker present, no stale labels in build HTML, titles correct,
+no hydration errors (prod build, real browser), /pricing/ai-development tiers verified by
+DOM textContent (occluded-window GSAP freeze reconfirmed on an UNCHANGED pricing page —
+environmental, not a regression; note: `innerText` returns "" for visibility:hidden
+reveals — probe with textContent). Prices are DRAFT-honest placeholders — Moses reviews
+before merge.

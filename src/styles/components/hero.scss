@@ -54,7 +54,7 @@
     font-family: $font-special;
     // Max 6rem (was 7.28rem): the +12% presence bump was never re-checked
     // against the em container below — at 7.28rem the forced 3-line lockup
-    // ("We {verb}" / "websites & stores" / "that actually perform.") rewrapped
+    // ("We {verb}" / "websites, apps & AI" / "that actually perform.") rewrapped
     // to 6 lines, overflowing the centered 100svh hero: line 1 clipped under
     // the header and BOTH CTAs fell below the desktop fold (DESIGN_AUDIT
     // P0-2, verified at 1440×900). 6rem × 3 lines + sub + CTAs fits every

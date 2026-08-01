@@ -18,26 +18,26 @@ const COPY = {
   services: {
     seoTitle: 'Services — Switch Case Studio',
     seoDescription:
-      'Web development, e-commerce, design & branding, marketing, automation, and email marketing — all built from scratch by Switch Case Studio.',
+      'AI development, automation, web development, e-commerce, branding, and growth — design, code, and AI systems built from scratch by Switch Case Studio.',
     path: '/services',
     ariaLabel: 'Services',
     kicker: 'What we do',
-    titleTop: 'Everything your',
-    titleAccent: 'digital presence needs.',
-    lede: 'Design, development, marketing, and automation — we handle the full stack of what a growing business needs online.',
+    titleTop: 'Design. Code. AI.',
+    titleAccent: 'One studio.',
+    lede: 'Websites, apps, brand systems, and the AI and automation behind them — we handle the full stack of what a growing business needs to run online.',
     bottomHeading: 'Not sure what you need?',
     bottomBody: "Book a free call and we'll figure it out together.",
   },
   pricing: {
     seoTitle: 'Services & Pricing — Switch Case Studio',
     seoDescription:
-      "Explore Switch Case Studio's services — web development, e-commerce, design & branding, marketing, automation, and more. Transparent pricing, fast delivery.",
+      "Explore Switch Case Studio's services — AI development, automation, web development, e-commerce, branding, and growth. Transparent pricing, fast delivery.",
     path: '/pricing',
     ariaLabel: 'Services and pricing',
     kicker: 'Pricing',
     titleTop: 'What we do,',
     titleAccent: 'and what it costs.',
-    lede: 'Pick a service to see the full breakdown — scope, deliverables, and transparent pricing.',
+    lede: 'Pick a service to see the full breakdown — scope, deliverables, and transparent pricing. AI and automation included, hype not.',
     bottomHeading: 'Not sure which service you need?',
     bottomBody: "Book a free call — we'll figure it out together.",
   },
@@ -47,11 +47,12 @@ const COPY = {
 // derived from pricingData (same slug→id map as PricingPage) so the index
 // stays in sync with real pricing instead of a duplicated hardcoded number.
 const SLUG_TO_ID = {
+  'ai-development': 'ai-development',
+  'automation-integrations': 'automation-integrations',
   'web-development': 'web-development',
   'marketing-ads': 'marketing-advertisement',
   'hosting-maintenance': 'web-hosting-maintenance',
   'design-branding': 'design-branding',
-  'automation-integrations': 'automation-integrations',
   'email-marketing': 'email-marketing',
 };
 

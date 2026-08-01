@@ -3,19 +3,21 @@ import Typed from 'typed.js';
 import useReducedMotion from '../../hooks/useReducedMotion';
 
 // "build" leads: it's the brand verb AND the word baked into the static HTML
-// — the SSG hero must read "We build websites & stores…" before any JS runs.
+// — the SSG hero must read "We build websites, apps & AI…" before any JS runs.
 // typed.js takes over the span post-hydration; reduced-motion keeps the
-// static word.
-const STRINGS = ['build', 'design', 'launch', 'ship', 'craft'];
+// static word. Every verb must read as a sentence with the line-2 object
+// ("…websites, apps & AI that actually perform"). Keep verbs ≤6 chars: the
+// slot is sized to the longest one, and an 8ch word ("engineer") leaves the
+// blinker floating 3ch after short verbs.
+const STRINGS = ['build', 'design', 'deploy', 'launch', 'ship'];
 
 // Fixed-width slot for the cycling word — words of different widths reflowed
 // the headline every cycle (desktop CLS 0.177 once SSG painted it early
 // enough to be measured). The hero face is SCS Display via `font: inherit`
 // (NOT monospace — an earlier version of this comment claimed Roboto Mono,
-// which is loaded nowhere). `ch` = the width of "0" in that face; 6ch
-// comfortably covers the longest word ("design"/"launch") — verified
-// pixel-stable across full type/backspace cycles. Inline style so the slot
-// can never drift from STRINGS.
+// which is loaded nowhere). `ch` = the width of "0" in that face; the slot
+// width is computed from the longest word in STRINGS so it can never drift
+// from the array.
 const slotCh = Math.max(...STRINGS.map((s) => s.length));
 const SLOT_STYLE = {
   display: 'inline-block',
