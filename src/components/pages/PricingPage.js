@@ -14,15 +14,13 @@ const slugToServiceId = {
   'email-marketing': 'email-marketing',
 };
 
-const servicesIndex = [
-  { slug: 'ai-development', label: 'AI Development' },
-  { slug: 'automation-integrations', label: 'Automation & AI Workflows' },
-  { slug: 'web-development', label: 'Web Development' },
-  { slug: 'marketing-ads', label: 'Growth & Performance' },
-  { slug: 'hosting-maintenance', label: 'Hosting & Infrastructure' },
-  { slug: 'design-branding', label: 'Brand Identity' },
-  { slug: 'email-marketing', label: 'Email & Retention' },
-];
+// Derived from services.json — another hand-written mirror of the service
+// list that could drift on a rename (same failure class as the old Footer
+// SERVICES_LINKS copy).
+const servicesIndex = servicesData.map((s) => ({
+  slug: s.slug,
+  label: s.title,
+}));
 
 function PricingPage() {
   const { serviceSlug } = useParams();
