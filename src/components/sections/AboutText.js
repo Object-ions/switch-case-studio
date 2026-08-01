@@ -63,30 +63,32 @@ const AboutText = () => {
       <p>
         Switch Case Studio delivers
         <span className="highlight-block">
-          websites, landing pages, and brand systems
+          websites, web apps, brand systems, and AI automation
         </span>
         for businesses that take their digital presence seriously. Every project
-        — from a single campaign page to a full brand launch — is
+        — from a campaign page to a custom AI agent — is
         <span className="highlight-block">
           built from scratch, not from templates.
         </span>
       </p>
       <br />
       <p>
-        Our clients include medical spas, real estate firms, e-commerce brands,
-        and marketing companies across the US. We move
-        <span className="highlight-block">fast without cutting corners</span>—
-        most sites ship in under two weeks, with a design-to-launch process that
-        keeps you in the loop without drowning you in it.
+        We&rsquo;re engineers as much as designers: we run our own servers,
+        self-host our own AI agents, and automate our own studio with
+        <span className="highlight-block">
+          the same systems we build for clients
+        </span>
+        — n8n workflows, CRM pipelines, and assistants on Claude and OpenAI.
+        When we say AI, we mean software that ships, not a buzzword on a deck.
       </p>
       <br />
       <p>
-        We’re a small, focused studio — which means you work directly with the
-        people building your project, not an account manager.
+        We&rsquo;re a small, focused studio — which means you work directly with
+        the people building your project, not an account manager.
         <span className="highlight-block">
           Every detail gets personal attention.
         </span>
-        That’s not a pitch. It’s just how we operate.
+        That&rsquo;s not a pitch. It&rsquo;s just how we operate.
       </p>
     </div>
   );

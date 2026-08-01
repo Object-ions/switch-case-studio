@@ -13,16 +13,16 @@ import '../../styles/components/aboutPage.scss';
 
 const CAPABILITIES = [
   {
-    title: 'Websites',
-    body: 'Marketing sites, portfolio sites, and brand-forward web presence — built from scratch, never from a template.',
+    title: 'Websites & Stores',
+    body: 'Marketing sites, landing pages, and product-first e-commerce — built from scratch, never from a template. Shopify, WooCommerce, custom.',
   },
   {
-    title: 'E-commerce',
-    body: 'Product-first stores designed around the full buyer journey. Shopify, WooCommerce, custom — whatever the product needs.',
+    title: 'Apps & Dashboards',
+    body: 'Web apps, client portals, and internal tools built with React and Node — the interfaces that run your business.',
   },
   {
-    title: 'Apps & Automation',
-    body: 'Web apps, dashboards, and integration workflows built with React. We connect the tools and build the interfaces that run your business.',
+    title: 'AI & Automation',
+    body: 'Assistants trained on your business, agents that do real work, and n8n / Zapier / GoHighLevel workflows — self-hosted on your own infrastructure when it matters.',
   },
 ];
 
@@ -42,6 +42,14 @@ const VALUES = [
   {
     label: 'Conversion-focused',
     desc: 'Design follows function. We care about results, not just how things look.',
+  },
+  {
+    label: 'AI without the hype',
+    desc: 'We use AI where it measurably pays off — and tell you when it doesn’t. Engineers first, evangelists never.',
+  },
+  {
+    label: 'Our own stack, self-hosted',
+    desc: 'We run our own servers and host our own AI agents. Your systems get the same treatment — no black boxes, no lock-in.',
   },
 ];
 
@@ -77,7 +85,7 @@ const AboutPage = () => {
     <>
       <Seo
         title="About — Switch Case Studio"
-        description="The studio behind conversion-focused websites, stores, and web apps. Built from scratch, delivered fast — personal attention, no templates."
+        description="The engineer-led studio behind conversion-focused websites, apps, and AI systems. Design, code, and automation from scratch — personal attention, no templates, no hype."
         path="/about"
         jsonLd={teamJsonLd}
       />
@@ -91,12 +99,12 @@ const AboutPage = () => {
           <h1 className="about-page__title page-head-animate">
             Design-led.
             <br />
-            <span className="about-page__title--accent">Results-driven.</span>
+            <span className="about-page__title--accent">AI-native. Results-driven.</span>
           </h1>
           <p className="about-page__lede page-head-animate">
-            Switch Case Studio is a boutique digital studio building websites,
-            e-commerce stores, and web apps from scratch — for businesses that
-            take their digital presence seriously.
+            Switch Case Studio is an engineer-led studio building websites,
+            web apps, and AI systems from scratch — for businesses that want
+            the AI revolution working for them, not marketed at them.
           </p>
         </header>
 
@@ -125,6 +133,12 @@ const AboutPage = () => {
                 loop without drowning you in it. Whether it's a campaign page, a
                 full Shopify store, or a custom web app — everything starts from
                 scratch.
+              </p>
+              <p>
+                And we practice what we sell: our own studio runs on the
+                automations we build for clients — self-hosted n8n workflows,
+                AI agents on our own servers, and assistants built on Claude
+                and OpenAI. When we recommend a system, it's because we run it.
               </p>
             </div>
             <div className="about-page__stat-col">

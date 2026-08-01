@@ -5,20 +5,22 @@ import Seo from '../util/Seo';
 import { PricingGuide } from './PricingGuide';
 
 const slugToServiceId = {
+  'ai-development': 'ai-development',
+  'automation-integrations': 'automation-integrations',
   'web-development': 'web-development',
   'marketing-ads': 'marketing-advertisement',
   'hosting-maintenance': 'web-hosting-maintenance',
   'design-branding': 'design-branding',
-  'automation-integrations': 'automation-integrations',
   'email-marketing': 'email-marketing',
 };
 
 const servicesIndex = [
+  { slug: 'ai-development', label: 'AI Development' },
+  { slug: 'automation-integrations', label: 'Automation & AI Workflows' },
   { slug: 'web-development', label: 'Web Development' },
   { slug: 'marketing-ads', label: 'Growth & Performance' },
-  { slug: 'hosting-maintenance', label: 'Hosting & Support' },
+  { slug: 'hosting-maintenance', label: 'Hosting & Infrastructure' },
   { slug: 'design-branding', label: 'Brand Identity' },
-  { slug: 'automation-integrations', label: 'Automation & Systems' },
   { slug: 'email-marketing', label: 'Email & Retention' },
 ];
 

@@ -70,7 +70,7 @@ const Hero = () => {
               {"We "}
               <WelcomeTyped />
             </span>
-            <span className="hero-line">websites &amp; stores</span>
+            <span className="hero-line">websites, apps &amp; AI</span>
             <span className="hero-line hero-line--accent">
               that actually perform.
             </span>
@@ -81,11 +81,12 @@ const Hero = () => {
             data-cursor-wave-mask
           >
             <span className="hero-sub__desktop">
-              Websites, e-commerce stores, and apps &mdash; built from scratch
-              by a design-led studio that takes performance seriously.
+              Websites, stores, apps, and the AI systems behind them &mdash;
+              engineered from scratch by a design-led studio that writes real
+              code and puts AI to work where it pays.
             </span>
             <span className="hero-sub__mobile">
-              Built to perform. Designed to convert.
+              Design. Code. AI. Built to convert.
             </span>
           </p>
 

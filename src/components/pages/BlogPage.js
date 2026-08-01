@@ -41,7 +41,7 @@ const BlogPage = () => {
     <>
       <Seo
         title="Blog — Switch Case Studio"
-        description="Field notes on web design, development, branding, and growth from Switch Case Studio — practical thinking from the team that builds sites from scratch."
+        description="Field notes on web design, development, AI, automation, and growth from Switch Case Studio — practical thinking from the team that builds and automates from scratch."
         path="/blog"
         jsonLd={{
           '@context': 'https://schema.org',

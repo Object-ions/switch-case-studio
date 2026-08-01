@@ -1,11 +1,12 @@
 import projects from './projects.json';
 
 export const PRICING_LINKS = [
+  { label: 'AI Development', to: '/pricing/ai-development' },
+  { label: 'Automation & AI Workflows', to: '/pricing/automation-integrations' },
   { label: 'Web Development', to: '/pricing/web-development' },
   { label: 'Growth & Performance', to: '/pricing/marketing-ads' },
-  { label: 'Hosting & Support', to: '/pricing/hosting-maintenance' },
+  { label: 'Hosting & Infrastructure', to: '/pricing/hosting-maintenance' },
   { label: 'Brand Identity', to: '/pricing/design-branding' },
-  { label: 'Automation & Systems', to: '/pricing/automation-integrations' },
   { label: 'Email & Retention', to: '/pricing/email-marketing' },
 ];
 

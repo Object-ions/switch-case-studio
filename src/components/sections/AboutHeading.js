@@ -40,7 +40,7 @@ const AboutHeading = () => {
     };
   }, [reducedMotion]);
 
-  const text = `We build websites, e-commerce stores, and apps that convert — designed from scratch, shipped fast, and backed by a team that actually cares about your results`;
+  const text = `We build websites, apps, and AI systems that convert — designed from scratch, engineered by people who ship real code, and automated so your business runs while you sleep`;
 
   const wrappedWords = text.split(' ').map((word, idx) => (
     <span key={idx} className="word">

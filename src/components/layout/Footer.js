@@ -13,7 +13,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { faRss } from '@fortawesome/free-solid-svg-icons';
 import SCSLogo from '../ui/SCSLogo';
-import { PROJECT_LINKS, LEGAL_LINKS } from '../../data/navigation';
+import { PRICING_LINKS, PROJECT_LINKS, LEGAL_LINKS } from '../../data/navigation';
 import { BOOK_CALL_URL, BOOK_CALL_LABEL } from '../../data/cta';
 import '../../styles/components/footer.scss';
 
@@ -55,14 +55,9 @@ const handleAnchorClick = (e, hash) => {
 /* ------------------------------------------------------------------ *
  * Column data
  * ------------------------------------------------------------------ */
-const SERVICES_LINKS = [
-  { label: 'Web Development', to: '/pricing/web-development' },
-  { label: 'Brand Identity', to: '/pricing/design-branding' },
-  { label: 'Growth & Performance', to: '/pricing/marketing-ads' },
-  { label: 'Automation & Systems', to: '/pricing/automation-integrations' },
-  { label: 'Email & Retention', to: '/pricing/email-marketing' },
-  { label: 'Hosting & Support', to: '/pricing/hosting-maintenance' },
-];
+// Shared with the nav menu (navigation.js) — one source of truth for the
+// service list; a hardcoded copy here drifted when services were renamed.
+const SERVICES_LINKS = PRICING_LINKS;
 
 const EXPLORE_LINKS = [
   { label: 'Services', hash: '#services' },
@@ -222,8 +217,8 @@ const Footer = () => {
           <div className="footer-col footer-col-animate footer-brand">
             <SCSLogo />
             <p className="footer-brand__tagline">
-              Websites, stores, and apps built to convert — designed from
-              scratch, shipped fast.
+              Websites, apps, and AI systems built to convert — designed from
+              scratch, engineered for real, shipped fast.
             </p>
           </div>
 

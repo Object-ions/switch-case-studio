@@ -51,10 +51,10 @@ const AboutMarquee = () => {
         {/* h2, not h1 — the home page's single h1 is the hero headline. */}
         <h2 className="marquee" aria-label="Selected Projects">
           <span className="marquee-track">
-            Websites that convert — e-commerce stores that sell — apps built to last — Switch Case Studio
+            Websites that convert — AI that does real work — automations that never sleep — Switch Case Studio
           </span>
           <span className="marquee-track">
-            Websites that convert — e-commerce stores that sell — apps built to last — Switch Case Studio
+            Websites that convert — AI that does real work — automations that never sleep — Switch Case Studio
           </span>
         </h2>
       </div>
