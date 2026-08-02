@@ -30,7 +30,7 @@ distinctive desktop moves degrade to plain stacked text lists. The charm loss IS
 
 Severity: P0 blocking / P1 major / P2 minor / P3 polish. Status: OPEN unless noted.
 
-### M1 [P1] LPP and Services rows are the same section twice — FIXED (branch fix/mobile-batch-a, awaiting Moses's device review)
+### M1 [P1] LPP and Services rows are the same section twice — FIXED — merged to main aa0be7c, device-passed
 Direction (a) merge, implemented: feature cards + "See our work" CTA removed; LPP header
 (kicker now "What we do") is the intro to the Services rows; seam padding tuned both sides;
 white-label line folded into the body copy so the Agency-ready card's content survives.
@@ -50,7 +50,7 @@ near-identical semantics (LPP's "AI & automation" card vs the "AI Development" A
 **Files:** `routes.js` (order), `LandingPageProof.js`, `Services.js`, `landingPageProof.scss`.
 **Effort:** S–M. **Command:** `/impeccable distill` then `layout`.
 
-### M2 [P1] TextPressure (CASE STUDIES) ships a broken-looking static state on touch — FIXED (branch fix/mobile-batch-c, awaiting device review)
+### M2 [P1] TextPressure (CASE STUDIES) ships a broken-looking static state on touch — FIXED — merged to main 13079e6
 Direction (a): scroll-driven warp on touch — the virtual cursor sweeps across the title as
 it travels the viewport (computed inside frame() before writes; batching + settle-stop
 kept; scroll events wake the loop). Reduced-motion now paints a UNIFORM pass (wght 500 /
@@ -70,7 +70,7 @@ reads as a font failure. Desktop is untouched (works beautifully).
 **Constraint:** keep the batched read/write + settle-stop rules (CLAUDE.md animation-loop
 rule). **Files:** `TextPressure.js`. **Effort:** M. **Command:** `/impeccable animate`.
 
-### M3 [P1] AboutHeading lost its display voice — FIXED (branch fix/mobile-batch-b, awaiting device review)
+### M3 [P1] AboutHeading lost its display voice — FIXED — merged to main 31e2da7, device-passed
 Direction (a): SCS Display restored as the third display exception (policy updated in
 CLAUDE.md). A/B against Inter at 3rem with risk glyphs zoomed came back clean on the v3
 metrics. line-height 1.15, text-wrap: balance; scrub colors moved to tokens
@@ -109,7 +109,7 @@ separate defects:
    auto-rotation only) or `touches: { ONE: null }` so one-finger scroll passes through.
 **Files:** `Moon.js`, maybe `work.scss` (glow). **Effort:** M. **Command:** `/impeccable polish`.
 
-### M5 [P1] Footer link columns: 25+ small grey links in four flat stacked lists — FIXED (branch fix/mobile-batch-e, awaiting device review)
+### M5 [P1] Footer link columns: 25+ small grey links in four flat stacked lists — FIXED — merged to main cbce441
 Explore column → compact inline utility strip between grid and wordmark (links survive,
 height doesn't); Case Studies → top 4 + "All case studies →"; desktop grid 5→4 cols; touch
 targets: link + legal rows get 0.55rem block padding under hover:none/coarse (~44px).
@@ -128,7 +128,7 @@ bigger type, and let the wordmark + socials block stay the hero of the footer. O
 touch of charm: arrow-nudge or letter-fill on tap, matching the wordmark's gradient language.
 **Files:** `Footer.js`, `footer.scss`. **Effort:** M. **Command:** `/impeccable distill` + `layout`.
 
-### M6 [P2] Logo 360-spin (and the whole reactive layer) is pointer-gated — no touch equivalent — FIXED (branch fix/mobile-batch-c, awaiting device review)
+### M6 [P2] Logo 360-spin (and the whole reactive layer) is pointer-gated — no touch equivalent — FIXED — merged to main 13079e6
 Tap fires one 0.9s 360° (scsLogo-starSpinOnce keyframe, hover:none scope) via .is-spinning
 set on touchstart, cleared on animationend (name-checked so the infinite hover keyframe
 can't clear it). Header persists across routes, so the spin plays through navigation.
@@ -144,7 +144,7 @@ survives). The existing `:active` opacity-press rule (CLAUDE.md mobile-press pat
 the rest of the site; the logo deserves the bespoke moment.
 **Files:** `scsLogo.scss`, `Header.js` (or SCSLogo.js). **Effort:** S. **Command:** `/impeccable delight`.
 
-### M7 [P2] Gradient stripe fills a full phone viewport with empty color — FIXED (branch fix/mobile-batch-a, awaiting device review)
+### M7 [P2] Gradient stripe fills a full phone viewport with empty color — FIXED — merged to main aa0be7c, device-passed
 Stripe min height 160→120px (desktop 30vw/420 cap unchanged); services list mobile
 padding-bottom 4rem→2.5rem so the row→stripe gap stops reading as a dead half-viewport.
 (Screens 4–5.) The orb/stripe divider between Services and Case Studies spans close to
@@ -155,7 +155,7 @@ shows a static band.
 (e.g. the marquee, or a stat), or make it the section divider that absorbs the Case
 Studies headline. **Files:** `StripeSection.js` / its scss. **Effort:** S.
 
-### M8 [P2] About body text is 14.4px while its heading floats at 2rem — FIXED (branch fix/mobile-batch-b, awaiting device review)
+### M8 [P2] About body text is 14.4px while its heading floats at 2rem — FIXED — merged to main 31e2da7, device-passed
 Mobile .work-text p: 0.9rem→1rem, left-aligned; desktop line-height 1.5→1.6.
 `work.scss` @768px sets `.work-text p` to 0.9rem (14.4px) centered — dense small
 paragraphs under an oversized airy heading (M3's other half). Mobile body floor should be
@@ -163,7 +163,7 @@ paragraphs under an oversized airy heading (M3's other half). Mobile body floor 
 highlight-block borders wrap fine (box-decoration-break already handled).
 **Files:** `work.scss`. **Effort:** XS. Do together with M3.
 
-### M9 [P2] Marquee + AboutHeading say the same sentence twice — FIXED (branch fix/mobile-batch-a, awaiting device review)
+### M9 [P2] Marquee + AboutHeading say the same sentence twice — FIXED — merged to main aa0be7c, device-passed
 Marquee is now pure brand mark ("Switch Case Studio — design — code — AI — Portland,
 Oregon — built from scratch"); the AboutHeading keeps the claim. aria-label corrected
 ("Selected Projects" → "Switch Case Studio").
@@ -174,7 +174,7 @@ heading, either shorten the heading to a sharper non-overlapping claim or make t
 purely brand-mark ("Switch Case Studio ✳ Portland OR ✳ est. 2024"-style).
 **Files:** `AboutHeading.js` or `AboutMarquee.js`. **Effort:** XS (copy).
 
-### M10 [P3] Services rows on touch: no pressed-state feedback — FIXED (branch fix/mobile-batch-c, awaiting device review)
+### M10 [P3] Services rows on touch: no pressed-state feedback — FIXED — merged to main 13079e6
 :active lilac flash (rgba(239,215,255,.12) bg) + 0.7 opacity on .services__link, scoped
 hover:none/coarse. Opacity/background only — the overlay's translateY stays GSAP-owned.
 Desktop rows have the overlay wipe + char stagger; mobile rows are inert text. The
@@ -206,3 +206,16 @@ new rules back into CLAUDE.md per Rule 2.
 - Footer wordmark + socials block (screen 7) — Moses-approved, the anchor for M5's restyle.
 - Hero typed-verb lockup + CursorWave still lands on mobile; case-study tiles read well.
 - Data-driven nav/services (2026-08 derivation work) makes M1/M5 restructures cheap.
+
+---
+
+## CLOSED — 2026-08-02
+
+All ten tickets fixed and merged to main across five batches (merge commits: A aa0be7c,
+B 31e2da7 + AI caps-trim, C 13079e6, D dfa3927, E cbce441). Themes that produced rules:
+touch gets its own input (scroll-drive, tap-spin, :active press) instead of disabled
+hovers; the SCS Display h1-only policy gained its third exception after an A/B on the v3
+metrics; the caps-trim optical size utility (0.92em) covers all-caps tokens in display
+copy. Side wins: 1.5MB HDRI removed from the payload, footer touch targets to ~44px,
+reduced-motion TextPressure now uniform. Remaining known work lives OUTSIDE this log:
+the deferred DESKTOP design pass (not yet audited).
