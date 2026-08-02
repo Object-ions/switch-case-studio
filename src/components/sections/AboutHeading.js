@@ -9,14 +9,22 @@ const AboutHeading = () => {
   useEffect(() => {
     const words = gsap.utils.toArray('.word');
 
+    // M3: colors come from the design tokens (:root exports in app.scss);
+    // literals are the sync'd fallbacks per the token-mirror convention.
+    const rootStyles = getComputedStyle(document.documentElement);
+    const scrubFrom =
+      rootStyles.getPropertyValue('--about-scrub-from').trim() || '#e9add7';
+    const scrubTo =
+      rootStyles.getPropertyValue('--about-scrub-to').trim() || '#ff8347';
+
     // VE-10: reduced motion skips the scrub — words rest at the END color
     // (the highlighted state), never animating.
     if (reducedMotion) {
-      gsap.set(words, { color: '#ff8347' });
+      gsap.set(words, { color: scrubTo });
       return undefined;
     }
 
-    gsap.set(words, { color: '#e9add7' }); // initial color
+    gsap.set(words, { color: scrubFrom }); // initial color
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -28,7 +36,7 @@ const AboutHeading = () => {
     });
 
     words.forEach((word, i) => {
-      tl.to(word, { color: '#ff8347' }, i * 0.05); // highlight one by one
+      tl.to(word, { color: scrubTo }, i * 0.05); // highlight one by one
     });
 
     return () => {

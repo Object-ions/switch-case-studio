@@ -66,17 +66,24 @@
   }
 
   // ─── Section heading ───
+  // M3: SCS Display restored — third deliberate display exception (with the
+  // footer wordmark + About marquee). The face was pulled by the h1-only
+  // policy while its advances were broken; v3 fixed the metrics, and an A/B
+  // against Inter at 3rem (2026-08-02, risk glyphs b/u/q/z/r zoomed) came
+  // back clean. This is a scrub-animated display moment, not body text.
   .work-heading {
     margin: 0 auto;
     padding: 5rem 0 0;
     font-size: 3rem;
-    font-family: $font-text;
+    font-family: $font-special;
+    line-height: 1.15;
     text-align: center;
     max-width: $max-width;
     z-index: 11;
 
     p {
       mix-blend-mode: difference;
+      text-wrap: balance;
 
       .word {
         display: inline-block;
@@ -113,7 +120,7 @@
       padding: 0 1.5rem;
 
       p {
-        line-height: 1.5;
+        line-height: 1.6;
         text-align: center;
       }
     }
@@ -139,8 +146,11 @@
       gap: 1rem;
       padding: 2rem 1rem;
 
+      // M8: body floor is 1rem on phones (was 14.4px), left-aligned — 8-line
+      // centered paragraphs read as a ragged blob under the display heading.
       .work-text p {
-        font-size: 0.9rem;
+        font-size: 1rem;
+        text-align: left;
         overflow-wrap: break-word;
       }
 
