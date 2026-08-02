@@ -50,7 +50,11 @@ near-identical semantics (LPP's "AI & automation" card vs the "AI Development" A
 **Files:** `routes.js` (order), `LandingPageProof.js`, `Services.js`, `landingPageProof.scss`.
 **Effort:** S–M. **Command:** `/impeccable distill` then `layout`.
 
-### M2 [P1] TextPressure (CASE STUDIES) ships a broken-looking static state on touch — OPEN
+### M2 [P1] TextPressure (CASE STUDIES) ships a broken-looking static state on touch — FIXED (branch fix/mobile-batch-c, awaiting device review)
+Direction (a): scroll-driven warp on touch — the virtual cursor sweeps across the title as
+it travels the viewport (computed inside frame() before writes; batching + settle-stop
+kept; scroll events wake the loop). Reduced-motion now paints a UNIFORM pass (wght 500 /
+wdth 110 / slnt 0) instead of the frozen center-warp.
 **Moses's #2.** (Screen 5.) `TextPressure.js` gates the warp loop off on `(hover: none)`
 and paints ONE batched pass with the virtual cursor parked at the container center — center
 letters get max wght/wdth, edge letters hairline-condensed. "CASE" renders as spread
@@ -120,7 +124,11 @@ bigger type, and let the wordmark + socials block stay the hero of the footer. O
 touch of charm: arrow-nudge or letter-fill on tap, matching the wordmark's gradient language.
 **Files:** `Footer.js`, `footer.scss`. **Effort:** M. **Command:** `/impeccable distill` + `layout`.
 
-### M6 [P2] Logo 360-spin (and the whole reactive layer) is pointer-gated — no touch equivalent — OPEN
+### M6 [P2] Logo 360-spin (and the whole reactive layer) is pointer-gated — no touch equivalent — FIXED (branch fix/mobile-batch-c, awaiting device review)
+Tap fires one 0.9s 360° (scsLogo-starSpinOnce keyframe, hover:none scope) via .is-spinning
+set on touchstart, cleared on animationend (name-checked so the infinite hover keyframe
+can't clear it). Header persists across routes, so the spin plays through navigation.
+Reduced-motion: animation none, flag inert.
 The spin was never deleted: `scsLogo.scss` has the 13s `scsLogo-starSpin` hover animation
 gated behind `@media (hover: hover) and (pointer: fine)`. Touch never fires it. Same gate
 class as: service-row overlay wipe, tile lifts, cursor, TextPressure (M2).
@@ -162,7 +170,9 @@ heading, either shorten the heading to a sharper non-overlapping claim or make t
 purely brand-mark ("Switch Case Studio ✳ Portland OR ✳ est. 2024"-style).
 **Files:** `AboutHeading.js` or `AboutMarquee.js`. **Effort:** XS (copy).
 
-### M10 [P3] Services rows on touch: no pressed-state feedback — OPEN (mine)
+### M10 [P3] Services rows on touch: no pressed-state feedback — FIXED (branch fix/mobile-batch-c, awaiting device review)
+:active lilac flash (rgba(239,215,255,.12) bg) + 0.7 opacity on .services__link, scoped
+hover:none/coarse. Opacity/background only — the overlay's translateY stays GSAP-owned.
 Desktop rows have the overlay wipe + char stagger; mobile rows are inert text. The
 site-wide `@media (hover:none)` opacity-press exists (CLAUDE.md rule) but these rows
 deserve the overlay: fire the wipe on `:active`/touchstart as a quick press-in (no stagger,

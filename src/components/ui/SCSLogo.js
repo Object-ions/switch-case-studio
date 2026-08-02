@@ -1,7 +1,23 @@
+import { useState } from 'react';
 import '../../styles/components/scsLogo.scss';
 
-const SCSLogo = ({ className = '', ariaLabel = 'Switch Case Studio' }) => (
-  <span className={`scsLogo ${className}`}>
+// Touch equivalent of the hover star-spin (mobile audit M6): a tap fires ONE
+// 360° turn via .is-spinning; the class drops on animationend so the next tap
+// can re-trigger. The header logo persists across route changes, so the spin
+// plays through the navigation the tap starts. Desktop hover spin (infinite,
+// no end event) and reduced-motion (animation: none, so no event either) are
+// untouched — only the one-shot keyframe ends and clears the flag.
+const SCSLogo = ({ className = '', ariaLabel = 'Switch Case Studio' }) => {
+  const [spinning, setSpinning] = useState(false);
+
+  return (
+  <span
+    className={`scsLogo ${className}${spinning ? ' is-spinning' : ''}`}
+    onTouchStart={() => setSpinning(true)}
+    onAnimationEnd={(e) => {
+      if (e.animationName === 'scsLogo-starSpinOnce') setSpinning(false);
+    }}
+  >
     <svg
       viewBox="0 0 775.82 747.56"
       xmlns="http://www.w3.org/2000/svg"
@@ -83,6 +99,7 @@ const SCSLogo = ({ className = '', ariaLabel = 'Switch Case Studio' }) => (
       </g>
     </svg>
   </span>
-);
+  );
+};
 
 export default SCSLogo;

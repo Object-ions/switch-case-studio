@@ -136,21 +136,55 @@ const TextPressure = ({
         onto the cursor (<0.5px) — output is static by construction from
         there; pointer movement wakes it.
      3. IntersectionObserver gate: no loop while the title is offscreen.
-     4. Touch / reduced-motion: the loop never starts. One batched pass paints
-        the same resting state the old loop converged to (cursor initializes
-        at the container center and never moves on touch), then stops — the
-        static look on mobile is pixel-identical to before. */
+     4. Touch (mobile audit M2): the warp runs SCROLL-DRIVEN — the virtual
+        cursor sweeps across the title as it travels through the viewport,
+        so letters ripple on scroll instead of freezing in the old
+        center-cursor static frame (which read as a font failure). Scroll
+        events wake the loop; the settle-stop still parks it when scrolling
+        stops. Same batched read/write discipline.
+     5. Reduced-motion: no loop ever. One UNIFORM pass (same axis values on
+        every span) — a set headline, not a frozen warp. */
   useEffect(() => {
     let rafId = 0;
     let running = false;
     let visible = false;
 
-    const noLoop =
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-      window.matchMedia('(hover: none)').matches;
+    const reduced = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+    const touchMode =
+      !reduced && window.matchMedia('(hover: none)').matches;
+
+    /* Reduced-motion static state: one deliberate mid-axis setting for all
+       spans. Mirrors the loop's write mechanism (incl. lastWrittenRef). */
+    const uniformPass = () => {
+      const fvs = `'wght' 500, 'wdth' 110, 'slnt' 0`;
+      spansRef.current.filter(Boolean).forEach((span, i) => {
+        const last = lastWrittenRef.current[i];
+        if (!last || last.fvs !== fvs) {
+          span.style.fontVariationSettings = fvs;
+        }
+        if (alpha) span.style.opacity = 1;
+        lastWrittenRef.current[i] = { fvs, alpha: '1' };
+      });
+    };
 
     const frame = () => {
       rafId = 0;
+
+      /* Touch: derive the cursor from scroll progress BEFORE the smoothing
+         step (read precedes all writes — batching discipline holds). The
+         cursor sweeps left→right across the title as it crosses the
+         viewport; the /15 smoothing below turns that into a trailing
+         ripple. */
+      if (touchMode && titleRef.current) {
+        const r = titleRef.current.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+        cursorRef.current.x = r.left + p * r.width;
+        cursorRef.current.y = r.top + r.height / 2;
+      }
+
       mouseRef.current.x += (cursorRef.current.x - mouseRef.current.x) / 15;
       mouseRef.current.y += (cursorRef.current.y - mouseRef.current.y) / 15;
 
@@ -218,7 +252,7 @@ const TextPressure = ({
     };
 
     const wake = () => {
-      if (noLoop || running || !visible) return;
+      if (reduced || running || !visible) return;
       running = true;
       if (!rafId) rafId = requestAnimationFrame(frame);
     };
@@ -226,11 +260,17 @@ const TextPressure = ({
     const onPointerMove = () => wake();
     window.addEventListener('mousemove', onPointerMove, { passive: true });
 
+    // Touch: scroll is the input (M2) — every scroll tick wakes the loop;
+    // frame() reads the new title position and the settle-stop parks it
+    // once the smoothed cursor catches up after scrolling stops.
+    const onScroll = touchMode ? () => wake() : null;
+    if (onScroll) window.addEventListener('scroll', onScroll, { passive: true });
+
     // Resize/orientation moves the glyphs — recompute (the old always-on
     // loop self-corrected; the gated one must do it explicitly).
     const onResize = () => {
       if (!visible) return;
-      if (noLoop) frame();
+      if (reduced) uniformPass();
       else wake();
     };
     window.addEventListener('resize', onResize);
@@ -240,9 +280,8 @@ const TextPressure = ({
       io = new IntersectionObserver((entries) => {
         visible = entries.some((e) => e.isIntersecting);
         if (visible) {
-          if (noLoop) {
-            /* single batched pass = the converged static state */
-            frame();
+          if (reduced) {
+            uniformPass();
           } else {
             wake();
           }
@@ -255,13 +294,14 @@ const TextPressure = ({
       io.observe(containerRef.current);
     } else {
       visible = true;
-      if (noLoop) frame();
+      if (reduced) uniformPass();
       else wake();
     }
 
     return () => {
       if (rafId) cancelAnimationFrame(rafId);
       window.removeEventListener('mousemove', onPointerMove);
+      if (onScroll) window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onResize);
       if (io) io.disconnect();
     };

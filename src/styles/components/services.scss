@@ -141,6 +141,22 @@
   }
 }
 
+// Touch press state (mobile audit M10): the desktop overlay wipe is
+// pointer-only, so taps had zero feedback. A quick lilac flash + dim echoes
+// the overlay's color language. Opacity/background only — GSAP owns this
+// row's reveal transform, and the overlay's translateY is GSAP-inline
+// (house rule: no CSS transitions on JS-owned properties).
+@media (hover: none) and (pointer: coarse) {
+  .services__link {
+    transition: opacity 80ms ease, background-color 80ms ease;
+
+    &:active {
+      opacity: 0.7;
+      background-color: rgba(239, 215, 255, 0.12);
+    }
+  }
+}
+
 @media (max-width: 768px) {
   .services {
     &__menu {
