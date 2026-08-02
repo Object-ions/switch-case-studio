@@ -99,6 +99,19 @@
   --dur-slow: #{$dur-slow};
   --ease-out: #{$ease-out};
   --ease-brand: #{$ease-brand};
+  --about-scrub-from: #{$about-scrub-from};
+  --about-scrub-to: #{$about-scrub-to};
+}
+
+// Optical trim for all-caps tokens ("AI") set inside SCS Display copy.
+// The face's caps are the SAME height as its lowercase ascenders (cap
+// 1578–1590 vs b/d/h/k/l 1586–1598 units, measured on v3), but x-height is
+// only 1113 — so a two-cap token reads as a full-height slab next to
+// x-height-dominant words. 0.92em parks the caps visibly under the ascender
+// line. Don't trim harder: font-size also scales stroke weight on this
+// single-weight face, and past ~10% the token goes lighter than neighbors.
+.caps-trim {
+  font-size: 0.92em;
 }
 
 html {

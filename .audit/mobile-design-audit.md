@@ -66,7 +66,11 @@ reads as a font failure. Desktop is untouched (works beautifully).
 **Constraint:** keep the batched read/write + settle-stop rules (CLAUDE.md animation-loop
 rule). **Files:** `TextPressure.js`. **Effort:** M. **Command:** `/impeccable animate`.
 
-### M3 [P1] AboutHeading lost its display voice — Inter default-weight, airy, unset — OPEN
+### M3 [P1] AboutHeading lost its display voice — FIXED (branch fix/mobile-batch-b, awaiting device review)
+Direction (a): SCS Display restored as the third display exception (policy updated in
+CLAUDE.md). A/B against Inter at 3rem with risk glyphs zoomed came back clean on the v3
+metrics. line-height 1.15, text-wrap: balance; scrub colors moved to tokens
+($about-scrub-from/-to → :root custom props, JS reads with sync'd fallbacks).
 **Moses's #3.** (Screen 6.) `.work-heading` is `$font-text` (Inter) 2rem on mobile, weight
 400, default line-height/tracking, per-word spans with trailing `&nbsp;`. It was SCS Display
 before the h1-only font policy (the policy exists because the face's broken advances
@@ -139,7 +143,8 @@ shows a static band.
 (e.g. the marquee, or a stat), or make it the section divider that absorbs the Case
 Studies headline. **Files:** `StripeSection.js` / its scss. **Effort:** S.
 
-### M8 [P2] About body text is 14.4px while its heading floats at 2rem — OPEN (mine)
+### M8 [P2] About body text is 14.4px while its heading floats at 2rem — FIXED (branch fix/mobile-batch-b, awaiting device review)
+Mobile .work-text p: 0.9rem→1rem, left-aligned; desktop line-height 1.5→1.6.
 `work.scss` @768px sets `.work-text p` to 0.9rem (14.4px) centered — dense small
 paragraphs under an oversized airy heading (M3's other half). Mobile body floor should be
 1rem; left-align at this width reads better than centered 8-line paragraphs; the
