@@ -51,7 +51,12 @@ const AboutHeading = () => {
   const text = `We build websites, apps, and AI systems that convert — designed from scratch, engineered by people who ship real code, and automated so your business runs while you sleep`;
 
   const wrappedWords = text.split(' ').map((word, idx) => (
-    <span key={idx} className="word">
+    <span
+      key={idx}
+      // caps-trim: optical size reduction for the all-caps "AI" token
+      // (see app.scss) — scrub still targets .word.
+      className={word === 'AI' ? 'word caps-trim' : 'word'}
+    >
       {word}&nbsp;
     </span>
   ));

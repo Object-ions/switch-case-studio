@@ -70,7 +70,9 @@ const Hero = () => {
               {"We "}
               <WelcomeTyped />
             </span>
-            <span className="hero-line">websites, apps &amp; AI</span>
+            <span className="hero-line">
+              websites, apps &amp; <span className="caps-trim">AI</span>
+            </span>
             <span className="hero-line hero-line--accent">
               that actually perform.
             </span>
