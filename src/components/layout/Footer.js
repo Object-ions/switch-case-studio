@@ -234,38 +234,22 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Explore */}
-          <div className="footer-col footer-col-animate">
-            <h4 className="footer-col__title">Explore</h4>
-            <ul className="footer-nav">
-              {EXPLORE_LINKS.map((link) =>
-                link.hash ? (
-                  <li key={link.hash}>
-                    <Link
-                      to={`/${link.hash}`}
-                      onClick={(e) => handleAnchorClick(e, link.hash)}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ) : (
-                  <li key={link.to}>
-                    <Link to={link.to}>{link.label}</Link>
-                  </li>
-                ),
-              )}
-            </ul>
-          </div>
-
-          {/* Case Studies */}
+          {/* Case Studies — top 4 + the index link (mobile audit M5): the
+              full 8-project list (also in the header dropdown) was half of
+              why the mobile footer scrolled forever. */}
           <div className="footer-col footer-col-animate">
             <h4 className="footer-col__title">Case Studies</h4>
             <ul className="footer-nav">
-              {PROJECT_LINKS.map((proj) => (
+              {PROJECT_LINKS.slice(0, 4).map((proj) => (
                 <li key={proj.to}>
                   <Link to={proj.to}>{proj.label}</Link>
                 </li>
               ))}
+              <li>
+                <Link to="/projects" className="footer-nav__viewall">
+                  All case studies →
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -319,6 +303,30 @@ const Footer = () => {
             )}
           </div>
         </div>
+
+        {/* Explore — one compact inline row (mobile audit M5): the old
+            Explore COLUMN duplicated the header nav wholesale and stretched
+            the phone footer; the links survive as a utility strip. */}
+        <nav
+          className="footer-explore footer-col-animate"
+          aria-label="Explore the site"
+        >
+          {EXPLORE_LINKS.map((link) =>
+            link.hash ? (
+              <Link
+                key={link.hash}
+                to={`/${link.hash}`}
+                onClick={(e) => handleAnchorClick(e, link.hash)}
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <Link key={link.to} to={link.to}>
+                {link.label}
+              </Link>
+            ),
+          )}
+        </nav>
 
         {/* Stenciled wordmark — per-letter spans so each letter can fill with
             the purple→black gradient on hover (see footer.scss) */}
