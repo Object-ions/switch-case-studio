@@ -129,6 +129,13 @@
       flex: 1;
       height: 500px;
       min-width: 300px;
+      // M4: faint lilac halo behind the canvas — anchors the sphere on the
+      // black page and sells the depth the rim light starts.
+      background: radial-gradient(
+        circle at 50% 50%,
+        rgba(218, 184, 255, 0.18),
+        transparent 62%
+      );
     }
 
     @media (max-width: 1024px) and (min-width: 769px) {
