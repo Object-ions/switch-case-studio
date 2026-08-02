@@ -49,12 +49,15 @@ const AboutMarquee = () => {
     <div className="projects-row row-header" ref={wrap}>
       <div className="panel panel-header">
         {/* h2, not h1 — the home page's single h1 is the hero headline. */}
-        <h2 className="marquee" aria-label="Selected Projects">
+        {/* M9: brand-mark copy only. The old track restated the AboutHeading
+            claim ("websites/AI that convert") word-for-word one viewport
+            apart; the heading owns the claim, the marquee owns the mark. */}
+        <h2 className="marquee" aria-label="Switch Case Studio">
           <span className="marquee-track">
-            Websites that convert — AI that does real work — automations that never sleep — Switch Case Studio
+            Switch Case Studio — design — code — AI — Portland, Oregon — Switch Case Studio — built from scratch
           </span>
           <span className="marquee-track">
-            Websites that convert — AI that does real work — automations that never sleep — Switch Case Studio
+            Switch Case Studio — design — code — AI — Portland, Oregon — Switch Case Studio — built from scratch
           </span>
         </h2>
       </div>

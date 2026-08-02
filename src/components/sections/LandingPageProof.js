@@ -1,31 +1,10 @@
 import { useRef } from 'react';
 import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
-import { HashLink } from 'react-router-hash-link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useReducedMotion from '../../hooks/useReducedMotion';
 
 import '../../styles/components/landingPageProof.scss';
-
-
-const FEATURES = [
-  {
-    label: 'Websites & stores',
-    desc: 'Marketing sites, landing pages, and e-commerce — built from scratch to convert. Not a template, not a theme.',
-  },
-  {
-    label: 'Apps & dashboards',
-    desc: 'Web apps, client portals, and internal tools built with React and Node — the interfaces that run your business.',
-  },
-  {
-    label: 'AI & automation',
-    desc: 'Chatbots trained on your business, agents that do real work, and n8n / Zapier workflows that kill busywork.',
-  },
-  {
-    label: 'Agency-ready',
-    desc: 'White-label and wholesale delivery available. Built to your brief, shipped on time.',
-  },
-];
 
 const LandingPageProof = () => {
   const sectionRef = useRef(null);
@@ -75,9 +54,15 @@ const LandingPageProof = () => {
       className="lpp"
       aria-label="What we build"
     >
+      {/* M1 (mobile audit): the feature-card grid + "See our work" CTA are
+          gone — the cards restated the service rows that follow immediately
+          below, so on mobile the home read as the same "what we do" list
+          twice. This header now IS the intro to the Services rows; the two
+          components render as one section (seam spacing tuned in
+          landingPageProof.scss / services.scss). */}
       <div className="lpp__inner">
         <div className="lpp__header">
-          <p className="lpp__kicker lpp-animate">What we build best</p>
+          <p className="lpp__kicker lpp-animate">What we do</p>
           <h2 className="lpp__heading lpp-animate">
             One studio.<br />Design, code &amp; AI.
           </h2>
@@ -85,27 +70,10 @@ const LandingPageProof = () => {
             Store, marketing site, web app, or the automation behind it —
             every build starts with the same question: what needs to happen
             for a visitor to become a customer? We design it, engineer it,
-            and wire in AI where it moves that number.
+            and wire in AI where it moves that number. White-label delivery
+            for agencies included.
           </p>
         </div>
-
-        <div className="lpp__features" role="list">
-          {FEATURES.map((f) => (
-            <div key={f.label} className="lpp__feature lpp-animate" role="listitem" data-cursor-morph>
-              <strong className="lpp__feature-label">{f.label}</strong>
-              <span className="lpp__feature-desc">{f.desc}</span>
-            </div>
-          ))}
-        </div>
-
-        <HashLink
-          to="/#projects"
-          smooth
-          className="lpp__cta lpp-animate"
-        >
-          See our work
-          <span className="lpp__cta-arrow" aria-hidden="true">&rarr;</span>
-        </HashLink>
       </div>
     </section>
   );

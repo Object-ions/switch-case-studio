@@ -10,10 +10,13 @@
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   font-family: $font-text;
 
+  // M1: bottom padding is the SEAM to the Services rows below — the header
+  // introduces that list, so the gap must read as intra-section, not a
+  // section break.
   &__inner {
     max-width: $max-width;
     margin: 0 auto;
-    padding: 7rem 6rem;
+    padding: 7rem 6rem 3.5rem;
     display: grid;
     grid-template-columns: 1fr;
     gap: 4rem;
@@ -60,92 +63,13 @@
     align-self: end;
   }
 
-  // ── Feature grid ──
-  &__features {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  &__feature {
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
-    padding: 2rem 2rem 2rem;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    transition: background 0.25s ease;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.03);
-    }
-  }
-
-  &__feature-label {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #fff;
-    letter-spacing: -0.01em;
-  }
-
-  &__feature-desc {
-    font-size: 0.9rem;
-    font-weight: 300;
-    line-height: 1.55;
-    color: rgba(255, 255, 255, 0.5);
-  }
-
-  // ── CTA ──
-  &__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.75rem 1.75rem;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 100px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #fff;
-    text-decoration: none;
-    width: fit-content;
-    transition:
-      border-color 0.3s ease,
-      background 0.3s ease,
-      box-shadow 0.3s ease;
-
-    &:hover {
-      border-color: $g6;
-      box-shadow: 0 0 24px rgba($g6, 0.3);
-      background: rgba($g6, 0.06);
-    }
-
-    &:focus-visible {
-      outline: 2px solid $g6;
-      outline-offset: 4px;
-    }
-  }
-
-  &__cta-arrow {
-    font-size: 1.1em;
-    transition: transform 0.3s ease;
-
-    .lpp__cta:hover & {
-      transform: translateX(4px);
-    }
-  }
 }
 
 // ── Tablet ──
 @media (max-width: 1024px) {
   .lpp {
     &__inner {
-      padding: 6rem 3rem;
-    }
-
-    &__features {
-      grid-template-columns: repeat(2, 1fr);
+      padding: 6rem 3rem 3rem;
     }
   }
 }
@@ -154,7 +78,7 @@
 @media (max-width: 768px) {
   .lpp {
     &__inner {
-      padding: 3.5rem 1.5rem;
+      padding: 3rem 1.5rem 2rem;
       gap: 3rem;
     }
 
@@ -165,22 +89,6 @@
     &__heading,
     &__body {
       grid-column: 1 / -1;
-    }
-
-    &__features {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    &__feature {
-      padding: 1.5rem 1.25rem;
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .lpp {
-    &__features {
-      grid-template-columns: 1fr;
     }
   }
 }
