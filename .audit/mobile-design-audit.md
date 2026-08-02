@@ -30,7 +30,10 @@ distinctive desktop moves degrade to plain stacked text lists. The charm loss IS
 
 Severity: P0 blocking / P1 major / P2 minor / P3 polish. Status: OPEN unless noted.
 
-### M1 [P1] LPP and Services rows are the same section twice — OPEN
+### M1 [P1] LPP and Services rows are the same section twice — FIXED (branch fix/mobile-batch-a, awaiting Moses's device review)
+Direction (a) merge, implemented: feature cards + "See our work" CTA removed; LPP header
+(kicker now "What we do") is the intro to the Services rows; seam padding tuned both sides;
+white-label line folded into the body copy so the Agency-ready card's content survives.
 **Moses's #1.** (Screens 1–4.) Home order is LPP ("One studio. Design, code & AI." + 4
 bordered cards: Websites & stores / Apps & dashboards / AI & automation / Agency-ready)
 immediately followed by Services rows (7 rows: AI Development / Automation & AI Workflows /
@@ -125,7 +128,9 @@ survives). The existing `:active` opacity-press rule (CLAUDE.md mobile-press pat
 the rest of the site; the logo deserves the bespoke moment.
 **Files:** `scsLogo.scss`, `Header.js` (or SCSLogo.js). **Effort:** S. **Command:** `/impeccable delight`.
 
-### M7 [P2] Gradient stripe fills a full phone viewport with empty color — OPEN (mine)
+### M7 [P2] Gradient stripe fills a full phone viewport with empty color — FIXED (branch fix/mobile-batch-a, awaiting device review)
+Stripe min height 160→120px (desktop 30vw/420 cap unchanged); services list mobile
+padding-bottom 4rem→2.5rem so the row→stripe gap stops reading as a dead half-viewport.
 (Screens 4–5.) The orb/stripe divider between Services and Case Studies spans close to
 100vh of pure gradient on a phone — a whole swipe of nothing between two content sections,
 right where the M1 monotony already fatigues. Desktop earns it (the orb scrubs); mobile
@@ -141,7 +146,10 @@ paragraphs under an oversized airy heading (M3's other half). Mobile body floor 
 highlight-block borders wrap fine (box-decoration-break already handled).
 **Files:** `work.scss`. **Effort:** XS. Do together with M3.
 
-### M9 [P2] Marquee + AboutHeading say the same sentence twice — OPEN (mine)
+### M9 [P2] Marquee + AboutHeading say the same sentence twice — FIXED (branch fix/mobile-batch-a, awaiting device review)
+Marquee is now pure brand mark ("Switch Case Studio — design — code — AI — Portland,
+Oregon — built from scratch"); the AboutHeading keeps the claim. aria-label corrected
+("Selected Projects" → "Switch Case Studio").
 "We build websites, apps, and AI systems that convert…" (heading) sits directly above
 "Websites that convert — AI that does real work — automations that never sleep" (marquee).
 Same promise, back to back — the M1 disease in the About section. When M3 restyles the

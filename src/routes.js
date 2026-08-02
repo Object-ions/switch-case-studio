@@ -40,8 +40,11 @@ const HomeContent = () => (
     <ClientStrip />
     <LandingPageProof />
     <Services />
+    {/* M7: min height 120px (was 160) — on phones the band is a divider
+        accent, not a content section; desktop sizing is unchanged (30vw
+        still governs above ~400px viewports). */}
     <GradientStripe
-      size="clamp(160px, 30vw, 420px)"
+      size="clamp(120px, 30vw, 420px)"
       duration={5.9}
       travel={60}
       orbSrc={Orb}

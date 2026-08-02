@@ -144,7 +144,9 @@
 @media (max-width: 768px) {
   .services {
     &__menu {
-      padding-bottom: 4rem;
+      // M7: the gap between the last row and the gradient stripe read as a
+      // dead half-viewport on phones (4rem here + the stripe's own bulk).
+      padding-bottom: 2.5rem;
     }
 
     &__link {
