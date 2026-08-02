@@ -57,8 +57,9 @@
     }
 
     @media (min-width: 1024px) {
-      /* Brand wider, four link columns equal */
-      grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr;
+      /* Brand wider, three link columns equal (Explore is an inline row
+         below the grid since M5 — see .footer-explore) */
+      grid-template-columns: 1.3fr 1fr 1fr 1fr;
       gap: 2.5rem;
 
       .footer-brand {
@@ -206,6 +207,33 @@
  * Footer nav lists
  * ================================================================== */
 
+// Explore utility row (M5) — the former Explore column as one inline strip
+// between the grid and the wordmark.
+.footer-explore {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.75rem;
+  margin-top: 2.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+  a {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $g6;
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      display: inline-block;
+      padding-block: 0.55rem;
+    }
+  }
+}
+
 .footer-nav {
   list-style: none;
   padding: 0;
@@ -235,6 +263,22 @@
     @media (min-width: 640px) {
       font-size: 1rem;
     }
+
+    // M5: real touch targets — 0.9rem rows with 0.25rem gaps were ~26px
+    // tappable height (WCAG 2.5.8 wants 24px minimum, 44px comfortable).
+    @media (hover: none) and (pointer: coarse) {
+      display: inline-block;
+      padding-block: 0.55rem;
+    }
+  }
+
+  // "All case studies →" index link — quieter than the project names.
+  // a#{&} beats the `a` block above on source order at equal specificity.
+  a#{&}__viewall {
+    color: $g6;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   &__badge {
@@ -360,6 +404,12 @@
 
       &:hover {
         color: #fef7ed;
+      }
+
+      // M5: touch target height for the legal row too.
+      @media (hover: none) and (pointer: coarse) {
+        display: inline-block;
+        padding-block: 0.55rem;
       }
     }
   }

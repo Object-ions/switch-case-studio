@@ -109,7 +109,11 @@ separate defects:
    auto-rotation only) or `touches: { ONE: null }` so one-finger scroll passes through.
 **Files:** `Moon.js`, maybe `work.scss` (glow). **Effort:** M. **Command:** `/impeccable polish`.
 
-### M5 [P1] Footer link columns: 25+ small grey links in four flat stacked lists — OPEN
+### M5 [P1] Footer link columns: 25+ small grey links in four flat stacked lists — FIXED (branch fix/mobile-batch-e, awaiting device review)
+Explore column → compact inline utility strip between grid and wordmark (links survive,
+height doesn't); Case Studies → top 4 + "All case studies →"; desktop grid 5→4 cols; touch
+targets: link + legal rows get 0.55rem block padding under hover:none/coarse (~44px).
+Wordmark + socials block untouched (the part Moses likes).
 **Moses's #5.** (Screens 7–8; he likes Connect + socials + wordmark, dislikes the columns.)
 On mobile the footer stacks Services (7) + Explore (6) + Case Studies (8) + Connect +
 legal — a long undifferentiated grey list. Compounding problems:
