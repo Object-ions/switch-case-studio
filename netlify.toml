@@ -29,6 +29,12 @@
 # (reports only, same policy string) — no other change needed.
 # Allowlist derived from runtime recon: gtag.js (googletagmanager) + GA4 collect
 # endpoints, EmailJS XHR (api.emailjs.com), self-hosted fonts/images/video/HDRI,
+# NOTE (2026-08-03): the original recon MISSED the apex host analytics.google.com
+# — `https://*.analytics.google.com` does NOT match it (a wildcard covers
+# subdomains only). Once consent is GRANTED and the property is Ads-linked, gtag
+# transports every hit to https://analytics.google.com/g/collect, so all of it was
+# CSP-blocked and GA4 showed "No data received" for months. Keep the apex host AND
+# the wildcard; stats.g.doubleclick.net covers the Ads-linked/Signals pings.
 # beasties + TextPressure inline <style> ('unsafe-inline'), and the Moon's
 # Meshopt decoder (WASM in a blob: worker → 'wasm-unsafe-eval' + worker-src blob:,
 # plus connect-src blob: for the decoder's blob: fetch).
@@ -43,7 +49,7 @@
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' blob: https://api.emailjs.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com; media-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src https://www.youtube-nocookie.com; frame-ancestors 'none'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net; font-src 'self'; connect-src 'self' blob: https://api.emailjs.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://stats.g.doubleclick.net https://www.googletagmanager.com; media-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src https://www.youtube-nocookie.com; frame-ancestors 'none'"
 
 # /partners ships a real (crawlable) static file, so enforce noindex at the
 # HTTP layer — authoritative for crawlers regardless of the HTML or whether JS

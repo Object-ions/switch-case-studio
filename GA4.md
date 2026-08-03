@@ -2,6 +2,16 @@
 
 Property: `G-DWY90CQY6P` (baked into the build from Netlify env var `VITE_GA_MEASUREMENT_ID`; changing it requires a redeploy).
 
+## 2026-08-03 — "No data received" was a CSP block (fixed)
+The tag was installed correctly the whole time; `netlify.toml`'s `connect-src` allowed
+`https://*.analytics.google.com` but NOT the apex `https://analytics.google.com`, which is
+where gtag sends every hit once consent is granted on this Ads-linked property. 100% of
+post-consent hits were dropped by the browser before hitting the network (no console watcher,
+no resource-timing entry → looked exactly like "tag never fired"). Fix: apex host +
+`stats.g.doubleclick.net` added to `connect-src`/`img-src`. Requires a redeploy to take effect.
+Proof: the same init snippet run on a CSP-free origin (example.com) registered in Realtime
+within seconds while prod registered nothing.
+
 ## Verified live (2026-06-03, headless browser against production)
 - Pre-consent: cookieless ping only (`gcs=G100`) — Consent Mode v2, default denied. Correct.
 - Banner Accept → choice persisted (`localStorage: scs-analytics-consent`).
