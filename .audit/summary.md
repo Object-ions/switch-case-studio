@@ -596,3 +596,25 @@ DOM textContent (occluded-window GSAP freeze reconfirmed on an UNCHANGED pricing
 environmental, not a regression; note: `innerText` returns "" for visibility:hidden
 reveals — probe with textContent). Prices are DRAFT-honest placeholders — Moses reviews
 before merge.
+
+## GA4 "No data received" — 2026-08-03 (root cause: CSP, not tagging)
+GA4 Home reported zero data since launch. The tag was correct the whole time: prod bundle
+carries `G-DWY90CQY6P`, gtag.js loads 200, consent + `page_view` queue in dataLayer.
+ROOT CAUSE: `netlify.toml` `connect-src` allowlisted `https://*.analytics.google.com` — a
+CSP wildcard does NOT match the apex `https://analytics.google.com`, which is where gtag
+transports every hit once consent is GRANTED on this Ads-linked property. 100% of
+post-consent hits were killed by the browser pre-network. Invisible by design: no
+`/g/collect` resource-timing entry (blocked before the network → reads identically to "tag
+never fired") and violations only surface in a console nobody was watching. The June
+Report-Only recon passed because it exercised only the pre-consent path, whose cookieless
+ping goes to `www.google-analytics.com` (allowed).
+EVIDENCE: on prod, firing a gtag event produced 4 `connect-src` violations and 0 collects;
+`fetch(..., {mode:'no-cors'})` per endpoint → `analytics.google.com` + `stats.g.doubleclick.net`
+BLOCKED, `www.google-analytics.com` / `region1.` / `googletagmanager.com` OK. Running the
+identical init snippet on a CSP-free origin (example.com) registered in GA4 Realtime within
+seconds (1 active user, page "diag") — proving GA-side ingestion was always healthy.
+FIX (`edb96e3`): apex `https://analytics.google.com` + `https://stats.g.doubleclick.net`
+added to BOTH `connect-src` and `img-src`. Header-only change — takes effect on redeploy.
+New CLAUDE.md rule: CSP wildcards don't cover apex hosts, and a clean Report-Only run only
+proves the flows you exercised (run the post-consent + conversion paths too).
+FOLLOW-UP: GA4 admin still needs `book_call_click` toggled as a key event (see GA4.md).
