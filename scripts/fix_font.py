@@ -4,6 +4,9 @@ from fontTools.pens.boundsPen import BoundsPen
 
 # Source of truth = the full OTF. We fix metrics on a COPY; the original is
 # never written. The woff2 subset is regenerated from the fixed OTF afterwards.
+# NOTE: `fonts-src/` is gitignored (local only) — this repo is public and the
+# unsubsetted brand face is not for redistribution. Only the subset woff2 in
+# public/fonts/ ships. Clone ≠ has the input; get the OTF from the owner.
 IN = "fonts-src/SCS-heading-font-Regular.otf"
 OUT = "fonts-src/SCS-heading-font-Regular-fixed.otf"
 TARGET_RSB = 27   # right sidebearing in font units. Tuned to the face's own
