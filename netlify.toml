@@ -20,6 +20,21 @@
 [build.environment]
   NODE_VERSION = "22"        # Vite 7 requires node ^20.19.0 || >=22.12.0; pin to 22
 
+# Analytics is PRODUCTION-ONLY. Netlify injects the site-level
+# VITE_GA_MEASUREMENT_ID into every build context, so deploy previews and branch
+# deploys were shipping a live tag on *.netlify.app — their traffic landed in the
+# real property, and GA4's tag diagnostics flagged the preview host twice
+# ("some pages not tagged", "additional domains detected", 2026-08-03). Blanking
+# the ID per context makes `analyticsEnabled` false there (ga.js gates on
+# Boolean(GA_MEASUREMENT_ID)), so previews collect nothing. Do NOT "fix" the
+# diagnostics by adding *.netlify.app as a configured domain — that would merge
+# preview sessions into production cross-domain measurement.
+[context.deploy-preview.environment]
+  VITE_GA_MEASUREMENT_ID = ""
+
+[context.branch-deploy.environment]
+  VITE_GA_MEASUREMENT_ID = ""
+
 # Security response headers, applied to every route.
 # All headers here are ENFORCED. The CSP blocks violating resources (not just
 # reports them). It first ran as Content-Security-Policy-Report-Only against live
