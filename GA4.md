@@ -23,9 +23,12 @@ within seconds while prod registered nothing.
 - `src/analytics/ConsentBanner.js` — the banner.
 - Off in dev builds unless `VITE_GA_DEBUG=true`.
 
-## Remaining one-time setup (GA4 admin, not code)
-1. **Admin → Events** → toggle `book_call_click` as a *key event* (conversion).
-2. Optional: same for `email_click` / `phone_click`.
+## Admin setup (GA4 admin, not code)
+1. ~~Toggle `book_call_click` as a key event~~ — **DONE** (verified 2026-08-03, Admin → Data
+   display → Events → Key events: `book_call_click` and `ads_conversion_Contact_Us_1` starred;
+   `purchase` intentionally off). The "Streams active in the last 28 days" column reads "No
+   stream data detected" only because the CSP block starved the property — expect it to fill in.
+2. Optional, still open: same for `email_click` / `phone_click`.
 
 ## How to check it's working
 GA4 → **Reports → Realtime**, open switchcasestudio.com in another tab, accept cookies, click a "Book a Free Call" CTA — you should see `page_view` and `book_call_click` within seconds.
