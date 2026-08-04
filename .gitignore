@@ -37,3 +37,7 @@ graphify-out/.graphify_transcripts.json
 *.ai
 
 *.ai
+
+# Private strategy docs — candid self-assessment, never commit (public repo)
+switch-case-studio-action-plan.md
+switch-case-studio-objective-audit.md
