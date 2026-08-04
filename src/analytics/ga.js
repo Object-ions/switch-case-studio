@@ -105,6 +105,7 @@ export function initGA() {
 
 /** Persist the visitor's consent choice and update gtag's consent state live. */
 export function setConsent(granted) {
+  const previous = getStoredConsent();
   const value = granted ? "granted" : "denied";
   try {
     window.localStorage.setItem(CONSENT_KEY, value);
@@ -113,6 +114,21 @@ export function setConsent(granted) {
   }
   if (typeof window.gtag === "function") {
     window.gtag("consent", "update", granted ? GRANTED : DENIED);
+  }
+
+  // Re-send the landing page_view on the deny→grant transition. RouteAnalytics
+  // fires page_view once per route, which for a first-time visitor happens while
+  // consent is still DENIED — that hit leaves as a cookieless (gcs=G100) ping
+  // GA does NOT count as a view, and no page_view follows unless the visitor
+  // navigates. Without this, every accepting visitor's ENTRY page is lost and
+  // Realtime shows the session with 0 views (observed 2026-08-03: book_call_click
+  // registered, page_view didn't). Guarded on the transition so a returning
+  // granted visitor (banner never shown) can't double-count.
+  if (granted && previous !== "granted") {
+    trackPageView({
+      path: window.location.pathname + window.location.search,
+      title: document.title,
+    });
   }
 }
 
