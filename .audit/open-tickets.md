@@ -27,15 +27,48 @@ Realtime is proven end-to-end. Confirm the Home "No data received" card clears a
 reports fill in (24–48h lag). If reports are still empty by 08-05, something beyond the CSP
 block is wrong — start from the stream's "Data collection is active" state, not the tag.
 
-## DEP-1 — react-router 7 upgrade (2 moderate advisories)
-**Real upgrade project, not an `npm audit fix`.**
+## DEP-1 — react-router 7 (2 moderate advisories) — BLOCKED UPSTREAM, accepted risk
+**Decision 2026-08-03: stay on 6.30.4. Do not retry until the watch condition below flips.**
 
 Open: GHSA-wrjc-x8rr-h8h6 (open redirect via backslash in `<Link>`/`useNavigate`) and
 GHSA-337j-9hxr-rhxg (arbitrary constructor injection via `deserializeErrors()` in SSR
-hydration). Fixed in react-router **7.17.1+**; we're on **6.30.4**, and `vite-react-ssg@0.9.0`
-pins the v6 line — so this is a coordinated router+SSG major bump touching `routes.js`,
-`getStaticPaths`, and every `Seo`/helmet path. Scope it deliberately; the 2026-08-03
-`npm audit fix` cleared everything else (both highs + the low).
+hydration). Fixed only in react-router **7.17.1+** — there is **no 6.x backport** (6.30.4 is
+the end of the 6 line), so `npm audit fix` can never clear these.
+
+**Why the upgrade is impossible today (tested, not assumed).** Installed
+`react-router-dom@7.18.2` and ran a real build — it dies during SSG page rendering:
+
+```
+Error [ERR_PACKAGE_PATH_NOT_EXPORTED]: Package subpath './server.js' is not defined
+by "exports" in node_modules/react-router-dom/package.json
+imported from node_modules/vite-react-ssg/dist/shared/vite-react-ssg.*.mjs
+```
+
+v7 collapsed `react-router-dom` into a thin re-export of `react-router` whose exports map is
+only `"."` and `"./package.json"` — the `/server` subpath is gone. `vite-react-ssg` imports
+`react-router-dom/server` for `createStaticHandler`, `createStaticRouter` and
+`StaticRouterProvider`, i.e. the entire static-rendering path. And its LATEST release (0.9.2,
+the only dist-tag) still declares `peerDependencies: react-router-dom ^6.14.1` — no v7 support
+exists in any published version or prerelease. A Vite alias cannot patch it either: the
+failing import runs in vite-react-ssg's own Node process at build time, not through Vite's
+resolver. The lockfile/build were restored afterwards and verified (36 routes, identical asset
+hashes, entry-chunk marker intact).
+
+**Why the accepted risk is genuinely small here** — both advisories need an attack surface
+this architecture doesn't have:
+- *Open redirect*: requires navigating to an attacker-controlled path. The only `navigate()`
+  call is `StaggeredMenu.js` with a `to` from `src/data/navigation.js`; every `<Link to>` is a
+  literal or built from our own `projects.json`/`posts.json` slugs. No `?next=`/`?redirect=`
+  parameter is read anywhere, and there is no auth flow.
+- *`deserializeErrors()`*: requires a per-request SSR response an attacker can influence. This
+  site is fully static — `__staticRouterHydrationData` is baked at build time from our own
+  data and served as immutable files from Netlify. There is no runtime server to poison.
+
+**Watch condition** (one command, re-check when Dependabot nags):
+`npm view vite-react-ssg peerDependencies.react-router-dom` — when it accepts `^7`, do the
+coordinated bump: router + SSG together, then re-verify route count, asset hashes, the
+`__SCS_LANDING_PATHNAME__` entry-chunk marker, and hydration in a real browser on the
+production build.
 
 ## Notes that will bite the next person
 - **The internal-traffic data filter is ACTIVE and its "Testing" state is gone for good.**
