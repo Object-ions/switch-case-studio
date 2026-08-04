@@ -116,10 +116,7 @@
     "kicker": "In depth on",
     "productName": "Our Work",
     "ctaLabel": "View Live",
-    "ctaUrl": "https://zahavmedspa.com",
-    "repos": [
-      { "label": "Source", "url": "https://github.com/Object-ions/zahavmedspa" }
-    ]
+    "ctaUrl": "https://zahavmedspa.com"
   },
   {
     "id": 4,
