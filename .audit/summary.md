@@ -618,3 +618,11 @@ added to BOTH `connect-src` and `img-src`. Header-only change — takes effect o
 New CLAUDE.md rule: CSP wildcards don't cover apex hosts, and a clean Report-Only run only
 proves the flows you exercised (run the post-consent + conversion paths too).
 FOLLOW-UP: GA4 admin still needs `book_call_click` toggled as a key event (see GA4.md).
+
+### Follow-up same day — entry page_view was still being lost (`d31380d`)
+With the CSP fixed, a real incognito test (Beau) registered `book_call_click` as a key event but
+showed 0 views: the landing `page_view` fires pre-consent (cookieless gcs=G100, not counted) and
+nothing re-fires on Accept because the route never changes. `setConsent()` now re-sends
+`trackPageView` on the deny→grant transition, guarded on the previous stored value against
+double-counting. Verified on prod after deploy: cleared consent → reload → Accept produced
+collects 1→3 and `page_view` appeared in Realtime's event list. Rule added to CLAUDE.md.
