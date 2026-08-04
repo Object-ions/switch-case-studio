@@ -10,6 +10,7 @@ import {
   faFacebookF,
   faXTwitter,
   faGoogle,
+  faGithub,
 } from '@fortawesome/free-brands-svg-icons';
 import { faRss } from '@fortawesome/free-solid-svg-icons';
 import SCSLogo from '../ui/SCSLogo';
@@ -23,6 +24,9 @@ import '../../styles/components/footer.scss';
  * An entry only renders when its href is filled in; leave '' to hide.
  * ------------------------------------------------------------------ */
 const SOCIALS = [
+  // GitHub sits first on purpose: it is the only social link that PROVES the
+  // engineering claim rather than asserting it (179 public repos, one click).
+  { key: 'gh', label: 'GitHub', icon: faGithub, href: 'https://github.com/Object-ions' },
   { key: 'ig', label: 'Instagram', icon: faInstagram, href: 'https://www.instagram.com/switchcasestudio' },
   { key: 'th', label: 'Threads', icon: faThreads, href: 'https://www.threads.com/@switchcasestudio' },
   { key: 'x', label: 'X (Twitter)', icon: faXTwitter, href: 'https://x.com/s_c_studio' },

@@ -9,6 +9,7 @@ import {
   faArrowLeft,
   faArrowRight,
 } from '@fortawesome/free-solid-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 import projectsData from '../../data/projects.json';
 import useReducedMotion from '../../hooks/useReducedMotion';
@@ -103,6 +104,11 @@ const CaseStudyPage = () => {
     kicker,
     ctaLabel,
     ctaUrl,
+    // Public source repos for this build. Optional, and optional per project:
+    // two case studies are client work with no public repo, so they render no
+    // code button at all rather than a dead link. Same conditional-tile law as
+    // the bento media below — absent data means the element doesn't exist.
+    repos = [],
     imageAlt,
     // ── Optional bento media. Each tile renders ONLY if its field exists. ──
     mediaMobile,
@@ -293,7 +299,9 @@ const CaseStudyPage = () => {
             </ul>
           )}
 
-          {(ctaUrl || (nextProject && nextProject.slug !== slug)) && (
+          {(ctaUrl ||
+            repos.length > 0 ||
+            (nextProject && nextProject.slug !== slug)) && (
             <div className="project-page__hero-actions">
               {ctaUrl && (
                 <MagneticButton>
@@ -311,6 +319,24 @@ const CaseStudyPage = () => {
                   </a>
                 </MagneticButton>
               )}
+
+              {/* One button per public repo. A single repo reads "View the
+                  code"; several are labelled by their role in the build so the
+                  row tells the pipeline story (scraper → API → front end). */}
+              {repos.map((repo) => (
+                <a
+                  key={repo.url}
+                  href={repo.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-page__cta-button project-page__cta-button--code"
+                >
+                  <FontAwesomeIcon icon={faGithub} aria-hidden="true" />
+                  {repos.length === 1
+                    ? 'View the code'
+                    : `Code: ${repo.label}`}
+                </a>
+              ))}
 
               {nextProject && nextProject.slug !== slug && (
                 <Link

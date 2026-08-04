@@ -499,6 +499,28 @@ $pp-tile-bg: rgba(255, 255, 255, 0.02);
         background: rgba(255, 255, 255, 0.05);
       }
     }
+
+    // Code = the proof button. Quieter than View Live (that's still the
+    // headline action) but warmer than the neutral "Next" link, because
+    // "here is the source" is the strongest claim on the page.
+    &--code {
+      background: transparent;
+      color: $white-color;
+      border: 1px solid rgba($orange-color, 0.45);
+
+      &:hover {
+        border-color: $orange-color;
+        background: rgba($orange-color, 0.1);
+      }
+    }
+
+    // Touch has no hover — give the press its own feedback. Opacity only, so
+    // it can never fight a GSAP/motion-owned transform on these buttons.
+    @media (hover: none) and (pointer: coarse) {
+      &:active {
+        opacity: 0.6;
+      }
+    }
   }
 }
 

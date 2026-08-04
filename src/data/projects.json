@@ -50,7 +50,10 @@
     "kicker": "In depth on",
     "productName": "Our Work",
     "ctaLabel": "View Live",
-    "ctaUrl": "https://jomarketing11.com/"
+    "ctaUrl": "https://jomarketing11.com/",
+    "repos": [
+      { "label": "Source", "url": "https://github.com/Object-ions/jo-marketing-11" }
+    ]
   },
   {
     "id": 3,
@@ -113,7 +116,10 @@
     "kicker": "In depth on",
     "productName": "Our Work",
     "ctaLabel": "View Live",
-    "ctaUrl": "https://zahavmedspa.com"
+    "ctaUrl": "https://zahavmedspa.com",
+    "repos": [
+      { "label": "Source", "url": "https://github.com/Object-ions/zahavmedspa" }
+    ]
   },
   {
     "id": 4,
@@ -277,7 +283,10 @@
     "kicker": "In depth on",
     "productName": "Our Work",
     "ctaLabel": "View Live",
-    "ctaUrl": "https://sha-design.com/"
+    "ctaUrl": "https://sha-design.com/",
+    "repos": [
+      { "label": "Source", "url": "https://github.com/Object-ions/sha-design-studio" }
+    ]
   },
   {
     "id": 7,
@@ -337,7 +346,12 @@
     "kicker": "In depth on",
     "productName": "Our Work",
     "ctaLabel": "View Live",
-    "ctaUrl": "https://jelly-belly-wiki.netlify.app/"
+    "ctaUrl": "https://jelly-belly-wiki.netlify.app/",
+    "repos": [
+      { "label": "Scraper (Python)", "url": "https://github.com/Object-ions/Jelly-Belly-Wiki-API-Data-Collection" },
+      { "label": "API (C# / .NET)", "url": "https://github.com/Object-ions/Jelly-Belly-Wiki-API" },
+      { "label": "Front end (React)", "url": "https://github.com/Object-ions/Jelly_Belly_Wiki_Client" }
+    ]
   },
   {
     "id": 7,
@@ -391,7 +405,10 @@
     "kicker": "In depth on",
     "productName": "Our Work",
     "ctaLabel": "View Live",
-    "ctaUrl": "https://birth-of-venus.netlify.app/"
+    "ctaUrl": "https://birth-of-venus.netlify.app/",
+    "repos": [
+      { "label": "Source", "url": "https://github.com/Object-ions/birth-of-venus" }
+    ]
   },
   {
     "id": 1,
@@ -444,6 +461,9 @@
     "kicker": "In depth on",
     "productName": "Our Work",
     "ctaLabel": "View Live",
-    "ctaUrl": "https://floridaenergyassistance.com/"
+    "ctaUrl": "https://floridaenergyassistance.com/",
+    "repos": [
+      { "label": "Source", "url": "https://github.com/Object-ions/fl-energy-savings-assistance-program" }
+    ]
   }
 ]
