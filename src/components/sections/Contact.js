@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import bannerVideo from '../../assets/videos/switch-case-studio-banner.webm';
 import BookCallCta from '../ui/BookCallCta';
+import { trackEvent } from '../../analytics/ga';
 import '../../styles/components/contact.scss';
 
 
@@ -74,6 +75,18 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
     setPhoneError('');
 
     setStatus('sending');
+
+    // Lead conversion. Fired synchronously in the submit gesture stack (same as
+    // PromoPage + book_call_click) — NOT inside the async EmailJS .then, where
+    // an event fired after the network round-trip was being lost. Counts a
+    // valid submit (passed consent + phone validation). Consent-safe: with
+    // Consent Mode v2 denied this still leaves as a cookieless ping.
+    // page_path separates the /contact page from the home-page section, since
+    // this component serves both.
+    trackEvent('generate_lead', {
+      source: 'contact_form',
+      page_path: window.location.pathname,
+    });
 
     emailjs
       .sendForm(
