@@ -626,3 +626,24 @@ nothing re-fires on Accept because the route never changes. `setConsent()` now r
 `trackPageView` on the deny→grant transition, guarded on the previous stored value against
 double-counting. Verified on prod after deploy: cleared consent → reload → Accept produced
 collects 1→3 and `page_view` appeared in Realtime's event list. Rule added to CLAUDE.md.
+
+### Same-day continuation — form leads, preview tagging, deps (2026-08-03)
+- **`generate_lead` verified end-to-end on prod** (`259c9d2`): submitted the real contact form
+  with the EmailJS XHR/fetch stubbed to a fake 200 (no email sent), event reached GA Realtime.
+  Bonus finding: `ads_conversion_Contact_Us_1` — an existing KEY event minted by a Google Ads
+  event-create rule inside the container — fires on the same submit, so lead conversions were
+  already being counted under that name.
+- **GA4 "Tag quality: Needs Attention (2 issues)" traced and fixed at the source** (`917fbbc`):
+  both items were about Netlify PREVIEW deploys — the single "not tagged" URL was a
+  `*.netlify.app` deploy-preview host, and "additional domains detected" was that same host
+  loading the production tag (Netlify injects site env into every context). Fix: blank
+  `VITE_GA_MEASUREMENT_ID` for `deploy-preview` and `branch-deploy` contexts in netlify.toml.
+  Deliberately did NOT accept GA's "Add domain" prompt — that would merge preview sessions
+  into production cross-domain measurement.
+- **`npm audit fix`** (`36abeb3`): cleared both HIGH advisories + the low (esbuild dev-server
+  file read, immutable DoS ×2, postcss sourceMappingURL traversal). package.json unchanged,
+  lockfile-only. Gated per LC-37: same-environment rebuild produced an IDENTICAL asset-hash
+  set, 36 HTML routes, entry-chunk marker intact. react-router's 2 moderates remain (needs a
+  v7 major that vite-react-ssg@0.9.0 doesn't support) — tracked as DEP-1.
+- **Open tickets now live in `.audit/open-tickets.md`** (GA-1 key-event starring, blocked on
+  GA's ≤24h event-list processing lag; GA-2 report-population check; DEP-1 react-router 7).
