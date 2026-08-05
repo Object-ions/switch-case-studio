@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, lazy, Suspense } from 'react';
 import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
@@ -9,11 +9,19 @@ import useBentoParticles from '../../hooks/useBentoParticles';
 import useBentoSpotlight from '../../hooks/useBentoSpotlight';
 import { MOBILE_BREAKPOINT } from '../../utils/bentoEffects';
 
+// The screenshot peek pulls in @radix-ui/react-hover-card + motion/react.
+// Imported statically it cost the ENTRY chunk +41.7KB (measured) — and this
+// grid is below the fold, so none of it is needed for first paint. Gated
+// behind an IntersectionObserver like MoonSlot/TextPressure: nothing
+// downloads until the grid is within 200px of the viewport, and you cannot
+// hover a section you have not scrolled to.
+const HoverPeek = lazy(() => import('../ui/HoverPeek'));
+
 
 /* ═══════════════════════════════════════════
    Tile — single project card
    ═══════════════════════════════════════════ */
-const Tile = ({ proj, disabled }) => {
+const Tile = ({ proj, disabled, peekReady }) => {
   const tileRef = useRef(null);
   const { startParticles, stopParticles, fireRipple } = useBentoParticles(
     tileRef,
@@ -53,7 +61,7 @@ const Tile = ({ proj, disabled }) => {
     fireRipple(e);
   };
 
-  return (
+  const link = (
     <Link
       ref={tileRef}
       to={`/projects/${proj.slug}`}
@@ -97,6 +105,29 @@ const Tile = ({ proj, disabled }) => {
       )}
     </Link>
   );
+
+  // Same screenshot peek the /projects grid uses. Radix's Trigger `asChild`
+  // clones the Link, so it composes with the GSAP hover handlers and the ref
+  // above rather than replacing them. `longWeb` is optional — HoverPeek
+  // returns the trigger untouched when there's no image, so a project without
+  // a screenshot simply has no peek.
+  //
+  // `peekReady` is false on the server AND on the first client render, so the
+  // bare link is what hydrates — no environment-dependent output, no mismatch.
+  // The Suspense fallback is that same bare link, so the tile is never absent
+  // while the chunk loads.
+  if (!peekReady || !proj.longWeb) return link;
+
+  return (
+    <Suspense fallback={link}>
+      <HoverPeek
+        imageSrc={proj.longWeb}
+        alt={`${proj.title} — website preview`}
+      >
+        {link}
+      </HoverPeek>
+    </Suspense>
+  );
 };
 
 /* ═══════════════════════════════════════════
@@ -118,6 +149,34 @@ const CaseStudyTiles = ({ projects }) => {
   }, []);
 
   const disabled = reduced || isMobile;
+
+  // Load the peek chunk only once the grid is near the viewport, and only on
+  // devices that can actually hover. Gated on POINTER CAPABILITY, not on
+  // `disabled`/`isMobile`: that flag is width-based, so a narrow desktop
+  // window would have silently lost the peek here while /projects still had
+  // it. Reduced motion is deliberately NOT excluded — HoverPeek already
+  // downgrades its flip to a fade, so those visitors still get the preview.
+  const [peekReady, setPeekReady] = useState(false);
+  useEffect(() => {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    const el = gridRef.current;
+    if (!el) return;
+    if (typeof IntersectionObserver === 'undefined') {
+      setPeekReady(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setPeekReady(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: '200px' },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   useBentoSpotlight(gridRef, { disabled });
 
@@ -195,7 +254,7 @@ const CaseStudyTiles = ({ projects }) => {
   return (
     <div className="projects-row row-tiles" ref={gridRef}>
       {projects.map((p) => (
-        <Tile key={p.slug} proj={p} disabled={disabled} />
+        <Tile key={p.slug} proj={p} disabled={disabled} peekReady={peekReady} />
       ))}
     </div>
   );

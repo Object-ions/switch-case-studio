@@ -836,3 +836,31 @@ GOTCHA for the next scripted edit of `projects.json`: a naive "does this project
 `featured`?" check using a fixed character window bled into the NEXT project's object and
 reported a false positive for `sha-design-studio`. Scope such checks to the object boundary
 (next `"id":`), and always re-read the parsed result rather than trusting the edit.
+
+### Homepage tiles get the /projects hover peek (2026-08-04)
+`CaseStudyTiles` now wraps each tile in the same `HoverPeek` the /projects grid uses, so the
+home "Selected work" tiles float the site screenshot (`longWeb`) on hover. All 6 featured
+projects have a `longWeb` and all 6 files exist.
+
+**Perf gate, measured not guessed.** Imported statically, HoverPeek (@radix-ui/react-hover-card
++ motion/react) cost the ENTRY chunk **+41.7KB** — on the LCP-critical path, for an affordance
+attached to a below-fold grid. Re-done as `lazy()` behind an IntersectionObserver (rootMargin
+200px), the same MoonSlot/TextPressure pattern: entry grew **+659 bytes**, HoverPeek became its
+own chunk. `peekReady` is false on the server and on the first client render, so the bare Link
+hydrates and the Suspense fallback is that same Link — no environment-dependent output, and the
+tile is never missing while the chunk loads.
+
+**Gate is on POINTER CAPABILITY, not `isMobile`.** First cut gated on the existing
+`disabled = reduced || isMobile` flag, which is width-based — a narrow DESKTOP window would have
+silently lost the peek on the home page while /projects still had it. Now
+`(hover: hover) and (pointer: fine)`, so touch never downloads it and a small desktop window
+still works. Reduced motion deliberately still gets the peek; HoverPeek already downgrades its
+flip to a fade.
+
+**VERIFICATION GAP — needs an owner eyeball.** Build is clean (36 routes, entry marker present
+and not leaked, sameAs guard passing, 6 tiles in the static HTML) and HoverPeek was confirmed
+live on /projects in a real browser (cards carry Radix's `data-state`). The home hover itself
+could NOT be verified here: **IntersectionObserver does not fire in the occluded automation
+window** — proved it directly by creating a fresh IO on an in-view element and watching it never
+fire in 3s — so `peekReady` never flips and the chunk never loads under automation. Add that to
+the known occluded-window failure set alongside the frozen GSAP ticker and CSS transitions.
