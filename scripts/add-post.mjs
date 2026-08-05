@@ -23,8 +23,8 @@
  *                 { type: 'heading',   text }
  *                 { type: 'list',      items: [] }
  *                 { type: 'quote',     text, cite? }
- *   author       string  (default "Beau")
- *   authorRole   string  (default "Studio Strategist")
+ *   author       string  (default "Moses Atia")
+ *   authorRole   string  (default "Founder")
  *   date         "YYYY-MM-DD" (default: today, America/Los_Angeles)
  *   kicker       string  (default: category)
  *   readingTime  string  (default: derived from word count)
@@ -131,8 +131,8 @@ const normalized = {
   excerpt: post.excerpt,
   kicker: post.kicker || post.category,
   category: post.category,
-  author: post.author || 'Beau',
-  authorRole: post.authorRole || 'Studio Strategist',
+  author: post.author || 'Moses Atia',
+  authorRole: post.authorRole || 'Founder',
   date: post.date || todayPT(),
   readingTime: post.readingTime || readingTimeFrom(post.body),
   coverImage: post.coverImage || '',
