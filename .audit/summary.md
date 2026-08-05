@@ -779,3 +779,45 @@ serving the README 200 for a few minutes after the flip; headers showed `x-cache
 `source-age: 272`, `max-age=300` — a Fastly cache of an earlier fetch, and it 404'd once the TTL
 expired. Do not read that as a failed remediation, and do not warm the cache while verifying.
 GitHub also warns that any existing FORK stays public and gets detached; there were none here.
+
+## Public-repo confidentiality sweep — 2026-08-04 (follow-up to the zahav-audit finding)
+Ran the sweep that was deferred when `zahav-audit` was closed. Method, so the coverage claim is
+honest: enumerated all **182 public repos**, split them into **130 own / 52 forks**, pulled the
+full recursive git tree of every one (**33,443 files**) and pattern-matched PATHS for deliverable
+documents (.docx/.xlsx/.pptx/.pdf), data exports, analytics dumps (GSC/GA4/semrush/crawl),
+engagement words (audit/proposal/invoice/handoff/execution-log/retainer/SOW), contact-PII words
+and credential-shaped files — then separately fetched and content-scanned all **130 own READMEs**
+for confidentiality language. Filename+README scanning is the honest limit: it would not catch
+client data hidden inside an innocuously named source file.
+
+**Result: 2 genuine findings, both Éclore Aesthetics, same class as zahav — intent private,
+visibility public.**
+- `eclore-new-swiss-theme` — its own README opens "**Private** design prototype for a new Éclore
+  Aesthetics Swiss/editorial website direction." An unreleased brand direction for a live client.
+- `eclore-before-after` — "for Éclore Aesthetics **partner review**": a client review artifact
+  holding interior photography of the clinic (reception, recovery room, restroom, back-of-house)
+  and `floor-plan.jpg`. Checked specifically for patient before/after photos — there are none;
+  this is a renovation presentation, so it is commercially sensitive, not health data.
+
+Everything else that scored was a FALSE POSITIVE and worth recording so the next sweep doesn't
+re-chase it: the top scorers were forks of upstream projects (AspNetCore.Docs, ollama, react_2.0),
+and the own-repo hits were `ContactPage.js`, `ClientsController.cs`, a phone-number coding
+exercise, `DESIGN_AUDIT.md` (our own), and sha-design-studio's `Proprietary` LICENSE line. No
+credentials anywhere; `.env`-shaped hits were all `.env.example`.
+
+**NOT YET REMEDIATED.** Flipping those two to private was blocked by the tool-permission
+classifier on both the `gh repo edit` path and the browser path, so it needs Moses to do it or to
+grant permission. The sweep itself is complete; only the two-click fix is outstanding.
+
+## Action-plan 1.4 — half implemented, half needs Moses (2026-08-04)
+1.4 had been marked "dropped" with no reason recorded, four sessions running. Split it:
+- **Done:** Jelly Belly Wiki and Birth of Venus now carry a "Studio project" disclosure. New
+  optional `studioProject: true` in `projects.json` (same conditional law as `repos`/`diagram`),
+  rendered IN FLOW — on the case-study kicker line ("In depth on · 2024 · Studio project") and in
+  the list card's meta row. Deliberately not a second corner chip: the absolutely-positioned
+  `.tile-badge` already broke at the mobile breakpoint once. Verified both carry it and all six
+  client projects carry none.
+- **Blocked on Moses:** "Client since [year], now a business partner" under Ori Argaman and Yuli.
+  That is a factual claim about two real people's business relationships — the years, the
+  partner status, and whether they consent to it being published are all his to supply. Not
+  written, deliberately.

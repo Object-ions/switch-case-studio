@@ -288,6 +288,7 @@
   {
     "id": 7,
     "slug": "jelly-belly-wiki",
+    "studioProject": true,
     "type": "Full-Stack + API",
     "badge": "Full-Stack + API",
     "featured": true,
@@ -363,6 +364,7 @@
   {
     "id": 7,
     "slug": "birth-of-venus",
+    "studioProject": true,
     "type": "Interactive Experience",
     "badge": "Interactive Experience",
     "panelClass": "panel-card-1",

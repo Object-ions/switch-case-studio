@@ -90,6 +90,16 @@ const CaseStudiesPage = () => {
                   {project.kicker && (
                     <span className="projects-page__card-kicker">{project.kicker}</span>
                   )}
+                  {/* Disclosure: self-initiated work sitting in a grid of paid
+                      client projects reads as client work unless it says
+                      otherwise. In flow, never a corner chip — the absolutely
+                      positioned tile badge already broke once at the mobile
+                      breakpoint. */}
+                  {project.studioProject && (
+                    <span className="projects-page__card-studio">
+                      Studio project
+                    </span>
+                  )}
                 </div>
                 <h2 className="projects-page__card-title">{project.title}</h2>
                 {project.subtitle && (

@@ -126,6 +126,9 @@ const CaseStudyPage = () => {
     metrics = [],
     result,
     kicker,
+    // True for self-initiated work (no paying client). Optional; absent on
+    // every client project, so nothing renders there.
+    studioProject,
     ctaLabel,
     ctaUrl,
     // Public source repos for this build. Optional, and optional per project:
@@ -307,9 +310,13 @@ const CaseStudyPage = () => {
 
         {/* ── Hero ── */}
         <header className="project-page__hero reveal">
-          {(kicker || year) && (
+          {/* `studioProject` is the self-initiated disclosure — it rides the
+              kicker line so it can't be missed and can't shift layout. */}
+          {(kicker || year || studioProject) && (
             <p className="project-page__kicker">
-              {[kicker, year].filter(Boolean).join(' · ')}
+              {[kicker, year, studioProject && 'Studio project']
+                .filter(Boolean)
+                .join(' · ')}
             </p>
           )}
 
