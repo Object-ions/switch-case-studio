@@ -857,7 +857,8 @@ silently lost the peek on the home page while /projects still had it. Now
 still works. Reduced motion deliberately still gets the peek; HoverPeek already downgrades its
 flip to a fade.
 
-**VERIFICATION GAP — needs an owner eyeball.** Build is clean (36 routes, entry marker present
+**VERIFICATION GAP — CLOSED 2026-08-04: owner confirmed the hover works on a real screen.**
+(Original note kept below, because the automation limitation it documents is permanent.) Build is clean (36 routes, entry marker present
 and not leaked, sameAs guard passing, 6 tiles in the static HTML) and HoverPeek was confirmed
 live on /projects in a real browser (cards carry Radix's `data-state`). The home hover itself
 could NOT be verified here: **IntersectionObserver does not fire in the occluded automation
