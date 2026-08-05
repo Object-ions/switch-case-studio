@@ -23,7 +23,7 @@
  *                 { type: 'heading',   text }
  *                 { type: 'list',      items: [] }
  *                 { type: 'quote',     text, cite? }
- *   author       string  (default "Moses Atia")
+ *   author       string  (default "Moses Atia Poston")
  *   authorRole   string  (default "Founder")
  *   date         "YYYY-MM-DD" (default: today, America/Los_Angeles)
  *   kicker       string  (default: category)
@@ -131,7 +131,7 @@ const normalized = {
   excerpt: post.excerpt,
   kicker: post.kicker || post.category,
   category: post.category,
-  author: post.author || 'Moses Atia',
+  author: post.author || 'Moses Atia Poston',
   authorRole: post.authorRole || 'Founder',
   date: post.date || todayPT(),
   readingTime: post.readingTime || readingTimeFrom(post.body),

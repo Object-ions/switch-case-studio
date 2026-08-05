@@ -80,6 +80,15 @@ Note it is a PRODUCT, not client work — the "Studio Project" labelling questio
 action-plan item 1.4 applies to it too.
 
 ## Notes that will bite the next person
+- **Canonical personal name is "Moses Atia Poston"** (decided 2026-08-04). It is the byline on
+  every blog post (`posts.json` + the `add-post.mjs` default), the rule in Beau's
+  `JOURNAL-QUEST.md` on the VPS, and the GitHub profile README. Three spellings were in public at
+  once ("Moses Atia", "Moses Poston", "Moses Atia Poston"), which splits the one entity the
+  findability plan depends on. Any NEW surface that names him uses the full form.
+- **Client footer backlinks (action-plan 1.3) are MOSES'S to finish — do not re-raise.** Verified
+  2026-08-04: zahavmedspa, crimsonequities, prodanimiami and sha-design all carry a followed
+  link (sha-design's is JS-rendered); jomarketing11 and floridaenergyassistance do not. He is
+  handling the two.
 - **The internal-traffic data filter is ACTIVE and its "Testing" state is gone for good.**
   Once a GA4 data filter has been Active, GA offers only Active/Inactive — reverting to
   Testing is not possible. To make owner-side test hits visible again you must flip the
