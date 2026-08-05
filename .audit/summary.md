@@ -821,3 +821,18 @@ grant permission. The sweep itself is complete; only the two-click fix is outsta
   That is a factual claim about two real people's business relationships — the years, the
   partner status, and whether they consent to it being published are all his to supply. Not
   written, deliberately.
+
+### Homepage tiles: 4 → 6 (2026-08-04)
+`sha-design-studio` and `jo-marketing-11` added to the home "Selected work" grid. The grid is
+`projectsData.filter(p => p.featured)` in `CaseStudies.js`, so this was a one-flag data edit.
+Checked before touching layout: `panelClass` (panel-hero / panel-card-N) has **no CSS rules
+anywhere** — it is a vestigial field. `.row-tiles` is a plain `repeat(2, 1fr)` with 16/9 tiles,
+so 6 tiles is simply 3 uniform rows; no bento slotting was needed. Both had all three srcset
+cover sizes already present.
+Verified with real pixels at desktop (3×2, every image loaded, badges correct) and at 634px
+(single column, compact image|text layout, badge in flow, no overlap on any of the 6, no page
+x-overflow). Order follows the data file, so Jo Marketing leads the grid.
+GOTCHA for the next scripted edit of `projects.json`: a naive "does this project already have
+`featured`?" check using a fixed character window bled into the NEXT project's object and
+reported a false positive for `sha-design-studio`. Scope such checks to the object boundary
+(next `"id":`), and always re-read the parsed result rather than trusting the edit.

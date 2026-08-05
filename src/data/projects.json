@@ -2,6 +2,7 @@
   {
     "id": 2,
     "slug": "jo-marketing-11",
+    "featured": true,
     "type": "Business Website",
     "badge": "Business Website",
     "panelClass": "panel-card-2",
@@ -235,6 +236,7 @@
   {
     "id": 6,
     "slug": "sha-design-studio",
+    "featured": true,
     "type": "Portfolio Site",
     "badge": "Portfolio Site",
     "panelClass": "panel-hero",
