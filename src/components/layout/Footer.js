@@ -14,7 +14,12 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { faRss } from '@fortawesome/free-solid-svg-icons';
 import SCSLogo from '../ui/SCSLogo';
-import { PRICING_LINKS, PROJECT_LINKS, LEGAL_LINKS } from '../../data/navigation';
+import {
+  PRICING_LINKS,
+  PROJECT_LINKS,
+  LEGAL_LINKS,
+  EXPLORE_LINKS,
+} from '../../data/navigation';
 import SOCIAL_PROFILES from '../../data/social';
 import { BOOK_CALL_URL, BOOK_CALL_LABEL } from '../../data/cta';
 import '../../styles/components/footer.scss';
@@ -77,15 +82,6 @@ const handleAnchorClick = (e, hash) => {
 // Shared with the nav menu (navigation.js) — one source of truth for the
 // service list; a hardcoded copy here drifted when services were renamed.
 const SERVICES_LINKS = PRICING_LINKS;
-
-const EXPLORE_LINKS = [
-  { label: 'Services', hash: '#services' },
-  { label: 'About', to: '/about' },
-  { label: 'Case Studies', to: '/projects' },
-  { label: 'Pricing', to: '/pricing' },
-  { label: 'Blog', to: '/blog' },
-  { label: 'Contact', hash: '#contact' },
-];
 
 const CONNECT_LINKS = [
   {

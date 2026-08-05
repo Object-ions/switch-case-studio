@@ -51,6 +51,7 @@ const urls = [
   { loc: '/', lastmod: siteMod, priority: '1.0' },
   { loc: '/about', lastmod: siteMod, priority: '0.8' },
   { loc: '/services', lastmod: siteMod, priority: '0.8' },
+  { loc: '/agents', lastmod: lastmodOf('src/data/agents.json'), priority: '0.8' },
   { loc: '/projects', lastmod: projectsMod, priority: '0.8' },
   { loc: '/pricing', lastmod: servicesMod, priority: '0.8' },
   { loc: '/testimonials', lastmod: siteMod, priority: '0.7' },

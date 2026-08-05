@@ -15,6 +15,20 @@ export const PROJECT_LINKS = projects.map((project) => ({
   to: `/projects/${project.slug}`,
 }));
 
+// The footer's "Explore" column. Lived in Footer.js as a component-local array
+// until 2026-08-05 — the same shape that let the service names drift there once
+// already. Any new top-level route gets added HERE, not in a component.
+// `hash` entries scroll a section on the current page; `to` entries are routes.
+export const EXPLORE_LINKS = [
+  { label: 'Services', hash: '#services' },
+  { label: 'About', to: '/about' },
+  { label: 'Case Studies', to: '/projects' },
+  { label: 'Pricing', to: '/pricing' },
+  { label: 'Our Agents', to: '/agents' },
+  { label: 'Blog', to: '/blog' },
+  { label: 'Contact', hash: '#contact' },
+];
+
 export const LEGAL_LINKS = [
   { label: 'Privacy Policy', to: '/privacy' },
   { label: 'Terms of Use', to: '/terms' },

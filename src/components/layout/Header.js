@@ -272,6 +272,15 @@ const Header = () => {
                   Services
                 </Link>
               </li>
+              <li className="nav_item">
+                <Link
+                  to="/agents"
+                  className={`nav_link ${isActive("/agents") ? "is-active" : ""}`}
+                  aria-current={isActive("/agents") ? "page" : undefined}
+                >
+                  Agents
+                </Link>
+              </li>
 
               {/* Pricing — disclosure submenu (button, not link).
                   .is-open ONLY reflects activeSubmenu state.
