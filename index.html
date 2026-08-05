@@ -40,7 +40,16 @@
     <meta property="og:site_name" content="Switch Case Studio" />
     <meta property="og:locale" content="en_US" />
 
-    <!-- Structured data — Organization + WebSite (site-wide) -->
+    <!--
+      Structured data — Organization + WebSite (site-wide).
+
+      The Organization `sameAs` array MIRRORS src/data/social.js, which is the
+      single source of truth and also feeds the footer icon row. JSON-LD allows
+      no comments and this file cannot import a module, so this is a necessary
+      hand-mirror: add or change a profile in social.js FIRST, then update the
+      array below in the same commit. `npm run check:sameas` fails the build if
+      the two ever drift apart.
+    -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -73,7 +82,15 @@
               "addressRegion": "OR",
               "addressCountry": "US"
             },
-            "sameAs": ["https://x.com/s_c_studio"],
+            "sameAs": [
+              "https://github.com/Object-ions",
+              "https://www.instagram.com/switchcasestudio",
+              "https://www.threads.com/@switchcasestudio",
+              "https://x.com/s_c_studio",
+              "https://www.facebook.com/profile.php?id=61592118681299",
+              "https://www.linkedin.com/company/127224064",
+              "https://maps.google.com/?cid=875109400879972028"
+            ],
             "founder": {
               "@type": "Person",
               "name": "Moses",

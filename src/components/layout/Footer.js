@@ -15,27 +15,42 @@ import {
 import { faRss } from '@fortawesome/free-solid-svg-icons';
 import SCSLogo from '../ui/SCSLogo';
 import { PRICING_LINKS, PROJECT_LINKS, LEGAL_LINKS } from '../../data/navigation';
+import SOCIAL_PROFILES from '../../data/social';
 import { BOOK_CALL_URL, BOOK_CALL_LABEL } from '../../data/cta';
 import '../../styles/components/footer.scss';
 
 
 /* ------------------------------------------------------------------ *
  * Social links — FontAwesome brand icons, rendered under Connect.
- * An entry only renders when its href is filled in; leave '' to hide.
+ *
+ * The PROFILES come from src/data/social.js, which is also what the
+ * Organization JSON-LD `sameAs` array mirrors — a hardcoded copy here would
+ * drift out of sync with the structured data (exactly how SERVICES_LINKS
+ * drifted before it was derived from services.json). Only the icon mapping
+ * and the internal blog link live here.
  * ------------------------------------------------------------------ */
+const SOCIAL_ICONS = {
+  gh: faGithub,
+  ig: faInstagram,
+  th: faThreads,
+  x: faXTwitter,
+  fb: faFacebookF,
+  li: faLinkedinIn,
+  gb: faGoogle,
+};
+
 const SOCIALS = [
-  // GitHub sits first on purpose: it is the only social link that PROVES the
-  // engineering claim rather than asserting it (179 public repos, one click).
-  { key: 'gh', label: 'GitHub', icon: faGithub, href: 'https://github.com/Object-ions' },
-  { key: 'ig', label: 'Instagram', icon: faInstagram, href: 'https://www.instagram.com/switchcasestudio' },
-  { key: 'th', label: 'Threads', icon: faThreads, href: 'https://www.threads.com/@switchcasestudio' },
-  { key: 'x', label: 'X (Twitter)', icon: faXTwitter, href: 'https://x.com/s_c_studio' },
-  { key: 'fb', label: 'Facebook', icon: faFacebookF, href: 'https://www.facebook.com/profile.php?id=61592118681299' },
-  { key: 'li', label: 'LinkedIn', icon: faLinkedinIn, href: 'https://www.linkedin.com/company/127224064' },
-  { key: 'gb', label: 'Google Business profile', icon: faGoogle, href: 'https://maps.google.com/?cid=875109400879972028' },
+  ...SOCIAL_PROFILES.map(({ key, label, url }) => ({
+    key,
+    label,
+    icon: SOCIAL_ICONS[key],
+    href: url,
+  })),
+  // Internal, so it is deliberately NOT a `sameAs` entry — sameAs is for
+  // profiles on OTHER domains that represent the same entity.
   { key: 'blog', label: 'Blog', icon: faRss, to: '/blog' },
 ];
-const liveSocials = SOCIALS.filter((s) => s.href || s.to);
+const liveSocials = SOCIALS.filter((s) => (s.href || s.to) && (s.icon || s.to));
 
 /* ------------------------------------------------------------------ *
  * In-page anchor helper
