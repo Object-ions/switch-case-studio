@@ -753,3 +753,29 @@ VERIFIED: 36 routes, entry-chunk marker present in `app-*.js` and absent from ev
 JSON valid, SVG well-formed, real-pixel checks at desktop and 500px. Note for the next
 verifier: the first screenshot after load showed a blank hero — that is the documented
 occluded-window GSAP-ticker freeze, not a reveal bug; screenshots force frames and it resolves.
+
+## Client-confidential repo was still public — closed 2026-08-04
+**The 2026-08-03 audit found `zahav-audit` carries client-confidential material and the action
+taken was to remove its LINK from the site (`9a91988`). Its VISIBILITY was never changed.** It
+stayed publicly readable for another day and was found again by accident, while listing public
+repos for an unrelated task — it appears in `GET /users/Object-ions/repos` unauthenticated.
+
+Exposed to anyone, no login: `Zahav_Baseline_Report.pdf` and
+`reports/Zahav_Results_Report_Interim.docx/.pdf` (the deliverables the repo's own README gates
+behind "READ-ONLY until the client (Sean) signs off"), `data/gsc_july16/` (the client's Search
+Console exports) plus five crawl datasets, `docs/05_Execution_Log.md` (170KB internal log),
+`docs/03_Master_Plan.md` (39KB, the competitor-actionable weakness inventory), and
+`docs/11_SiteGround_SSH_Setup.md` (access setup for the client's hosting). The README names the
+client, the city and the contact.
+
+Checked for live credentials before deciding urgency: `11_SiteGround_SSH_Setup.md` has NO
+private-key block, no password assignment, no IP, no token — port numbers only. So this was a
+confidentiality exposure, not a credential breach; no rotation needed.
+
+FIXED: repo set to private via the owner's browser (0 stars, 0 watchers at the time, so nothing
+was being tracked). Verified unauthenticated afterwards — repo API 404, deliverable 404, absent
+from the public repo list, public count 183 → 182. NOTE: `raw.githubusercontent.com` kept
+serving the README 200 for a few minutes after the flip; headers showed `x-cache: HIT`,
+`source-age: 272`, `max-age=300` — a Fastly cache of an earlier fetch, and it 404'd once the TTL
+expired. Do not read that as a failed remediation, and do not warm the cache while verifying.
+GitHub also warns that any existing FORK stays public and gets detached; there were none here.
