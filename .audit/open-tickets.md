@@ -60,6 +60,42 @@ coordinated bump: router + SSG together, then re-verify route count, asset hashe
 `__SCS_LANDING_PATHNAME__` entry-chunk marker, and hydration in a real browser on the
 production build.
 
+## P3-1 — Phase 3 remainder (site assistant, Scout playground, Zahav results)
+**Logged 2026-08-05. Three separate pieces of work, none of them small.**
+
+**3.1 Studio assistant on the site.** The riskiest public surface in the plan and the one that
+needs a session of its own. Non-negotiables, all from CLAUDE.md or the plan: key never reaches the
+browser (proxy via a Netlify function or the VPS); server-side rate limit AND spend cap, because a
+public endpoint with a key behind it is an invoice waiting to happen; every answer grounded in
+`pricingData.json` / `services.json` / `projects.json` / `posts.json`, since a hallucinated quote
+is a commercial promise; labelled as AI, because disclosure is the entire exhibit; new
+`connect-src` in `netlify.toml` **exercised on the real post-consent flow**, not just first load
+(GA was dead for months on exactly that mistake); user input treated as a prompt-injection surface,
+so prefer retrieval over tools. The widget import must be gesture- or IO-gated with a fixed-size
+slot — `React.lazy` alone does not defer, and a chat widget on the critical path is what killed
+LCP here before.
+
+**B Scout preview playground.** See the SCS-1 correction: the hostname is now public behind basic
+auth. Before that gate comes off it needs a spend cap, rate limiting, no real client data, and
+isolation from the production Postgres.
+
+**C Zahav before/after SEO.** Moses confirmed 2026-08-05 he has Sean's written consent. That
+unblocks publishing but does not change what may be published: derived aggregates only — charts,
+deltas, timeframes. Never the raw GSC exports, the page-level dumps, or the competitor-actionable
+weakness inventory, which is why `zahav-audit` was made private in the first place. The source
+data is in that private repo. This strengthens the Zahav case study; it is not one of 3.1-3.6.
+
+**3.5 is blocked on data that does not exist.** Both agents were asked directly for an hours-saved
+or response-time figure and both returned none. Do not invent one to fill the slot.
+
+## STATUS-1 — status.switchcasestudio.com needs a DNS A record (Moses)
+Uptime Kuma is deployed, provisioned and verified over the edge; the public page shows three
+customer-facing monitors by name only. The single outstanding step is a DNS A record for
+`status.switchcasestudio.com` → the VPS IP, at Namecheap (no wildcard exists). Traefik currently
+fails ACME with `NXDOMAIN looking up A for status.switchcasestudio.com` and will issue the
+certificate by itself once the record resolves. Admin credentials were handed to Moses in session,
+not written to the repo.
+
 ## SCS-1 — Add Scout to the projects page
 **Logged 2026-08-04 at Moses's request. Blocked on product details, not on build work.**
 
@@ -67,8 +103,17 @@ Scout is a web-app service Moses plans to sell as a **monthly retainer** to clie
 come from him; nothing is written yet and nothing should be invented.
 
 What is already verifiable (checked on the VPS 2026-08-04): it runs today as three containers —
-`scout-web` (bound 127.0.0.1:3000), `scout-worker`, and `scout-db` (postgres:16-alpine). No
-Traefik route, so it is NOT publicly reachable — there is no live URL a visitor could click.
+`scout-web` (bound 127.0.0.1:3000), `scout-worker`, and `scout-db` (postgres:16-alpine).
+
+**CORRECTION 2026-08-05: Scout now HAS a public route.** `scout.switchcasestudio.com` resolves
+and is served by Traefik with a `scout-auth` basic-auth middleware — unauthenticated requests get
+`401 www-authenticate: Basic realm="traefik"`. So the "not publicly reachable" line above was true
+on 08-04 and is stale now: the hostname is public and discoverable (it is in certificate
+transparency logs whether or not anyone links it), and the only thing between a visitor and Scout
+is HTTP basic auth. That is fine for a private preview and NOT fine as the playground's only
+control — the playground still needs its own spend cap, rate limiting, and isolation from the
+production Postgres before the auth gate comes off. Re-check this field before writing anything
+public about Scout; it changed within a day.
 
 **Business model (Moses, 2026-08-04):** Scout ships as a **paid** product with a public
 **"preview" playground** — a sandboxed environment, NOT the real version. The playground is a

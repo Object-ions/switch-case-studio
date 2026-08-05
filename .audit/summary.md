@@ -905,3 +905,88 @@ screenshot is **1051** tall (devicePixelRatio 2 plus browser scaling), so coordi
 hundreds of pixels off and silently hits nothing. Click from the SCREENSHOT's coordinate space,
 or verify the action's effect afterwards rather than assuming the click landed. Two "Update
 profile" clicks appeared to succeed and changed nothing before this was spotted.
+
+## Phase 3 — making the AI claims provable (2026-08-05)
+
+Four items shipped or staged; three are genuinely blocked and say so rather than being faked.
+
+### 3.3 Status page — BUILT, waiting on one DNS record
+Uptime Kuma deployed and provisioned end to end: admin account, five monitors, a published
+status page, and the entry page set so visitors land on it instead of a login screen. Public
+page carries exactly three monitors — Website, Studio, Contract signing — all reading `sendUrl: 0`,
+so it shows names and never URLs. Two further monitors (the automation platform, Scout) exist in
+the dashboard and are deliberately absent from the public group list, which is a positive
+allowlist rather than a filter. Verified over the real edge with a Host header: HTTP 301 → HTTPS
+200, page title correct, and a grep of the served HTML for hostnames/ports/container names returns
+nothing.
+
+**Outstanding, and it is Moses's:** `status.switchcasestudio.com` has no DNS record (nameservers
+are Namecheap; there is no wildcard). Traefik's ACME run fails with exactly `NXDOMAIN looking up A
+for status.switchcasestudio.com`. Add an A record → the VPS IP and Traefik issues the certificate
+on its own retry; nothing else is needed. The container binds only to loopback, so until then the
+only way in is a forged Host header.
+
+### 3.6 n8n workflow giveaway — SHIPPED
+`/blog/the-social-content-engine-we-run-has-no-ai-in-it` + `public/downloads/`. Derived from the
+live SCS Social Engine v3. The angle that makes it worth publishing: an AI studio giving away the
+workflow it runs to draft its own social posts, which contains **no LLM call at all** — which is
+also why it cannot hallucinate a metric about the business.
+
+Sanitising was the work, not the writing. Stripped instance metadata, webhook id and path, and
+every SCS string; swapped our 18-topic content bank and brand voice for six marked templates;
+made the QA node read the domain from Brand Config instead of hardcoding ours. **Verified by
+executing it** — all seven Code nodes through the real connection graph, 12 posts across 4
+simulated weeks, every one passing QA. Three template captions had to be lengthened because they
+tripped the engine's own "hashtags inside the truncation window" rule; a first run would have
+looked broken. A test import into the live n8n was removed afterwards (the CLI has no
+`delete:workflow`; the row was deleted through n8n's own sqlite driver, verified gone).
+
+New `download` block type in the blog contract, added to BOTH `add-post.mjs` and `BlogPostPage`.
+Its `download` attribute is load-bearing: `ga.js`'s delegated listener matches on it to fire
+`file_download`, so future downloads anywhere on the site are measured with no analytics edit.
+
+### 3.2 /agents — SHIPPED
+Sage and Beau only. Kandy runs a client's account and Elios has no entry in the running config,
+so neither is on a public page.
+
+The plan was out of date on every structural point, and the running system settled all of them
+without escalating: **Sage is the `main` agent**, not a missing workspace — three independent
+IDENTITY.md files name him "Sage (main agent, general ops)". Pronouns he/him (Moses).
+
+**Agent self-reports turned out to be unusable, which is itself the finding.** Asked directly,
+Sage claimed outputs the n8n engine actually produces, and stated Beau does *not* write the blog —
+contradicted by Beau's own JOURNAL-QUEST.md and by his topic ledger, whose 7 entries match 7
+published slugs exactly. Beau's own counts were hedged estimates ("130+", "50+"). Nothing either
+agent said about itself was published verbatim; the only number on the page is that verified 7.
+
+No hours-saved figure anywhere, because neither could evidence one — the page states that plainly
+instead of leaving a gap. Topology stays off entirely. The pipeline diagram is DOM nodes rather
+than an SVG so it reflows on a phone instead of cropping.
+
+### A. Open-source Studio — STAGED, needs one decision from Moses
+Full history swept, all 17 commits. **Zero credentials.** The application source (`server/`,
+`web/`) is completely clean.
+
+**The blockers are entirely in prose**, and they are real: `STATUS.md`/`DEPLOY.md`/`CHANGELOG.md`
+and the commit subjects carry a working map of the host — the UFW rule *including the bridge
+interface name*, the subnet, the hostname, `/docker/*` and `/root/*` paths, the location of the
+secrets file, and the co-tenant services on the same edge. One commit subject is literally
+"Include /root/secrets/master.env in the nightly backup". Publishing the existing repo publishes
+all of it.
+
+So the mechanism changed from what Moses approved ("full repo, MIT"): a public repo with a **fresh
+single-commit history containing the whole application**, with `Object-ions/studio` staying private
+as the ops record. Same give-away, none of the map. Staged and verified at `~/Desktop/studio-oss`
+(MIT LICENSE, a stranger-facing README, genericised env example, web app still builds). **Not
+pushed** — creating the public repo is Moses's call since the mechanism differs from what he okayed.
+
+### Blocked, and not faked
+- **3.1 site assistant** — the flagship and the riskiest public surface (spend cap, rate limiting,
+  key never in the browser, CSP `connect-src`, prompt-injection surface). Needs its own session.
+- **B Scout playground** — Scout's route went public between sessions (see the SCS-1 correction);
+  the playground still needs spend cap, rate limiting and production-DB isolation first.
+- **C Zahav results** — consent is in hand, but the source data lives in the now-private
+  `zahav-audit` repo and must be reduced to aggregates before anything is published.
+- **3.4 recordings / 3.5 AI case study with numbers** — 3.5 is blocked on data that does not exist:
+  both agents were asked and neither could evidence an hours-saved or response-time figure. The
+  plan says not to fabricate metrics, so nothing was written.
