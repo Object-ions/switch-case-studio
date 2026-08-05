@@ -91,7 +91,7 @@ as an unstyled paragraph with "too much air".
 **Files:** `work.scss` (.work-heading), `AboutHeading.js`, CLAUDE.md if (a).
 **Effort:** S. **Command:** `/impeccable typeset`.
 
-### M4 [P1] Moon reads as a flat grey disc + hijacks touch scroll — OPEN
+### M4 [P1] Moon reads as a flat grey disc + hijacks touch scroll — FIXED — lighting + input traps in 252fc50; the SIZE defect (below) found and fixed 2026-08-04
 **Moses's #4.** Verified live: model + HDRI both load (200s, no console errors). Two
 separate defects:
 1. **Flat:** lighting is ambient 0.6 + white directional + full HDRI environment — even
@@ -108,6 +108,18 @@ separate defects:
    **Fix:** `enableZoom={false}` everywhere; on touch either `enabled={false}` (decorative
    auto-rotation only) or `touches: { ONE: null }` so one-finger scroll passes through.
 **Files:** `Moon.js`, maybe `work.scss` (glow). **Effort:** M. **Command:** `/impeccable polish`.
+
+3. **Undersized on mobile (found 2026-08-04, after 1+2 shipped).** Owner reported the moon
+   still "isn't really shown on mobile — looks like a regular 3D sphere". It was not a
+   lighting regression: measured on production, the `.work-moon` slot resolved to **582×150**
+   while the mobile rule declares `height: 300px`. Cause: `.work-moon { flex: 1 }` is set for
+   the DESKTOP layout, where `.work-content` is a `row` and the shorthand governs WIDTH. At
+   `max-width: 768px` the container flips to `column`, so `flex-basis: 0%` starts governing
+   HEIGHT and silently beat the declared 300px — the moon rendered ~100px wide, marooned in a
+   wide empty strip, which is exactly why the sculpted lighting and the lilac halo read as
+   nothing. **Fix:** `flex: none` in the ≤768 block so the declared height is authoritative.
+   Verified: mobile slot 582×300 (was 582×150), canvas `touch-action: auto` (no scroll trap),
+   desktop unchanged (row, 500px). Real-pixel before/after captured.
 
 ### M5 [P1] Footer link columns: 25+ small grey links in four flat stacked lists — FIXED — merged to main cbce441
 Explore column → compact inline utility strip between grid and wordmark (links survive,

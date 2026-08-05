@@ -167,6 +167,14 @@
 
       .work-moon {
         width: 100%;
+        // `flex: 1` is inherited from the desktop rule, where this container
+        // is a ROW and the shorthand governs WIDTH — harmless. At this
+        // breakpoint the container flips to `column`, so `flex-basis: 0%`
+        // starts governing HEIGHT and silently overrode the 300px below:
+        // the slot resolved to ~150px and the moon rendered as a small
+        // sphere marooned in a wide empty strip. Reset the flex so the
+        // declared height is authoritative.
+        flex: none;
         height: 300px;
         min-width: auto;
       }
