@@ -70,6 +70,13 @@ What is already verifiable (checked on the VPS 2026-08-04): it runs today as thr
 `scout-web` (bound 127.0.0.1:3000), `scout-worker`, and `scout-db` (postgres:16-alpine). No
 Traefik route, so it is NOT publicly reachable — there is no live URL a visitor could click.
 
+**Business model (Moses, 2026-08-04):** Scout ships as a **paid** product with a public
+**"preview" playground** — a sandboxed environment, NOT the real version. The playground is a
+public abusable surface: it needs a spend cap, rate limiting, no real client data, and isolation
+from the production Postgres before it goes live. Sibling decision: **Studio** (the video-gen app
+at studio.switchcasestudio.com, repo currently PRIVATE with no LICENSE) is going **open source** —
+that needs a full-history secret sweep and a licence first, per the zahav-audit lesson.
+
 Before it can ship as a case study / project tile, Moses needs to supply: what it does for a
 client, who it's for, the retainer framing, and whether there'll be a public URL or a demo. The
 projects page is data-driven (`src/data/projects.json`), so once that exists it's a data edit
