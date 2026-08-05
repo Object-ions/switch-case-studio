@@ -1,0 +1,257 @@
+{
+  "name": "Weekly Social Content Engine (token-free)",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger",
+      "name": "Manual Run",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1104,
+        -96
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "social-generate",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "run-webhook",
+      "name": "Run Webhook (on-demand)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1104,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Weekly Social Content Engine (token-free)\n\nTurns a hand-written topic bank into a week of platform-adapted drafts —\nX (singles + reply-chain threads), Instagram, Threads, Bluesky — with image\nbriefs, QA guardrails, scheduled slots and an approval packet.\n\n**No LLM anywhere.** Every post is assembled from copy you wrote. It costs\nnothing per run and it cannot hallucinate a claim about your business.\n\n### Make it yours\n1. **Brand Config** — name, domain, voice, audience, hashtags, CTAs.\n2. **Topic Rotation** — replace the 6 TEMPLATE topics with your own. Any\n   number works; 12-18 gives a month or more before anything repeats.\n3. **Compliance Qa** — the guardrails that flag a draft for review.\n\n### Run it\nManual Run, or POST to the `social-generate` webhook. Body is optional:\n`{ \"week_offset\": 1 }` to look ahead a week, `{ \"topic_ids\": [\"t-01\"] }` to\nforce specific topics, `{ \"exclude_topics\": [...] }` to hold some back.\n\nOutput is a JSON approval packet. It drafts only — publishing is whatever\nyou connect downstream, and `publish_locked` is true until you change it.\n\nMIT licensed. Built by Switch Case Studio — switchcasestudio.com\n",
+        "height": 364,
+        "width": 540
+      },
+      "id": "workflow-note",
+      "name": "Workflow Notes",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        -848
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ---------------------------------------------------------------------------\n// EDIT THIS NODE FIRST. Everything downstream reads from here.\n// ---------------------------------------------------------------------------\nconst trigger = items[0] ? items[0].json : {};\nconst overrides = (trigger.body && typeof trigger.body === 'object') ? trigger.body : {};\n\nreturn [{ json: {\n  brand: 'Your Brand',\n  brand_key: 'yourbrand',\n  domain: 'example.com',\n\n  // Safety rails. Leave these on until you have watched a few packets land.\n  workflow_mode: 'draft_only',\n  approval_required: true,\n  publish_locked: true,\n  overrides,\n\n  voice: {\n    summary: 'Describe how you sound in one line. Be specific — \"direct, technical, no hype\" beats \"professional and friendly\".',\n    rules: [\n      'A point of view beats a generic tip.',\n      'Say the specific thing, not the safe generality.',\n      'No invented metrics, no unsupported superlatives.'\n    ]\n  },\n\n  // Checked by the Compliance Qa node. Add whatever you must never publish.\n  compliance_rules: [\n    'No fake metrics or invented client results.',\n    'No claiming work that was not actually done.',\n    'Nothing publishes without human approval.'\n  ],\n\n  platforms_live: ['x', 'instagram', 'threads', 'bluesky'],\n  excluded_platforms: [],\n\n  audience: ['who you are talking to', 'and the other group you serve'],\n  positioning: 'One sentence on what you do and who it is for.',\n\n  hashtags: {\n    // Applied to every Instagram post.\n    instagram: ['#yourindustry', '#yourbrand'],\n    // 2 extra per pillar so the tag block is not identical every time.\n    // Keys MUST match the `pillar` values used in Topic Rotation.\n    instagram_by_pillar: {\n      'Point of View': ['#tagone', '#tagtwo'],\n      'How It Works':  ['#tagthree', '#tagfour'],\n      'Offer Clarity': ['#tagfive', '#tagsix']\n    }\n  },\n\n  // Appended by the Platform Adapt node, chosen by each topic's `intent`.\n  cta: {\n    // Final tweet of every thread — the reader who finished gets a destination.\n    x_thread_closer: {\n      authority: 'We are Your Brand. What we do, in one line. example.com',\n      education: 'Follow for more of these. When you would rather have it handled: example.com',\n      sales_enablement: 'This is the work we do every week. If you need it: example.com'\n    },\n    // Bare-domain line appended to sales-intent singles when it fits.\n    x_single_sales: 'example.com',\n    // Caption-final line, before the hashtag block.\n    ig_by_intent: {\n      authority: 'Your Brand — what you do. Link in bio.',\n      education: 'Save this for later. Follow along for more.',\n      sales_enablement: 'Want this handled? DM us, or start at the link in bio.'\n    }\n  },\n\n  visual_style: {\n    base: 'Describe your art direction: materials, colour, composition, mood. This is pasted straight into the image prompt.',\n    // Image models render written words as gibberish, so never build a\n    // composition around text. The avoid clause is stripped before generation.\n    avoid: 'No text, typography, UI, screens, dashboards or fake logos. No generic stock photos.'\n  }\n}}];\n"
+      },
+      "id": "brand-config",
+      "name": "Brand Config",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -816,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// ---------------------------------------------------------------------------\n// YOUR TOPIC BANK. Replace all six. Add as many as you like — the rotation\n// walks the list 3 at a time, so 18 topics = 6 weeks before anything repeats.\n//\n//   id      unique, stable. Downstream dedup keys off it — do not renumber.\n//   pillar  must match a key in hashtags.instagram_by_pillar.\n//   intent  authority | education | sales_enablement — picks which CTA is used.\n//   x       string = a single post. Array = a thread, one tweet per entry.\n// ---------------------------------------------------------------------------\nconst cfg = items[0].json;\nconst overrides = cfg.overrides || {};\n\nconst BANK = [\n  { id: 't-01', pillar: 'Point of View', intent: 'authority',\n    topic: 'TEMPLATE — the opinion you would defend in a room of peers.',\n    x: 'State the opinion plainly in the first line. Then one sentence on why the common alternative fails. Do not hedge it.',\n    ig_caption: 'The same opinion, with room to breathe. Say what most people get wrong, why it costs them, and what to do instead.',\n    ig_slides: ['Hook: the opinion', 'Why the usual way fails', 'What to do instead', 'CTA'],\n    visual: 'Describe the image for this post' },\n\n  { id: 't-02', pillar: 'How It Works', intent: 'education',\n    topic: 'TEMPLATE — something you know how to do that your audience does not.',\n    x: [\n      'Open with the problem, not the solution. One line.',\n      'The thing almost everyone gets wrong about it, and the cost of getting it wrong.',\n      'The actual fix, concretely enough that someone could go do it.',\n      'The result they should expect, and how long it takes.'\n    ],\n    ig_caption: 'The same walkthrough, with room to number the steps. Say what the problem costs while it goes unfixed, then walk through the fix in order, then say what good looks like at the end.',\n    ig_slides: ['The problem', 'The common mistake', 'The fix', 'The result'],\n    visual: 'Describe the image for this post' },\n\n  { id: 't-03', pillar: 'Offer Clarity', intent: 'sales_enablement',\n    topic: 'TEMPLATE — what you sell, said without marketing language.',\n    x: 'Who it is for, what they get, and what changes afterwards. No adjectives you cannot evidence.',\n    ig_caption: 'Expand it: the situation someone is in before they call you, what the work involves, what is different at the end.',\n    ig_slides: ['Who this is for', 'What the work is', 'What changes', 'CTA'],\n    visual: 'Describe the image for this post' },\n\n  { id: 't-04', pillar: 'How It Works', intent: 'education',\n    topic: 'TEMPLATE — a mistake you see constantly and how to spot it.',\n    x: 'Name the mistake. Give the tell that reveals it. Give the fix.',\n    ig_caption: 'The mistake, the tell that gives it away, and the fix — with one real example of each. Name what it costs when nobody catches it, because that is the part that makes people check.',\n    ig_slides: ['The mistake', 'How to spot it', 'The fix', 'CTA'],\n    visual: 'Describe the image for this post' },\n\n  { id: 't-05', pillar: 'Point of View', intent: 'authority',\n    topic: 'TEMPLATE — a piece of standard advice you think is wrong.',\n    x: 'The advice, then the reason it fails in practice, then what you do instead.',\n    ig_caption: 'Why the standard advice fails, and the exact situation where it breaks down. Give the conditions under which it does work, so this reads as judgement rather than contrarianism.',\n    ig_slides: ['The standard advice', 'Where it breaks', 'What works instead', 'CTA'],\n    visual: 'Describe the image for this post' },\n\n  { id: 't-06', pillar: 'Offer Clarity', intent: 'sales_enablement',\n    topic: 'TEMPLATE — the question every prospect asks, answered honestly.',\n    x: 'Ask it, answer it in one sentence, then give the caveat most people leave out.',\n    ig_caption: 'The full answer, including who this is NOT for. Saying that earns the rest.',\n    ig_slides: ['The question', 'The honest answer', 'Who it is not for', 'CTA'],\n    visual: 'Describe the image for this post' }\n];\n\n\n// ---- deterministic weekly selection ----\n// Anchored to a fixed date so the same week always yields the same topics:\n// re-running a week is idempotent, and week_offset previews the future.\nconst ANCHOR = Date.UTC(2026, 0, 5);\nconst now = new Date();\nconst weekOffset = Number(overrides.week_offset || 0);\nconst weekIdx = Math.floor((now.getTime() - ANCHOR) / 604800000) + weekOffset;\nconst weekStart = new Date(ANCHOR + weekIdx * 604800000);\nconst weekLabel = weekStart.toISOString().slice(0, 10);\n\n// ---- Blog promo injection ----\n// POST { \"inject\": { title, url, x, ig_caption, ... } } to promote a specific\n// article instead of running the weekly rotation. Same draft-only guarantees.\nconst _inj = overrides.inject;\nif (_inj && (_inj.core_topic || _inj.title)) {\n  const _url = _inj.url || '';\n  let _x = _inj.x || _inj.x_copy;\n  if (!_x) _x = (_inj.core_topic || _inj.title) + (_url ? ('\\n\\nRead: ' + _url) : '');\n  if (Array.isArray(_x) && _url && !_x.some(l => String(l).includes(_url))) _x = [..._x, 'Read the full piece: ' + _url];\n  return [{ json: {\n    ...cfg,\n    post_number: 1,\n    topic_id: _inj.topic_id || ('blog-' + (_inj.slug || 'post')),\n    pillar: _inj.pillar || 'Point of View',\n    intent: _inj.intent || 'authority',\n    core_topic: _inj.core_topic || _inj.title,\n    x_copy: _x,\n    ig_caption: _inj.ig_caption || ((_inj.core_topic || _inj.title) + (_url ? ('\\n\\nRead more: ' + _url) : '')),\n    ig_slides: _inj.ig_slides || [(_inj.core_topic || _inj.title), 'Why it matters', 'The takeaway', 'Read the full piece'],\n    visual_theme: _inj.visual || _inj.visual_theme || 'Editorial blog-promo card',\n    week_index: weekIdx,\n    week_start: weekLabel,\n    packet_id: (cfg.brand_key || 'brand') + '-blog-' + (_inj.slug || weekLabel),\n    bank_size: BANK.length,\n    is_blog_promo: true,\n    blog_url: _url\n  }}];\n}\n\n\nconst excluded = new Set((overrides.exclude_topics || []).map(t => String(t).toLowerCase()));\nlet picked;\nif (Array.isArray(overrides.topic_ids) && overrides.topic_ids.length) {\n  picked = overrides.topic_ids.map(id => BANK.find(t => t.id === id)).filter(Boolean);\n} else {\n  picked = [];\n  let i = (weekIdx * 3) % BANK.length;\n  let guard = 0;\n  while (picked.length < 3 && guard < BANK.length * 2) {\n    const t = BANK[((i % BANK.length) + BANK.length) % BANK.length];\n    if (!excluded.has(t.topic.toLowerCase()) && !excluded.has(t.id) && !picked.includes(t)) picked.push(t);\n    i++; guard++;\n  }\n  // Conversion mix guard: every week ships at least one sales_enablement post.\n  // (Plain consecutive picks leave 3 of every 6 weeks with zero sales intent.)\n  if (picked.length === 3 && !picked.some(t => t.intent === 'sales_enablement')) {\n    let k = i, g2 = 0;\n    while (g2 < BANK.length) {\n      const t = BANK[((k % BANK.length) + BANK.length) % BANK.length];\n      if (t.intent === 'sales_enablement' && !picked.includes(t) &&\n          !excluded.has(t.topic.toLowerCase()) && !excluded.has(t.id)) {\n        picked[2] = t;\n        break;\n      }\n      k++; g2++;\n    }\n  }\n}\n\nreturn picked.map((t, idx) => ({ json: {\n  ...cfg,\n  post_number: idx + 1,\n  topic_id: t.id,\n  pillar: t.pillar,\n  intent: t.intent,\n  core_topic: t.topic,\n  x_copy: t.x,\n  ig_caption: t.ig_caption,\n  ig_slides: t.ig_slides,\n  visual_theme: t.visual,\n  week_index: weekIdx,\n  week_start: weekLabel,\n  packet_id: `${cfg.brand_key || 'brand'}-${weekLabel}`,\n  bank_size: BANK.length\n}}));\n"
+      },
+      "id": "topic-rotation",
+      "name": "Topic Rotation",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -544,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Platform adaptation. X (single or thread) + Instagram + Threads + Bluesky.\n// Conversion layer: every thread ends with an intent-matched closer tweet\n// (the destination for readers who finished), sales singles carry the bare\n// domain when it fits, and every IG caption ends with an intent-matched CTA\n// line before the hashtag block.\nconst out = [];\nfor (const item of items) {\n  const j = item.json;\n  const isThread = Array.isArray(j.x_copy);\n  const cta = j.cta || {};\n\n  let xThread = null;\n  let xCopy = j.x_copy;\n  if (isThread) {\n    const closer = (cta.x_thread_closer || {})[j.intent] || (cta.x_thread_closer || {}).authority;\n    xThread = closer ? [...j.x_copy, closer] : [...j.x_copy];\n    xCopy = xThread.join('\\n\\n');\n  } else if (j.intent === 'sales_enablement' && cta.x_single_sales) {\n    const withLink = j.x_copy + '\\n\\n' + cta.x_single_sales;\n    if (withLink.length <= 275) xCopy = withLink;\n  }\n\n  // Threads (500-char cap) and Bluesky (300): singles carry over as-is; threads are\n  // front-loaded — join tweets until the budget runs out, so the hook always survives.\n  const fitJoin = (parts, budget) => {\n    let s = parts[0];\n    for (const t of parts.slice(1)) {\n      const cand = s + '\\n\\n' + t;\n      if (cand.length > budget) break;\n      s = cand;\n    }\n    return s;\n  };\n  let threadsCopy, bskyCopy;\n  if (isThread) {\n    threadsCopy = fitJoin(xThread, 500);\n    bskyCopy = fitJoin(xThread, 300);\n  } else {\n    threadsCopy = j.x_copy;\n    bskyCopy = j.x_copy;\n    if (j.intent === 'sales_enablement' && cta.x_single_sales) {\n      const withLink = j.x_copy + '\\n\\n' + cta.x_single_sales;\n      if (withLink.length <= 500) threadsCopy = withLink;\n      if (withLink.length <= 300) bskyCopy = withLink;\n    }\n  }\n\n  const tags = [\n    ...j.hashtags.instagram,\n    ...(((j.hashtags.instagram_by_pillar || {})[j.pillar]) || [])\n  ];\n  const igCta = (cta.ig_by_intent || {})[j.intent] || '';\n\n  const platforms = {\n    x: {\n      platform: 'x',\n      format: isThread ? 'thread' : 'single_post',\n      copy: xCopy,\n      thread: xThread,\n      tweet_count: isThread ? xThread.length : 1,\n      character_counts: isThread ? xThread.map(t => t.length) : [xCopy.length],\n      media: 'optional_image',\n      notes: isThread ? 'Reply-chain thread: root tweet, then each entry replies to the previous. Last tweet is the CTA closer.' : 'Single post; text-only is fine if the visual is weak.'\n    },\n    instagram: {\n      platform: 'instagram',\n      format: j.ig_slides && j.ig_slides.length > 3 ? 'carousel_4_5' : 'static_4_5',\n      copy: (igCta\n        ? [j.ig_caption, '', igCta, '', tags.join(' ')]\n        : [j.ig_caption, '', tags.join(' ')]).join('\\n'),\n      slide_plan: j.ig_slides || null,\n      media: j.ig_slides && j.ig_slides.length > 3 ? 'carousel_4_5' : 'single_image_4_5',\n      notes: 'Caption = hand-written body + intent CTA + hashtags. Slides get typography treatment in design step.'\n    },\n    threads: {\n      platform: 'threads',\n      format: 'single_post',\n      copy: threadsCopy,\n      character_count: threadsCopy.length,\n      media: 'optional_image',\n      notes: isThread ? 'Condensed from the X thread into one 500-char Threads post (hook first).' : 'Same voice as X with room to breathe; 500-char cap, no hashtag wall.'\n    },\n    bluesky: {\n      platform: 'bluesky',\n      format: 'single_post',\n      copy: bskyCopy,\n      character_count: bskyCopy.length,\n      media: 'optional_image',\n      notes: isThread ? 'Condensed from the X thread to fit Bluesky\\'s 300-char cap.' : 'Same copy as X; Bluesky caps at 300 chars, no hashtags.'\n    }\n  };\n  out.push({ json: { ...j, platforms } });\n}\nreturn out;\n"
+      },
+      "id": "platform-adapt",
+      "name": "Platform Adapt",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -256,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Image briefs. This node only WRITES the prompt — it does not call an image\n// model, so drafting costs nothing. Wire your own generator to the\n// `image_brief` object downstream, after a human has approved the draft.\nreturn items.map(item => {\n  const j = item.json;\n  // Purely positive prompt: no \"avoid/negative\" clause (naming things summons them; the\n  // engine sanitizer also strips negatives + text/UI trigger words as a backstop).\n  const prompt = [\n    'Social visual for ' + (j.brand || 'the brand') + ', rendered as an abstract, tactile composition.',\n    'Subject: ' + j.visual_theme + '.',\n    j.visual_style.base\n  ].join(' ');\n\n  return { json: { ...j, image_brief: {\n    provider: 'your-image-provider',\n    status: 'ready_to_generate',\n    prompt,\n    renditions: [\n      { use: 'instagram', aspect_ratio: '4:5' },\n      { use: 'x', aspect_ratio: '16:9' }\n    ],\n    x_media_rule: 'X visual is optional — post text-only if the generated image does not add meaning.',\n    review_rule: 'Nothing publishes with an unreviewed image.',\n    carousel_note: j.ig_slides && j.ig_slides.length > 3 ? 'Carousel: 1 hero generation; remaining slides are typography-on-brand cards from slide_plan.' : null\n  } } };\n});\n"
+      },
+      "id": "image-briefs",
+      "name": "Image Briefs",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        32,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// QA guardrails. Flags a draft for review; never silently drops one.\n// Add your own rules — anything you must never publish belongs here.\nconst RULES = [\n  { re: /guaranteed?/i, why: 'unsupported guarantee' },\n  { re: /#1|number one|best agency/i, why: 'unsupported superlative' },\n  { re: /we (increased|grew|boosted) .{0,20}%/i, why: 'fake/unverifiable metric' },\n  { re: /client results/i, why: 'implies evidence not supplied' },\n  { re: /our clients? (love|rave)/i, why: 'unverifiable social proof' }\n];\n\nreturn items.map(item => {\n  const j = item.json;\n  // Escaped for use in the CTA checks below.\n  const domain = String(j.domain || '').replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');\n  const outbound = Object.values(j.platforms)\n    .map(p => [p.copy, (p.slide_plan || []).join(' ')].join(' '))\n    .join(' ');\n  const flags = RULES.filter(r => r.re.test(outbound)).map(r => r.why);\n  // Thread length sanity\n  const x = j.platforms.x;\n  if (x.thread) x.thread.forEach((t, i) => { if (t.length > 275) flags.push(`thread tweet ${i + 1} over 275 chars (${t.length})`); });\n  else if (x.copy.length > 275) flags.push(`x post over 275 chars (${x.copy.length})`);\n  // Conversion checks\n  if (x.thread && !(new RegExp(domain, 'i')).test(x.thread[x.thread.length - 1]))\n    flags.push('thread missing CTA closer with site link');\n  const ig = j.platforms.instagram.copy;\n  if (!(new RegExp('DM|link in bio|follow|' + domain, 'i')).test(ig))\n    flags.push('IG caption missing a CTA (DM / link in bio / follow)');\n  if (/#\\w/.test(ig.slice(0, 125)))\n    flags.push('hashtags inside first 125 caption chars (truncation window)');\n  return { json: { ...j, qa: {\n    status: flags.length ? 'needs_review' : 'pass',\n    flags,\n    scanned: 'platform copy + slide plans (outbound text only)'\n  } } };\n});\n"
+      },
+      "id": "compliance-qa",
+      "name": "Compliance Qa",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        304,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Scheduled slot assignment. Change SLOT_DAYS to your own posting days\n// (0 = Sunday). The packet week runs from the rotation anchor.\n// Post 1 → Tuesday, Post 2 → Thursday, Post 3 → Saturday (packet week, PT).\nconst SLOT_DAYS = { 1: 2, 2: 4, 3: 6 };\nconst SLOT_TIMES = {\n  x:         ['08:30', '09:15', '10:30'],\n  instagram: ['11:30', '12:30', '10:00']\n};\n\nreturn items.map(item => {\n  const j = item.json;\n  const n = j.post_number;\n  const monday = new Date(j.week_start + 'T00:00:00-07:00');\n  const day = new Date(monday.getTime() + (SLOT_DAYS[n] - 1) * 86400000);\n  const dateStr = day.toISOString().slice(0, 10);\n\n  const platforms = { ...j.platforms };\n  for (const key of Object.keys(platforms)) {\n    const t = (SLOT_TIMES[key] || ['12:00', '12:00', '12:00'])[n - 1];\n    platforms[key] = { ...platforms[key], slot: { date: dateStr, time_pt: t, iso_hint: `${dateStr}T${t}:00 America/Los_Angeles` } };\n  }\n  return { json: { ...j, platforms } };\n});\n"
+      },
+      "id": "slot-assign",
+      "name": "Slot Assign",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        592,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Build the approval packet — the JSON a human reads before anything ships.\nconst posts = {};\nlet meta = null;\nfor (const item of items) {\n  const j = item.json;\n  meta = j;\n  const key = `post_${j.post_number}_${j.pillar.replace(/[^a-z0-9]+/gi, '_').toLowerCase()}`;\n  posts[key] = {\n    post_number: j.post_number,\n    topic_id: j.topic_id,\n    pillar: j.pillar,\n    core_topic: j.core_topic,\n    intent: j.intent,\n    visual_theme: j.visual_theme,\n    qa: j.qa,\n    image_brief: j.image_brief,\n    platforms: j.platforms\n  };\n}\n\nreturn [{ json: {\n  schema_version: 3,\n  brand: meta.brand_key,\n  brand_display: meta.brand,\n  packet_id: meta.packet_id,\n  week_start: meta.week_start,\n  week_index: meta.week_index,\n  bank_size: meta.bank_size,\n  generated_at: new Date().toISOString(),\n  workflow_version: 'v3',\n  approval_required: true,\n  publish_locked: true,\n  approval_commands: {\n    approve_post: '/approve N            → queue post N on X + Instagram at its slots',\n    approve_minus: '/approve N -instagram → queue post N, skipping that platform',\n    skip: '/skip N               → discard post N this week',\n    render: '/render N             → generate the image for post N now',\n    status: '/status               → show queue + what is scheduled'\n  },\n  content_memory_record: {\n    brand: meta.brand_key,\n    generated_at: new Date().toISOString(),\n    topics: Object.values(posts).map(p => ({\n      post_number: p.post_number, topic_id: p.topic_id, pillar: p.pillar,\n      core_topic: p.core_topic, intent: p.intent, visual_theme: p.visual_theme,\n      platforms: Object.keys(p.platforms)\n    })),\n    repeat_control: {\n      avoid_repeating_exact_topic_for_days: 45,\n      avoid_same_hook_for_days: 60,\n      allow_revisiting_pillar_after_days: 14\n    }\n  },\n  posts\n}}];\n"
+      },
+      "id": "build-packet",
+      "name": "Build Packet",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        864,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "id": "respond-packet",
+      "name": "Respond Packet",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1152,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Manual Run": {
+      "main": [
+        [
+          {
+            "node": "Brand Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Webhook (on-demand)": {
+      "main": [
+        [
+          {
+            "node": "Brand Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Brand Config": {
+      "main": [
+        [
+          {
+            "node": "Topic Rotation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Topic Rotation": {
+      "main": [
+        [
+          {
+            "node": "Platform Adapt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Platform Adapt": {
+      "main": [
+        [
+          {
+            "node": "Image Briefs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Image Briefs": {
+      "main": [
+        [
+          {
+            "node": "Compliance Qa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compliance Qa": {
+      "main": [
+        [
+          {
+            "node": "Slot Assign",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slot Assign": {
+      "main": [
+        [
+          {
+            "node": "Build Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Packet": {
+      "main": [
+        [
+          {
+            "node": "Respond Packet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

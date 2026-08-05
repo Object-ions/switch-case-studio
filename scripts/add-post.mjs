@@ -23,6 +23,8 @@
  *                 { type: 'heading',   text }
  *                 { type: 'list',      items: [] }
  *                 { type: 'quote',     text, cite? }
+ *                 { type: 'video',     url, caption?/title? }
+ *                 { type: 'download',  url, label, note? }
  *   author       string  (default "Moses Atia Poston")
  *   authorRole   string  (default "Founder")
  *   date         "YYYY-MM-DD" (default: today, America/Los_Angeles)
@@ -39,7 +41,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const POSTS = resolve(root, 'src/data/posts.json');
-const BLOCK_TYPES = new Set(['paragraph', 'heading', 'list', 'quote', 'video']);
+const BLOCK_TYPES = new Set(['paragraph', 'heading', 'list', 'quote', 'video', 'download']);
 
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
@@ -84,6 +86,11 @@ const validateBlock = (b, i) => {
   } else if (b.type === 'video') {
     if (typeof b.url !== 'string' || !b.url.trim())
       return `body[${i}] (video) needs a url`;
+  } else if (b.type === 'download') {
+    if (typeof b.url !== 'string' || !b.url.startsWith('/'))
+      return `body[${i}] (download) needs a root-absolute url into public/`;
+    if (typeof b.label !== 'string' || !b.label.trim())
+      return `body[${i}] (download) needs a label`;
   } else if (typeof b.text !== 'string' || !b.text.trim()) {
     return `body[${i}] (${b.type}) needs non-empty text`;
   }

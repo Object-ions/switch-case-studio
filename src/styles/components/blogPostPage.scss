@@ -166,6 +166,61 @@
     li::marker { color: $orange-color; }
   }
 
+  // Download CTA for giveaway assets. Deliberately the loudest thing in the
+  // reading column — it is the point of the post it appears in.
+  &__download {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin: 2.5rem 0;
+    padding: 1.5rem 1.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    text-decoration: none;
+    color: #fff;
+    transition:
+      border-color var(--dur-fast, 0.18s) ease,
+      background var(--dur-fast, 0.18s) ease,
+      transform var(--dur-fast, 0.18s) ease;
+
+    &:hover,
+    &:focus-visible {
+      border-color: $orange-color;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    // Hover lift is pointer-only; touch gets a press instead (see the
+    // hover-gated-charm rule in CLAUDE.md).
+    @media (hover: hover) and (pointer: fine) {
+      &:hover { transform: translateY(-2px); }
+    }
+    @media (hover: none) and (pointer: coarse) {
+      &:active { opacity: 0.7; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+      &:hover { transform: none; }
+    }
+  }
+
+  &__download-label {
+    font-family: $font-text;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+
+    &::after {
+      content: ' ↓';
+      color: $orange-color;
+    }
+  }
+
+  &__download-note {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
   &__quote {
     margin: 2.5rem 0;
     padding: 1.75rem 2rem;

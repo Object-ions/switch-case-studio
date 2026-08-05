@@ -153,6 +153,7 @@ export function trackEvent(name, params = {}) {
  *   - book_call_click  → any link to the booking calendar (the key conversion)
  *   - email_click      → mailto: links
  *   - phone_click      → tel: links
+ *   - file_download    → any anchor carrying the download attribute
  * Centralised so the 13+ scattered "Book a Free Call" CTAs need no edits and
  * any future CTA is covered automatically. Returns a cleanup function.
  */
@@ -175,6 +176,14 @@ export function initInteractionTracking() {
       trackEvent("email_click", shared);
     } else if (href.startsWith("tel:")) {
       trackEvent("phone_click", shared);
+    } else if (anchor.hasAttribute("download")) {
+      // Any downloadable asset (blog giveaways etc). Matched on the download
+      // attribute rather than a path prefix so a future download anywhere on
+      // the site is covered without touching this file.
+      trackEvent("file_download", {
+        ...shared,
+        file_name: href.split("/").pop(),
+      });
     }
   };
 

@@ -65,6 +65,18 @@ const Block = ({ block }) => {
           ))}
         </ul>
       );
+    case 'download': {
+      if (!block.url || !block.label) return null;
+      // Root-absolute path to a file in public/. The download attribute is what
+      // ga.js's delegated listener matches on to fire file_download, so it is
+      // load-bearing, not cosmetic.
+      return (
+        <a className="blog-post__download" href={block.url} download>
+          <span className="blog-post__download-label">{block.label}</span>
+          {block.note && <span className="blog-post__download-note">{block.note}</span>}
+        </a>
+      );
+    }
     case 'quote':
       return (
         <blockquote className="blog-post__quote">

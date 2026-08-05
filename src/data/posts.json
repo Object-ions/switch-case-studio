@@ -1,5 +1,115 @@
 [
   {
+    "slug": "the-social-content-engine-we-run-has-no-ai-in-it",
+    "title": "The Social Content Engine We Run Has No AI In It",
+    "excerpt": "We are an AI studio, and the workflow that drafts our own social posts every week does not call a language model once. Here is why we built it that way — and the workflow itself, free to download.",
+    "kicker": "AI & Automation",
+    "category": "AI & Automation",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-08-05",
+    "readingTime": "4 min read",
+    "coverImage": "",
+    "imageAlt": "",
+    "tags": [
+      "n8n",
+      "AI Automation",
+      "Workflows",
+      "Free Download"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "Every week, an n8n workflow on our server produces three social posts — adapted for X, Instagram, Threads and Bluesky, with image briefs, scheduled slots, and a QA pass — and hands them to a human to approve. It does not call a language model at any point. Not once."
+      },
+      {
+        "type": "paragraph",
+        "text": "That surprises people, given what we sell. So this post explains the reasoning, and then gives you the workflow. It is a JSON file. Import it into any n8n instance, edit two nodes, and it runs."
+      },
+      {
+        "type": "download",
+        "url": "/downloads/weekly-social-content-engine.json",
+        "label": "Download the workflow (n8n JSON)",
+        "note": "11 nodes, no credentials required, MIT licensed. Import via n8n → Workflows → Import from File."
+      },
+      {
+        "type": "heading",
+        "text": "Why no LLM"
+      },
+      {
+        "type": "paragraph",
+        "text": "A language model is the right tool when you need something you cannot specify in advance. Social posts about your own business are the opposite of that. You know what you think. You know the eight or ten arguments you make to every prospect. The bottleneck was never invention — it was the twenty minutes of reformatting, hashtag selection and scheduling that stood between having the thought and posting it."
+      },
+      {
+        "type": "paragraph",
+        "text": "So the engine automates the twenty minutes and leaves the thinking to us. You write a topic bank once. It rotates through it deterministically, adapts each entry to each platform's constraints, appends the right call to action for that post's intent, and hands you a packet to approve."
+      },
+      {
+        "type": "heading",
+        "text": "What that buys you"
+      },
+      {
+        "type": "list",
+        "items": [
+          "It cannot hallucinate. There is no generation step, so there is no mechanism by which a fabricated statistic or an invented client result reaches a draft. For a business that sells credibility, that is not a small property.",
+          "It costs nothing to run. No tokens, no per-post cost, no rate limits, no bill that scales with how much you post.",
+          "It is deterministic. The same week always produces the same three posts, so re-running a week is safe and you can preview next month's content today.",
+          "It sounds like you. Not like a model's impression of you, because every sentence in the output is a sentence you wrote."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "The honest trade-off: you have to write the topic bank. That is real work — a few hours for eighteen topics. After that the marginal cost of a week's content is zero, forever. An LLM-based version would have started faster and then cost money every week to produce copy we would have rewritten anyway."
+      },
+      {
+        "type": "heading",
+        "text": "How the workflow is put together"
+      },
+      {
+        "type": "paragraph",
+        "text": "Eleven nodes, seven of which are plain JavaScript. The shape is worth stealing even if you never run this particular file:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Brand Config — one node holding your name, domain, voice, audience, hashtags and calls to action. Everything downstream reads from it, so there is exactly one place to edit.",
+          "Topic Rotation — your topic bank, plus a deterministic weekly selection anchored to a fixed date. It also guarantees at least one sales-intent post per week, because plain sequential picking leaves half your weeks with none.",
+          "Platform Adapt — one topic becomes four platform-native posts. Threads get a closing tweet with the link; Bluesky's 300-character limit is handled by joining front-loaded, so the hook always survives the truncation.",
+          "Image Briefs — writes the image prompt but does not generate anything. Drafts stay free; you wire a generator downstream, after approval.",
+          "Compliance Qa — regex guardrails for the things you must never publish: unsupported guarantees, superlatives, unverifiable metrics. It flags for review rather than silently dropping, so nothing disappears without you seeing it.",
+          "Slot Assign and Build Packet — day assignment, then a single JSON packet for a human to approve."
+        ]
+      },
+      {
+        "type": "quote",
+        "text": "The QA node exists because the failure we were most worried about was not a bad post. It was a confident, well-formatted post containing a number nobody could substantiate."
+      },
+      {
+        "type": "heading",
+        "text": "What you are getting"
+      },
+      {
+        "type": "paragraph",
+        "text": "This is the engine we actually run, with our own topic bank and brand voice replaced by six clearly marked templates. The rotation logic, the platform adaptation, the QA rules and the packet builder are unchanged — that is the part that took the time to get right."
+      },
+      {
+        "type": "paragraph",
+        "text": "It ships with publish_locked set to true and approval_required set to true. It drafts; it does not post. Connecting it to a publishing step is a decision you should make deliberately, after you have watched a few packets come out."
+      },
+      {
+        "type": "download",
+        "url": "/downloads/weekly-social-content-engine.json",
+        "label": "Download the workflow (n8n JSON)",
+        "note": "Edit Brand Config, then replace the six template topics. That is the whole setup."
+      },
+      {
+        "type": "paragraph",
+        "text": "It is MIT licensed. Use it commercially, modify it, ship it inside client work. If it saves you an afternoon, we would rather you had the afternoon."
+      }
+    ]
+  },
+  {
     "slug": "graph-engineering-is-workflow-design",
     "title": "Graph Engineering Is Workflow Design",
     "excerpt": "AI agent diagrams are having a moment. The useful part is not the diagram itself, it is the discipline of deciding which work should be split, checked, retried, and handed back to a human.",
