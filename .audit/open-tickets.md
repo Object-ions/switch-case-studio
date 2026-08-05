@@ -10,12 +10,19 @@ the two lead paths that matter — contact form and book-a-call — are already 
 still record as regular events. Reopen only if a conversion metric on mailto:/tel: is wanted;
 that needs a hit from outside the filtered IP, then ≤24h before the star is available.
 
-## DEP-1 — react-router 7 (2 moderate advisories) — BLOCKED UPSTREAM, accepted risk
+## DEP-1 — react-router 7 (3 moderate advisories) — BLOCKED UPSTREAM, accepted risk
 **Decision 2026-08-03: stay on 6.30.4. Do not retry until the watch condition below flips.**
 
-Open: GHSA-wrjc-x8rr-h8h6 (open redirect via backslash in `<Link>`/`useNavigate`) and
+Open: GHSA-wrjc-x8rr-h8h6 (open redirect via backslash in `<Link>`/`useNavigate`),
 GHSA-337j-9hxr-rhxg (arbitrary constructor injection via `deserializeErrors()` in SSR
-hydration). Fixed only in react-router **7.17.1+** — there is **no 6.x backport** (6.30.4 is
+hydration), and a third on `react-router-dom` — "open redirect leading to XSS" (same
+open-redirect class, same mitigation reasoning below).
+
+**Count note (2026-08-04):** GitHub's push warning says **3 vulnerabilities**, `npm audit`
+says **2** — they count different things. npm counts affected PACKAGES (`react-router`,
+`react-router-dom`); GitHub counts ADVISORIES. Neither number is wrong; this ticket previously
+recorded only 2 advisories and was incomplete. Don't "reconcile" them again — check
+`npm audit --json` and read the `via` arrays. Fixed only in react-router **7.17.1+** — there is **no 6.x backport** (6.30.4 is
 the end of the 6 line), so `npm audit fix` can never clear these.
 
 **Why the upgrade is impossible today (tested, not assumed).** Installed
