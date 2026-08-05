@@ -33,6 +33,7 @@ graphify-out/
 # Private strategy docs — candid self-assessment, never commit (public repo)
 switch-case-studio-action-plan.md
 switch-case-studio-objective-audit.md
+phase-3-session-prompt.md
 
 # Font sources — the unsubsetted brand OTF stays local; only the subset woff2 in public/ ships
 fonts-src/
