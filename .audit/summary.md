@@ -886,3 +886,22 @@ sessions.
 STILL OPEN, small and cheap: `switch-case-studio` and `clean-skills` have NO GitHub description,
 so two of the six pinned cards render blank under the title — the pins are now the profile's main
 proof surface, and a blank card wastes one of six slots.
+
+### GitHub profile surface finished (2026-08-04)
+Two follow-ups from the pinning pass:
+- **Descriptions added** to `switch-case-studio` and `clean-skills` — both were pinned with NO
+  description, so two of the six cards rendered blank under the title. Written to match the
+  register of his own existing description on `casual-human-voice-skill` (lowercase, plain), and
+  grounded: "36 routes" and "115 claude code skills" are both counted, not estimated (115 =
+  `SKILL.md` files in that repo's tree). All six pins now carry a description.
+- **Profile display name → "Moses Atia Poston."** It still read "Moses Poston" while the README
+  directly above it said the full form — the fifth surface, and the one GitHub's API and search
+  return as the account's name. Now consistent with the blog byline, the VPS rule and the README.
+  Confirmed nothing else on that settings form changed (bio, location, blog URL all intact).
+
+GOTCHA worth keeping: on this display, `window.innerHeight` reports **1596** while the automation
+screenshot is **1051** tall (devicePixelRatio 2 plus browser scaling), so coordinates derived from
+`getBoundingClientRect()` do NOT map to screenshot pixels — a click computed that way lands
+hundreds of pixels off and silently hits nothing. Click from the SCREENSHOT's coordinate space,
+or verify the action's effect afterwards rather than assuming the click landed. Two "Update
+profile" clicks appeared to succeed and changed nothing before this was spotted.
