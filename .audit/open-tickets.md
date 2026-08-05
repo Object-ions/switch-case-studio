@@ -79,6 +79,20 @@ all optional and render only when present).
 Note it is a PRODUCT, not client work — the "Studio Project" labelling question from dropped
 action-plan item 1.4 applies to it too.
 
+## Decisions — do NOT re-raise
+- **The two Éclore repos stay public (Moses, 2026-08-04).** The 2026-08-04 sweep flagged
+  `eclore-new-swiss-theme` ("Private design prototype" in its own README) and
+  `eclore-before-after` ("for partner review", carries the clinic's interior photos +
+  floor plan) as the same intent-private/visibility-public pattern as `zahav-audit`. Moses
+  reviewed the actual contents and confirmed there is nothing sensitive in either. Closed. The
+  README wording is what triggered the flag, so a future sweep will hit them again — this note
+  is the answer.
+- **Action-plan 1.4 is DROPPED, permanently, with the reason recorded (Moses, 2026-08-04).**
+  The partner disclosure under Ori Argaman and Yuli is not happening: "nobody needs to know that
+  they are now my business partners." This is the reason the ticket had been missing for four
+  sessions. Do not re-open it, do not re-ask. The OTHER half of 1.4 (labelling Jelly Belly Wiki
+  and Birth of Venus "Studio project") shipped 2026-08-04 and is unaffected.
+
 ## Notes that will bite the next person
 - **Canonical personal name is "Moses Atia Poston"** (decided 2026-08-04). It is the byline on
   every blog post (`posts.json` + the `add-post.mjs` default), the rule in Beau's

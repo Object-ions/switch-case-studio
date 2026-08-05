@@ -865,3 +865,24 @@ could NOT be verified here: **IntersectionObserver does not fire in the occluded
 window** — proved it directly by creating a fresh IO on an in-view element and watching it never
 fire in 3s — so `peekReady` never flips and the chunk never loads under automation. Add that to
 the known occluded-window failure set alongside the frozen GSAP ticker and CSS transitions.
+
+### GitHub pins re-done + two decisions closed (2026-08-04)
+Pinned set is now: `Jelly-Belly-Wiki`, `charm-avenue`, `switch-case-studio`, `SST.Solution`,
+`casual-human-voice-skill`, `clean-skills` — verified via the GraphQL `pinnedItems` API after
+saving. Four of the plan's named targets were already pinned; the two swapped out were
+`portfolio2024` and `birth-of-venus`, freeing the slots the plan reserved for AI/automation.
+Those two AI slots were filled from the only genuinely AI/automation repos Moses OWNS (the
+higher-scoring candidates in a name/description scan — ollama, awesome-claude-skills,
+agentic-readiness-guide etc. — are all forks and were excluded).
+
+Closes action-plan 1.2 except for the repo-count item, which is deliberately still open because a
+hardcoded count rots (was 183, now 182 after zahav-audit went private).
+
+Two owner decisions recorded in `open-tickets.md` under "Decisions — do NOT re-raise": the Éclore
+repos stay public (contents reviewed, nothing sensitive), and 1.4's partner disclosure is dropped
+for good — which finally supplies the reason that had been missing from that ticket for four
+sessions.
+
+STILL OPEN, small and cheap: `switch-case-studio` and `clean-skills` have NO GitHub description,
+so two of the six pinned cards render blank under the title — the pins are now the profile's main
+proof surface, and a blank card wastes one of six slots.
