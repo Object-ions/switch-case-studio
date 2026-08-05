@@ -1,31 +1,14 @@
 # Open tickets
 
 Live list. Close a ticket by deleting its block and logging the outcome in `summary.md`.
-Last reviewed: 2026-08-03.
+Last reviewed: 2026-08-04.
 
-## GA-1 — Star `generate_lead`, `email_click`, `phone_click` as key events
-**Blocked until 2026-08-04 (GA processing lag), then ~3 clicks.**
-
-GA4 only lets you star an event that appears in **Admin → Data display → Events → Recent
-events**, and that list is built from PROCESSED data — new event names take up to 24h to
-appear even though Realtime shows them instantly. All three were fired against production on
-2026-08-03 and confirmed arriving in Realtime; they were still absent from the Recent events
-list the same evening.
-
-- Do it: Admin → Data display → Events → **Recent events** tab → click the ☆ on each of
-  `generate_lead`, `email_click`, `phone_click`. Filled star = key event.
-- Not urgent, because lead conversions are ALREADY counted: `ads_conversion_Contact_Us_1`
-  (an existing key event, minted by a Google Ads event-create rule in the container) fires on
-  the same contact-form submit. Starring `generate_lead` adds the GA-native metric.
-- Cannot be automated unattended — the GA session lives in the owner's Chrome profile, so a
-  cloud/cron agent has no way to authenticate.
-
-## GA-2 — Confirm standard reports populate
-**Check 2026-08-04/05.**
-
-Realtime is proven end-to-end. Confirm the Home "No data received" card clears and standard
-reports fill in (24–48h lag). If reports are still empty by 08-05, something beyond the CSP
-block is wrong — start from the stream's "Data collection is active" state, not the tag.
+## GA-1 — CLOSED 2026-08-04 (outcome in summary.md)
+`generate_lead` starred. `email_click` / `phone_click` deliberately left unstarred by the owner:
+they never landed a processed hit (absent from Recent events entirely, not merely unstarred), and
+the two lead paths that matter — contact form and book-a-call — are already key events. They
+still record as regular events. Reopen only if a conversion metric on mailto:/tel: is wanted;
+that needs a hit from outside the filtered IP, then ≤24h before the star is available.
 
 ## DEP-1 — react-router 7 (2 moderate advisories) — BLOCKED UPSTREAM, accepted risk
 **Decision 2026-08-03: stay on 6.30.4. Do not retry until the watch condition below flips.**

@@ -20,6 +20,30 @@ import MagneticButton from '../ui/MagneticButton';
 
 import '../../styles/components/projectPage.scss';
 
+/* ── Meta-description clamp ──
+   A blind .slice() cut every case study mid-word ("…Jelly Belly site; the "),
+   which is what ships to SERPs and social cards. Cut on a word boundary
+   instead, trim trailing punctuation, and mark the elision. */
+const TRAILING_STOPWORDS =
+  /\s+(a|an|the|and|or|but|of|to|in|on|for|with|from|that|this|its|it|as|at|by|is|are|was|were)$/i;
+
+const clampAtWord = (text, max) => {
+  if (!text || text.length <= max) return text;
+  const cut = text.slice(0, max);
+
+  // Prefer a clause break — it reads as a finished thought, not a severed one.
+  const clause = Math.max(cut.lastIndexOf('. '), cut.lastIndexOf('; '));
+  // Otherwise fall back to the last word boundary, if it isn't so early it
+  // guts the sentence.
+  const space = cut.lastIndexOf(' ');
+  const at = clause > max * 0.5 ? clause : space > max * 0.6 ? space : max;
+
+  let body = cut.slice(0, at);
+  // A cut landing on "…site; the" leaves a dangling article. Drop it.
+  while (TRAILING_STOPWORDS.test(body)) body = body.replace(TRAILING_STOPWORDS, '');
+  return `${body.replace(/[\s,;:.—–-]+$/, '')}…`;
+};
+
 /* ── Image preload (returns true when image loads, false on error) ── */
 const useImagePreload = (src) => {
   const [loaded, setLoaded] = useState(false);
@@ -109,6 +133,14 @@ const CaseStudyPage = () => {
     // code button at all rather than a dead link. Same conditional-tile law as
     // the bento media below — absent data means the element doesn't exist.
     repos = [],
+    // Non-code live links that aren't the primary CTA — e.g. hosted API docs.
+    // Same conditional law as `repos`: absent means the button doesn't exist.
+    links = [],
+    // Optional architecture diagram. Gets its own full-width band rather than a
+    // gallery tile, because gallery tiles are 4/3 + object-fit:cover and would
+    // crop a wide diagram into uselessness.
+    diagram,
+    diagramAlt,
     imageAlt,
     // ── Optional bento media. Each tile renders ONLY if its field exists. ──
     mediaMobile,
@@ -121,7 +153,7 @@ const CaseStudyPage = () => {
 
   const metaDescription =
     outcome ||
-    description?.slice(0, 155) ||
+    clampAtWord(description, 155) ||
     `${title} — case study by Switch Case Studio.`;
 
   /* ── Media tiles, declared once, rendered conditionally ──
@@ -301,6 +333,7 @@ const CaseStudyPage = () => {
 
           {(ctaUrl ||
             repos.length > 0 ||
+            links.length > 0 ||
             (nextProject && nextProject.slug !== slug)) && (
             <div className="project-page__hero-actions">
               {ctaUrl && (
@@ -319,6 +352,24 @@ const CaseStudyPage = () => {
                   </a>
                 </MagneticButton>
               )}
+
+              {/* Live things that aren't the primary CTA and aren't source —
+                  hosted API docs, a spec, a status page. */}
+              {links.map((link) => (
+                <a
+                  key={link.url}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-page__cta-button project-page__cta-button--secondary"
+                >
+                  {link.label}{' '}
+                  <FontAwesomeIcon
+                    icon={faArrowUpRightFromSquare}
+                    aria-hidden="true"
+                  />
+                </a>
+              ))}
 
               {/* One button per public repo. A single repo reads "View the
                   code"; several are labelled by their role in the build so the
@@ -371,6 +422,32 @@ const CaseStudyPage = () => {
                 alt={imageAlt || `${title} — landing page`}
               />
             </div>
+          </section>
+        )}
+
+        {/* ── Architecture band — the build's shape, before the prose ──
+            Full width and object-fit:contain (never cover), so a wide diagram
+            is never cropped. Below ~$pp-max the figure scrolls horizontally at
+            a legible min-width instead of shrinking the labels to nothing. */}
+        {diagram && (
+          <section
+            className="project-page__diagram reveal"
+            aria-label="Architecture"
+          >
+            <h2 className="project-page__section-label">Architecture</h2>
+            <button
+              type="button"
+              className="project-page__diagram-frame"
+              onClick={() => setZoomSrc(diagram)}
+              aria-label="Zoom into the architecture diagram"
+            >
+              <img
+                src={diagram}
+                alt={diagramAlt || `${title} — architecture diagram`}
+                className="project-page__diagram-img"
+                loading="lazy"
+              />
+            </button>
           </section>
         )}
 
@@ -468,7 +545,11 @@ const CaseStudyPage = () => {
         {zoomSrc && (
           <ZoomLightbox
             src={zoomSrc}
-            alt={imageAlt || title}
+            alt={
+              zoomSrc === diagram
+                ? diagramAlt || `${title} — architecture diagram`
+                : imageAlt || title
+            }
             open={!!zoomSrc}
             onClose={() => setZoomSrc(null)}
           />

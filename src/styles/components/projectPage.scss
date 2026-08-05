@@ -230,6 +230,54 @@ $pp-tile-bg: rgba(255, 255, 255, 0.02);
   }
 
   // ── Summary bento: text column + results column ──────
+  // ── Architecture band ────────────────────────────────
+  // Deliberately NOT a bento media tile: those are 4/3 + object-fit:cover,
+  // which crops a wide diagram. Here the image keeps its own ratio, and on
+  // narrow screens the frame scrolls sideways at a legible min-width rather
+  // than scaling the labels down to unreadable.
+  &__diagram {
+    max-width: $pp-max;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 0;
+
+    @media (max-width: 960px) {
+      padding: 1rem 1.25rem 0;
+    }
+  }
+
+  &__diagram-frame {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    border: $pp-border;
+    border-radius: $pp-radius;
+    background: $pp-tile-bg;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: default;
+
+    @media (hover: hover) and (pointer: fine) {
+      cursor: zoom-in;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 3px;
+    }
+  }
+
+  &__diagram-img {
+    display: block;
+    width: 100%;
+    min-width: 720px; // below this the labels stop being readable — scroll instead
+    height: auto;
+    object-fit: contain;
+  }
+
   &__summary {
     max-width: $pp-max;
     margin: 0 auto;

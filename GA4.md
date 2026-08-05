@@ -28,7 +28,18 @@ within seconds while prod registered nothing.
    display → Events → Key events: `book_call_click` and `ads_conversion_Contact_Us_1` starred;
    `purchase` intentionally off). The "Streams active in the last 28 days" column reads "No
    stream data detected" only because the CSP block starved the property — expect it to fill in.
-2. Optional, still open: same for `email_click` / `phone_click`.
+2. `generate_lead` — **DONE 2026-08-04** (starred from Recent events once the ≤24h processing
+   lag cleared). Key events are now `ads_conversion_Contact_Us_1`, `book_call_click`,
+   `generate_lead`; `purchase` intentionally off.
+3. Optional, still open: `email_click` / `phone_click`. **Cannot be starred yet** — neither name
+   appears in Recent events at all, i.e. no PROCESSED hit exists (probably swallowed by the
+   internal-traffic filter while it was Active). GA4 has no create-key-event-by-name, so this
+   needs: filter → Inactive, click a mailto: and a tel: on prod, filter → Active, wait ≤24h.
+
+## 2026-08-04 — "No data received" cleared
+Standard reports populated (Active users 4, Event count 32, Key events 3 over 7 days; pages,
+countries and traffic acquisition all filled). `Example Domain` / `diag` rows are the 08-03
+CSP diagnostic hits, expected. The CSP fix is confirmed in processed data, not just Realtime.
 
 ## How to check it's working
 GA4 → **Reports → Realtime**, open switchcasestudio.com in another tab, accept cookies, click a "Book a Free Call" CTA — you should see `page_view` and `book_call_click` within seconds.

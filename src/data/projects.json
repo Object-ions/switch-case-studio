@@ -288,62 +288,72 @@
   {
     "id": 7,
     "slug": "jelly-belly-wiki",
-    "type": "Web App",
-    "badge": "Web App",
+    "type": "Full-Stack + API",
+    "badge": "Full-Stack + API",
     "featured": true,
     "panelClass": "panel-hero",
     "coverTile": "/projects/jelly-belly-wiki/jelly-belly-wiki-cover-tile.webp",
     "imageSrc": "/projects/jelly-belly-wiki/1.avif",
     "longWeb": "/projects/jelly-belly-wiki/long.webp",
-    "imageAlt": "Jelly Belly Wiki API and developer documentation",
+    "imageAlt": "Jelly Belly Wiki — public API and interactive Swagger documentation",
     "backLabel": "Back to Projects",
     "title": "Jelly Belly Wiki",
-    "subtitle": "Full Stack Wiki Platform + Public API & Documentation",
+    "subtitle": "Python scraper → MySQL → C# / .NET API → React client. A four-stage data pipeline, built solo.",
     "outcome": "",
-    "year": "",
-    "metrics": [],
-    "description": "Switch Case Studio designed and built Jelly Belly Wiki as a full-stack product, including the branding, UI system, and a developer-ready API. The project includes a structured database of Jelly Belly flavors, a public API for other developers to use, and full documentation designed to make integration fast and clear.",
-    "tileVersion": "Full-stack wiki platform with a public API and full documentation. Branding, UI, backend, database, and dev experience built end to end.",
+    "year": "2024",
+    "metrics": [
+      { "value": "317", "label": "records served across 5 resources" },
+      { "value": "10", "label": "documented public endpoints" },
+      { "value": "3", "label": "languages: Python, C#, JavaScript" },
+      { "value": "Solo", "label": "scraper, database, API and front end by one developer" }
+    ],
+    "description": "Jelly Belly Wiki is a data pipeline, not a website. A Python scraper pulls flavor, recipe, fact and milestone data from the official Jelly Belly site; the cleaned JSON seeds a MySQL database through Entity Framework Core migrations; a C# / ASP.NET Core API serves it over ten documented endpoints with filtering, search and pagination; and a React front end consumes that same public API — the identical one any other developer can call. Three languages, three deployment targets, one developer, and every stage still running today.",
+    "tileVersion": "A four-stage data pipeline: Python scraper → MySQL → C# / .NET API → React client, with public Swagger docs. 317 records, 10 endpoints, built solo.",
     "services": [
-      { "label": "#Product Design" },
-      { "label": "#Brand Identity & Visual System" },
-      { "label": "#UI/UX Design" },
+      { "label": "#Data Collection (Python, Selenium, BeautifulSoup)" },
+      { "label": "#Database Design (MySQL / EF Core)" },
+      { "label": "#Backend Development (C# / ASP.NET Core)" },
+      { "label": "#Public API & Swagger Documentation" },
       { "label": "#Frontend Development (React)" },
-      { "label": "#Backend Development (C# / .NET API)" },
-      { "label": "#Database Design (MySQL)" },
-      { "label": "#API Documentation" }
+      { "label": "#Product & UI/UX Design" },
+      { "label": "#Brand Identity & Visual System" }
     ],
     "highlights": [
       {
-        "title": "End-to-End Build",
-        "summary": "Built the full product from concept to launch, covering UX, UI, frontend, backend, and database."
+        "title": "1 · Collection — Python",
+        "summary": "Selenium and BeautifulSoup scrape flavors, recipes, facts and milestones from the official Jelly Belly site, then normalise the result to clean JSON ready to seed."
       },
       {
-        "title": "Public API for Developers",
-        "summary": "Designed and implemented a clean API that exposes flavor data in a predictable, dev-friendly format."
+        "title": "2 · Data model — MySQL",
+        "summary": "Five related resources modelled in Entity Framework Core and seeded through migrations, so the schema rebuilds from scratch rather than being hand-loaded."
       },
       {
-        "title": "Documentation & Dev Experience",
-        "summary": "Created complete documentation so other developers can explore endpoints, schemas, and usage quickly."
+        "title": "3 · API — C# / ASP.NET Core",
+        "summary": "Ten read endpoints serving 317 records, with filtering, search and paginated responses built on LINQ queries."
       },
       {
-        "title": "Database & Data Modeling",
-        "summary": "Structured flavor data in MySQL with a scalable schema that supports search, filtering, and expansion."
+        "title": "4 · Documentation — Swagger",
+        "summary": "A live, interactive Swagger UI plus in-app documentation, so another developer can try an endpoint before writing a line of code."
       },
       {
-        "title": "Branding & Graphics",
-        "summary": "Developed the visual identity and graphic system to make the product feel playful, clear, and polished."
+        "title": "5 · Front end — React",
+        "summary": "The client is a consumer of its own public API: every screen is assembled from the documented endpoints, with state and actions covered by Jest tests."
       },
       {
-        "title": "UI System",
-        "summary": "Designed a consistent component system for browsing, discovery, and wiki-style navigation."
+        "title": "Deployed, not demoed",
+        "summary": "Front end on Netlify, API on Render, database on TiDB — three separate services, all live and reachable today."
       }
     ],
-    "result": "A polished, developer-friendly wiki platform with a public API and clear documentation, supported by a complete brand and UI system.",
+    "result": "Not a site with a database behind it — a public API with a reference front end. The scraping, the schema, the endpoints, the documentation and the UI are one person's work, and every layer is still live.",
     "kicker": "In depth on",
     "productName": "Our Work",
     "ctaLabel": "View Live",
     "ctaUrl": "https://jelly-belly-wiki.netlify.app/",
+    "diagram": "/projects/jelly-belly-wiki/architecture.svg",
+    "diagramAlt": "Architecture diagram: the official Jelly Belly site is scraped by a Python script using Selenium and BeautifulSoup, which outputs JSON that seeds a MySQL database on TiDB via EF Core migrations; a C# ASP.NET Core API on Render exposes ten documented endpoints through Swagger; a React client on Netlify consumes those same public endpoints.",
+    "links": [
+      { "label": "Live API docs", "url": "https://jellybellywikiapi.onrender.com/" }
+    ],
     "repos": [
       { "label": "Scraper (Python)", "url": "https://github.com/Object-ions/Jelly-Belly-Wiki-API-Data-Collection" },
       { "label": "API (C# / .NET)", "url": "https://github.com/Object-ions/Jelly-Belly-Wiki-API" },

@@ -647,3 +647,109 @@ collects 1→3 and `page_view` appeared in Realtime's event list. Rule added to 
   v7 major that vite-react-ssg@0.9.0 doesn't support) — tracked as DEP-1.
 - **Open tickets now live in `.audit/open-tickets.md`** (GA-1 key-event starring, blocked on
   GA's ≤24h event-list processing lag; GA-2 report-population check; DEP-1 react-router 7).
+
+## Proof surfacing + Organization sameAs — 2026-08-03/04 (`b28195e`, `9a91988`, `d5e7f1a`, UNPUSHED)
+Action-plan items 1.2 (partial) and 2.2. Both UNPUSHED as of writing — the site gains nothing
+until `main` is pushed.
+
+**1.2 — link the source repos (`b28195e`).** `projects.json` projects take an optional
+`repos: [{label,url}]`; `CaseStudyPage` renders one "View the code" button per entry (multiple
+entries labelled by pipeline role), and nothing when the array is absent — two client case
+studies have no public repo by design. TRAP FOUND: every `gh` and browser session of the owner's
+is authenticated, so a PRIVATE repo looks reachable while rendering a 404 to visitors — verify
+link-by-link unauthenticated (`curl -o /dev/null -w '%{http_code}' -H 'Authorization:'`).
+
+**Repo-visibility audit → one link pulled (`9a91988`).** Before flipping repos public, all four
+were swept for secrets across 242 commits (clean). The real hazard was confidentiality, not
+credentials: `zahav-audit` was assumed to be the client's site source and is actually the live
+SEO *engagement workspace* — 668 rows of the client's GSC query data, page-level performance,
+unsigned deliverables the README itself gates behind client sign-off, a competitor-actionable
+inventory of the client's SEO weaknesses, client emails/phones, internal execution logs. The
+link was dropped. Rule: a repo NAME is not its contents, and grep patterns catch keys, not
+confidentiality. Case studies link to BUILD SOURCE only; audit/engagement repos are never linked.
+
+**2.2 — Organization `sameAs` (`d5e7f1a`).** The Org JSON-LD shipped ONE profile
+(`x.com/s_c_studio`) while the footer linked seven — the entity graph claimed the studio owned an
+X account and nothing else. `sameAs` is load-bearing here because the brand name collides with
+Nintendo Switch cases and a Portland coffee chain: the studio can't win on string matching, so
+resolving the scattered profiles to ONE entity is the findability play. Shipped:
+`src/data/social.js` as the single source; Footer derives from it (keeps only the icon map + the
+internal `/blog` link, deliberately not a `sameAs` — that's for other domains); `index.html`
+hand-mirrors the array (static file, can't import); `scripts/check-sameas.mjs` parses the JSON-LD,
+diffs it against social.js and exits non-zero on drift, wired into `prebuild`. The guard exists
+because a stale `sameAs` fails SILENTLY — footer links keep working, pages keep rendering, only
+the entity graph is wrong. Guard was broken on purpose to confirm it catches drift (exits 1,
+names the offending URL).
+VERIFIED: 36/36 routes, all 7 profiles in every emitted page, footer row still 8 entries,
+`__SCS_LANDING_PATHNAME__` entry-chunk marker intact, 6/7 URLs 200 unauthenticated (Facebook
+returns 000 — refuses automated requests, not broken; unchanged URL, worth an eyeball).
+Rules for both landed in CLAUDE.md.
+
+**1.2 is NOT fully closed.** Done: case-study repo buttons (the footer icon row predates this,
+2026-07-29). Still open in the action plan: GitHub profile README as a studio landing page,
+deliberate re-pin of the 6 slots, and putting the repo count on the site.
+
+## GA-1 partial + GA-2 CLOSED — 2026-08-04 (GA4 admin, no code change)
+Driven through the owner's own Chrome session (a cloud/cron agent cannot authenticate to GA).
+
+**GA-2 — CLOSED.** The Home "No data received" card is gone and standard reports have
+populated: Active users 4, Event count 32, Key events 3 (last 7 days); "Views by page title"
+lists Switch Case Studio 8, Zahav Medspa 2, plus `Example Domain` 1 and `diag` 1 — the two
+latter being the 08-03 CSP diagnostic hits fired from a CSP-free origin, expected pollution,
+not a tagging fault. Traffic acquisition populated (Direct 3, Unassigned 2, Referral 1). The
+CSP fix is therefore confirmed end to end in PROCESSED data, not just Realtime.
+
+**GA-1 — partial.** `generate_lead` was present in Recent events (the ≤24h processing lag had
+cleared) and is now a key event — toast confirmed. Key events: `ads_conversion_Contact_Us_1`,
+`book_call_click`, `generate_lead`; `purchase` still deliberately off.
+`email_click` / `phone_click` were absent from Recent events entirely (11 names, neither
+present), so their blocker was never the lag — no processed hit exists for either name, and
+GA4's UI offers no create-key-event-by-name. Probable cause: fired while the internal-traffic
+filter was ACTIVE (filtered hits are dropped from processing permanently) whereas
+`generate_lead` was fired during an Inactive window — unproven. Closing them needs a filter
+Inactive → click a mailto: and a tel: on prod → filter Active → ≤24h wait. Deferred to the
+owner; both lead paths that matter are already counted.
+NEW OPERATIONAL RULE: a GA4 event name absent from **Recent events** is not the same failure as
+one that is present but unstarred. Present-but-unstarred = processing lag, wait. Absent =
+no processed hit ever landed (commonly a data filter swallowing it) — waiting will never fix it.
+
+## Jelly Belly Wiki case study rewritten — 2026-08-04 (action-plan 2.1, UNPUSHED)
+The page sold a solo four-stage data pipeline as "a full-stack product with branding and a
+developer-ready API" — website framing for the strongest engineering exhibit on the site.
+
+**Grounded, not asserted.** Every claim was pulled from the running system before it was
+written: the three repo READMEs (unauthenticated), the live Swagger spec (`/swagger/v1/swagger.json`
+→ 11 paths / 10 API endpoints / 10 schemas) and live `totalCount` per resource
+(Beans 114, Combinations 54, Facts 99, MileStones 23, Recipes 27 = **317 records**). The API root
+302s to a working Swagger UI (200). No number on the page is from memory.
+
+**Copy.** Lede is now the pipeline itself (`Python scraper → MySQL → C# / .NET API → React
+client`); Overview opens "a data pipeline, not a website"; Scope is restructured from six generic
+bullets into the five numbered pipeline stages plus "Deployed, not demoed" (Netlify / Render /
+TiDB); `metrics` went from empty to 317 records · 10 endpoints · 3 languages · Solo; badge
+`Web App` → `Full-Stack + API`; `year` set to 2024; services now name Python/Selenium/
+BeautifulSoup and EF Core, which the old list omitted entirely.
+
+**Architecture diagram** (`public/projects/jelly-belly-wiki/architecture.svg`) — hand-authored,
+dark-theme, using the page's own tokens. Rendered in a NEW `project-page__diagram` band, not a
+gallery tile: gallery tiles are `aspect-ratio: 4/3` + `object-fit: cover`, which crops a wide
+diagram into uselessness. The band is `object-fit: contain` inside an `overflow-x: auto` frame
+with `min-width: 720px` on the image, so narrow screens scroll it instead of shrinking labels to
+nothing. Verified at a 500px viewport: frame scrollWidth 752 > clientWidth 458 (scrolls), and
+`documentElement.scrollWidth === clientWidth` (the PAGE does not overflow).
+
+**New optional data fields, same conditional-tile law as `repos`:** `diagram`/`diagramAlt`
+(own band) and `links[{label,url}]` (live non-code links rendered as secondary buttons — used
+for "Live API docs" → the hosted Swagger UI). Absent → the element doesn't exist.
+
+**Bug found and fixed while verifying (all 8 case studies, not just this one).** The meta
+description was `description.slice(0, 155)` — a blind cut that severed every case study
+mid-word and shipped that to SERPs and social cards ("…from the official Jelly Belly site; the ").
+Replaced with `clampAtWord()`: prefer a clause break (`. ` / `; `) past 50% of the budget, else
+the last word boundary past 60%, then strip trailing stopwords ("…site; the" → "…site…") and
+punctuation. All 8 now end on a complete thought.
+
+VERIFIED: 36 routes, entry-chunk marker present in `app-*.js` and absent from every lazy chunk,
+JSON valid, SVG well-formed, real-pixel checks at desktop and 500px. Note for the next
+verifier: the first screenshot after load showed a blank hero — that is the documented
+occluded-window GSAP-ticker freeze, not a reveal bug; screenshots force frames and it resolves.
