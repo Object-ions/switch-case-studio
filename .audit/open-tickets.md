@@ -60,6 +60,25 @@ coordinated bump: router + SSG together, then re-verify route count, asset hashe
 `__SCS_LANDING_PATHNAME__` entry-chunk marker, and hydration in a real browser on the
 production build.
 
+## SCS-1 — Add Scout to the projects page
+**Logged 2026-08-04 at Moses's request. Blocked on product details, not on build work.**
+
+Scout is a web-app service Moses plans to sell as a **monthly retainer** to clients. Details to
+come from him; nothing is written yet and nothing should be invented.
+
+What is already verifiable (checked on the VPS 2026-08-04): it runs today as three containers —
+`scout-web` (bound 127.0.0.1:3000), `scout-worker`, and `scout-db` (postgres:16-alpine). No
+Traefik route, so it is NOT publicly reachable — there is no live URL a visitor could click.
+
+Before it can ship as a case study / project tile, Moses needs to supply: what it does for a
+client, who it's for, the retainer framing, and whether there'll be a public URL or a demo. The
+projects page is data-driven (`src/data/projects.json`), so once that exists it's a data edit
+plus art — see the Jelly Belly entry for the shape (`repos`, `links`, `diagram`, `metrics` are
+all optional and render only when present).
+
+Note it is a PRODUCT, not client work — the "Studio Project" labelling question from dropped
+action-plan item 1.4 applies to it too.
+
 ## Notes that will bite the next person
 - **The internal-traffic data filter is ACTIVE and its "Testing" state is gone for good.**
   Once a GA4 data filter has been Active, GA offers only Active/Inactive — reverting to
