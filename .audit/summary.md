@@ -1062,3 +1062,25 @@ Two diagnostic notes worth keeping:
   That is a shared production edge: the restart briefly drops in-flight connections for every
   routed service, not just the new one. It is a ~2-5s self-healing blip, but it is not a
   free action — prefer waiting for the natural retry unless there is a reason to hurry.
+
+### Action-plan item A CLOSED — Studio is open source (2026-08-06)
+Live at **https://github.com/Object-ions/scs-studio** — public, MIT, default branch `main`,
+28 files, ONE commit. `Object-ions/studio` stays PRIVATE as the ops record (verified 404
+unauthenticated).
+
+Owner chose the clean-history mechanism over flipping the existing repo once the exposure was
+laid out. Verified UNAUTHENTICATED after publishing, per the zahav-audit lesson that an
+authenticated session hides the truth: repo reads `private: false` with `spdx_id: MIT`;
+`LICENSE`, `README.md` and `server/.env.example` return 200; and every ops doc —
+`STATUS.md`, `DEPLOY.md`, `CHANGELOG.md`, `CLAUDE.md`, `CHEATSHEET.md`, `deploy.sh`,
+`tools/studio-backup.sh` — returns **404**. The public `.env.example` carries placeholders
+only (`change-me-…`, empty key fields, `example.com` origins).
+
+Naming: the good name `studio` was NOT taken for the public repo, because renaming the private
+one would touch the VPS git remote. Public repo is `scs-studio`; renaming later is one command
+if wanted.
+
+Rule reinforced: **publishing is one-way.** The pre-publish sweep was re-run against the staged
+tree immediately before `gh repo create`, not trusted from the earlier audit — the tree had been
+edited in between (genericised env example, rewritten README). Sweep the artifact you are
+actually about to publish, at the moment you publish it.
