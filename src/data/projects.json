@@ -73,11 +73,11 @@
     "outcome": "",
     "year": "",
     "metrics": [
-      { "value": "↑ 52%", "label": "organic traffic in 90 days" },
-      { "value": "↑ 28%", "label": "appointment bookings after launch" },
-      { "value": "3.2×", "label": "return on Meta ad spend" }
+      { "value": "100/100", "label": "Google SEO score" },
+      { "value": "99/100", "label": "Google performance score, desktop" },
+      { "value": "25 → 21", "label": "average Google position, still climbing" }
     ],
-    "description": "Switch Case Studio partnered with Zahav Medspa to elevate their brand and digital presence. As a paid client project, we delivered a full suite of creative and marketing services tailored to the competitive aesthetics industry.",
+    "description": "Zahav Medspa competes in North Scottsdale aesthetics, where every rival buys the same keywords and runs the same ads. We rebuilt the brand, the site and the search foundation underneath it — then graded the result with Google's own tooling instead of our own. Google now scores the site 99/100 on performance and 100/100 on both SEO and best practices, with a perfect zero on layout shift and a one-second desktop load. On mobile, where the site was worst, the homepage went from a 13.5-second load to roughly seven, and the products page from fifteen seconds to under six. Twenty-five pages carried no H1 at all and thirty-five images had no alt text; both are now zero. The media library was cut by more than half. Average search position has climbed from 25 to 21 and is still moving, and the practice ranks in the top two for \"medical spa troon north scottsdale\" and \"best medical spa near me\". Every figure here is a Google score you can re-run against zahavmedspa.com in about thirty seconds — which is the point. We would rather publish numbers you can check than numbers you have to take on faith.",
     "tileVersion": "North Scottsdale medical spa. We delivered brand design, strategy, website, SEO, paid ads, and email marketing.",
     "services": [
       { "label": "#Brand Design" },

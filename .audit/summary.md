@@ -990,3 +990,57 @@ pushed** — creating the public repo is Moses's call since the mechanism differ
 - **3.4 recordings / 3.5 AI case study with numbers** — 3.5 is blocked on data that does not exist:
   both agents were asked and neither could evidence an hours-saved or response-time figure. The
   plan says not to fabricate metrics, so nothing was written.
+
+## Zahav case study — re-measured and rewritten (2026-08-05)
+
+Moses confirmed Sean's written consent, so the deeper results work (action-plan item C)
+was unblocked. Re-measuring first turned up a problem bigger than the opportunity.
+
+**The three published headline numbers had no source.** ↑52% organic traffic / ↑28%
+bookings / 3.2× ROAS: none of them appear anywhere in the engagement workspace. The only
+`28%` in that repo is *image uploads reduced 28%*; the only `3.2` hits are 3.2GB of
+backups and a 3.2KB stylesheet — coincidences, not sources.
+
+**And the organic claim is contradicted by measurement.** Pulled live from GSC, 28-day
+windows: clicks 196 (pre-fix) → 191 → **168**, i.e. DOWN ~14%; impressions 7,460 → 8,010
+→ 7,200; CTR 2.6% → 2.3%. The one clean monotonic win is average position, **25 → 23.3 →
+21.3**. Structurally, the property was only verified ~Jun 10 2026 while the engagement ran
+Jun–Jul, so *there is no pre-engagement organic baseline and there never can be* — a
+"traffic up X% since we started" claim cannot be derived from GSC for this client at all.
+Fair caveat recorded: July–August is Arizona low season for a Scottsdale med spa.
+
+**Speed: desktop held, mobile regressed.** Desktop re-verified at 99 (FCP 0.4s, LCP 1.0s,
+CLS 0) — unchanged from July. Mobile ran 65 / 77 / 69 (median **69**, LCP ~7.0s) against
+July's 88 / LCP 3.4s. Checked and ruled out: the hero preload is intact, royal
+`frontend.min.css` is still gone, the mu-plugin is live, and there are **zero**
+render-blocking stylesheets in `<head>` — a naive count says 13 and is wrong, because it
+counts the `<noscript>` fallbacks of the async-CSS pattern. The July optimisation work was
+NOT reverted. Remaining bottleneck is document weight: a 323KB `<head>` with 28 inline
+`<style>` blocks (~127KB gzip), which only costs on PSI's throttled mobile test — exactly
+why desktop is untouched. Run-to-run spread was 12 points, and Lighthouse moved from an
+earlier major to 13.4.1, so some of the gap is method, not site.
+
+**Technical SEO: stable.** Fresh crawl is identical to the July interim (6 missing alts, 2
+missing H1s, 49 pages). Do NOT compare those to the Screaming Frog figures — different
+tool, not comparable (the Python crawler reported 22 missing alts three days *before* SF
+reported 0). The 37 "404s" are all `wp-content` asset URLs, not pages; the 6 alt gaps are
+screenshots on two noindex promo pages.
+
+**Rewrite shipped.** The case study now leads with three Google-scored figures a prospect
+can re-run against the live site in about thirty seconds — 100/100 SEO, 99/100 desktop
+performance, average position 25 → 21 — and the prose states that verifiability is the
+point. Owner asked to "empower it a little"; the framing was sharpened and the strongest
+true facts led with, but the unsourced figures were retired rather than restated. Full
+working: `~/Desktop/zahav-remeasure-2026-08-05.md` (kept out of this public repo).
+
+**Caught during the rewrite, worth keeping:** the first draft paired "1.0s load" with
+"down from 13.5s" — mixing a DESKTOP result with a MOBILE baseline. Both numbers were
+real and the sentence was still false. When a project has per-form-factor metrics, state
+the form factor on every one.
+
+Also a latent layout bug surfaced: `project-page__metric-value` renders at 44px with
+`overflow: visible` and only wraps at spaces, so a long UNBREAKABLE token overflows its
+tile (`100/100` bled 9px past a 169px narrow tile) while longer values *with* spaces
+("Website + LP") wrap fine. Fixed by ordering — the wide first tile takes the long token —
+not by touching CSS shared with seven other projects. Real fix if it recurs: shrink the
+value font when the token can't break.
