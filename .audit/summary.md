@@ -1044,3 +1044,21 @@ tile (`100/100` bled 9px past a 169px narrow tile) while longer values *with* sp
 ("Website + LP") wrap fine. Fixed by ordering — the wide first tile takes the long token —
 not by touching CSS shared with seven other projects. Real fix if it recurs: shrink the
 value font when the token can't break.
+
+### 3.3 CLOSED — status.switchcasestudio.com is live (2026-08-06)
+Owner added the A record; the rest completed on its own. Let's Encrypt issued at 04:37 UTC
+(valid to Nov 4, auto-renewing), page serves HTTPS 200 with a verified chain, and all three
+public monitors read 100% uptime. Published payload confirms `sendUrl: 0` on every monitor —
+names only, no URLs — and the two internal monitors stay off the public group list.
+
+Two diagnostic notes worth keeping:
+- **`dig` resolving while `curl` says "Could not resolve host" is a LOCAL macOS resolver
+  cache, not a DNS failure.** `dig` queries DNS directly; curl goes through
+  `getaddrinfo`/mDNSResponder, which caches the NXDOMAIN from any lookup made *before* the
+  record existed. Verify past it with `--resolve <host>:443:<ip>` rather than concluding the
+  record is broken — the cert was already issued and serving while curl still claimed the
+  host did not exist.
+- Traefik was restarted to force an immediate ACME retry instead of waiting on its backoff.
+  That is a shared production edge: the restart briefly drops in-flight connections for every
+  routed service, not just the new one. It is a ~2-5s self-healing blip, but it is not a
+  free action — prefer waiting for the natural retry unless there is a reason to hurry.

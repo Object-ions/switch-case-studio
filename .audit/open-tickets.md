@@ -88,14 +88,6 @@ data is in that private repo. This strengthens the Zahav case study; it is not o
 **3.5 is blocked on data that does not exist.** Both agents were asked directly for an hours-saved
 or response-time figure and both returned none. Do not invent one to fill the slot.
 
-## STATUS-1 — status.switchcasestudio.com needs a DNS A record (Moses)
-Uptime Kuma is deployed, provisioned and verified over the edge; the public page shows three
-customer-facing monitors by name only. The single outstanding step is a DNS A record for
-`status.switchcasestudio.com` → the VPS IP, at Namecheap (no wildcard exists). Traefik currently
-fails ACME with `NXDOMAIN looking up A for status.switchcasestudio.com` and will issue the
-certificate by itself once the record resolves. Admin credentials were handed to Moses in session,
-not written to the repo.
-
 ## SCS-1 — Add Scout to the projects page
 **Logged 2026-08-04 at Moses's request. Blocked on product details, not on build work.**
 
