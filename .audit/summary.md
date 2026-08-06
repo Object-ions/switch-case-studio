@@ -968,11 +968,10 @@ Full history swept, all 17 commits. **Zero credentials.** The application source
 `web/`) is completely clean.
 
 **The blockers are entirely in prose**, and they are real: `STATUS.md`/`DEPLOY.md`/`CHANGELOG.md`
-and the commit subjects carry a working map of the host — the UFW rule *including the bridge
-interface name*, the subnet, the hostname, `/docker/*` and `/root/*` paths, the location of the
-secrets file, and the co-tenant services on the same edge. One commit subject is literally
-"Include /root/secrets/master.env in the nightly backup". Publishing the existing repo publishes
-all of it.
+and the commit subjects carry a working map of the host — a firewall rule naming the internal
+bridge interface, the subnet, the machine's hostname, absolute host paths, the location of a
+consolidated secrets file — named outright in one commit SUBJECT — and the other services sharing
+the same edge. Publishing the existing repo publishes all of it.
 
 So the mechanism changed from what Moses approved ("full repo, MIT"): a public repo with a **fresh
 single-commit history containing the whole application**, with `Object-ions/studio` staying private
@@ -1084,3 +1083,23 @@ Rule reinforced: **publishing is one-way.** The pre-publish sweep was re-run aga
 tree immediately before `gh repo create`, not trusted from the earlier audit — the tree had been
 edited in between (genericised env example, rewritten README). Sweep the artifact you are
 actually about to publish, at the moment you publish it.
+
+### Session close 2026-08-06 — Phase 3 status
+**Shipped:** 3.3 status page (live, valid cert, 100% uptime), 3.6 n8n giveaway (blog post +
+download), 3.2 `/agents`, action-plan item A (Studio open-sourced as `scs-studio`, MIT), and the
+Zahav case-study re-measurement + rewrite.
+
+**Open and ticketed:** SEC-1 (host path leaked into this public repo — scrubbed forward, history
+decision outstanding), ZAHAV-1 (mobile speed / 323KB head), ZAHAV-2 (bookings + ROAS need source
+data), LINK-1 (point the site at the public repo), P3-1 (3.1 assistant, Scout playground, Zahav
+aggregates, 3.5 blocked on non-existent data), SCS-1 (Scout as a project tile).
+
+**Owner-side:** Kuma admin password rotated by Moses. Convention agreed for where credentials
+live — a secret a SERVICE reads at runtime goes in the server env file; a password a HUMAN types
+into a login form goes in the password manager only, never on the box. Keeps the backup blast
+radius small. Recovery for the status page admin is `npm run reset-password` in its container, so
+losing that password locks nobody out.
+
+**Worth a separate look:** whatever off-box backup destination holds the consolidated secrets
+file is effectively a copy of the studio's service credentials. Auditing who can reach that
+destination is its own task and was not done here.

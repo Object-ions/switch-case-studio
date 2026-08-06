@@ -60,6 +60,72 @@ coordinated bump: router + SSG together, then re-verify route count, asset hashe
 `__SCS_LANDING_PATHNAME__` entry-chunk marker, and hydration in a real browser on the
 production build.
 
+## SEC-1 — I leaked a host path into this PUBLIC repo, and it is in pushed history
+**Logged 2026-08-06. Fixed forward; the history decision is Moses's.**
+
+While writing up the Studio audit I quoted the offending commit subject *verbatim* into
+`CLAUDE.md` and `.audit/summary.md` — naming the absolute path of the VPS's consolidated
+secrets file — in the course of a rule that says not to publish exactly that. Both files are
+tracked in this repo, which is public, and the commits were pushed before anyone noticed.
+
+**Scrubbed forward** (this commit): both files now describe the CLASS of disclosure
+("a consolidated secrets file, named outright in one commit SUBJECT") without the path. The
+same pass removed pre-existing container names and a loopback port from the SCS-1 ticket above.
+
+**Still exposed in git history.** Severity is low — it is a filename, not a credential, and it
+only has value to someone who already has root — but it is genuinely exposed and will stay so
+unless the history is rewritten. Options: (a) accept it, since the path is guessable and the
+disclosure enables nothing on its own; (b) `git filter-repo` + force-push, which rewrites shared
+history and may not remove what has already been mirrored or scraped. **Recommendation: (a),
+plus rotating the contents of that file if it has not been rotated recently** — rotation is the
+control that actually matters here, not the path's secrecy.
+
+**Rule that failed and needs to hold:** `.audit/**` and `CLAUDE.md` are PUBLIC. Anything
+VPS-specific — paths, container names, bridge/interface names, ports, hostnames, IPs — belongs in
+the gitignored private docs, never here. When writing up a security finding, describe the shape
+of the problem, never quote the artifact.
+
+## ZAHAV-1 — mobile speed: the remaining bottleneck is document weight
+**Logged 2026-08-06.**
+
+Re-measured 2026-08-05: desktop holds at 99 (LCP 1.0s, CLS 0) but mobile medians **69** against
+88 in July, LCP ~7.0s vs 3.4s. The July optimisation work is verifiably still in place — hero
+preload intact, the heavy addon stylesheet still removed, and **zero** render-blocking
+stylesheets in `<head>` (count with `<noscript>` fallbacks EXCLUDED; a naive count says 13 and
+is wrong).
+
+Remaining bottleneck is the document itself: a **323KB `<head>`** with 28 inline `<style>`
+blocks, ~127KB gzip. That only costs on PSI's throttled mobile test, which is exactly why
+desktop is untouched. Fixing it is the one thing standing between the case study and a
+defensible mobile claim; today the page deliberately claims desktop only.
+
+Measurement protocol is non-negotiable here and is recorded in the client workspace: warm the
+site in a real browser first, run PSI at least twice, and treat a single run as noise — three
+runs today spread 65/77/69. Also note Lighthouse moved to 13.4.1 since the July runs, so some of
+the gap may be scoring drift rather than the site.
+
+## ZAHAV-2 — bookings and ROAS need source data before they can be republished
+**Logged 2026-08-06. Owner action.**
+
+The case study previously published "↑28% appointment bookings" and "3.2× return on Meta ad
+spend". Neither has a source in the engagement workspace (which was SEO-only), so both were
+retired rather than restated. To put them back:
+- **Bookings:** appointment counts from the client's booking system for a period before the work
+  and the same-length period after. CSV or dashboard screenshot.
+- **ROAS:** Meta Ads Manager over the campaign dates, showing spend and conversion value.
+
+Both come from the client, not from anything the studio holds. The page is strong without them —
+three Google-verifiable scores beat five numbers where two invite a challenge — so this is
+optional, not blocking.
+
+## LINK-1 — point the site at the now-public Studio repo
+**Logged 2026-08-06. Small.**
+
+`scs-studio` is live and public (MIT). `/agents` already says the generation app Sage drives "is
+the one we are open-sourcing" — that sentence now has a URL to point at. Also worth a link from
+the Studio-related surfaces generally. Two-line data edit in `src/data/agents.json` plus whatever
+copy change reads naturally.
+
 ## P3-1 — Phase 3 remainder (site assistant, Scout playground, Zahav results)
 **Logged 2026-08-05. Three separate pieces of work, none of them small.**
 
@@ -94,8 +160,8 @@ or response-time figure and both returned none. Do not invent one to fill the sl
 Scout is a web-app service Moses plans to sell as a **monthly retainer** to clients. Details to
 come from him; nothing is written yet and nothing should be invented.
 
-What is already verifiable (checked on the VPS 2026-08-04): it runs today as three containers —
-`scout-web` (bound 127.0.0.1:3000), `scout-worker`, and `scout-db` (postgres:16-alpine).
+What is already verifiable (checked on the VPS 2026-08-04): it runs as a small set of containers —
+a web front end bound to loopback, a background worker, and its own Postgres.
 
 **CORRECTION 2026-08-05: Scout now HAS a public route.** `scout.switchcasestudio.com` resolves
 and is served by Traefik with a `scout-auth` basic-auth middleware — unauthenticated requests get
