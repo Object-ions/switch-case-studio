@@ -1,5 +1,107 @@
 [
   {
+    "slug": "core-web-vitals-and-performance-optimization",
+    "title": "Core Web Vitals and Performance Optimization",
+    "excerpt": "Understanding how Core Web Vitals impact your website's performance and user experience.",
+    "kicker": "Web Development",
+    "category": "Web Development",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-08-13",
+    "readingTime": "1 min read",
+    "coverImage": "",
+    "imageAlt": "",
+    "tags": [
+      "Performance",
+      "SEO"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "In the fast-paced digital landscape of 2026, website performance has evolved from a nice-to-have to a critical business necessity. With Google's Core Web Vitals becoming a significant ranking factor, understanding and optimizing these metrics isn't just about SEO—it's about delivering better user experiences that drive conversions."
+      },
+      {
+        "type": "heading",
+        "text": "What Are Core Web Vitals?"
+      },
+      {
+        "type": "paragraph",
+        "text": "Core Web Vitals represent Google's framework for measuring a webpage's user experience. They consist of three key metrics:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Largest Contentful Paint (LCP): Measures loading performance",
+          "First Input Delay (FID): Measures interactivity",
+          "Cumulative Layout Shift (CLS): Measures visual stability"
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Why Performance Matters"
+      },
+      {
+        "type": "paragraph",
+        "text": "Performance directly impacts user behavior. Studies consistently show that:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "A 1-second delay in page response can lead to a 7% reduction in conversions",
+          "Mobile users abandon sites that take more than 3 seconds to load",
+          "Every 100ms improvement in load time increases conversion rates by 1%"
+        ]
+      },
+      {
+        "type": "quote",
+        "text": "Performance isn't just about making things faster—it's about making things more usable.",
+        "cite": "Switch Case Studio"
+      },
+      {
+        "type": "heading",
+        "text": "Practical Optimization Strategies"
+      },
+      {
+        "type": "paragraph",
+        "text": "Optimizing for Core Web Vitals requires a strategic approach focused on user experience. Here are the most impactful techniques:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Implement lazy loading for images and third-party scripts",
+          "Minimize JavaScript and CSS bundles",
+          "Use modern image formats like WebP",
+          "Preload critical resources",
+          "Optimize font loading strategies",
+          "Implement proper caching mechanisms"
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "The Business Impact"
+      },
+      {
+        "type": "paragraph",
+        "text": "Beyond SEO rankings, performance improvements translate directly into business outcomes. Faster websites:"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Reduce bounce rates significantly",
+          "Increase user engagement and time on site",
+          "Improve conversion rates",
+          "Enhance mobile user satisfaction",
+          "Lower hosting costs through reduced server strain"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "For small businesses and service-oriented websites, performance optimization isn't an expense—it's an investment in customer experience that pays dividends through increased conversions and reduced support costs."
+      }
+    ]
+  },
+  {
     "slug": "ai-search-still-needs-a-real-website",
     "title": "AI Search Still Needs a Real Website",
     "excerpt": "Google's AI results changed the search page, but they did not replace the work. Small businesses still need clear pages, accurate profiles, and real proof that machines can read without making a mess.",
