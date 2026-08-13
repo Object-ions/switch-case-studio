@@ -1,5 +1,139 @@
 [
   {
+    "slug": "ai-search-still-needs-a-real-website",
+    "title": "AI Search Still Needs a Real Website",
+    "excerpt": "Google's AI results changed the search page, but they did not replace the work. Small businesses still need clear pages, accurate profiles, and real proof that machines can read without making a mess.",
+    "kicker": "SEO & Growth",
+    "category": "SEO & Growth",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-08-13",
+    "readingTime": "4 min read",
+    "coverImage": "",
+    "imageAlt": "",
+    "tags": [
+      "AI Search",
+      "SEO",
+      "Small Business"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "AI search has given small businesses a new kind of first impression: the summary before the click. A customer searches for a service, sees an AI-generated answer, and makes a judgment before they ever reach your homepage."
+      },
+      {
+        "type": "paragraph",
+        "text": "That sounds like a reason to chase a new acronym. AEO, GEO, answer optimization, citation optimization, the whole small parade. Most of it is just SEO wearing a louder jacket."
+      },
+      {
+        "type": "paragraph",
+        "text": "Google's own 2026 guidance is fairly plain: its generative search features still draw from the Search index and ranking systems. In other words, AI Overviews and AI Mode did not create a separate internet for small businesses. They raised the cost of having vague, stale, contradictory information scattered across the old one."
+      },
+      {
+        "type": "heading",
+        "text": "The problem is not only traffic"
+      },
+      {
+        "type": "paragraph",
+        "text": "The common panic is that AI answers will reduce clicks. That can happen, especially on simple informational searches. But for local and service businesses, the bigger issue is often interpretation. If your website says one thing, your Google Business Profile says another, your old service pages are thin, and your reviews describe a version of the business you no longer run, AI has plenty of material to summarize badly."
+      },
+      {
+        "type": "paragraph",
+        "text": "That is not a futuristic SEO problem. It is a credibility problem with a new interface."
+      },
+      {
+        "type": "quote",
+        "text": "AI search rewards businesses that are easy to understand, easy to verify, and hard to misquote.",
+        "cite": "Switch Case Studio"
+      },
+      {
+        "type": "heading",
+        "text": "What still matters"
+      },
+      {
+        "type": "paragraph",
+        "text": "The foundation has not changed much, which is mildly inconvenient for anyone selling secret AI search tricks. Your site still needs crawlable pages, clear structure, useful content, fast loading, sensible internal links, accurate titles, and real service information. Your business profile still needs correct categories, hours, contact details, service areas, photos, and review hygiene."
+      },
+      {
+        "type": "paragraph",
+        "text": "Google also says you do not need special AI markup or an llms.txt file to appear in its generative search experiences. Good. One less file for everyone to argue about in Slack."
+      },
+      {
+        "type": "paragraph",
+        "text": "Structured data can still help search engines understand your pages, but it is not a magic citation button. Treat schema like labeling a drawer. Useful when the contents are real. Pointless when the drawer is empty."
+      },
+      {
+        "type": "heading",
+        "text": "What changes for small businesses"
+      },
+      {
+        "type": "paragraph",
+        "text": "The work becomes less about writing one perfect keyword page and more about building a consistent public record. AI systems are good at synthesizing patterns. They are also good at confidently repeating messy patterns when a business gives them no cleaner option."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Your homepage should state what you do, who you serve, where you work, and what a next step looks like without making someone decode your tagline.",
+          "Your service pages should answer the questions a real buyer has before contacting you: scope, process, fit, timing, constraints, and what is not included.",
+          "Your Google Business Profile should match your website on name, category, service area, hours, phone, URL, and core offering.",
+          "Your reviews should be monitored, responded to, and understood as public evidence, not just stars.",
+          "Your about page should make the business feel real: location, ownership, point of view, and a reason to trust the people behind it."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "That list is not glamorous. It is also the work many small businesses skip while asking why search feels unpredictable."
+      },
+      {
+        "type": "heading",
+        "text": "The new SEO audit is an ambiguity audit"
+      },
+      {
+        "type": "paragraph",
+        "text": "A useful AI-era SEO audit starts with a blunt question: if a machine had to explain this business in four sentences, what would it get wrong?"
+      },
+      {
+        "type": "paragraph",
+        "text": "Look for contradictions first. Different service names across pages. Old locations. Dead offers. Case studies that imply a specialty you no longer want. Blog posts that answer questions for customers you no longer serve. Thin pages that say you are trusted without showing what trust is based on."
+      },
+      {
+        "type": "paragraph",
+        "text": "Then look for missing context. A medspa site that lists treatments but never explains candidacy. A contractor site that shows beautiful project photos but no service area. A consultant site with smart language and no proof that the person is available, reachable, or still in business."
+      },
+      {
+        "type": "paragraph",
+        "text": "Search engines have always had to infer meaning from incomplete websites. AI search just makes those inferences more visible."
+      },
+      {
+        "type": "heading",
+        "text": "A practical 30-minute check"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Search your business name, primary service, and city. Read the summaries, snippets, map pack, profile, and review themes as if you were a customer.",
+          "Compare your Google Business Profile against your homepage. Fix mismatched hours, categories, services, service areas, and phone numbers.",
+          "Open your top three service pages on mobile. If the first screen does not explain the offer and next step, rewrite before adding anything new.",
+          "Find one vague claim and replace it with specific proof: process, examples, credentials, constraints, or a clear explanation of how you work.",
+          "Check Search Console for queries and pages that bring impressions but weak clicks. That often points to pages that are visible but not persuasive."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "The takeaway"
+      },
+      {
+        "type": "paragraph",
+        "text": "AI search did not make your website irrelevant. It made your website part of a larger evidence layer. The businesses that do well will not be the ones stuffing pages with machine-friendly tricks. They will be the ones whose public information is clear enough for humans to trust and structured enough for software to understand."
+      },
+      {
+        "type": "paragraph",
+        "text": "That is still SEO. It is also brand work, content work, operations work, and basic digital housekeeping. Annoying, maybe. But useful work usually is."
+      }
+    ]
+  },
+  {
     "slug": "the-social-content-engine-we-run-has-no-ai-in-it",
     "title": "The Social Content Engine We Run Has No AI In It",
     "excerpt": "We are an AI studio, and the workflow that drafts our own social posts every week does not call a language model once. Here is why we built it that way — and the workflow itself, free to download.",
