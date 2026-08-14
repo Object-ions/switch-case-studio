@@ -1129,3 +1129,28 @@ read as a regression and cost an investigation).
 
 **SEC-1 follow-up:** scrubbed the last absolute host path from this file's header (a local
 `/Users/<name>/…` audit-file path published since Phase 1). Public-doc path sweep now returns clean.
+
+## Dependabot PR #11 merged, broke production, reverted — 2026-08-14
+
+**Timeline.** 18:23 PR #11 (`react-router-dom 6.30.4 → 7.0.0`) merged to `main` → deploy `23f2c07`
+**failed**. 18:25 Dependabot opened PR #12 (`→ 7.18.2`, the genuinely patched version) → its deploy
+`ca20bc7` **failed identically**. Two versions, one failure: the blocker is v7, not the version.
+
+**Failure mechanism** (reproduced locally, not inferred): Netlify's *Install dependencies* stage,
+`npm ci` exit 1 — `ERESOLVE`, `peerOptional react-router-dom@"^6.14.1" from vite-react-ssg@0.9.0`
+against the locked 7.0.0. Deeper cause behind it: v7's exports map is only `.` and `./package.json`,
+and `vite-react-ssg` imports `react-router-dom/server` for the whole static-rendering path.
+
+**Live site never went down.** A failed Netlify build keeps the last good deploy, so production
+froze at `0913bc1` (2026-08-13) and kept serving 200s. The cost was ~4h of no deploys, not an
+outage — but it is invisible from the front end, which is the dangerous part.
+
+**Fix.** Reverted `react-router-dom` to `^6.30.1`, regenerated the lockfile (router 6.30.4, nanoid
+3.3.18 fix retained). Verified: `npm ci` exit 0 (the exact gate that failed), 40 routes,
+`check:sameas` OK, and the entry chunk rebuilt as `app-CWVtVHOS.js` — **byte-identical to the
+pre-merge verified build**, so this is a proven restoration rather than merely a green build.
+
+**Recurrence blocked.** Added `.github/dependabot.yml` (the repo had none — that absence is why the
+impossible major kept being proposed). `open-pull-requests-limit: 0` preserves security-only
+behaviour; two `ignore` rules suppress react-router majors. Delete them when DEP-1's watch
+condition flips.

@@ -72,8 +72,29 @@ count note above.
 **Dependabot PR #11 is a trap — do not merge, and do not read it as "the fix is available".**
 It proposes `6.30.4 → 7.0.0`, which is *inside* the advisories' vulnerable range
 (`6.0.0 – 7.17.0`, fixed only in 7.17.1+). It would break the SSG peer contract and still be
-vulnerable. Dependabot targets the latest major, not the patched version. Leave the PR open as
-the standing nag, or close it — either way the merge is wrong until the watch condition flips.
+vulnerable. Dependabot targets the latest major, not the patched version.
+
+**PR #11 WAS MERGED 2026-08-14 18:23 UTC and broke production. Reverted in `3a946de`.**
+What actually happened, and the one correction to this ticket:
+- Both deploys failed — the merge (`23f2c07`) and Dependabot's immediate follow-up PR #12
+  (`ca20bc7`, `7.0.0 → 7.18.2`, i.e. the genuinely patched version). **Two different versions,
+  identical failure: the blocker is v7 itself, not the version chosen.** That is the strongest
+  evidence this ticket has.
+- **Correction:** this ticket predicted the failure lands during SSG page rendering (the
+  missing `react-router-dom/server` subpath). It actually lands EARLIER — Netlify's
+  *"Install dependencies"* stage, `npm ci` exiting 1 with `ERESOLVE`: `peerOptional
+  react-router-dom@"^6.14.1" from vite-react-ssg@0.9.0` vs the locked 7.0.0. The render-stage
+  failure is real but unreachable, because install never completes. Both are the same root
+  cause; only the tripwire differs. (The earlier test presumably installed with `--force` or
+  `--legacy-peer-deps`, which skips the peer gate and defers the failure to render.)
+- **Blast radius was small: the live site never went down.** A failed Netlify build keeps the
+  last good deploy, so production simply froze at `0913bc1` (2026-08-13) for ~4h — the cost was
+  "no new deploys", not an outage. Check `netlify api listSiteDeploys` before assuming worse.
+- **Recurrence is now blocked in `.github/dependabot.yml`** (created in the same fix; the repo
+  previously had no Dependabot config at all, which is why the impossible major kept being
+  proposed). Delete those ignore rules when the watch condition below flips.
+- Revert verified by same-environment asset-hash equality: entry chunk came back as
+  `app-CWVtVHOS.js`, byte-identical to the pre-merge verified build. Not merely "builds green".
 
 ## SEC-1 — I leaked a host path into this PUBLIC repo, and it is in pushed history
 **Logged 2026-08-06. Fixed forward; the history decision is Moses's.**

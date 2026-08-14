@@ -1,0 +1,40 @@
+# Dependabot config.
+#
+# Why this file exists: on 2026-08-14 Dependabot's PR #11 bumped react-router-dom
+# 6.30.4 -> 7.0.0 and broke production. It could never have worked, for two reasons
+# at once:
+#   1. vite-react-ssg@0.9.x declares `peerDependencies: react-router-dom ^6.14.1`,
+#      so `npm ci` dies with ERESOLVE at Netlify's *install* stage — the deploy
+#      never even reaches the build.
+#   2. react-router-dom v7 collapsed into a thin re-export whose exports map is only
+#      "." and "./package.json". vite-react-ssg imports `react-router-dom/server`
+#      (createStaticHandler / createStaticRouter / StaticRouterProvider — the entire
+#      static-rendering path), which no longer resolves.
+# Dependabot then opened PR #12 for 7.18.2 (the actually-patched version); its deploy
+# failed identically, confirming the blocker is v7 itself, not the version chosen.
+#
+# So the react-router advisories cannot be cleared by any bump until UPSTREAM moves.
+# The standing decision, evidence and one-command watch condition live in
+# `.audit/open-tickets.md` -> DEP-1. Re-check with:
+#   npm view vite-react-ssg peerDependencies.react-router-dom
+# When that accepts ^7, DELETE the two ignore rules below and do the coordinated
+# bump (router + SSG together).
+#
+# `open-pull-requests-limit: 0` keeps this repo's current behaviour — security
+# updates only, no routine version-bump PRs. The ignore rules still apply to
+# security updates, which is the whole point: they suppress the react-router major
+# that is guaranteed to break the deploy, and nothing else.
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 0
+    ignore:
+      # Blocked by vite-react-ssg's ^6.14.1 peer — see DEP-1. Remove when upstream ships v7 support.
+      - dependency-name: "react-router"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-router-dom"
+        update-types: ["version-update:semver-major"]
