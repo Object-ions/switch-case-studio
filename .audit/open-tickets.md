@@ -95,6 +95,17 @@ What actually happened, and the one correction to this ticket:
   proposed). Delete those ignore rules when the watch condition below flips.
 - Revert verified by same-environment asset-hash equality: entry chunk came back as
   `app-CWVtVHOS.js`, byte-identical to the pre-merge verified build. Not merely "builds green".
+- **The v7 pin made security STRICTLY WORSE, which is the most counter-intuitive part.** While
+  `main` sat at react-router 7.0.0, GitHub opened **11 new alerts (8 high, 3 medium)** — every
+  one `created=2026-08-14 / fixed=2026-08-14` with a vulnerable range starting at `>= 7.0.0`,
+  because 7.0.0 is ~a year behind and carries its own advisory set. The merge therefore traded
+  3 moderate advisories for 14 (8 of them HIGH) *and* broke the deploy. General law: **"upgrade
+  to fix a CVE" can raise your exposure if the target version is itself stale — compare the
+  advisory counts of BOTH versions, not just the fixed-range boundary of the one you're on.**
+- Verification trap seen here: the `git push` banner reported "15 vulnerabilities (10 high, 5
+  moderate)" while the alerts API showed 3 open. The banner is computed at push time and lagged
+  the rescan. Trust `gh api .../dependabot/alerts --jq 'select(.state=="open")'`, not the banner.
+- PR #12 closed 2026-08-14 with the full reasoning in its comment; no open PRs remain.
 
 ## SEC-1 — I leaked a host path into this PUBLIC repo, and it is in pushed history
 **Logged 2026-08-06. Fixed forward; the history decision is Moses's.**

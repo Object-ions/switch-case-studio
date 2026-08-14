@@ -1154,3 +1154,11 @@ pre-merge verified build**, so this is a proven restoration rather than merely a
 impossible major kept being proposed). `open-pull-requests-limit: 0` preserves security-only
 behaviour; two `ignore` rules suppress react-router majors. Delete them when DEP-1's watch
 condition flips.
+
+**Post-fix finding — the v7 pin made security strictly worse.** While `main` sat at react-router
+7.0.0, GitHub opened 11 new alerts (8 high, 3 medium), every one `created`/`fixed` 2026-08-14 with
+a vulnerable range starting `>= 7.0.0` — 7.0.0 is ~a year behind and carries its own advisory set.
+Net effect of PR #11: 3 moderate advisories traded for 14, 8 of them HIGH, plus a broken deploy.
+All 11 closed on the revert; 3 open remain (the documented DEP-1 set). Deploy `09a5992` is `ready`,
+live routes verified 200 with real SSG head tags (title/canonical/og, `data-rh`). PR #12 closed with
+the reasoning; no open PRs. Recurrence blocked by the new `.github/dependabot.yml`.
