@@ -1,7 +1,7 @@
 # Open tickets
 
 Live list. Close a ticket by deleting its block and logging the outcome in `summary.md`.
-Last reviewed: 2026-08-04.
+Last reviewed: 2026-08-14.
 
 ## GA-1 — CLOSED 2026-08-04 (outcome in summary.md)
 `generate_lead` starred. `email_click` / `phone_click` deliberately left unstarred by the owner:
@@ -59,6 +59,21 @@ this architecture doesn't have:
 coordinated bump: router + SSG together, then re-verify route count, asset hashes, the
 `__SCS_LANDING_PATHNAME__` entry-chunk marker, and hydration in a real browser on the
 production build.
+
+**Re-check 2026-08-14 — STILL BLOCKED, no action.** Watch condition returns `^6.14.1`;
+`vite-react-ssg` latest is still 0.9.2 (only dist-tag), so no v7 support has shipped.
+Re-confirmed the hydration reasoning against the actual build rather than assuming it:
+`__staticRouterHydrationData` IS emitted into all 40 pages, but `errors` is `null` in every
+one — the `deserializeErrors()` path exists yet receives nothing an attacker can influence.
+GitHub lists the same 3 open alerts (GHSA-337j-9hxr-rhxg, GHSA-wrjc-x8rr-h8h6 on
+`react-router`; GHSA-jjmj-jmhj-qwj2 on `react-router-dom`) — count unchanged, matching the
+count note above.
+
+**Dependabot PR #11 is a trap — do not merge, and do not read it as "the fix is available".**
+It proposes `6.30.4 → 7.0.0`, which is *inside* the advisories' vulnerable range
+(`6.0.0 – 7.17.0`, fixed only in 7.17.1+). It would break the SSG peer contract and still be
+vulnerable. Dependabot targets the latest major, not the patched version. Leave the PR open as
+the standing nag, or close it — either way the merge is wrong until the watch condition flips.
 
 ## SEC-1 — I leaked a host path into this PUBLIC repo, and it is in pushed history
 **Logged 2026-08-06. Fixed forward; the history decision is Moses's.**

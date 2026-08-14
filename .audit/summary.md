@@ -1,6 +1,6 @@
 # SCS Website Audit — Running Summary
 **Target:** switchcasestudio.com | **Deadline:** ~2026-06-01 (Matt James pitch)
-**Audit file:** `/Users/moses/Desktop/website-audit.txt`
+**Audit file:** the original discovery notes, kept locally outside this repo (path deliberately not published — see SEC-1)
 
 ---
 
@@ -1103,3 +1103,29 @@ losing that password locks nobody out.
 **Worth a separate look:** whatever off-box backup destination holds the consolidated secrets
 file is effectively a copy of the studio's service credentials. Auditing who can reach that
 destination is its own task and was not done here.
+
+## Repo + dependency health pass — 2026-08-14
+
+**Branch cleanup.** Deleted 6 merged branches (local + `origin` mirrors): `feat/ai-first-repositioning`,
+`fix/mobile-batch-{a,b,c,d,e}`. All were ancestors of `origin/main`; `git branch -d` (safe mode)
+succeeded on every one, which is git's own independent merge confirmation. SHAs recorded in the
+session log for recovery (`git branch <name> <sha>`, objects live ~90 days). Remaining remote branch
+is Dependabot's, left alone. `main` fast-forwarded 2 commits (blog posts 9 + 10).
+
+**nanoid HIGH — FIXED.** GHSA-2v37-7h3g-55p8 (`nanoid <3.3.18`, transitive via `vite → postcss`).
+Bumped 3.3.17 → 3.3.18: a 3-line lockfile diff, `package.json` untouched, no other package moved.
+Not shipped to the browser (build-time only), so exposure was build tooling, not visitors.
+Caveat learned: `npm audit fix --only=prod` PRUNES devDependencies from `node_modules` and the next
+build dies on a missing `@vitejs/plugin-react` with a trace that points at the Vite config, not the
+install — plain `npm install` restores it. Use bare `npm audit fix`.
+
+**react-router (3 moderate) — still accepted risk, see DEP-1.** Watch condition re-run, still
+`^6.14.1`. Dependabot PR #11 (`→ 7.0.0`) is inside the vulnerable range and must not be merged.
+
+**Build verified** on the final artifact: 40 routes emitted, `__SCS_LANDING_PATHNAME__` present in
+the entry chunk and absent from every lazy chunk, `check:sameas` OK (7 profiles). Route count
+re-baselined 37 → 40 in `CLAUDE.md` (`/agents` had shipped without bumping it, so the stale number
+read as a regression and cost an investigation).
+
+**SEC-1 follow-up:** scrubbed the last absolute host path from this file's header (a local
+`/Users/<name>/…` audit-file path published since Phase 1). Public-doc path sweep now returns clean.
