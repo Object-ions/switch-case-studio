@@ -1,5 +1,137 @@
 [
   {
+    "slug": "accessibility-overlays-are-not-a-strategy",
+    "title": "Accessibility Overlays Are Not a Strategy",
+    "excerpt": "Accessibility widgets can look like progress, but they do not replace accessible structure, content, forms, and testing. The better move is quieter: fix the site itself.",
+    "kicker": "Web Design",
+    "category": "Web Design",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-08-20",
+    "readingTime": "4 min read",
+    "coverImage": "",
+    "imageAlt": "",
+    "tags": [
+      "Accessibility",
+      "UX",
+      "Trust"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "There is a certain kind of website fix that feels satisfying because it is visible. Add the badge. Install the widget. Put a floating accessibility button in the corner. Now the site looks like someone handled it."
+      },
+      {
+        "type": "paragraph",
+        "text": "That is the problem. Accessibility is not a corner button. It is the actual experience of using the site when you navigate by keyboard, use a screen reader, zoom the page, miss a form field, rely on captions, need clear focus states, or simply read on a small phone in bad light."
+      },
+      {
+        "type": "paragraph",
+        "text": "For small businesses, the pitch is tempting: one script, fast setup, compliance language, no rebuild. But a website cannot be made trustworthy by decorating the surface while leaving the structure underneath messy. The same is true for accessibility."
+      },
+      {
+        "type": "heading",
+        "text": "The standard is not a widget"
+      },
+      {
+        "type": "paragraph",
+        "text": "The Web Content Accessibility Guidelines, currently WCAG 2.2 from W3C, describe testable ways to make web content more accessible. They cover things like text alternatives, keyboard access, contrast, labels, headings, error handling, focus order, target size, and predictable interaction."
+      },
+      {
+        "type": "paragraph",
+        "text": "Notice what that list has in common: most of it lives in the design, content, and code of the page. A script injected after the fact can sometimes add tools around the experience, but it cannot reliably rewrite the business logic, content model, markup, product decisions, and interaction design that created the barriers."
+      },
+      {
+        "type": "quote",
+        "text": "Accessibility is not a layer you add after launch. It is a quality of the thing you launched.",
+        "cite": "Switch Case Studio"
+      },
+      {
+        "type": "heading",
+        "text": "The FTC made the risk harder to ignore"
+      },
+      {
+        "type": "paragraph",
+        "text": "In 2025, the Federal Trade Commission announced an order requiring accessiBe to pay $1 million over allegations that it made deceptive claims about an AI accessibility product making websites compliant with accessibility guidelines. The practical lesson is not complicated: do not buy confidence from a banner claim."
+      },
+      {
+        "type": "paragraph",
+        "text": "That does not mean every accessibility tool is useless. Scanners, linters, contrast checkers, audits, and assistive testing workflows can be very useful. The difference is whether the tool helps a team find and fix problems, or whether it is sold as a substitute for doing the work."
+      },
+      {
+        "type": "heading",
+        "text": "What actually breaks for users"
+      },
+      {
+        "type": "paragraph",
+        "text": "The most common accessibility problems on small business websites are not exotic. They are ordinary design and build issues that compound until the site becomes hostile to anyone outside the ideal browsing scenario."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Navigation that cannot be used cleanly with a keyboard.",
+          "Buttons and links with vague labels like \"learn more\" repeated across the page.",
+          "Forms with missing labels, unclear errors, or required fields that are only marked by color.",
+          "Low-contrast text, especially in muted brand palettes and image-heavy hero sections.",
+          "Headings chosen for visual size instead of document structure.",
+          "Motion, popups, and sticky elements that interrupt the task instead of supporting it."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "These are not only compliance concerns. They are trust concerns. If someone cannot find the service area, read the pricing context, tab through the contact form, or understand what went wrong after submission, the site is losing qualified people quietly."
+      },
+      {
+        "type": "heading",
+        "text": "The better small-business approach"
+      },
+      {
+        "type": "paragraph",
+        "text": "A practical accessibility pass starts with the core paths: homepage, service pages, booking or contact flow, navigation, footer, and any page that carries a purchasing decision. Do not begin with a 90-page report that nobody will act on. Begin where customers actually move."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Use semantic HTML for headings, links, buttons, lists, forms, and landmarks.",
+          "Make every interactive element reachable and understandable by keyboard.",
+          "Write labels and calls to action that make sense out of context.",
+          "Check color contrast before the brand system becomes expensive to unwind.",
+          "Show form errors in text, near the field, with clear recovery steps.",
+          "Test on a phone, with zoom, with reduced motion, and with at least one screen reader workflow."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "This work is not glamorous, which is probably why it gets skipped. But it is exactly the kind of detail that makes a small business feel more legitimate. Good accessibility usually looks like less friction, clearer language, more predictable structure, and fewer clever surprises."
+      },
+      {
+        "type": "heading",
+        "text": "Where AI fits"
+      },
+      {
+        "type": "paragraph",
+        "text": "AI can help with accessibility work when it is treated as an assistant, not an authority. It can draft better alt text candidates for editorial review. It can flag likely missing labels. It can summarize audit findings. It can help turn a messy remediation list into tickets a developer can actually finish."
+      },
+      {
+        "type": "paragraph",
+        "text": "It should not be allowed to declare a site compliant on its own. Accessibility requires context, judgment, user testing, and boring verification. Boring verification is underrated. It has saved more businesses than any shiny badge ever has."
+      },
+      {
+        "type": "heading",
+        "text": "The simple test"
+      },
+      {
+        "type": "paragraph",
+        "text": "Before buying another widget, ask a better question: can a real person complete the most important task on this site without using a mouse, without perfect vision, without guessing what the design meant, and without fighting the interface?"
+      },
+      {
+        "type": "paragraph",
+        "text": "If the answer is no, the fix is not a floating button. The fix is better design, cleaner code, clearer content, and a team willing to test the thing people actually use."
+      }
+    ]
+  },
+  {
     "slug": "core-web-vitals-and-performance-optimization",
     "title": "Core Web Vitals and Performance Optimization",
     "excerpt": "Understanding how Core Web Vitals impact your website's performance and user experience.",
