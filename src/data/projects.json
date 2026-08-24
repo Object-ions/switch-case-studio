@@ -179,55 +179,66 @@
     "featured": true,
     "panelClass": "panel-hero",
     "coverTile": "/projects/prodani/prodani-cover-tile.webp",
-    "imageSrc": "/projects/prodani/1.avif",
-    "longWeb": "/projects/prodani/long.webp",
-    "imageAlt": "Prodani Miami Shopify homepage preview",
+    "imageSrc": "/projects/prodani/after-home.webp",
+    "longWeb": "/projects/prodani/long-v2.webp",
+    "imageAlt": "The rebuilt Prodani Miami homepage on the bespoke Dawn 16 theme",
+    "comparisonsLabel": "Before and after",
+    "comparisonsNote": "Both versions at the same 1150 × 1000 viewport, captured on the same afternoon. Old theme on the left, the rebuild on the right.",
+    "comparisons": [
+      { "src": "/projects/prodani/compare-home.webp", "caption": "Homepage", "note": "−74% weight · −54% largest contentful paint", "alt": "The Prodani Miami homepage before and after the rebuild, both at 1150 pixels wide" },
+      { "src": "/projects/prodani/compare-product.webp", "caption": "Product page", "note": "−84% layout shift · −68% DOM elements", "alt": "A Prodani Miami product page before and after the rebuild, both at 1150 pixels wide" },
+      { "src": "/projects/prodani/compare-baker.webp", "caption": "Meet Your Baker", "note": "−39% largest contentful paint · story lifted out of theme settings", "alt": "The Prodani Miami Meet Your Baker page before and after the rebuild, both at 1150 pixels wide" },
+      { "src": "/projects/prodani/compare-contact.webp", "caption": "Contact", "note": "Two fields became a real enquiry form, next to a map", "alt": "The Prodani Miami contact page before and after the rebuild, both at 1150 pixels wide" }
+    ],
     "backLabel": "Back to Projects",
     "title": "Prodani Miami",
     "subtitle": "High-Protein Dessert Brand, Miami, Florida",
     "outcome": "",
     "year": "",
     "metrics": [
-      { "value": "3 markets", "label": "retail expansion via trade show presence" },
-      { "value": "↑ 40%", "label": "average order value after site relaunch" }
+      { "value": "−74%", "label": "homepage weight — 6.95MB to 1.83MB" },
+      { "value": "−54%", "label": "largest contentful paint — 768ms to 352ms" },
+      { "value": "−84%", "label": "product page layout shift — 0.075 to 0.012" },
+      { "value": "−66%", "label": "server response across four pages — 151ms to 51ms" }
     ],
-    "description": "Switch Case Studio partnered with Prodani Miami to lead the brand, design, and marketing of a high-protein dessert company. As an ongoing project, we shaped the visual identity, rebuilt the Shopify e-commerce website, and built a cohesive system across digital, packaging, and in-person marketing, enabling the brand's expansion into trade shows and live events.",
-    "tileVersion": "High-protein dessert brand. We delivered brand direction, Shopify website design, packaging guidance, and trade show concepts.",
+    "description": "Prodani Miami sells high-protein desserts on Shopify. We rebuilt the storefront as a bespoke theme on Dawn 16, then measured it against the old one. Both versions went through the same instrument at the same viewport — five interleaved runs per page, cache disabled, headless Chrome driven over the DevTools protocol — so every figure here is measured, not estimated. The homepage lost three quarters of its weight, most of that a 5.6MB hero video re-encoded to 375KB. Alongside the rebuild we shaped the brand direction, packaging, and trade show presence.",
+    "tileVersion": "High-protein dessert brand. A bespoke Shopify theme on Dawn 16, measured against the old one: −74% homepage weight, −54% paint, −84% layout shift.",
     "services": [
       { "label": "#Brand Direction" },
-      { "label": "#Website Design & Development" },
-      { "label": "#Shopify Customization" },
+      { "label": "#Shopify Theme Development" },
+      { "label": "#Performance Engineering" },
+      { "label": "#Accessibility" },
       { "label": "#Content & Copy" },
       { "label": "#Packaging Direction" },
       { "label": "#Trade Show Design" }
     ],
     "highlights": [
       {
-        "title": "Brand Direction",
-        "summary": "Positioned Prodani as indulgent, premium, and nutrition-forward."
+        "title": "Bespoke Theme on Dawn 16",
+        "summary": "Rebuilt from scratch: new header, video hero, wave marquee, filterable collection, scroll-stacking stats deck, Meet Your Baker, reviews, and a real enquiry form."
       },
       {
-        "title": "Website Design & Development",
-        "summary": "Custom Shopify experience beyond standard themes."
+        "title": "Measured, Not Estimated",
+        "summary": "Five interleaved runs per page per version, cache disabled, at a pinned 1150 × 1000 viewport. Reported value is the median."
       },
       {
-        "title": "Hero Sections & Motion",
-        "summary": "Bold video-led storytelling to set the tone immediately."
+        "title": "The 5.6MB Hero Video",
+        "summary": "Served raw on the old theme. Re-encoded to 375KB — roughly three quarters of the homepage weight saving on its own."
       },
       {
-        "title": "Content & Copy",
-        "summary": "Clear brand narrative balancing taste and macros."
+        "title": "Fonts Brought In-House",
+        "summary": "Google Fonts was a blocking third-party request on every page. Three self-hosted woff2 files, 42KB total, replaced it."
       },
       {
-        "title": "Packaging Direction",
-        "summary": "Aligned packaging and labels with the digital brand."
+        "title": "Contrast Computed, Not Eyeballed",
+        "summary": "Every text and control pair checked against WCAG before it shipped. One h1 per page across all sixteen routes; alt text on every homepage image."
       },
       {
-        "title": "Trade Show Design",
-        "summary": "Full booth concept including banners, roll-ups, and displays."
+        "title": "What Got Worse, On Purpose",
+        "summary": "The homepage is 69% taller and the product page 5% heavier. Nine sections instead of four, and a gallery that shows the cake bigger."
       }
     ],
-    "result": "A cohesive brand system that translates seamlessly across website, packaging, and physical retail environments.",
+    "result": "89 checks, 0 failures — run read-only against the theme before publishing, and again against the live storefront afterwards. Every route renders, add-to-cart works end to end, every asset resolves. The four figures that moved the wrong way are published alongside the forty that didn't.",
     "kicker": "In depth on",
     "productName": "Our Work",
     "ctaLabel": "View Live",

@@ -278,6 +278,63 @@ $pp-tile-bg: rgba(255, 255, 255, 0.02);
     object-fit: contain;
   }
 
+  // ── Before/after band ────────────────────────────────
+  // Shares __diagram-frame with the architecture band: same reason (a
+  // side-by-side must be read, not cropped), so the frame scrolls sideways
+  // below a legible min-width instead of scaling the two panels down.
+  &__compare {
+    max-width: $pp-max;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 0;
+
+    @media (max-width: 960px) {
+      padding: 1rem 1.25rem 0;
+    }
+  }
+
+  &__compare-note {
+    margin: 0 0 1.25rem;
+    max-width: 62ch;
+    font-family: $font-text;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: $g5;
+  }
+
+  &__compare-item {
+    margin: 0 0 1.5rem;
+  }
+
+  &__compare-img {
+    display: block;
+    width: 100%;
+    // Two 1150px screenshots side by side. Below this the UI in each panel
+    // stops being legible — scroll the frame instead of shrinking them.
+    min-width: 900px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  &__compare-caption {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    align-items: baseline;
+    margin-top: 0.75rem;
+    font-family: $font-text;
+    font-size: 0.9rem;
+    line-height: 1.5;
+
+    strong {
+      font-weight: 600;
+      color: $g7;
+    }
+
+    span {
+      color: $g5;
+    }
+  }
+
   &__summary {
     max-width: $pp-max;
     margin: 0 auto;

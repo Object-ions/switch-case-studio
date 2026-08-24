@@ -1162,3 +1162,34 @@ Net effect of PR #11: 3 moderate advisories traded for 14, 8 of them HIGH, plus 
 All 11 closed on the revert; 3 open remain (the documented DEP-1 set). Deploy `09a5992` is `ready`,
 live routes verified 200 with real SSG head tags (title/canonical/og, `data-rh`). PR #12 closed with
 the reasoning; no open PRs. Recurrence blocked by the new `.github/dependabot.yml`.
+
+## Prodani Miami case study rebuilt from measured data — 2026-08-23
+
+The client's storefront relaunched on a bespoke Dawn 16 theme (launched 2026-08-23), with a full
+before/after measurement suite behind it. The site's `/projects/prodani-miami` entry was rewritten
+against that evidence.
+
+**Unsourced claims removed.** The live page had carried `↑ 40% average order value` and `3 markets`
+in `metrics[]` since launch — neither traceable to any source, and the engagement's own handoff
+forbids commercial-outcome claims outright. Replaced with the four instrumented figures (−74%
+homepage weight, −54% LCP, −84% product CLS, −66% server response), each measured as the median of
+five interleaved runs at a pinned 1150×1000 viewport, post-launch, against the live storefront.
+Rule fed back into CLAUDE.md: a case-study metric needs a traceable source; "it was already on the
+site" is not one.
+
+**New `comparisons[]` band in CaseStudyPage.** Four labelled before/after pairs (home, product,
+Meet Your Baker, contact), each in a contain-fit scroll frame — same law as `diagram`, because a
+labelled side-by-side must be read, not cover-cropped. Verified at a narrow viewport: frame scrolls
+(498 < 932), page does not. Order per owner: live view → overview/scope/results → result quote →
+comparisons.
+
+**Hero assets were showing the OLD site.** `imageSrc`/`longWeb` still pointed at June screenshots of
+the pre-rebuild design — a rebuild case study illustrated with the thing it replaced. Swapped for
+post-launch captures (`long-v2.webp` 288KB vs the old 715KB; net ~700KB lighter after deleting the
+two orphans). Copy rewritten: measurement method, the 5.6MB→375KB video, fonts in-house, computed
+WCAG contrast, and a "what got worse, on purpose" highlight. Result line: 89 checks, 0 failures.
+
+**Verified:** 41 routes (re-baselined in CLAUDE.md — 40→41; the accessibility-overlays post had
+shipped without the bump), entry-chunk marker present + absent from lazy chunks, meta description
+clamps to two whole sentences, old claims absent from built HTML. Handoff §9 respected: no
+per-product review claims; no imagery framing the client's footer-artwork typo.

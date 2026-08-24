@@ -144,6 +144,13 @@ const CaseStudyPage = () => {
     // crop a wide diagram into uselessness.
     diagram,
     diagramAlt,
+    // Optional before/after comparison band. Same law as `diagram` and for the
+    // same reason: a labelled side-by-side has to be READ, so it gets a
+    // contain-fit scroll frame, never a 4/3 cover tile that would crop the
+    // labels off. Absent → the whole section doesn't exist.
+    comparisons = [],
+    comparisonsLabel,
+    comparisonsNote,
     imageAlt,
     // ── Optional bento media. Each tile renders ONLY if its field exists. ──
     mediaMobile,
@@ -535,6 +542,49 @@ const CaseStudyPage = () => {
           </section>
         )}
 
+        {/* ── Before/after band — last, after the reader has the context ──
+            Sits below the live view and the overview/scope/results so the
+            comparison lands on someone who already knows what changed and why.
+            One contain-fit frame per comparison: below ~$pp-max each frame
+            scrolls sideways at a legible min-width rather than shrinking a
+            side-by-side into two unreadable thumbnails. */}
+        {comparisons.length > 0 && (
+          <section
+            className="project-page__compare reveal"
+            aria-label={comparisonsLabel || 'Before and after'}
+          >
+            <h2 className="project-page__section-label">
+              {comparisonsLabel || 'Before and after'}
+            </h2>
+            {comparisonsNote && (
+              <p className="project-page__compare-note">{comparisonsNote}</p>
+            )}
+            {comparisons.map((cmp) => (
+              <figure className="project-page__compare-item" key={cmp.src}>
+                <button
+                  type="button"
+                  className="project-page__diagram-frame"
+                  onClick={() => setZoomSrc(cmp.src)}
+                  aria-label={`Zoom into ${cmp.alt || cmp.caption}`}
+                >
+                  <img
+                    src={cmp.src}
+                    alt={cmp.alt || `${title} — ${cmp.caption}, before and after`}
+                    className="project-page__compare-img"
+                    loading="lazy"
+                  />
+                </button>
+                {(cmp.caption || cmp.note) && (
+                  <figcaption className="project-page__compare-caption">
+                    {cmp.caption && <strong>{cmp.caption}</strong>}
+                    {cmp.note && <span>{cmp.note}</span>}
+                  </figcaption>
+                )}
+              </figure>
+            ))}
+          </section>
+        )}
+
         {/* ── Media gallery bento ── */}
         {galleryTiles.length > 0 && (
           <section
@@ -555,7 +605,9 @@ const CaseStudyPage = () => {
             alt={
               zoomSrc === diagram
                 ? diagramAlt || `${title} — architecture diagram`
-                : imageAlt || title
+                : comparisons.find((c) => c.src === zoomSrc)?.alt ||
+                  imageAlt ||
+                  title
             }
             open={!!zoomSrc}
             onClose={() => setZoomSrc(null)}
