@@ -1193,3 +1193,60 @@ WCAG contrast, and a "what got worse, on purpose" highlight. Result line: 89 che
 shipped without the bump), entry-chunk marker present + absent from lazy chunks, meta description
 clamps to two whole sentences, old claims absent from built HTML. Handoff §9 respected: no
 per-product review claims; no imagery framing the client's footer-artwork typo.
+
+## Florida Green Improvements case study published — 2026-08-26
+
+New route `/projects/florida-green-improvements` (route count 41 → 42, re-baselined in CLAUDE.md).
+Licensed general contractor, North Miami Beach — fifteen WordPress pages rebuilt as ten statically
+generated Next.js 16 routes. Published **pre-launch**, per owner decision: the build is complete and
+staged behind `noindex`, awaiting DNS cutover, and the copy says so in the description and the
+result line rather than implying a live relaunch.
+
+**Every figure is measured, none estimated.** `metrics[]` and the comparison notes come only from
+the engagement's Lighthouse 12.8.2 summary (six runs, both form factors, same machine, 25 Aug):
+−94% homepage weight (29,834 → 1,839 KiB mobile), −70% homepage LCP (11.62s → 3.46s mobile),
+SEO 77 → 100 on every page, and 0 → 10 pages carrying structured data and analytics. No commercial
+figures — the DEP/Prodani rule holds: a `metrics[]` tile is a published claim about a client's
+business and needs a source you can point at. Server response time is excluded and said to be
+excluded, because a hosted site and a local server are not comparable. The "what got worse, on
+purpose" scope item publishes the three TBT regressions (94→106ms, 14→112ms, 14→94ms) rather than
+omitting them, and "what is not done" publishes the four open items including the still-missing
+Open Graph share image.
+
+**Assets captured first-hand, not reused from the engagement.** All before/after pairs re-captured
+by one script against both live origins — old WordPress at its production domain, the rebuild at its
+Netlify staging URL — at a pinned 1150×1000 desktop viewport and 390px mobile, consent banner
+dismissed, scroll reveals driven before capture. Independently reproduced the engagement's headline
+mobile finding: the old homepage reports a **435px document inside a 390px viewport**, the rebuild
+390px. The old kitchen page reproduced the same overflow at desktop (1350px document in a 1150px
+viewport). Five `comparisons[]` plates built in the prodani house style (BEFORE/AFTER pills, brand
+amber for AFTER, right-aligned capture meta); cover tile rendered as the client's own wordmark in
+Archivo 500 — the face the rebuilt site actually uses — white on black at 1034×1446 with its
+256/512 srcset siblings. Total new assets 1.2MB WebP.
+
+**Client-repo safety cleared before linking.** `Object-ions/florida-green-improvements` is public and
+linked as "View the code". Swept all 29 commits before linking: no `.env` ever committed, `internal/`
+(the audit workspace, Lighthouse runs, baseline crawl) gitignored and never tracked, and no
+credential pattern in any diff. This is build source, not an engagement workspace — the zahav-audit
+distinction holds. Scratch capture scripts written into the client repo during this work were
+deleted; `git status` clean afterwards.
+
+**Second project promoted to keep the grid even.** `.row-tiles` is a 2-column grid with no span
+rules, so 7 featured projects would orphan a half-width tile. `florida-energy-assistance` promoted
+to `featured` alongside the new entry — 8 tiles, 4 clean rows.
+
+**Verified:** 42 emitted HTML files; `/projects/florida-green-improvements.html` present; entry-chunk
+`__SCS_LANDING_PATHNAME__` marker present in `app-*.js` and absent from every lazy chunk; sitemap
+carries the new URL; meta description clamps to one whole sentence with no severed word; all nine
+referenced assets resolve inside `build/`; real-browser pass at 1440px and 390px — one `<h1>`, zero
+console errors, zero 4xx, no stranded `.reveal` at `opacity:0`, no page overflow at either width, and
+all five comparison frames scroll internally on mobile while the page does not.
+
+**Pre-existing defect found, NOT fixed (needs owner input).** Six projects carry an `imageSrc`
+pointing at a `1.avif` that has never existed in their asset folder: `jo-marketing-11`,
+`crimson-equities`, `sha-design-studio`, `jelly-belly-wiki`, `birth-of-venus`,
+`florida-energy-assistance`. The bento "Hero detail" tile is gated behind `useImagePreload`, so it
+silently renders nothing and the page looks perfect — but `<Seo image={publicImageSrc}>` still emits
+the dead path as an absolute `og:image`, so six case studies have been shipping a 404 social card.
+`florida-energy-assistance` is now featured on the home page with this defect live. Fix needs real
+hero images (or removal of the field); rule recorded in CLAUDE.md.

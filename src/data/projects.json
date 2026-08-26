@@ -1,5 +1,96 @@
 [
   {
+    "id": 8,
+    "slug": "florida-green-improvements",
+    "type": "Rebuild + SEO",
+    "badge": "Rebuild + SEO",
+    "featured": true,
+    "panelClass": "panel-hero",
+    "coverTile": "/projects/florida-green/florida-green-cover-tile.webp",
+    "imageSrc": "/projects/florida-green/after-home.webp",
+    "longWeb": "/projects/florida-green/long.webp",
+    "imageAlt": "The rebuilt Florida Green Improvements homepage — a centred headline on a glass panel over video of a modern South Florida house",
+    "comparisonsLabel": "Before and after",
+    "comparisonsNote": "The live WordPress site on the left, the rebuild on the right. Every desktop pair is captured at the same 1150 × 1000 viewport by the same script on the same day; the phone pair at 390 px.",
+    "comparisons": [
+      { "src": "/projects/florida-green/compare-home.webp", "caption": "Homepage", "note": "−94% weight · −70% largest contentful paint · Performance 59 → 90 on mobile", "alt": "The Florida Green Improvements homepage before and after the rebuild, both at 1150 pixels wide" },
+      { "src": "/projects/florida-green/compare-kitchen.webp", "caption": "Kitchen service page", "note": "−67% largest contentful paint · −61% weight · the old H1 read “kitchen” in lower case", "alt": "The Florida Green Improvements kitchen page before and after the rebuild, both at 1150 pixels wide" },
+      { "src": "/projects/florida-green/compare-contact.webp", "caption": "Contact", "note": "−48% largest contentful paint · −55% weight · accessibility 87 → 100", "alt": "The Florida Green Improvements contact page before and after the rebuild, both at 1150 pixels wide" },
+      { "src": "/projects/florida-green/compare-about.webp", "caption": "About", "note": "Licence, 5.0 rating and service area now machine-readable, not only text a human can read", "alt": "The Florida Green Improvements about page before and after the rebuild, both at 1150 pixels wide" },
+      { "src": "/projects/florida-green/compare-mobile.webp", "caption": "Homepage on a phone", "note": "The old page reports a 435 px document inside a 390 px viewport — it does not fit the phone it is read on. The rebuild reports 390 px.", "alt": "The Florida Green Improvements homepage before and after the rebuild, both captured at a 390 pixel phone viewport" }
+    ],
+    "backLabel": "Back to Projects",
+    "title": "Florida Green Improvements",
+    "subtitle": "Licensed General Contractor · CGC1529180 · North Miami Beach, Florida",
+    "outcome": "",
+    "year": "2026",
+    "metrics": [
+      { "value": "−94%", "label": "homepage weight on mobile — 29,834 KiB to 1,839 KiB" },
+      { "value": "−70%", "label": "homepage largest contentful paint on mobile — 11.62s to 3.46s" },
+      { "value": "77 → 100", "label": "Lighthouse SEO, every page, both form factors" },
+      { "value": "0 → 10", "label": "pages carrying structured data — and pages carrying analytics" }
+    ],
+    "description": "A licensed Florida contractor's WordPress site rebuilt as ten static Next.js routes: 94% less homepage weight, 70% faster mobile paint, SEO 77 to 100. Florida Green Improvements has a 5.0 rating from 44 Google reviews and had a site that told Google none of it. We opened with a crawl rather than an opinion: fifteen pages parsed, all 86 images HEAD-requested for their true byte weight, Lighthouse run on both form factors. It found four systemic zeroes — not one page carried a meta description, structured data, a social share image, or any analytics at all. The homepage carried a 29MB payload, an 11.6-second mobile paint, and rendered 435px wide inside a 390px phone. The rebuild is those fifteen pages as ten statically generated Next.js 16 routes, with the whole business — phone, address, licence, rating, hours and the service catalogue — held in one TypeScript file that navigation, routing, the sitemap, the JSON-LD and the contact form all read from. The build is complete and staged behind noindex awaiting DNS cutover; every after-figure here was measured on the production build against the live old site, by the same tool on the same machine on the same day.",
+    "tileVersion": "Licensed Florida general contractor. Fifteen WordPress pages rebuilt as ten static Next.js routes: −94% homepage weight, −70% mobile paint, SEO 77 → 100.",
+    "services": [
+      { "label": "#Technical SEO Audit" },
+      { "label": "#Design Direction" },
+      { "label": "#Next.js Build" },
+      { "label": "#Performance Engineering" },
+      { "label": "#Structured Data" },
+      { "label": "#Accessibility" },
+      { "label": "#Analytics & Consent" },
+      { "label": "#Content & Copy" },
+      { "label": "#Art Direction" }
+    ],
+    "highlights": [
+      {
+        "title": "Measured Before, Measured After, Same Tools",
+        "summary": "Every figure comes from two Lighthouse 12.8.2 runs on the same machine on the same day — the live WordPress site, and the production build of the rebuild. Server response time is excluded from every table, because it is not comparable between a hosted site and a local server. The baseline crawl is kept on disk with the raw HTML of all fifteen original pages, since once DNS cuts over none of it is recoverable."
+      },
+      {
+        "title": "The Four Zeroes",
+        "summary": "Meta descriptions, structured data, social share images and analytics were absent from all fifteen pages. Three are now on all ten: a written description per page, a JSON-LD graph carrying GeneralContractor, AggregateRating, OfferCatalog, seven Service nodes, FAQPage, opening hours, geo-coordinates and the contractor licence as a credential — and a consent-gated measurement layer. The fourth is still open, and is published as such."
+      },
+      {
+        "title": "Consent Before Measurement",
+        "summary": "GA4 loads under Consent Mode v2 with analytics_storage set to denied before gtag executes, so nothing is written to a visitor's machine ahead of their decision. Clarity is not loaded at all until consent is granted — it sets three third-party cookies the moment it runs. Both load after interaction, so the measurement layer costs nothing against the metric it exists to measure."
+      },
+      {
+        "title": "Five Services Retired, None of Their Rankings Thrown Away",
+        "summary": "Roofing, air conditioning and solar were dead scope. Hurricane Protection and Landscape were scope that moved, so each redirects to the page that absorbed it — Impact Windows & Doors now carries the storm, utility-bill and noise copy verbatim. A 301 into a list throws away the intent that earned the ranking."
+      },
+      {
+        "title": "The Misspelling That Cost a Keyword",
+        "summary": "“Artaficial Turf” was wrong in the URL, the page title and the H1 — the three places that matter most for ranking — and correct everywhere in the body copy. Nobody searches for it, so the page was invisible for its own primary keyword. Renamed, with the client's original misspelled path deliberately preserved in the redirect map, because it is the thing being redirected from."
+      },
+      {
+        "title": "A Hero Built, Not Filtered",
+        "summary": "The first homepage loop was an ffmpeg zoompan over one still. The client's verdict — “a shaking image, not a real video” — was accurate, so it was rebuilt in Remotion as a three-shot sequence with a distinct camera move per shot, from three photographs already licensed. It is seamless by construction: every animated value is a function of circular distance from a fixed frame, so all of them share one period. Measured seam, 2.29 of 255."
+      },
+      {
+        "title": "Photography as a Licensing Decision",
+        "summary": "The client asked for imported high-end imagery rather than his own site photographs. Every frame is licensed and recorded in a credits file with photographer, profile, source dimensions and the crop applied, and is used as atmosphere only — never captioned or implied to be completed client work. Eighty-six legacy JPEG and PNG files became twenty-five WebP."
+      },
+      {
+        "title": "What Got Worse, On Purpose",
+        "summary": "Mobile total blocking time rose — 94ms to 106ms on the homepage, 14ms to 112ms on contact, 14ms to 94ms on the kitchen page. The old site was mostly static markup; the new one hydrates, reveals on scroll, runs a paginated image stage on contact and carries a consent layer. All three stay inside Google's 200ms threshold, and we took that cost knowingly rather than ship a page that cannot measure its own visitors. The homepage is also roughly twice the scroll depth it was — 94% lighter while being taller."
+      },
+      {
+        "title": "What Is Not Done",
+        "summary": "The share image is declared but not supplied, so a link pasted into WhatsApp still renders a blank card — the next thing to ship. Privacy policy and terms are the client's to write, and are a prerequisite for running ads and for lawfully collecting data through the contact form. The old finance page's specific claims are off the new site until they come back in writing. A second domain is live and competing for the same terms; the client is locked out of it."
+      }
+    ],
+    "result": "Fifteen pages became ten, four systemic zeroes became one, and every figure here was measured on the same machine on the same day by the same tool — including the three that moved the wrong way. Build complete and staged behind noindex; indexing flips on at DNS cutover.",
+    "kicker": "In depth on",
+    "productName": "Our Work",
+    "ctaLabel": "View Live",
+    "ctaUrl": "https://www.floridagreenimprovements.com",
+    "repos": [
+      { "label": "Source", "url": "https://github.com/Object-ions/florida-green-improvements" }
+    ]
+  },
+  {
     "id": 2,
     "slug": "jo-marketing-11",
     "featured": true,
@@ -437,6 +528,7 @@
     "slug": "florida-energy-assistance",
     "type": "Landing Page",
     "badge": "Landing Page",
+    "featured": true,
     "panelClass": "panel-card-3",
     "coverTile": "/projects/florida-energy-assistance/florida-energy-assistance-cover-tile.webp",
     "imageSrc": "/projects/florida-energy-assistance/1.avif",
