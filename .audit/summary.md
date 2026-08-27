@@ -1270,3 +1270,23 @@ all WebP); all 9 pages render a loaded Hero detail tile in a real browser at 144
 each, zero console errors, zero 4xx, no stranded `.reveal`, no page overflow; route count still 42.
 Rule recorded in CLAUDE.md: `imageSrc` resolving is necessary but not sufficient — it must also be a
 format scrapers decode.
+
+## Florida Green case study trimmed to house density — 2026-08-26
+
+Shipped too long. The Overview was 1,175 chars and `highlights[]` carried NINE scope items averaging
+439 chars — 5,404 chars of prose against 1,783 for the site's next-heaviest case study (prodani).
+Rendered, the summary block was 2,297px tall and read as a wall of grey in the bento's narrow left
+column. Owner's verdict on sight: "way too long and daunting."
+
+Cut against measured targets rather than by feel: description 1,175 → 564, nine scope items → six
+averaging 186, page prose 5,404 → 1,853 — in line with prodani's 1,783. Rendered summary block
+2,297px → **1,035px**, every scope item now 2–3 lines instead of 6–8.
+
+Dropped: the Remotion hero build, the photography-licensing decision, and the Consent Mode v2
+detail (already implied by the `0 → 10 pages carrying analytics` metric). All three remain in the
+client-facing case-study document; the site page is the trailer, not the film. Kept the two
+differentiators — "what got worse, on purpose" and "what is not done".
+
+**Verified:** meta description unchanged and still clamps to one whole sentence; desktop and mobile
+both — one `<h1>`, 6 scope items, 4 metrics, 5 comparisons, zero stranded reveals, no overflow, zero
+console errors, zero 4xx. Rule recorded in CLAUDE.md with the working numbers.
