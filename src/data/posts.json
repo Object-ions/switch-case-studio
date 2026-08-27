@@ -1,5 +1,166 @@
 [
   {
+    "slug": "pricing-pages-that-qualify-better-leads",
+    "title": "Pricing Pages That Qualify Better Leads",
+    "excerpt": "A useful pricing page does more than show numbers. For service businesses, it sets expectations, explains scope, reduces bad-fit inquiries, and makes serious buyers more comfortable reaching out.",
+    "kicker": "Web Design",
+    "category": "Web Design",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-08-27",
+    "readingTime": "5 min read",
+    "coverImage": "",
+    "imageAlt": "",
+    "tags": [
+      "Pricing",
+      "UX",
+      "Lead Quality"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "Most service businesses are nervous about pricing pages. The worry is understandable. Publish a number too low and people expect miracles. Publish a number too high and someone leaves before a conversation starts. Publish nothing and maybe the sales call can explain the nuance."
+      },
+      {
+        "type": "paragraph",
+        "text": "That last option feels safer than it is. When a buyer cannot find any pricing context, they still make a judgment. They assume it is expensive, unclear, improvised, or not worth the awkward email. Sometimes they leave. Sometimes they inquire anyway and waste everyone's time. Neither outcome is great."
+      },
+      {
+        "type": "paragraph",
+        "text": "A good pricing page is not a vending machine for complex services. It is a filter. It helps the right person understand the shape of the investment, the factors that change scope, and the kind of engagement the business is actually built to handle."
+      },
+      {
+        "type": "heading",
+        "text": "People want pricing before they want a sales call"
+      },
+      {
+        "type": "paragraph",
+        "text": "Nielsen Norman Group has been blunt about this for years: business customers look for pricing online, and they get frustrated when companies hide it. That guidance has aged well because the behavior underneath it has not changed. People still want to know whether something is remotely in range before they donate an afternoon to discovery."
+      },
+      {
+        "type": "paragraph",
+        "text": "This does not mean every service business needs fixed packages with checkout buttons. A custom website, brand system, remodel, legal engagement, or automation build may not have one universal price. Fine. But there is a large gap between exact pricing and no pricing. That gap is where useful pricing pages live."
+      },
+      {
+        "type": "quote",
+        "text": "A pricing page does not have to answer every question. It has to remove the obvious anxiety before the conversation starts.",
+        "cite": "Switch Case Studio"
+      },
+      {
+        "type": "heading",
+        "text": "Ranges are better than fog"
+      },
+      {
+        "type": "paragraph",
+        "text": "For many service businesses, a realistic range is more honest than a fake flat rate. It tells buyers what world they are entering without pretending all projects are identical. The trick is to pair the range with the reason behind it."
+      },
+      {
+        "type": "list",
+        "items": [
+          "What is usually included at the low end?",
+          "What pushes a project toward the higher end?",
+          "Which items are optional, recurring, or billed separately?",
+          "What kind of project is too small or too complex for the offer?",
+          "What does the buyer need to prepare before starting?"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "That context matters more than the number by itself. A $4,000 project can feel expensive if the page says nothing. A $12,000 project can feel reasonable if the buyer understands the process, deliverables, risks handled, and level of care involved."
+      },
+      {
+        "type": "heading",
+        "text": "Do not make the page a spreadsheet"
+      },
+      {
+        "type": "paragraph",
+        "text": "The common mistake is swinging from hidden pricing to pricing-page maximalism. Suddenly the page has six tiers, twenty-four checkmarks, footnotes, tooltips, add-ons, badges, and a highlighted plan chosen by someone in a meeting. It looks comprehensive. It reads like homework."
+      },
+      {
+        "type": "paragraph",
+        "text": "Service pricing needs hierarchy. Most visitors are trying to answer a few plain questions: is this for me, can I afford it, what do I get, what happens next, and can I trust these people? If the page makes those questions harder, the design is performing busyness instead of clarity."
+      },
+      {
+        "type": "paragraph",
+        "text": "A cleaner structure usually works better: a short positioning note, two or three common engagement types, starting ranges, scope drivers, a concise FAQ, and one primary next step. The page can still be detailed. It just needs to be ordered around how buyers decide."
+      },
+      {
+        "type": "heading",
+        "text": "Price is also positioning"
+      },
+      {
+        "type": "paragraph",
+        "text": "Pricing pages are not only conversion tools. They are brand tools. They tell people what kind of business they are dealing with. A polished page with clear ranges, calm copy, and specific boundaries says something different from a vague \"contact us for a quote\" page wrapped in luxury adjectives."
+      },
+      {
+        "type": "paragraph",
+        "text": "This is especially true for small studios, consultants, clinics, contractors, and local service businesses. Buyers are not only buying the deliverable. They are buying judgment. They want to know whether the business can explain its own process without making everything feel slippery."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Clear ranges signal confidence.",
+          "Scope factors signal experience.",
+          "Boundaries signal professionalism.",
+          "FAQs signal that the business has heard real buyer concerns before.",
+          "A plain next step signals that the inquiry will not disappear into a maze."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "The page should reduce bad-fit leads"
+      },
+      {
+        "type": "paragraph",
+        "text": "A pricing page that increases every form submission is not automatically better. More leads can be a tax if they are poorly matched. The better goal is fewer confused inquiries and more serious ones."
+      },
+      {
+        "type": "paragraph",
+        "text": "That means the page should say no politely. If a service starts at a certain budget, say so. If projects below a certain scope are better served by a template, referral, or maintenance plan, say so. If timelines depend on content, approvals, or third-party systems, explain that before the call."
+      },
+      {
+        "type": "paragraph",
+        "text": "This does not scare away good buyers. It reassures them. Serious buyers are not looking for the cheapest vague answer. They are looking for a business that can help them make a decision without wasting the first conversation on avoidable basics."
+      },
+      {
+        "type": "heading",
+        "text": "What to include"
+      },
+      {
+        "type": "paragraph",
+        "text": "A strong service pricing page does not need to be elaborate. It needs to be complete enough to be useful."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Starting ranges or package ranges for common engagements.",
+          "A plain explanation of what each range usually includes.",
+          "Scope drivers that change price, timeline, or complexity.",
+          "Examples of good-fit and bad-fit projects.",
+          "Answers to the pricing questions people ask on calls anyway.",
+          "A call to action that sets the expectation for the next step."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "The copy should sound like a person who has done the work, not a calculator trying to be charming. Avoid false urgency, fake scarcity, and clever plan names that hide the meaning. Nobody should have to decode a pricing tier called \"Ascend\" before learning whether it includes the thing they need."
+      },
+      {
+        "type": "heading",
+        "text": "The simple test"
+      },
+      {
+        "type": "paragraph",
+        "text": "Read the pricing page after the homepage and one service page. Can a qualified buyer understand whether the offer fits their situation, budget, and timeline? Can an unqualified buyer opt out without needing a call? Can the business explain why the price range exists?"
+      },
+      {
+        "type": "paragraph",
+        "text": "If the answer is no, the issue is not only pricing. It is trust. Pricing pages work when they turn uncertainty into useful context. That is the job. Not to make services feel cheap. To make the buying decision feel less murky."
+      }
+    ]
+  },
+  {
     "slug": "accessibility-overlays-are-not-a-strategy",
     "title": "Accessibility Overlays Are Not a Strategy",
     "excerpt": "Accessibility widgets can look like progress, but they do not replace accessible structure, content, forms, and testing. The better move is quieter: fix the site itself.",
