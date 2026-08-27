@@ -1242,11 +1242,31 @@ referenced assets resolve inside `build/`; real-browser pass at 1440px and 390px
 console errors, zero 4xx, no stranded `.reveal` at `opacity:0`, no page overflow at either width, and
 all five comparison frames scroll internally on mobile while the page does not.
 
-**Pre-existing defect found, NOT fixed (needs owner input).** Six projects carry an `imageSrc`
-pointing at a `1.avif` that has never existed in their asset folder: `jo-marketing-11`,
-`crimson-equities`, `sha-design-studio`, `jelly-belly-wiki`, `birth-of-venus`,
+**Pre-existing defect found and fixed — every case study had a broken social card.** Six projects
+carried an `imageSrc` pointing at a `1.avif` that had never existed in their asset folder:
+`jo-marketing-11`, `crimson-equities`, `sha-design-studio`, `jelly-belly-wiki`, `birth-of-venus`,
 `florida-energy-assistance`. The bento "Hero detail" tile is gated behind `useImagePreload`, so it
-silently renders nothing and the page looks perfect — but `<Seo image={publicImageSrc}>` still emits
-the dead path as an absolute `og:image`, so six case studies have been shipping a 404 social card.
-`florida-energy-assistance` is now featured on the home page with this defect live. Fix needs real
-hero images (or removal of the field); rule recorded in CLAUDE.md.
+silently rendered nothing and the page looked perfect — but `<Seo image={publicImageSrc}>` still
+emitted the dead path as an absolute `og:image`, so six case studies shipped a 404 social card for
+months. A seventh, `zahav-medspa`, was the same defect wearing a 200: its path resolved, but to a
+**1MB AVIF**, a format no major social scraper decodes (Facebook, X and LinkedIn all handle
+JPEG/PNG/WebP; none handle AVIF) — a blank card by another route, plus 1MB in every deploy.
+
+**Fixed by capture, not by guesswork.** All seven live sites screenshotted at the house 1150×1000
+desktop viewport by one script — consent banners and promo overlays dismissed, scroll reveals driven,
+then converted to WebP (46–151KB each). `imageSrc` repointed to a real `hero.webp` in each folder;
+`jelly-belly-wiki`'s `imageAlt` rewritten, because it described the Swagger docs while the image is
+the front end's homepage. The orphaned 1MB `zahav/1.avif` was proved dead (zero references in `src`,
+`scripts` or `public`) and deleted — `public/` ships everything in it, so an unreferenced megabyte
+there is a megabyte in every deploy.
+
+One capture was investigated rather than assumed: the Zahav hero renders a "New Client Special"
+panel with an × glyph that reads as a dismissible modal. A DOM probe showed it sits inside `<main>`
+at `position: relative`, with no popup/dialog class, no close control and no scroll lock — it is the
+site's actual hero section and the × is artwork. Captured as-is.
+
+**Verified after:** all 9 case-study `og:image` tags resolve inside `build/` (0 broken, 46–151KB,
+all WebP); all 9 pages render a loaded Hero detail tile in a real browser at 1440px — one `<h1>`
+each, zero console errors, zero 4xx, no stranded `.reveal`, no page overflow; route count still 42.
+Rule recorded in CLAUDE.md: `imageSrc` resolving is necessary but not sufficient — it must also be a
+format scrapers decode.
