@@ -10,9 +10,14 @@ $tile-radius-inner: $tile-radius - $tile-border-width;
 $tile-radius-mobile: 14px;
 $tile-radius-inner-mobile: $tile-radius-mobile - $tile-border-width;
 
-/* ── Grid ── */
+/* ── Grid ──
+   6-column base so the 8 featured tiles read 2 / 3 / 3: the first two tiles
+   span 3 columns (half-width hero row), every tile after spans 2 (thirds).
+   Spans are driven off nth-child, not a data field — `panelClass` looks like
+   it controls layout but is consumed by NO CSS anywhere (see CLAUDE.md).
+   Featured count must stay a multiple that fills these rows (currently 8). */
 .row-tiles {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   grid-auto-rows: auto;
   max-width: $max-width;
   position: relative;
@@ -20,6 +25,16 @@ $tile-radius-inner-mobile: $tile-radius-mobile - $tile-border-width;
   transition:
     filter 0.3s ease,
     opacity 0.3s ease;
+
+  > .tile,
+  > *:has(> .tile) {
+    grid-column: span 2;
+  }
+
+  // First row: two half-width tiles.
+  > :nth-child(-n + 2) {
+    grid-column: span 3;
+  }
 }
 
 /* ── Single tile ──
@@ -194,6 +209,12 @@ $tile-radius-inner-mobile: $tile-radius-mobile - $tile-border-width;
 @media (max-width: 1024px) {
   .row-tiles {
     grid-template-columns: repeat(2, 1fr);
+
+    > .tile,
+    > *:has(> .tile),
+    > :nth-child(-n + 2) {
+      grid-column: span 1;
+    }
   }
 }
 
@@ -239,6 +260,12 @@ $tile-radius-inner-mobile: $tile-radius-mobile - $tile-border-width;
   .row-tiles {
     grid-template-columns: 1fr;
     gap: 0.875rem;
+
+    > .tile,
+    > *:has(> .tile),
+    > :nth-child(-n + 2) {
+      grid-column: span 1;
+    }
   }
 
   .tile {
