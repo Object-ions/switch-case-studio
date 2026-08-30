@@ -31,9 +31,11 @@
 # preview sessions into production cross-domain measurement.
 [context.deploy-preview.environment]
   VITE_GA_MEASUREMENT_ID = ""
+  VITE_META_PIXEL_ID = ""
 
 [context.branch-deploy.environment]
   VITE_GA_MEASUREMENT_ID = ""
+  VITE_META_PIXEL_ID = ""
 
 # Security response headers, applied to every route.
 # All headers here are ENFORCED. The CSP blocks violating resources (not just
@@ -57,6 +59,13 @@
 # (__staticRouterHydrationData, __VITE_REACT_SSG_HASH__) whose content varies per
 # build/route — sha256 hashes break every build and static Netlify can't mint
 # nonces, so 'unsafe-inline' is the only viable allowance for these.
+# Meta Pixel (2026-08-29, load-on-consent — see src/analytics/metaPixel.js):
+# connect.facebook.net serves fbevents.js (script-src) and its config fetch
+# (connect-src); www.facebook.com receives the /tr hits, which travel as fetch/
+# beacon OR image pixel depending on context — so it's in BOTH connect-src and
+# img-src (the GA4 lesson: allowlist every transport variant, and remember a
+# "clean" pre-consent run proves nothing — the pixel only fires POST-consent,
+# so exercise Accept + a conversion when verifying this policy).
 [[headers]]
   for = "/*"
   [headers.values]
@@ -64,7 +73,7 @@
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net; font-src 'self'; connect-src 'self' blob: https://api.emailjs.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://stats.g.doubleclick.net https://www.googletagmanager.com; media-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src https://www.youtube-nocookie.com; frame-ancestors 'none'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.googletagmanager.com https://connect.facebook.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://www.facebook.com; font-src 'self'; connect-src 'self' blob: https://api.emailjs.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com; media-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src https://www.youtube-nocookie.com; frame-ancestors 'none'"
 
 # /partners ships a real (crawlable) static file, so enforce noindex at the
 # HTTP layer — authoritative for crawlers regardless of the HTML or whether JS

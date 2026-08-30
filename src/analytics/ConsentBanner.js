@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { analyticsEnabled, getStoredConsent, setConsent } from "./ga";
+import { pixelEnabled } from "./metaPixel";
 import "../styles/components/consentBanner.scss";
 
 /**
@@ -13,7 +14,10 @@ export default function ConsentBanner() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (analyticsEnabled && !getStoredConsent()) setVisible(true);
+    // Either tracker being configured warrants the banner — gating on GA alone
+    // would leave the Meta Pixel unable to ever receive consent if the GA ID
+    // were removed (the pixel is load-on-consent, so no banner = no pixel).
+    if ((analyticsEnabled || pixelEnabled) && !getStoredConsent()) setVisible(true);
   }, []);
 
   if (!visible) return null;
@@ -31,8 +35,9 @@ export default function ConsentBanner() {
       aria-live="polite"
     >
       <p className="consent-banner__text">
-        We use cookies to measure how visitors use this site. You can accept
-        analytics or decline — declining keeps tracking off.{" "}
+        We use cookies to measure how visitors use this site (Google Analytics)
+        and how our ads perform (Meta Pixel). Accept to allow both, or decline —
+        declining keeps all tracking off.{" "}
         <Link to="/privacy" className="consent-banner__link">
           Privacy Policy
         </Link>

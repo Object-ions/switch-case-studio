@@ -14,6 +14,13 @@
  * See GA4-SETUP.md for the Google-side setup that produces the Measurement ID.
  */
 
+import {
+  initMetaPixel,
+  trackPixelPageView,
+  trackPixelEvent,
+  revokePixel,
+} from "./metaPixel";
+
 export const GA_MEASUREMENT_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
 
 const FORCE_DEBUG = import.meta.env.VITE_GA_DEBUG === "true";
@@ -129,6 +136,14 @@ export function setConsent(granted) {
       path: window.location.pathname + window.location.search,
       title: document.title,
     });
+    // Same entry-page law for Meta: the pixel only loads now (load-on-consent),
+    // so fire the landing PageView it never saw. Queued in the fbq stub and
+    // replayed once fbevents.js lands — nothing is lost to the idle defer.
+    initMetaPixel();
+    trackPixelPageView();
+  }
+  if (!granted) {
+    revokePixel();
   }
 }
 
@@ -172,10 +187,15 @@ export function initInteractionTracking() {
 
     if (href.includes(BOOKING_URL_MATCH)) {
       trackEvent("book_call_click", shared);
+      // Meta STANDARD event names (Schedule/Contact) so ad optimisation can
+      // use them; no-ops until the pixel is consented+loaded.
+      trackPixelEvent("Schedule");
     } else if (href.startsWith("mailto:")) {
       trackEvent("email_click", shared);
+      trackPixelEvent("Contact");
     } else if (href.startsWith("tel:")) {
       trackEvent("phone_click", shared);
+      trackPixelEvent("Contact");
     } else if (anchor.hasAttribute("download")) {
       // Any downloadable asset (blog giveaways etc). Matched on the download
       // attribute rather than a path prefix so a future download anywhere on

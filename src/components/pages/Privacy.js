@@ -10,7 +10,7 @@ const Privacy = () => {
         path="/privacy"
       />
       <h1>Privacy Policy</h1>
-      <span className="last-updated">Last Updated: January 8, 2026</span>
+      <span className="last-updated">Last Updated: August 29, 2026</span>
 
       <p>
         Switch Case LLC, doing business as <strong>Switch Case Studio</strong>{' '}
@@ -37,14 +37,25 @@ const Privacy = () => {
         </li>
       </ul>
       <p>
-        <strong>Analytics:</strong> We use Google Analytics 4 to understand how
-        visitors use our site (for example, which pages are viewed and which
-        links are clicked) so we can improve it. This is governed by consent:
-        analytics are <strong>off by default</strong> and only run if you select
-        “Accept” in our cookie banner. If you decline, no analytics cookies are
-        set and tracking stays off. You can change your choice by clearing this
-        site’s data in your browser. We do not use advertising trackers or sell
-        any data.
+        <strong>Analytics & Advertising Measurement:</strong> With your consent,
+        we use two measurement tools. <strong>Google Analytics 4</strong> tells
+        us how visitors use our site (which pages are viewed, which links are
+        clicked) so we can improve it. The <strong>Meta Pixel</strong> (Facebook)
+        measures whether our ads on Meta platforms lead to visits and inquiries,
+        and may set the <code>_fbp</code> cookie; Meta processes this data under
+        its own{' '}
+        <a
+          href="https://www.facebook.com/privacy/policy/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          privacy policy
+        </a>
+        . Both are governed by one choice: tracking is{' '}
+        <strong>off by default</strong> and only runs if you select “Accept” in
+        our cookie banner. If you decline, no analytics or advertising cookies
+        are set — the Meta Pixel is not even loaded. You can change your choice
+        by clearing this site’s data in your browser. We do not sell any data.
       </p>
 
       <h2>2. How We Use Your Information</h2>

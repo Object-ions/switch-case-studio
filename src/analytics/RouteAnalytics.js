@@ -1,6 +1,12 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { initGA, trackPageView, initInteractionTracking } from "./ga";
+import {
+  initGA,
+  getStoredConsent,
+  trackPageView,
+  initInteractionTracking,
+} from "./ga";
+import { initMetaPixel, trackPixelPageView } from "./metaPixel";
 
 /**
  * Mount once inside the Router. Initialises GA4 + interaction tracking on first
@@ -21,6 +27,13 @@ export default function RouteAnalytics() {
     if (started.current) return;
     started.current = true;
     initGA();
+    // Meta Pixel cold start for RETURNING granted visitors. Lives HERE, not
+    // inside initGA: initGA bails when GA's ID is absent, and the pixel must
+    // not depend on GA being enabled (caught by the load-on-consent flow
+    // test — fbq never existed on a granted reload in a pixel-only build).
+    // First-time visitors get it in setConsent's grant transition; decliners
+    // never load it. initMetaPixel is idempotent and self-gates on its own ID.
+    if (getStoredConsent() === "granted") initMetaPixel();
     const cleanup = initInteractionTracking();
     return cleanup;
   }, []);
@@ -34,6 +47,9 @@ export default function RouteAnalytics() {
         path: location.pathname + location.search,
         title: document.title,
       });
+      // Meta Pixel mirrors the same one-view-per-route guard; no-ops until
+      // the visitor has consented (load-on-consent, see metaPixel.js).
+      trackPixelPageView();
     };
 
     const titleEl = document.querySelector("title");
