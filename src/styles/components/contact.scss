@@ -10,6 +10,11 @@
  * ================================================================== */
 
 .contact-section {
+  // position + overflow: the background video layer is absolutely positioned
+  // and cover-cropped; the section clips it. #000 stays as the base paint so
+  // the pre-IO-gate and reduced-motion states look identical minus motion.
+  position: relative;
+  overflow: hidden;
   width: 100%;
   background: #000;
   color: $white-color;
@@ -28,7 +33,35 @@
     padding: 8rem 3rem;
   }
 
+  /* ---------- Background video + scrim ----------
+   * Decorative layer under the form (z 0), black scrim above it (::after,
+   * z 1), all content in __inner above both (z 2). The scrim's 0.72 alpha
+   * keeps the white-on-black form text ≥4.5:1 even over the video's
+   * brightest orange regions — don't lower it without re-checking contrast.
+   */
+  &__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.72);
+    }
+  }
+
+  &__bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
   &__inner {
+    position: relative;
+    z-index: 2;
     // Site container token — was a hardcoded 1400px, 200px wider than every
     // other section (the CLAUDE.md $max-width rule; matches services__menu,
     // testimonials inner/cta, notFound, partners).

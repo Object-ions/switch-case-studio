@@ -4,6 +4,8 @@ import emailjs from '@emailjs/browser';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import bannerVideo from '../../assets/videos/switch-case-studio-banner.webm';
+import contactBgVideo from '../../assets/videos/contact-bg.mp4';
+import contactBgPoster from '../../assets/videos/contact-bg-poster.jpg';
 import BookCallCta from '../ui/BookCallCta';
 import { trackEvent } from '../../analytics/ga';
 import '../../styles/components/contact.scss';
@@ -39,6 +41,10 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
 
   const [agreed, setAgreed] = useState(false);
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
+  // Background video mounts only once the section nears the viewport — it's
+  // decorative, 2.7MB, and must never enter the initial load (MoonSlot law).
+  // false on server AND first client render, so hydration output matches.
+  const [bgOn, setBgOn] = useState(false);
   const [phoneError, setPhoneError] = useState('');
   const [consentError, setConsentError] = useState('');
 
@@ -169,6 +175,33 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
     }
   }, []);
 
+  /* ------------------------------------------------------------------ *
+   * IO-gate the section's background video: reduced-motion users never
+   * load it (the static black section stands, nothing can go invisible);
+   * everyone else fetches it only as the section approaches the viewport.
+   * ------------------------------------------------------------------ */
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return undefined;
+    }
+    const el = sectionRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setBgOn(true);
+      return undefined;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setBgOn(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: '200px' },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   // Only an in-flight send disables the button. Consent is enforced in
   // handleSubmit with a visible explanation — a permanently disabled-looking
   // primary button read as dead and suppressed attempts (DESIGN_AUDIT P0-3).
@@ -176,6 +209,25 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
 
   return (
     <section id="contact" ref={sectionRef} className="contact-section">
+      {/* Decorative background video + black scrim (readability). Renders
+          only after the IO gate opens; until then the section's #000
+          background is the identical fallback. */}
+      {bgOn && (
+        <div className="contact-section__bg" aria-hidden="true">
+          <video
+            className="contact-section__bg-video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            poster={contactBgPoster}
+            tabIndex={-1}
+          >
+            <source src={contactBgVideo} type="video/mp4" />
+          </video>
+        </div>
+      )}
       <div className="contact-section__inner">
         {/* Stacked flow (2026-07 pre-P1 tweak, Moses's on-device review):
             the FORM is the first thing a visitor sees; the contact-info block
