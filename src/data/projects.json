@@ -30,7 +30,7 @@
       { "value": "77 → 100", "label": "Lighthouse SEO, every page, both form factors" },
       { "value": "0 → 10", "label": "pages carrying structured data — and pages carrying analytics" }
     ],
-    "description": "A licensed Florida contractor's WordPress site rebuilt as ten static Next.js routes: 94% less homepage weight, 70% faster mobile paint, SEO 77 to 100. The crawl found four systemic zeroes — no page had a meta description, structured data, a share image or any analytics. The homepage carried 29MB, painted in 11.6 seconds, and rendered 435px wide inside a 390px phone. The rebuild holds the whole business in one TypeScript file that routing, the sitemap, the JSON-LD and the contact form all read from. Build complete, staged behind noindex, awaiting DNS cutover.",
+    "description": "A licensed Florida contractor's WordPress site rebuilt as ten static Next.js routes: 94% less homepage weight, 70% faster mobile paint, SEO 77 to 100. The crawl found four systemic zeroes — no page had a meta description, structured data, a share image or any analytics. The homepage carried 29MB, painted in 11.6 seconds, and rendered 435px wide inside a 390px phone. The rebuild holds the whole business in one TypeScript file that routing, the sitemap, the JSON-LD and the contact form all read from. Live since August 2026 — noindex lifted, all ten routes serving, share image shipped.",
     "tileVersion": "Licensed Florida general contractor. Fifteen WordPress pages rebuilt as ten static Next.js routes: −94% homepage weight, −70% mobile paint, SEO 77 → 100.",
     "services": [
       { "label": "#Technical SEO Audit" },
@@ -50,7 +50,7 @@
       },
       {
         "title": "The Four Zeroes",
-        "summary": "No page had a meta description, structured data, a share image or analytics. Three are fixed across all ten pages. The share image is still open, and published as open."
+        "summary": "No page had a meta description, structured data, a share image or analytics. All four are now fixed across all ten pages — the share image shipped with the launch."
       },
       {
         "title": "Rankings Carried, Not Dumped",
@@ -66,7 +66,7 @@
       },
       {
         "title": "What Is Not Done",
-        "summary": "The share image is declared but not supplied, so a pasted link still renders a blank card. Privacy policy, terms and a duplicate domain sit with the client."
+        "summary": "Privacy policy and terms still return 404 on the live site, and a duplicate domain sits with the client. The launch cleared the share image off this list."
       }
     ],
     "result": "Fifteen pages became ten, four systemic zeroes became one, and every figure was measured on the same machine on the same day — including the three that moved the wrong way.",
