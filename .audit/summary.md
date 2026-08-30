@@ -1309,3 +1309,32 @@ unauthenticated; Netlify deploys flowing (last 4 `ready`, newest = the reorder c
 **Standing, unchanged:** 3 moderate Dependabot alerts, all react-router — DEP-1 (`.audit/open-tickets.md`)
 still blocked: `vite-react-ssg` peer is still `^6.14.1` (re-checked this pass). No action; watch
 condition unchanged.
+
+## Shipped batch — 2026-08-29 (evening): hover swap, marquee derivation, FL Green launch, Meta Pixel
+
+Four features, each verified before push, all live:
+
+1. **Case-study tile hover inverted** (`8c2c029`): the tile now shows the client site's
+   long.webp ON the tile at hover (mounted on first hover — never eager, ~4MB across 8 tiles),
+   and the copy moved to a compact 300px floating text card (HoverPeek gained a `content` mode;
+   /projects' image peek untouched). Headless-verified: peek opacity 1, overlay/excerpt
+   suppressed, zero console errors.
+2. **Trusted-by marquee derived from projects.json** (`caa384d`): second offender of the
+   component-local-copy law — the hardcoded list had silently missed Florida Green for three
+   days. Now `featured`-filtered (keeps Birth of Venus out of "Trusted by"); verified in built
+   HTML (8 names × 2 track sets).
+3. **FL Green case study updated for launch** (`1e76ee2`): the client site went live — verified
+   the running artifact (index,follow; og.jpg 200 image/jpeg; /artaficial-turf 308s to the
+   corrected URL; 10 routes in live sitemap; privacy/terms still 404) and fixed the three
+   launch-dependent claims. 3-line diff.
+4. **Meta Pixel live end-to-end** (`cc300e6` + env): load-on-consent architecture (decliners
+   load zero Meta bytes), one banner governs GA+pixel, CSP extended, privacy policy rewritten
+   (the "no advertising trackers" claim is gone), previews blanked. Meta side driven by browser:
+   ad account 179749008 → "Switch Case Studio" portfolio (owner-confirmed, irreversible step),
+   dataset "Switch Case Studio Website" = pixel 1013127598442503, advanced matching OFF.
+   Receiver-side proof: `/tr?id=…&ev=PageView` → HTTP 200 from Meta. Full trap notes in
+   CLAUDE.md (headless UA suppression, ad-blocker vs CSP failure signatures).
+
+Also: route baseline 42→43 re-set (pricing post had shipped without the bump), stale
+`GA4-SETUP.md` pointer in ga.js corrected (file never existed in this repo — doc-rot rule).
+Standing: DEP-1 unchanged (3 moderate react-router alerts, watch condition still blocked).

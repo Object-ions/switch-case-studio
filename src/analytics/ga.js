@@ -11,7 +11,9 @@
  * build (or VITE_GA_DEBUG=true). This keeps local dev from polluting real
  * reports.
  *
- * See GA4-SETUP.md for the Google-side setup that produces the Measurement ID.
+ * The Google-side setup that produces the Measurement ID lives in the private
+ * ops notes (a GA4-SETUP.md was referenced here for years but never existed in
+ * this repo); the analytics rules that matter for code changes are in CLAUDE.md.
  */
 
 import {
