@@ -79,63 +79,6 @@
     ]
   },
   {
-    "id": 2,
-    "slug": "jo-marketing-11",
-    "featured": true,
-    "type": "Business Website",
-    "badge": "Business Website",
-    "panelClass": "panel-card-2",
-    "coverTile": "/projects/jo-marketing-11/jo-marketing-11-cover-tile.webp",
-    "imageSrc": "/projects/jo-marketing-11/hero.webp",
-    "longWeb": "/projects/jo-marketing-11/long.webp",
-    "imageAlt": "Jo Marketing 11 website homepage preview",
-    "backLabel": "Back to Projects",
-    "title": "Jo Marketing 11",
-    "subtitle": "Marketing Company Website",
-    "outcome": "",
-    "year": "2026",
-    "metrics": [
-      { "value": "< 2 weeks", "label": "design to live" },
-      { "value": "Website + LP", "label": "marketing site and campaign page delivered together" }
-    ],
-    "description": "A marketing website and landing page for a Florida-based contractor marketing company. The core job: turn a complicated lead-generation offer — stop paying for leads, start paying for appointments — into a page that contractors immediately understand and trust. We built the positioning, copy structure, and full front-end, then applied that same clear-offer architecture to their campaign landing pages.",
-    "tileVersion": "Branding, design, and development for a marketing company focused on helping contractors book better appointments.",
-    "services": [
-      { "label": "#Branding" },
-      { "label": "#Website Design" },
-      { "label": "#Frontend Development" },
-      { "label": "#Landing Page Design" },
-      { "label": "#Copy Structure" },
-      { "label": "#Responsive Design" }
-    ],
-    "highlights": [
-      {
-        "title": "Clear Positioning",
-        "summary": "Focused the message around one simple idea: stop paying for leads and start paying for meetings."
-      },
-      {
-        "title": "Modern Brand Feel",
-        "summary": "Created a clean visual direction with a bold hero section, soft motion, and a professional color palette."
-      },
-      {
-        "title": "Service Explanation",
-        "summary": "Structured the page so contractors can quickly understand the process, benefits, and common questions."
-      },
-      {
-        "title": "Lead-Focused Website",
-        "summary": "Designed the site around clear calls to action and an easy contact flow."
-      }
-    ],
-    "result": "A conversion-architected marketing site that gives Jo Marketing 11 a professional presence and makes their offer land with contractors who see it on an ad.",
-    "kicker": "In depth on",
-    "productName": "Our Work",
-    "ctaLabel": "View Live",
-    "ctaUrl": "https://jomarketing11.com/",
-    "repos": [
-      { "label": "Source", "url": "https://github.com/Object-ions/jo-marketing-11" }
-    ]
-  },
-  {
     "id": 3,
     "slug": "zahav-medspa",
     "type": "Business Website",
@@ -197,6 +140,63 @@
     "productName": "Our Work",
     "ctaLabel": "View Live",
     "ctaUrl": "https://zahavmedspa.com"
+  },
+  {
+    "id": 2,
+    "slug": "jo-marketing-11",
+    "featured": true,
+    "type": "Business Website",
+    "badge": "Business Website",
+    "panelClass": "panel-card-2",
+    "coverTile": "/projects/jo-marketing-11/jo-marketing-11-cover-tile.webp",
+    "imageSrc": "/projects/jo-marketing-11/hero.webp",
+    "longWeb": "/projects/jo-marketing-11/long.webp",
+    "imageAlt": "Jo Marketing 11 website homepage preview",
+    "backLabel": "Back to Projects",
+    "title": "Jo Marketing 11",
+    "subtitle": "Marketing Company Website",
+    "outcome": "",
+    "year": "2026",
+    "metrics": [
+      { "value": "< 2 weeks", "label": "design to live" },
+      { "value": "Website + LP", "label": "marketing site and campaign page delivered together" }
+    ],
+    "description": "A marketing website and landing page for a Florida-based contractor marketing company. The core job: turn a complicated lead-generation offer — stop paying for leads, start paying for appointments — into a page that contractors immediately understand and trust. We built the positioning, copy structure, and full front-end, then applied that same clear-offer architecture to their campaign landing pages.",
+    "tileVersion": "Branding, design, and development for a marketing company focused on helping contractors book better appointments.",
+    "services": [
+      { "label": "#Branding" },
+      { "label": "#Website Design" },
+      { "label": "#Frontend Development" },
+      { "label": "#Landing Page Design" },
+      { "label": "#Copy Structure" },
+      { "label": "#Responsive Design" }
+    ],
+    "highlights": [
+      {
+        "title": "Clear Positioning",
+        "summary": "Focused the message around one simple idea: stop paying for leads and start paying for meetings."
+      },
+      {
+        "title": "Modern Brand Feel",
+        "summary": "Created a clean visual direction with a bold hero section, soft motion, and a professional color palette."
+      },
+      {
+        "title": "Service Explanation",
+        "summary": "Structured the page so contractors can quickly understand the process, benefits, and common questions."
+      },
+      {
+        "title": "Lead-Focused Website",
+        "summary": "Designed the site around clear calls to action and an easy contact flow."
+      }
+    ],
+    "result": "A conversion-architected marketing site that gives Jo Marketing 11 a professional presence and makes their offer land with contractors who see it on an ad.",
+    "kicker": "In depth on",
+    "productName": "Our Work",
+    "ctaLabel": "View Live",
+    "ctaUrl": "https://jomarketing11.com/",
+    "repos": [
+      { "label": "Source", "url": "https://github.com/Object-ions/jo-marketing-11" }
+    ]
   },
   {
     "id": 4,
