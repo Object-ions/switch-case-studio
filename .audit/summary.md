@@ -1363,3 +1363,11 @@ Page (1222851924240748) already sits in the portfolio with two full-access users
 wizard's "no profiles available to add" meant nothing was LEFT to add, not that access was
 lacking. Lesson: that wizard message is ambiguous — check Settings → Pages before
 concluding a Page needs linking.
+
+## Ads-readiness: final state — 2026-08-29
+
+Owner decision: payment method (CC) will be added to ad account 179749008 when ready to run
+campaigns — deliberately deferred, not forgotten. Everything else in the ads chain is live and
+verified: pixel 1013127598442503 (consent-gated, events flowing), domain verified, SCS Facebook
+Page (1222851924240748) in the portfolio with full access. Adding the card is the single
+remaining step between here and a first campaign.
