@@ -1290,3 +1290,22 @@ differentiators — "what got worse, on purpose" and "what is not done".
 **Verified:** meta description unchanged and still clamps to one whole sentence; desktop and mobile
 both — one `<h1>`, 6 scope items, 4 metrics, 5 comparisons, zero stranded reveals, no overflow, zero
 console errors, zero 4xx. Rule recorded in CLAUDE.md with the working numbers.
+
+## Housekeeping sweep — 2026-08-29
+
+Full standing-check pass at HEAD `5825abd` (featured-projects reorder). Since the last entry:
+`chore/gitignore-agent-skills` merged via PR #13 and deleted (local + remote — only `main` remains),
+the 12th blog post shipped (`pricing-pages-that-qualify-better-leads` + sitemap), and the home grid
+order changed (jo-marketing-11 after zahav-medspa).
+
+**All green:** tree clean and in sync; `projects.json` assets — every `coverTile`/`imageSrc`/`longWeb`/
+`diagram`/`comparisons[].src` resolves against `public/`, all `imageSrc` in scraper-decodable formats,
+all `-256`/`-512` siblings present; `featured=8` (2+3n ✓); build passes; **route count 43** (baseline
+re-set in CLAUDE.md — the pricing post had shipped without the bump, same failure mode as `/agents`);
+`__SCS_LANDING_PATHNAME__` pinned in the entry chunk only; pricing post in the emitted sitemap;
+`check:sameas` OK (7 profiles); `security.txt` valid to 2027-06-17; all 8 `repos[]` links return 200
+unauthenticated; Netlify deploys flowing (last 4 `ready`, newest = the reorder commit).
+
+**Standing, unchanged:** 3 moderate Dependabot alerts, all react-router — DEP-1 (`.audit/open-tickets.md`)
+still blocked: `vite-react-ssg` peer is still `^6.14.1` (re-checked this pass). No action; watch
+condition unchanged.
