@@ -50,6 +50,21 @@
       inset: 0;
       background: rgba(0, 0, 0, 0.72);
     }
+
+    // Top "mast": solid black fading into the video, so the #000 section
+    // above blends in instead of ending on a hard edge. Sits above the
+    // scrim (z 2 > implicit) — at the very top it must resolve to full
+    // black, and scrim-over-gradient would cap it at 0.72.
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 12rem;
+      background: linear-gradient(to bottom, #000, rgba(0, 0, 0, 0));
+      z-index: 2;
+    }
   }
 
   &__bg-video {
@@ -299,6 +314,17 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  // Form card: 50% black over the video layer so the fields read as one
+  // contained form. The card + the section scrim (0.72) stack to ~0.86
+  // black behind the text — comfortably past 4.5:1 for every label tone.
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 1.75rem 1.5rem;
+
+  @media (min-width: 640px) {
+    padding: 2.5rem;
+  }
 
   // (__row--split removed 2026-07: the first/last-name pair it laid out was
   // merged into one Name field — DESIGN_AUDIT P0-3. No other usage existed.)
