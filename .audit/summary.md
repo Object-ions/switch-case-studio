@@ -1338,3 +1338,25 @@ Four features, each verified before push, all live:
 Also: route baseline 42→43 re-set (pricing post had shipped without the bump), stale
 `GA4-SETUP.md` pointer in ga.js corrected (file never existed in this repo — doc-rot rule).
 Standing: DEP-1 unchanged (3 moderate react-router alerts, watch condition still blocked).
+
+## Meta Pixel mission complete — 2026-08-29 (late): domain verified, conversions proven, ingestion confirmed
+
+Closing items on the pixel (see the shipped-batch entry above for the integration itself):
+- **Domain verified**: switchcasestudio.com added to the "Switch Case Studio" portfolio and
+  verified on first click via the `facebook-domain-verification` meta tag in index.html
+  (`4105325` — present in all 43 emitted routes; prerequisite for conversion campaigns).
+- **Conversion events proven live post-consent**: one headless pass clicked the booking CTA
+  and a mailto — `/tr` fired PageView, Schedule, Contact (+ Meta's automatic
+  SubscribedButtonClick), all accepted. Navigation suppressed bubble-phase so the
+  capture-phase analytics listener still ran — reusable trick for click-event testing.
+- **Receiver-side ingestion confirmed in Events Manager UI**: PageView row Active,
+  "Last received 1 hour ago" — the UI lags hits ~30–60 min; the dataset event table is
+  the signal, not the overview counter (which lags longer).
+- No clashes with the owner's contact-section commits (`07f8d64`, `953826c`) — disjoint
+  files; their IO-gated video implementation independently follows the MoonSlot law
+  (preload="none", reduced-motion skip, identical fallback). 2.7MB mp4 flagged for a
+  future web-friendly re-encode, owner's call to keep as-is for now.
+
+**Still owner's court to run ads**: link a Facebook Page to the portfolio (none attached —
+"no profiles available to add" until the page grants full control), payment method on ad
+account 179749008.
