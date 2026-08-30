@@ -28,8 +28,18 @@ const Tile = ({ proj, disabled, peekReady }) => {
     { disabled },
   );
 
+  // In-tile website preview (the tall long.webp). Mounted on FIRST hover, not
+  // at peekReady: eager-mounting all 8 would pull ~4MB of screenshots the
+  // moment the grid nears the viewport. `warm` keeps the same on-demand
+  // network profile the floating image peek had; `loaded` gates the fade so
+  // the cover never swaps to a half-painted screenshot.
+  const hasPeek = peekReady && !!proj.longWeb;
+  const [warm, setWarm] = useState(false);
+  const [peekLoaded, setPeekLoaded] = useState(false);
+
   const onEnter = () => {
     if (!tileRef.current) return;
+    if (hasPeek) setWarm(true);
     if (!disabled) startParticles();
 
     gsap.to(tileRef.current, {
@@ -65,7 +75,7 @@ const Tile = ({ proj, disabled, peekReady }) => {
     <Link
       ref={tileRef}
       to={`/projects/${proj.slug}`}
-      className={`panel ${proj.panelClass} tile has-media`}
+      className={`panel ${proj.panelClass} tile has-media${hasPeek ? ' has-peek' : ''}`}
       onClick={handleClick}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
@@ -86,6 +96,20 @@ const Tile = ({ proj, disabled, peekReady }) => {
           alt=""
           loading="lazy"
         />
+        {/* Website preview shown IN the tile on hover (the copy floats in the
+            HoverPeek text card instead — see below). Distinct class from
+            .tile-image on purpose: the entrance effect's load-refresh listener
+            targets .tile-image, and this absolutely-positioned overlay can
+            never shift layout. */}
+        {hasPeek && warm && (
+          <img
+            className={`tile-peek-image${peekLoaded ? ' is-loaded' : ''}`}
+            src={proj.longWeb}
+            alt=""
+            decoding="async"
+            onLoad={() => setPeekLoaded(true)}
+          />
+        )}
       </div>
 
       {/* Title — visually hidden on desktop (cover image is the title there);
@@ -106,23 +130,36 @@ const Tile = ({ proj, disabled, peekReady }) => {
     </Link>
   );
 
-  // Same screenshot peek the /projects grid uses. Radix's Trigger `asChild`
-  // clones the Link, so it composes with the GSAP hover handlers and the ref
-  // above rather than replacing them. `longWeb` is optional — HoverPeek
-  // returns the trigger untouched when there's no image, so a project without
-  // a screenshot simply has no peek.
+  // Inverse of the /projects grid's peek: there the FLOATING card is the
+  // screenshot; here the tile itself shows the screenshot on hover (see
+  // tile-peek-image above), so the floating card carries the COPY — title,
+  // excerpt, CTA — in a compact text box. Radix's Trigger `asChild` clones
+  // the Link, so it composes with the GSAP hover handlers and the ref above
+  // rather than replacing them.
   //
   // `peekReady` is false on the server AND on the first client render, so the
   // bare link is what hydrates — no environment-dependent output, no mismatch.
   // The Suspense fallback is that same bare link, so the tile is never absent
   // while the chunk loads.
-  if (!peekReady || !proj.longWeb) return link;
+  if (!hasPeek) return link;
 
   return (
     <Suspense fallback={link}>
       <HoverPeek
-        imageSrc={proj.longWeb}
-        alt={`${proj.title} — website preview`}
+        content={
+          <>
+            <p className="hover-peek__title">{proj.title}</p>
+            {proj.tileVersion && (
+              <p className="hover-peek__desc">{proj.tileVersion}</p>
+            )}
+            <b className="hover-peek__cta">
+              View Case Study{' '}
+              <span className="cta-arrow" aria-hidden="true">
+                →
+              </span>
+            </b>
+          </>
+        }
       >
         {link}
       </HoverPeek>

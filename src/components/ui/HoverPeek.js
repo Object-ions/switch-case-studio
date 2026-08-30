@@ -5,23 +5,27 @@ import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import '../../styles/components/hoverPeek.scss';
 
 /**
- * HoverPeek — floats a small screenshot preview above the hovered element.
+ * HoverPeek — floats a small card above the hovered element.
  *
  * Adapted from a Next.js/TS/Tailwind/framer-motion + Radix snippet to this
  * project's stack (motion/react, plain JS, SCSS). Trimmed to a clean peek:
  * the dynamic Microlink fetch, the magnifier lens, and the mouse-follow were
- * all dropped — it just shows a static image with a 3D flip-in. Reduced-motion
- * users get a plain fade instead of the flip.
+ * all dropped. Two modes: `imageSrc` shows a static screenshot (the /projects
+ * grid), `content` renders arbitrary text/markup (the home case-study tiles,
+ * where the tile itself shows the screenshot and the copy floats here).
+ * Reduced-motion users get a plain fade instead of the 3D flip-in.
  *
  * @param {React.ReactNode} children - the trigger (rendered as-is via asChild)
  * @param {string} imageSrc - the preview image (e.g. a project's long.webp)
+ * @param {React.ReactNode} content - text-card mode; wins over imageSrc
  * @param {string} alt
- * @param {number} width  - preview width in px
- * @param {number} height - preview height in px
+ * @param {number} width  - preview width in px (image mode only)
+ * @param {number} height - preview height in px (image mode only)
  */
 const HoverPeek = ({
   children,
   imageSrc,
+  content,
   alt = '',
   width = 320,
   height = 200,
@@ -56,8 +60,8 @@ const HoverPeek = ({
         exit: { opacity: 0, rotateY: 90, transition: { duration: 0.15 } },
       };
 
-  // No image → just render the trigger, no peek.
-  if (!imageSrc) return children;
+  // Nothing to peek → just render the trigger.
+  if (!imageSrc && !content) return children;
 
   return (
     <HoverCard.Root
@@ -83,7 +87,9 @@ const HoverPeek = ({
                 animate="animate"
                 exit="exit"
               >
-                {failed ? (
+                {content ? (
+                  <div className="hover-peek__text">{content}</div>
+                ) : failed ? (
                   <div
                     className="hover-peek__fallback"
                     style={{ width, height }}
