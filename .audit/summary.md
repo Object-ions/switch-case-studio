@@ -1357,6 +1357,9 @@ Closing items on the pixel (see the shipped-batch entry above for the integratio
   (preload="none", reduced-motion skip, identical fallback). 2.7MB mp4 flagged for a
   future web-friendly re-encode, owner's call to keep as-is for now.
 
-**Still owner's court to run ads**: link a Facebook Page to the portfolio (none attached —
-"no profiles available to add" until the page grants full control), payment method on ad
-account 179749008.
+**Still owner's court to run ads**: only a payment method on ad account 179749008.
+CORRECTION (same evening): the Facebook Page was NEVER missing — the "Switch Case Studio"
+Page (1222851924240748) already sits in the portfolio with two full-access users; the
+wizard's "no profiles available to add" meant nothing was LEFT to add, not that access was
+lacking. Lesson: that wizard message is ambiguous — check Settings → Pages before
+concluding a Page needs linking.
