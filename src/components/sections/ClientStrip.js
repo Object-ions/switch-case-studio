@@ -1,4 +1,5 @@
 import useReducedMotion from '../../hooks/useReducedMotion';
+import projects from '../../data/projects.json';
 import '../../styles/components/clientStrip.scss';
 
 /* ------------------------------------------------------------------ *
@@ -10,20 +11,28 @@ import '../../styles/components/clientStrip.scss';
  * as empty black squares on the #000 page. Client names as styled text
  * are honest proof and can't vanish.
  *
- * LOGO-READY: each entry may carry `logo` (path to a real wordmark
- * asset) + `logoAlt`. When `logo` is present it renders instead of the
- * text — upgrading to option A is a data edit, not a refactor. Before
- * adding a logo, verify its provenance/permission (CLAUDE.md rule).
+ * DERIVED from projects.json (2026-08-29) — same law as PRICING_LINKS/
+ * PROJECT_LINKS: a component-local copy WILL drift, and this one did
+ * (Florida Green shipped 2026-08-26 and never made it here). `featured`
+ * only, matching the home case-study grid: it keeps non-client work
+ * (Birth of Venus) out of a strip labelled "Trusted by". Adding a
+ * featured project updates the marquee automatically. The loop is
+ * count-agnostic (translateX(-50%) over a duplicated track), so length
+ * changes need no CSS edit.
+ *
+ * LOGO-READY: a project may carry `clientLogo` (path to a real wordmark
+ * asset) + `clientLogoAlt` in projects.json. When present it renders
+ * instead of the text — upgrading to option A is a data edit, not a
+ * refactor. Before adding a logo, verify its provenance/permission
+ * (CLAUDE.md rule).
  * ------------------------------------------------------------------ */
-const CLIENTS = [
-  { name: 'Zahav Medspa', logo: null },
-  { name: 'Crimson Equities', logo: null },
-  { name: 'Jo Marketing 11', logo: null },
-  { name: 'Prodani Miami', logo: null },
-  { name: 'Florida Energy Assistance', logo: null },
-  { name: 'Sha Design Studio', logo: null },
-  { name: 'Jelly Belly Wiki', logo: null },
-];
+const CLIENTS = projects
+  .filter((p) => p.featured)
+  .map((p) => ({
+    name: p.title,
+    logo: p.clientLogo || null,
+    logoAlt: p.clientLogoAlt,
+  }));
 
 /* One rendered cell — text wordmark now, image later when `logo` lands.
  * Each mark is followed by the brand's eight-point star (VE-2026-07
