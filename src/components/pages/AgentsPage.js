@@ -108,6 +108,16 @@ const AgentsPage = () => {
                   {agent.proof.label}
                 </span>
                 {agent.proof.text}
+                {agent.proof.url && (
+                  <a
+                    className="agents-page__proof-link"
+                    href={agent.proof.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {agent.proof.urlLabel || 'View the code'}
+                  </a>
+                )}
               </p>
             </div>
           ))}

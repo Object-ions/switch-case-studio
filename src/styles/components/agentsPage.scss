@@ -171,6 +171,17 @@
     color: rgba(255, 255, 255, 0.7);
   }
 
+  &__proof-link {
+    display: inline-block;
+    margin-left: 0.5rem;
+    font-weight: 600;
+    color: $orange-color;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+
+    &:hover { color: rgba(255, 255, 255, 0.9); }
+  }
+
   &__proof-label {
     display: block;
     font-size: 0.68rem;

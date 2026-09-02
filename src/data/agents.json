@@ -15,7 +15,9 @@
     ],
     "proof": {
       "label": "Verifiable",
-      "text": "The generation app Sage drives is the one we are open-sourcing — its cost table and spend cap are in the code, not in a promise."
+      "text": "The generation app Sage drives is open source — its cost table and spend cap are in the code, not in a promise.",
+      "url": "https://github.com/Object-ions/scs-studio",
+      "urlLabel": "Read the code"
     }
   },
   {
