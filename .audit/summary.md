@@ -1402,3 +1402,16 @@ description clamps at a word, one `<h1>`, no page overflow at desktop or mobile 
 `__SCS_LANDING_PATHNAME__` pinned in the entry chunk. Earlier the same day: `/agents` Sage
 proof linked to the public `scs-studio` repo (LINK-1 closed), and the react-router watch
 condition re-checked (still `^6.14.1`, DEP-1 unchanged).
+
+## Zahav gains its first conversion metric — 2026-09-02
+
+Owner approved publishing the booking-side aggregate (ZAHAV-2 partially closed): a fourth
+metric tile, `1 in 13 visits end in a book-appointment click (GA4, Jul–Aug 2026)` —
+133 booking clicks across 1,726 sessions, from the GA4 property's July-vs-August report in
+the engagement workspace. Deliberately worded as *clicks*, not appointments, and the page's
+"every figure is a Google score you can re-run" sentence was amended in the same edit so the
+verifiability claim stays true ("nearly every… the one that isn't comes from the site's own
+analytics and is labelled as such"). The +41% Aug traffic headline stays UNPUBLISHED on
+purpose: it is Direct-driven with engagement down 24% and a mobile→desktop device flip — the
+fingerprint of bot/internal traffic, indefensible under challenge. Route count 44, meta
+clamps clean.
