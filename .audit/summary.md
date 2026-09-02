@@ -1371,3 +1371,34 @@ campaigns — deliberately deferred, not forgotten. Everything else in the ads c
 verified: pixel 1013127598442503 (consent-gated, events flowing), domain verified, SCS Facebook
 Page (1222851924240748) in the portfolio with full access. Adding the card is the single
 remaining step between here and a first campaign.
+
+## Scout ships as the 9th case study + the grid learns remainders — 2026-09-02
+
+Three changes, one session, all verified on the built artifact:
+
+1. **The home case-study grid now accepts any featured count.** The `2 + 3n` constraint is
+   retired: `_projects-tiles.scss` restyles incomplete last rows via `:nth-last-child` math —
+   a lone trailing tile becomes a centered wide finale (`grid-column: 2/6`), a trailing pair
+   mirrors the half-width hero row. The remainder selectors are re-reset in BOTH breakpoints
+   (their specificity beats the plain span resets). Measured on the built home page: 532/532,
+   346×3, 346×3, then a centered 717px finale. CLAUDE.md rule rewritten.
+2. **Scout — the studio's commercial-real-estate scouting product — is live at
+   `/projects/scout`**, featured as that finale tile. Studio project, retainer model (no price
+   published, owner's call), metrics sourced from the running app the same day (6 sources ×
+   4 polls/day, 8 weighted scoring factors, 0–100 evidence-backed fit score, 10 pipeline
+   stages). House density respected: description 540 chars, 6 highlights averaging 147.
+   Art: wordmark cover tile (+256/512 siblings) and a 1150×1000 hero of the client listings
+   board with all addresses and city names blurred — client searches are confidential, and
+   the alt text says so. No `longWeb` yet (HoverPeek degrades safely); to be captured once
+   the app's guest access ships. No repo links: the product is closed source.
+3. **The "Trusted by" marquee now filters `featured && !studioProject`** — a strip claiming
+   client trust should not list our own products. Side effect: Jelly Belly Wiki left the
+   marquee too (it was there since the 2026-08-29 derivation). Built HTML verified: 7 client
+   names × 2 tracks.
+
+Also verified: route count **44** (baseline re-set in CLAUDE.md — Scout adds one), scout in
+the emitted sitemap, every `projects.json` asset resolves with `-256`/`-512` siblings, meta
+description clamps at a word, one `<h1>`, no page overflow at desktop or mobile widths,
+`__SCS_LANDING_PATHNAME__` pinned in the entry chunk. Earlier the same day: `/agents` Sage
+proof linked to the public `scs-studio` repo (LINK-1 closed), and the react-router watch
+condition re-checked (still `^6.14.1`, DEP-1 unchanged).

@@ -14,9 +14,10 @@ import '../../styles/components/clientStrip.scss';
  * DERIVED from projects.json (2026-08-29) — same law as PRICING_LINKS/
  * PROJECT_LINKS: a component-local copy WILL drift, and this one did
  * (Florida Green shipped 2026-08-26 and never made it here). `featured`
- * only, matching the home case-study grid: it keeps non-client work
- * (Birth of Venus) out of a strip labelled "Trusted by". Adding a
- * featured project updates the marquee automatically. The loop is
+ * AND not `studioProject`: a strip labelled "Trusted by" lists clients,
+ * not our own products (Scout, Jelly Belly Wiki) or non-client work
+ * (Birth of Venus). Adding a featured client updates the marquee
+ * automatically. The loop is
  * count-agnostic (translateX(-50%) over a duplicated track), so length
  * changes need no CSS edit.
  *
@@ -27,7 +28,7 @@ import '../../styles/components/clientStrip.scss';
  * (CLAUDE.md rule).
  * ------------------------------------------------------------------ */
 const CLIENTS = projects
-  .filter((p) => p.featured)
+  .filter((p) => p.featured && !p.studioProject)
   .map((p) => ({
     name: p.title,
     logo: p.clientLogo || null,

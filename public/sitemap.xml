@@ -2,27 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://switchcasestudio.com/</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-09-02</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://switchcasestudio.com/about</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-09-02</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://switchcasestudio.com/services</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-09-02</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://switchcasestudio.com/agents</loc>
-    <lastmod>2026-08-05</lastmod>
+    <lastmod>2026-09-02</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://switchcasestudio.com/projects</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -32,17 +32,17 @@
   </url>
   <url>
     <loc>https://switchcasestudio.com/testimonials</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-09-02</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://switchcasestudio.com/contact</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-09-02</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://switchcasestudio.com/blog</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-27</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -142,62 +142,67 @@
   </url>
   <url>
     <loc>https://switchcasestudio.com/projects/florida-green-improvements</loc>
-    <lastmod>2026-08-26</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://switchcasestudio.com/projects/jo-marketing-11</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://switchcasestudio.com/projects/zahav-medspa</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-29</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://switchcasestudio.com/projects/jo-marketing-11</loc>
+    <lastmod>2026-08-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://switchcasestudio.com/projects/crimson-equities</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://switchcasestudio.com/projects/prodani-miami</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://switchcasestudio.com/projects/sha-design-studio</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://switchcasestudio.com/projects/jelly-belly-wiki</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://switchcasestudio.com/projects/birth-of-venus</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://switchcasestudio.com/projects/florida-energy-assistance</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-08-29</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://switchcasestudio.com/projects/scout</loc>
+    <lastmod>2026-08-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://switchcasestudio.com/privacy</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-09-02</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://switchcasestudio.com/terms</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-09-02</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://switchcasestudio.com/accessibility</loc>
-    <lastmod>2026-08-26</lastmod>
+    <lastmod>2026-09-02</lastmod>
     <priority>0.3</priority>
   </url>
 </urlset>
