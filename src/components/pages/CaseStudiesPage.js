@@ -25,8 +25,8 @@ const CaseStudiesPage = () => {
   return (
     <>
       <Seo
-        title="Case Studies — Switch Case Studio"
-        description="Browse Switch Case Studio's portfolio — landing pages, websites, e-commerce stores, and apps built from scratch for clients across the US."
+        title="Case Studies | Switch Case Studio"
+        description="Browse Switch Case Studio's portfolio: landing pages, websites, e-commerce stores, and apps built from scratch for clients across the US."
         path="/projects"
       />
 
@@ -62,7 +62,7 @@ const CaseStudiesPage = () => {
             <HoverPeek
               key={project.slug}
               imageSrc={project.longWeb}
-              alt={`${project.title} — website preview`}
+              alt={`${project.title}: website preview`}
             >
             <MotionLink
               to={`/projects/${project.slug}`}

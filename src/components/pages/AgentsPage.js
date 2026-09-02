@@ -39,13 +39,13 @@ const AgentsPage = () => {
   return (
     <>
       <Seo
-        title="Our Agents — Switch Case Studio"
-        description="We run our own AI agents on our own hardware. Here is what each one does, what it runs on, and what it has actually produced — with the parts we cannot prove left out."
+        title="Our Agents | Switch Case Studio"
+        description="We run our own AI agents on our own hardware. Here is what each one does, what it runs on, and what it has actually produced, with the parts we cannot prove left out."
         path="/agents"
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'WebPage',
-          name: 'Our Agents — Switch Case Studio',
+          name: 'Our Agents | Switch Case Studio',
           url: 'https://switchcasestudio.com/agents',
           description:
             'The AI agents Switch Case Studio runs in-house: what each does, what it runs on, and what it has produced.',
@@ -166,7 +166,7 @@ const AgentsPage = () => {
             </li>
             <li>
               <strong>Beau&apos;s articles are committed under a human name</strong>{' '}
-              because a person reviews them before they go out — which is also
+              because a person reviews them before they go out, which is also
               why this page tells you that rather than letting you find it in the
               commit log.
             </li>
@@ -182,7 +182,7 @@ const AgentsPage = () => {
               <Link to="/blog/the-social-content-engine-we-run-has-no-ai-in-it">
                 free download
               </Link>{' '}
-              — the real one, with our content swapped for templates.
+              (the real one, with our content swapped for templates).
             </li>
             <li>
               Beau&apos;s articles are on{' '}

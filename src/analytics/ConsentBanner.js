@@ -36,7 +36,7 @@ export default function ConsentBanner() {
     >
       <p className="consent-banner__text">
         We use cookies to measure how visitors use this site (Google Analytics)
-        and how our ads perform (Meta Pixel). Accept to allow both, or decline —
+        and how our ads perform (Meta Pixel). Accept to allow both, or decline;
         declining keeps all tracking off.{" "}
         <Link to="/privacy" className="consent-banner__link">
           Privacy Policy

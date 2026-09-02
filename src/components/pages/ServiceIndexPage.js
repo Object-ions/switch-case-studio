@@ -16,30 +16,30 @@ import '../../styles/components/serviceIndexPage.scss';
 // these strings change with the route (see ServicesPage / PricingOverviewPage).
 const COPY = {
   services: {
-    seoTitle: 'Services — Switch Case Studio',
+    seoTitle: 'Services | Switch Case Studio',
     seoDescription:
-      'AI development, automation, web development, e-commerce, branding, and growth — design, code, and AI systems built from scratch by Switch Case Studio.',
+      'AI development, automation, web development, e-commerce, branding, and growth: design, code, and AI systems built from scratch by Switch Case Studio.',
     path: '/services',
     ariaLabel: 'Services',
     kicker: 'What we do',
     titleTop: 'Design. Code. AI.',
     titleAccent: 'One studio.',
-    lede: 'Websites, apps, brand systems, and the AI and automation behind them — we handle the full stack of what a growing business needs to run online.',
+    lede: 'Websites, apps, brand systems, and the AI and automation behind them: we handle the full stack of what a growing business needs to run online.',
     bottomHeading: 'Not sure what you need?',
     bottomBody: "Book a free call and we'll figure it out together.",
   },
   pricing: {
-    seoTitle: 'Services & Pricing — Switch Case Studio',
+    seoTitle: 'Services & Pricing | Switch Case Studio',
     seoDescription:
-      "Explore Switch Case Studio's services — AI development, automation, web development, e-commerce, branding, and growth. Transparent pricing, fast delivery.",
+      "Explore Switch Case Studio's services: AI development, automation, web development, e-commerce, branding, and growth. Transparent pricing, fast delivery.",
     path: '/pricing',
     ariaLabel: 'Services and pricing',
     kicker: 'Pricing',
     titleTop: 'What we do,',
     titleAccent: 'and what it costs.',
-    lede: 'Pick a service to see the full breakdown — scope, deliverables, and transparent pricing. AI and automation included, hype not.',
+    lede: 'Pick a service to see the full breakdown: scope, deliverables, and transparent pricing. AI and automation included, hype not.',
     bottomHeading: 'Not sure which service you need?',
-    bottomBody: "Book a free call — we'll figure it out together.",
+    bottomBody: "Book a free call; we'll figure it out together.",
   },
 };
 

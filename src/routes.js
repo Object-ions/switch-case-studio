@@ -32,8 +32,8 @@ const page = (loader) => () =>
 const HomeContent = () => (
   <>
     <Seo
-      title="Switch Case Studio — AI-First Web Design, Development & Automation"
-      description="Websites, apps, and AI systems built from scratch — web design, development, chatbots, agents, and n8n automation from one engineer-led studio. White-label work for agencies too."
+      title="Switch Case Studio | AI-First Web Design, Development & Automation"
+      description="Websites, apps, and AI systems built from scratch: web design, development, chatbots, agents, and n8n automation from one engineer-led studio. White-label work for agencies too."
       path="/"
     />
     <Hero />

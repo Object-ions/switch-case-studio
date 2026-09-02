@@ -54,10 +54,10 @@ const AboutMarquee = () => {
             apart; the heading owns the claim, the marquee owns the mark. */}
         <h2 className="marquee" aria-label="Switch Case Studio">
           <span className="marquee-track">
-            Switch Case Studio — design — code — <span className="caps-trim">AI</span> — Portland, Oregon — Switch Case Studio — built from scratch
+            Switch Case Studio · design · code · <span className="caps-trim">AI</span> · Portland, Oregon · Switch Case Studio · built from scratch
           </span>
           <span className="marquee-track">
-            Switch Case Studio — design — code — <span className="caps-trim">AI</span> — Portland, Oregon — Switch Case Studio — built from scratch
+            Switch Case Studio · design · code · <span className="caps-trim">AI</span> · Portland, Oregon · Switch Case Studio · built from scratch
           </span>
         </h2>
       </div>

@@ -104,7 +104,7 @@ const PartnersGate = () => {
   return (
     <main className="partners-gate">
       <Seo
-        title="Partners — Switch Case Studio"
+        title="Partners | Switch Case Studio"
         description="Private area for approved agency partners."
         path="/partners"
         robots="noindex, nofollow"

@@ -48,7 +48,7 @@ const AboutHeading = () => {
     };
   }, [reducedMotion]);
 
-  const text = `We build websites, apps, and AI systems that convert — designed from scratch, engineered by people who ship real code, and automated so your business runs while you sleep`;
+  const text = `We build websites, apps, and AI systems that convert: designed from scratch, engineered by people who ship real code, and automated so your business runs while you sleep`;
 
   const wrappedWords = text.split(' ').map((word, idx) => (
     <span

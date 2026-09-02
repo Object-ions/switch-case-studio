@@ -67,7 +67,7 @@ const LandingPageProof = () => {
             One studio.<br />Design, code &amp; AI.
           </h2>
           <p className="lpp__body lpp-animate">
-            Store, marketing site, web app, or the automation behind it —
+            Store, marketing site, web app, or the automation behind it,
             every build starts with the same question: what needs to happen
             for a visitor to become a customer? We design it, engineer it,
             and wire in AI where it moves that number. White-label delivery

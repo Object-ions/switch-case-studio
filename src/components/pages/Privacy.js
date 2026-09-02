@@ -5,7 +5,7 @@ const Privacy = () => {
   return (
     <div className="legal-page">
       <Seo
-        title="Privacy Policy — Switch Case Studio"
+        title="Privacy Policy | Switch Case Studio"
         description="How Switch Case Studio collects, uses, and protects your personal information."
         path="/privacy"
       />
@@ -54,7 +54,7 @@ const Privacy = () => {
         . Both are governed by one choice: tracking is{' '}
         <strong>off by default</strong> and only runs if you select “Accept” in
         our cookie banner. If you decline, no analytics or advertising cookies
-        are set — the Meta Pixel is not even loaded. You can change your choice
+        are set, and the Meta Pixel is not even loaded. You can change your choice
         by clearing this site’s data in your browser. We do not sell any data.
       </p>
 

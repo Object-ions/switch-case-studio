@@ -90,11 +90,11 @@ const PromoPage = () => {
   return (
     <main className="promo">
       <Seo
-        title="30% off everything — Switch Case Studio"
-        description={`30% off every service — websites, development, branding, SEO, performance. Limited-time studio sale, ends ${DEADLINE}.`}
+        title="30% off everything | Switch Case Studio"
+        description={`30% off every service: websites, development, branding, SEO, performance. Limited-time studio sale, ends ${DEADLINE}.`}
         path="/30-off"
         image="/promo/og-30-off.png"
-        imageAlt="Switch Case Studio — 30% off everything"
+        imageAlt="Switch Case Studio: 30% off everything"
         robots={PROMO_INDEXABLE ? undefined : 'noindex,follow'}
       />
 

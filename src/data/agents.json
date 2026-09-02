@@ -10,12 +10,12 @@
     "summary": "Sage is the studio's operations agent. He is the one Moses talks to directly, and the one holding the tools that touch the studio's own infrastructure.",
     "does": [
       "Runs day-to-day operations and server work across the studio's stack",
-      "Holds the Studio skill — he can generate video and images through our self-hosted generation app",
+      "Holds the Studio skill: he can generate video and images through our self-hosted generation app",
       "Every generation he requests is priced before it is submitted and bounded by a hard daily spend cap"
     ],
     "proof": {
       "label": "Verifiable",
-      "text": "The generation app Sage drives is open source — its cost table and spend cap are in the code, not in a promise.",
+      "text": "The generation app Sage drives is open source: its cost table and spend cap are in the code, not in a promise.",
       "url": "https://github.com/Object-ions/scs-studio",
       "urlLabel": "Read the code"
     }
@@ -30,7 +30,7 @@
     "runsOn": "Our own hardware, not a vendor's platform",
     "summary": "Beau owns the studio's public voice. He researches, writes, self-audits and publishes the weekly article on this blog, and handles engagement on our X account.",
     "does": [
-      "Writes and publishes the weekly article — commits it to the repository, which deploys the site",
+      "Writes and publishes the weekly article, commits it to the repository, which deploys the site",
       "Runs engagement on @s_c_studio within written caps: replies, follows and reposts, never original posts",
       "Original social posting belongs to a separate workflow with no language model in it at all"
     ],

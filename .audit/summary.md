@@ -1415,3 +1415,19 @@ analytics and is labelled as such"). The +41% Aug traffic headline stays UNPUBLI
 purpose: it is Direct-driven with engagement down 24% and a mobile→desktop device flip — the
 fingerprint of bot/internal traffic, indefensible under challenge. Route count 44, meta
 clamps clean.
+
+## Em-dash purge: every rendered surface, to exactly zero — 2026-09-02
+
+Owner rule: no em dashes across the application. Sweep executed against the BUILT artifact
+(comments never ship, so source comments were left alone): 1,037 em-dash hits across the 44
+built pages + JS/CSS assets reduced to ONE intentional survivor, the `clampAtWord` regex whose
+job is stripping trailing dashes from meta descriptions. ~200 source instances rewritten with
+contextual punctuation, never blind substitution: page titles moved to `X | Switch Case
+Studio`, the About marquee and footer tagline to the house `·`, alt templates to `:`,
+blockquote cites dropped the attribution dash, prose got comma/colon/semicolon by clause, and
+client testimonial quotes took `–` so their words changed least. Three source forms were
+hunted: literal `—`, `&mdash;` (one, in Hero.js), and `—` JSON escapes (Faq.js). Two JSX
+traps mattered: leading newline+indent whitespace strips ENTIRELY (so a text node starting
+`: n8n…` renders flush against the preceding span, no space), and multi-line text nodes
+collapse internal newlines to one space. All data JSONs re-validated, 44 routes, entry-chunk
+marker pinned, spot-checks read clean in the built HTML. Rule recorded in CLAUDE.md.

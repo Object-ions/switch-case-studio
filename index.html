@@ -29,7 +29,7 @@
     <!--
       Route-variable head tags (title, description, canonical, og:*, twitter:*)
       are managed per-route by src/components/util/Seo.js and BAKED INTO each
-      page's static HTML by vite-react-ssg at build time — injected right after
+      page's static HTML by vite-react-ssg at build time, injected right after
       <head>. Any static copy here would duplicate them in every built file
       (two titles / two og:titles = scrapers and Google pick at random). The
       old "fallback for non-JS scrapers" block is obsolete: with SSG, scrapers
@@ -40,13 +40,13 @@
     <meta property="og:site_name" content="Switch Case Studio" />
     <meta property="og:locale" content="en_US" />
     <!-- Meta (Facebook) domain verification for the "Switch Case Studio"
-         business portfolio — pairs with the Meta Pixel (CLAUDE.md). Site-wide
+         business portfolio; pairs with the Meta Pixel (CLAUDE.md). Site-wide
          constant by design: Meta reads it on the home page; SSG baking it into
-         every route is harmless. Do not remove — unverifies the domain. -->
+         every route is harmless. Do not remove: unverifies the domain. -->
     <meta name="facebook-domain-verification" content="ftno17feqd2ufyjw7ouizfi9lfk7zc" />
 
     <!--
-      Structured data — Organization + WebSite (site-wide).
+      Structured data: Organization + WebSite (site-wide).
 
       The Organization `sameAs` array MIRRORS src/data/social.js, which is the
       single source of truth and also feeds the footer icon row. JSON-LD allows
@@ -117,7 +117,7 @@
       }
     </script>
 
-    <!-- Fonts are self-hosted (public/fonts/, latin woff2 only) — @font-face
+    <!-- Fonts are self-hosted (public/fonts/, latin woff2 only); @font-face
          lives in app.scss. No Google Fonts: the css2 link shipped 31+
          cross-origin files. Preload ONLY the hero face (SCS Display, the LCP
          element); Inter weights load on demand via the CSS. -->

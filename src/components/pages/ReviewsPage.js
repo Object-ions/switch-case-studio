@@ -21,8 +21,8 @@ const ReviewsPage = () => {
   return (
     <>
       <Seo
-        title="Client Reviews — Switch Case Studio"
-        description="See what clients say about Switch Case Studio — real results from real businesses we've helped grow."
+        title="Client Reviews | Switch Case Studio"
+        description="See what clients say about Switch Case Studio: real results from real businesses we've helped grow."
         path="/testimonials"
       />
 
@@ -37,7 +37,7 @@ const ReviewsPage = () => {
             <span className="testimonials-page__title--accent">Real results.</span>
           </h1>
           <p className="testimonials-page__lede page-head-animate">
-            Every project is built around one goal — making our clients' businesses
+            Every project is built around one goal: making our clients' businesses
             grow. Here's what they had to say.
           </p>
         </header>

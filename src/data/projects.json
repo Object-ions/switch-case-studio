@@ -9,7 +9,7 @@
     "coverTile": "/projects/florida-green/florida-green-cover-tile.webp",
     "imageSrc": "/projects/florida-green/after-home.webp",
     "longWeb": "/projects/florida-green/long.webp",
-    "imageAlt": "The rebuilt Florida Green Improvements homepage — a centred headline on a glass panel over video of a modern South Florida house",
+    "imageAlt": "The rebuilt Florida Green Improvements homepage: a centred headline on a glass panel over video of a modern South Florida house",
     "comparisonsLabel": "Before and after",
     "comparisonsNote": "The live WordPress site on the left, the rebuild on the right. Every desktop pair is captured at the same 1150 × 1000 viewport by the same script on the same day; the phone pair at 390 px.",
     "comparisons": [
@@ -17,7 +17,7 @@
       { "src": "/projects/florida-green/compare-kitchen.webp", "caption": "Kitchen service page", "note": "−67% largest contentful paint · −61% weight · the old H1 read “kitchen” in lower case", "alt": "The Florida Green Improvements kitchen page before and after the rebuild, both at 1150 pixels wide" },
       { "src": "/projects/florida-green/compare-contact.webp", "caption": "Contact", "note": "−48% largest contentful paint · −55% weight · accessibility 87 → 100", "alt": "The Florida Green Improvements contact page before and after the rebuild, both at 1150 pixels wide" },
       { "src": "/projects/florida-green/compare-about.webp", "caption": "About", "note": "Licence, 5.0 rating and service area now machine-readable, not only text a human can read", "alt": "The Florida Green Improvements about page before and after the rebuild, both at 1150 pixels wide" },
-      { "src": "/projects/florida-green/compare-mobile.webp", "caption": "Homepage on a phone", "note": "The old page reports a 435 px document inside a 390 px viewport — it does not fit the phone it is read on. The rebuild reports 390 px.", "alt": "The Florida Green Improvements homepage before and after the rebuild, both captured at a 390 pixel phone viewport" }
+      { "src": "/projects/florida-green/compare-mobile.webp", "caption": "Homepage on a phone", "note": "The old page reports a 435 px document inside a 390 px viewport; it does not fit the phone it is read on. The rebuild reports 390 px.", "alt": "The Florida Green Improvements homepage before and after the rebuild, both captured at a 390 pixel phone viewport" }
     ],
     "backLabel": "Back to Projects",
     "title": "Florida Green Improvements",
@@ -25,12 +25,12 @@
     "outcome": "",
     "year": "2026",
     "metrics": [
-      { "value": "−94%", "label": "homepage weight on mobile — 29,834 KiB to 1,839 KiB" },
-      { "value": "−70%", "label": "homepage largest contentful paint on mobile — 11.62s to 3.46s" },
+      { "value": "−94%", "label": "homepage weight on mobile, 29,834 KiB to 1,839 KiB" },
+      { "value": "−70%", "label": "homepage largest contentful paint on mobile, 11.62s to 3.46s" },
       { "value": "77 → 100", "label": "Lighthouse SEO, every page, both form factors" },
-      { "value": "0 → 10", "label": "pages carrying structured data — and pages carrying analytics" }
+      { "value": "0 → 10", "label": "pages carrying structured data, and pages carrying analytics" }
     ],
-    "description": "A licensed Florida contractor's WordPress site rebuilt as ten static Next.js routes: 94% less homepage weight, 70% faster mobile paint, SEO 77 to 100. The crawl found four systemic zeroes — no page had a meta description, structured data, a share image or any analytics. The homepage carried 29MB, painted in 11.6 seconds, and rendered 435px wide inside a 390px phone. The rebuild holds the whole business in one TypeScript file that routing, the sitemap, the JSON-LD and the contact form all read from. Live since August 2026 — noindex lifted, all ten routes serving, share image shipped.",
+    "description": "A licensed Florida contractor's WordPress site rebuilt as ten static Next.js routes: 94% less homepage weight, 70% faster mobile paint, SEO 77 to 100. The crawl found four systemic zeroes: no page had a meta description, structured data, a share image or any analytics. The homepage carried 29MB, painted in 11.6 seconds, and rendered 435px wide inside a 390px phone. The rebuild holds the whole business in one TypeScript file that routing, the sitemap, the JSON-LD and the contact form all read from. Live since August 2026: noindex lifted, all ten routes serving, share image shipped.",
     "tileVersion": "Licensed Florida general contractor. Fifteen WordPress pages rebuilt as ten static Next.js routes: −94% homepage weight, −70% mobile paint, SEO 77 → 100.",
     "services": [
       { "label": "#Technical SEO Audit" },
@@ -46,19 +46,19 @@
     "highlights": [
       {
         "title": "Measured, Not Estimated",
-        "summary": "Two Lighthouse 12.8.2 runs, same machine, same day: the live WordPress site and the production build. Server response time excluded — hosted and local aren't comparable."
+        "summary": "Two Lighthouse 12.8.2 runs, same machine, same day: the live WordPress site and the production build. Server response time excluded; hosted and local aren't comparable."
       },
       {
         "title": "The Four Zeroes",
-        "summary": "No page had a meta description, structured data, a share image or analytics. All four are now fixed across all ten pages — the share image shipped with the launch."
+        "summary": "No page had a meta description, structured data, a share image or analytics. All four are now fixed across all ten pages; the share image shipped with the launch."
       },
       {
         "title": "Rankings Carried, Not Dumped",
-        "summary": "Five services retired. The two whose scope moved redirect to the pages that absorbed them, copy verbatim — a 301 into a list throws away the intent that earned the ranking."
+        "summary": "Five services retired. The two whose scope moved redirect to the pages that absorbed them, copy verbatim; a 301 into a list throws away the intent that earned the ranking."
       },
       {
         "title": "The Misspelling That Cost a Keyword",
-        "summary": "“Artaficial Turf” was wrong in the URL, the page title and the H1 — and right everywhere else. The page was invisible for its own primary keyword."
+        "summary": "“Artaficial Turf” was wrong in the URL, the page title and the H1, and right everywhere else. The page was invisible for its own primary keyword."
       },
       {
         "title": "What Got Worse, On Purpose",
@@ -69,7 +69,7 @@
         "summary": "Privacy policy and terms still return 404 on the live site, and a duplicate domain sits with the client. The launch cleared the share image off this list."
       }
     ],
-    "result": "Fifteen pages became ten, four systemic zeroes became one, and every figure was measured on the same machine on the same day — including the three that moved the wrong way.",
+    "result": "Fifteen pages became ten, four systemic zeroes became one, and every figure was measured on the same machine on the same day, including the three that moved the wrong way.",
     "kicker": "In depth on",
     "productName": "Our Work",
     "ctaLabel": "View Live",
@@ -100,7 +100,7 @@
       { "value": "25 → 21", "label": "average Google position, still climbing" },
       { "value": "1 in 13", "label": "visits end in a book-appointment click (GA4, Jul–Aug 2026)" }
     ],
-    "description": "Zahav Medspa competes in North Scottsdale aesthetics, where every rival buys the same keywords and runs the same ads. We rebuilt the brand, the site and the search foundation underneath it — then graded the result with Google's own tooling instead of our own. Google now scores the site 99/100 on performance and 100/100 on both SEO and best practices, with a perfect zero on layout shift and a one-second desktop load. On mobile, where the site was worst, the homepage went from a 13.5-second load to roughly seven, and the products page from fifteen seconds to under six. Twenty-five pages carried no H1 at all and thirty-five images had no alt text; both are now zero. The media library was cut by more than half. Average search position has climbed from 25 to 21 and is still moving, and the practice ranks in the top two for \"medical spa troon north scottsdale\" and \"best medical spa near me\". Nearly every figure here is a Google score you can re-run against zahavmedspa.com in about thirty seconds — which is the point. The one that isn't comes from the site's own analytics and is labelled as such: across July and August 2026, one visit in thirteen ended in a book-appointment click. We would rather publish numbers you can check than numbers you have to take on faith.",
+    "description": "Zahav Medspa competes in North Scottsdale aesthetics, where every rival buys the same keywords and runs the same ads. We rebuilt the brand, the site and the search foundation underneath it, then graded the result with Google's own tooling instead of our own. Google now scores the site 99/100 on performance and 100/100 on both SEO and best practices, with a perfect zero on layout shift and a one-second desktop load. On mobile, where the site was worst, the homepage went from a 13.5-second load to roughly seven, and the products page from fifteen seconds to under six. Twenty-five pages carried no H1 at all and thirty-five images had no alt text; both are now zero. The media library was cut by more than half. Average search position has climbed from 25 to 21 and is still moving, and the practice ranks in the top two for \"medical spa troon north scottsdale\" and \"best medical spa near me\". Nearly every figure here is a Google score you can re-run against zahavmedspa.com in about thirty seconds, which is the point. The one that isn't comes from the site's own analytics and is labelled as such: across July and August 2026, one visit in thirteen ended in a book-appointment click. We would rather publish numbers you can check than numbers you have to take on faith.",
     "tileVersion": "North Scottsdale medical spa. We delivered brand design, strategy, website, SEO, paid ads, and email marketing.",
     "services": [
       { "label": "#Brand Design" },
@@ -162,7 +162,7 @@
       { "value": "< 2 weeks", "label": "design to live" },
       { "value": "Website + LP", "label": "marketing site and campaign page delivered together" }
     ],
-    "description": "A marketing website and landing page for a Florida-based contractor marketing company. The core job: turn a complicated lead-generation offer — stop paying for leads, start paying for appointments — into a page that contractors immediately understand and trust. We built the positioning, copy structure, and full front-end, then applied that same clear-offer architecture to their campaign landing pages.",
+    "description": "A marketing website and landing page for a Florida-based contractor marketing company. The core job: turn a complicated lead-generation offer (stop paying for leads, start paying for appointments) into a page that contractors immediately understand and trust. We built the positioning, copy structure, and full front-end, then applied that same clear-offer architecture to their campaign landing pages.",
     "tileVersion": "Branding, design, and development for a marketing company focused on helping contractors book better appointments.",
     "services": [
       { "label": "#Branding" },
@@ -276,12 +276,12 @@
     "outcome": "",
     "year": "",
     "metrics": [
-      { "value": "−74%", "label": "homepage weight — 6.95MB to 1.83MB" },
-      { "value": "−54%", "label": "largest contentful paint — 768ms to 352ms" },
-      { "value": "−84%", "label": "product page layout shift — 0.075 to 0.012" },
-      { "value": "−66%", "label": "server response across four pages — 151ms to 51ms" }
+      { "value": "−74%", "label": "homepage weight, 6.95MB to 1.83MB" },
+      { "value": "−54%", "label": "largest contentful paint, 768ms to 352ms" },
+      { "value": "−84%", "label": "product page layout shift, 0.075 to 0.012" },
+      { "value": "−66%", "label": "server response across four pages, 151ms to 51ms" }
     ],
-    "description": "Prodani Miami sells high-protein desserts on Shopify. We rebuilt the storefront as a bespoke theme on Dawn 16, then measured it against the old one. Both versions went through the same instrument at the same viewport — five interleaved runs per page, cache disabled, headless Chrome driven over the DevTools protocol — so every figure here is measured, not estimated. The homepage lost three quarters of its weight, most of that a 5.6MB hero video re-encoded to 375KB. Alongside the rebuild we shaped the brand direction, packaging, and trade show presence.",
+    "description": "Prodani Miami sells high-protein desserts on Shopify. We rebuilt the storefront as a bespoke theme on Dawn 16, then measured it against the old one. Both versions went through the same instrument at the same viewport (five interleaved runs per page, cache disabled, headless Chrome driven over the DevTools protocol), so every figure here is measured, not estimated. The homepage lost three quarters of its weight, most of that a 5.6MB hero video re-encoded to 375KB. Alongside the rebuild we shaped the brand direction, packaging, and trade show presence.",
     "tileVersion": "High-protein dessert brand. A bespoke Shopify theme on Dawn 16, measured against the old one: −74% homepage weight, −54% paint, −84% layout shift.",
     "services": [
       { "label": "#Brand Direction" },
@@ -303,7 +303,7 @@
       },
       {
         "title": "The 5.6MB Hero Video",
-        "summary": "Served raw on the old theme. Re-encoded to 375KB — roughly three quarters of the homepage weight saving on its own."
+        "summary": "Served raw on the old theme. Re-encoded to 375KB, roughly three quarters of the homepage weight saving on its own."
       },
       {
         "title": "Fonts Brought In-House",
@@ -318,7 +318,7 @@
         "summary": "The homepage is 69% taller and the product page 5% heavier. Nine sections instead of four, and a gallery that shows the cake bigger."
       }
     ],
-    "result": "89 checks, 0 failures — run read-only against the theme before publishing, and again against the live storefront afterwards. Every route renders, add-to-cart works end to end, every asset resolves. The four figures that moved the wrong way are published alongside the forty that didn't.",
+    "result": "89 checks, 0 failures: run read-only against the theme before publishing, and again against the live storefront afterwards. Every route renders, add-to-cart works end to end, every asset resolves. The four figures that moved the wrong way are published alongside the forty that didn't.",
     "kicker": "In depth on",
     "productName": "Our Work",
     "ctaLabel": "View Live",
@@ -389,7 +389,7 @@
     "coverTile": "/projects/jelly-belly-wiki/jelly-belly-wiki-cover-tile.webp",
     "imageSrc": "/projects/jelly-belly-wiki/hero.webp",
     "longWeb": "/projects/jelly-belly-wiki/long.webp",
-    "imageAlt": "The Jelly Belly Wiki homepage — the bean logotype beside a welcome panel, with nav links to beans, facts, recipes and the API docs",
+    "imageAlt": "The Jelly Belly Wiki homepage: the bean logotype beside a welcome panel, with nav links to beans, facts, recipes and the API docs",
     "backLabel": "Back to Projects",
     "title": "Jelly Belly Wiki",
     "subtitle": "Python scraper → MySQL → C# / .NET API → React client. A four-stage data pipeline, built solo.",
@@ -401,7 +401,7 @@
       { "value": "3", "label": "languages: Python, C#, JavaScript" },
       { "value": "Solo", "label": "scraper, database, API and front end by one developer" }
     ],
-    "description": "Jelly Belly Wiki is a data pipeline, not a website. A Python scraper pulls flavor, recipe, fact and milestone data from the official Jelly Belly site; the cleaned JSON seeds a MySQL database through Entity Framework Core migrations; a C# / ASP.NET Core API serves it over ten documented endpoints with filtering, search and pagination; and a React front end consumes that same public API — the identical one any other developer can call. Three languages, three deployment targets, one developer, and every stage still running today.",
+    "description": "Jelly Belly Wiki is a data pipeline, not a website. A Python scraper pulls flavor, recipe, fact and milestone data from the official Jelly Belly site; the cleaned JSON seeds a MySQL database through Entity Framework Core migrations; a C# / ASP.NET Core API serves it over ten documented endpoints with filtering, search and pagination; and a React front end consumes that same public API, the identical one any other developer can call. Three languages, three deployment targets, one developer, and every stage still running today.",
     "tileVersion": "A four-stage data pipeline: Python scraper → MySQL → C# / .NET API → React client, with public Swagger docs. 317 records, 10 endpoints, built solo.",
     "services": [
       { "label": "#Data Collection (Python, Selenium, BeautifulSoup)" },
@@ -414,31 +414,31 @@
     ],
     "highlights": [
       {
-        "title": "1 · Collection — Python",
+        "title": "1 · Collection · Python",
         "summary": "Selenium and BeautifulSoup scrape flavors, recipes, facts and milestones from the official Jelly Belly site, then normalise the result to clean JSON ready to seed."
       },
       {
-        "title": "2 · Data model — MySQL",
+        "title": "2 · Data model · MySQL",
         "summary": "Five related resources modelled in Entity Framework Core and seeded through migrations, so the schema rebuilds from scratch rather than being hand-loaded."
       },
       {
-        "title": "3 · API — C# / ASP.NET Core",
+        "title": "3 · API · C# / ASP.NET Core",
         "summary": "Ten read endpoints serving 317 records, with filtering, search and paginated responses built on LINQ queries."
       },
       {
-        "title": "4 · Documentation — Swagger",
+        "title": "4 · Documentation · Swagger",
         "summary": "A live, interactive Swagger UI plus in-app documentation, so another developer can try an endpoint before writing a line of code."
       },
       {
-        "title": "5 · Front end — React",
+        "title": "5 · Front end · React",
         "summary": "The client is a consumer of its own public API: every screen is assembled from the documented endpoints, with state and actions covered by Jest tests."
       },
       {
         "title": "Deployed, not demoed",
-        "summary": "Front end on Netlify, API on Render, database on TiDB — three separate services, all live and reachable today."
+        "summary": "Front end on Netlify, API on Render, database on TiDB: three separate services, all live and reachable today."
       }
     ],
-    "result": "Not a site with a database behind it — a public API with a reference front end. The scraping, the schema, the endpoints, the documentation and the UI are one person's work, and every layer is still live.",
+    "result": "Not a site with a database behind it but a public API with a reference front end. The scraping, the schema, the endpoints, the documentation and the UI are one person's work, and every layer is still live.",
     "kicker": "In depth on",
     "productName": "Our Work",
     "ctaLabel": "View Live",
@@ -533,7 +533,7 @@
       { "value": "Mobile-first", "label": "built for paid traffic sources" },
       { "value": "< 2 weeks", "label": "design to live" }
     ],
-    "description": "A performance landing page for a Florida home energy lead campaign. The brief was simple: explain a complex government program in plain English, build trust fast, and make it easy for homeowners to submit their eligibility. Built mobile-first, form-first, with a single conversion path and zero friction. This is the type of page we build for Google Ads and Meta campaigns — structured for quality score, designed for conversion.",
+    "description": "A performance landing page for a Florida home energy lead campaign. The brief was simple: explain a complex government program in plain English, build trust fast, and make it easy for homeowners to submit their eligibility. Built mobile-first, form-first, with a single conversion path and zero friction. This is the type of page we build for Google Ads and Meta campaigns: structured for quality score, designed for conversion.",
     "tileVersion": "Landing page design and development for a Florida home energy program campaign.",
     "services": [
       { "label": "#Landing Page Design" },
@@ -560,7 +560,7 @@
         "summary": "Designed and developed the page to work smoothly across desktop and mobile."
       }
     ],
-    "result": "A focused landing page engineered for paid traffic — clear offer, single CTA, and a form flow that removes every reason to leave without converting.",
+    "result": "A focused landing page engineered for paid traffic: clear offer, single CTA, and a form flow that removes every reason to leave without converting.",
     "kicker": "In depth on",
     "productName": "Our Work",
     "ctaLabel": "View Live",
@@ -580,10 +580,10 @@
     "coverTile": "/projects/scout/scout-cover-tile.webp",
     "imageSrc": "/projects/scout/hero.webp",
     "longWeb": "/projects/scout/long.webp",
-    "imageAlt": "The Scout client board — commercial lease listings ranked by fit score, with shortlist bands, sizes, rates and pipeline statuses. Addresses blurred: client searches are confidential.",
+    "imageAlt": "The Scout client board: commercial lease listings ranked by fit score, with shortlist bands, sizes, rates and pipeline statuses. Addresses blurred: client searches are confidential.",
     "backLabel": "Back to Projects",
     "title": "Scout",
-    "subtitle": "Every commercial lease listing in one scored board — a retainer product for tenants hunting their next location.",
+    "subtitle": "Every commercial lease listing in one scored board, a retainer product for tenants hunting their next location.",
     "outcome": "",
     "year": "2026",
     "metrics": [
@@ -592,7 +592,7 @@
       { "value": "0–100", "label": "fit score with plain-English evidence per listing" },
       { "value": "10", "label": "pipeline stages from first look to signed lease" }
     ],
-    "description": "Scout is a Switch Case Studio product: commercial-real-estate scouting sold as a monthly retainer. It watches the broker sites and listing feeds a tenant would otherwise check by hand, pulls every matching lease listing into one board, and scores each against the client's own profile — geography, size, use type, demographics, co-tenancy, competition. The client gets a private pipeline where every listing explains its score in plain English, and works it from first look to signed lease. The retainer runs until they find their location.",
+    "description": "Scout is a Switch Case Studio product: commercial-real-estate scouting sold as a monthly retainer. It watches the broker sites and listing feeds a tenant would otherwise check by hand, pulls every matching lease listing into one board, and scores each against the client's own profile: geography, size, use type, demographics, co-tenancy, competition. The client gets a private pipeline where every listing explains its score in plain English, and works it from first look to signed lease. The retainer runs until they find their location.",
     "tileVersion": "A scouting product for commercial tenants: every listing source in one board, scored 0–100 against the client's own search profile, worked in a ten-stage pipeline.",
     "services": [
       { "label": "#Product Design & Build" },
@@ -605,7 +605,7 @@
     "highlights": [
       {
         "title": "One board, every source",
-        "summary": "Six listing sources — broker sites plus an email inbox — polled four times a day and deduplicated into a single board. Nothing gets checked by hand twice."
+        "summary": "Six listing sources (broker sites plus an email inbox) polled four times a day and deduplicated into a single board. Nothing gets checked by hand twice."
       },
       {
         "title": "Scores, not just listings",
@@ -613,11 +613,11 @@
       },
       {
         "title": "Evidence you can read",
-        "summary": "Each score explains itself — a WHY and a WATCH-OUT in plain English, plus per-factor evidence like the trade area's median household income."
+        "summary": "Each score explains itself: a WHY and a WATCH-OUT in plain English, plus per-factor evidence like the trade area's median household income."
       },
       {
         "title": "A pipeline, not a spreadsheet",
-        "summary": "Clients drag listings through ten stages, first look to signed lease, with notes and history on each — in their own private login."
+        "summary": "Clients drag listings through ten stages, first look to signed lease, with notes and history on each, in their own private login."
       },
       {
         "title": "Tunable without re-scoring",
@@ -625,7 +625,7 @@
       },
       {
         "title": "Retainer model",
-        "summary": "Sold as a monthly retainer with a two-month minimum that runs until the client signs their location — the incentive is finding it fast."
+        "summary": "Sold as a monthly retainer with a two-month minimum that runs until the client signs their location; the incentive is finding it fast."
       }
     ],
     "result": "A product, not a project: Scout runs as a self-hosted service with an operator console on one side and private client boards on the other.",

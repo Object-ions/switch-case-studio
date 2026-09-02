@@ -164,7 +164,7 @@ const CaseStudyPage = () => {
   const metaDescription =
     outcome ||
     clampAtWord(description, 155) ||
-    `${title} — case study by Switch Case Studio.`;
+    `${title}, a case study by Switch Case Studio.`;
 
   /* ── Media tiles, declared once, rendered conditionally ──
      Missing data → tile is filtered out, so no empty placeholder boxes.
@@ -177,7 +177,7 @@ const CaseStudyPage = () => {
       key: 'mobile',
       src: mediaMobile,
       caption: 'Mobile view',
-      alt: mediaMobileAlt || `${title} — mobile view`,
+      alt: mediaMobileAlt || `${title}: mobile view`,
       zoom: true,
     },
     publicImageSrc &&
@@ -185,7 +185,7 @@ const CaseStudyPage = () => {
         key: 'hero-detail',
         src: publicImageSrc,
         caption: 'Hero detail',
-        alt: imageAlt || `${title} — hero detail`,
+        alt: imageAlt || `${title}: hero detail`,
         zoom: true,
       },
   ].filter(Boolean);
@@ -199,14 +199,14 @@ const CaseStudyPage = () => {
       key: 'copy',
       src: mediaCopy,
       caption: 'Copy / offer block',
-      alt: mediaCopyAlt || `${title} — copy and offer block`,
+      alt: mediaCopyAlt || `${title}: copy and offer block`,
       zoom: true,
     },
     mediaCta && {
       key: 'cta',
       src: mediaCta,
       caption: 'CTA / form',
-      alt: mediaCtaAlt || `${title} — CTA and form`,
+      alt: mediaCtaAlt || `${title}: CTA and form`,
       zoom: true,
     },
   ].filter(Boolean);
@@ -254,7 +254,7 @@ const CaseStudyPage = () => {
   return (
     <>
       <Seo
-        title={`${title} — Switch Case Studio`}
+        title={`${title} | Switch Case Studio`}
         description={metaDescription}
         path={`/projects/${slug}`}
         ogType="article"
@@ -433,7 +433,7 @@ const CaseStudyPage = () => {
               <ScrollingShot
                 key={slug}
                 src={publicLongWeb}
-                alt={imageAlt || `${title} — landing page`}
+                alt={imageAlt || `${title}: landing page`}
               />
             </div>
           </section>
@@ -457,7 +457,7 @@ const CaseStudyPage = () => {
             >
               <img
                 src={diagram}
-                alt={diagramAlt || `${title} — architecture diagram`}
+                alt={diagramAlt || `${title}: architecture diagram`}
                 className="project-page__diagram-img"
                 loading="lazy"
               />
@@ -569,7 +569,7 @@ const CaseStudyPage = () => {
                 >
                   <img
                     src={cmp.src}
-                    alt={cmp.alt || `${title} — ${cmp.caption}, before and after`}
+                    alt={cmp.alt || `${title}: ${cmp.caption}, before and after`}
                     className="project-page__compare-img"
                     loading="lazy"
                   />
@@ -604,7 +604,7 @@ const CaseStudyPage = () => {
             src={zoomSrc}
             alt={
               zoomSrc === diagram
-                ? diagramAlt || `${title} — architecture diagram`
+                ? diagramAlt || `${title}: architecture diagram`
                 : comparisons.find((c) => c.src === zoomSrc)?.alt ||
                   imageAlt ||
                   title

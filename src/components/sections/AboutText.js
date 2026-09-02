@@ -65,8 +65,8 @@ const AboutText = () => {
         <span className="highlight-block">
           websites, web apps, brand systems, and AI automation
         </span>
-        for businesses that take their digital presence seriously. Every project
-        — from a campaign page to a custom AI agent — is
+        for businesses that take their digital presence seriously. Every project,
+        from a campaign page to a custom AI agent, is
         <span className="highlight-block">
           built from scratch, not from templates.
         </span>
@@ -78,12 +78,12 @@ const AboutText = () => {
         <span className="highlight-block">
           the same systems we build for clients
         </span>
-        — n8n workflows, CRM pipelines, and assistants on Claude and OpenAI.
+        : n8n workflows, CRM pipelines, and assistants on Claude and OpenAI.
         When we say AI, we mean software that ships, not a buzzword on a deck.
       </p>
       <br />
       <p>
-        We&rsquo;re a small, focused studio — which means you work directly with
+        We&rsquo;re a small, focused studio, which means you work directly with
         the people building your project, not an account manager.
         <span className="highlight-block">
           Every detail gets personal attention.

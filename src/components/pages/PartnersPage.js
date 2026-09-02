@@ -42,7 +42,7 @@ const STEPS = [
   },
   {
     title: 'You receive a fully built, responsive, conversion-optimized landing page.',
-    body: 'Handed off as code or shipped to your stack — Webflow, Framer, Next.js, plain HTML.',
+    body: 'Handed off as code or shipped to your stack: Webflow, Framer, Next.js, plain HTML.',
   },
   {
     title: 'Two rounds of revisions included.',
@@ -91,7 +91,7 @@ const FAQS = [
   },
   {
     question: 'Do you do A/B variants?',
-    answer: 'Yes — $200 per variant after the first.',
+    answer: 'Yes: $200 per variant after the first.',
   },
   {
     question: 'Will my client ever find out you built it?',
@@ -141,7 +141,7 @@ const PartnersPage = () => {
   return (
     <main className="partners">
       <Seo
-        title="Agency Partners — Wholesale Landing Pages | Switch Case Studio"
+        title="Agency Partners: Wholesale Landing Pages | Switch Case Studio"
         description="White-label landing pages for agencies at $400 per page. You sell the strategy, we build the pages. 5–7 day turnaround, conversion-optimized, handed off in your stack."
         path="/partners"
         robots="noindex, nofollow"

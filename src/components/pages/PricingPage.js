@@ -60,13 +60,13 @@ function PricingPage() {
     servicesIndex.find((s) => s.slug === serviceSlug)?.label ||
     'Pricing';
   const description = service
-    ? `${service.title} pricing — ${service.subTitle.replace(/\.$/, '')}. Transparent packages from Switch Case Studio.`
+    ? `${service.title} pricing: ${service.subTitle.replace(/\.$/, '')}. Transparent packages from Switch Case Studio.`
     : `${label} pricing and packages from Switch Case Studio.`;
 
   return (
     <>
       <Seo
-        title={`${label} Pricing — Switch Case Studio`}
+        title={`${label} Pricing | Switch Case Studio`}
         description={description}
         path={`/pricing/${serviceSlug}`}
         jsonLd={[

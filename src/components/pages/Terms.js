@@ -5,7 +5,7 @@ const Terms = () => {
   return (
     <div className="legal-page">
       <Seo
-        title="Terms of Use — Switch Case Studio"
+        title="Terms of Use | Switch Case Studio"
         description="The terms governing your use of the Switch Case Studio website and services."
         path="/terms"
       />

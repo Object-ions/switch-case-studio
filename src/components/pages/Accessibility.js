@@ -5,7 +5,7 @@ const Accessibility = () => {
   return (
     <div className="legal-page">
       <Seo
-        title="Accessibility Statement — Switch Case Studio"
+        title="Accessibility Statement | Switch Case Studio"
         description="Switch Case Studio's commitment to digital accessibility and the standards we follow."
         path="/accessibility"
       />

@@ -232,7 +232,7 @@ const Footer = () => {
           <div className="footer-col footer-col-animate footer-brand">
             <SCSLogo />
             <p className="footer-brand__tagline">
-              Websites, apps, and AI systems built to convert — designed from
+              Websites, apps, and AI systems built to convert, designed from
               scratch, engineered for real, shipped fast.
             </p>
           </div>
@@ -375,7 +375,7 @@ const Footer = () => {
           </p>
 
           <p className="footer-bottom__tagline">
-            Built in Portland, OR — delivered worldwide
+            Built in Portland, OR · delivered worldwide
           </p>
         </div>
       </div>

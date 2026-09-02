@@ -62,7 +62,7 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
     // Consent gates SUBMISSION, not the button — a disabled-looking primary
     // suppressed attempts (DESIGN_AUDIT P0-3). Explain + focus instead.
     if (!agreed) {
-      setConsentError('Please tick the privacy box first — then send.');
+      setConsentError('Please tick the privacy box first, then send.');
       consentRef.current?.focus();
       return;
     }
@@ -280,7 +280,7 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
 
               <div className="contact-form__field contact-form__field--phone">
                 <label htmlFor="phone" className="contact-form__label">
-                  Phone <span className="contact-form__optional">(optional — if you'd rather talk)</span>
+                  Phone <span className="contact-form__optional">(optional, if you'd rather talk)</span>
                 </label>
                 <input
                   type="tel"
@@ -389,7 +389,7 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
                     className="contact-form__status contact-form__status--success"
                     role="status"
                   >
-                    Message sent — we'll be in touch shortly.
+                    Message sent. We'll be in touch shortly.
                   </p>
                 )}
                 {status === 'error' && (

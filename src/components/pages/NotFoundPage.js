@@ -12,7 +12,7 @@ import '../../styles/components/notFound.scss';
 const NotFoundPage = () => (
   <div className="not-found">
     <Seo
-      title="Page Not Found — Switch Case Studio"
+      title="Page Not Found | Switch Case Studio"
       description="That page doesn't exist. Head back to the homepage."
       path="/404"
       noindex

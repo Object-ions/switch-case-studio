@@ -244,7 +244,7 @@ const Header = () => {
             <Link
               to="/"
               className="brand_link"
-              aria-label="Switch Case Studio — Home"
+              aria-label="Switch Case Studio home"
             >
               <SCSLogo className="header_logo" />
             </Link>

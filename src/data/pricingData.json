@@ -3,26 +3,26 @@
     {
       "id": "ai-development",
       "title": "AI Development",
-      "subtitle": "Assistants, agents, and AI features — built like production software.",
+      "subtitle": "Assistants, agents, and AI features: built like production software.",
       "tiers": [
         {
           "name": "AI Roadmap Sprint",
           "price": 500,
           "billing": "one-time",
-          "description": "Find out where AI actually pays off in your business — and walk away with one working automation, not a slide deck.",
+          "description": "Find out where AI actually pays off in your business, and walk away with one working automation, not a slide deck.",
           "includes": [
             "Discovery call mapping your tools, processes, and bottlenecks",
             "Audit of where AI genuinely saves time or money (and where it doesn't)",
             "One working proof-of-concept: a bot, workflow, or AI step in your stack",
             "Written roadmap with priorities, effort estimates, and costs",
-            "Honest scoping — if AI isn't the answer, we'll say so"
+            "Honest scoping: if AI isn't the answer, we'll say so"
           ]
         },
         {
           "name": "AI Assistant",
           "price": 1800,
           "billing": "one-time",
-          "description": "A chatbot trained on your business — your docs, your site, your FAQs — answering customers the way you would.",
+          "description": "A chatbot trained on your business (your docs, your site, your FAQs), answering customers the way you would.",
           "includes": [
             "Assistant built on Claude or OpenAI APIs, trained on your content",
             "Embedded on your site, or connected to Slack / WhatsApp",
@@ -37,11 +37,11 @@
           "name": "Custom AI Agent",
           "price": 4500,
           "billing": "one-time",
-          "description": "A multi-step agent that does real work — lead handling, quoting, follow-ups, back-office ops — on your infrastructure.",
+          "description": "A multi-step agent that does real work (lead handling, quoting, follow-ups, back-office ops) on your infrastructure.",
           "includes": [
             "End-to-end agent design + development around one business process",
             "Integrations with your CRM, calendar, email, and forms",
-            "Self-hosted deployment on a VPS — your data stays yours",
+            "Self-hosted deployment on a VPS: your data stays yours",
             "Error handling, logging, and a monitoring dashboard",
             "Token/cost optimization so it stays affordable to run",
             "Documentation, handoff, and 30 days of post-launch support"
@@ -72,7 +72,7 @@
           "name": "Landing Page",
           "price": 800,
           "billing": "one-time",
-          "description": "A focused one-page build for campaigns, launches, or lead capture — designed around a single conversion goal.",
+          "description": "A focused one-page build for campaigns, launches, or lead capture, designed around a single conversion goal.",
           "includes": [
             "Custom design from scratch",
             "Single responsive page",
@@ -85,7 +85,7 @@
           "name": "Simple Website",
           "price": 1500,
           "billing": "one-time",
-          "description": "A clean, professional website for small businesses and portfolios — built custom, not from a template.",
+          "description": "A clean, professional website for small businesses and portfolios, built custom, not from a template.",
           "includes": [
             "Custom design tailored to your brand",
             "Up to 5 pages of structured content",
@@ -99,7 +99,7 @@
           "name": "Business Bundle",
           "price": 2500,
           "billing": "one-time",
-          "description": "A full business website with CMS, forms, and analytics — everything you need to run and grow your online presence.",
+          "description": "A full business website with CMS, forms, and analytics: everything you need to run and grow your online presence.",
           "includes": [
             "Custom design to reflect your brand's unique identity",
             "Up to 10 pages of crafted content",
@@ -115,7 +115,7 @@
           "name": "Growth Suite",
           "price": 5000,
           "billing": "one-time",
-          "description": "E-commerce, web apps, or complex builds — fully custom with database, checkout, and ongoing support.",
+          "description": "E-commerce, web apps, or complex builds, fully custom with database, checkout, and ongoing support.",
           "includes": [
             "Fully custom design tailored to your business requirements",
             "Unlimited pages for comprehensive content delivery",
@@ -123,7 +123,7 @@
             "Detailed contact forms and custom forms",
             "E-commerce functionality (cart + secure checkout)",
             "Database integration for products, users, and admin",
-            "AI features on request — chat, smart search, content tools",
+            "AI features on request: chat, smart search, content tools",
             "1 year of hosting and domain registration",
             "Advanced SEO practices for superior web presence",
             "Ongoing technical support"
@@ -199,9 +199,9 @@
           "name": "SEO + GEO Optimization Sprint",
           "price": 3500,
           "billing": "one-time",
-          "description": "One-time technical SEO + AI-search optimization — from audit to full implementation.",
+          "description": "One-time technical SEO + AI-search optimization, from audit to full implementation.",
           "benefits": [
-            { "text": "Full implementation — not just a report", "icon": "wrench" },
+            { "text": "Full implementation, not just a report", "icon": "wrench" },
             { "text": "89+ scores at handoff (SEO, Performance, Accessibility, Best Practices)", "icon": "gauge" },
             { "text": "Includes GEO / AI-search readiness", "icon": "robot" }
           ],
@@ -210,7 +210,7 @@
             "Full technical and on-page SEO audit with a detailed written report",
             "Follow-up strategy call to walk through the fix plan before any work begins",
             "Image modernization to WebP + AVIF with correct sizing and compression",
-            "Complete meta tags across all pages — titles, descriptions, canonical, Open Graph",
+            "Complete meta tags across all pages: titles, descriptions, canonical, Open Graph",
             "Structured data (JSON-LD) + GEO readiness: AI-crawler access, llms.txt, entity clarity, FAQ schema",
             "Google Analytics 4 + Google Tag Manager setup with conversion tracking",
             "Core Web Vitals and Lighthouse fixes to 89+, measured at handoff on the delivered site",
@@ -270,13 +270,13 @@
           "name": "VPS & Self-Hosted",
           "price": 150,
           "billing": "monthly",
-          "description": "Your own server, professionally run — for businesses self-hosting n8n, AI agents, or custom apps instead of paying per-task SaaS fees.",
+          "description": "Your own server, professionally run, for businesses self-hosting n8n, AI agents, or custom apps instead of paying per-task SaaS fees.",
           "includes": [
             "VPS provisioning, hardening, and SSL (server cost billed at provider rate)",
             "Self-hosted app setup: n8n, AI agents, dashboards, custom services",
             "Automated backups + uptime monitoring with alerts",
             "OS and security patching",
-            "Monthly health report — usage, costs, and what to optimize"
+            "Monthly health report: usage, costs, and what to optimize"
           ]
         }
       ]
@@ -285,7 +285,7 @@
     {
       "id": "design-branding",
       "title": "Brand Identity",
-      "subtitle": "Logo, system, guidelines — built to last.",
+      "subtitle": "Logo, system, guidelines, built to last.",
       "tiers": [
         {
           "name": "Logo & Style Guide",
@@ -340,7 +340,7 @@
     {
       "id": "automation-integrations",
       "title": "Automation & AI Workflows",
-      "subtitle": "n8n, Zapier, Make, GoHighLevel — workflows that run without you.",
+      "subtitle": "n8n, Zapier, Make, GoHighLevel: workflows that run without you.",
       "tiers": [
         {
           "name": "Workflow Starter",
@@ -376,10 +376,10 @@
           "name": "Automation Suite",
           "price": 2500,
           "billing": "monthly",
-          "description": "Your operations on autopilot — a managed automation program with AI steps where they earn their keep.",
+          "description": "Your operations on autopilot: a managed automation program with AI steps where they earn their keep.",
           "includes": [
             "Unlimited workflow iterations across CRM, ads, email, forms, and ops",
-            "Self-hosted n8n instance on a VPS — no per-task Zapier fees",
+            "Self-hosted n8n instance on a VPS, no per-task Zapier fees",
             "AI steps inside workflows: triage, drafting, enrichment, routing",
             "Custom logic via APIs, webhooks, and AI models (Claude, OpenAI)",
             "Advanced monitoring, error alerts, and token-cost optimization",

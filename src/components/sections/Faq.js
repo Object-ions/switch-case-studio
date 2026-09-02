@@ -11,22 +11,22 @@ const faqs = [
   {
     question: "What services does Switch Case Studio offer?",
     answer:
-      "Web design and development, e-commerce, web apps, branding, SEO and AI-search optimization, hosting and VPS infrastructure, email marketing \u2014 and AI development: chatbots, custom agents, and workflow automation with n8n, Zapier, Make, and GoHighLevel.",
+      "Web design and development, e-commerce, web apps, branding, SEO and AI-search optimization, hosting and VPS infrastructure, email marketing, and AI development: chatbots, custom agents, and workflow automation with n8n, Zapier, Make, and GoHighLevel.",
   },
   {
     question: "What can AI and automation actually do for my business?",
     answer:
-      "Concrete things: answer customer questions from your own docs 24/7, route and follow up on leads the minute they arrive, draft emails and quotes for your review, sync data between your CRM, calendar, and forms. We start by mapping where automation saves real hours, build it, and hand it over documented \u2014 and if AI isn\u2019t the right tool for a task, we\u2019ll say so.",
+      "Concrete things: answer customer questions from your own docs 24/7, route and follow up on leads the minute they arrive, draft emails and quotes for your review, sync data between your CRM, calendar, and forms. We start by mapping where automation saves real hours, build it, and hand it over documented, and if AI isn\u2019t the right tool for a task, we\u2019ll say so.",
   },
   {
     question: "Do you build AI chatbots and custom agents?",
     answer:
-      "Yes \u2014 that\u2019s core work, not an add-on. Assistants trained on your business content, built on Claude or OpenAI APIs, with guardrails and human handoff. For heavier lifting we build multi-step agents that handle leads, quoting, and back-office tasks, self-hosted on a VPS so your data stays yours.",
+      "Yes: it\u2019s core work, not an add-on. Assistants trained on your business content, built on Claude or OpenAI APIs, with guardrails and human handoff. For heavier lifting we build multi-step agents that handle leads, quoting, and back-office tasks, self-hosted on a VPS so your data stays yours.",
   },
   {
     question: "Do you build custom websites or only use templates?",
     answer:
-      "Custom, from scratch. Depending on the project we build with React, Next.js, Node, WordPress, WooCommerce, or Shopify \u2014 whatever fits the business. We use AI to move faster where it helps; every line that ships is engineered and reviewed by us.",
+      "Custom, from scratch. Depending on the project we build with React, Next.js, Node, WordPress, WooCommerce, or Shopify, whatever fits the business. We use AI to move faster where it helps; every line that ships is engineered and reviewed by us.",
   },
   {
     question: "Do you offer ongoing support after launch?",

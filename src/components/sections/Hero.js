@@ -83,7 +83,7 @@ const Hero = () => {
             data-cursor-wave-mask
           >
             <span className="hero-sub__desktop">
-              Websites, stores, apps, and the AI systems behind them &mdash;
+              Websites, stores, apps, and the AI systems behind them,
               engineered from scratch by a design-led studio that writes real
               code and puts AI to work where it pays.
             </span>

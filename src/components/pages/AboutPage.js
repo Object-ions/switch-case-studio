@@ -14,15 +14,15 @@ import '../../styles/components/aboutPage.scss';
 const CAPABILITIES = [
   {
     title: 'Websites & Stores',
-    body: 'Marketing sites, landing pages, and product-first e-commerce — built from scratch, never from a template. Shopify, WooCommerce, custom.',
+    body: 'Marketing sites, landing pages, and product-first e-commerce, built from scratch, never from a template. Shopify, WooCommerce, custom.',
   },
   {
     title: 'Apps & Dashboards',
-    body: 'Web apps, client portals, and internal tools built with React and Node — the interfaces that run your business.',
+    body: 'Web apps, client portals, and internal tools built with React and Node: the interfaces that run your business.',
   },
   {
     title: 'AI & Automation',
-    body: 'Assistants trained on your business, agents that do real work, and n8n / Zapier / GoHighLevel workflows — self-hosted on your own infrastructure when it matters.',
+    body: 'Assistants trained on your business, agents that do real work, and n8n / Zapier / GoHighLevel workflows, self-hosted on your own infrastructure when it matters.',
   },
 ];
 
@@ -37,7 +37,7 @@ const VALUES = [
   },
   {
     label: 'Direct collaboration',
-    desc: 'You work with the people actually building your project — not an account manager.',
+    desc: 'You work with the people actually building your project, not an account manager.',
   },
   {
     label: 'Conversion-focused',
@@ -45,11 +45,11 @@ const VALUES = [
   },
   {
     label: 'AI without the hype',
-    desc: 'We use AI where it measurably pays off — and tell you when it doesn’t. Engineers first, evangelists never.',
+    desc: 'We use AI where it measurably pays off, and tell you when it doesn’t. Engineers first, evangelists never.',
   },
   {
     label: 'Our own stack, self-hosted',
-    desc: 'We run our own servers and host our own AI agents. Your systems get the same treatment — no black boxes, no lock-in.',
+    desc: 'We run our own servers and host our own AI agents. Your systems get the same treatment: no black boxes, no lock-in.',
   },
 ];
 
@@ -84,8 +84,8 @@ const AboutPage = () => {
   return (
     <>
       <Seo
-        title="About — Switch Case Studio"
-        description="The engineer-led studio behind conversion-focused websites, apps, and AI systems. Design, code, and automation from scratch — personal attention, no templates, no hype."
+        title="About | Switch Case Studio"
+        description="The engineer-led studio behind conversion-focused websites, apps, and AI systems. Design, code, and automation from scratch: personal attention, no templates, no hype."
         path="/about"
         jsonLd={teamJsonLd}
       />
@@ -103,7 +103,7 @@ const AboutPage = () => {
           </h1>
           <p className="about-page__lede page-head-animate">
             Switch Case Studio is an engineer-led studio building websites,
-            web apps, and AI systems from scratch — for businesses that want
+            web apps, and AI systems from scratch, for businesses that want
             the AI revolution working for them, not marketed at them.
           </p>
         </header>
@@ -122,7 +122,7 @@ const AboutPage = () => {
                 The Studio
               </h2>
               <p>
-                We're a small, focused studio — which means every project gets
+                We're a small, focused studio, which means every project gets
                 personal attention from the people actually building it. Our
                 clients include medical spas, real estate firms, e-commerce
                 brands, and marketing companies across the US.
@@ -131,12 +131,12 @@ const AboutPage = () => {
                 We move fast without cutting corners. Most sites ship in under
                 two weeks, with a design-to-launch process that keeps you in the
                 loop without drowning you in it. Whether it's a campaign page, a
-                full Shopify store, or a custom web app — everything starts from
+                full Shopify store, or a custom web app: everything starts from
                 scratch.
               </p>
               <p>
                 And we practice what we sell: our own studio runs on the
-                automations we build for clients — self-hosted n8n workflows,
+                automations we build for clients: self-hosted n8n workflows,
                 AI agents on our own servers, and assistants built on Claude
                 and OpenAI. When we recommend a system, it's because we run it.
               </p>

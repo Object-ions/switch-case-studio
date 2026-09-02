@@ -312,7 +312,7 @@
     "body": [
       {
         "type": "paragraph",
-        "text": "In the fast-paced digital landscape of 2026, website performance has evolved from a nice-to-have to a critical business necessity. With Google's Core Web Vitals becoming a significant ranking factor, understanding and optimizing these metrics isn't just about SEO—it's about delivering better user experiences that drive conversions."
+        "text": "In the fast-paced digital landscape of 2026, website performance has evolved from a nice-to-have to a critical business necessity. With Google's Core Web Vitals becoming a significant ranking factor, understanding and optimizing these metrics isn't just about SEO; it's about delivering better user experiences that drive conversions."
       },
       {
         "type": "heading",
@@ -348,7 +348,7 @@
       },
       {
         "type": "quote",
-        "text": "Performance isn't just about making things faster—it's about making things more usable.",
+        "text": "Performance isn't just about making things faster; it's about making things more usable.",
         "cite": "Switch Case Studio"
       },
       {
@@ -390,7 +390,7 @@
       },
       {
         "type": "paragraph",
-        "text": "For small businesses and service-oriented websites, performance optimization isn't an expense—it's an investment in customer experience that pays dividends through increased conversions and reduced support costs."
+        "text": "For small businesses and service-oriented websites, performance optimization isn't an expense; it's an investment in customer experience that pays dividends through increased conversions and reduced support costs."
       }
     ]
   },
@@ -531,7 +531,7 @@
   {
     "slug": "the-social-content-engine-we-run-has-no-ai-in-it",
     "title": "The Social Content Engine We Run Has No AI In It",
-    "excerpt": "We are an AI studio, and the workflow that drafts our own social posts every week does not call a language model once. Here is why we built it that way — and the workflow itself, free to download.",
+    "excerpt": "We are an AI studio, and the workflow that drafts our own social posts every week does not call a language model once. Here is why we built it that way, and the workflow itself, free to download.",
     "kicker": "AI & Automation",
     "category": "AI & Automation",
     "author": "Moses Atia Poston",
@@ -550,7 +550,7 @@
     "body": [
       {
         "type": "paragraph",
-        "text": "Every week, an n8n workflow on our server produces three social posts — adapted for X, Instagram, Threads and Bluesky, with image briefs, scheduled slots, and a QA pass — and hands them to a human to approve. It does not call a language model at any point. Not once."
+        "text": "Every week, an n8n workflow on our server produces three social posts, adapted for X, Instagram, Threads and Bluesky, with image briefs, scheduled slots, and a QA pass, and hands them to a human to approve. It does not call a language model at any point. Not once."
       },
       {
         "type": "paragraph",
@@ -568,7 +568,7 @@
       },
       {
         "type": "paragraph",
-        "text": "A language model is the right tool when you need something you cannot specify in advance. Social posts about your own business are the opposite of that. You know what you think. You know the eight or ten arguments you make to every prospect. The bottleneck was never invention — it was the twenty minutes of reformatting, hashtag selection and scheduling that stood between having the thought and posting it."
+        "text": "A language model is the right tool when you need something you cannot specify in advance. Social posts about your own business are the opposite of that. You know what you think. You know the eight or ten arguments you make to every prospect. The bottleneck was never invention; it was the twenty minutes of reformatting, hashtag selection and scheduling that stood between having the thought and posting it."
       },
       {
         "type": "paragraph",
@@ -589,7 +589,7 @@
       },
       {
         "type": "paragraph",
-        "text": "The honest trade-off: you have to write the topic bank. That is real work — a few hours for eighteen topics. After that the marginal cost of a week's content is zero, forever. An LLM-based version would have started faster and then cost money every week to produce copy we would have rewritten anyway."
+        "text": "The honest trade-off: you have to write the topic bank. That is real work: a few hours for eighteen topics. After that the marginal cost of a week's content is zero, forever. An LLM-based version would have started faster and then cost money every week to produce copy we would have rewritten anyway."
       },
       {
         "type": "heading",
@@ -602,12 +602,12 @@
       {
         "type": "list",
         "items": [
-          "Brand Config — one node holding your name, domain, voice, audience, hashtags and calls to action. Everything downstream reads from it, so there is exactly one place to edit.",
-          "Topic Rotation — your topic bank, plus a deterministic weekly selection anchored to a fixed date. It also guarantees at least one sales-intent post per week, because plain sequential picking leaves half your weeks with none.",
-          "Platform Adapt — one topic becomes four platform-native posts. Threads get a closing tweet with the link; Bluesky's 300-character limit is handled by joining front-loaded, so the hook always survives the truncation.",
-          "Image Briefs — writes the image prompt but does not generate anything. Drafts stay free; you wire a generator downstream, after approval.",
-          "Compliance Qa — regex guardrails for the things you must never publish: unsupported guarantees, superlatives, unverifiable metrics. It flags for review rather than silently dropping, so nothing disappears without you seeing it.",
-          "Slot Assign and Build Packet — day assignment, then a single JSON packet for a human to approve."
+          "Brand Config: one node holding your name, domain, voice, audience, hashtags and calls to action. Everything downstream reads from it, so there is exactly one place to edit.",
+          "Topic Rotation: your topic bank, plus a deterministic weekly selection anchored to a fixed date. It also guarantees at least one sales-intent post per week, because plain sequential picking leaves half your weeks with none.",
+          "Platform Adapt: one topic becomes four platform-native posts. Threads get a closing tweet with the link; Bluesky's 300-character limit is handled by joining front-loaded, so the hook always survives the truncation.",
+          "Image Briefs: writes the image prompt but does not generate anything. Drafts stay free; you wire a generator downstream, after approval.",
+          "Compliance Qa: regex guardrails for the things you must never publish: unsupported guarantees, superlatives, unverifiable metrics. It flags for review rather than silently dropping, so nothing disappears without you seeing it.",
+          "Slot Assign and Build Packet: day assignment, then a single JSON packet for a human to approve."
         ]
       },
       {
@@ -620,7 +620,7 @@
       },
       {
         "type": "paragraph",
-        "text": "This is the engine we actually run, with our own topic bank and brand voice replaced by six clearly marked templates. The rotation logic, the platform adaptation, the QA rules and the packet builder are unchanged — that is the part that took the time to get right."
+        "text": "This is the engine we actually run, with our own topic bank and brand voice replaced by six clearly marked templates. The rotation logic, the platform adaptation, the QA rules and the packet builder are unchanged; that is the part that took the time to get right."
       },
       {
         "type": "paragraph",
@@ -1345,7 +1345,7 @@
   {
     "slug": "why-fast-sites-win-more-clients",
     "title": "Why Fast Sites Win More Clients",
-    "excerpt": "Speed isn't a vanity metric — it's the first impression, the SEO signal, and the conversion lever all at once. Here's how we build sites that load before your visitor blinks.",
+    "excerpt": "Speed isn't a vanity metric; it's the first impression, the SEO signal, and the conversion lever all at once. Here's how we build sites that load before your visitor blinks.",
     "kicker": "Performance",
     "category": "Web Development",
     "author": "Moses Atia Poston",
@@ -1363,7 +1363,7 @@
     "body": [
       {
         "type": "paragraph",
-        "text": "Every second your site takes to load is a second your visitor spends deciding whether to leave. The data is brutal and consistent: bounce rates climb sharply after the two-second mark, and mobile users are the least patient of all. A fast site isn't a nice-to-have — it's the price of being taken seriously."
+        "text": "Every second your site takes to load is a second your visitor spends deciding whether to leave. The data is brutal and consistent: bounce rates climb sharply after the two-second mark, and mobile users are the least patient of all. A fast site isn't a nice-to-have; it's the price of being taken seriously."
       },
       {
         "type": "heading",
@@ -1371,7 +1371,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Before a visitor reads your headline, judges your design, or considers your offer, they experience your load time. A page that snaps into view signals competence. A page that stutters signals the opposite — and no amount of polished copy recovers a first impression spent watching a spinner."
+        "text": "Before a visitor reads your headline, judges your design, or considers your offer, they experience your load time. A page that snaps into view signals competence. A page that stutters signals the opposite, and no amount of polished copy recovers a first impression spent watching a spinner."
       },
       {
         "type": "heading",
@@ -1384,10 +1384,10 @@
       {
         "type": "list",
         "items": [
-          "Ship less JavaScript — every kilobyte is parsed on the user's device, not yours.",
+          "Ship less JavaScript: every kilobyte is parsed on the user's device, not yours.",
           "Serve modern image formats (AVIF, WebP) and size them for the viewport.",
           "Pre-render static content so the first paint doesn't wait on the network.",
-          "Lazy-load anything below the fold — the hero should never wait on the footer."
+          "Lazy-load anything below the fold: the hero should never wait on the footer."
         ]
       },
       {
@@ -1401,14 +1401,14 @@
       },
       {
         "type": "paragraph",
-        "text": "Fast sites rank higher, convert better, and cost less to run. When we build from scratch, performance isn't a phase we bolt on at the end — it's the constraint we design within from the first line of code. That's how a site earns trust in the half-second before anyone has read a word."
+        "text": "Fast sites rank higher, convert better, and cost less to run. When we build from scratch, performance isn't a phase we bolt on at the end; it's the constraint we design within from the first line of code. That's how a site earns trust in the half-second before anyone has read a word."
       }
     ]
   },
   {
     "slug": "what-a-brand-actually-is",
     "title": "What a Brand Actually Is (It's Not Your Logo)",
-    "excerpt": "Founders often think branding starts with a logo. It doesn't. A brand is the promise you keep before anyone reads a word — and it lives in every decision you make.",
+    "excerpt": "Founders often think branding starts with a logo. It doesn't. A brand is the promise you keep before anyone reads a word, and it lives in every decision you make.",
     "kicker": "Brand Identity",
     "category": "Brand Identity",
     "author": "Moses Atia Poston",
@@ -1426,7 +1426,7 @@
     "body": [
       {
         "type": "paragraph",
-        "text": "Ask ten founders what a brand is and nine will point to a logo. The logo is real, and it matters — but it's the smallest, last part of the story. A brand is the sum of every impression you leave, and most of those happen long before someone notices your mark."
+        "text": "Ask ten founders what a brand is and nine will point to a logo. The logo is real, and it matters, but it's the smallest, last part of the story. A brand is the sum of every impression you leave, and most of those happen long before someone notices your mark."
       },
       {
         "type": "heading",
@@ -1434,7 +1434,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Before the logo, before the color palette, there's a promise: this is who we are, this is what you can expect from us. Everything else — type, color, tone, motion — exists to make that promise legible at a glance. Get the promise wrong and the prettiest logo in the world can't save you."
+        "text": "Before the logo, before the color palette, there's a promise: this is who we are, this is what you can expect from us. Everything else (type, color, tone, motion) exists to make that promise legible at a glance. Get the promise wrong and the prettiest logo in the world can't save you."
       },
       {
         "type": "heading",
@@ -1447,10 +1447,10 @@
       {
         "type": "list",
         "items": [
-          "Voice — how you sound when you're excited, and when you're apologizing.",
-          "System — the type, color, and spacing rules that make every screen feel related.",
-          "Behavior — the way you respond, deliver, and follow up.",
-          "Mark — yes, the logo, sitting on top of all of the above."
+          "Voice: how you sound when you're excited, and when you're apologizing.",
+          "System: the type, color, and spacing rules that make every screen feel related.",
+          "Behavior: the way you respond, deliver, and follow up.",
+          "Mark: yes, the logo, sitting on top of all of the above."
         ]
       },
       {

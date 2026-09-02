@@ -81,7 +81,7 @@ const Block = ({ block }) => {
       return (
         <blockquote className="blog-post__quote">
           <p>{block.text}</p>
-          {block.cite && <cite>— {block.cite}</cite>}
+          {block.cite && <cite>{block.cite}</cite>}
         </blockquote>
       );
     default:
@@ -120,12 +120,12 @@ const BlogPostPage = () => {
   } = post;
 
   const metaDescription =
-    excerpt || `${title} — from the Switch Case Studio blog.`;
+    excerpt || `${title}, from the Switch Case Studio blog.`;
 
   return (
     <>
       <Seo
-        title={`${title} — Switch Case Studio`}
+        title={`${title} | Switch Case Studio`}
         description={metaDescription}
         path={`/blog/${slug}`}
         ogType="article"
