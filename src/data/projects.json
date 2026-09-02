@@ -579,6 +579,7 @@
     "panelClass": "panel-hero",
     "coverTile": "/projects/scout/scout-cover-tile.webp",
     "imageSrc": "/projects/scout/hero.webp",
+    "longWeb": "/projects/scout/long.webp",
     "imageAlt": "The Scout client board — commercial lease listings ranked by fit score, with shortlist bands, sizes, rates and pipeline statuses. Addresses blurred: client searches are confidential.",
     "backLabel": "Back to Projects",
     "title": "Scout",
