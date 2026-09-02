@@ -1431,3 +1431,28 @@ traps mattered: leading newline+indent whitespace strips ENTIRELY (so a text nod
 `: n8n…` renders flush against the preceding span, no space), and multi-line text nodes
 collapse internal newlines to one space. All data JSONs re-validated, 44 routes, entry-chunk
 marker pinned, spot-checks read clean in the built HTML. Rule recorded in CLAUDE.md.
+
+## Dependency batch: six safe upgrades, one licensing catch, one false alarm — 2026-09-02
+
+Shipped: three 0.180→0.185 (Moon verified rendering on the IO-gated chunk), gsap 3.13→3.15,
+sass 1.77→1.103, FA core 7.2→7.3, FA react wrapper 0.2→3.5 (a compat fix — 0.2 never
+officially supported the core 7 already installed; 9 icons render), motion 12.35→13.2 (grids
++ blog cards animate to opacity 1, MotionLink pattern intact). package.json 6 lines, lockfile
+~114 — composition sane.
+
+NOT shipped, two reasons worth keeping:
+1. **typed.js 2→3 REFUSED on license**: v3.0 moved MIT → GPL-3.0 + paid commercial tiers.
+   Pinned at 2.x; rule recorded (check `npm view <pkg> license` on majors).
+2. **react-router 7 still impossible**: latest vite-react-ssg (0.9.2) pins `^6.14.1`; the
+   three moderate advisories need 7.18.0 and have no 6.x patch. DEP-1 stands.
+
+Method scar re-earned: motion 13 was nearly convicted of stranding every card at opacity 0 —
+two installs and rebuilds later the real culprit was the documented occluded-window rAF
+suspension; screenshot-forced frames animated everything. The CLAUDE.md occlusion rule now
+names motion entrances explicitly.
+
+Parked for a dedicated session: React 19 + Vite 8 + plugin-react 6 + R3F 9 + Drei 10 +
+vite-react-ssg 0.9.0→0.9.2 — one coupled jump (R3F 9 requires React 19), riskiest surface is
+the SSG head/hydration path (vite-react-ssg still bundles react-helmet-async 1.x against our
+3.0.0). Verified this batch: build green, 44 routes, entry-chunk marker, hero + typed intact,
+consent banner present.
