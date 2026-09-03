@@ -255,7 +255,7 @@ const Reviews = () => {
                     }
                     transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
                   >
-                    <h4 className="testimonial-name">{item.name}</h4>
+                    <h3 className="testimonial-name">{item.name}</h3>
                     <p className="testimonial-role">{item.title}</p>
                   </motion.div>
                 </AnimatePresence>

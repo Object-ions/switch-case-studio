@@ -37,7 +37,7 @@ const COPY = {
     kicker: 'Pricing',
     titleTop: 'What we do,',
     titleAccent: 'and what it costs.',
-    lede: 'Pick a service to see the full breakdown: scope, deliverables, and transparent pricing. AI and automation included, hype not.',
+    lede: 'Pick a service to see what is included and what it costs. AI and automation included, hype not.',
     bottomHeading: 'Not sure which service you need?',
     bottomBody: "Book a free call; we'll figure it out together.",
   },

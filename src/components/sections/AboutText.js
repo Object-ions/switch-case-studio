@@ -72,7 +72,7 @@ const AboutText = () => {
         for businesses that take their digital presence seriously. Every project,
         from a campaign page to a custom AI agent, is
         <span className="highlight-block">
-          designed, built and measured by the same people,
+          built and measured by the same people,
         </span>
         so you work directly with whoever is writing the code.
       </p>

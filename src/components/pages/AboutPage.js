@@ -131,8 +131,8 @@ const AboutPage = () => {
                 We move fast without cutting corners: landing pages and first
                 automations ship in days, full sites in a few weeks, with a
                 design-to-launch process that keeps you in the loop without
-                drowning you in it. Campaign page, full Shopify store, or custom
-                web app, the same people design it, build it and measure it.
+                drowning you in it. Whatever the build, the people who design it
+                are the people who measure it after launch.
               </p>
               <p>
                 And we practice what we sell: our own studio runs on the

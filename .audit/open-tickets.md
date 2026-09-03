@@ -69,6 +69,13 @@ Owner asked for a site-refresh audit from three skills. Findings, cheapest-first
 `MagneticButton`/`HoverPeek` use the house `useReducedMotion`; `CaseStudyTiles.js` reads
 `motionTokens.js` (y 30→24 to match the token).
 
+**AI-writing pass (Wikipedia:Signs_of_AI_writing), same evening:** site copy scanned clean on
+every hard tell; the one outlier, the Core Web Vitals post (textbook "In the fast-paced digital
+landscape…" opener, unsourced industry stats, retired FID metric), rewritten around the studio's
+own sourced case-study figures; 8 heading-level skips fixed (pricing tier cards h3→h2/h4→h3,
+home testimonial name h4→h3); five rhythm triads thinned on marketing prose. Repeatable check:
+`scripts/ai-writing-scan.py`.
+
 **REFRESH-1 status: everything actionable is done or owner-skipped. Open only: the owner
 check on the About stat tiles above.**
 

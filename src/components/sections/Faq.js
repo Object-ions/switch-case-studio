@@ -16,7 +16,7 @@ const faqs = [
   {
     question: "What can AI and automation actually do for my business?",
     answer:
-      "Concrete things: answer customer questions from your own docs 24/7, route and follow up on leads the minute they arrive, draft emails and quotes for your review, sync data between your CRM, calendar, and forms. We start by mapping where automation saves real hours, build it, and hand it over documented, and if AI isn\u2019t the right tool for a task, we\u2019ll say so.",
+      "Concrete things: answer customer questions from your own docs 24/7, route and follow up on leads the minute they arrive, draft emails and quotes for your review, sync data between your CRM, calendar, and forms. We start by mapping where automation saves real hours, then build it and hand it over documented, and if AI isn\u2019t the right tool for a task, we\u2019ll say so.",
   },
   {
     question: "Do you build AI chatbots and custom agents?",

@@ -1575,3 +1575,22 @@ em dash in the artifacts (the clamp regex), entry-chunk marker pinned.
   "under two weeks" softened in prose (the About stat tile is the owner's call, flagged).
 - **Code hygiene**: AboutHeading scoped, CursorWave IO-gated, one reduced-motion hook,
   CaseStudyTiles on motionTokens.
+
+## AI-writing pass against Wikipedia:Signs_of_AI_writing — 2026-09-02 (evening)
+
+Owner asked whether the copy skill had "passed" the language, then to compare the site to the
+Wikipedia list of AI-writing signs. Honest answer recorded: the skill ran as an audit, not a
+certification, and the rewrites were never re-checked, so the comparison was done as a scan of
+the BUILT pages (what visitors read), site vs blog. Result: the 28 site pages (11k words) show
+zero of the hard tells (no "delve/tapestry/testament" vocabulary, 0 "not only…but" / "it's not
+X, it's Y", 0 participial "…, ensuring" tails, 0 vague attribution, 0 chat phrasing, 0 em
+dashes; the 19 vocabulary hits are inside client quotes, the accessibility statement's legal
+register, and pricing bullets). The one genuine stylistic pattern is rule-of-three density
+(~14/1k words), which is mostly the service menu and price lists; the five rhythm triads on
+marketing prose were rewritten. The blog was cleaner than the site on vocabulary except one
+post, `core-web-vitals-and-performance-optimization`: a textbook AI opener, three unsourced
+industry statistics, and a metric Google retired in 2024, under the owner's byline. Rewritten
+(409 words) around the studio's own sourced numbers from three case studies; slug, date and
+byline unchanged. Structural side-finding fixed: 8 heading-level skips (pricing tier cards,
+home testimonial names). Scanner committed as `scripts/ai-writing-scan.py` with baselines;
+three rules in CLAUDE.md. Build: 43 routes, marker pinned, 1 em dash (the clamp regex).

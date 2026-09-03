@@ -82,7 +82,7 @@ const SinglePricingCard = ({
         <div className="spc__offer">
           {badge && <span className="spc__badge">{badge}</span>}
 
-          <h3 className="spc__title">{title}</h3>
+          <h2 className="spc__title">{title}</h2>
           {subtitle && <p className="spc__subtitle">{subtitle}</p>}
 
           <div className="spc__price">
@@ -144,7 +144,7 @@ const SinglePricingCard = ({
 
         {/* ── Right: features + proof ── */}
         <div className="spc__detail">
-          <h4 className="spc__detail-title">{featuresTitle}</h4>
+          <h3 className="spc__detail-title">{featuresTitle}</h3>
 
           <ul className="spc__features">
             {features.map((feat, i) => (
