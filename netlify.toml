@@ -84,3 +84,12 @@
   for = "/partners"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
+
+# /agents was removed 2026-09-02 (owner decision, refresh branch). It had been
+# live, indexed and in the sitemap, so a hard 404 would strand inbound links
+# and crawlers — 301 to the home page instead. Remove this block only if the
+# route ever comes back.
+[[redirects]]
+  from = "/agents"
+  to = "/"
+  status = 301

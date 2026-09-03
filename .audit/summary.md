@@ -1521,3 +1521,16 @@ reproduce on 3 clean isolated navigations — attributed to automation-tooling n
 repo's own documented "occluded window" artifacts, not reported as a finding.
 
 **Nothing fixed yet — assessment only, tracked as REFRESH-1 in open-tickets.md.**
+
+## Refresh branch opens: /agents page removed — 2026-09-02 (evening)
+
+Branch `refresh/remove-agents-page`. Owner decision: drop the `/agents` page and its nav entry.
+Removed the route record, the desktop nav item (Header.js), the mobile menu item
+(StaggeredMenu.js's own hardcoded copy), the `EXPLORE_LINKS` entry (navigation.js, which feeds
+the footer), the sitemap entry, and the three owned files (`AgentsPage.js`, `agents.json`,
+`agentsPage.scss`). Because the page was live, indexed and in the sitemap, it now **301s to `/`**
+via a `[[redirects]]` block in netlify.toml rather than 404ing. Verified on the build: 43 routes
+(baseline re-set in CLAUDE.md), no `build/agents.html`, zero `href="/agents"` in any emitted
+page, sitemap clean, entry-chunk marker pinned, nav renders About / Services / Pricing / Case
+Studies / Reviews / Blog / Contact. Word-level mentions of "agents" (AI agents as a service) in
+copy and JSON-LD are untouched — they describe the offering, not the page.

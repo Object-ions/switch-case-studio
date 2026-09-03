@@ -24,7 +24,6 @@ export const EXPLORE_LINKS = [
   { label: 'About', to: '/about' },
   { label: 'Case Studies', to: '/projects' },
   { label: 'Pricing', to: '/pricing' },
-  { label: 'Our Agents', to: '/agents' },
   { label: 'Blog', to: '/blog' },
   { label: 'Contact', hash: '#contact' },
 ];
