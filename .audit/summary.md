@@ -1456,3 +1456,68 @@ vite-react-ssg 0.9.0→0.9.2 — one coupled jump (R3F 9 requires React 19), ris
 the SSG head/hydration path (vite-react-ssg still bundles react-helmet-async 1.x against our
 3.0.0). Verified this batch: build green, 44 routes, entry-chunk marker, hero + typed intact,
 consent banner present.
+
+## Triple-lens refresh audit: impeccable + mkt-copywriting + gsap-scrolltrigger — 2026-09-02
+
+Owner asked for a site refresh assessment "from the eyes" of three skills. Three parallel
+agents, each invoking its skill, then verifying against the LIVE site (desktop + narrow
+viewport, real screenshots) and/or the animation source directly — no fixes applied, findings
+only. Full transcripts (screenshots, line numbers) live in the agent task outputs; this is the
+synthesis.
+
+**Cross-cutting root cause, caught independently by two lenses:** the site defaults every
+section to the same formula — an uppercase kicker label (impeccable's finding) and a "built
+from scratch / not templates / real engineers" restatement (copywriting's finding) — same
+repetition, design register and copy register. The homepage "Selected Work" section re-argues
+this point across four consecutive paragraphs before reaching a single case-study number.
+
+**Two pages got hit from two angles each — one job, not two, when addressed:**
+- `/contact`: flat "Contact us" h1 (copy) + an empty decorative photo frame with no image
+  source + a black band where a video apparently belongs per commit `953826c` but never loads
+  (design) — on the highest-intent page on the site.
+- `/testimonials`: `background-clip:text` gradient fill on the heading, an explicit AI-slop
+  tell (design) + the headline "Real words. Real results." over six quotes that are pure
+  sentiment with zero numbers, when Zahav's sourced "1 in 13 visits" stat sits one page away
+  and could pair with its own quote (copy).
+
+**Verified bugs, cheap to fix, independent of any broader refresh decision:**
+1. Footer clips/overflows below a narrow width, site-wide — no stacking breakpoint (impeccable,
+   DOM-measured: `scrollWidth 505 > clientWidth 485`).
+2. `AboutMarquee.js` runs two GSAP tweens on the same property (`xPercent`) at once — the
+   infinite drift tween (created second) overwrites the scroll-scrub tween's contribution every
+   frame while both are live, so the "intro scrub on scroll" almost certainly never plays.
+   `marquee.scss` also still references a `marquee-left` keyframe that doesn't exist anywhere in
+   `src/styles/` — dead CSS, safe to delete same pass (gsap-scrolltrigger).
+3. One FAQ accordion row (home page) renders in washed-out grey next to normal-contrast
+   siblings — reads as disabled (impeccable, confirmed static after settle, not mid-animation).
+4. Case-study pages (`CaseStudyPage.js`) reveal every section — hero through gallery — in one
+   `gsap.to(..., stagger)` at MOUNT, not on scroll. By the time a visitor reaches the gallery or
+   before/after band, it's already fully visible; the reveal pattern proven everywhere else in
+   this codebase (per-section `ScrollTrigger.create`) isn't used here (gsap-scrolltrigger).
+5. Contact page placeholders above (design half of the `/contact` finding).
+
+**Smaller consistency gaps (gsap-scrolltrigger):** `AboutHeading.js` has no `gsap.context()`
+scope (harmless today, `.word` is grep-confirmed unique, but the one file diverging from house
+pattern); reveal timing/easing hardcoded in `CaseStudyTiles.js`/`CaseStudyPage.js` instead of
+`motionTokens.js`, drifted slightly from the token values; `CursorWave.js`'s RAF loop has no
+IO-gate (fine at its current above-the-fold-only usage, risk only if reused below the fold);
+reduced-motion detection has two independent implementations (house `useReducedMotion` hook vs.
+motion/react's own, used in `MagneticButton`/`HoverPeek`).
+
+**Copy systemic findings (mkt-copywriting):** "X, not Y" antithesis construction used 9+ times
+across 6 pages (own hardware not a vendor's platform ×2, engineered not improvised, built from
+scratch not templates, hype not, etc.) — reads as formula past 2-3 uses. "Built from scratch"
+repeated as verbatim slogan 8+ times instead of let the case studies prove it once. Service-card
+one-liners pasted unchanged Home → `/services` → `/pricing`, so the pricing page — whose job is
+answering "what's included" — never does. "Most sites ship in under two weeks" (About + home
+FAQ) is the one specific-sounding claim with no case study backing it, unlike every other
+number on the site.
+
+**Not flagged, checked and cleared:** the reworked home grid (rendered correctly at both
+viewports), hover-gated desktop interactivity (confirmed intentional, not tested as a bug), dark
+theme default, bento tile aspect ratios, Zahav/Scout page density and contrast. One inconclusive
+item noted by impeccable: `/agents` appeared to redirect to home twice mid-session but did not
+reproduce on 3 clean isolated navigations — attributed to automation-tooling noise per this
+repo's own documented "occluded window" artifacts, not reported as a finding.
+
+**Nothing fixed yet — assessment only, tracked as REFRESH-1 in open-tickets.md.**

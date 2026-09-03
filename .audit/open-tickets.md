@@ -1,7 +1,49 @@
 # Open tickets
 
 Live list. Close a ticket by deleting its block and logging the outcome in `summary.md`.
-Last reviewed: 2026-08-14.
+Last reviewed: 2026-09-02.
+
+## REFRESH-1 — Triple-lens refresh audit (impeccable + mkt-copywriting + gsap-scrolltrigger)
+**Logged 2026-09-02. Assessment only, nothing fixed. Full writeup in `summary.md` same date.**
+
+Owner asked for a site-refresh audit from three skills. Findings, cheapest-first:
+
+**Bugs (no design decision needed, ~half a day):**
+1. Footer clips/overflows below a narrow width, site-wide — needs a stacking breakpoint.
+2. `AboutMarquee.js`: two GSAP tweens fight over `xPercent` — the infinite drift (created
+   second) overwrites the scroll-scrub tween every frame, so the scrub intro likely never
+   plays. Also delete the dead `marquee-left` CSS keyframe (`marquee.scss`) — referenced,
+   never defined.
+3. One home-page FAQ accordion row renders washed-out grey next to normal-contrast siblings.
+4. `CaseStudyPage.js` reveals every section (hero → gallery) in one mount-time stagger instead
+   of on scroll — content at the bottom of long case studies is already fully visible by the
+   time a visitor would scroll to it. Every other reveal in this codebase uses per-section
+   `ScrollTrigger.create`; this page doesn't.
+5. `/contact`: empty decorative photo frame with no image source, and a black band where a
+   video apparently belongs (per commit `953826c`) but never fires a network request.
+
+**Two pages, hit from both a design and a copy angle — treat as one job each:**
+- `/contact`: flat "Contact us" h1 + the two placeholder issues above, on the highest-intent
+  page on the site.
+- `/testimonials`: gradient-fill heading text (explicit AI-slop tell) + a "Real results"
+  headline over six quotes with zero numbers, when Zahav's sourced "1 in 13 visits" stat
+  could pair with its own quote one page away.
+
+**Bigger, worth-scheduling (register/consistency, not urgent):**
+- Kicker-label pattern (WHAT WE DO, TRUSTED BY, etc.) defaults onto nearly every section —
+  consolidate to a few deliberate uses.
+- "X, not Y" construction used 9+ times across 6 pages; "built from scratch" repeated as a
+  verbatim slogan 8+ times instead of proven once via the case studies.
+- Pricing-page service cards repeat the same one-liner already read on Home and `/services`
+  instead of answering "what's included at this price."
+- "Most sites ship in under two weeks" (About + home FAQ) is the one specific-sounding claim
+  on the site with no case study backing it.
+
+**Smaller code consistency gaps (gsap-scrolltrigger, low urgency):** `AboutHeading.js` has no
+`gsap.context()` scope (harmless today); reveal timing hardcoded in two files instead of
+`motionTokens.js`, slightly drifted; `CursorWave.js`'s RAF loop has no IO-gate (fine at its
+current above-the-fold-only usage); reduced-motion detection has two independent
+implementations (house hook vs. motion/react's own in `MagneticButton`/`HoverPeek`).
 
 ## GA-1 — CLOSED 2026-08-04 (outcome in summary.md)
 `generate_lead` starred. `email_click` / `phone_click` deliberately left unstarred by the owner:
