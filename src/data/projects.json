@@ -143,6 +143,69 @@
     "ctaUrl": "https://zahavmedspa.com"
   },
   {
+    "id": 9,
+    "slug": "scout",
+    "studioProject": true,
+    "type": "SaaS Product",
+    "badge": "SaaS Product",
+    "featured": true,
+    "panelClass": "panel-hero",
+    "coverTile": "/projects/scout/scout-cover-tile.webp",
+    "imageSrc": "/projects/scout/hero.webp",
+    "longWeb": "/projects/scout/long.webp",
+    "imageAlt": "The Scout client board: commercial lease listings ranked by fit score, with shortlist bands, sizes, rates and pipeline statuses. Addresses blurred: client searches are confidential.",
+    "backLabel": "Back to Projects",
+    "title": "Scout",
+    "subtitle": "Every commercial lease listing in one scored board, a retainer product for tenants hunting their next location.",
+    "outcome": "",
+    "year": "2026",
+    "metrics": [
+      { "value": "6", "label": "listing sources polled four times a day" },
+      { "value": "8", "label": "weighted scoring factors per client profile" },
+      { "value": "0–100", "label": "fit score with plain-English evidence per listing" },
+      { "value": "10", "label": "pipeline stages from first look to signed lease" }
+    ],
+    "description": "Scout is a Switch Case Studio product: commercial-real-estate scouting sold as a monthly retainer. It watches the broker sites and listing feeds a tenant would otherwise check by hand, pulls every matching lease listing into one board, and scores each against the client's own profile: geography, size, use type, demographics, co-tenancy, competition. The client gets a private pipeline where every listing explains its score in plain English, and works it from first look to signed lease. The retainer runs until they find their location.",
+    "tileVersion": "A scouting product for commercial tenants: every listing source in one board, scored 0–100 against the client's own search profile, worked in a ten-stage pipeline.",
+    "services": [
+      { "label": "#Product Design & Build" },
+      { "label": "#Data Aggregation (multi-source)" },
+      { "label": "#Scoring Engine (code + AI factors)" },
+      { "label": "#Client Portal (pipeline, notes)" },
+      { "label": "#Operator Console" },
+      { "label": "#Self-Hosted Infrastructure" }
+    ],
+    "highlights": [
+      {
+        "title": "One board, every source",
+        "summary": "Six listing sources (broker sites plus an email inbox) polled four times a day and deduplicated into a single board. Nothing gets checked by hand twice."
+      },
+      {
+        "title": "Scores, not just listings",
+        "summary": "Every listing is scored 0–100 against the client's profile: eight weighted factors mixing hard data (demographics, growth, size fit) with AI-assessed ones (co-tenancy, visibility, competition)."
+      },
+      {
+        "title": "Evidence you can read",
+        "summary": "Each score explains itself: a WHY and a WATCH-OUT in plain English, plus per-factor evidence like the trade area's median household income."
+      },
+      {
+        "title": "A pipeline, not a spreadsheet",
+        "summary": "Clients drag listings through ten stages, first look to signed lease, with notes and history on each, in their own private login."
+      },
+      {
+        "title": "Tunable without re-scoring",
+        "summary": "Factor weights re-rank a client's board instantly; raw factor scores are stored per property, so tuning one client never moves another."
+      },
+      {
+        "title": "Retainer model",
+        "summary": "Sold as a monthly retainer with a two-month minimum that runs until the client signs their location; the incentive is finding it fast."
+      }
+    ],
+    "result": "A product, not a project: Scout runs as a self-hosted service with an operator console on one side and private client boards on the other.",
+    "kicker": "In depth on",
+    "productName": "Our Work"
+  },
+  {
     "id": 2,
     "slug": "jo-marketing-11",
     "featured": true,
@@ -568,68 +631,5 @@
     "repos": [
       { "label": "Source", "url": "https://github.com/Object-ions/fl-energy-savings-assistance-program" }
     ]
-  },
-  {
-    "id": 9,
-    "slug": "scout",
-    "studioProject": true,
-    "type": "SaaS Product",
-    "badge": "SaaS Product",
-    "featured": true,
-    "panelClass": "panel-hero",
-    "coverTile": "/projects/scout/scout-cover-tile.webp",
-    "imageSrc": "/projects/scout/hero.webp",
-    "longWeb": "/projects/scout/long.webp",
-    "imageAlt": "The Scout client board: commercial lease listings ranked by fit score, with shortlist bands, sizes, rates and pipeline statuses. Addresses blurred: client searches are confidential.",
-    "backLabel": "Back to Projects",
-    "title": "Scout",
-    "subtitle": "Every commercial lease listing in one scored board, a retainer product for tenants hunting their next location.",
-    "outcome": "",
-    "year": "2026",
-    "metrics": [
-      { "value": "6", "label": "listing sources polled four times a day" },
-      { "value": "8", "label": "weighted scoring factors per client profile" },
-      { "value": "0–100", "label": "fit score with plain-English evidence per listing" },
-      { "value": "10", "label": "pipeline stages from first look to signed lease" }
-    ],
-    "description": "Scout is a Switch Case Studio product: commercial-real-estate scouting sold as a monthly retainer. It watches the broker sites and listing feeds a tenant would otherwise check by hand, pulls every matching lease listing into one board, and scores each against the client's own profile: geography, size, use type, demographics, co-tenancy, competition. The client gets a private pipeline where every listing explains its score in plain English, and works it from first look to signed lease. The retainer runs until they find their location.",
-    "tileVersion": "A scouting product for commercial tenants: every listing source in one board, scored 0–100 against the client's own search profile, worked in a ten-stage pipeline.",
-    "services": [
-      { "label": "#Product Design & Build" },
-      { "label": "#Data Aggregation (multi-source)" },
-      { "label": "#Scoring Engine (code + AI factors)" },
-      { "label": "#Client Portal (pipeline, notes)" },
-      { "label": "#Operator Console" },
-      { "label": "#Self-Hosted Infrastructure" }
-    ],
-    "highlights": [
-      {
-        "title": "One board, every source",
-        "summary": "Six listing sources (broker sites plus an email inbox) polled four times a day and deduplicated into a single board. Nothing gets checked by hand twice."
-      },
-      {
-        "title": "Scores, not just listings",
-        "summary": "Every listing is scored 0–100 against the client's profile: eight weighted factors mixing hard data (demographics, growth, size fit) with AI-assessed ones (co-tenancy, visibility, competition)."
-      },
-      {
-        "title": "Evidence you can read",
-        "summary": "Each score explains itself: a WHY and a WATCH-OUT in plain English, plus per-factor evidence like the trade area's median household income."
-      },
-      {
-        "title": "A pipeline, not a spreadsheet",
-        "summary": "Clients drag listings through ten stages, first look to signed lease, with notes and history on each, in their own private login."
-      },
-      {
-        "title": "Tunable without re-scoring",
-        "summary": "Factor weights re-rank a client's board instantly; raw factor scores are stored per property, so tuning one client never moves another."
-      },
-      {
-        "title": "Retainer model",
-        "summary": "Sold as a monthly retainer with a two-month minimum that runs until the client signs their location; the incentive is finding it fast."
-      }
-    ],
-    "result": "A product, not a project: Scout runs as a self-hosted service with an operator console on one side and private client boards on the other.",
-    "kicker": "In depth on",
-    "productName": "Our Work"
   }
 ]

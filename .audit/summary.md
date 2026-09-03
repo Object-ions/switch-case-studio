@@ -1594,3 +1594,17 @@ industry statistics, and a metric Google retired in 2024, under the owner's byli
 byline unchanged. Structural side-finding fixed: 8 heading-level skips (pricing tier cards,
 home testimonial names). Scanner committed as `scripts/ai-writing-scan.py` with baselines;
 three rules in CLAUDE.md. Build: 43 routes, marker pinned, 1 em dash (the clamp regex).
+
+## Home grid: rows of three, Scout in row one — 2026-09-02 (late)
+
+Owner call after seeing the refresh live: the 2-tile hero row goes, the first row is three
+tiles and Scout is one of them. `_projects-tiles.scss` now spans every tile 2 of 6 columns
+(rows of three; 9 featured = three clean rows) and the remainder math was re-based to rows of
+three (remainder 1 → last child at 3n+1 becomes the centered finale; remainder 2 → 3n+1 and
+3n+2 become a half-width pair), with the breakpoint resets updated to the new selectors.
+Scout's object moved to third position in `projects.json` (63/63-line diff, hand format
+kept). Array order drives more than the home grid, so this also moved Scout to third on
+`/projects`, into the footer's first four case-study links (replacing Crimson Equities
+there) and into the next-project chain after Zahav — recorded as a rule. Measured on the
+build: 3 × 384px per row at 1440, order Florida Green · Zahav · Scout; single column on
+mobile in the same order. 43 routes, marker pinned.
