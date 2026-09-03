@@ -1608,3 +1608,22 @@ kept). Array order drives more than the home grid, so this also moved Scout to t
 there) and into the next-project chain after Zahav — recorded as a rule. Measured on the
 build: 3 × 384px per row at 1440, order Florida Green · Zahav · Scout; single column on
 mobile in the same order. 43 routes, marker pinned.
+
+## Real client logos in the strip + in-card website peek on /projects — 2026-09-03
+
+Branch `refresh/logos-and-tile-peek` (owner asked for a branch, not main). Two owner requests:
+1. **"Trusted by" shows the marks, not the names.** Seven logos cut out of the projects' own
+   cover tiles by `scripts/cut-client-logos.py`: background black flood-filled to alpha from
+   the corners (interior black ink survives, which is why the JO-11 disc keeps its text),
+   tight crop, 96px-tall 2x WebPs in `public/clients/`, wired via the `clientLogo` field
+   ClientStrip.js already supported. CSS contain-fits each into a 40px × 240px box (30 × 170
+   on phones) so a wide wordmark and a square mark carry similar weight. Provenance: the
+   tiles are the owner's own artwork of clients already shown on the site. 14 `<img>` in the
+   built strip (7 × 2 tracks), all resolve.
+2. **/projects hover previews the site in the tile.** The floating HoverPeek window next to
+   each card is gone; the card now behaves like the home grid: the tall `long.webp` mounts on
+   first hover (never eagerly, ten of them would be ~5MB), fades over the cover once painted,
+   top of the page showing. `ProjectCard` extracted in CaseStudiesPage.js; HoverPeek stays for
+   the home tiles' text-card mode. Verified: one peek mounted after one hover, opacity 1, zero
+   floating peek elements in the DOM.
+Build: 43 routes, marker pinned, 1 em dash (clamp regex).

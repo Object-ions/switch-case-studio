@@ -1,9 +1,8 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Seo from '../util/Seo';
 import { motion, useReducedMotion } from 'motion/react';
 import projectsData from '../../data/projects.json';
-import HoverPeek from '../ui/HoverPeek';
 import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
 import {
   containerVariants,
@@ -13,6 +12,86 @@ import BookCallCta from '../ui/BookCallCta';
 import '../../styles/components/projectsPage.scss';
 
 const MotionLink = motion.create(Link);
+
+/* One card. The website preview (the tall long.webp) shows IN the card on
+ * hover, the same behaviour as the home grid tiles (2026-09-03, owner call:
+ * the floating HoverPeek window next to the card is gone). Mounted on FIRST
+ * hover, never eagerly: ten screenshots would be ~5MB on page load. `loaded`
+ * gates the fade so the cover never swaps to a half-painted screenshot. */
+const ProjectCard = ({ project, reduced, variants }) => {
+  const [warm, setWarm] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const hasPeek = !!project.longWeb;
+
+  return (
+    <MotionLink
+      to={`/projects/${project.slug}`}
+      className={`projects-page__card${hasPeek ? ' has-peek' : ''}`}
+      aria-label={`View case study: ${project.title}`}
+      variants={variants}
+      onMouseEnter={hasPeek ? () => setWarm(true) : undefined}
+      whileHover={reduced ? undefined : { y: -4, transition: { duration: 0.25 } }}
+      whileTap={reduced ? undefined : { scale: 0.97, transition: { duration: 0.15 } }}
+    >
+      <div className="projects-page__card-img">
+        {project.badge && (
+          <span className="projects-page__card-badge">{project.badge}</span>
+        )}
+        <img
+          src={project.coverTile}
+          alt={project.imageAlt || project.title}
+          loading="lazy"
+        />
+        {hasPeek && warm && (
+          <img
+            className={`projects-page__card-peek${loaded ? ' is-loaded' : ''}`}
+            src={project.longWeb}
+            alt=""
+            decoding="async"
+            onLoad={() => setLoaded(true)}
+          />
+        )}
+      </div>
+      <div className="projects-page__card-body">
+        <div className="projects-page__card-meta">
+          {project.year && (
+            <span className="projects-page__card-year">{project.year}</span>
+          )}
+          {project.kicker && (
+            <span className="projects-page__card-kicker">{project.kicker}</span>
+          )}
+          {/* Disclosure: self-initiated work sitting in a grid of paid
+              client projects reads as client work unless it says
+              otherwise. In flow, never a corner chip — the absolutely
+              positioned tile badge already broke once at the mobile
+              breakpoint. */}
+          {project.studioProject && (
+            <span className="projects-page__card-studio">
+              Studio project
+            </span>
+          )}
+        </div>
+        <h2 className="projects-page__card-title">{project.title}</h2>
+        {project.subtitle && (
+          <p className="projects-page__card-sub">{project.subtitle}</p>
+        )}
+        {project.services?.length > 0 && (
+          <ul className="projects-page__card-tags" aria-label="Services">
+            {project.services.slice(0, 3).map((s) => (
+              <li key={s.label} className="projects-page__card-tag">
+                {s.label.replace(/^#/, '')}
+              </li>
+            ))}
+          </ul>
+        )}
+        <span className="projects-page__card-cta" aria-hidden="true">
+          View case study →
+        </span>
+      </div>
+
+    </MotionLink>
+  );
+};
 
 const CaseStudiesPage = () => {
   const reduced = useReducedMotion();
@@ -59,67 +138,12 @@ const CaseStudiesPage = () => {
           animate="visible"
         >
           {projectsData.map((project) => (
-            <HoverPeek
+            <ProjectCard
               key={project.slug}
-              imageSrc={project.longWeb}
-              alt={`${project.title}: website preview`}
-            >
-            <MotionLink
-              to={`/projects/${project.slug}`}
-              className="projects-page__card"
-              aria-label={`View case study: ${project.title}`}
+              project={project}
+              reduced={reduced}
               variants={v(cardVariants)}
-              whileHover={reduced ? undefined : { y: -4, transition: { duration: 0.25 } }}
-              whileTap={reduced ? undefined : { scale: 0.97, transition: { duration: 0.15 } }}
-            >
-              <div className="projects-page__card-img">
-                {project.badge && (
-                  <span className="projects-page__card-badge">{project.badge}</span>
-                )}
-                <img
-                  src={project.coverTile}
-                  alt={project.imageAlt || project.title}
-                  loading="lazy"
-                />
-              </div>
-              <div className="projects-page__card-body">
-                <div className="projects-page__card-meta">
-                  {project.year && (
-                    <span className="projects-page__card-year">{project.year}</span>
-                  )}
-                  {project.kicker && (
-                    <span className="projects-page__card-kicker">{project.kicker}</span>
-                  )}
-                  {/* Disclosure: self-initiated work sitting in a grid of paid
-                      client projects reads as client work unless it says
-                      otherwise. In flow, never a corner chip — the absolutely
-                      positioned tile badge already broke once at the mobile
-                      breakpoint. */}
-                  {project.studioProject && (
-                    <span className="projects-page__card-studio">
-                      Studio project
-                    </span>
-                  )}
-                </div>
-                <h2 className="projects-page__card-title">{project.title}</h2>
-                {project.subtitle && (
-                  <p className="projects-page__card-sub">{project.subtitle}</p>
-                )}
-                {project.services?.length > 0 && (
-                  <ul className="projects-page__card-tags" aria-label="Services">
-                    {project.services.slice(0, 3).map((s) => (
-                      <li key={s.label} className="projects-page__card-tag">
-                        {s.label.replace(/^#/, '')}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <span className="projects-page__card-cta" aria-hidden="true">
-                  View case study →
-                </span>
-              </div>
-            </MotionLink>
-            </HoverPeek>
+            />
           ))}
         </motion.section>
 

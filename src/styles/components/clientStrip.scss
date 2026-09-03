@@ -108,13 +108,18 @@
     }
   }
 
-  // Real logo wordmark (option A, when assets land): uniform height,
-  // transparent background expected.
+  // Real logo marks (2026-09-03): cut from each project's cover tile
+  // (`public/clients/<slug>.webp`, black keyed to alpha, 96px-tall 2x
+  // assets). Contain-fit into a fixed-height, capped-width box so a wide
+  // wordmark (FLORIDA GREEN) and a square mark (JO-11) carry similar
+  // visual weight; the box, not the file, sets the size.
   &__logo-img {
     display: block;
-    height: 32px;
+    height: 40px;
     width: auto;
-    opacity: 0.75;
+    max-width: 240px;
+    object-fit: contain;
+    opacity: 0.85;
     transition: opacity 0.3s ease;
     user-select: none;
 
@@ -153,7 +158,8 @@
     }
 
     &__logo-img {
-      height: 26px;
+      height: 30px;
+      max-width: 170px;
     }
 
     &__track-wrap {
