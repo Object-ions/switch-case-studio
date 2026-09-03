@@ -3,6 +3,8 @@ import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import Seo from '../util/Seo';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { REVEAL_Y, DUR_SLOW, EASE_OUT_SOFT, REVEAL_SAFETY_DELAY } from '../../animation/motionTokens';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowUpRightFromSquare,
@@ -84,27 +86,65 @@ const CaseStudyPage = () => {
   const mockupOK = useImagePreload(publicLongWeb);
   const detailImageOK = useImagePreload(publicImageSrc);
 
-  /* ── Entrance animation. GSAP owns start + end state. ── */
+  /* ── Entrance animation. GSAP owns start + end state.
+     Hero (first viewport) reveals on MOUNT — the first-viewport law. Every
+     section below it reveals when it scrolls into view (house pattern:
+     gsap.set hidden, ScrollTrigger.create onEnter once, in-view fallback,
+     safety net) so the gallery / comparison bands still get their moment
+     instead of being fully visible before the reader reaches them. ── */
   useIsomorphicLayoutEffect(() => {
     if (!project) return;
 
     const ctx = gsap.context(() => {
-      const reveals = gsap.utils.toArray('.reveal', rootRef.current);
+      const root = rootRef.current;
+      const reveals = gsap.utils.toArray('.reveal', root);
 
       if (reducedMotion) {
         gsap.set(reveals, { autoAlpha: 1, y: 0 });
         return;
       }
 
-      gsap.set(reveals, { autoAlpha: 0, y: 30 });
-      gsap.to(reveals, {
-        autoAlpha: 1,
-        y: 0,
-        duration: 0.6,
-        ease: 'power2.out',
-        stagger: 0.08,
-        delay: 0.1,
+      const hero = reveals.filter((el) => el.classList.contains('project-page__hero'));
+      const sections = reveals.filter((el) => !el.classList.contains('project-page__hero'));
+
+      gsap.set(reveals, { autoAlpha: 0, y: REVEAL_Y });
+      gsap.to(hero, { autoAlpha: 1, y: 0, duration: DUR_SLOW, ease: EASE_OUT_SOFT, delay: 0.1 });
+
+      const revealed = new WeakSet();
+      const reveal = (el) => {
+        if (revealed.has(el)) return; // idempotent: trigger + fallback + net may all call it
+        revealed.add(el);
+        gsap.to(el, { autoAlpha: 1, y: 0, duration: DUR_SLOW, ease: EASE_OUT_SOFT, overwrite: 'auto' });
+      };
+      const inView = (el) => el.getBoundingClientRect().top < window.innerHeight * 0.88;
+
+      const triggers = sections.map((el) =>
+        ScrollTrigger.create({ trigger: el, start: 'top 88%', once: true, onEnter: () => reveal(el) }),
+      );
+      // Already in view at mount (short viewport, deep link)? onEnter may not fire.
+      sections.forEach((el) => inView(el) && reveal(el));
+
+      // Lazy media shifts layout after 'start' is measured.
+      root.querySelectorAll('img').forEach((img) => {
+        if (!img.complete) img.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
       });
+
+      // Safety nets: nothing that has entered the viewport may stay hidden.
+      // (Below-fold sections stay hidden until scrolled to — that's the feature.)
+      const sweep = () => sections.forEach((el) => inView(el) && reveal(el));
+      ScrollTrigger.addEventListener('scrollEnd', sweep);
+      const safety = gsap.delayedCall(REVEAL_SAFETY_DELAY, () => {
+        sweep();
+        hero.forEach((el) => {
+          if (gsap.getProperty(el, 'opacity') < 1 && !gsap.isTweening(el)) gsap.set(el, { autoAlpha: 1, y: 0 });
+        });
+      });
+
+      return () => {
+        triggers.forEach((t) => t.kill());
+        ScrollTrigger.removeEventListener('scrollEnd', sweep);
+        safety.kill();
+      };
     }, rootRef);
 
     return () => ctx.revert();

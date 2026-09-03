@@ -1534,3 +1534,23 @@ via a `[[redirects]]` block in netlify.toml rather than 404ing. Verified on the 
 page, sitemap clean, entry-chunk marker pinned, nav renders About / Services / Pricing / Case
 Studies / Reviews / Blog / Contact. Word-level mentions of "agents" (AI agents as a service) in
 copy and JSON-LD are untouched — they describe the offering, not the page.
+
+## REFRESH-1 bugs 1–4 — 2026-09-02 (evening, branch `refresh/remove-agents-page`)
+
+Three fixes and one closed-as-non-bug, each verified in a real browser with screenshot-forced
+frames (the occluded-window law):
+- **Footer overflow** was a `1fr`-floor problem, not a breakpoint: bare `1fr` = `minmax(auto,1fr)`
+  whose floor is min-content, so the 2-col link grid ran 13px past the container between 480 and
+  767px. `minmax(0, 1fr)` at every breakpoint; columns now end at 476 of 500. The remaining
+  `scrollWidth` delta is the full-bleed wordmark's `100vw` including the desktop scrollbar
+  gutter, clipped by the footer's `overflow: hidden` — cosmetic.
+- **Marquee**: two tweens on `xPercent` collapsed to one owner; scroll influence is a number the
+  drift's modifier adds. Dead `marquee-left` keyframe reference removed. Measured: drift ≈133px/s,
+  a 400px scroll shifted the track ≈760px on top — the intro finally reads.
+- **Case-study reveals**: hero on mount, every other section on its own `ScrollTrigger` with the
+  full house safety pattern; timing from `motionTokens.js`. Zahav (desktop): below-fold section
+  held at opacity 0 until scrolled, then 1. Florida Green (390px): instant jump to the bottom
+  reveals everything via the `scrollEnd` sweep. Zero console errors.
+- **FAQ "washed-out row"**: not a bug — six rows, identical computed color, opacity 1 with frames
+  forced. The audit tab froze a mid-stagger frame. Two rules recorded in CLAUDE.md (same-property
+  tween collision; `minmax(0,1fr)` for text grids).

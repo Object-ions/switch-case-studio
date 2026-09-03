@@ -13,32 +13,34 @@ const AboutMarquee = () => {
     if (reduced) return;
     const ctx = gsap.context(() => {
       const tracks = gsap.utils.toArray('.marquee-track');
-      // Intro scrub on scroll
-      gsap.fromTo(
-        tracks,
-        { xPercent: 0 },
-        {
-          xPercent: -50,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: wrap.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-          },
+      gsap.set(tracks, { xPercent: 0 });
+
+      // ONE owner for xPercent. This used to be two live tweens on the same
+      // property (a scrubbed fromTo + the infinite drift); GSAP renders
+      // tweens in creation order, so the drift silently overwrote the scrub
+      // every frame and the "intro on scroll" never showed. The scroll
+      // influence is now a plain number the drift's modifier adds in.
+      let scrollShift = 0; // 0 → -50 as the section crosses the viewport
+      ScrollTrigger.create({
+        trigger: wrap.current,
+        start: 'top bottom',
+        end: 'bottom top',
+        onUpdate: (self) => {
+          scrollShift = -50 * self.progress;
         },
-      );
-      // Gentle infinite drift
+      });
+
+      // Gentle infinite drift, nudged by scroll.
       tracks.forEach((el, idx) => {
         gsap.to(el, {
           xPercent: '-=100',
           repeat: -1,
           duration: 30,
           ease: 'none',
-          modifiers: {
-            xPercent: gsap.utils.wrap(-100, 0),
-          },
           delay: idx * 0.2,
+          modifiers: {
+            xPercent: (v) => gsap.utils.wrap(-100, 0, parseFloat(v) + scrollShift),
+          },
         });
       });
     }, wrap);

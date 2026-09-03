@@ -23,8 +23,7 @@
     gap: 4rem;
 
     .marquee-track {
-      flex: 0 0 auto;
-      animation: marquee-left 30s linear infinite;
+      flex: 0 0 auto; // motion is GSAP-owned (AboutMarquee.js); no CSS animation here
     }
   }
 }

@@ -4,21 +4,28 @@ Live list. Close a ticket by deleting its block and logging the outcome in `summ
 Last reviewed: 2026-09-02.
 
 ## REFRESH-1 — Triple-lens refresh audit (impeccable + mkt-copywriting + gsap-scrolltrigger)
-**Logged 2026-09-02. Assessment only, nothing fixed. Full writeup in `summary.md` same date.**
+**Logged 2026-09-02. Bugs 1–4 resolved the same evening (see each item); the rest is open. Full writeup in `summary.md`.**
 
 Owner asked for a site-refresh audit from three skills. Findings, cheapest-first:
 
-**Bugs (no design decision needed, ~half a day):**
-1. Footer clips/overflows below a narrow width, site-wide — needs a stacking breakpoint.
-2. `AboutMarquee.js`: two GSAP tweens fight over `xPercent` — the infinite drift (created
-   second) overwrites the scroll-scrub tween every frame, so the scrub intro likely never
-   plays. Also delete the dead `marquee-left` CSS keyframe (`marquee.scss`) — referenced,
-   never defined.
-3. One home-page FAQ accordion row renders washed-out grey next to normal-contrast siblings.
-4. `CaseStudyPage.js` reveals every section (hero → gallery) in one mount-time stagger instead
-   of on scroll — content at the bottom of long case studies is already fully visible by the
-   time a visitor would scroll to it. Every other reveal in this codebase uses per-section
-   `ScrollTrigger.create`; this page doesn't.
+**Bugs (no design decision needed):**
+1. ~~Footer clips/overflows below a narrow width~~ **FIXED 2026-09-02** on
+   `refresh/remove-agents-page`: not a missing breakpoint — bare `1fr` tracks floor at
+   min-content (the longest link label), so the 2-col grid ran 13px past its container;
+   `minmax(0, 1fr)` at every breakpoint. Verified: columns' right edge 476 of 500.
+2. ~~`AboutMarquee.js` dueling tweens~~ **FIXED 2026-09-02**: one owner for `xPercent` — the
+   scroll influence is a number a `ScrollTrigger.onUpdate` writes and the drift's `modifiers`
+   adds in; dead `marquee-left` keyframe reference deleted. Verified live: drift ~133px/s, a
+   400px scroll moved the track a further ~760px.
+3. ~~FAQ row washed-out grey~~ **NOT A BUG, closed 2026-09-02**: all six rows measure
+   opacity 1 / identical ink once frames are forced — the audit tab froze a mid-stagger
+   frame (the documented occluded-window artifact). No change.
+4. ~~`CaseStudyPage.js` reveals everything at mount~~ **FIXED 2026-09-02**: hero reveals on
+   mount (first-viewport law); every section below it has its own `ScrollTrigger.create`
+   (`once`, `top 88%`) with the in-view-at-mount fallback, an idempotent `reveal()`, a
+   `scrollEnd` sweep and the timed net — nothing that has ENTERED the viewport can stay
+   hidden, and nothing below it reveals early. Timing now reads `motionTokens.js`. Verified
+   desktop + 390px, including an instant jump to the bottom.
 5. `/contact`: empty decorative photo frame with no image source, and a black band where a
    video apparently belongs (per commit `953826c`) but never fires a network request.
 

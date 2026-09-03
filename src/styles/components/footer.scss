@@ -39,8 +39,12 @@
     gap: 2.5rem;
 
     @media (min-width: 480px) {
-      /* Brand full-width, link columns in 2-col pairs */
-      grid-template-columns: 1fr 1fr;
+      /* Brand full-width, link columns in 2-col pairs.
+         minmax(0, 1fr), not bare 1fr: a bare 1fr track is minmax(auto, 1fr),
+         whose floor is the column's min-content — the longest link label —
+         so between 480 and 767px the two columns plus the 2.5rem gap ran
+         ~13px past the container and clipped the right edge (REFRESH-1). */
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 
       .footer-brand {
         grid-column: 1 / -1;
@@ -48,7 +52,7 @@
     }
 
     @media (min-width: 768px) {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: 2.5rem 3rem;
 
       .footer-brand {
@@ -59,7 +63,7 @@
     @media (min-width: 1024px) {
       /* Brand wider, three link columns equal (Explore is an inline row
          below the grid since M5 — see .footer-explore) */
-      grid-template-columns: 1.3fr 1fr 1fr 1fr;
+      grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr));
       gap: 2.5rem;
 
       .footer-brand {
