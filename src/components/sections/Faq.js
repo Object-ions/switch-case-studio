@@ -21,7 +21,7 @@ const faqs = [
   {
     question: "Do you build AI chatbots and custom agents?",
     answer:
-      "Yes: it\u2019s core work, not an add-on. Assistants trained on your business content, built on Claude or OpenAI APIs, with guardrails and human handoff. For heavier lifting we build multi-step agents that handle leads, quoting, and back-office tasks, self-hosted on a VPS so your data stays yours.",
+      "Yes, it\u2019s core work. Assistants trained on your business content, built on Claude or OpenAI APIs, with guardrails and human handoff. For heavier lifting we build multi-step agents that handle leads, quoting, and back-office tasks, self-hosted on a VPS so your data stays yours.",
   },
   {
     question: "Do you build custom websites or only use templates?",
@@ -36,7 +36,7 @@ const faqs = [
   {
     question: "How long does a project usually take?",
     answer:
-      "Most sites ship in under two weeks. A landing page or a first automation is usually days, not weeks; e-commerce builds and custom AI agent systems take longer depending on integrations and revision rounds. You get a concrete timeline before we start.",
+      "A landing page or a first automation usually ships in days, a full site in a few weeks; e-commerce builds and custom AI agent systems take longer depending on integrations and revision rounds. You get a concrete timeline before we start.",
   },
 ];
 

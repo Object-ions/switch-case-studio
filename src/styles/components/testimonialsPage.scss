@@ -135,6 +135,38 @@
     margin: 0;
   }
 
+  // Sourced metric row (optional per review)
+  &__card-metric {
+    margin: 0.25rem 0 0;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.75);
+
+    strong {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: $orange-color;
+      margin-right: 0.35rem;
+      letter-spacing: -0.01em;
+    }
+  }
+
+  &__card-metric-source {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+
+    a {
+      color: $g6;
+      text-decoration: none;
+
+      &:hover { color: #fff; }
+    }
+  }
+
   // ── Bottom CTA ──
   &__bottom {
     max-width: $max-width;

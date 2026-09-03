@@ -1,13 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import useReducedMotion from '../../hooks/useReducedMotion';
 
 const AboutHeading = () => {
   const reducedMotion = useReducedMotion();
+  const rootRef = useRef(null);
 
   useEffect(() => {
-    const words = gsap.utils.toArray('.word');
+    const root = rootRef.current;
+    if (!root) return undefined;
+    // gsap.context + a root: every selector here is scoped to THIS heading
+    // (REFRESH-1) — an unscoped '.word' would silently pull any future
+    // component reusing the class into this scrub timeline.
+    const ctx = gsap.context(() => {
+    const words = gsap.utils.toArray('.word', root);
 
     // M3: colors come from the design tokens (:root exports in app.scss);
     // literals are the sync'd fallbacks per the token-mirror convention.
@@ -28,7 +35,7 @@ const AboutHeading = () => {
 
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: '.work-heading',
+        trigger: root,
         start: 'top 80%',
         end: 'bottom 20%',
         scrub: true,
@@ -39,13 +46,12 @@ const AboutHeading = () => {
       tl.to(word, { color: scrubTo }, i * 0.05); // highlight one by one
     });
 
-    return () => {
-      // Scoped kill (was ScrollTrigger.getAll().forEach(kill) — that nuked
-      // EVERY component's triggers app-wide on unmount, e.g. on route
-      // change). Only this timeline's own trigger dies with it.
-      tl.scrollTrigger?.kill();
-      tl.kill();
-    };
+    }, root);
+
+    // ctx.revert() kills only this context's tweens + triggers (never
+    // ScrollTrigger.getAll() — that once nuked every component's triggers
+    // on route change).
+    return () => ctx.revert();
   }, [reducedMotion]);
 
   const text = `We build websites, apps, and AI systems that convert: designed from scratch, engineered by people who ship real code, and automated so your business runs while you sleep`;
@@ -62,7 +68,7 @@ const AboutHeading = () => {
   ));
 
   return (
-    <div className="work-heading">
+    <div className="work-heading" ref={rootRef}>
       <p>{wrappedWords}</p>
     </div>
   );

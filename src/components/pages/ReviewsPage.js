@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import Seo from '../util/Seo';
 import { motion, useReducedMotion } from 'motion/react';
 import testimonialsData from '../../data/testimonials.json';
@@ -82,6 +83,24 @@ const ReviewsPage = () => {
               </blockquote>
 
               <p className="testimonials-page__card-body">{review.testimonial}</p>
+
+              {/* A sourced number next to the words, where one exists (REFRESH-1:
+                  the headline says "real results" — this is the one that can be
+                  checked). Optional per review; renders nothing otherwise. */}
+              {review.metric && (
+                <p className="testimonials-page__card-metric">
+                  <strong>{review.metric.value}</strong> {review.metric.label}
+                  <span className="testimonials-page__card-metric-source">
+                    {review.metric.source}
+                    {review.metric.href && (
+                      <>
+                        {' · '}
+                        <Link to={review.metric.href}>See the case study</Link>
+                      </>
+                    )}
+                  </span>
+                </p>
+              )}
             </motion.article>
           ))}
         </motion.section>

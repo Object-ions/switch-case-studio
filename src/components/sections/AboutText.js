@@ -60,6 +60,10 @@ const AboutText = () => {
 
   return (
     <div className="work-text" ref={rootRef}>
+      {/* Two paragraphs, not three (REFRESH-1): the old third one restated
+          "small studio / personal attention", and the first restated the
+          AboutHeading claim one viewport up. Each paragraph now adds a fact
+          the heading didn't: who does the work, and what we run ourselves. */}
       <p>
         Switch Case Studio delivers
         <span className="highlight-block">
@@ -68,8 +72,9 @@ const AboutText = () => {
         for businesses that take their digital presence seriously. Every project,
         from a campaign page to a custom AI agent, is
         <span className="highlight-block">
-          built from scratch, not from templates.
+          designed, built and measured by the same people,
         </span>
+        so you work directly with whoever is writing the code.
       </p>
       <br />
       <p>
@@ -80,15 +85,6 @@ const AboutText = () => {
         </span>
         : n8n workflows, CRM pipelines, and assistants on Claude and OpenAI.
         When we say AI, we mean software that ships, not a buzzword on a deck.
-      </p>
-      <br />
-      <p>
-        We&rsquo;re a small, focused studio, which means you work directly with
-        the people building your project, not an account manager.
-        <span className="highlight-block">
-          Every detail gets personal attention.
-        </span>
-        That&rsquo;s not a pitch. It&rsquo;s just how we operate.
       </p>
     </div>
   );

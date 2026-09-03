@@ -62,7 +62,6 @@ const LandingPageProof = () => {
           landingPageProof.scss / services.scss). */}
       <div className="lpp__inner">
         <div className="lpp__header">
-          <p className="lpp__kicker lpp-animate">What we do</p>
           <h2 className="lpp__heading lpp-animate">
             One studio.<br />Design, code &amp; AI.
           </h2>

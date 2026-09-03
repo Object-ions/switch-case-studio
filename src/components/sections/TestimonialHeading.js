@@ -1,20 +1,13 @@
-import GradientText from '../ui/GradientText';
 import '../../styles/components/testimonialHeading.scss';
-
-const TITLE_GRADIENT_COLORS = ['#ff834a', '#d99cff', '#f0d7ff'];
 
 const TestimonialHeading = ({ id }) => {
   return (
     <div className="testimonial-head">
-      <p className="testimonial-head__kicker">Proof, not promises</p>
+      {/* Solid white, weight for emphasis (REFRESH-1): the animated
+          gradient fill read as decoration, and the kicker above it
+          restated the heading. */}
       <h2 id={id} className="testimonial-head__title">
-        <GradientText
-          colors={TITLE_GRADIENT_COLORS}
-          animationSpeed={8}
-          showBorder={false}
-        >
-          They trusted us. Here's what happened.
-        </GradientText>
+        They trusted us. Here's what happened.
       </h2>
     </div>
   );

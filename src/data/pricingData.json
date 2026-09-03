@@ -85,7 +85,7 @@
           "name": "Simple Website",
           "price": 1500,
           "billing": "one-time",
-          "description": "A clean, professional website for small businesses and portfolios, built custom, not from a template.",
+          "description": "A clean, professional website for small businesses and portfolios, built custom for the business.",
           "includes": [
             "Custom design tailored to your brand",
             "Up to 5 pages of structured content",
@@ -201,7 +201,7 @@
           "billing": "one-time",
           "description": "One-time technical SEO + AI-search optimization, from audit to full implementation.",
           "benefits": [
-            { "text": "Full implementation, not just a report", "icon": "wrench" },
+            { "text": "Every fix implemented on the site", "icon": "wrench" },
             { "text": "89+ scores at handoff (SEO, Performance, Accessibility, Best Practices)", "icon": "gauge" },
             { "text": "Includes GEO / AI-search readiness", "icon": "robot" }
           ],

@@ -1554,3 +1554,24 @@ frames (the occluded-window law):
 - **FAQ "washed-out row"**: not a bug — six rows, identical computed color, opacity 1 with frames
   forced. The audit tab froze a mid-stagger frame. Two rules recorded in CLAUDE.md (same-property
   tween collision; `minmax(0,1fr)` for text grids).
+
+## REFRESH-1 second pass: copy, kickers, pricing rows, testimonials, code hygiene — 2026-09-02
+
+Everything left on the audit except `/contact` (owner: the background video is intentional).
+Verified in a real browser at 1440 and narrow widths, zero console errors, 43 routes, one
+em dash in the artifacts (the clamp regex), entry-chunk marker pinned.
+- **Home testimonials heading**: animated gradient fill → solid white; the decorative
+  "Proof, not promises" kicker and the "What we do" kicker above the services heading are
+  gone. `GradientText.js` had no importers left and was deleted (asset set byte-identical).
+- **Kicker rule** settled: page headers + functional labels only.
+- **Reviews page**: optional per-testimonial `metric`; Sean Dalal's Zahav quote now carries
+  the sourced "1 in 13 visits end in a book-appointment click (GA4, Jul–Aug 2026)" with a
+  link to the case study. The headline "Real results" is now backed by one checkable number.
+- **/pricing rows** preview the entry tier's first three deliverables instead of the
+  one-liner already read twice upstream (derived from `pricingData.json`; "Perfect for…"
+  framing lines filtered out after one read as nonsense).
+- **Copy trims**: "X, not Y" reduced to four signature uses; "built from scratch" kept only
+  where it is the point; the home "Selected Work" intro cut from three paragraphs to two;
+  "under two weeks" softened in prose (the About stat tile is the owner's call, flagged).
+- **Code hygiene**: AboutHeading scoped, CursorWave IO-gated, one reduced-motion hook,
+  CaseStudyTiles on motionTokens.

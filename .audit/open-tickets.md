@@ -26,31 +26,51 @@ Owner asked for a site-refresh audit from three skills. Findings, cheapest-first
    `scrollEnd` sweep and the timed net — nothing that has ENTERED the viewport can stay
    hidden, and nothing below it reveals early. Timing now reads `motionTokens.js`. Verified
    desktop + 390px, including an instant jump to the bottom.
-5. `/contact`: empty decorative photo frame with no image source, and a black band where a
-   video apparently belongs (per commit `953826c`) but never fires a network request.
+5. ~~`/contact` placeholders~~ **SKIPPED by owner decision 2026-09-02**: the background video
+   is intentional and the owner is happy with it; the audit tab never fired the video request
+   (IO/autoplay under automation). Headline left as is with the rest of the page.
 
-**Two pages, hit from both a design and a copy angle — treat as one job each:**
-- `/contact`: flat "Contact us" h1 + the two placeholder issues above, on the highest-intent
-  page on the site.
-- `/testimonials`: gradient-fill heading text (explicit AI-slop tell) + a "Real results"
-  headline over six quotes with zero numbers, when Zahav's sourced "1 in 13 visits" stat
-  could pair with its own quote one page away.
+**Two pages, hit from both a design and a copy angle:**
+- `/contact`: skipped (above).
+- ~~`/testimonials`~~ **DONE 2026-09-02**: the animated gradient fill on the HOME testimonials
+  heading is now solid white (`GradientText.js` deleted — no importers, asset set byte-identical
+  after removal), and the reviews page pairs Sean Dalal's Zahav quote with the sourced
+  "1 in 13" booking-click stat + a case-study link (optional `metric` field on a testimonial;
+  renders nothing when absent). Headline kept: it is now literally true for one card.
 
-**Bigger, worth-scheduling (register/consistency, not urgent):**
-- Kicker-label pattern (WHAT WE DO, TRUSTED BY, etc.) defaults onto nearly every section —
-  consolidate to a few deliberate uses.
-- "X, not Y" construction used 9+ times across 6 pages; "built from scratch" repeated as a
-  verbatim slogan 8+ times instead of proven once via the case studies.
-- Pricing-page service cards repeat the same one-liner already read on Home and `/services`
-  instead of answering "what's included at this price."
-- "Most sites ship in under two weeks" (About + home FAQ) is the one specific-sounding claim
-  on the site with no case study backing it.
+**Bigger, worth-scheduling (register/consistency):**
+- ~~Kicker-label pattern~~ **CONSOLIDATED 2026-09-02** to one rule: kickers live on PAGE
+  headers only (Portfolio / Field Notes / Pricing / Our Studio / What clients say) plus
+  functional labels (the "Trusted by" strip, case-study "In depth on · year", blog category).
+  Removed the two decorative in-section ones on the home page ("What we do" above the
+  services heading, "Proof, not promises" above the testimonials heading). The About page's
+  small-caps `section-label`s are real `<h2>`s, not kickers — kept.
+- ~~"X, not Y" + "built from scratch" repetition~~ **TRIMMED 2026-09-02**: kept four signature
+  uses ("hype not" on /pricing, "Engineers first, evangelists never", "software that ships,
+  not a buzzword on a deck", "not a slide deck" on the AI sprint) and rewrote the rest as
+  direct statements across services.json, pricingData.json, team.json, AboutPage, AboutText,
+  Faq, BlogPage. "Built from scratch" now appears where it is the point (hero, AboutHeading,
+  marquee, the /projects tagline, the FAQ answer to the template question, one feature
+  bullet) and nowhere else. The home "Selected Work" intro went from three paragraphs to two,
+  each adding a fact the heading above it did not.
+- ~~Pricing-page rows repeat the one-liner~~ **DONE 2026-09-02**: `/pricing` rows now preview
+  what the ENTRY tier includes (first three deliverables, cut at the first clause break,
+  marketing-framing lines like "Perfect for…" filtered out), derived from `pricingData.json`;
+  `/services` keeps the one-liner.
+- ~~"Most sites ship in under two weeks"~~ **SOFTENED 2026-09-02** in all three prose spots
+  (About story, About values, home FAQ) to the shape of the truth without a hard number
+  ("landing pages and first automations in days, full sites in a few weeks"). **OWNER
+  CHECK:** the About page still shows a `<2wk · Avg. turnaround` STAT TILE (and `19+` clients,
+  `0` templates) — those are the owner's own operational numbers, left untouched; confirm or
+  drop.
 
-**Smaller code consistency gaps (gsap-scrolltrigger, low urgency):** `AboutHeading.js` has no
-`gsap.context()` scope (harmless today); reveal timing hardcoded in two files instead of
-`motionTokens.js`, slightly drifted; `CursorWave.js`'s RAF loop has no IO-gate (fine at its
-current above-the-fold-only usage); reduced-motion detection has two independent
-implementations (house hook vs. motion/react's own in `MagneticButton`/`HoverPeek`).
+**Smaller code consistency gaps** — **ALL DONE 2026-09-02**: `AboutHeading.js` scoped in
+`gsap.context` with a root ref; `CursorWave.js` RAF loop IO-gated (200px rootMargin);
+`MagneticButton`/`HoverPeek` use the house `useReducedMotion`; `CaseStudyTiles.js` reads
+`motionTokens.js` (y 30→24 to match the token).
+
+**REFRESH-1 status: everything actionable is done or owner-skipped. Open only: the owner
+check on the About stat tiles above.**
 
 ## GA-1 — CLOSED 2026-08-04 (outcome in summary.md)
 `generate_lead` starred. `email_click` / `phone_click` deliberately left unstarred by the owner:

@@ -18,7 +18,7 @@ const COPY = {
   services: {
     seoTitle: 'Services | Switch Case Studio',
     seoDescription:
-      'AI development, automation, web development, e-commerce, branding, and growth: design, code, and AI systems built from scratch by Switch Case Studio.',
+      'AI development, automation, web development, e-commerce, branding, and growth: design, code, and AI systems by Switch Case Studio, priced in the open.',
     path: '/services',
     ariaLabel: 'Services',
     kicker: 'What we do',
@@ -54,6 +54,23 @@ const SLUG_TO_ID = {
   'hosting-maintenance': 'web-hosting-maintenance',
   'design-branding': 'design-branding',
   'email-marketing': 'email-marketing',
+};
+
+// /pricing rows preview what the ENTRY tier includes instead of repeating
+// the one-liner already read on Home and /services (REFRESH-1): the page's
+// job is "what do I get at this price", so the row answers it. Each include
+// is cut at its first clause break to stay scannable.
+const includesPreview = (slug) => {
+  const svc = pricingData.services.find((s) => s.id === SLUG_TO_ID[slug]);
+  const tiers = (svc?.tiers || []).filter((t) => typeof t.price === 'number');
+  if (!tiers.length) return null;
+  const entry = tiers.reduce((a, b) => (b.price < a.price ? b : a));
+  const items = (entry.includes || [])
+    .filter((line) => !/^(perfect|ideal|best|great|designed) for/i.test(line)) // framing, not a deliverable
+    .slice(0, 3)
+    .map((line) => line.split(/[:(,;]/)[0].trim())
+    .filter(Boolean);
+  return items.length ? `${entry.name} includes ${items.join(' · ')}` : null;
 };
 
 const fromPrice = (slug) => {
@@ -112,7 +129,11 @@ const ServiceIndexPage = ({ variant }) => {
               key={service.slug}
               to={`/pricing/${service.slug}`}
               title={service.title}
-              description={service.subTitle}
+              description={
+                variant === 'pricing'
+                  ? includesPreview(service.slug) || service.subTitle
+                  : service.subTitle
+              }
               price={variant === 'pricing' ? fromPrice(service.slug) : undefined}
               priced={variant === 'pricing'}
               variants={v(cardVariants)}

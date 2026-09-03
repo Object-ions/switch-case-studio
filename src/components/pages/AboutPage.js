@@ -14,7 +14,7 @@ import '../../styles/components/aboutPage.scss';
 const CAPABILITIES = [
   {
     title: 'Websites & Stores',
-    body: 'Marketing sites, landing pages, and product-first e-commerce, built from scratch, never from a template. Shopify, WooCommerce, custom.',
+    body: 'Marketing sites, landing pages, and product-first e-commerce, built custom, never from a template. Shopify, WooCommerce, custom.',
   },
   {
     title: 'Apps & Dashboards',
@@ -28,12 +28,12 @@ const CAPABILITIES = [
 
 const VALUES = [
   {
-    label: 'Scratch, not templates',
+    label: 'Blank canvas',
     desc: 'Every project starts from a blank canvas. No themes, no page builders, no shortcuts.',
   },
   {
     label: 'Fast delivery',
-    desc: 'Most builds ship in under two weeks without cutting corners on quality.',
+    desc: 'Landing pages and first automations ship in days, full sites in weeks, never at the cost of quality.',
   },
   {
     label: 'Direct collaboration',
@@ -41,7 +41,7 @@ const VALUES = [
   },
   {
     label: 'Conversion-focused',
-    desc: 'Design follows function. We care about results, not just how things look.',
+    desc: 'Design follows function. The brief is always a business result.',
   },
   {
     label: 'AI without the hype',
@@ -85,7 +85,7 @@ const AboutPage = () => {
     <>
       <Seo
         title="About | Switch Case Studio"
-        description="The engineer-led studio behind conversion-focused websites, apps, and AI systems. Design, code, and automation from scratch: personal attention, no templates, no hype."
+        description="The engineer-led studio behind conversion-focused websites, apps, and AI systems. Design, code, and automation by the people who build it: personal attention, no templates, no hype."
         path="/about"
         jsonLd={teamJsonLd}
       />
@@ -103,7 +103,7 @@ const AboutPage = () => {
           </h1>
           <p className="about-page__lede page-head-animate">
             Switch Case Studio is an engineer-led studio building websites,
-            web apps, and AI systems from scratch, for businesses that want
+            web apps, and AI systems for businesses that want
             the AI revolution working for them, not marketed at them.
           </p>
         </header>
@@ -128,11 +128,11 @@ const AboutPage = () => {
                 brands, and marketing companies across the US.
               </p>
               <p>
-                We move fast without cutting corners. Most sites ship in under
-                two weeks, with a design-to-launch process that keeps you in the
-                loop without drowning you in it. Whether it's a campaign page, a
-                full Shopify store, or a custom web app: everything starts from
-                scratch.
+                We move fast without cutting corners: landing pages and first
+                automations ship in days, full sites in a few weeks, with a
+                design-to-launch process that keeps you in the loop without
+                drowning you in it. Campaign page, full Shopify store, or custom
+                web app, the same people design it, build it and measure it.
               </p>
               <p>
                 And we practice what we sell: our own studio runs on the

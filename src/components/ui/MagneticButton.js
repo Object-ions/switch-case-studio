@@ -1,10 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useReducedMotion,
-} from 'motion/react';
+import { motion, useMotionValue, useSpring } from 'motion/react';
+import useReducedMotion from '../../hooks/useReducedMotion';
 
 const SPRING_CONFIG = { damping: 100, stiffness: 400 };
 

@@ -3,6 +3,7 @@ import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { REVEAL_Y, DUR_SLOW, EASE_OUT_SOFT } from '../../animation/motionTokens';
 
 import useReducedMotion from '../../hooks/useReducedMotion';
 import useBentoParticles from '../../hooks/useBentoParticles';
@@ -236,7 +237,7 @@ const CaseStudyTiles = ({ projects }) => {
       // Set the hidden start state explicitly with gsap.set — NOT fromTo's
       // immediateRender, which re-applies on ScrollTrigger.refresh() (other
       // components refresh during initial font/image load) and re-hides tiles.
-      gsap.set(tiles, { autoAlpha: 0, y: 30, scale: 0.98, rotate: -0.4 });
+      gsap.set(tiles, { autoAlpha: 0, y: REVEAL_Y, scale: 0.98, rotate: -0.4 });
 
       const reveal = () =>
         gsap.to(tiles, {
@@ -244,8 +245,8 @@ const CaseStudyTiles = ({ projects }) => {
           y: 0,
           scale: 1,
           rotate: 0,
-          ease: 'power2.out',
-          duration: 0.7,
+          ease: EASE_OUT_SOFT,
+          duration: DUR_SLOW,
           stagger: { from: 'center', amount: 0.35 },
           overwrite: 'auto',
         });

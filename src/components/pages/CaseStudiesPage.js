@@ -26,7 +26,7 @@ const CaseStudiesPage = () => {
     <>
       <Seo
         title="Case Studies | Switch Case Studio"
-        description="Browse Switch Case Studio's portfolio: landing pages, websites, e-commerce stores, and apps built from scratch for clients across the US."
+        description="Browse Switch Case Studio's portfolio: landing pages, websites, e-commerce stores, and apps built for clients across the US."
         path="/projects"
       />
 

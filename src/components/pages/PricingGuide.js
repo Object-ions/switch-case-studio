@@ -30,7 +30,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Shared studio reassurances shown on every tier.
 const BENEFITS = [
-  { text: 'Built from scratch, no templates', icon: faBolt },
+  { text: 'Custom build, no templates', icon: faBolt },
   { text: 'Most builds ship in under 2 weeks', icon: faClock },
   { text: 'Work directly with the people building it', icon: faHeart },
 ];

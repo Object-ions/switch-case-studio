@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import * as HoverCard from '@radix-ui/react-hover-card';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
+import useReducedMotion from '../../hooks/useReducedMotion';
 
 import '../../styles/components/hoverPeek.scss';
 

@@ -550,8 +550,27 @@ const CursorWave = React.forwardRef(
 
         ctx.globalAlpha = 1;
 
-        rt.raf = requestAnimationFrame(tick);
+        if (rt.visible) rt.raf = requestAnimationFrame(tick);
       };
+
+      // IO-gate (REFRESH-1): the loop only runs while the lattice is on or
+      // near the screen. Above the fold today, so this costs nothing — it
+      // stops a second, below-fold usage from becoming the always-on RAF
+      // loop this codebase already had to fix for Moon and TextPressure.
+      rt.visible = true;
+      let io = null;
+      if (typeof IntersectionObserver !== 'undefined' && containerRef.current) {
+        io = new IntersectionObserver(
+          ([entry]) => {
+            const was = rt.visible;
+            rt.visible = entry.isIntersecting;
+            if (rt.visible && !was) rt.raf = requestAnimationFrame(tick);
+            if (!rt.visible) cancelAnimationFrame(rt.raf);
+          },
+          { rootMargin: '200px' },
+        );
+        io.observe(containerRef.current);
+      }
 
       rt.raf = requestAnimationFrame(tick);
 
@@ -566,6 +585,7 @@ const CursorWave = React.forwardRef(
 
       return () => {
         cancelAnimationFrame(rt.raf);
+        if (io) io.disconnect();
         if (resizeObs) resizeObs.disconnect();
         else window.removeEventListener('resize', resize);
       };
