@@ -42,3 +42,16 @@ fonts-src/
 .agents/
 .claude/
 skills-lock.json
+
+# Case-study measurement workspaces — internal only, and this repo is public.
+# Raw Lighthouse runs, full-page captures of a client's pre-rebuild site and the
+# scripts behind them are evidence, not portfolio. Only the projects.json entry
+# and the webp set under public/projects/ ever ship.
+casestudy/
+**/casestudy/
+internal/
+lighthouse-*/
+lh/
+*-medians.json
+metrics.csv
+METHOD.md

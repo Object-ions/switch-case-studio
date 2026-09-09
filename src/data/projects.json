@@ -1,5 +1,84 @@
 [
   {
+    "id": 10,
+    "slug": "renewed-bodyworks",
+    "type": "Rebuild + Local SEO",
+    "badge": "Rebuild + Local SEO",
+    "featured": true,
+    "panelClass": "panel-hero",
+    "coverTile": "/projects/renewed-bodyworks/renewed-bodyworks-cover-tile.webp",
+    "clientLogo": "/clients/renewed-bodyworks.webp",
+    "clientLogoAlt": "Renewed Bodyworks logo",
+    "imageSrc": "/projects/renewed-bodyworks/after-home.webp",
+    "longWeb": "/projects/renewed-bodyworks/long.webp",
+    "imageAlt": "The rebuilt Renewed Bodyworks homepage: a serif headline over full-bleed video of a massage session, with the Google rating beneath it",
+    "comparisonsLabel": "Before and after",
+    "comparisonsNote": "The Wix Studio site on the left, the rebuild on the right. Every desktop pair is captured at the same 1440 × 1290 viewport by the same script on the same afternoon, and the phone pair at 390 px. 1440 rather than the 1150 the other studies use, because the old header wraps to three rows below roughly 1200 px: a narrower frame would have flattered the rebuild.",
+    "comparisons": [
+      { "src": "/projects/renewed-bodyworks/compare-home.webp", "caption": "Homepage", "note": "−79% weight · −62% largest contentful paint · Performance 51 → 92 on mobile", "alt": "The Renewed Bodyworks homepage before and after the rebuild, both at 1440 pixels wide" },
+      { "src": "/projects/renewed-bodyworks/compare-services.webp", "caption": "Services", "note": "−79% largest contentful paint · −65% weight · eight services and their prices published on the site for the first time", "alt": "The Renewed Bodyworks services page before and after the rebuild, both at 1440 pixels wide" },
+      { "src": "/projects/renewed-bodyworks/compare-contact.webp", "caption": "Contact", "note": "−72% largest contentful paint · −75% weight · Performance 52 → 96 on mobile", "alt": "The Renewed Bodyworks contact page before and after the rebuild, both at 1440 pixels wide" },
+      { "src": "/projects/renewed-bodyworks/compare-about.webp", "caption": "About", "note": "HTML 773,863 bytes to 49,911. The old About page never named the therapist it was about.", "alt": "The Renewed Bodyworks about page before and after the rebuild, both at 1440 pixels wide" },
+      { "src": "/projects/renewed-bodyworks/compare-why.webp", "caption": "Why Massage?", "note": "HTML 781,063 bytes to 52,352 · one h1 carrying the service and the city, where the old page carried none", "alt": "The Renewed Bodyworks why massage page before and after the rebuild, both at 1440 pixels wide" },
+      { "src": "/projects/renewed-bodyworks/compare-mobile.webp", "caption": "Homepage on a phone", "note": "At 390 px the old header stacks five links across the logo and the menu button. The rebuild carries a fixed booking bar instead.", "alt": "The Renewed Bodyworks homepage before and after the rebuild, both captured at a 390 pixel phone viewport" }
+    ],
+    "backLabel": "Back to Projects",
+    "title": "Renewed Bodyworks",
+    "subtitle": "Massage Therapy · Eugene and Portland, Oregon",
+    "outcome": "",
+    "year": "2026",
+    "metrics": [
+      { "value": "−79%", "label": "homepage weight on mobile, 9,813 KiB to 2,029 KiB" },
+      { "value": "−62%", "label": "homepage largest contentful paint on mobile, 8.48s to 3.19s" },
+      { "value": "61 → 100", "label": "Lighthouse SEO, every page, both form factors" },
+      { "value": "0 → 9", "label": "pages Google is allowed to index, and pages in a sitemap" }
+    ],
+    "description": "A licensed massage therapist's Wix Studio site that Google was never allowed to read, rebuilt as a static Next.js site: 79% less homepage weight on mobile, 62% faster paint, SEO 61 to 100. Every page served meta robots noindex, the sitemap returned 404, and a site: search returned nothing. No page carried an h1, a meta description, a price or a set of opening hours. The served HTML of every page still advertised a fitness template's leftover copy at zero by zero pixels, invisible on screen and fully readable by crawlers. The rebuild publishes the eight services with their prices, both studios' hours, a page for each city, and redirects every old Wix slug to the page that replaced it. Live on renewedbodyworks.com since September 2026.",
+    "tileVersion": "Massage therapy in Eugene and Portland. A Wix site serving noindex on every page, rebuilt in Next.js: −79% homepage weight, −62% mobile paint, SEO 61 → 100.",
+    "services": [
+      { "label": "#Technical SEO Audit" },
+      { "label": "#Design Direction" },
+      { "label": "#Next.js Build" },
+      { "label": "#Performance Engineering" },
+      { "label": "#Structured Data" },
+      { "label": "#Local SEO" },
+      { "label": "#Accessibility" },
+      { "label": "#Analytics" },
+      { "label": "#Content & Copy" }
+    ],
+    "highlights": [
+      {
+        "title": "Measured, Not Estimated",
+        "summary": "Lighthouse 13.4.1, three runs per page per form factor, interleaved between the old site and the rebuild on the same machine on the same afternoon. Every figure here is the median of its three runs."
+      },
+      {
+        "title": "Hidden By One Toggle",
+        "summary": "Every page served meta robots noindex and the sitemap returned 404, so the whole site was invisible to search. Nine URLs now ship in a sitemap that Google is allowed to read."
+      },
+      {
+        "title": "The Trainer Who Never Worked There",
+        "summary": "Leftover template markup named a certified fitness trainer, offered a class booking and advertised a promo code, on every page, at zero by zero pixels. No visitor could see it. Every crawler could read it."
+      },
+      {
+        "title": "Prices Nobody Could Find",
+        "summary": "Eight services and their prices lived only on MassageBook, and opening hours lived nowhere at all. Both are on the site now, and in the structured data."
+      },
+      {
+        "title": "Rankings Carried, Not Dumped",
+        "summary": "The five Wix slugs, /home-1, /home-1-1, /home-1-2, /blank and the orphaned /fullscreen-page, each redirect to the page that absorbed them rather than into the homepage."
+      },
+      {
+        "title": "159 Requests Removed",
+        "summary": "The homepage went from 187 network requests to 28. Wix Bookings, Checkout, Members and two retired form apps were loading on every page while booking actually ran on MassageBook."
+      }
+    ],
+    "result": "Across three pages, two form factors and twelve measured metrics, every figure moved the right way or stayed level. Six Wix pages became nine indexable routes, and the four Lighthouse categories were re-run on both sites the same afternoon so the before column is a measurement rather than a memory.",
+    "kicker": "In depth on",
+    "productName": "Our Work",
+    "ctaLabel": "View Live",
+    "ctaUrl": "https://www.renewedbodyworks.com"
+  },
+  {
     "id": 8,
     "slug": "florida-green-improvements",
     "type": "Rebuild + SEO",

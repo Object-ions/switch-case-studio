@@ -1627,3 +1627,31 @@ Branch `refresh/logos-and-tile-peek` (owner asked for a branch, not main). Two o
    the home tiles' text-card mode. Verified: one peek mounted after one hover, opacity 1, zero
    floating peek elements in the DOM.
 Build: 43 routes, marker pinned, 1 em dash (clamp regex).
+
+## Renewed Bodyworks case study published — 2026-09-08
+
+Tenth case study live on every surface. The page itself is data: the `projects.json` entry
+(id 10, first in the array, `featured`) plus the WebP set in `public/projects/renewed-bodyworks/`
+carries `/projects/renewed-bodyworks`, the `/projects` index, the header and mobile-menu
+dropdowns, the footer's first four case-study links, the home grid and the sitemap, since all
+six derive from that file. The raw evidence (36 Lighthouse runs, capture scripts, METHOD.md)
+stays out of this repo, gitignored, with the client project.
+
+Two things did NOT come for free:
+1. **The home grid.** Ten featured tiles left one orphan, and the remainder-1 rule blew that
+   lone tile up to 779 × 442 against the others' 378 × 214 — handing the biggest slot on the
+   page to Florida Energy Assistance, the oldest entry, purely because it sits last in the
+   array. `.row-tiles` is now a 12-column grid (tiles span 4) and remainder 1 restyles the
+   last FOUR into a row of four at span 3. Measured on the build at 1440: 378 · 378 · 378 /
+   378 · 378 · 378 / 277 · 277 · 277 · 277, no page overflow; ≤1024 and ≤768 still reset every
+   remainder selector to one column.
+2. **The marquee logo.** It had shipped as the only opaque asset in `public/clients/` — a white
+   square around a round badge, in a strip of transparent wordmarks on black. Recut with the
+   house script (`scripts/cut-client-logos.py`); the other seven logos came back byte-identical.
+   All eight now report `hasAlpha: yes`. Then, on the owner's call, the mark went B&W: this was
+   the only colour logo on the site (mean chroma 39 against ~0 for all ten other cover tiles),
+   so the cover tile and its `-256`/`-512` siblings were greyscaled at the asset and the marquee
+   mark recut from them. The case study's before/after screenshots stay in colour.
+
+Build: 44 routes (43 + this case study), entry-chunk marker pinned, 1 em dash (clamp regex),
+every `coverTile`/`imageSrc`/`longWeb`/`comparisons[].src` path resolved against `public/`.

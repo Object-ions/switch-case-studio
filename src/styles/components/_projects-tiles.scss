@@ -11,15 +11,16 @@ $tile-radius-mobile: 14px;
 $tile-radius-inner-mobile: $tile-radius-mobile - $tile-border-width;
 
 /* ── Grid ──
-   6-column base, every tile spans 2 → rows of three (owner decision
+   12-column base, every tile spans 4 → rows of three (owner decision
    2026-09-02: the 2-tile hero row is gone so Scout sits in row one with
-   Florida Green and Zahav; 9 featured = three clean rows).
+   Florida Green and Zahav). 12 rather than 6 columns since 2026-09-08 so a
+   row of FOUR (span 3) is expressible — see the remainder rules below.
    Spans are driven off nth-child, not a data field — `panelClass` looks like
    it controls layout but is consumed by NO CSS anywhere (see CLAUDE.md).
    Any featured count is valid: remainder rows are restyled below (1 orphan
-   → centered wide finale, 2 orphans → half-width pair). */
+   → the last four become a row of four, 2 orphans → half-width pair). */
 .row-tiles {
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(12, 1fr);
   grid-auto-rows: auto;
   max-width: $max-width;
   position: relative;
@@ -30,22 +31,35 @@ $tile-radius-inner-mobile: $tile-radius-mobile - $tile-border-width;
 
   > .tile,
   > *:has(> .tile) {
-    grid-column: span 2;
+    grid-column: span 4;
   }
 
   /* ── Remainder handling: any featured count reads deliberate ──
      Rows are three wide, so row-ending positions are ≡ 0 (mod 3): a last
      tile at 3n+1 is one orphan (remainder 1), a last tile at 3n+2 means two
-     (remainder 2). Remainder 1 → centered wide finale (cols 2-5).
+     (remainder 2).
+     Remainder 1 → the last FOUR tiles become a row of four (span 3 each), so
+     10 featured reads 3 + 3 + 4. The earlier rule promoted the single orphan
+     to a centred double-size finale, which spotlit whatever sat LAST in
+     projects.json — the oldest project — at twice the size of the newest.
      Remainder 2 → the pair becomes two half-width tiles.
      Remainder 0 → none of these match; rows stay thirds. */
-  > :last-child:nth-child(3n + 1) {
-    grid-column: 2 / 6;
+  > :last-child:nth-child(3n + 1),
+  > :nth-last-child(2):nth-child(3n),
+  > :nth-last-child(3):nth-child(3n + 2),
+  > :nth-last-child(4):nth-child(3n + 1) {
+    grid-column: span 3;
   }
 
   > :last-child:nth-child(3n + 2),
   > :nth-last-child(2):nth-child(3n + 1) {
-    grid-column: span 3;
+    grid-column: span 6;
+  }
+
+  /* A single tile has no row to join: keep it a centred finale rather than a
+     quarter-width orphan (the remainder-1 rule above matches it too). */
+  > :only-child {
+    grid-column: 4 / 10;
   }
 }
 
@@ -260,8 +274,12 @@ $tile-radius-inner-mobile: $tile-radius-mobile - $tile-border-width;
     > .tile,
     > *:has(> .tile),
     > :last-child:nth-child(3n + 1),
+    > :nth-last-child(2):nth-child(3n),
+    > :nth-last-child(3):nth-child(3n + 2),
+    > :nth-last-child(4):nth-child(3n + 1),
     > :last-child:nth-child(3n + 2),
-    > :nth-last-child(2):nth-child(3n + 1) {
+    > :nth-last-child(2):nth-child(3n + 1),
+    > :only-child {
       grid-column: span 1;
     }
   }
@@ -313,8 +331,12 @@ $tile-radius-inner-mobile: $tile-radius-mobile - $tile-border-width;
     > .tile,
     > *:has(> .tile),
     > :last-child:nth-child(3n + 1),
+    > :nth-last-child(2):nth-child(3n),
+    > :nth-last-child(3):nth-child(3n + 2),
+    > :nth-last-child(4):nth-child(3n + 1),
     > :last-child:nth-child(3n + 2),
-    > :nth-last-child(2):nth-child(3n + 1) {
+    > :nth-last-child(2):nth-child(3n + 1),
+    > :only-child {
       grid-column: span 1;
     }
   }
