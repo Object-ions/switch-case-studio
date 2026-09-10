@@ -1789,3 +1789,12 @@ bearings and a per-letter em margin makes every ink gap exactly `--gap`. Measure
 25.2px ×10, vertical 24.4–25.4 (round-glyph overshoot) at 1440×900; 20.2 / 19.6–20.4 at 723; 8.3 /
 8.0–8.4 on the phone. Column clears the bottom note everywhere. Weight 300 because 100 is not
 shipped (the DevTools mock's 100 was already rendering as 300).
+
+Third revision, owner picked the "spine" from three impeccable-guided options: the crossword read as
+tracked label type scaled up, with no lead between the words. Now "DESIGN" is ONE word in Inter 800,
+rotated to read bottom-to-top up the left edge, sized so it spans gutter to gutter
+(`(100svh - 2 gutters) / 3.6`, its measured length 3.56em); "DEVELOPMENT" is Inter 300 across the
+top, flush right of the spine. The bottom-left note moved right of the spine. The ink-fit script is
+gone (words set as words need no per-letter spacing). Measured spine 24→866 at 1440×900, 24→648 at
+1280×680. Phones stack DESIGN (800) over DEVELOPMENT (300). Known clash: the ident's "edge tail"
+plate (a giant clipped letter at the left edge, frames 61–66) overlaps the spine for 0.2s per loop.
