@@ -1,5 +1,120 @@
 [
   {
+    "slug": "website-navigation-labels-that-reduce-friction",
+    "title": "Website Navigation Labels That Reduce Friction",
+    "excerpt": "Clever navigation labels make visitors decode your site before they can use it. Clear labels improve orientation, accessibility, and the path to a useful next step.",
+    "kicker": "Web Design",
+    "category": "Web Design",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-09-10",
+    "readingTime": "4 min read",
+    "coverImage": "",
+    "imageAlt": "",
+    "tags": [
+      "UX",
+      "Accessibility",
+      "Navigation"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "A navigation menu is not the place to prove how clever a brand can be. It is a compact map. When the labels are vague, branded beyond recognition, or arranged around internal company language, visitors have to decode the map before they can use it. That small pause matters because people usually arrive with a task: compare services, judge credibility, find pricing, or make contact."
+      },
+      {
+        "type": "paragraph",
+        "text": "Clear navigation does more than tidy up a header. It helps visitors predict what sits behind each link. It also supports people who navigate by keyboard or assistive technology, and gives search engines stronger context about how pages relate to one another. The best label is rarely the most original phrase. It is the shortest accurate promise about the destination."
+      },
+      {
+        "type": "heading",
+        "text": "Start with the visitor's vocabulary"
+      },
+      {
+        "type": "paragraph",
+        "text": "Businesses naturally organize themselves around departments, internal programs, and product names. Visitors do not share that mental model. A studio might call its process “The Framework,” while a prospective client is looking for “Web Design.” A clinic might group treatments under an invented collection name, while a patient wants “Services” or a specific treatment category."
+      },
+      {
+        "type": "paragraph",
+        "text": "Use the words a new customer would use before they know your terminology. Save distinctive campaign language for the page itself, where there is room to explain it. The main navigation should answer a simpler question: if I click this, where will I land?"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Prefer “Services” over a branded umbrella term that requires explanation.",
+          "Prefer “Case Studies” or “Work” over a vague label such as “Explore.”",
+          "Prefer “About” over labels that describe a mood but not a destination.",
+          "Use a specific service name when it is a major reason people visit the site."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Make every label earn its space"
+      },
+      {
+        "type": "paragraph",
+        "text": "A header with ten equal choices does not feel generous. It feels undecided. Primary navigation should expose the few destinations that matter across most visits. Secondary pages can live inside a well-structured menu, in contextual links, or in the footer. The goal is not to hide information. It is to give the most likely next steps a clear order."
+      },
+      {
+        "type": "paragraph",
+        "text": "Watch for labels that overlap. “Solutions,” “Services,” and “What We Do” may lead to different pages inside the business, but they sound nearly identical to a newcomer. Either consolidate the destinations or give each one a visibly different job. A useful menu creates contrast between choices."
+      },
+      {
+        "type": "quote",
+        "text": "Navigation should reduce uncertainty, not distribute it across six buttons.",
+        "cite": "Switch Case Studio"
+      },
+      {
+        "type": "heading",
+        "text": "Write links for people and machines"
+      },
+      {
+        "type": "paragraph",
+        "text": "The W3C's accessibility guidance says headings and labels should describe their topic or purpose. That principle applies to visible navigation and to the accessible names announced by assistive technology. If an icon opens the menu, its accessible name should describe the action, such as “Open menu.” If a page contains more than one navigation region, labels such as “Main” and “Footer” help distinguish them."
+      },
+      {
+        "type": "paragraph",
+        "text": "Google gives similar advice for links: anchor text should be descriptive, reasonably concise, and relevant to the destination. “View our Portland web design services” carries more meaning than “Learn more,” especially when the link is read away from the surrounding paragraph. This is not permission to stuff keywords into every menu item. It is a reason to make link text specific enough to stand on its own."
+      },
+      {
+        "type": "heading",
+        "text": "Test the menu without the page design"
+      },
+      {
+        "type": "paragraph",
+        "text": "Navigation often looks clearer in a polished mockup because typography, spacing, and animation create a sense of order. Strip those cues away and read the labels as a plain list. Can someone predict the destination of each item? Are two labels doing the same job? Is the main conversion path visible without opening several nested menus?"
+      },
+      {
+        "type": "paragraph",
+        "text": "Then test the real interface. Use a keyboard. Check the mobile menu at a narrow width. Confirm that focus is visible, submenu controls are operable, and the current page is apparent. Ask someone unfamiliar with the business where they would click to complete three common tasks. Their hesitation is useful data."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Find the service that fits a specific need.",
+          "Look for proof that the business can do the work.",
+          "Understand the next step and how to make contact."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Clarity still leaves room for personality"
+      },
+      {
+        "type": "paragraph",
+        "text": "A clear menu does not make a brand generic. Personality can show up in the visual system, page headlines, photography, motion, and the details of the writing. Navigation has a narrower responsibility. It needs to orient people quickly enough that the rest of the brand gets a chance to work."
+      },
+      {
+        "type": "paragraph",
+        "text": "If a website feels difficult to browse, changing the menu labels is not always the full solution. The underlying information architecture may need work. Pages might overlap, services may be grouped around the company instead of the customer, or the site may be asking one header to serve several audiences at once. Clear labels expose those structural problems early, which is useful. A better name cannot rescue a destination that has no clear purpose."
+      },
+      {
+        "type": "paragraph",
+        "text": "The practical standard is simple: a visitor should understand the choice before clicking it. When every label makes a precise promise and the destination keeps it, navigation stops calling attention to itself. That is usually a sign that it is doing its job."
+      }
+    ]
+  },
+  {
     "slug": "pricing-pages-that-qualify-better-leads",
     "title": "Pricing Pages That Qualify Better Leads",
     "excerpt": "A useful pricing page does more than show numbers. For service businesses, it sets expectations, explains scope, reduces bad-fit inquiries, and makes serious buyers more comfortable reaching out.",
