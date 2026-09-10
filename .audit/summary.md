@@ -1830,3 +1830,14 @@ page renders in full (moon slot stays empty at 500px, FAQ present); with WebGL t
 Previously a context failure blanked the whole page. Hero on wider screens: the ident plays on the
 stage right of the spine with `object-fit: contain`, the spine caps at 16vw; phones keep full-bleed
 cover. Measured at 975×950: spine 115px wide, stage from x=179, wordmark whole.
+
+## Services block: full-screen stage over the interactive grid — 2026-09-10
+
+Owner: the services section read "too clustered". "One studio." and the service menu now share one
+`.services-block` over the same `Squares` grid About uses, with black linear fades (28vh) at the top
+and bottom so it meets the hero and the stripe on pure black; both sections are transparent and the
+pointer reaches the grid through empty wrappers. The menu is `min-height: 100vh` with its cards
+centred (padding equalised: measured 177px above / 178px below at 1440×900) and 5rem between rows.
+Grid lines dimmed to #3d3d3d in this block so they don't cut through the muted "includes" copy.
+`Squares` is now visibility-gated (it ran full-canvas strokes every frame forever, even off screen;
+a second instance made that visible as probe stalls). Routes 41, entry marker pinned.

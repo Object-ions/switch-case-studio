@@ -20,7 +20,8 @@ if (!url || !expr) { console.error("usage: node scripts/headless-probe.mjs <url>
 const CHROME = process.env.CHROME || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // Hard stop: a probe that awaits something that never happens must not hang the caller.
-setTimeout(() => { console.error("headless-probe: 60s hard timeout"); process.exit(3); }, 60000).unref();
+const HARD_MS = Number(process.env.PROBE_TIMEOUT_MS) || 60000;
+setTimeout(() => { console.error(`headless-probe: ${HARD_MS / 1000}s hard timeout`); process.exit(3); }, HARD_MS).unref();
 // Launch with retry: a port already held by a dying Chrome makes /json time out.
 let chrome, ws, id = 0; const pending = new Map();
 for (let attempt = 0; attempt < 3 && !ws; attempt++) {

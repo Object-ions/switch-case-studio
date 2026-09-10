@@ -5,9 +5,8 @@
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  background: #000;
+  background: transparent; // the services-block grid shows through
   color: $white-color;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
   font-family: $font-text;
 
   // M1: bottom padding is the SEAM to the Services rows below — the header

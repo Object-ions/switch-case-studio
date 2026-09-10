@@ -7,6 +7,7 @@ import Hero from "./components/sections/Hero";
 import ClientStrip from "./components/sections/ClientStrip";
 import LandingPageProof from "./components/sections/LandingPageProof";
 import Services from "./components/sections/Services";
+import Squares from "./components/ui/Squares";
 import About from "./components/sections/About";
 import Reviews from "./components/sections/Reviews";
 import CaseStudies from "./components/sections/CaseStudies";
@@ -37,8 +38,24 @@ const HomeContent = () => (
       path="/"
     />
     <Hero />
-    <LandingPageProof />
-    <Services />
+    {/* Services block (owner, 2026-09-10): intro + menu share one full-screen
+        stage over the interactive grid About uses, faded to black at the top
+        and bottom so it joins the hero and the stripe without a seam. */}
+    <div className="services-block">
+      <div className="services-block__grid" aria-hidden="true">
+        <Squares
+          speed={0.1}
+          squareSize={50}
+          direction="down"
+          // Dimmer than About's #7f7f7f: this block carries dense small copy
+          // (the muted "includes" lines), which bright lines cut through.
+          borderColor="#3d3d3d"
+          hoverFillColor="#dab8ff"
+        />
+      </div>
+      <LandingPageProof />
+      <Services />
+    </div>
     {/* M7: min height 120px (was 160) — on phones the band is a divider
         accent, not a content section; desktop sizing is unchanged (30vw
         still governs above ~400px viewports). */}

@@ -11,10 +11,63 @@
 // so entries read down the left column and continue in the right one, like
 // the reference. Services.js sets --rows = ceil(count / 2).
 
+// Services block: the intro + menu stage over the interactive grid.
+.services-block {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  background: #000;
+
+  // The grid canvas fills the block and takes pointer moves wherever no
+  // content sits above it (between cards, in the gutters).
+  &__grid {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  // Black fades over the grid, top and bottom, so the block meets the hero
+  // and the stripe on pure black. Above the canvas, below the content.
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 28vh;
+    z-index: 1;
+    pointer-events: none;
+  }
+  &::before {
+    top: 0;
+    background: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0) 100%);
+  }
+  &::after {
+    bottom: 0;
+    background: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0) 100%);
+  }
+
+  // Content rides above the fades; empty areas let the pointer reach the grid.
+  > section {
+    position: relative;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .lpp__header,
+  .services__item {
+    pointer-events: auto;
+  }
+}
+
 #services.services {
   position: relative;
   overflow: hidden;
-  background: #000;
+  background: transparent;
+  // The menu gets its own screen: at least 100vh, cards centred in it.
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   color: $white-color;
   font-family: $font-text;
 }
@@ -24,7 +77,9 @@
   // sits under "One studio." and the right one under its body copy.
   &__menu {
     width: 100%;
-    padding: 0 $edge-pad 6rem;
+    // Equal top/bottom so #services' justify-content: center actually
+    // centres the cards (a 6rem bottom-only pad pushed them high).
+    padding: 4rem $edge-pad;
     box-sizing: border-box;
   }
 
@@ -193,7 +248,7 @@
       grid-template-rows: repeat(var(--rows, 4), 1fr);
       grid-auto-flow: column;
       column-gap: $col-gap;
-      row-gap: 3rem;
+      row-gap: 5rem;
     }
 
     &__item {
