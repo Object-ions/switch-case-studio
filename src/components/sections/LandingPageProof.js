@@ -102,11 +102,9 @@ const LandingPageProof = () => {
             ))}
           </h2>
           <p className="lpp__body lpp-animate">
-            Store, marketing site, web app, or the automation behind it,
-            every build starts with the same question: what needs to happen
-            for a visitor to become a customer? We design and engineer it,
-            then wire in AI where it moves that number. White-label delivery
-            for agencies included.
+            Every build starts with one question: what turns a visitor into a
+            customer? We design it, engineer it, and wire in AI where it moves
+            that number.
           </p>
         </div>
       </div>

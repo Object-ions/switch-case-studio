@@ -94,7 +94,10 @@
     // 2rem top: the desktop column parallax lifts the left column up to 24px,
     // and #services clips (overflow: hidden); without room the first card
     // lost its top edge and corners.
-    padding: 2rem $edge-pad 0; // the block owns the bottom breathing room
+    // 2rem on BOTH ends: the column parallax moves the columns up to 24px
+    // either way and #services clips (overflow: hidden). The block owns the
+    // real breathing room; this only keeps the moved cards inside the clip.
+    padding: 2rem $edge-pad;
     box-sizing: border-box;
   }
 
@@ -189,10 +192,12 @@
     // Hierarchy (owner: "3 texts and no hierarchy"): the title leads by size
     // AND weight, title case, not light uppercase. Subtitle is regular at 80%,
     // the includes line quietest. Steps: ~2rem / 1.05rem / 0.9rem.
-    font-size: clamp(1.6rem, 2vw, 2rem);
+    // The service name dominates the card (owner, 2026-09-10): ~3rem at
+    // 1440, one line in a 672px card for the longest name.
+    font-size: clamp(2rem, 3.4vw, 3.25rem);
     font-weight: 600;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
     text-transform: none;
   }
 
@@ -315,7 +320,8 @@
 
     &__item-title,
     &__overlay-title {
-      font-size: clamp(1.5rem, 6vw, 2rem);
+      // Dominant on phones too: ~33px at 390, "Web Development" still one line
+      font-size: clamp(1.75rem, 8.5vw, 2.4rem);
     }
 
     &__overlay-subtitle {

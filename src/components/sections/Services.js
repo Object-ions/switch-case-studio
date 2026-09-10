@@ -179,10 +179,10 @@ function ServiceItem({ service, index, delay = 0 }) {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {/* Entry structure after the reference (kicker row with a rule, title,
-            strong line, light line): the kicker is the studio's own taxonomy
-            (design · code · AI, plus growth), the light line is the pricing
-            page's included items joined with the house separator. */}
+        {/* Kicker row, then the service name as the dominant element and one
+            line under it. The included-items line was cut (owner, 2026-09-10:
+            the services are the product; the detail lives one click away on
+            each pricing page). */}
         <span className="services__item-meta">
           <span className="services__item-kicker">{service.kicker}</span>
           <span className="services__item-cta">{service.cta}</span>
@@ -192,9 +192,6 @@ function ServiceItem({ service, index, delay = 0 }) {
           <span className="services__item-title">{service.title}</span>
         </span>
         <span className="services__item-subtitle">{service.subTitle}</span>
-        <span className="services__item-includes">
-          {service.items.join(" \u00b7 ")}
-        </span>
       </Link>
 
       <div

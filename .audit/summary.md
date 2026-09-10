@@ -1854,3 +1854,10 @@ the cards (65px gap, was about a screen). Section anchors get `scroll-margin-top
 stop below the fixed header. Two follow-on fixes: the phone link rule still bled 1.25rem outward
 (text flush to the panel edge under overflow: hidden), and the column parallax sliced the first
 card's top edge against `#services`' clip (menu top padding 2rem; clearance ≥8px measured).
+
+Services cards trimmed (owner: "too much text; the services are the main thing"): the included-items
+line is gone from the home cards (the detail lives on each pricing page), the service name is the
+dominant element (Inter 600, 49px at 1440, 33px at 390, one line everywhere), and the "One studio."
+paragraph went from four sentences to two. Cards dropped from ~280-350px to 200px tall at 1440. The
+menu keeps 2rem padding on both ends so the ±24px column parallax stays inside `#services`' clip (the
+last right-column card had lost its bottom edge once the block took over the bottom padding).
