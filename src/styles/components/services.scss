@@ -198,3 +198,57 @@
     }
   }
 }
+
+// Two columns from 1024px (owner, 2026-09-09): seven rows of one made the
+// service menu ~1900px tall. Each item keeps its border-top, so the two cells
+// of a row draw one continuous rule; the right cell adds a border-left divider
+// and .services__list-bottom spans both columns. The row layout (title +
+// subtitle left, CTA right) cannot fit a 25-character uppercase title in a
+// half-width cell, so the cell stacks: title, subtitle, CTA pinned to the
+// bottom (items stretch to the row, the link fills the item). Seven items
+// leave the last right cell empty on purpose: spanning the orphan would hand
+// the biggest slot to whatever sits LAST in services.json (see the home-grid
+// rule in CLAUDE.md).
+@media (min-width: 1024px) {
+  .services {
+    &__list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    &__item {
+      display: flex;
+      flex-direction: column;
+
+      &:nth-child(even) {
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    &__list-bottom {
+      grid-column: 1 / -1;
+    }
+
+    &__link {
+      flex: 1;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 1.25rem;
+      min-height: 0;
+    }
+
+    &__item-title,
+    &__overlay-title {
+      font-size: clamp(1.5rem, 2.2vw, 1.75rem);
+    }
+
+    &__item-subtitle {
+      max-width: none;
+    }
+
+    &__item-cta {
+      margin-top: auto;
+    }
+  }
+}

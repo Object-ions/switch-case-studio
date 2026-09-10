@@ -3,7 +3,7 @@
 // IntersectionObservers, video playback and scroll-driven state silently stall
 // there (CLAUDE.md: occluded-window trap). New headless renders frames on its own.
 //
-//   node scripts/headless-probe.mjs <url> '<js expression, may be an async IIFE>' [--phone] [--shot out.png]
+//   node scripts/headless-probe.mjs <url> '<js expression, may be an async IIFE>' [--phone | --size WxH] [--shot out.png]
 //
 // --phone emulates 390×844 @2x (Chrome refuses windows narrower than ~500px, so
 // --window-size cannot do this). The expression is evaluated with awaitPromise and
@@ -26,6 +26,8 @@ ws.onmessage = (m) => { const d = JSON.parse(m.data); if (d.id && pending.has(d.
 const send = (method, params = {}) => new Promise((r) => { const i = ++id; pending.set(i, r); ws.send(JSON.stringify({ id: i, method, params })); });
 await send("Page.enable"); await send("Runtime.enable");
 if (flags.includes("--phone")) await send("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 2, mobile: true });
+const sizeIdx = flags.indexOf("--size");
+if (sizeIdx !== -1 && flags[sizeIdx + 1]) { const [w, h] = flags[sizeIdx + 1].split("x").map(Number); await send("Emulation.setDeviceMetricsOverride", { width: w, height: h, deviceScaleFactor: 1, mobile: false }); }
 await send("Page.navigate", { url }); await sleep(2500);
 const r = await send("Runtime.evaluate", { expression: expr, awaitPromise: true, returnByValue: true });
 console.log(JSON.stringify(r.result?.result?.value ?? r.result?.exceptionDetails ?? r, null, 1));
