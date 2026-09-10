@@ -5,13 +5,10 @@ import Seo from '../util/Seo';
 import { PricingGuide } from './PricingGuide';
 
 const slugToServiceId = {
-  'ai-development': 'ai-development',
-  'automation-integrations': 'automation-integrations',
-  'web-development': 'web-development',
-  'marketing-ads': 'marketing-advertisement',
-  'hosting-maintenance': 'web-hosting-maintenance',
   'design-branding': 'design-branding',
-  'email-marketing': 'email-marketing',
+  'web-development': 'web-development',
+  'ai-development': 'ai-development',
+  'marketing-ads': 'marketing-advertisement',
 };
 
 // Derived from services.json — another hand-written mirror of the service

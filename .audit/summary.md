@@ -1809,3 +1809,24 @@ was a 300px square; portrait screens now get a 9:16 web cut (limited-range BT.70
 Measured: video 390×848 = hero at 390, 1440×900 = hero at 1440; headline back on the 20px gutter.
 Two positioning traps on the way: a `position: relative` frame boxed the absolute video inside the
 hero padding, and a relative `.hero-top` inherited the desktop top/left as an offset.
+
+## Services 7 → 4, tiers 26 → 17; moon error boundary; hero stage on wide screens — 2026-09-10
+
+Owner's consolidation, so the service cards match the hero (Design, Code, AI, Growth; one kicker
+each). Brand Identity unchanged apart from items (Wireframing and Infographics dropped: that left 3
+items, the brief said "trim to 4"; flagged). Web Development absorbed hosting: Build (Landing Page,
+Simple Website, Business Bundle, Growth Suite) and Care (Starter Care, Growth Care, VPS &
+Self-Hosted), Enterprise Care cut. AI & Automation: AI Roadmap Sprint, AI Assistant, Custom AI
+Agent, Automation Retainer (was Growth Integrator), AI Partner (now includes self-hosted n8n);
+Workflow Starter and Automation Suite cut; email lifecycle flows became an item. SEO & AI Search:
+SEO + GEO Sprint (flagship, first) and Growth Retainer (was Momentum Builder, rewritten
+standalone); all social-media and email-retention tiers cut. Redirects (301): automation-integrations
+→ ai-development, email-marketing → marketing-ads, hosting-maintenance → web-development. Routes
+44 → 41. /pricing entry prices read Brand $750, Web $800, AI $500, SEO $3,000 (the monthly
+retainer undercuts the one-time Sprint; the owner may want the Sprint as the displayed entry).
+
+The About moon now has `DecorativeBoundary` plus a WebGL pre-check: with WebGL disabled the home
+page renders in full (moon slot stays empty at 500px, FAQ present); with WebGL the moon mounts.
+Previously a context failure blanked the whole page. Hero on wider screens: the ident plays on the
+stage right of the spine with `object-fit: contain`, the spine caps at 16vw; phones keep full-bleed
+cover. Measured at 975×950: spine 115px wide, stage from x=179, wordmark whole.

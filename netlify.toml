@@ -93,3 +93,21 @@
   from = "/agents"
   to = "/"
   status = 301
+
+# Services consolidated 7 → 4 on 2026-09-10 (owner decision). The three
+# retired pricing pages were live and in the sitemap: 301 each to the
+# service that absorbed it. Remove a block only if that slug comes back.
+[[redirects]]
+  from = "/pricing/automation-integrations"
+  to = "/pricing/ai-development"
+  status = 301
+
+[[redirects]]
+  from = "/pricing/email-marketing"
+  to = "/pricing/marketing-ads"
+  status = 301
+
+[[redirects]]
+  from = "/pricing/hosting-maintenance"
+  to = "/pricing/web-development"
+  status = 301

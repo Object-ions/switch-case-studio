@@ -47,13 +47,10 @@ const COPY = {
 // derived from pricingData (same slug→id map as PricingPage) so the index
 // stays in sync with real pricing instead of a duplicated hardcoded number.
 const SLUG_TO_ID = {
-  'ai-development': 'ai-development',
-  'automation-integrations': 'automation-integrations',
-  'web-development': 'web-development',
-  'marketing-ads': 'marketing-advertisement',
-  'hosting-maintenance': 'web-hosting-maintenance',
   'design-branding': 'design-branding',
-  'email-marketing': 'email-marketing',
+  'web-development': 'web-development',
+  'ai-development': 'ai-development',
+  'marketing-ads': 'marketing-advertisement',
 };
 
 // /pricing rows preview what the ENTRY tier includes instead of repeating
@@ -62,7 +59,11 @@ const SLUG_TO_ID = {
 // is cut at its first clause break to stay scannable.
 const includesPreview = (slug) => {
   const svc = pricingData.services.find((s) => s.id === SLUG_TO_ID[slug]);
-  const tiers = (svc?.tiers || []).filter((t) => typeof t.price === 'number');
+  // Care plans are add-ons, not the way in: the entry tier is the cheapest
+  // BUILD (or ungrouped) tier, so Web Development doesn't read "from $75".
+  const tiers = (svc?.tiers || []).filter(
+    (t) => typeof t.price === 'number' && t.group !== 'Care',
+  );
   if (!tiers.length) return null;
   const entry = tiers.reduce((a, b) => (b.price < a.price ? b : a));
   const items = (entry.includes || [])
@@ -76,6 +77,7 @@ const includesPreview = (slug) => {
 const fromPrice = (slug) => {
   const svc = pricingData.services.find((s) => s.id === SLUG_TO_ID[slug]);
   const prices = (svc?.tiers || [])
+    .filter((t) => t.group !== 'Care') // care plans are add-ons, see above
     .map((t) => t.price)
     .filter((p) => typeof p === 'number');
   if (!prices.length) return null;

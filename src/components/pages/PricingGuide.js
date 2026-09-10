@@ -55,6 +55,22 @@ const tierBenefits = (tier) =>
     : BENEFITS;
 
 // Rotating social proof, mapped from the testimonials data.
+// Split tiers into their `group`s, preserving first-seen order. No group
+// anywhere → one unheaded block (every service but Web Development).
+const tierGroups = (tiers) => {
+  const order = [];
+  const byGroup = {};
+  tiers.forEach((t) => {
+    const g = t.group || '';
+    if (!byGroup[g]) {
+      byGroup[g] = [];
+      order.push(g);
+    }
+    byGroup[g].push(t);
+  });
+  return order.map((g) => ({ group: g, tiers: byGroup[g] }));
+};
+
 const TESTIMONIALS = testimonialsData.map((t) => ({
   id: t.id,
   name: t.name,
@@ -161,28 +177,36 @@ export const PricingGuide = ({ serviceId }) => {
         <p className="pg-sub pg-animate">{service.subtitle}</p>
       </header>
 
-      <div className="pg-cards">
-        {service.tiers.map((tier, idx) => (
-          <div className="pg-card-slot pg-animate" key={tier.name}>
-            <SinglePricingCard
-              badge={service.title}
-              title={tier.name}
-              subtitle={tier.description}
-              price={{
-                current: formatMoney(tier.price),
-                note: tier.billing === 'monthly' ? 'per month' : 'one-time',
-              }}
-              benefits={tierBenefits(tier)}
-              features={tier.includes}
-              featuresTitle="What's included"
-              primaryButton={{ text: BOOK_CALL_LABEL, href: BOOK_CALL_URL }}
-              secondaryButton={{ text: 'See our work', href: '/projects' }}
-              testimonials={TESTIMONIALS}
-              rotationSpeed={5000 + idx * 600}
-            />
+      {/* Tiers may carry a `group` (Web Development: Build / Care). Grouped
+          services render one headed block per group, in data order; the rest
+          render a single ungrouped list, as before. */}
+      {tierGroups(service.tiers).map(({ group, tiers }) => (
+        <div className="pg-group" key={group || 'all'}>
+          {group && <h2 className="pg-group__title pg-animate">{group}</h2>}
+          <div className="pg-cards">
+            {tiers.map((tier, idx) => (
+              <div className="pg-card-slot pg-animate" key={tier.name}>
+                <SinglePricingCard
+                  badge={service.title}
+                  title={tier.name}
+                  subtitle={tier.description}
+                  price={{
+                    current: formatMoney(tier.price),
+                    note: tier.billing === 'monthly' ? 'per month' : 'one-time',
+                  }}
+                  benefits={tierBenefits(tier)}
+                  features={tier.includes}
+                  featuresTitle="What's included"
+                  primaryButton={{ text: BOOK_CALL_LABEL, href: BOOK_CALL_URL }}
+                  secondaryButton={{ text: 'See our work', href: '/projects' }}
+                  testimonials={TESTIMONIALS}
+                  rotationSpeed={5000 + idx * 600}
+                />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
 
       <div className="pg-outro pg-animate">
         <p className="pg-outro__line">

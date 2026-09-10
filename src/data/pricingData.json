@@ -1,288 +1,6 @@
 {
   "services": [
     {
-      "id": "ai-development",
-      "title": "AI Development",
-      "subtitle": "Assistants, agents, and AI features: built like production software.",
-      "tiers": [
-        {
-          "name": "AI Roadmap Sprint",
-          "price": 500,
-          "billing": "one-time",
-          "description": "Find out where AI actually pays off in your business, and walk away with one working automation, not a slide deck.",
-          "includes": [
-            "Discovery call mapping your tools, processes, and bottlenecks",
-            "Audit of where AI genuinely saves time or money (and where it doesn't)",
-            "One working proof-of-concept: a bot, workflow, or AI step in your stack",
-            "Written roadmap with priorities, effort estimates, and costs",
-            "Honest scoping: if AI isn't the answer, we'll say so"
-          ]
-        },
-        {
-          "name": "AI Assistant",
-          "price": 1800,
-          "billing": "one-time",
-          "description": "A chatbot trained on your business (your docs, your site, your FAQs), answering customers the way you would.",
-          "includes": [
-            "Assistant built on Claude or OpenAI APIs, trained on your content",
-            "Embedded on your site, or connected to Slack / WhatsApp",
-            "Guardrails: scoped knowledge, tone rules, and human handoff",
-            "Lead capture wired into your CRM or inbox",
-            "30 days of monitoring and tuning after launch",
-            "Documentation and a handoff walkthrough"
-          ],
-          "badge": "Popular"
-        },
-        {
-          "name": "Custom AI Agent",
-          "price": 4500,
-          "billing": "one-time",
-          "description": "A multi-step agent that does real work (lead handling, quoting, follow-ups, back-office ops) on your infrastructure.",
-          "includes": [
-            "End-to-end agent design + development around one business process",
-            "Integrations with your CRM, calendar, email, and forms",
-            "Self-hosted deployment on a VPS: your data stays yours",
-            "Error handling, logging, and a monitoring dashboard",
-            "Token/cost optimization so it stays affordable to run",
-            "Documentation, handoff, and 30 days of post-launch support"
-          ]
-        },
-        {
-          "name": "AI Partner",
-          "price": 1500,
-          "billing": "monthly",
-          "description": "Ongoing AI engineering for businesses that keep finding new things to automate.",
-          "includes": [
-            "Continuous iteration on your assistants, agents, and workflows",
-            "Monitoring, model updates, and cost optimization included",
-            "1–2 new automations or AI features shipped per month",
-            "Monthly review: what ran, what it saved, what's next",
-            "Priority support"
-          ]
-        }
-      ]
-    },
-
-    {
-      "id": "web-development",
-      "title": "Web Development",
-      "subtitle": "Custom-built. Performance-focused. Shipped fast.",
-      "tiers": [
-        {
-          "name": "Landing Page",
-          "price": 800,
-          "billing": "one-time",
-          "description": "A focused one-page build for campaigns, launches, or lead capture, designed around a single conversion goal.",
-          "includes": [
-            "Custom design from scratch",
-            "Single responsive page",
-            "Clear content structure and CTA placement",
-            "SEO essentials for search visibility",
-            "Optimized for fast load times"
-          ]
-        },
-        {
-          "name": "Simple Website",
-          "price": 1500,
-          "billing": "one-time",
-          "description": "A clean, professional website for small businesses and portfolios, built custom for the business.",
-          "includes": [
-            "Custom design tailored to your brand",
-            "Up to 5 pages of structured content",
-            "Image gallery or project showcase",
-            "1 year of hosting and domain registration",
-            "Basic SEO setup for search ranking",
-            "Fully responsive across all devices"
-          ]
-        },
-        {
-          "name": "Business Bundle",
-          "price": 2500,
-          "billing": "one-time",
-          "description": "A full business website with CMS, forms, and analytics: everything you need to run and grow your online presence.",
-          "includes": [
-            "Custom design to reflect your brand's unique identity",
-            "Up to 10 pages of crafted content",
-            "Content Management System (CMS) for easy updates",
-            "Interactive contact form",
-            "1 year of hosting and domain registration",
-            "Basic SEO to enhance online presence",
-            "Google Analytics integration for visitor insights"
-          ],
-          "badge": "Popular"
-        },
-        {
-          "name": "Growth Suite",
-          "price": 5000,
-          "billing": "one-time",
-          "description": "E-commerce, web apps, or complex builds, fully custom with database, checkout, and ongoing support.",
-          "includes": [
-            "Fully custom design tailored to your business requirements",
-            "Unlimited pages for comprehensive content delivery",
-            "Advanced CMS for full control over content",
-            "Detailed contact forms and custom forms",
-            "E-commerce functionality (cart + secure checkout)",
-            "Database integration for products, users, and admin",
-            "AI features on request: chat, smart search, content tools",
-            "1 year of hosting and domain registration",
-            "Advanced SEO practices for superior web presence",
-            "Ongoing technical support"
-          ]
-        }
-      ]
-    },
-
-    {
-      "id": "marketing-advertisement",
-      "title": "Growth & Performance",
-      "subtitle": "Strategy, ads, and content that drive revenue.",
-      "tiers": [
-        {
-          "name": "Entry Package (Pilot Campaign)",
-          "price": 500,
-          "billing": "one-time",
-          "description": "Low-risk starter project for testing one marketing channel before committing to a monthly plan.",
-          "includes": [
-            "1-hour strategy call to define a single channel (Meta, LinkedIn, or Email)",
-            "3 custom posts or 1 short newsletter using existing brand assets",
-            "Caption writing + hashtag strategy",
-            "Scheduling + basic performance summary",
-            "Light creative direction and layout suggestions",
-            "Designed as a short-term pilot. No commitment required."
-          ]
-        },
-        {
-          "name": "Visibility Starter",
-          "price": 800,
-          "billing": "monthly",
-          "description": "Essentials for building a social presence on one primary channel with consistent visibility.",
-          "includes": [
-            "1 primary channel (Instagram/Facebook, LinkedIn, or Email)",
-            "Strategy kickoff + monthly content calendar",
-            "4–6 posts or 2 newsletters per month",
-            "Basic graphics using your existing brand assets",
-            "End-of-month performance summary",
-            "Ideal for early-stage businesses building brand awareness"
-          ]
-        },
-        {
-          "name": "Growth Essentials",
-          "price": 1200,
-          "billing": "monthly",
-          "description": "Multi-channel management with SEO, blogs, and paid ads for small to medium businesses.",
-          "includes": [
-            "2–3 platforms managed (social, blog, or email)",
-            "8–12 posts with original copy and custom graphics",
-            "2 blog posts or newsletters per month",
-            "Basic on-page SEO updates",
-            "Simple paid ad setup or boost (ad spend separate)",
-            "Monthly strategy call + consolidated analytics report"
-          ],
-          "badge": "Best value"
-        },
-        {
-          "name": "Momentum Builder",
-          "price": 3000,
-          "billing": "monthly",
-          "description": "Full-funnel marketing management with PPC, SEO, and conversion optimization for scaling brands.",
-          "includes": [
-            "Everything in Growth Essentials plus:",
-            "Google/Facebook ad campaign management",
-            "Quarterly content marketing plan",
-            "SEO keyword research + optimization",
-            "2 email campaigns per month",
-            "Basic conversion-rate optimization (CRO)",
-            "Performance dashboard with insights and recommendations"
-          ]
-        },
-        {
-          "name": "SEO + GEO Optimization Sprint",
-          "price": 3500,
-          "billing": "one-time",
-          "description": "One-time technical SEO + AI-search optimization, from audit to full implementation.",
-          "benefits": [
-            { "text": "Every fix implemented on the site", "icon": "wrench" },
-            { "text": "89+ scores at handoff (SEO, Performance, Accessibility, Best Practices)", "icon": "gauge" },
-            { "text": "Includes GEO / AI-search readiness", "icon": "robot" }
-          ],
-          "includes": [
-            "Discovery call to map your goals and current search + AI visibility",
-            "Full technical and on-page SEO audit with a detailed written report",
-            "Follow-up strategy call to walk through the fix plan before any work begins",
-            "Image modernization to WebP + AVIF with correct sizing and compression",
-            "Complete meta tags across all pages: titles, descriptions, canonical, Open Graph",
-            "Structured data (JSON-LD) + GEO readiness: AI-crawler access, llms.txt, entity clarity, FAQ schema",
-            "Google Analytics 4 + Google Tag Manager setup with conversion tracking",
-            "Core Web Vitals and Lighthouse fixes to 89+, measured at handoff on the delivered site",
-            "Iterative fixes until the agreed targets are met"
-          ]
-        }
-      ]
-    },
-
-    {
-      "id": "web-hosting-maintenance",
-      "title": "Hosting & Infrastructure",
-      "subtitle": "From managed hosting to your own VPS. We keep it running.",
-      "tiers": [
-        {
-          "name": "Starter Care",
-          "price": 75,
-          "billing": "monthly",
-          "description": "Ideal for personal sites, artists, and micro-businesses needing reliable hosting and light maintenance.",
-          "includes": [
-            "Shared or managed WordPress hosting (5 GB storage, 10 GB monthly bandwidth)",
-            "Domain renewal and SSL (billed annually at cost)",
-            "Weekly backups + security monitoring",
-            "Plugin and theme updates",
-            "Up to 1 hour of minor content/style edits per month"
-          ]
-        },
-        {
-          "name": "Growth Care",
-          "price": 125,
-          "billing": "monthly",
-          "description": "For small businesses and startups with growing traffic and regular updates.",
-          "includes": [
-            "VPS or cloud hosting with staging environment (15 GB storage, 50 GB monthly bandwidth)",
-            "Daily backups + uptime/performance monitoring",
-            "CMS and plugin updates",
-            "Priority security patching",
-            "Up to 3 hours of content or graphic edits per month",
-            "Quarterly site-health report"
-          ],
-          "badge": "Best value"
-        },
-        {
-          "name": "Enterprise Care",
-          "price": 350,
-          "billing": "monthly",
-          "description": "For established brands, e-commerce, or membership sites needing proactive optimization and hands-on support.",
-          "includes": [
-            "Proactive performance optimization (50 GB storage, 200 GB monthly bandwidth)",
-            "Free domain and SSL renewal",
-            "Unlimited minor updates (within reasonable use)",
-            "Monthly SEO & UX check",
-            "24-hour response SLA"
-          ]
-        },
-        {
-          "name": "VPS & Self-Hosted",
-          "price": 150,
-          "billing": "monthly",
-          "description": "Your own server, professionally run, for businesses self-hosting n8n, AI agents, or custom apps instead of paying per-task SaaS fees.",
-          "includes": [
-            "VPS provisioning, hardening, and SSL (server cost billed at provider rate)",
-            "Self-hosted app setup: n8n, AI agents, dashboards, custom services",
-            "Automated backups + uptime monitoring with alerts",
-            "OS and security patching",
-            "Monthly health report: usage, costs, and what to optimize"
-          ]
-        }
-      ]
-    },
-
-    {
       "id": "design-branding",
       "title": "Brand Identity",
       "subtitle": "Logo, system, guidelines, built to last.",
@@ -338,26 +56,171 @@
     },
 
     {
-      "id": "automation-integrations",
-      "title": "Automation & AI Workflows",
-      "subtitle": "n8n, Zapier, Make, GoHighLevel: workflows that run without you.",
+      "id": "web-development",
+      "title": "Web Development",
+      "subtitle": "Landing pages, sites, and stores built to convert, then kept running.",
       "tiers": [
         {
-          "name": "Workflow Starter",
+          "name": "Landing Page",
+          "price": 800,
+          "billing": "one-time",
+          "description": "A focused one-page build for campaigns, launches, or lead capture, designed around a single conversion goal.",
+          "includes": [
+            "Custom design from scratch",
+            "Single responsive page",
+            "Clear content structure and CTA placement",
+            "SEO essentials for search visibility",
+            "Optimized for fast load times"
+          ],
+          "group": "Build"
+        },
+        {
+          "name": "Simple Website",
+          "price": 1500,
+          "billing": "one-time",
+          "description": "A clean, professional website for small businesses and portfolios, built custom for the business.",
+          "includes": [
+            "Custom design tailored to your brand",
+            "Up to 5 pages of structured content",
+            "Image gallery or project showcase",
+            "1 year of hosting and domain registration",
+            "Basic SEO setup for search ranking",
+            "Fully responsive across all devices"
+          ],
+          "group": "Build"
+        },
+        {
+          "name": "Business Bundle",
+          "price": 2500,
+          "billing": "one-time",
+          "description": "A full business website with CMS, forms, and analytics: everything you need to run and grow your online presence.",
+          "includes": [
+            "Custom design to reflect your brand's unique identity",
+            "Up to 10 pages of crafted content",
+            "Content Management System (CMS) for easy updates",
+            "Interactive contact form",
+            "1 year of hosting and domain registration",
+            "Basic SEO to enhance online presence",
+            "Google Analytics integration for visitor insights"
+          ],
+          "badge": "Popular",
+          "group": "Build"
+        },
+        {
+          "name": "Growth Suite",
+          "price": 5000,
+          "billing": "one-time",
+          "description": "E-commerce, web apps, or complex builds, fully custom with database, checkout, and ongoing support.",
+          "includes": [
+            "Fully custom design tailored to your business requirements",
+            "Unlimited pages for comprehensive content delivery",
+            "Advanced CMS for full control over content",
+            "Detailed contact forms and custom forms",
+            "E-commerce functionality (cart + secure checkout)",
+            "Database integration for products, users, and admin",
+            "AI features on request: chat, smart search, content tools",
+            "1 year of hosting and domain registration",
+            "Advanced SEO practices for superior web presence",
+            "Ongoing technical support"
+          ],
+          "group": "Build"
+        },
+        {
+          "name": "Starter Care",
+          "price": 75,
+          "billing": "monthly",
+          "description": "Ideal for personal sites, artists, and micro-businesses needing reliable hosting and light maintenance.",
+          "includes": [
+            "Shared or managed WordPress hosting (5 GB storage, 10 GB monthly bandwidth)",
+            "Domain renewal and SSL (billed annually at cost)",
+            "Weekly backups + security monitoring",
+            "Plugin and theme updates",
+            "Up to 1 hour of minor content/style edits per month"
+          ],
+          "group": "Care"
+        },
+        {
+          "name": "Growth Care",
+          "price": 125,
+          "billing": "monthly",
+          "description": "For small businesses and startups with growing traffic and regular updates.",
+          "includes": [
+            "VPS or cloud hosting with staging environment (15 GB storage, 50 GB monthly bandwidth)",
+            "Daily backups + uptime/performance monitoring",
+            "CMS and plugin updates",
+            "Priority security patching",
+            "Up to 3 hours of content or graphic edits per month",
+            "Quarterly site-health report"
+          ],
+          "badge": "Best value",
+          "group": "Care"
+        },
+        {
+          "name": "VPS & Self-Hosted",
+          "price": 150,
+          "billing": "monthly",
+          "description": "Your own server, professionally run, for businesses self-hosting n8n, AI agents, or custom apps instead of paying per-task SaaS fees.",
+          "includes": [
+            "VPS provisioning, hardening, and SSL (server cost billed at provider rate)",
+            "Self-hosted app setup: n8n, AI agents, dashboards, custom services",
+            "Automated backups + uptime monitoring with alerts",
+            "OS and security patching",
+            "Monthly health report: usage, costs, and what to optimize"
+          ],
+          "group": "Care"
+        }
+      ]
+    },
+
+    {
+      "id": "ai-development",
+      "title": "AI & Automation",
+      "subtitle": "Assistants, agents, and workflows: built like production software.",
+      "tiers": [
+        {
+          "name": "AI Roadmap Sprint",
           "price": 500,
           "billing": "one-time",
-          "description": "Ideal for small businesses automating simple, time-consuming tasks or connecting tools for the first time.",
+          "description": "Find out where AI actually pays off in your business, and walk away with one working automation, not a slide deck.",
           "includes": [
-            "Perfect for lead routing, form submissions, or email notifications",
-            "Discovery call + automation mapping (1–2 workflows)",
-            "Setup of core automations using n8n, Zapier, Make, or native integrations",
-            "Basic logic (triggers, filters, actions) across up to 3 tools",
-            "Testing + error handling configuration",
-            "Handoff call with walkthrough and documentation"
+            "Discovery call mapping your tools, processes, and bottlenecks",
+            "Audit of where AI genuinely saves time or money (and where it doesn't)",
+            "One working proof-of-concept: a bot, workflow, or AI step in your stack",
+            "Written roadmap with priorities, effort estimates, and costs",
+            "Honest scoping: if AI isn't the answer, we'll say so"
           ]
         },
         {
-          "name": "Growth Integrator",
+          "name": "AI Assistant",
+          "price": 1800,
+          "billing": "one-time",
+          "description": "A chatbot trained on your business (your docs, your site, your FAQs), answering customers the way you would.",
+          "includes": [
+            "Assistant built on Claude or OpenAI APIs, trained on your content",
+            "Embedded on your site, or connected to Slack / WhatsApp",
+            "Guardrails: scoped knowledge, tone rules, and human handoff",
+            "Lead capture wired into your CRM or inbox",
+            "30 days of monitoring and tuning after launch",
+            "Documentation and a handoff walkthrough"
+          ],
+          "badge": "Popular"
+        },
+        {
+          "name": "Custom AI Agent",
+          "price": 4500,
+          "billing": "one-time",
+          "description": "A multi-step agent that does real work (lead handling, quoting, follow-ups, back-office ops) on your infrastructure.",
+          "includes": [
+            "End-to-end agent design + development around one business process",
+            "Integrations with your CRM, calendar, email, and forms",
+            "Self-hosted deployment on a VPS: your data stays yours",
+            "Error handling, logging, and a monitoring dashboard",
+            "Token/cost optimization so it stays affordable to run",
+            "Documentation, handoff, and 30 days of post-launch support"
+          ]
+        },
+        {
+          "name": "Automation Retainer",
           "price": 750,
           "billing": "monthly",
           "description": "Ongoing automation management for growing businesses ready to streamline marketing, sales, and internal operations.",
@@ -373,69 +236,62 @@
           "badge": "Best value"
         },
         {
-          "name": "Automation Suite",
-          "price": 2500,
+          "name": "AI Partner",
+          "price": 1500,
           "billing": "monthly",
-          "description": "Your operations on autopilot: a managed automation program with AI steps where they earn their keep.",
+          "description": "Ongoing AI engineering for businesses that keep finding new things to automate, on infrastructure you own.",
           "includes": [
-            "Unlimited workflow iterations across CRM, ads, email, forms, and ops",
-            "Self-hosted n8n instance on a VPS, no per-task Zapier fees",
-            "AI steps inside workflows: triage, drafting, enrichment, routing",
-            "Custom logic via APIs, webhooks, and AI models (Claude, OpenAI)",
-            "Advanced monitoring, error alerts, and token-cost optimization",
-            "Custom dashboard for metrics and analytics",
-            "Priority support and ongoing iteration"
+            "Continuous iteration on your assistants, agents, and workflows",
+            "Self-hosted n8n instance on a VPS: no per-task Zapier fees",
+            "Monitoring, model updates, and cost optimization included",
+            "1–2 new automations or AI features shipped per month",
+            "Monthly review: what ran, what it saved, what's next",
+            "Priority support"
           ]
         }
       ]
     },
 
     {
-      "id": "email-marketing",
-      "title": "Email & Retention",
-      "subtitle": "Automated sequences that keep selling.",
+      "id": "marketing-advertisement",
+      "title": "SEO & AI Search",
+      "subtitle": "Found on Google and in AI answers, then turned into revenue.",
       "tiers": [
         {
-          "name": "Starter Campaign",
-          "price": 500,
-          "billing": "monthly",
-          "description": "Perfect for small lists or brands testing consistent email communication with minimal setup.",
-          "includes": [
-            "Platform setup in Mailchimp, Brevo, MailerLite, or ActiveCampaign",
-            "1–2 email campaigns per month (newsletter or promo)",
-            "Basic design using existing brand assets",
-            "List upload and contact segmentation (up to 2k contacts)",
-            "Basic performance summary (open + click rates)",
-            "Ideal for solo founders and small businesses starting out"
-          ]
-        },
-        {
-          "name": "Growth Automation",
-          "price": 1200,
-          "billing": "monthly",
-          "description": "A strategic package combining copywriting, automation, and design to build meaningful engagement.",
-          "includes": [
-            "Up to 4 campaigns per month (newsletter + drip or promo)",
-            "List segmentation and tagging (up to 5k contacts)",
-            "Custom-designed templates and graphics",
-            "Welcome or nurture automation setup (1–2 sequences)",
-            "Monthly analytics report with insights and recommendations",
-            "A/B testing for subject lines or content layout"
+          "name": "SEO + GEO Optimization Sprint",
+          "price": 3500,
+          "billing": "one-time",
+          "description": "One-time technical SEO + AI-search optimization, from audit to full implementation.",
+          "benefits": [
+            { "text": "Every fix implemented on the site", "icon": "wrench" },
+            { "text": "89+ scores at handoff (SEO, Performance, Accessibility, Best Practices)", "icon": "gauge" },
+            { "text": "Includes GEO / AI-search readiness", "icon": "robot" }
           ],
-          "badge": "Best value"
+          "includes": [
+            "Discovery call to map your goals and current search + AI visibility",
+            "Full technical and on-page SEO audit with a detailed written report",
+            "Follow-up strategy call to walk through the fix plan before any work begins",
+            "Image modernization to WebP + AVIF with correct sizing and compression",
+            "Complete meta tags across all pages: titles, descriptions, canonical, Open Graph",
+            "Structured data (JSON-LD) + GEO readiness: AI-crawler access, llms.txt, entity clarity, FAQ schema",
+            "Google Analytics 4 + Google Tag Manager setup with conversion tracking",
+            "Core Web Vitals and Lighthouse fixes to 89+, measured at handoff on the delivered site",
+            "Iterative fixes until the agreed targets are met"
+          ],
+          "badge": "Flagship"
         },
         {
-          "name": "Lifecycle Pro",
-          "price": 2500,
+          "name": "Growth Retainer",
+          "price": 3000,
           "billing": "monthly",
-          "description": "For growing brands needing fully managed, data-driven campaigns across the customer journey.",
+          "description": "Monthly ads, SEO, and conversion work for businesses ready to grow past a one-time fix.",
           "includes": [
-            "Full email strategy + calendar planning",
-            "Advanced segmentation (behavioral + purchase-based)",
-            "5–8 campaigns per month across audience segments",
-            "Automation setup for multiple journeys (welcome, re-engagement, abandoned cart, post-purchase)",
-            "Custom template design + graphics",
-            "Comprehensive reporting and optimization session"
+            "Google & Meta ad campaign management (ad spend separate)",
+            "SEO keyword research + ongoing on-page optimization",
+            "Quarterly content plan + 2 blog posts per month",
+            "2 email campaigns per month",
+            "Conversion-rate optimization (CRO) on key pages",
+            "Monthly strategy call + performance dashboard with recommendations"
           ]
         }
       ]
