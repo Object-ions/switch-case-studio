@@ -1655,3 +1655,24 @@ Two things did NOT come for free:
 
 Build: 44 routes (43 + this case study), entry-chunk marker pinned, 1 em dash (clamp regex),
 every `coverTile`/`imageSrc`/`longWeb`/`comparisons[].src` path resolved against `public/`.
+
+## Video hero: the ident replaces the cursor field — 2026-09-09 (branch `feat/video-hero`)
+
+The home hero is now the studio ident: 4.5s of hard-cut plates (leet alternates like `$w1tcH (as3`,
+`Sw!c# Cq$e`, width-glitch cuts of the wordmark, a lavender inverted band, `default:`) settling on
+`switch case`. Built in Remotion at `~/Desktop/scs-ident` (private: licensed SCS Display + Pangram
+Pangram faces), reference analysis in `~/Downloads/monstro-ident-analysis/`. Only the encodes ship:
+`public/ident/` carries 16:9 and 1:1 in WebM (VP9) + MP4 (H.264, faststart) and WebP posters cut
+from the final frame, 160–190KB each. Layout follows the reference's four-corner structure: the h1
+runs "we build" up the left edge (vertical-rl, rotated) and "websites, stores, apps & AI" along the
+top, intro under it, two notes and a Scroll cue at the bottom, the video full-bleed behind. The
+header's own booking pill is the top-right slot on desktop; phones get a pill in the hero. Removed
+with it: `CursorWave.js`, `WelcomeTyped.js`, the typed.js dependency (no other consumers).
+
+Three things measured, not assumed, and now rules in CLAUDE.md: the VP9 encodes inherited the
+master's full-range tags and failed in Chrome's decoder at 0.9s (fixed by normalising to limited
+BT.709, verified by 136/136 decoded frames on each source); Chrome's 500px minimum window width faked
+a phone overflow (verified at a real 390 via iframe: no overflow, 1:1 source chosen); the header is
+110px not 5rem, so the hero overshot the fold by 30px (now `--header-h`, hero bottom = viewport
+bottom at 1440×900). Standing checks: 44 routes, entry-chunk marker pinned, 1 em dash (clamp regex),
+AI-writing scan site 1.6/1k vocabulary, all zero counters still zero.

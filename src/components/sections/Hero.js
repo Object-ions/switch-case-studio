@@ -1,129 +1,106 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { HashLink } from "react-router-hash-link";
-import WelcomeTyped from "./WelcomeTyped";
-import CursorWave from "../ui/CursorWave";
 import BookCallCta from "../ui/BookCallCta";
-import MagneticButton from "../ui/MagneticButton";
 import useReducedMotion from "../../hooks/useReducedMotion";
 
 import "../../styles/components/hero.scss";
 
-/* Brand shape + color config for the Hero background.
-   Repeating shapes in the array biases the random distribution —
-   square and asterisk are the textural backbone, the SCS star is the
-   brand mark and gets a slight boost over circle (the accent). */
-const HERO_SHAPES = [
-  "square",
-  "star",
-  "asterisk",
-  "square",
-  "asterisk",
-  "star",
-  "circle",
-];
-const HERO_COLORS = [
-  "#dab8ff",
-  "#ff834a",
-  "#d99cff",
-  "#ff8f63",
-  "#f0d7ff",
-  "#FEF7ED",
-];
+/* The studio ident: 4.5s of hard-cut plates that settle on the wordmark.
+   Rendered from ~/Desktop/scs-ident (Remotion, private: licensed fonts);
+   only the encoded video ships here (public/ident/, limited-range BT.709:
+   full-range VP9 fails in Chrome's decoder mid-stream). The poster IS the
+   final frame, so a paused or blocked video shows what the video ends on. */
 
 const Hero = () => {
   const reducedMotion = useReducedMotion();
-  // `revealed` controls staggered fade-in for sub + CTAs.
-  // Reduced-motion users skip the stagger and see everything immediately.
-  const [revealed, setRevealed] = useState(reducedMotion);
+  const identRef = useRef(null);
 
   useEffect(() => {
+    const video = identRef.current?.querySelector("video");
+    if (!video) return undefined;
+    video.muted = true;
     if (reducedMotion) {
-      setRevealed(true);
-      return;
+      // No motion: park on the end card (the wordmark) instead of playing.
+      const toEnd = () => {
+        video.pause();
+        if (Number.isFinite(video.duration)) {
+          video.currentTime = Math.max(0, video.duration - 0.05);
+        }
+      };
+      if (video.readyState >= 1) toEnd();
+      else video.addEventListener("loadedmetadata", toEnd, { once: true });
+      return () => video.removeEventListener("loadedmetadata", toEnd);
     }
-    const t = setTimeout(() => setRevealed(true), 1200);
-    return () => clearTimeout(t);
+    const p = video.play();
+    if (p && typeof p.catch === "function") p.catch(() => {});
+    return undefined;
   }, [reducedMotion]);
 
   return (
     <section id="hero" aria-label="Switch Case Studio introduction">
-      <div className="hero-inner">
-        {!reducedMotion && (
-          <div className="cursorwave-bg" aria-hidden="true">
-            <CursorWave
-              shapes={HERO_SHAPES}
-              colors={HERO_COLORS}
-              backgroundColor="#000000"
-              cellSize={48}
-              influenceRadiusVmin={28}
-              minPeakScale={1.2}
-              maxPeakScale={2.8}
-              burstSpeed={1400}
-              burstThickness={220}
-            />
-          </div>
-        )}
-
-        <div className="hero-content">
-          <h1 className="hero-headline" data-cursor-wave-mask>
-            <span className="hero-line">
-              {"We "}
-              <WelcomeTyped />
-            </span>
-            <span className="hero-line">
-              websites, apps &amp; <span className="caps-trim">AI</span>
-            </span>
-            <span className="hero-line hero-line--accent">
-              that actually perform.
+      <div className="hero-frame">
+        <div className="hero-top">
+          {/* One h1, two reading directions: the verb runs up the left edge,
+              the object runs along the top. display:contents lets the grid
+              place the spans while the h1 stays a single heading. */}
+          <h1 className="hero-headline">
+            <span className="hero-headline__vert">we build</span>
+            <span className="hero-headline__horiz">
+              websites, stores, apps &amp;{" "}
+              <span className="caps-trim">AI</span>
             </span>
           </h1>
-
-          <p
-            className={`hero-sub ${revealed ? "is-visible" : ""}`}
-            data-cursor-wave-mask
-          >
-            <span className="hero-sub__desktop">
-              Websites, stores, apps, and the AI systems behind them,
-              engineered from scratch by a design-led studio that writes real
-              code and puts AI to work where it pays.
-            </span>
-            <span className="hero-sub__mobile">
-              Design. Code. AI. Built to convert.
-            </span>
+          <p className="hero-intro">
+            An <span className="caps-trim">AI</span>-first design and
+            engineering studio in Portland, Oregon. We write the code, ship
+            the store, wire the assistant, and publish numbers you can check.
           </p>
-
-          <div
-            className={`hero-ctas ${revealed ? "is-visible" : ""}`}
-            data-cursor-wave-mask
-          >
-            {/* Booking is the business goal, so it gets the solid primary
-                treatment (2026-07 design refresh, DESIGN_AUDIT P0-1). This
-                deliberately REVERSES the 2026-06 pre-pitch decision (S3 in
-                .audit/summary.md) that made "See Our Work" primary for a
-                portfolio-first pitch — the goal is now booked calls. */}
-            {/* Magnetic pull on the booking pill only (VE-2) — subtle
-                distance; inert on touch + reduced-motion (MagneticButton
-                handles both). */}
-            <MagneticButton distance={0.35}>
-              <BookCallCta className="hero-cta hero-cta--primary">
-                <span className="cta-arrow" aria-hidden="true">
-                  &rarr;
-                </span>
-              </BookCallCta>
-            </MagneticButton>
-
-            <HashLink
-              to="/#projects"
-              smooth
-              className="hero-cta hero-cta--secondary"
-            >
-              See Our Work
-              <span className="cta-arrow cta-arrow--down" aria-hidden="true">
-                &darr;
-              </span>
-            </HashLink>
-          </div>
         </div>
+
+        <BookCallCta className="hero-say">
+          <span className="hero-say__arrow" aria-hidden="true">
+            &rarr;
+          </span>
+        </BookCallCta>
+
+        <div className="hero-ident" ref={identRef}>
+          {/* Static HTML must carry autoplay+muted+playsinline so phones start
+              the ident before hydration; the effect above only re-asserts
+              muted and handles reduced motion. */}
+          <video
+            className="hero-ident__video"
+            autoPlay
+            muted
+            playsInline
+            preload="auto"
+            poster="/ident/ident-16x9-poster.webp"
+            aria-hidden="true"
+            tabIndex={-1}
+          >
+            <source src="/ident/ident-1x1.webm" type="video/webm" media="(max-width: 768px)" />
+            <source src="/ident/ident-1x1.mp4" type="video/mp4" media="(max-width: 768px)" />
+            <source src="/ident/ident-16x9.webm" type="video/webm" />
+            <source src="/ident/ident-16x9.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        <p className="hero-note hero-note--left">
+          Design, code and <span className="caps-trim">AI</span> in one room,
+          so the site, the store and the assistant are built by the people
+          who keep them running.
+        </p>
+
+        <HashLink to="/#projects" smooth className="hero-scroll">
+          Scroll
+          <span className="hero-scroll__arrow" aria-hidden="true">
+            &darr;
+          </span>
+        </HashLink>
+
+        <p className="hero-note hero-note--right">
+          Every case study here ships its own before and after: page weight
+          and load time, measured on the live site and dated.
+        </p>
       </div>
     </section>
   );

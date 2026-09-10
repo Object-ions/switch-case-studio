@@ -1,261 +1,276 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
+// Video hero (2026-09-09). Black field, lavender type, the ident centred and
+// four corners of copy, after the "a good design practice" layout in
+// ~/Desktop/structure.png. The sticky header stays in flow, so the hero fills
+// the REST of the first viewport: header + hero = 100svh (--header-h is set
+// in header.scss from the header's measured height).
+$hero-ink: $g7; // #f0d7ff, the brand lavender token
+$hero-pad-x: 2rem;
+$hero-pad-y: 1.5rem;
+
 #hero {
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  height: calc(100svh - 5rem);
+  height: calc(100svh - var(--header-h, 110px));
   position: relative;
   overflow: hidden;
   background: #000;
+  color: $hero-ink;
 
-  .hero-inner {
+  .hero-frame {
     position: relative;
     width: 100%;
     height: 100%;
   }
 
-  // ── CursorWave background ──
-  // No pointer-events override — the canvas needs to receive cursor
-  // moves and clicks for the wave + burst effects. The .hero-content
-  // layer above (z-index: 1) naturally absorbs clicks on CTAs and text.
-  .cursorwave-bg {
+  // ── Headline block, top-left ──
+  .hero-top {
     position: absolute;
-    inset: 0;
-    z-index: 0;
-  }
-
-  // ── Centered content layer ──
-  .hero-content {
-    position: relative;
+    top: $hero-pad-y;
+    left: $hero-pad-x;
+    right: $hero-pad-x;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    // Row 2 takes the slack: the vertical word spans both rows and is taller
+    // than the headline line, so with `auto auto` the extra height was split
+    // between the rows and pushed the intro ~100px below the headline.
+    grid-template-rows: auto 1fr;
     z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    text-align: center;
-    padding: 0 2rem;
-    // The content layer itself shouldn't block cursor input on its
-    // empty areas — only the actual text/CTA elements should.
+    column-gap: 0.35em;
+    // Font-size on the wrapper so the em gap and the intro indent track the h1.
+    font-size: clamp(2.6rem, 5.3vw, 5.25rem);
     pointer-events: none;
-
-    @media (max-width: 1300px) and (min-width: 669px) {
-      padding: 0 1.5rem;
-    }
-    @media (max-width: 668px) {
-      padding: 0 1.25rem;
-    }
   }
 
-  // ── Headline ──
   .hero-headline {
-    font-family: $font-special;
-    // Max 6rem (was 7.28rem): the +12% presence bump was never re-checked
-    // against the em container below — at 7.28rem the forced 3-line lockup
-    // ("We {verb}" / "websites, apps & AI" / "that actually perform.") rewrapped
-    // to 6 lines, overflowing the centered 100svh hero: line 1 clipped under
-    // the header and BOTH CTAs fell below the desktop fold (DESIGN_AUDIT
-    // P0-2, verified at 1440×900). 6rem × 3 lines + sub + CTAs fits every
-    // common fold. Font-size and max-width are a PAIR — retune both together.
-    font-size: clamp(3.08rem, 8.4vw, 6rem);
-    color: #fff;
-    line-height: 1; // was 0.95 — bigger font risks descender collision at 0.95; 1.0 stays tight but clears
-    letter-spacing: 0.03em; // looser letters on SCS Display (was -0.02em); easy to re-tune
+    display: contents; // the two spans become grid items; the h1 stays one heading
     margin: 0;
-    // Two caps, both load-bearing:
-    // • 12em — wide enough that the LONGEST forced line ("that actually
-    //   perform." ≈11.5em with 0.03em tracking) stays on ONE line at the
-    //   clamp max, keeping the desktop lockup at exactly 3 lines. Stays in
-    //   `em` (NOT ch): em is font-independent, so the Arial size-adjust
-    //   fallback gets an identical container and font-swap can't rewrap a
-    //   line (the old 18ch container caused exactly that one-line CLS jump).
-    // • 100% — the flex parent centers children at FIT-CONTENT width, so an
-    //   em-only cap let the h1 grow wider than the phone viewport (566px at
-    //   390px → headline bled off the right edge, DESIGN_AUDIT P0-2/verify).
-    //   Capping at 100% forces wrapping inside the padded container instead.
-    max-width: min(12em, 100%);
-    text-shadow: 0 2px 40px rgba(0, 0, 0, 0.5);
-    // Re-enable pointer events so the masked area corresponds to a real
-    // hit region; without this the headline can't capture hover/clicks.
+    font-family: $font-special;
+    font-size: inherit;
+    line-height: 0.95;
+    letter-spacing: 0.03em;
+    color: $hero-ink;
+    font-weight: 500;
     pointer-events: auto;
 
-    .hero-line {
-      display: block;
+    &__vert {
+      grid-column: 1;
+      grid-row: 1 / 3;
+      align-self: start;
+      writing-mode: vertical-rl;
+      rotate: 180deg; // reads bottom-to-top, like the reference's "a good"
+      white-space: nowrap;
+      // rotate() spins around the centre, which would drop the word below the
+      // top line on tall viewports; pin the box height to its content instead.
+      height: max-content;
     }
 
-    // The accent line uses the brand purple to pull the eye to the value.
-    .hero-line--accent {
-      color: $g7;
+    &__horiz {
+      grid-column: 2;
+      grid-row: 1;
+      white-space: nowrap;
+      align-self: start;
     }
   }
 
-  // ── Subline ──
-  .hero-sub {
-    font-size: clamp(1rem, 1.4vw, 1.2rem);
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.88);
-    margin-top: 1.75rem;
-    letter-spacing: 0.02em;
-    max-width: 560px;
-    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
-
-    &__desktop { display: inline; }
-    &__mobile  { display: none; }
-
-    @media (max-width: 668px) {
-      &__desktop { display: none; }
-      &__mobile  { display: inline; }
-    }
-    opacity: 0;
-    transform: translateY(12px);
-    transition:
-      opacity 0.6s ease,
-      transform 0.6s ease;
-    pointer-events: auto;
-
-    &.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 668px) {
-      margin-top: 1rem;
-    }
-  }
-
-  // ── CTA group ──
-  .hero-ctas {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 2.5rem;
-    opacity: 0;
-    transform: translateY(12px);
-    transition:
-      opacity 0.6s ease 0.2s,
-      transform 0.6s ease 0.2s;
-    pointer-events: auto;
-
-    &.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    // Stack on phones — side-by-side pills get too cramped to read (~170px
-    // each at 393px). More top gap separates them from the subtitle.
-    // align-items: center (not stretch): the pills size themselves below.
-    @media (max-width: 668px) {
-      flex-direction: column;
-      align-items: center;
-      margin-top: 2.75rem;
-      gap: 0.875rem;
-      width: 100%;
-    }
-  }
-
-  // ── Shared CTA base ──
-  .hero-cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    min-height: 48px; // audit §04 — touch target ≥ 44px (48 = comfort)
-    padding: 0.5rem 1.5rem;
+  .hero-intro {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+    margin: 0.3em 0 0;
     font-family: $font-text;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 100px;
+    font-size: clamp(1rem, 1.25vw, 1.2rem);
+    line-height: 1.45;
+    max-width: 24em;
+    color: $hero-ink;
+    pointer-events: auto;
+  }
+
+  // ── Booking CTA. The reference's "Say 👋" slot is the header's own booking
+  // pill on desktop (same corner, same link), so the hero copy renders only on
+  // phones, where the header collapses to a menu button. ──
+  .hero-say {
+    display: none;
+    z-index: 2;
+    align-items: center;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: $font-text;
+    font-size: clamp(1rem, 1.25vw, 1.2rem);
+    font-weight: 500;
+    color: $hero-ink;
     text-decoration: none;
-    cursor: pointer;
-    transition:
-      background 0.3s ease,
-      color 0.3s ease,
-      border-color 0.3s ease,
-      box-shadow 0.3s ease;
+    @include underline-sweep;
+    @include arrow-nudge('.hero-say__arrow');
 
-    .cta-arrow {
-      font-size: 1.1em;
-      transition: transform 0.3s ease;
-    }
-
-    &:hover .cta-arrow {
-      transform: translateX(4px);
-    }
-
-    // Visible focus ring for keyboard users (audit §04 a11y)
     &:focus-visible {
       outline: 2px solid $g6;
       outline-offset: 4px;
     }
+  }
 
-    // Stacked-pill sizing (2026-07 tweak, Moses): NOT full-bleed. Measured
-    // against the hero text block at mobile widths: widest headline ink line
-    // = 87% of the container, subhead = 52%; the requested ~80% sits between
-    // — pills read inset from the headline, wider than the sub. Mechanics:
-    // width:auto + min-width lets the pill GROW past 80% on very narrow
-    // screens (320px) instead of wrapping the label — a two-line primary
-    // button is never acceptable; nowrap + the 20rem cap bound both ends
-    // (the cap also stops over-widening at tablet widths up to 668px).
-    @media (max-width: 668px) {
-      width: auto;
-      min-width: min(80%, 20rem);
-      max-width: 100%;
-      white-space: nowrap;
-      padding-inline: 1.25rem; // trimmed so "Book a Free Strategy Call" holds one line at 320-390px
-      min-height: 52px;
+  // ── The ident, full-bleed behind the copy. The video's own field is black,
+  // so covering the whole hero costs nothing visually and sizes the wordmark
+  // (33% of the video width) to ~33vw, the reference's proportion. Plates are
+  // cropped top/bottom on wide viewports; the wordmark sits at the centre. ──
+  .hero-ident {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+
+    &__video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #000;
+    }
+  }
+
+  // ── Bottom corners ──
+  .hero-note {
+    position: absolute;
+    bottom: $hero-pad-y;
+    z-index: 1;
+    margin: 0;
+    font-family: $font-text;
+    font-size: clamp(1rem, 1.25vw, 1.2rem);
+    line-height: 1.45;
+    max-width: 22em;
+    color: $hero-ink;
+
+    &--left {
+      left: $hero-pad-x;
+    }
+    &--right {
+      right: $hero-pad-x;
+      text-align: right;
+    }
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: $hero-pad-y;
+    z-index: 1;
+    left: 50%;
+    translate: -50% 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-family: $font-text;
+    font-size: clamp(1rem, 1.25vw, 1.2rem);
+    color: $hero-ink;
+    text-decoration: none;
+
+    &__arrow {
+      transition: transform $dur-fast $ease-out;
+    }
+    &:hover &__arrow {
+      transform: translateY(3px);
+    }
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 4px;
+    }
+  }
+
+  // ── Tablet: the corner notes get too wide for the frame; shrink type ──
+  @media (max-width: 1100px) {
+    .hero-note {
+      max-width: 18em;
+      font-size: 0.95rem;
+    }
+  }
+
+  // ── Phone: one column, in flow. The 1:1 ident replaces the 16:9. ──
+  @media (max-width: 768px) {
+    height: auto;
+    min-height: calc(100svh - var(--header-h, 80px));
+    padding: 1.25rem 1.25rem 1.5rem;
+    box-sizing: border-box;
+
+    .hero-frame {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      height: auto;
+      min-height: calc(100svh - var(--header-h, 80px) - 2.75rem);
+    }
+
+    .hero-top {
+      position: static;
+      display: block;
+      font-size: clamp(2.4rem, 11vw, 3.2rem);
+    }
+    .hero-headline {
+      display: block;
+      line-height: 1;
+
+      &__vert,
+      &__horiz {
+        display: inline;
+        writing-mode: horizontal-tb;
+        rotate: none;
+        white-space: normal;
+      }
+      &__vert::after {
+        content: ' ';
+      }
+    }
+    .hero-intro {
+      margin-top: 0.75rem;
+      max-width: none;
       font-size: 1rem;
     }
-  }
 
-  // ── Primary CTA ──
-  .hero-cta--primary {
-    color: #000;
-    background: #fff;
-    border: 2px solid #fff;
-
-    &:hover {
-      border-color: $g6;
-      box-shadow: 0 0 30px rgba($g6, 0.4);
+    .hero-say {
+      display: inline-flex;
+      justify-content: center;
+      gap: 0.5rem;
+      order: 5;
+      align-self: stretch;
+      min-height: 52px;
+      padding: 0.5rem 1.25rem;
+      border-radius: 100px;
+      background: $g6;
+      color: #000;
+      font-weight: 600;
+      white-space: nowrap;
+      text-decoration: none;
     }
-  }
 
-  // ── Secondary CTA (ghost / outline) ──
-  .hero-cta--secondary {
-    color: #fff;
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.6);
+    .hero-ident {
+      position: static;
+      inset: auto;
+      width: min(60vw, 300px);
+      margin: auto; // takes the slack so the ident sits in the middle of the fold
+      order: 2;
 
-    &:hover {
-      border-color: #fff;
-      background: rgba(255, 255, 255, 0.08);
+      &__video {
+        height: auto;
+        aspect-ratio: 1;
+        object-fit: fill;
+      }
     }
-  }
 
-  // Arrow motion follows the arrow's DIRECTION, not the button's rank —
-  // the ↓ arrow slides down on hover wherever it lives (P0-1 swapped which
-  // button is primary; binding motion to rank broke on that swap).
-  .hero-cta .cta-arrow--down {
-    transition: transform 0.3s ease;
-  }
-  .hero-cta:hover .cta-arrow--down {
-    transform: translateY(3px);
-  }
+    .hero-note {
+      position: static;
+      max-width: none;
+      font-size: 0.95rem;
 
-  // ── Reduced-motion fallback ──
-  // CursorWave isn't rendered when reduced-motion is on (handled in JS).
-  // Provide a static gradient backdrop so the hero still feels brand-on.
-  @media (prefers-reduced-motion: reduce) {
-    background:
-      radial-gradient(ellipse at 30% 40%, rgba($g1, 0.35), transparent 60%),
-      radial-gradient(ellipse at 70% 70%, rgba($g6, 0.4), transparent 60%),
-      #0a0a0a;
-
-    .hero-sub,
-    .hero-ctas {
-      transition: none;
+      &--left {
+        order: 3;
+      }
+      &--right {
+        display: none; // phones: the second note pushed the CTA under the fold
+      }
+    }
+    .hero-scroll {
+      display: none; // the page itself is the scroll cue on a phone
     }
   }
 }

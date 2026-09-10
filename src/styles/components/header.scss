@@ -1,7 +1,20 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
+// Header height token. The hero (hero.scss) subtracts it from 100svh so header +
+// hero fill the first viewport exactly. Measured from the rendered header:
+// desktop 110px (85px logo + 20px padding + border, two nav rows), ≤960px 106px
+// (menu button row, same logo), ≤768px 80px (56px logo). Change a logo size or
+// padding here and re-measure `.site-header` height; the token must follow.
+:root {
+  --header-h: 110px;
+  @media (max-width: 960px) { --header-h: 106px; }
+  @media (max-width: 768px) { --header-h: 80px; }
+}
+
 .site-header {
+  min-height: var(--header-h);
+  box-sizing: border-box;
   position: sticky;
   top: 0;
   z-index: 999;
