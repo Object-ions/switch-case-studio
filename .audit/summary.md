@@ -1676,3 +1676,8 @@ a phone overflow (verified at a real 390 via iframe: no overflow, 1:1 source cho
 110px not 5rem, so the hero overshot the fold by 30px (now `--header-h`, hero bottom = viewport
 bottom at 1440×900). Standing checks: 44 routes, entry-chunk marker pinned, 1 em dash (clamp regex),
 AI-writing scan site 1.6/1k vocabulary, all zero counters still zero.
+
+Same day, second pass on the owner's notes: the video loops (2s on the wordmark, then the plates
+again), and on "/" the header is `display:none` while `#hero` is on screen, returning fixed once it
+has scrolled past, so the hero is a plain `100svh` and the `--header-h` token from the first pass
+is gone. The hero carries the booking link top-right again (the only nav on the first screen).

@@ -1,20 +1,7 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
-// Header height token. The hero (hero.scss) subtracts it from 100svh so header +
-// hero fill the first viewport exactly. Measured from the rendered header:
-// desktop 110px (85px logo + 20px padding + border, two nav rows), ≤960px 106px
-// (menu button row, same logo), ≤768px 80px (56px logo). Change a logo size or
-// padding here and re-measure `.site-header` height; the token must follow.
-:root {
-  --header-h: 110px;
-  @media (max-width: 960px) { --header-h: 106px; }
-  @media (max-width: 768px) { --header-h: 80px; }
-}
-
 .site-header {
-  min-height: var(--header-h);
-  box-sizing: border-box;
   position: sticky;
   top: 0;
   z-index: 999;
@@ -26,6 +13,20 @@
     background 0.25s ease,
     backdrop-filter 0.25s ease,
     border-color 0.25s ease;
+
+  // Home: the hero owns the first viewport (hero.scss, 100svh). Header.js adds
+  // `is-home` on "/" and `is-hero` while #hero intersects the viewport: hidden
+  // over the hero, then FIXED (out of flow, so its return shifts nothing) for
+  // the rest of the page. Other routes keep the sticky in-flow header.
+  &.is-home {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+  &.is-home.is-hero {
+    display: none;
+  }
 
   // Scrolled state — translucent + blurred for depth (audit §04)
   &.is-scrolled {

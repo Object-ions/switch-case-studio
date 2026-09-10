@@ -17,6 +17,12 @@ const Header = () => {
   const [textLines, setTextLines] = useState(["Menu", "Close"]);
   const [scrolled, setScrolled] = useState(false);
   const { pathname, hash } = useLocation();
+  // Home: the hero owns the first viewport, so the header is display:none
+  // while #hero is on screen and returns (fixed) once it has scrolled past.
+  // The initial value comes from the ROUTE, not the viewport, so the static
+  // HTML and the first client render agree (no hydration mismatch).
+  const isHome = pathname === "/";
+  const [heroInView, setHeroInView] = useState(isHome);
   const reducedMotion = useReducedMotion();
 
   const openRef = useRef(false);
@@ -53,6 +59,26 @@ const Header = () => {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  /* ── Home hero watcher ──────────────────────── */
+  useEffect(() => {
+    if (!isHome || typeof IntersectionObserver === "undefined") {
+      setHeroInView(false);
+      return undefined;
+    }
+    const hero = document.getElementById("hero");
+    if (!hero) {
+      setHeroInView(false);
+      return undefined;
+    }
+    setHeroInView(true);
+    const io = new IntersectionObserver(
+      ([entry]) => setHeroInView(entry.isIntersecting),
+      { threshold: 0 },
+    );
+    io.observe(hero);
+    return () => io.disconnect();
+  }, [isHome]);
 
   /* ── Icon spin animation ────────────────────── */
   const animateIcon = useCallback(
@@ -212,7 +238,7 @@ const Header = () => {
   return (
     <>
       <header
-        className={`site-header ${scrolled ? "is-scrolled" : ""}`}
+        className={`site-header ${scrolled ? "is-scrolled" : ""} ${isHome ? "is-home" : ""} ${heroInView ? "is-hero" : ""}`}
         role="banner"
       >
         <div className="site-header_inner">

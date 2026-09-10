@@ -3,9 +3,8 @@
 
 // Video hero (2026-09-09). Black field, lavender type, the ident centred and
 // four corners of copy, after the "a good design practice" layout in
-// ~/Desktop/structure.png. The sticky header stays in flow, so the hero fills
-// the REST of the first viewport: header + hero = 100svh (--header-h is set
-// in header.scss from the header's measured height).
+// ~/Desktop/structure.png. The header is display:none while the hero is on
+// screen (header.scss `.is-home.is-hero`), so the hero IS the first viewport.
 $hero-ink: $g7; // #f0d7ff, the brand lavender token
 $hero-pad-x: 2rem;
 $hero-pad-y: 1.5rem;
@@ -14,7 +13,7 @@ $hero-pad-y: 1.5rem;
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  height: calc(100svh - var(--header-h, 110px));
+  height: 100svh;
   position: relative;
   overflow: hidden;
   background: #000;
@@ -26,10 +25,11 @@ $hero-pad-y: 1.5rem;
     height: 100%;
   }
 
-  // ── Headline block, top-left ──
+  // ── Headline block, top-left. Starts under the booking-link row so the
+  // headline can run the full width without meeting the link. ──
   .hero-top {
     position: absolute;
-    top: $hero-pad-y;
+    top: 3.75rem;
     left: $hero-pad-x;
     right: $hero-pad-x;
     display: grid;
@@ -89,12 +89,14 @@ $hero-pad-y: 1.5rem;
     pointer-events: auto;
   }
 
-  // ── Booking CTA. The reference's "Say 👋" slot is the header's own booking
-  // pill on desktop (same corner, same link), so the hero copy renders only on
-  // phones, where the header collapses to a menu button. ──
+  // ── Booking link, top-right (the reference's "Say 👋"). With the header
+  // hidden over the hero this is the only nav on the first screen. ──
   .hero-say {
-    display: none;
+    position: absolute;
+    top: $hero-pad-y;
+    right: $hero-pad-x;
     z-index: 2;
+    display: inline-flex;
     align-items: center;
     align-items: center;
     gap: 0.4rem;
@@ -189,7 +191,7 @@ $hero-pad-y: 1.5rem;
   // ── Phone: one column, in flow. The 1:1 ident replaces the 16:9. ──
   @media (max-width: 768px) {
     height: auto;
-    min-height: calc(100svh - var(--header-h, 80px));
+    min-height: 100svh;
     padding: 1.25rem 1.25rem 1.5rem;
     box-sizing: border-box;
 
@@ -198,7 +200,7 @@ $hero-pad-y: 1.5rem;
       flex-direction: column;
       gap: 1.25rem;
       height: auto;
-      min-height: calc(100svh - var(--header-h, 80px) - 2.75rem);
+      min-height: calc(100svh - 2.75rem);
     }
 
     .hero-top {
@@ -228,7 +230,7 @@ $hero-pad-y: 1.5rem;
     }
 
     .hero-say {
-      display: inline-flex;
+      position: static;
       justify-content: center;
       gap: 0.5rem;
       order: 5;

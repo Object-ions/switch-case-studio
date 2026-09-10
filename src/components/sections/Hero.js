@@ -9,7 +9,8 @@ import "../../styles/components/hero.scss";
    Rendered from ~/Desktop/scs-ident (Remotion, private: licensed fonts);
    only the encoded video ships here (public/ident/, limited-range BT.709:
    full-range VP9 fails in Chrome's decoder mid-stream). The poster IS the
-   final frame, so a paused or blocked video shows what the video ends on. */
+   final frame, so a paused or blocked video shows what the video ends on.
+   It loops: 2s on the wordmark, then the plates run again. */
 
 const Hero = () => {
   const reducedMotion = useReducedMotion();
@@ -71,6 +72,7 @@ const Hero = () => {
             className="hero-ident__video"
             autoPlay
             muted
+            loop
             playsInline
             preload="auto"
             poster="/ident/ident-16x9-poster.webp"
