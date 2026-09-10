@@ -14,16 +14,21 @@ import { writeFileSync } from "node:fs";
 const [, , url, expr, ...flags] = process.argv;
 if (!url || !expr) { console.error("usage: node scripts/headless-probe.mjs <url> '<expr>' [--phone] [--shot file.png]"); process.exit(2); }
 const CHROME = process.env.CHROME || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-const PORT = 9333 + Math.floor(Math.random() * 500);
-const chrome = spawn(CHROME, ["--headless=new", "--disable-gpu", "--hide-scrollbars", `--remote-debugging-port=${PORT}`, "--window-size=1440,900", "--autoplay-policy=no-user-gesture-required", "about:blank"], { stdio: "ignore" });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // Hard stop: a probe that awaits something that never happens must not hang the caller.
-setTimeout(() => { console.error("headless-probe: 60s hard timeout"); chrome.kill(); process.exit(3); }, 60000).unref();
-let ws, id = 0; const pending = new Map();
-for (let i = 0; i < 40 && !ws; i++) {
-  try { const list = await (await fetch(`http://127.0.0.1:${PORT}/json`)).json(); const page = list.find((t) => t.type === "page"); const sock = new WebSocket(page.webSocketDebuggerUrl); await new Promise((r, j) => { sock.onopen = r; sock.onerror = j; }); ws = sock; } catch { await sleep(250); }
+setTimeout(() => { console.error("headless-probe: 60s hard timeout"); process.exit(3); }, 60000).unref();
+// Launch with retry: a port already held by a dying Chrome makes /json time out.
+let chrome, ws, id = 0; const pending = new Map();
+for (let attempt = 0; attempt < 3 && !ws; attempt++) {
+  const PORT = 9333 + Math.floor(Math.random() * 2000);
+  chrome = spawn(CHROME, ["--headless=new", "--disable-gpu", "--hide-scrollbars", `--remote-debugging-port=${PORT}`, "--window-size=1440,900", "--autoplay-policy=no-user-gesture-required", `--user-data-dir=/tmp/headless-probe-${PORT}`, "about:blank"], { stdio: "ignore" });
+  for (let i = 0; i < 40 && !ws; i++) {
+    try { const list = await (await fetch(`http://127.0.0.1:${PORT}/json`)).json(); const page = list.find((t) => t.type === "page"); if (!page) throw new Error("no page"); const sock = new WebSocket(page.webSocketDebuggerUrl); await new Promise((r, j) => { sock.onopen = r; sock.onerror = j; }); ws = sock; } catch { await sleep(250); }
+  }
+  if (!ws) chrome.kill();
 }
-if (!ws) { chrome.kill(); throw new Error("Chrome did not expose a debugging target"); }
+if (!ws) throw new Error("Chrome did not expose a debugging target after 3 launches");
+process.on("exit", () => { try { chrome.kill(); } catch {} });
 ws.onmessage = (m) => { const d = JSON.parse(m.data); if (d.id && pending.has(d.id)) { pending.get(d.id)(d); pending.delete(d.id); } };
 const send = (method, params = {}) => new Promise((r) => { const i = ++id; pending.set(i, r); ws.send(JSON.stringify({ id: i, method, params })); });
 await send("Page.enable"); await send("Runtime.enable");
