@@ -1841,3 +1841,16 @@ centred (padding equalised: measured 177px above / 178px below at 1440×900) and
 Grid lines dimmed to #3d3d3d in this block so they don't cut through the muted "includes" copy.
 `Squares` is now visibility-gated (it ran full-canvas strokes every frame forever, even off screen;
 a second instance made that visible as probe stalls). Routes 41, entry marker pinned.
+
+## Services block: panels, hierarchy, spacing, header offset — 2026-09-10 (design pass)
+
+Owner: the header cut the titles, the gap between intro and cards was odd, cards needed a backing
+against the grid, and the three card texts had no hierarchy. Applied with impeccable + taste
+guidance (hierarchy by size AND weight, ≥1.25 steps; fill not glass for legibility): each service
+sits on an 88%-black panel with a hairline border and 12px radius; title is Inter 600 title case
+(28.8px at 1440), subtitle Inter 400 at 80% (16.8px), includes line 300 (14.4px), kicker unchanged.
+The 100vh moved from the menu to the whole block (`min-height: 100dvh`), so the intro flows into
+the cards (65px gap, was about a screen). Section anchors get `scroll-margin-top: 120px` so nav jumps
+stop below the fixed header. Two follow-on fixes: the phone link rule still bled 1.25rem outward
+(text flush to the panel edge under overflow: hidden), and the column parallax sliced the first
+card's top edge against `#services`' clip (menu top padding 2rem; clearance ≥8px measured).

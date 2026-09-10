@@ -16,7 +16,7 @@
     // Full width, edge gutter only (was max-width 1200 + 6rem). $edge-pad and
     // $col-gap are shared with services.scss so the heading sits over the
     // left service column and the body copy over the right one.
-    padding: 7rem $edge-pad 3.5rem;
+    padding: 8rem $edge-pad 3rem;
     display: grid;
     grid-template-columns: 1fr;
     gap: 4rem;

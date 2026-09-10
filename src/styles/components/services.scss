@@ -15,7 +15,7 @@
 .services-block {
   position: relative;
   isolation: isolate;
-  min-height: 100vh;
+  min-height: 100dvh;
   background: #000;
 
   // The grid canvas fills the block and takes pointer moves wherever no
@@ -63,11 +63,8 @@
   position: relative;
   overflow: hidden;
   background: transparent;
-  // The menu gets its own screen: at least 100vh, cards centred in it.
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  // No own min-height: a 100vh menu left a screen-tall gap under the intro.
+  // The whole .services-block is the full-screen unit.
   color: $white-color;
   font-family: $font-text;
 }
@@ -77,9 +74,10 @@
   // sits under "One studio." and the right one under its body copy.
   &__menu {
     width: 100%;
-    // Equal top/bottom so #services' justify-content: center actually
-    // centres the cards (a 6rem bottom-only pad pushed them high).
-    padding: 4rem $edge-pad;
+    // 2rem top: the desktop column parallax lifts the left column up to 24px,
+    // and #services clips (overflow: hidden); without room the first card
+    // lost its top edge and corners.
+    padding: 2rem $edge-pad 7rem;
     box-sizing: border-box;
   }
 
@@ -87,12 +85,18 @@
     width: 100%;
   }
 
+  // Each service sits on a near-solid black panel so the grid behind never
+  // competes with the copy (owner, 2026-09-10). Radius 12px, hairline edge;
+  // no blur: legibility comes from the fill, not a glass effect.
   &__item {
     position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
+    background: rgba(8, 8, 8, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
   }
 
   // The overlay wipe needs room around the text; the negative inline margin
@@ -104,8 +108,7 @@
     flex-direction: column;
     align-items: stretch;
     gap: 0.9rem;
-    padding: 1.25rem;
-    margin-inline: -1.25rem;
+    padding: 2rem;
     cursor: pointer;
     text-decoration: none;
     color: inherit;
@@ -166,20 +169,21 @@
   &__item-title,
   &__overlay-title {
     font-family: $font-text;
-    // 2.2vw keeps the longest title (25 uppercase chars) on one line in a
-    // ~620px column at 1440; the cap holds it on wider screens.
-    font-size: clamp(1.5rem, 2.2vw, 2.1rem);
-    font-weight: 300;
-    line-height: 1;
-    letter-spacing: -0.04em;
-    text-transform: uppercase;
+    // Hierarchy (owner: "3 texts and no hierarchy"): the title leads by size
+    // AND weight, title case, not light uppercase. Subtitle is regular at 80%,
+    // the includes line quietest. Steps: ~2rem / 1.05rem / 0.9rem.
+    font-size: clamp(1.6rem, 2vw, 2rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-transform: none;
   }
 
   &__item-subtitle {
     font-size: clamp(0.95rem, 1.2vw, 1.05rem);
-    font-weight: 500;
-    line-height: 1.45;
-    color: rgba(255, 255, 255, 0.92);
+    font-weight: 400;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.8);
   }
 
   &__item-includes {
@@ -247,8 +251,8 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       grid-template-rows: repeat(var(--rows, 4), 1fr);
       grid-auto-flow: column;
-      column-gap: $col-gap;
-      row-gap: 5rem;
+      column-gap: 1.5rem;
+      row-gap: 1.5rem;
     }
 
     &__item {
@@ -286,8 +290,10 @@
     }
 
     &__link {
-      padding: 1rem 1.25rem;
-      margin-inline: -1.25rem; // text stays flush with the 1.5rem menu padding
+      // Inside a panel now: no outward bleed (the old -1.25rem margin put
+      // the text flush against the panel edge under overflow: hidden).
+      padding: 1.5rem 1.25rem;
+      margin-inline: 0;
     }
 
     &__item-title,
@@ -304,4 +310,16 @@
       height: 2rem;
     }
   }
+}
+
+// In-page jumps (nav "Services", /#projects, etc.) stop below the fixed
+// header instead of under it (owner: the header was cutting the titles).
+#what-we-build,
+#services,
+#projects,
+#about,
+#reviews,
+#contact,
+#faq {
+  scroll-margin-top: 120px;
 }
