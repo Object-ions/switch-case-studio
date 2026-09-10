@@ -188,10 +188,16 @@ function ServiceItem({ service, index, delay = 0 }) {
           <span className="services__item-cta">{service.cta}</span>
           <span className="services__item-rule" aria-hidden="true" />
         </span>
-        <span className="services__item-title-mask">
-          <span className="services__item-title">{service.title}</span>
+        {/* Inner parallax layer (name + line). The entrance build animates
+            the children; the parallax moves only this wrapper, so the two
+            never write the same property on the same element. The empty
+            space above it is the sticker slot. */}
+        <span className="services__item-body">
+          <span className="services__item-title-mask">
+            <span className="services__item-title">{service.title}</span>
+          </span>
+          <span className="services__item-subtitle">{service.subTitle}</span>
         </span>
-        <span className="services__item-subtitle">{service.subTitle}</span>
       </Link>
 
       <div
@@ -234,22 +240,29 @@ function ServiceItem({ service, index, delay = 0 }) {
 const Services = () => {
   const listRef = useRef(null);
 
-  /* Column parallax (desktop only): the left column eases down 24px and the
-     right column up 24px across the section's scroll range, so the two
-     columns move at different speeds. `y` on the ITEM is this tween's alone;
-     the entry build animates the item's children. Reduced motion: nothing. */
+  /* Layered parallax (desktop only), see the matchMedia block. `y` on the
+     ITEM and `y` on `.services__item-body` belong to these tweens alone; the
+     entry build animates the item's other children. Reduced motion: none. */
   useEffect(() => {
     const list = listRef.current;
     if (!list) return undefined;
     const mm = gsap.matchMedia();
     mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
       const items = gsap.utils.toArray(".services__item", list);
-      const rows = Math.ceil(items.length / 2);
-      const left = items.slice(0, rows);
-      const right = items.slice(rows);
-      const scrollTrigger = { trigger: list, start: "top bottom", end: "bottom top", scrub: true };
-      gsap.fromTo(left, { y: -24 }, { y: 24, ease: "none", scrollTrigger: { ...scrollTrigger } });
-      gsap.fromTo(right, { y: 24 }, { y: -24, ease: "none", scrollTrigger: { ...scrollTrigger } });
+      // Layered parallax (owner, 2026-09-10): every card travels upward at
+      // its own speed as the section scrolls through, and its name block
+      // travels a further 40% of that inside the card. Max card travel is
+      // 60px either side; #services' padding must stay above that (it clips).
+      const SPEEDS = [34, 60, 22, 48];
+      items.forEach((item, i) => {
+        const s = SPEEDS[i % SPEEDS.length];
+        const scrollTrigger = { trigger: list, start: "top bottom", end: "bottom top", scrub: true };
+        gsap.fromTo(item, { y: s }, { y: -s, ease: "none", scrollTrigger: { ...scrollTrigger } });
+        const body = item.querySelector(".services__item-body");
+        if (body) {
+          gsap.fromTo(body, { y: s * 0.4 }, { y: -s * 0.4, ease: "none", scrollTrigger: { ...scrollTrigger } });
+        }
+      });
     });
     return () => mm.revert();
   }, []);
@@ -260,20 +273,14 @@ const Services = () => {
         <div
           className="services__list"
           ref={listRef}
-          style={{ "--rows": Math.ceil(servicesData.length / 2) }}
         >
           {servicesData.map((service, index) => (
             <ServiceItem
               key={service.slug}
               service={service}
               index={index}
-              // Two-column grid, column-first: the right column's rows share a
-              // line with the left's, so they trail by a beat instead of
-              // landing in the same frame.
-              delay={
-                (index >= Math.ceil(servicesData.length / 2) ? 0.12 : 0) +
-                (index % Math.ceil(servicesData.length / 2)) * 0.06
-              }
+              // One row of four: left to right, a beat apart.
+              delay={index * 0.08}
             />
           ))}
         </div>

@@ -94,10 +94,9 @@
     // 2rem top: the desktop column parallax lifts the left column up to 24px,
     // and #services clips (overflow: hidden); without room the first card
     // lost its top edge and corners.
-    // 2rem on BOTH ends: the column parallax moves the columns up to 24px
-    // either way and #services clips (overflow: hidden). The block owns the
-    // real breathing room; this only keeps the moved cards inside the clip.
-    padding: 2rem $edge-pad;
+    // 5rem (80px) on BOTH ends: the layered parallax moves a card up to 60px
+    // either way and #services clips (overflow: hidden). Padding > travel.
+    padding: 5rem $edge-pad;
     box-sizing: border-box;
   }
 
@@ -186,6 +185,13 @@
     display: block;
   }
 
+  // Name + line: its own layer for the inner parallax.
+  &__item-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
   &__item-title,
   &__overlay-title {
     font-family: $font-text;
@@ -194,10 +200,13 @@
     // the includes line quietest. Steps: ~2rem / 1.05rem / 0.9rem.
     // The service name dominates the card (owner, 2026-09-10): ~3rem at
     // 1440, one line in a 672px card for the longest name.
-    font-size: clamp(2rem, 3.4vw, 3.25rem);
+    // Portrait cards are ~324px wide at 1440: ~2.4rem lets two-word names
+    // sit on two balanced lines ("Web / Development") and stay dominant.
+    font-size: clamp(2rem, 2.6vw, 2.75rem);
     font-weight: 600;
     line-height: 1.05;
     letter-spacing: -0.03em;
+    text-wrap: balance;
     text-transform: none;
   }
 
@@ -263,23 +272,36 @@
   }
 }
 
-// Two equal columns from 1024px, filled column-first: seven entries read
-// 4 + 3, down then across, and every cell is the same size. The gutter is
-// generous on purpose: with no borders, whitespace separates the columns.
-@media (min-width: 1024px) {
+// Portrait cards (owner, 2026-09-10): four in a row from 1024px, two from
+// 768px, one column on phones. Each card is 3:4; the kicker row sits at the
+// top, the name + line at the bottom, the middle is left open for stickers.
+@media (min-width: 768px) {
   .services {
     &__list {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-template-rows: repeat(var(--rows, 4), 1fr);
-      grid-auto-flow: column;
-      column-gap: 1.5rem;
-      row-gap: 1.5rem;
+      gap: 1.5rem;
     }
 
     &__item {
       margin-bottom: 0;
+      aspect-ratio: 3 / 4;
     }
+
+    &__link {
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    &__item-body {
+      margin-top: auto;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .services__list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 

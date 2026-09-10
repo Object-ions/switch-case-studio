@@ -1861,3 +1861,11 @@ dominant element (Inter 600, 49px at 1440, 33px at 390, one line everywhere), an
 paragraph went from four sentences to two. Cards dropped from ~280-350px to 200px tall at 1440. The
 menu keeps 2rem padding on both ends so the ±24px column parallax stays inside `#services`' clip (the
 last right-column card had lost its bottom edge once the block took over the bottom padding).
+
+Service cards go portrait with layered parallax (owner, 2026-09-10, stickers to follow): four 3:4
+cards in one row from 1024px (324×432 at 1440), two from 768px, one column on phones. Kicker row at
+the top, name + line at the bottom, the middle left open as the sticker slot. Desktop parallax: each
+card travels upward at its own speed (34 / 60 / 22 / 48px either side of rest) and its name block a
+further 40% inside the card, one tween owner per element per property (card `y`, body-wrapper `y`,
+the entrance build on the children). Menu padding raised to 5rem so no card edge reaches the clip:
+min clearance 30px measured across three scroll offsets. Tablet and phone run no parallax.
