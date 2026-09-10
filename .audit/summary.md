@@ -1693,3 +1693,16 @@ continue in the right, the way the reference reads; the menu's side padding now 
 `.lpp__inner` so the columns sit flush with "One studio." (heading x = first title x at 1920, 1440,
 1024 and 390, measured). Title clamp trimmed to 1.9vw so the 25-character titles hold one line in
 the 456px columns at 1440. `scripts/headless-probe.mjs` gained `--size WxH` and a 60s hard stop.
+
+## Case studies: tile grid → typed index with a hover preview — 2026-09-09 (late)
+
+The home case-study grid (badge + logo tiles) is now `CaseStudyIndex`: an intro column ("Selected
+work", count + year range, the "View all" pill) and three headed columns grouped by `type`,
+Rebuilds + SEO (2) · Business websites (5) · Products + stores (3), every entry a link with
+`title` over `type · year`. A preview slot under the two right-hand columns shows the hovered
+project's `imageSrc` (the 1150×1000 house-frame site screenshot), starting on the newest project
+(first in `projects.json`); all ten previews are stacked in the DOM and crossfade on CSS opacity.
+Unmapped types fall into a trailing "More work" column rather than vanishing. Phones drop the slot
+(no hover) and stack the columns. The "CASE STUDIES" TextPressure heading is untouched;
+`CaseStudyTiles` stays for LandingPageProof. Verified headless at 1440 / 1024 / 390: 10 entries,
+hover swaps the active preview, gutters 36 / 26 / 24, no horizontal overflow.

@@ -1,12 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import projectsData from '../../data/projects.json';
-import CaseStudyTiles from './CaseStudyTiles';
+import CaseStudyIndex from './CaseStudyIndex';
 import TextPressure from '../ui/TextPressure';
 
 import '../../styles/components/projects.scss';
-
-const featured = projectsData.filter((p) => p.featured);
 
 // The TextPressure wordmark pulls in the Roboto Flex variable woff2 (~278KB)
 // and a RAF warp loop. The section sits ~6th down, so gate the whole thing
@@ -84,14 +80,10 @@ const CaseStudies = () => {
         Selected work
       </h2>
 
-      <CaseStudyTiles projects={featured} />
-
-      <div className="projects-viewall">
-        <Link to="/projects" className="projects-viewall__link">
-          View all case studies
-          <span className="cta-arrow" aria-hidden="true"> →</span>
-        </Link>
-      </div>
+      {/* Typed index (owner's CV-style reference) replaced the tile grid on
+          2026-09-09; CaseStudyTiles still serves LandingPageProof. The
+          "View all" link moved into the index's intro column. */}
+      <CaseStudyIndex />
     </section>
   );
 };

@@ -1,0 +1,163 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+// Case-study index: intro column + three headed columns of entries, and a
+// preview slot under the two right-hand columns that shows the hovered
+// project's site. Full-bleed with the shared $edge-pad gutter (same as the
+// services block), so the columns line up with the rest of the page.
+.csi {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 1rem $edge-pad 0;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) repeat(3, minmax(0, 1fr));
+  grid-template-rows: auto auto;
+  column-gap: clamp(2rem, 4vw, 5rem);
+  row-gap: 3rem;
+  font-family: $font-text;
+  color: $white-color;
+  text-align: left;
+
+  &__intro {
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+
+  &__intro-title {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #fff;
+  }
+
+  &__intro-meta {
+    margin: 0.35rem 0 1.75rem;
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  // Reuses the pill from _projects-tiles.scss; only the placement changes.
+  &__viewall {
+    display: inline-flex;
+  }
+
+  &__group {
+    grid-row: 1;
+    min-width: 0;
+  }
+
+  &__heading {
+    margin: 0 0 1.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  &__entry {
+    display: block;
+    margin-bottom: 1.15rem;
+    text-decoration: none;
+    color: inherit;
+
+    &-title {
+      display: block;
+      font-size: clamp(1.1rem, 1.35vw, 1.35rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: #fff;
+      transition: color $dur-fast $ease-out;
+    }
+
+    &-meta {
+      display: block;
+      margin-top: 0.2rem;
+      font-size: 0.85rem;
+      font-weight: 300;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    &:hover &-title,
+    &:focus-visible &-title,
+    &.is-active &-title {
+      color: $g7;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 4px;
+    }
+  }
+
+  // The preview slot: under the two right-hand columns, the reference's
+  // bottom-centre photo position. 16:10 crop of the 1150×1000 house frame,
+  // anchored to the top so the site's header is what shows.
+  &__slot {
+    grid-column: 3 / 5;
+    grid-row: 2;
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: #0a0a0a;
+  }
+
+  &__preview {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    opacity: 0;
+    transition: opacity 0.35s $ease-out;
+
+    &.is-active {
+      opacity: 1;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .csi {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto auto auto;
+    row-gap: 2.5rem;
+
+    &__intro {
+      grid-column: 1 / -1;
+      grid-row: 1;
+    }
+    &__group {
+      grid-row: 2;
+    }
+    &__slot {
+      grid-column: 2 / 4;
+      grid-row: 3;
+    }
+  }
+}
+
+// Phones: no hover, so the slot goes; the index stands alone in one column.
+@media (max-width: 768px) {
+  .csi {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    row-gap: 2rem;
+
+    &__intro,
+    &__group {
+      grid-column: 1;
+      grid-row: auto;
+    }
+    &__slot {
+      display: none;
+    }
+  }
+}
