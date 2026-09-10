@@ -1681,3 +1681,15 @@ Same day, second pass on the owner's notes: the video loops (2s on the wordmark,
 again), and on "/" the header is `display:none` while `#hero` is on screen, returning fixed once it
 has scrolled past, so the hero is a plain `100svh` and the `--header-h` token from the first pass
 is gone. The hero carries the booking link top-right again (the only nav on the first screen).
+
+## Service menu after the owner's reference: borderless two-column entries — 2026-09-09 (late)
+
+The home service menu dropped its cell borders, divider and bottom rule. Each entry is now the
+reference's four-part structure: a kicker row (studio taxonomy `AI · Code · Design · Growth`, new
+`kicker` field in `services.json`, "See pricing" on the right) over its own hairline, the light
+uppercase title, the subtitle at 500, and a muted line of the pricing page's included items joined
+with the house `·`. `columns: 2` (not grid) from 1024px so entries flow down the left column and
+continue in the right, the way the reference reads; the menu's side padding now mirrors
+`.lpp__inner` so the columns sit flush with "One studio." (heading x = first title x at 1920, 1440,
+1024 and 390, measured). Title clamp trimmed to 1.9vw so the 25-character titles hold one line in
+the 456px columns at 1440. `scripts/headless-probe.mjs` gained `--size WxH` and a 60s hard stop.

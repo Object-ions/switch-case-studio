@@ -149,12 +149,19 @@ function ServiceItem({ service, index }) {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <span className="services__item-main">
-          <span className="services__item-title">{service.title}</span>
-          <span className="services__item-subtitle">{service.subTitle}</span>
+        {/* Entry structure after the reference (kicker row with a rule, title,
+            strong line, light line): the kicker is the studio's own taxonomy
+            (design · code · AI, plus growth), the light line is the pricing
+            page's included items joined with the house separator. */}
+        <span className="services__item-meta">
+          <span className="services__item-kicker">{service.kicker}</span>
+          <span className="services__item-cta">{service.cta}</span>
         </span>
-
-        <span className="services__item-cta">{service.cta}</span>
+        <span className="services__item-title">{service.title}</span>
+        <span className="services__item-subtitle">{service.subTitle}</span>
+        <span className="services__item-includes">
+          {service.items.join(" \u00b7 ")}
+        </span>
       </Link>
 
       <div
@@ -202,8 +209,6 @@ const Services = () => {
           {servicesData.map((service, index) => (
             <ServiceItem key={service.slug} service={service} index={index} />
           ))}
-
-          <div className="services__list-bottom" />
         </div>
       </div>
     </section>

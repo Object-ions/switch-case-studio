@@ -17,6 +17,8 @@ const CHROME = process.env.CHROME || "/Applications/Google Chrome.app/Contents/M
 const PORT = 9333 + Math.floor(Math.random() * 500);
 const chrome = spawn(CHROME, ["--headless=new", "--disable-gpu", "--hide-scrollbars", `--remote-debugging-port=${PORT}`, "--window-size=1440,900", "--autoplay-policy=no-user-gesture-required", "about:blank"], { stdio: "ignore" });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// Hard stop: a probe that awaits something that never happens must not hang the caller.
+setTimeout(() => { console.error("headless-probe: 60s hard timeout"); chrome.kill(); process.exit(3); }, 60000).unref();
 let ws, id = 0; const pending = new Map();
 for (let i = 0; i < 40 && !ws; i++) {
   try { const list = await (await fetch(`http://127.0.0.1:${PORT}/json`)).json(); const page = list.find((t) => t.type === "page"); const sock = new WebSocket(page.webSocketDebuggerUrl); await new Promise((r, j) => { sock.onopen = r; sock.onerror = j; }); ws = sock; } catch { await sleep(250); }
