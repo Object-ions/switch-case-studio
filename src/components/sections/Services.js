@@ -205,7 +205,10 @@ const Services = () => {
   return (
     <section id="services" className="services">
       <div id="services-menu" className="services__menu">
-        <div className="services__list">
+        <div
+          className="services__list"
+          style={{ "--rows": Math.ceil(servicesData.length / 2) }}
+        >
           {servicesData.map((service, index) => (
             <ServiceItem key={service.slug} service={service} index={index} />
           ))}

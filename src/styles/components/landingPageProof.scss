@@ -14,9 +14,10 @@
   // introduces that list, so the gap must read as intra-section, not a
   // section break.
   &__inner {
-    max-width: $max-width;
-    margin: 0 auto;
-    padding: 7rem 6rem 3.5rem;
+    // Full width, edge gutter only (was max-width 1200 + 6rem). $edge-pad and
+    // $col-gap are shared with services.scss so the heading sits over the
+    // left service column and the body copy over the right one.
+    padding: 7rem $edge-pad 3.5rem;
     display: grid;
     grid-template-columns: 1fr;
     gap: 4rem;
@@ -25,9 +26,9 @@
   // ── Header block ──
   &__header {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: auto auto;
-    column-gap: 4rem;
+    column-gap: $col-gap;
     row-gap: 1.5rem;
     align-items: start;
   }
@@ -61,6 +62,7 @@
     line-height: 1.7;
     color: rgba(255, 255, 255, 0.65);
     align-self: end;
+    max-width: 40em; // a full-width column would run 100+ characters a line
   }
 
 }
@@ -69,7 +71,7 @@
 @media (max-width: 1024px) {
   .lpp {
     &__inner {
-      padding: 6rem 3rem 3rem;
+      padding: 6rem $edge-pad 3rem;
     }
   }
 }
@@ -78,7 +80,7 @@
 @media (max-width: 768px) {
   .lpp {
     &__inner {
-      padding: 3rem 1.5rem 2rem;
+      padding: 3rem $edge-pad 2rem;
       gap: 3rem;
     }
 

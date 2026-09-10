@@ -33,6 +33,12 @@ $promo-ink: #141414; // ink (CTA, body text on light)
 
 // Size variables
 $max-width: 1200px;
+// Edge-to-edge sections (owner, 2026-09-09): the services intro + menu run the
+// full page width with only this gutter at the edges, and split into two
+// columns separated by $col-gap. Both files use both tokens so the heading,
+// the body copy and the two service columns share the same x positions.
+$edge-pad: clamp(1.5rem, 2.5vw, 3rem);
+$col-gap: clamp(3rem, 8vw, 10rem);
 
 // Print-grain texture (VE-6) — static SVG noise (~1KB inline), opacity baked
 // into the SVG rect. Layer it as a background-image over a color field:
