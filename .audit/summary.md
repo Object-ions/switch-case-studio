@@ -1759,3 +1759,13 @@ index, "One studio.", About text, the About CTA, Reviews, Contact and the FAQ. L
 idle, then scroll): every section still hidden before, revealed on arrival, at 1440 and 390, normal
 and reduced motion. Headless caveat unchanged: rAF at 3 fps (≈1 fps past the software moon), so
 timing is the owner's visible pass.
+
+## Hero: three words, nothing else over it — 2026-09-10
+
+Owner's edit. The hero shows only its own copy and the ident: the fixed logo and the booking link
+are hidden while `#hero` is on screen (logo carries `is-home is-hero` like the header and fades in
+with it after the hero; the hero's own link is gone). The top-left corner is now the h1
+"Creative, / Design, / Development", one word per line, Inter 800 at display size (137px at 1440,
+47px at 390, each word one line at both), replacing the vertical "we build" lockup and the intro
+paragraph. The logo's scroll-scale scrub went with it (nothing visible to shrink). Verified
+headless at 1440 and 390: logo `display: none` over the hero, `block` with `brand-return` after.

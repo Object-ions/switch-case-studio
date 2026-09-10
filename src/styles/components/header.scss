@@ -306,6 +306,30 @@
       height: 56px;
     }
   }
+
+  // Home: hidden while the hero is on screen (owner, 2026-09-10: the hero
+  // shows nothing but its own copy and the ident), fades in with the header.
+  &.is-home.is-hero {
+    display: none;
+  }
+  &.is-home:not(.is-hero) {
+    animation: brand-return $dur-med $ease-out both;
+  }
+}
+
+@keyframes brand-return {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-brand.is-home:not(.is-hero) {
+    animation: none;
+  }
 }
 
 @keyframes header-return {

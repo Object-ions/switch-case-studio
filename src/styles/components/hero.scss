@@ -25,92 +25,32 @@ $hero-pad-y: 1.5rem;
     height: 100%;
   }
 
-  // ── Headline block, top-left. Starts under the fixed logo (85px + 10px)
-  // and the booking-link row, so it can run the full width. ──
+  // ── Headline, top-left: three words, one per line, Inter at display
+  // size (the display face stays reserved for wordmarks; owner's call to use
+  // the text face here). The logo and booking link are hidden over the hero,
+  // so the block starts at the top gutter. ──
   .hero-top {
     position: absolute;
-    top: 7rem;
+    top: $hero-pad-y;
     left: $hero-pad-x;
     right: $hero-pad-x;
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    // Row 2 takes the slack: the vertical word spans both rows and is taller
-    // than the headline line, so with `auto auto` the extra height was split
-    // between the rows and pushed the intro ~100px below the headline.
-    grid-template-rows: auto 1fr;
     z-index: 1;
-    column-gap: 0.35em;
-    // Font-size on the wrapper so the em gap and the intro indent track the h1.
-    font-size: clamp(2.6rem, 5.3vw, 5.25rem);
     pointer-events: none;
   }
 
   .hero-headline {
-    display: contents; // the two spans become grid items; the h1 stays one heading
     margin: 0;
-    font-family: $font-special;
-    font-size: inherit;
-    line-height: 0.95;
-    letter-spacing: 0.03em;
+    font-family: $font-text;
+    font-weight: 800;
+    font-size: clamp(3.5rem, 9.5vw, 11rem);
+    line-height: 0.88;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
     color: $hero-ink;
-    font-weight: 500;
     pointer-events: auto;
 
-    &__vert {
-      grid-column: 1;
-      grid-row: 1 / 3;
-      align-self: start;
-      writing-mode: vertical-rl;
-      rotate: 180deg; // reads bottom-to-top, like the reference's "a good"
-      white-space: nowrap;
-      // rotate() spins around the centre, which would drop the word below the
-      // top line on tall viewports; pin the box height to its content instead.
-      height: max-content;
-    }
-
-    &__horiz {
-      grid-column: 2;
-      grid-row: 1;
-      white-space: nowrap;
-      align-self: start;
-    }
-  }
-
-  .hero-intro {
-    grid-column: 2;
-    grid-row: 2;
-    align-self: start;
-    margin: 0.3em 0 0;
-    font-family: $font-text;
-    font-size: clamp(1rem, 1.25vw, 1.2rem);
-    line-height: 1.45;
-    max-width: 24em;
-    color: $hero-ink;
-    pointer-events: auto;
-  }
-
-  // ── Booking link, top-right (the reference's "Say 👋"). With the header
-  // hidden over the hero this is the only nav on the first screen. ──
-  .hero-say {
-    position: absolute;
-    top: $hero-pad-y;
-    right: $hero-pad-x;
-    z-index: 2;
-    display: inline-flex;
-    align-items: center;
-    align-items: center;
-    gap: 0.4rem;
-    font-family: $font-text;
-    font-size: clamp(1rem, 1.25vw, 1.2rem);
-    font-weight: 500;
-    color: $hero-ink;
-    text-decoration: none;
-    @include underline-sweep;
-    @include arrow-nudge('.hero-say__arrow');
-
-    &:focus-visible {
-      outline: 2px solid $g6;
-      outline-offset: 4px;
+    &__line {
+      display: block;
     }
   }
 
@@ -192,7 +132,7 @@ $hero-pad-y: 1.5rem;
   @media (max-width: 768px) {
     height: auto;
     min-height: 100svh;
-    padding: 5rem 1.25rem 1.5rem; // clears the fixed 56px logo
+    padding: 1.5rem 1.25rem 1.5rem;
     box-sizing: border-box;
 
     .hero-frame {
@@ -205,44 +145,10 @@ $hero-pad-y: 1.5rem;
 
     .hero-top {
       position: static;
-      display: block;
-      font-size: clamp(2.4rem, 11vw, 3.2rem);
     }
     .hero-headline {
-      display: block;
-      line-height: 1;
-
-      &__vert,
-      &__horiz {
-        display: inline;
-        writing-mode: horizontal-tb;
-        rotate: none;
-        white-space: normal;
-      }
-      &__vert::after {
-        content: ' ';
-      }
-    }
-    .hero-intro {
-      margin-top: 0.75rem;
-      max-width: none;
-      font-size: 1rem;
-    }
-
-    .hero-say {
-      position: static;
-      justify-content: center;
-      gap: 0.5rem;
-      order: 5;
-      align-self: stretch;
-      min-height: 52px;
-      padding: 0.5rem 1.25rem;
-      border-radius: 100px;
-      background: $g6;
-      color: #000;
-      font-weight: 600;
-      white-space: nowrap;
-      text-decoration: none;
+      // "DEVELOPMENT" must hold one line at 390px: 11 caps at ~0.66em.
+      font-size: clamp(2.5rem, 12vw, 4rem);
     }
 
     .hero-ident {

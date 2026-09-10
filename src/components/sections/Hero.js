@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import { HashLink } from "react-router-hash-link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import BookCallCta from "../ui/BookCallCta";
 import useReducedMotion from "../../hooks/useReducedMotion";
 import {
   DUR_SLOW,
@@ -36,10 +35,7 @@ const Hero = () => {
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return undefined;
-    const items = gsap.utils.toArray(
-      ".hero-top, .hero-say, .hero-note, .hero-scroll",
-      root,
-    );
+    const items = gsap.utils.toArray(".hero-top, .hero-note, .hero-scroll", root);
     if (reducedMotion) {
       gsap.set(items, { clearProps: "all" });
       return undefined;
@@ -102,28 +98,14 @@ const Hero = () => {
     <section id="hero" aria-label="Switch Case Studio introduction" ref={rootRef}>
       <div className="hero-frame">
         <div className="hero-top">
-          {/* One h1, two reading directions: the verb runs up the left edge,
-              the object runs along the top. display:contents lets the grid
-              place the spans while the h1 stays a single heading. */}
+          {/* Three words, one per line, in the text face at display size
+              (owner, 2026-09-10). Still the page's single h1. */}
           <h1 className="hero-headline">
-            <span className="hero-headline__vert">we build</span>
-            <span className="hero-headline__horiz">
-              websites, stores, apps &amp;{" "}
-              <span className="caps-trim">AI</span>
-            </span>
+            <span className="hero-headline__line">Creative,</span>
+            <span className="hero-headline__line">Design,</span>
+            <span className="hero-headline__line">Development</span>
           </h1>
-          <p className="hero-intro">
-            An <span className="caps-trim">AI</span>-first design and
-            engineering studio in Portland, Oregon. We write the code, ship
-            the store, wire the assistant, and publish numbers you can check.
-          </p>
         </div>
-
-        <BookCallCta className="hero-say">
-          <span className="hero-say__arrow" aria-hidden="true">
-            &rarr;
-          </span>
-        </BookCallCta>
 
         <div className="hero-ident" ref={identRef}>
           {/* Static HTML must carry autoplay+muted+playsinline so phones start
