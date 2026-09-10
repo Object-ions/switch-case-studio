@@ -12,6 +12,11 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Letter grid for the h1. A space is an empty cell, so "&" sits one cell
+// away from both words; phones break the row before "CREATIVE" (index 9).
+const HERO_ROW = "DESIGN & CREATIVE".split("");
+const HERO_COL = "EVELOPMENT".split(""); // rows 2..11 under the shared D
+
 import "../../styles/components/hero.scss";
 
 /* The studio ident: 4.5s of hard-cut plates that settle on the wordmark.
@@ -98,12 +103,38 @@ const Hero = () => {
     <section id="hero" aria-label="Switch Case Studio introduction" ref={rootRef}>
       <div className="hero-frame">
         <div className="hero-top">
-          {/* Three words, one per line, in the text face at display size
-              (owner, 2026-09-10). Still the page's single h1. */}
-          <h1 className="hero-headline">
-            <span className="hero-headline__line">Creative,</span>
-            <span className="hero-headline__line">Design,</span>
-            <span className="hero-headline__line">Development</span>
+          {/* Crossword lockup (owner, 2026-09-10): "DESIGN & CREATIVE" runs
+              across, "DEVELOPMENT" runs down from the shared D, every letter
+              in an equal square cell (grid-auto-columns = grid-auto-rows), so
+              horizontal and vertical spacing are the same distance. Still
+              the page's single h1; the letters are aria-hidden and the h1
+              carries the readable label. Phones fall back to three tracked
+              lines, which needs a second D (hero-cell--mobile-d). */}
+          <h1 className="hero-headline" aria-label="Design and creative development">
+            {HERO_ROW.map((ch, i) => (
+              <span
+                key={`r${i}`}
+                className={`hero-cell${ch === " " ? " hero-cell--gap" : ""}`}
+                style={{ "--c": i + 1, "--r": 1 }}
+                aria-hidden="true"
+              >
+                {ch === " " ? "" : ch}
+              </span>
+            ))}
+            <span className="hero-break" aria-hidden="true" />
+            <span className="hero-cell hero-cell--mobile-d" aria-hidden="true">
+              D
+            </span>
+            {HERO_COL.map((ch, i) => (
+              <span
+                key={`c${i}`}
+                className="hero-cell hero-cell--col"
+                style={{ "--c": 1, "--r": i + 2 }}
+                aria-hidden="true"
+              >
+                {ch}
+              </span>
+            ))}
           </h1>
         </div>
 

@@ -1769,3 +1769,12 @@ with it after the hero; the hero's own link is gone). The top-left corner is now
 47px at 390, each word one line at both), replacing the vertical "we build" lockup and the intro
 paragraph. The logo's scroll-scale scrub went with it (nothing visible to shrink). Verified
 headless at 1440 and 390: logo `display: none` over the hero, `block` with `brand-return` after.
+
+Revised the same hour: the headline is a crossword lockup. "DESIGN & CREATIVE" runs across the
+top and "DEVELOPMENT" runs down from the shared D, every letter in a square cell of
+`--cell: clamp(2.25rem, min(7vh, 5.2vw), 5rem)` (grid-auto-columns = grid-auto-rows, so the
+horizontal and vertical steps are identical: 63px at 1440×900, 51px at 1440×723, 48px at
+1280×680, measured). The h1 carries `aria-label="Design and creative development"` and the letter
+cells are aria-hidden. The column clears the bottom-left note at every size probed. Phones drop the
+crossword for three tracked lines of 30px cells ("DESIGN &", "CREATIVE", "DEVELOPMENT"), which
+needs a second D cell shown only there.
