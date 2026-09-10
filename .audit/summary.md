@@ -1798,3 +1798,14 @@ top, flush right of the spine. The bottom-left note moved right of the spine. Th
 gone (words set as words need no per-letter spacing). Measured spine 24→866 at 1440×900, 24→648 at
 1280×680. Phones stack DESIGN (800) over DEVELOPMENT (300). Known clash: the ident's "edge tail"
 plate (a giant clipped letter at the left edge, frames 61–66) overlaps the spine for 0.2s per loop.
+
+Hero copy + colour + phone video (2026-09-10): notes rewritten with the copywriting skill, both now
+concrete: left says who it's for and what they get ("Websites, online stores and AI assistants for
+businesses that need them to bring in work. We design it, build it and keep it running after
+launch."), right points at the proof below ("Each case study below puts the old site beside ours,
+with page weight and load time measured on the live pages."). All hero text #fff. The phone video
+was a 300px square; portrait screens now get a 9:16 web cut (limited-range BT.709, 266KB WebM /
+209KB MP4, poster swapped to the 9:16 end frame by media query) full-bleed behind the copy.
+Measured: video 390×848 = hero at 390, 1440×900 = hero at 1440; headline back on the 20px gutter.
+Two positioning traps on the way: a `position: relative` frame boxed the absolute video inside the
+hero padding, and a relative `.hero-top` inherited the desktop top/left as an offset.

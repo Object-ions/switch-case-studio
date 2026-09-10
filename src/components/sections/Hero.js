@@ -79,6 +79,10 @@ const Hero = () => {
     const video = identRef.current?.querySelector("video");
     if (!video) return undefined;
     video.muted = true;
+    // The poster attribute can't vary by media query; match the portrait cut.
+    if (window.matchMedia("(max-aspect-ratio: 4/5)").matches) {
+      video.poster = "/ident/ident-9x16-poster.webp";
+    }
     if (reducedMotion) {
       // No motion: park on the end card (the wordmark) instead of playing.
       const toEnd = () => {
@@ -125,6 +129,10 @@ const Hero = () => {
             aria-hidden="true"
             tabIndex={-1}
           >
+            {/* Portrait screens get the 9:16 cut so the ident covers the full
+                width without cropping the wordmark; near-square gets 1:1. */}
+            <source src="/ident/ident-9x16.webm" type="video/webm" media="(max-aspect-ratio: 4/5)" />
+            <source src="/ident/ident-9x16.mp4" type="video/mp4" media="(max-aspect-ratio: 4/5)" />
             <source src="/ident/ident-1x1.webm" type="video/webm" media="(max-width: 768px)" />
             <source src="/ident/ident-1x1.mp4" type="video/mp4" media="(max-width: 768px)" />
             <source src="/ident/ident-16x9.webm" type="video/webm" />
@@ -133,9 +141,9 @@ const Hero = () => {
         </div>
 
         <p className="hero-note hero-note--left">
-          Design, code and <span className="caps-trim">AI</span> in one room,
-          so the site, the store and the assistant are built by the people
-          who keep them running.
+          Websites, online stores and <span className="caps-trim">AI</span>{" "}
+          assistants for businesses that need them to bring in work. We design
+          it, build it and keep it running after launch.
         </p>
 
         <HashLink to="/#projects" smooth className="hero-scroll">
@@ -146,8 +154,8 @@ const Hero = () => {
         </HashLink>
 
         <p className="hero-note hero-note--right">
-          Every case study here ships its own before and after: page weight
-          and load time, measured on the live site and dated.
+          Each case study below puts the old site beside ours, with page weight
+          and load time measured on the live pages.
         </p>
       </div>
     </section>

@@ -5,7 +5,7 @@
 // four corners of copy, after the "a good design practice" layout in
 // ~/Desktop/structure.png. The header is display:none while the hero is on
 // screen (header.scss `.is-home.is-hero`), so the hero IS the first viewport.
-$hero-ink: $g7; // #f0d7ff, the brand lavender token
+$hero-ink: #fff; // owner, 2026-09-10: all hero text white
 $hero-pad-x: 2rem;
 $hero-pad-y: 1.5rem;
 
@@ -187,18 +187,21 @@ $hero-pad-y: 1.5rem;
       font-size: clamp(2rem, 11.5vw, 3rem);
     }
 
-    .hero-ident {
-      position: static;
-      inset: auto;
-      width: min(60vw, 300px);
-      margin: auto; // takes the slack so the ident sits in the middle of the fold
-      order: 2;
-
-      &__video {
-        height: auto;
-        aspect-ratio: 1;
-        object-fit: fill;
-      }
+    // Full-bleed on phones too (owner, 2026-09-10): the 9:16 cut covers the
+    // whole hero behind the copy; the first note takes the slack instead.
+    // The frame stays unpositioned so the ident's inset: 0 resolves against
+    // #hero itself, not the padded frame; the text lifts itself above it.
+    .hero-frame {
+      position: static; // base rule is relative; that boxed the video in
+    }
+    .hero-top,
+    .hero-note {
+      position: relative;
+      z-index: 1;
+      inset: auto; // desktop top/left would otherwise nudge a relative box
+    }
+    .hero-note--left {
+      margin-top: auto;
     }
 
     .hero-note {
