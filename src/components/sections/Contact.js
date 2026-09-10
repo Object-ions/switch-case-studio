@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import armSafetyNet from '../../animation/armSafetyNet';
 import bannerVideo from '../../assets/videos/switch-case-studio-banner.webm';
 import contactBgVideo from '../../assets/videos/contact-bg.mp4';
 import contactBgPoster from '../../assets/videos/contact-bg-poster.jpg';
@@ -157,8 +158,15 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
       // unfired `once` trigger never calls onEnter.
       if (st.progress > 0) reveal();
 
-      // Whatever happens, the form ends fully visible.
-      gsap.delayedCall(2.5, () => gsap.set(targets, { autoAlpha: 1, y: 0 }));
+      // Whatever happens, the form ends fully visible, viewport-aware
+      // (armSafetyNet): on /contact it is on screen at once and forces at
+      // 2.5s; on the home page it waits below the hero for its trigger.
+      armSafetyNet(
+        sectionRef.current,
+        () => targets.every((t) => gsap.getProperty(t, 'opacity') >= 1) || targets.some((t) => gsap.isTweening(t)),
+        () => gsap.set(targets, { autoAlpha: 1, y: 0 }),
+        { delay: 2.5 },
+      );
     }, sectionRef);
 
     return () => ctx.revert();

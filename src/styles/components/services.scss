@@ -57,13 +57,33 @@
   }
 
   &__item-meta {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
     gap: 1rem;
     padding-bottom: 0.6rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
     margin-bottom: 0.4rem;
+  }
+
+  // The hairline is an element, not a border, so the entry build can draw it
+  // (scaleX from the left). Static HTML shows it in full.
+  &__item-rule {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.18);
+  }
+
+  // Title rises out of this mask. A hair of padding keeps round glyphs
+  // (O, C, &) from clipping at line-height 1.
+  &__item-title-mask {
+    display: block;
+    overflow: hidden;
+    padding: 0.06em 0;
+    margin: -0.06em 0;
   }
 
   &__item-kicker,
@@ -82,6 +102,10 @@
   &__item-cta {
     flex-shrink: 0;
     color: $g6;
+  }
+
+  &__item-title {
+    display: block;
   }
 
   &__item-title,

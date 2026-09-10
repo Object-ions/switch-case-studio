@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import projectsData from '../../data/projects.json';
 import useReducedMotion from '../../hooks/useReducedMotion';
+import armSafetyNet from '../../animation/armSafetyNet';
 import {
   DUR_MED,
   DUR_SLOW,
@@ -101,12 +102,16 @@ const CaseStudyIndex = () => {
       };
       const st = ScrollTrigger.create({ trigger: root, start: 'top 85%', once: true, onEnter: reveal });
       if (st.progress > 0) reveal();
-      const safety = gsap.delayedCall(REVEAL_SAFETY_DELAY, () => {
-        if (!all.some((el) => gsap.isTweening(el)) && all.some((el) => gsap.getProperty(el, 'opacity') < 1)) {
+      const disarm = armSafetyNet(
+        root,
+        () => revealed || all.some((el) => gsap.isTweening(el)),
+        () => {
+          revealed = true;
           gsap.set(all, { autoAlpha: 1, y: 0 });
-        }
-      });
-      return () => safety.kill();
+        },
+        { delay: REVEAL_SAFETY_DELAY },
+      );
+      return () => disarm();
     }, root);
     return () => ctx.revert();
   }, [reducedMotion]);

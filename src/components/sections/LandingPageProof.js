@@ -3,6 +3,7 @@ import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useReducedMotion from '../../hooks/useReducedMotion';
+import armSafetyNet from '../../animation/armSafetyNet';
 
 import '../../styles/components/landingPageProof.scss';
 
@@ -23,7 +24,10 @@ const LandingPageProof = () => {
       // onEnter → in-view fallback → safety net.
       gsap.set(targets, { autoAlpha: 0, y: 28 });
 
-      const reveal = () =>
+      let played = false;
+      const reveal = () => {
+        if (played) return;
+        played = true;
         gsap.to(targets, {
           autoAlpha: 1,
           y: 0,
@@ -32,6 +36,7 @@ const LandingPageProof = () => {
           stagger: 0.1,
           overwrite: 'auto',
         });
+      };
 
       const st = ScrollTrigger.create({
         trigger: sectionRef.current,
@@ -41,7 +46,16 @@ const LandingPageProof = () => {
       });
       if (st.progress > 0) reveal();
 
-      gsap.delayedCall(3, () => gsap.set(targets, { autoAlpha: 1, y: 0 }));
+      // Viewport-aware net (see armSafetyNet): the mount-timed net fired
+      // during the hero's 4.5s ident, so this heading never animated.
+      armSafetyNet(
+        sectionRef.current,
+        () => played || targets.some((t) => gsap.isTweening(t)),
+        () => {
+          played = true;
+          gsap.set(targets, { autoAlpha: 1, y: 0 });
+        },
+      );
 
       // Word-by-word brightness scrub on the heading (the About-heading
       // pattern, monochrome): words sit at 35% white and reach full white

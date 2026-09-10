@@ -3,6 +3,7 @@ import useIsomorphicLayoutEffect from "../../hooks/useIsomorphicLayoutEffect";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import useReducedMotion from "../../hooks/useReducedMotion";
+import armSafetyNet from "../../animation/armSafetyNet";
 import {
   DUR_SLOW,
   EASE_OUT_SOFT,
@@ -48,10 +49,14 @@ const AboutText = () => {
         }
       });
 
-      gsap.delayedCall(REVEAL_SAFETY_DELAY, () => {
-        paragraphs.forEach((p) => {
-          if (gsap.getProperty(p, "opacity") < 1) reveal(p);
-        });
+      // Viewport-aware nets (armSafetyNet): a mount-timed net fired during
+      // the hero's 4.5s ident and pre-empted every reveal below it.
+      paragraphs.forEach((p) => {
+        armSafetyNet(
+          p,
+          () => gsap.getProperty(p, "opacity") >= 1 || gsap.isTweening(p),
+          () => reveal(p),
+        );
       });
     }, rootRef);
 

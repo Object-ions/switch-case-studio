@@ -1744,3 +1744,18 @@ half-hero (`hero-top` y −30, notes +30, logo scale 0.89), header `animationNam
 index revealed exactly once. NOT machine-verified: tween timing at a real frame rate (headless
 rAF ran at 3 fps; the fast-flag and visible-tab routes both stall, documented in CLAUDE.md).
 Owner's visible pass is the timing check.
+
+## Services: typographic build; the safety nets were killing every reveal — 2026-09-10
+
+Owner: "I don't feel much of change. We must animate the services section." Two things shipped.
+(1) The service entries got a real build, each on its own trigger: the hairline draws left → right
+(now an element, not a border), the title rises out of an overflow mask, kicker + pricing link fade
+in, subtitle and includes follow; rows and the right column stagger; on desktop the two columns
+drift at different speeds (parallax on the item's `y`, scrubbed). (2) The root cause of "feel
+nothing": every section's safety net was a 3s timer from MOUNT, and the ident holds visitors on the
+hero for 4.5s, so all nets had fired before the first scroll and nothing below ever animated. New
+`armSafetyNet` forces visibility only for on-screen elements; wired into Services, the case-study
+index, "One studio.", About text, the About CTA, Reviews, Contact and the FAQ. Linger probe (5.5s
+idle, then scroll): every section still hidden before, revealed on arrival, at 1440 and 390, normal
+and reduced motion. Headless caveat unchanged: rAF at 3 fps (≈1 fps past the software moon), so
+timing is the owner's visible pass.
