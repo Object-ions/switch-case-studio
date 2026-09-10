@@ -8,7 +8,8 @@ import '../../styles/components/caseStudyIndex.scss';
    Featured projects are grouped by `type` into three headed columns; every
    entry is a link, and hovering (or focusing) one swaps the preview slot to
    that project's website screenshot (`imageSrc`, the same 1150×1000 house
-   frame the /projects cards peek). The slot starts on the newest project,
+   frame the /projects cards peek). The slot lives in the intro column under
+   the "View all" pill, at column width, and starts on the newest project,
    which is whatever sits FIRST in projects.json. */
 const GROUPS = [
   { heading: 'Rebuilds + SEO', types: ['Rebuild + Local SEO', 'Rebuild + SEO'] },
@@ -57,6 +58,24 @@ const CaseStudyIndex = () => {
           View all case studies
           <span className="cta-arrow" aria-hidden="true"> →</span>
         </Link>
+
+        {/* Every preview is in the DOM, stacked, so a hover crossfades instead
+            of waiting on a fetch; they lazy-load together when the slot scrolls
+            into view (~60KB each). Opacity is CSS-owned: no GSAP touches it. */}
+        <div className="csi__slot" aria-hidden="true">
+          {featured.map((p) => (
+            <img
+              key={p.slug}
+              className={`csi__preview${p.slug === active ? ' is-active' : ''}`}
+              src={p.imageSrc}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              width="1150"
+              height="1000"
+            />
+          ))}
+        </div>
       </div>
 
       {grouped.map((g) => (
@@ -80,23 +99,6 @@ const CaseStudyIndex = () => {
         </div>
       ))}
 
-      {/* Every preview is in the DOM, stacked, so a hover crossfades instead
-          of waiting on a fetch; they lazy-load together when the slot scrolls
-          into view (~60KB each). Opacity is CSS-owned: no GSAP touches it. */}
-      <div className="csi__slot" aria-hidden="true">
-        {featured.map((p) => (
-          <img
-            key={p.slug}
-            className={`csi__preview${p.slug === active ? ' is-active' : ''}`}
-            src={p.imageSrc}
-            alt=""
-            loading="lazy"
-            decoding="async"
-            width="1150"
-            height="1000"
-          />
-        ))}
-      </div>
     </div>
   );
 };

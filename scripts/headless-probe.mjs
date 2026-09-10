@@ -5,6 +5,8 @@
 //
 //   node scripts/headless-probe.mjs <url> '<js expression, may be an async IIFE>' [--phone | --size WxH] [--shot out.png]
 //
+// WebGL runs on SwiftShader so the About moon (Three.js) can mount; with --disable-gpu its
+// context creation threw and the route error boundary replaced the whole page mid-probe.
 // --phone emulates 390×844 @2x (Chrome refuses windows narrower than ~500px, so
 // --window-size cannot do this). The expression is evaluated with awaitPromise and
 // its JSON value printed.
@@ -21,7 +23,7 @@ setTimeout(() => { console.error("headless-probe: 60s hard timeout"); process.ex
 let chrome, ws, id = 0; const pending = new Map();
 for (let attempt = 0; attempt < 3 && !ws; attempt++) {
   const PORT = 9333 + Math.floor(Math.random() * 2000);
-  chrome = spawn(CHROME, ["--headless=new", "--disable-gpu", "--hide-scrollbars", `--remote-debugging-port=${PORT}`, "--window-size=1440,900", "--autoplay-policy=no-user-gesture-required", `--user-data-dir=/tmp/headless-probe-${PORT}`, "about:blank"], { stdio: "ignore" });
+  chrome = spawn(CHROME, ["--headless=new", "--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--hide-scrollbars", `--remote-debugging-port=${PORT}`, "--window-size=1440,900", "--autoplay-policy=no-user-gesture-required", `--user-data-dir=/tmp/headless-probe-${PORT}`, "about:blank"], { stdio: "ignore" });
   for (let i = 0; i < 40 && !ws; i++) {
     try { const list = await (await fetch(`http://127.0.0.1:${PORT}/json`)).json(); const page = list.find((t) => t.type === "page"); if (!page) throw new Error("no page"); const sock = new WebSocket(page.webSocketDebuggerUrl); await new Promise((r, j) => { sock.onopen = r; sock.onerror = j; }); ws = sock; } catch { await sleep(250); }
   }
@@ -37,7 +39,8 @@ const sizeIdx = flags.indexOf("--size");
 if (sizeIdx !== -1 && flags[sizeIdx + 1]) { const [w, h] = flags[sizeIdx + 1].split("x").map(Number); await send("Emulation.setDeviceMetricsOverride", { width: w, height: h, deviceScaleFactor: 1, mobile: false }); }
 await send("Page.navigate", { url }); await sleep(2500);
 const r = await send("Runtime.evaluate", { expression: expr, awaitPromise: true, returnByValue: true });
-console.log(JSON.stringify(r.result?.result?.value ?? r.result?.exceptionDetails ?? r, null, 1));
+const value = r.result?.result?.value;
+console.log(JSON.stringify(value !== undefined ? value : { noValue: true, raw: r }, null, 1));
 const shotIdx = flags.indexOf("--shot");
 if (shotIdx !== -1 && flags[shotIdx + 1]) { const shot = await send("Page.captureScreenshot", { format: "png" }); writeFileSync(flags[shotIdx + 1], Buffer.from(shot.result.data, "base64")); }
 ws.close(); chrome.kill();

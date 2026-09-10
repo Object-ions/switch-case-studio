@@ -1706,3 +1706,12 @@ Unmapped types fall into a trailing "More work" column rather than vanishing. Ph
 (no hover) and stack the columns. The "CASE STUDIES" TextPressure heading is untouched;
 `CaseStudyTiles` stays for LandingPageProof. Verified headless at 1440 / 1024 / 390: 10 entries,
 hover swaps the active preview, gutters 36 / 26 / 24, no horizontal overflow.
+
+Follow-up on the owner's note: the preview moved into the intro column under the "View all" pill,
+column width (299×187 at 1440; 300px beside the intro at 1024; hidden on phones). Found while
+probing, NOT fixed (out of scope, pre-existing): headless Chrome without a GPU cannot create a
+WebGL context, the About moon (`MoonSlot`, Three.js) throws on mount, and the route error boundary
+replaces the ENTIRE home page with "Unexpected Application Error". A visitor whose browser blocks
+WebGL gets the same. Candidate ticket: wrap MoonSlot in its own error boundary (or probe
+`canvas.getContext('webgl2')` before mounting) so a decorative failure stays decorative. The probe
+script now runs WebGL on SwiftShader so it can scroll past that section.
