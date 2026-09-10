@@ -24,7 +24,7 @@ let chrome, ws, id = 0; const pending = new Map();
 for (let attempt = 0; attempt < 3 && !ws; attempt++) {
   const PORT = 9333 + Math.floor(Math.random() * 2000);
   chrome = spawn(CHROME, ["--headless=new", "--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--hide-scrollbars", `--remote-debugging-port=${PORT}`, "--window-size=1440,900", "--autoplay-policy=no-user-gesture-required", `--user-data-dir=/tmp/headless-probe-${PORT}`, "about:blank"], { stdio: "ignore" });
-  for (let i = 0; i < 40 && !ws; i++) {
+  for (let i = 0; i < 100 && !ws; i++) {
     try { const list = await (await fetch(`http://127.0.0.1:${PORT}/json`)).json(); const page = list.find((t) => t.type === "page"); if (!page) throw new Error("no page"); const sock = new WebSocket(page.webSocketDebuggerUrl); await new Promise((r, j) => { sock.onopen = r; sock.onerror = j; }); ws = sock; } catch { await sleep(250); }
   }
   if (!ws) chrome.kill();

@@ -1715,3 +1715,16 @@ replaces the ENTIRE home page with "Unexpected Application Error". A visitor who
 WebGL gets the same. Candidate ticket: wrap MoonSlot in its own error boundary (or probe
 `canvas.getContext('webgl2')` before mounting) so a decorative failure stays decorative. The probe
 script now runs WebGL on SwiftShader so it can scroll past that section.
+
+## Header: one row + detached fixed logo; marquee above the case-study title — 2026-09-09 (late)
+
+Owner's notes, all on `feat/video-hero`: (1) the header is one row, nav links then the booking pill
+beside them, right-aligned; (2) the logo left the header and is `.site-brand`, `position: fixed`
+top-left on every route at z-index 100000 (only the cursor is higher), 85px / 56px on phones; the
+hero headline block starts at 7rem so it clears it; (3) the "Trusted by" marquee moved from after
+the hero to right above the "CASE STUDIES" title; (4) the case-study index lists ALL projects (11,
+Birth of Venus included, group renamed "Products + experiments"; the `featured` flag was why it was
+missing, it still governs the strip and tiles) and the "View all" pill is now a small tracked text
+link in the services-CTA register. Measured at 1440: header 106px, one nav row (y=40), pill at
+x=1074 right after the last link (1046), logo fixed at (16,10), hero headline y=112; marquee y=2806
+above the title at 2966; /about header identical; phone logo 56px, headline clears it.

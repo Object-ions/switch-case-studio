@@ -25,11 +25,11 @@ $hero-pad-y: 1.5rem;
     height: 100%;
   }
 
-  // ── Headline block, top-left. Starts under the booking-link row so the
-  // headline can run the full width without meeting the link. ──
+  // ── Headline block, top-left. Starts under the fixed logo (85px + 10px)
+  // and the booking-link row, so it can run the full width. ──
   .hero-top {
     position: absolute;
-    top: 3.75rem;
+    top: 7rem;
     left: $hero-pad-x;
     right: $hero-pad-x;
     display: grid;
@@ -192,7 +192,7 @@ $hero-pad-y: 1.5rem;
   @media (max-width: 768px) {
     height: auto;
     min-height: 100svh;
-    padding: 1.25rem 1.25rem 1.5rem;
+    padding: 5rem 1.25rem 1.5rem; // clears the fixed 56px logo
     box-sizing: border-box;
 
     .hero-frame {

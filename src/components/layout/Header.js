@@ -243,6 +243,14 @@ const Header = () => {
 
   return (
     <>
+      {/* The logo is detached from the header: fixed to the top-left on every
+          route and stacked above everything but the cursor, so it stays put
+          while the header hides over the home hero or turns translucent. */}
+      <div className="site-brand">
+        <Link to="/" className="brand_link" aria-label="Switch Case Studio home">
+          <SCSLogo className="header_logo" />
+        </Link>
+      </div>
       <header
         className={`site-header ${scrolled ? "is-scrolled" : ""} ${isHome ? "is-home" : ""} ${heroInView ? "is-hero" : ""}`}
         role="banner"
@@ -271,18 +279,6 @@ const Header = () => {
               <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
             </span>
           </button>
-
-          <div className="site-header_brand">
-            <Link
-              to="/"
-              className="brand_link"
-              aria-label="Switch Case Studio home"
-            >
-              <SCSLogo className="header_logo" />
-            </Link>
-          </div>
-
-          <HeaderCTA />
 
           <nav className="site-header_nav" aria-label="Primary">
             <ul className="nav_list">
@@ -387,6 +383,8 @@ const Header = () => {
               </li>
             </ul>
           </nav>
+
+          <HeaderCTA />
         </div>
       </header>
 

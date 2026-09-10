@@ -18,12 +18,15 @@ const GROUPS = [
     types: ['Business Website', 'Portfolio Site', 'Landing Page'],
   },
   {
-    heading: 'Products + stores',
-    types: ['SaaS Product', 'E-Commerce', 'Full-Stack + API'],
+    heading: 'Products + experiments',
+    types: ['SaaS Product', 'E-Commerce', 'Full-Stack + API', 'Interactive Experience'],
   },
 ];
 
-const featured = projectsData.filter((p) => p.featured);
+// Every project, not only `featured`: the index is a complete list (the
+// owner asked why Birth of Venus, featured: false, was missing). The
+// `featured` flag still governs the "Trusted by" strip and the tiles.
+const featured = projectsData;
 
 // A project whose `type` matches no group still renders, in a trailing
 // "More work" column, so a new type can never drop a case study silently.
@@ -54,9 +57,9 @@ const CaseStudyIndex = () => {
           {featured.length} projects
           {yearRange ? ` · ${yearRange}` : ''}
         </p>
-        <Link to="/projects" className="projects-viewall__link csi__viewall">
-          View all case studies
-          <span className="cta-arrow" aria-hidden="true"> →</span>
+        <Link to="/projects" className="csi__viewall">
+          All case studies
+          <span className="cta-arrow" aria-hidden="true">&rarr;</span>
         </Link>
 
         {/* Every preview is in the DOM, stacked, so a hover crossfades instead

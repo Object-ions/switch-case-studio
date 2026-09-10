@@ -37,7 +37,6 @@ const HomeContent = () => (
       path="/"
     />
     <Hero />
-    <ClientStrip />
     <LandingPageProof />
     <Services />
     {/* M7: min height 120px (was 160) — on phones the band is a divider
@@ -49,6 +48,9 @@ const HomeContent = () => (
       travel={60}
       orbSrc={Orb}
     />
+    {/* "Trusted by" marquee sits right above the case-study title (owner,
+        2026-09-09); it used to follow the hero. */}
+    <ClientStrip />
     <CaseStudies />
     <About />
     <Reviews />

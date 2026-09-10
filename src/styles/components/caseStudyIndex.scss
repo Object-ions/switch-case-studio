@@ -39,9 +39,25 @@
     color: rgba(255, 255, 255, 0.55);
   }
 
-  // Reuses the pill from _projects-tiles.scss; only the placement changes.
+  // A text link in the services-CTA register, not a pill: the pill read as a
+  // button dropped into a typographic index.
   &__viewall {
     display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $g6;
+    text-decoration: none;
+    @include underline-sweep;
+    @include arrow-nudge('.cta-arrow');
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 4px;
+    }
   }
 
   &__group {
