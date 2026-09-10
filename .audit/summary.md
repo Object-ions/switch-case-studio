@@ -1728,3 +1728,19 @@ missing, it still governs the strip and tiles) and the "View all" pill is now a 
 link in the services-CTA register. Measured at 1440: header 106px, one nav row (y=40), pill at
 x=1074 right after the last link (1046), logo fixed at (16,10), hero headline y=112; marquee y=2806
 above the title at 2966; /about header identical; phone logo 56px, headline clears it.
+
+## Motion pass: reveals + scroll effects on the new home — 2026-09-10 (branch `feat/video-hero`)
+
+Added, all GSAP/ScrollTrigger in the house pattern (runtime-only hide, idempotent reveal, in-view
+fallback + timed net, reduced motion gets the end state, one tween per property): hero copy
+entrance (four corner blocks, stagger, 0.5s after mount, `yPercent`) and a scroll-out drift
+(`y`, scrubbed) that never touches the video; fixed logo scales 1 → 0.78 across the hero,
+scrubbed; the header's return after the hero slides in (CSS keyframes, `both`, so no transform
+lingers on the bar); "One studio." words brighten 35% → 100% white on a scrub; case-study index
+reveals intro → entries (grid stagger) → preview slot, one trigger on the index; preview swaps
+settle from 98% (scale is GSAP's, the crossfade stays CSS); the right service column trails the
+left by 0.12s. Verified headless: end states in normal AND reduced-motion modes, scrub values at
+half-hero (`hero-top` y −30, notes +30, logo scale 0.89), header `animationName: header-return`,
+index revealed exactly once. NOT machine-verified: tween timing at a real frame rate (headless
+rAF ran at 3 fps; the fast-flag and visible-tab routes both stall, documented in CLAUDE.md).
+Owner's visible pass is the timing check.

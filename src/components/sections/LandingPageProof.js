@@ -42,6 +42,22 @@ const LandingPageProof = () => {
       if (st.progress > 0) reveal();
 
       gsap.delayedCall(3, () => gsap.set(targets, { autoAlpha: 1, y: 0 }));
+
+      // Word-by-word brightness scrub on the heading (the About-heading
+      // pattern, monochrome): words sit at 35% white and reach full white
+      // as the heading crosses the viewport. Colour on the word spans, never
+      // on the h2 the reveal owns, so the two never share a property.
+      const words = gsap.utils.toArray('.lpp__word', sectionRef.current);
+      gsap.set(words, { color: 'rgba(255,255,255,0.35)' });
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 85%',
+          end: 'top 30%',
+          scrub: true,
+        },
+      });
+      words.forEach((w, i) => tl.to(w, { color: '#ffffff', duration: 1 }, i * 0.4));
     }, sectionRef);
 
     return () => ctx.revert();
@@ -63,7 +79,13 @@ const LandingPageProof = () => {
       <div className="lpp__inner">
         <div className="lpp__header">
           <h2 className="lpp__heading lpp-animate">
-            One studio.<br />Design, code &amp; AI.
+            {['One', 'studio.'].map((w) => (
+              <span className="lpp__word" key={w}>{w}{' '}</span>
+            ))}
+            <br />
+            {['Design,', 'code', '&', 'AI.'].map((w) => (
+              <span className="lpp__word" key={w}>{w}{' '}</span>
+            ))}
           </h2>
           <p className="lpp__body lpp-animate">
             Store, marketing site, web app, or the automation behind it,

@@ -1,7 +1,17 @@
 import { useEffect, useRef } from "react";
 import { HashLink } from "react-router-hash-link";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import BookCallCta from "../ui/BookCallCta";
 import useReducedMotion from "../../hooks/useReducedMotion";
+import {
+  DUR_SLOW,
+  EASE_OUT_SOFT,
+  REVEAL_STAGGER,
+  REVEAL_SAFETY_DELAY,
+} from "../../animation/motionTokens";
+
+gsap.registerPlugin(ScrollTrigger);
 
 import "../../styles/components/hero.scss";
 
@@ -15,6 +25,57 @@ import "../../styles/components/hero.scss";
 const Hero = () => {
   const reducedMotion = useReducedMotion();
   const identRef = useRef(null);
+  const rootRef = useRef(null);
+
+  /* Copy motion. Static HTML ships visible; the hide happens at runtime only
+     (never-invisible rule), then the four corner blocks rise in a stagger
+     half a second after mount so the ident's first plates lead. On scroll-out
+     the blocks drift apart, scrubbed. The entrance owns `yPercent`, the
+     scrub owns `y`: separate transform components, so one tween per
+     property holds. The video is never touched. */
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return undefined;
+    const items = gsap.utils.toArray(
+      ".hero-top, .hero-say, .hero-note, .hero-scroll",
+      root,
+    );
+    if (reducedMotion) {
+      gsap.set(items, { clearProps: "all" });
+      return undefined;
+    }
+    const ctx = gsap.context(() => {
+      gsap.set(items, { autoAlpha: 0, yPercent: 6 });
+      gsap.to(items, {
+        autoAlpha: 1,
+        yPercent: 0,
+        duration: DUR_SLOW,
+        stagger: REVEAL_STAGGER,
+        ease: EASE_OUT_SOFT,
+        delay: 0.5,
+        overwrite: "auto",
+      });
+      const safety = gsap.delayedCall(REVEAL_SAFETY_DELAY, () => {
+        if (
+          !items.some((el) => gsap.isTweening(el)) &&
+          items.some((el) => gsap.getProperty(el, "opacity") < 1)
+        ) {
+          gsap.set(items, { autoAlpha: 1, yPercent: 0 });
+        }
+      });
+
+      const scrub = { trigger: root, start: "top top", end: "bottom top", scrub: true };
+      gsap.to(root.querySelector(".hero-top"), { y: -60, ease: "none", scrollTrigger: scrub });
+      gsap.to(gsap.utils.toArray(".hero-note, .hero-scroll", root), {
+        y: 60,
+        ease: "none",
+        scrollTrigger: { ...scrub },
+      });
+
+      return () => safety.kill();
+    }, root);
+    return () => ctx.revert();
+  }, [reducedMotion]);
 
   useEffect(() => {
     const video = identRef.current?.querySelector("video");
@@ -38,7 +99,7 @@ const Hero = () => {
   }, [reducedMotion]);
 
   return (
-    <section id="hero" aria-label="Switch Case Studio introduction">
+    <section id="hero" aria-label="Switch Case Studio introduction" ref={rootRef}>
       <div className="hero-frame">
         <div className="hero-top">
           {/* One h1, two reading directions: the verb runs up the left edge,

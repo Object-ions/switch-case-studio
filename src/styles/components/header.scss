@@ -27,6 +27,13 @@
   &.is-home.is-hero {
     display: none;
   }
+  // display:none → block restarts a CSS animation, so the return after the
+  // hero slides in instead of popping. `both` leaves transform: none, so the
+  // bar is not a containing block for anything afterwards (the menu panel is
+  // a sibling anyway). CSS-owned: no GSAP touches the header's transform.
+  &.is-home:not(.is-hero) {
+    animation: header-return $dur-med $ease-out both;
+  }
 
   // Scrolled state — translucent + blurred for depth (audit §04)
   &.is-scrolled {
@@ -298,5 +305,22 @@
       width: 56px;
       height: 56px;
     }
+  }
+}
+
+@keyframes header-return {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header.is-home:not(.is-hero) {
+    animation: none;
   }
 }

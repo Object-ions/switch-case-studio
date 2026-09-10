@@ -1,6 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 import HeaderCTA from "./HeaderCTA";
 import StaggeredMenu from "./StaggeredMenu";
 import SCSLogo from "../ui/SCSLogo";
@@ -23,6 +26,7 @@ const Header = () => {
   // HTML and the first client render agree (no hydration mismatch).
   const isHome = pathname === "/";
   const [heroInView, setHeroInView] = useState(isHome);
+  const brandRef = useRef(null);
   const reducedMotion = useReducedMotion();
 
   const openRef = useRef(false);
@@ -85,6 +89,23 @@ const Header = () => {
     io.observe(hero);
     return () => io.disconnect();
   }, [isHome]);
+
+  /* ── Fixed logo: scales down as the home hero scrolls out ── */
+  useEffect(() => {
+    const brand = brandRef.current;
+    const hero = isHome ? document.getElementById("hero") : null;
+    if (!brand || !hero || reducedMotion) return undefined;
+    // .site-brand carries no CSS transform, so a full claim is cheap insurance.
+    const ctx = gsap.context(() => {
+      gsap.set(brand, { x: 0, y: 0, scale: 1, transformOrigin: "left top" });
+      gsap.to(brand, {
+        scale: 0.78,
+        ease: "none",
+        scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true },
+      });
+    });
+    return () => ctx.revert();
+  }, [isHome, reducedMotion]);
 
   /* ── Icon spin animation ────────────────────── */
   const animateIcon = useCallback(
@@ -246,7 +267,7 @@ const Header = () => {
       {/* The logo is detached from the header: fixed to the top-left on every
           route and stacked above everything but the cursor, so it stays put
           while the header hides over the home hero or turns translucent. */}
-      <div className="site-brand">
+      <div className="site-brand" ref={brandRef}>
         <Link to="/" className="brand_link" aria-label="Switch Case Studio home">
           <SCSLogo className="header_logo" />
         </Link>

@@ -7,7 +7,7 @@ import servicesData from "../../data/services.json";
 import "../../styles/components/services.scss";
 
 
-function ServiceItem({ service, index }) {
+function ServiceItem({ service, index, delay = 0 }) {
   const itemRef = useRef(null);
   const overlayRef = useRef(null);
   const overlayInnerRef = useRef(null);
@@ -35,6 +35,7 @@ function ServiceItem({ service, index }) {
           autoAlpha: 1,
           x: 0,
           duration: 0.8,
+          delay,
           ease: "power3.out",
           overwrite: "auto",
         });
@@ -51,7 +52,7 @@ function ServiceItem({ service, index }) {
     }, itemRef);
 
     return () => ctx.revert();
-  }, [index]);
+  }, [index, delay]);
 
   const findClosestEdge = (mouseX, mouseY, width, height) => {
     const topEdgeDist = Math.pow(mouseX - width / 2, 2) + Math.pow(mouseY, 2);
@@ -210,7 +211,15 @@ const Services = () => {
           style={{ "--rows": Math.ceil(servicesData.length / 2) }}
         >
           {servicesData.map((service, index) => (
-            <ServiceItem key={service.slug} service={service} index={index} />
+            <ServiceItem
+              key={service.slug}
+              service={service}
+              index={index}
+              // Two-column grid, column-first: the right column's rows share a
+              // line with the left's, so they trail by a beat instead of
+              // landing in the same frame.
+              delay={index >= Math.ceil(servicesData.length / 2) ? 0.12 : 0}
+            />
           ))}
         </div>
       </div>

@@ -1,6 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import projectsData from '../../data/projects.json';
+import useReducedMotion from '../../hooks/useReducedMotion';
+import {
+  DUR_MED,
+  DUR_SLOW,
+  EASE_OUT,
+  EASE_OUT_SOFT,
+  REVEAL_Y,
+  REVEAL_SAFETY_DELAY,
+} from '../../animation/motionTokens';
+
+gsap.registerPlugin(ScrollTrigger);
 
 import '../../styles/components/caseStudyIndex.scss';
 
@@ -48,9 +61,69 @@ const yearRange =
 
 const CaseStudyIndex = () => {
   const [active, setActive] = useState(featured[0]?.slug);
+  const rootRef = useRef(null);
+  const reducedMotion = useReducedMotion();
+
+  /* Reveal: the intro, then each column's entries in a stagger, the slot
+     last. Hidden at runtime only (static HTML stays visible). One trigger on
+     the whole index rather than per entry: the columns start on one line, so
+     per-entry triggers would all fire in the same frame anyway. Idempotent,
+     with the in-view fallback AND the timed net (the repo records both
+     behaviours for an already-passed `once` trigger). */
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return undefined;
+    const intro = root.querySelector('.csi__intro');
+    const entries = gsap.utils.toArray('.csi__entry, .csi__heading', root);
+    const slot = root.querySelector('.csi__slot');
+    const all = [intro, ...entries, slot];
+    if (reducedMotion) {
+      gsap.set(all, { clearProps: 'all' });
+      return undefined;
+    }
+    const ctx = gsap.context(() => {
+      gsap.set(all, { autoAlpha: 0, y: REVEAL_Y });
+      let revealed = false;
+      const reveal = () => {
+        if (revealed) return;
+        revealed = true;
+        root.dataset.revealed = String((Number(root.dataset.revealed) || 0) + 1);
+        gsap.to(intro, { autoAlpha: 1, y: 0, duration: DUR_SLOW, ease: EASE_OUT_SOFT });
+        gsap.to(entries, {
+          autoAlpha: 1,
+          y: 0,
+          duration: DUR_SLOW,
+          ease: EASE_OUT_SOFT,
+          stagger: { each: 0.05, grid: 'auto', from: 'start' },
+          delay: 0.1,
+        });
+        gsap.to(slot, { autoAlpha: 1, y: 0, duration: DUR_SLOW, ease: EASE_OUT_SOFT, delay: 0.45 });
+      };
+      const st = ScrollTrigger.create({ trigger: root, start: 'top 85%', once: true, onEnter: reveal });
+      if (st.progress > 0) reveal();
+      const safety = gsap.delayedCall(REVEAL_SAFETY_DELAY, () => {
+        if (!all.some((el) => gsap.isTweening(el)) && all.some((el) => gsap.getProperty(el, 'opacity') < 1)) {
+          gsap.set(all, { autoAlpha: 1, y: 0 });
+        }
+      });
+      return () => safety.kill();
+    }, root);
+    return () => ctx.revert();
+  }, [reducedMotion]);
+
+  /* Preview swap: the incoming image settles from 98% while the CSS
+     crossfade runs. Scale is GSAP's, opacity is the stylesheet's. */
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root || reducedMotion) return undefined;
+    const img = root.querySelector('.csi__preview.is-active');
+    if (!img) return undefined;
+    const tween = gsap.fromTo(img, { scale: 0.98 }, { scale: 1, duration: DUR_MED, ease: EASE_OUT, overwrite: 'auto' });
+    return () => tween.kill();
+  }, [active, reducedMotion]);
 
   return (
-    <div className="csi">
+    <div className="csi" ref={rootRef}>
       <div className="csi__intro">
         <p className="csi__intro-title">Selected work</p>
         <p className="csi__intro-meta">
