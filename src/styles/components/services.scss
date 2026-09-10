@@ -15,8 +15,25 @@
 .services-block {
   position: relative;
   isolation: isolate;
-  min-height: 100dvh;
+  // One screen PLUS the fixed header (110px desktop, 81px phone), so the
+  // content still gets a full screen once the header overlays its top.
+  // Generous padding top and bottom; content centred in whatever is left.
+  min-height: calc(100dvh + 110px);
+  // Top clears the fixed header (110px) and THEN breathes; bottom breathes
+  // on its own. Owner asked for "serious" room on both ends.
+  padding-top: calc(110px + clamp(4rem, 8vh, 7rem));
+  padding-bottom: clamp(6rem, 12vh, 10rem);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background: #000;
+
+  @media (max-width: 768px) {
+    min-height: calc(100dvh + 81px);
+    padding-top: calc(81px + 3rem);
+    padding-bottom: 5rem;
+  }
 
   // The grid canvas fills the block and takes pointer moves wherever no
   // content sits above it (between cards, in the gutters).
@@ -77,7 +94,7 @@
     // 2rem top: the desktop column parallax lifts the left column up to 24px,
     // and #services clips (overflow: hidden); without room the first card
     // lost its top edge and corners.
-    padding: 2rem $edge-pad 7rem;
+    padding: 2rem $edge-pad 0; // the block owns the bottom breathing room
     box-sizing: border-box;
   }
 
