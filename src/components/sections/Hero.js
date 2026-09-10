@@ -12,10 +12,10 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Letter grid for the h1. A space is an empty cell, so "&" sits one cell
-// away from both words; phones break the row before "CREATIVE" (index 9).
-const HERO_ROW = "DESIGN & CREATIVE".split("");
-const HERO_COL = "EVELOPMENT".split(""); // rows 2..11 under the shared D
+// Crossword letters for the h1: the row reads across, the column hangs
+// under the row's first letter (the shared D).
+const HERO_ROW = "DEVELOPMENT".split("");
+const HERO_COL = "ESIGN".split("");
 
 import "../../styles/components/hero.scss";
 
@@ -30,6 +30,45 @@ const Hero = () => {
   const reducedMotion = useReducedMotion();
   const identRef = useRef(null);
   const rootRef = useRef(null);
+
+  /* Ink-fit the crossword row. A flex gap spaces letter BOXES; the visible
+     gap between two letters is that plus both side bearings, which differ
+     per glyph (Inter Light: ~0.03em on E, ~0.09em on O), so equal steps read
+     as unequal gaps. After the fonts load, measure each glyph's ink edges on
+     a canvas and set a per-letter margin (in em, so it survives the vh-based
+     resize) that makes every ink gap exactly --gap, the same value the
+     stacked column uses. Layout, not motion: runs under reduced motion too. */
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root || typeof document === "undefined" || !document.fonts) return undefined;
+    const row = root.querySelector(".hero-row");
+    if (!row) return undefined;
+    const letters = Array.from(row.children);
+    let cancelled = false;
+    document.fonts.ready.then(() => {
+      if (cancelled) return;
+      const cs = getComputedStyle(row);
+      const size = parseFloat(cs.fontSize);
+      const gapEm = parseFloat(getComputedStyle(root.querySelector(".hero-headline")).getPropertyValue("--gap")) || 0.32;
+      const ctx = document.createElement("canvas").getContext("2d");
+      ctx.font = `${cs.fontWeight} ${size}px ${cs.fontFamily}`;
+      const ink = letters.map((el) => {
+        const ch = el.firstChild?.textContent || "";
+        const m = ctx.measureText(ch);
+        // canvas: actualBoundingBoxLeft is positive when ink starts LEFT of the origin
+        return { lsb: -m.actualBoundingBoxLeft / size, rsb: (m.width - m.actualBoundingBoxRight) / size };
+      });
+      row.style.gap = "0px";
+      letters.forEach((el, i) => {
+        const next = ink[i + 1];
+        if (!next) return;
+        el.style.marginRight = `${(gapEm - ink[i].rsb - next.lsb).toFixed(4)}em`;
+      });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   /* Copy motion. Static HTML ships visible; the hide happens at runtime only
      (never-invisible rule), then the four corner blocks rise in a stagger
@@ -103,38 +142,34 @@ const Hero = () => {
     <section id="hero" aria-label="Switch Case Studio introduction" ref={rootRef}>
       <div className="hero-frame">
         <div className="hero-top">
-          {/* Crossword lockup (owner, 2026-09-10): "DESIGN & CREATIVE" runs
-              across, "DEVELOPMENT" runs down from the shared D, every letter
-              in an equal square cell (grid-auto-columns = grid-auto-rows), so
-              horizontal and vertical spacing are the same distance. Still
-              the page's single h1; the letters are aria-hidden and the h1
-              carries the readable label. Phones fall back to three tracked
-              lines, which needs a second D (hero-cell--mobile-d). */}
-          <h1 className="hero-headline" aria-label="Design and creative development">
-            {HERO_ROW.map((ch, i) => (
-              <span
-                key={`r${i}`}
-                className={`hero-cell${ch === " " ? " hero-cell--gap" : ""}`}
-                style={{ "--c": i + 1, "--r": 1 }}
-                aria-hidden="true"
-              >
-                {ch === " " ? "" : ch}
-              </span>
-            ))}
-            <span className="hero-break" aria-hidden="true" />
-            <span className="hero-cell hero-cell--mobile-d" aria-hidden="true">
-              D
+          {/* Crossword lockup (owner, 2026-09-10): "DEVELOPMENT" runs across,
+              "DESIGN" runs down from the shared D. Letters sit at their natural
+              widths with ONE gap value between ink boxes, and each letter's
+              box is trimmed to cap height, so the vertical gap is the same
+              distance as the horizontal one (square cells were not: an I and
+              an M got the same cell). The column hangs off the D itself, so it
+              is centred under it with no measuring. Single h1, readable label,
+              letters aria-hidden. */}
+          <h1 className="hero-headline" aria-label="Design and development">
+            <span className="hero-row" aria-hidden="true">
+              {HERO_ROW.map((ch, i) => (
+                <span
+                  key={i}
+                  className={`hero-cell${i === 0 ? " hero-cell--anchor" : ""}`}
+                >
+                  {ch}
+                  {i === 0 && (
+                    <span className="hero-col">
+                      {HERO_COL.map((c, j) => (
+                        <span key={j} className="hero-cell">
+                          {c}
+                        </span>
+                      ))}
+                    </span>
+                  )}
+                </span>
+              ))}
             </span>
-            {HERO_COL.map((ch, i) => (
-              <span
-                key={`c${i}`}
-                className="hero-cell hero-cell--col"
-                style={{ "--c": 1, "--r": i + 2 }}
-                aria-hidden="true"
-              >
-                {ch}
-              </span>
-            ))}
           </h1>
         </div>
 

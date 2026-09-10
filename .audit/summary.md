@@ -1778,3 +1778,14 @@ horizontal and vertical steps are identical: 63px at 1440×900, 51px at 1440×72
 cells are aria-hidden. The column clears the bottom-left note at every size probed. Phones drop the
 crossword for three tracked lines of 30px cells ("DESIGN &", "CREATIVE", "DEVELOPMENT"), which
 needs a second D cell shown only there.
+
+Second revision of the lockup (owner's DevTools mock): "DEVELOPMENT" across, "DESIGN" down from
+the shared D, Inter 300 at 8.75vh (79px at 1440×900). Equal gaps, properly this time: square cells
+gave equal STEPS, but glyph widths differ, so the ink gaps did not match (24–30px across vs 20 down
+at 63px). Now letters sit at natural widths, each box trimmed to Inter's cap height (line-height
+0.73em, so the box bounds the ink), the column hangs off the D itself (centred, no measuring), and
+Hero.js ink-fits the row after `document.fonts.ready`: canvas `measureText` gives each glyph's side
+bearings and a per-letter em margin makes every ink gap exactly `--gap`. Measured: horizontal
+25.2px ×10, vertical 24.4–25.4 (round-glyph overshoot) at 1440×900; 20.2 / 19.6–20.4 at 723; 8.3 /
+8.0–8.4 on the phone. Column clears the bottom note everywhere. Weight 300 because 100 is not
+shipped (the DevTools mock's 100 was already rendering as 300).
