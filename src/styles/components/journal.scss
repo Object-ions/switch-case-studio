@@ -57,11 +57,12 @@
 
   // Title, then its date right beside it (owner, 2026-09-11: dates kept
   // close to the articles, not pushed to the column's far edge).
+  // One line per post: the title truncates with an ellipsis, the dates sit
+  // in a fixed right column so they align down the list (owner, 2026-09-11).
   &__item {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 0.75rem;
-    row-gap: 0.1rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 6.5rem;
+    column-gap: 1rem;
     align-items: baseline;
     padding: 0.3rem 0;
     color: rgba(255, 255, 255, 0.85);
@@ -86,6 +87,9 @@
   &__item-title {
     font-size: 0.95rem;
     line-height: 1.35;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   &__item-date {
@@ -174,8 +178,53 @@
     min-width: 0;
   }
 
+  // Cover: 16:9 across the full two-thirds. Posts without a coverImage get
+  // a typographic plate (category word) so the grid holds.
+  &__cover {
+    margin: 0 0 2.5rem;
+    aspect-ratio: 16 / 9;
+    max-width: 100%;
+    overflow: hidden;
+    background: #111;
+    display: grid;
+    place-items: end start;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__cover-mark {
+    padding: clamp(1.25rem, 2.5vw, 2.5rem);
+    font-size: clamp(2.5rem, 7vw, 7rem);
+    font-weight: 600;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: $g6;
+  }
+
   &__head {
     margin-bottom: 2.5rem;
+  }
+
+  &__section + &__section {
+    margin-top: 1rem;
+  }
+
+  // Two-column sections: balanced CSS columns; nothing splits mid-list.
+  &__cols.is-two {
+    column-count: 2;
+    column-gap: clamp(2rem, 3.5vw, 3.5rem);
+
+    > * {
+      break-inside: avoid;
+    }
+
+    > :first-child {
+      margin-top: 0;
+    }
   }
 
   &__title {
@@ -278,6 +327,10 @@
 
     &__article {
       order: 1;
+    }
+
+    &__cols.is-two {
+      column-count: 1;
     }
   }
 }

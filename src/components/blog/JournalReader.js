@@ -30,6 +30,44 @@ const shortDate = (iso) => {
 const PAGE_SIZE = 11;
 const pageCount = Math.ceil(sortedPosts.length / PAGE_SIZE);
 
+/* Column rhythm (owner, 2026-09-11): the body is cut into sections at each
+   heading, and each section is set in one or two columns. The intro (before
+   the first heading) is always two columns. After that the CONTENT decides,
+   so the rhythm is irregular but never arbitrary:
+   - media (quote, video, download) or a short section (< 110 words) → one;
+   - a long prose run (> 200 words) → two;
+   - in between, a stable hash of slug + index picks, so each post has its
+     own pattern and SSR and hydration agree;
+   - never three sections in a row in the same mode. */
+const words = (b) =>
+  (b.text || (b.items || []).join(' ') || '').split(/\s+/).filter(Boolean).length;
+const hash = (s) => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
+
+const sectionize = (body, slug) => {
+  const sections = [];
+  body.forEach((b) => {
+    if (b.type === 'heading' || !sections.length) sections.push({ heading: null, blocks: [] });
+    const s = sections[sections.length - 1];
+    if (b.type === 'heading') s.heading = b;
+    else s.blocks.push(b);
+  });
+  let run = 0;
+  let last = null;
+  return sections.map((s, i) => {
+    const n = s.blocks.reduce((t, b) => t + words(b), 0);
+    const media = s.blocks.some((b) => ['quote', 'video', 'download'].includes(b.type));
+    let two;
+    if (i === 0 && !s.heading) two = true;
+    else if (media || n < 110) two = false;
+    else if (n > 200) two = true;
+    else two = hash(`${slug}${i}`) % 2 === 0;
+    if (!media && i > 0 && run >= 2 && two === last) two = !two;
+    run = two === last ? run + 1 : 1;
+    last = two;
+    return { ...s, two };
+  });
+};
+
 const JournalReader = ({ post, isIndex = false }) => {
   const idx = sortedPosts.findIndex((p) => p.slug === post.slug);
   // The list opens on the page that holds the open post. Derived from the
@@ -51,6 +89,7 @@ const JournalReader = ({ post, isIndex = false }) => {
     readingTime,
     tags = [],
     body = [],
+    coverImage,
   } = post;
 
   return (
@@ -70,7 +109,9 @@ const JournalReader = ({ post, isIndex = false }) => {
                   className={`journal__item${active ? ' is-active' : ''}`}
                   aria-current={active ? 'page' : undefined}
                 >
-                  <span className="journal__item-title">{p.title}</span>
+                  <span className="journal__item-title" title={p.title}>
+                    {p.title}
+                  </span>
                   <span className="journal__item-date">{shortDate(p.date)}</span>
                 </Link>
               </li>
@@ -151,6 +192,16 @@ const JournalReader = ({ post, isIndex = false }) => {
       </aside>
 
       <article className="journal__article" aria-labelledby="journal-article-title">
+        <figure className="journal__cover">
+          {coverImage ? (
+            <img src={coverImage} alt="" width="1200" height="675" />
+          ) : (
+            <span className="journal__cover-mark" aria-hidden="true">
+              {category || 'Journal'}
+            </span>
+          )}
+        </figure>
+
         <header className="journal__head">
           <TitleTag id="journal-article-title" className="journal__title">
             {title}
@@ -159,8 +210,15 @@ const JournalReader = ({ post, isIndex = false }) => {
         </header>
 
         <div className="journal__body">
-          {body.map((block, i) => (
-            <Block key={i} block={block} />
+          {sectionize(body, post.slug).map((s, i) => (
+            <section key={i} className="journal__section">
+              {s.heading && <Block block={s.heading} />}
+              <div className={`journal__cols${s.two ? ' is-two' : ''}`}>
+                {s.blocks.map((block, j) => (
+                  <Block key={j} block={block} />
+                ))}
+              </div>
+            </section>
           ))}
         </div>
 
