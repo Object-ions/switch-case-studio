@@ -183,6 +183,23 @@ What actually happened, and the one correction to this ticket:
   the rescan. Trust `gh api .../dependabot/alerts --jq 'select(.state=="open")'`, not the banner.
 - PR #12 closed 2026-08-14 with the full reasoning in its comment; no open PRs remain.
 
+**2026-09-11 — the 08-14 guard never covered security updates. Fixed; still BLOCKED upstream.**
+Dependabot opened **security** PR #16 (`react-router 6.30.4 → 7.18.3`, grouped as
+"npm_and_yarn group across 0 directory"; closed unmerged) straight through the ignore rules.
+Cause: the rules used `update-types: ["version-update:semver-major"]`, and GitHub's docs say
+"`update-types` only affects *version* updates, not *security* updates. Security updates will
+always be created regardless of the `update-types` setting." (docs.github.com → Controlling
+which dependencies are updated by Dependabot.) With `open-pull-requests-limit: 0` the repo
+gets ONLY security updates, so the guard was filtering a PR stream that never existed. The
+2026-08-14 line above ("Recurrence is now blocked") was therefore wrong; it held only because
+no security run fired in between (#14 on 09-02 bumped other packages). Rules now use
+`versions: [">= 7.0.0"]` for `react-router` and `react-router-dom`, which filters candidate
+versions for both update kinds. Watch condition re-run 2026-09-11: `vite-react-ssg` 0.9.2,
+`peerDependencies.react-router-dom = '^6.14.1'` — unchanged. Still 3 open router alerts
+(#81, #82 on `react-router`; #100 on `react-router-dom`). Confirmation after merge: Insights →
+Dependency graph → Dependabot → "Check for updates" on the npm entry, then the security run on
+the next alert; no react-router PR should appear, and the job log should show the ignore.
+
 ## SEC-1 — I leaked a host path into this PUBLIC repo, and it is in pushed history
 **Logged 2026-08-06. Fixed forward; the history decision is Moses's.**
 

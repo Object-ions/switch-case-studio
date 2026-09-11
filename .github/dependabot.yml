@@ -21,9 +21,15 @@
 # bump (router + SSG together).
 #
 # `open-pull-requests-limit: 0` keeps this repo's current behaviour — security
-# updates only, no routine version-bump PRs. The ignore rules still apply to
-# security updates, which is the whole point: they suppress the react-router major
-# that is guaranteed to break the deploy, and nothing else.
+# updates only, no routine version-bump PRs.
+#
+# The ignore rules use `versions`, NOT `update-types`. GitHub's docs: "`update-types`
+# only affects *version* updates, not *security* updates. Security updates will always
+# be created regardless of the `update-types` setting." The first version of this file
+# used `update-types: semver-major`, which a security update never reads — so it
+# stopped nothing, and security PR #16 (react-router 6.30.4 -> 7.18.3, 2026-09-11)
+# went straight through it. A `versions` range filters the candidate versions for
+# both update kinds.
 
 version: 2
 updates:
@@ -35,6 +41,6 @@ updates:
     ignore:
       # Blocked by vite-react-ssg's ^6.14.1 peer — see DEP-1. Remove when upstream ships v7 support.
       - dependency-name: "react-router"
-        update-types: ["version-update:semver-major"]
+        versions: [">= 7.0.0"]
       - dependency-name: "react-router-dom"
-        update-types: ["version-update:semver-major"]
+        versions: [">= 7.0.0"]
