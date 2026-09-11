@@ -1,5 +1,8 @@
 import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
+import BookCallCta from "../ui/BookCallCta";
+import { EXPLORE_LINKS } from "../../data/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import useReducedMotion from "../../hooks/useReducedMotion";
@@ -15,6 +18,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 import "../../styles/components/hero.scss";
+
+// Hero nav (owner, 2026-09-11): the header is hidden over the hero, so the
+// hero carries its own way in. Labels come from navigation.js, in this order.
+const HERO_LINKS = ["About", "Services", "Case Studies"].map((label) =>
+  EXPLORE_LINKS.find((l) => l.label === label),
+);
 
 /* The studio ident: 4.5s of hard-cut plates that settle on the wordmark.
    Rendered from ~/Desktop/scs-ident (Remotion, private: licensed fonts);
@@ -37,7 +46,7 @@ const Hero = () => {
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return undefined;
-    const items = gsap.utils.toArray(".hero-top, .hero-note, .hero-scroll", root);
+    const items = gsap.utils.toArray(".hero-top, .hero-nav, .hero-note, .hero-scroll", root);
     if (reducedMotion) {
       gsap.set(items, { clearProps: "all" });
       return undefined;
@@ -63,23 +72,32 @@ const Hero = () => {
       });
 
       const scrub = { trigger: root, start: "top top", end: "bottom top", scrub: true };
-      gsap.to(root.querySelector(".hero-top"), { y: -60, ease: "none", scrollTrigger: scrub });
+      gsap.to(gsap.utils.toArray(".hero-top, .hero-nav", root), { y: -60, ease: "none", scrollTrigger: scrub });
       gsap.to(gsap.utils.toArray(".hero-note, .hero-scroll", root), {
         y: 60,
         ease: "none",
         scrollTrigger: { ...scrub },
       });
 
-      // "Scroll" is an instruction for the top of the page only: hide it once
-      // the visitor has scrolled (via [hidden], so the entrance tween's inline
-      // opacity/visibility can't override it), bring it back at the top.
+      // "Scroll" is an instruction for the first moment only: the first
+      // scroll fades it out for good (owner, 2026-09-11). The pulse is CSS on
+      // an inner span, so it never touches the opacity GSAP owns here.
       const cue = root.querySelector(".hero-scroll");
       const cueST = cue
         ? ScrollTrigger.create({
             start: 40,
             end: "max",
-            onToggle: (self) => {
-              cue.hidden = self.isActive;
+            onEnter: (self) => {
+              gsap.to(cue, {
+                autoAlpha: 0,
+                duration: 0.3,
+                ease: "power1.out",
+                overwrite: "auto",
+                onComplete: () => {
+                  cue.hidden = true;
+                },
+              });
+              self.kill();
             },
           })
         : null;
@@ -127,9 +145,32 @@ const Hero = () => {
               as words, never spelled letter by letter. Single h1. */}
           <h1 className="hero-headline">
             <span className="hero-spine">Design</span>{" "}
-            <span className="hero-across">Development</span>
+            <span className="hero-across">&amp;Development</span>
           </h1>
         </div>
+
+        <nav className="hero-nav" aria-label="Hero">
+          <ul>
+            {HERO_LINKS.map((l) => (
+              <li key={l.label}>
+                {l.hash ? (
+                  <HashLink to={`/${l.hash}`} smooth className="hero-nav__link">
+                    {l.label}
+                  </HashLink>
+                ) : (
+                  <Link to={l.to} className="hero-nav__link">
+                    {l.label}
+                  </Link>
+                )}
+              </li>
+            ))}
+            <li>
+              <BookCallCta className="hero-nav__cta">
+                <span aria-hidden="true"> &rarr;</span>
+              </BookCallCta>
+            </li>
+          </ul>
+        </nav>
 
         <div className="hero-ident" ref={identRef}>
           {/* Static HTML must carry autoplay+muted+playsinline so phones start
@@ -158,21 +199,25 @@ const Hero = () => {
         </div>
 
         <p className="hero-note hero-note--left">
-          Websites, online stores and <span className="caps-trim">AI</span>{" "}
-          assistants for businesses that need them to bring in work. We design
-          it, build it and keep it running after launch.
+          We make websites, online stores and{" "}
+          <span className="caps-trim">AI</span> assistants for businesses that
+          need them to actually bring in work. We design it, build it, and
+          stick around after launch so it keeps running.
         </p>
 
         <HashLink to="/#projects" smooth className="hero-scroll">
-          Scroll
-          <span className="hero-scroll__arrow" aria-hidden="true">
-            &darr;
+          <span className="hero-scroll__pulse">
+            Scroll
+            <span className="hero-scroll__arrow" aria-hidden="true">
+              &darr;
+            </span>
           </span>
         </HashLink>
 
         <p className="hero-note hero-note--right">
-          Each case study below puts the old site beside ours, with page weight
-          and load time measured on the live pages.
+          Don't take our word for it. Every case study below puts the old site
+          next to ours, with page weight and load time measured on the live
+          pages.
         </p>
       </div>
     </section>

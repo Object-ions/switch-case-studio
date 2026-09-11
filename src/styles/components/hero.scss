@@ -84,6 +84,96 @@ $hero-pad-y: 1.5rem;
     white-space: nowrap;
   }
 
+  // ── Hero nav, top-right under the DEVELOPMENT line (owner's sketch,
+  // 2026-09-11): a right-aligned stack, so it can never collide with the
+  // headline however wide the word runs. GSAP owns its opacity/transform
+  // (entrance + scroll drift), so hovers here touch colour and the ARROW.
+  .hero-nav {
+    position: absolute;
+    top: calc(#{$hero-pad-y} + clamp(2.5rem, 6.4vw, 7.5rem) * 0.74 + 2.5rem);
+    right: $hero-pad-x;
+    z-index: 2;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      justify-items: end;
+      gap: 0.35rem;
+    }
+
+    &__link {
+      position: relative;
+      font-family: $font-text;
+      font-size: clamp(1.1rem, 1.6vw, 1.6rem);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: $hero-ink;
+      text-decoration: none;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -0.1em;
+        height: 1px;
+        background: currentColor;
+        transform: scaleX(0);
+        transform-origin: 100% 50%;
+        transition: transform $dur-fast $ease-out;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        &:hover::after {
+          transform: scaleX(1);
+          transform-origin: 0 50%;
+        }
+      }
+    }
+
+    &__cta {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 0.75rem;
+      padding: 0.6rem 1.25rem;
+      border-radius: 100px;
+      background: $g6;
+      color: #000;
+      font-family: $font-text;
+      font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+      font-weight: 600;
+      text-decoration: none;
+      transition: background $dur-fast $ease-out, transform 160ms $ease-out;
+
+      span {
+        display: inline-block;
+        margin-left: 0.25rem;
+        transition: transform $dur-fast $ease-out;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          background: #fff;
+        }
+        &:hover span {
+          transform: translateX(3px);
+        }
+      }
+
+      &:active {
+        transform: scale(0.97);
+      }
+    }
+
+    &__link:focus-visible,
+    &__cta:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 4px;
+    }
+  }
+
   // ── The ident. Wider screens: it plays on the stage RIGHT of the spine,
   // scaled to fit whole (contain), so the spine never covers the wordmark and
   // a non-16:9 window never crops it (owner, 2026-09-10). The field is black,
@@ -141,6 +231,19 @@ $hero-pad-y: 1.5rem;
     font-size: clamp(1rem, 1.25vw, 1.2rem);
     color: $hero-ink;
     text-decoration: none;
+
+    // Two soft pulses, then a hold, on repeat (owner, 2026-09-11). Opacity
+    // only, on the INNER span: GSAP owns the link's own opacity/transform.
+    &__pulse {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      animation: hero-scroll-pulse 3.6s cubic-bezier(0.45, 0, 0.55, 1) 1.5s infinite;
+
+      @media (prefers-reduced-motion: reduce) {
+        animation: none;
+      }
+    }
 
     &__arrow {
       transition: transform $dur-fast $ease-out;
@@ -238,5 +341,45 @@ $hero-pad-y: 1.5rem;
     .hero-scroll {
       display: none; // the page itself is the scroll cue on a phone
     }
+
+    // Phones: the nav joins the flow under the headline as one wrapped row.
+    .hero-nav {
+      position: relative;
+      inset: auto;
+      order: 1;
+
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.5rem 1.25rem;
+      }
+
+      &__link {
+        font-size: 1rem;
+      }
+
+      &__cta {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+// Breath, breath, rest: two eased dips to 25% in the first ~40% of the
+// cycle, then 2s+ at full so the cue reads as alive, not nagging.
+@keyframes hero-scroll-pulse {
+  0%,
+  40%,
+  100% {
+    opacity: 1;
+  }
+  10%,
+  30% {
+    opacity: 0.25;
+  }
+  20% {
+    opacity: 1;
   }
 }
