@@ -43,6 +43,10 @@
     max-height: calc(100vh - 110px - 4rem);
     overflow-y: auto;
     scrollbar-width: none;
+    // Room for the list's hover dash, which sits left of the rows: this
+    // column scrolls, so it clips anything outside its padding box.
+    padding-left: 1.25rem;
+    margin-left: -1.25rem;
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
@@ -70,8 +74,6 @@
     padding: 0;
   }
 
-  // Title, then its date right beside it (owner, 2026-09-11: dates kept
-  // close to the articles, not pushed to the column's far edge).
   // One line per post: the title truncates with an ellipsis, the dates sit
   // in a fixed right column so they align down the list (owner, 2026-09-11).
   &__item {
@@ -99,45 +101,62 @@
     }
   }
 
-  // Hover: a lavender dash draws in and the title steps right to make room.
-  // Opacity/width + transform on the TITLE only (GSAP owns the <li> when a
-  // page changes, never these spans).
-  &__item-title {
+  // Hover: a lavender dash grows in the gutter left of the row and the
+  // title steps right. Transform only (no layout), 200ms, pointer devices
+  // only; the open post keeps the mark. GSAP owns the <li> on a page change,
+  // never these, so the transforms can't collide.
+  &__item {
     position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -1.25rem;
+      top: 50%;
+      width: 0.9rem;
+      height: 1px;
+      background: $g6;
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+      transition: transform $dur-fast $ease-out;
+    }
+
+    &.is-active::before {
+      transform: scaleX(1);
+    }
+  }
+
+  &__item-title {
     font-size: 0.95rem;
     line-height: 1.35;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    transition: padding-left $dur-med $ease-out;
+    transition: transform $dur-fast $ease-out;
 
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 50%;
-      width: 0;
-      height: 1px;
-      background: $g6;
-      transition: width $dur-med $ease-out;
-    }
-
-    a.journal__item:hover &,
-    a.journal__item:focus-visible &,
     .is-active & {
-      padding-left: 1.4rem;
+      transform: translateX(0.5rem);
+    }
+  }
 
-      &::before {
-        width: 0.9rem;
-      }
+  @media (hover: hover) and (pointer: fine) {
+    a.journal__item:hover::before {
+      transform: scaleX(1);
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
+    a.journal__item:hover .journal__item-title {
+      transform: translateX(0.5rem);
+    }
+  }
 
-      &::before {
-        transition: none;
-      }
+  a.journal__item:focus-visible::before {
+    transform: scaleX(1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__item::before,
+    &__item-title {
+      transition: none;
     }
   }
 
@@ -195,7 +214,7 @@
     font-size: 0.9rem;
     cursor: pointer;
     transition: background $dur-fast $ease-out, color $dur-fast $ease-out,
-      border-color $dur-fast $ease-out;
+      border-color $dur-fast $ease-out, transform 160ms $ease-out;
 
     &:hover:not(:disabled) {
       border-color: #fff;
@@ -213,7 +232,7 @@
     }
 
     &:active:not(:disabled) {
-      transform: scale(0.92);
+      transform: scale(0.97);
     }
   }
 
