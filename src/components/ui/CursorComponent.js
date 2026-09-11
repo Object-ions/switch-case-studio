@@ -21,6 +21,12 @@ const ROUND = '50%'; // the resting / no-morph shape
 const PRESSED = 17; // VE-12 press tighten
 const MORPH_PAD = 10; // breathing room around a wrapped element
 
+// Elements whose hover wraps a LARGER box than the hovered control: the FAQ
+// button wraps its whole card, so the ring keeps the card's 1rem corners and
+// stays around the item when it opens (owner, 2026-09-11: square ring on a
+// rounded card; ring around the question only once the answer showed).
+const WRAP_BOX = '.faq__item';
+
 const CursorComponent = () => {
   const dotRef = useRef(null);
 
@@ -204,13 +210,14 @@ const CursorComponent = () => {
       // rounded corners (square elements get a hair of rounding so the
       // cursor never looks broken against them).
       hoverTarget = null;
-      if (morphTarget !== target) {
-        morphTarget = target;
+      const box = target.closest(WRAP_BOX) || target;
+      if (morphTarget !== box) {
+        morphTarget = box;
         // Concentric corners: the ring sits MORPH_PAD/2 outside the element,
         // so its radius is the element's radius PLUS that offset. Copying the
         // raw radius left a visibly tighter corner on rounded cards (owner,
         // 2026-09-10: the services-card border didn't follow the panel).
-        const radius = parseFloat(getComputedStyle(target).borderTopLeftRadius) || 0;
+        const radius = parseFloat(getComputedStyle(box).borderTopLeftRadius) || 0;
         gsap.to(dot, {
           borderRadius: `${radius > 0 ? radius + MORPH_PAD / 2 : 3}px`,
           duration: 0.25,
@@ -227,7 +234,8 @@ const CursorComponent = () => {
       const target = e.target.closest(INTERACTIVE_SELECTOR);
       if (!target) return;
       // Still inside the wrapped element (moved onto a child)? Not a real exit.
-      if (e.relatedTarget && target.contains(e.relatedTarget)) return;
+      // With a WRAP_BOX the wrapped element is the card, not the control.
+      if (e.relatedTarget && (morphTarget || target).contains(e.relatedTarget)) return;
 
       if (morphTarget) {
         release();

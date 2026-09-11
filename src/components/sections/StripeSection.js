@@ -36,18 +36,25 @@ export default function GradientStripe({
     // Claim the whole transform in GSAP terms before any tween runs: the
     // CSS translate(-50%,-50%) parses into a PIXEL matrix (CLAUDE.md
     // StaggeredMenu rule), so a later yPercent tween silently drops the
-    // vertical centering. xPercent stays 0 to preserve the shipped drift
-    // geometry (the x tween has always replaced the horizontal offset).
-    gsap.set(orb, { xPercent: 0, x: 0, yPercent: -50, y: 0 });
+    // vertical centering. xPercent -50 centres the orb for real (it was 0,
+    // which parked its LEFT edge at 50% and let it leave the band, 2026-09-11).
+    gsap.set(orb, { xPercent: -50, x: 0, yPercent: -50, y: 0 });
 
     const build = () => {
-      const W = stripe.clientWidth;
-      const max = W / 2; // move from half-left offscreen to half-right offscreen
-      return gsap.fromTo(
+      // Edge to edge INSIDE the band (owner, 2026-09-11: never half gone).
+      // The orb is centred at 50%, so its centre may travel ±(W - orb) / 2.
+      // The orb is height:100% at 1:1, so its width IS the band's height;
+      // offsetWidth alone read 0 before layout and let it leave the frame.
+      const size = Math.max(orb.offsetWidth, stripe.clientHeight);
+      const max = Math.max(0, (stripe.clientWidth - size) / 2);
+      const t = gsap.fromTo(
         orb,
         { x: -max },
         { x: max, duration, ease: 'power2.inOut', repeat: -1, yoyo: true }
       );
+      // Start partway through the first sweep, not at an edge.
+      t.progress(0.3);
+      return t;
     };
 
     let tween = build();
@@ -56,6 +63,7 @@ export default function GradientStripe({
       tween = build();
     });
     ro.observe(stripe);
+    ro.observe(orb);
 
     // VE-9: vertical parallax as the band scrolls past — scrub-tied
     // yPercent on the orb. Different property from the x drift tween, same

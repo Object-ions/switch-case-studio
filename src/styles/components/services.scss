@@ -120,6 +120,15 @@
     background: rgba(8, 8, 8, 0.88);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
+    transition: border-color $dur-fast $ease-out;
+
+    // Hover: the card's own edge lights in the theme orange (owner,
+    // 2026-09-11). Pointer devices only.
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        border-color: $orange-color;
+      }
+    }
   }
 
   &__link {

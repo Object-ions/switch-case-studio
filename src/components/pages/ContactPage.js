@@ -6,7 +6,7 @@ const ContactPage = () => (
   <>
     <Seo
       title="Contact | Switch Case Studio"
-      description="Get in touch with Switch Case Studio. Book a free strategy call or send us a message about your project."
+      description="Get in touch with Switch Case Studio. Book a strategy call or send us a message about your project."
       path="/contact"
     />
     <div className="contact-page">

@@ -85,9 +85,8 @@ const SERVICES_LINKS = PRICING_LINKS;
 
 const CONNECT_LINKS = [
   {
-    // Unified CTA (label + URL from src/data/cta.js). The old 'free' badge
-    // is dropped: the word is in the label now — "Book a Free Strategy Call
-    // FREE" would say it twice.
+    // Unified CTA (label + URL from src/data/cta.js): "Book a strategy
+    // call" since 2026-09-11, no 'free' badge.
     label: BOOK_CALL_LABEL,
     href: BOOK_CALL_URL,
     external: true,
@@ -249,20 +248,20 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Case Studies — top 4 + the index link (mobile audit M5): the
+          {/* Case Studies: top 6 + the index link (mobile audit M5): the
               full 8-project list (also in the header dropdown) was half of
               why the mobile footer scrolled forever. */}
           <div className="footer-col footer-col-animate">
             <h4 className="footer-col__title">Case Studies</h4>
             <ul className="footer-nav">
-              {PROJECT_LINKS.slice(0, 4).map((proj) => (
+              {PROJECT_LINKS.slice(0, 6).map((proj) => (
                 <li key={proj.to}>
                   <Link to={proj.to}>{proj.label}</Link>
                 </li>
               ))}
               <li>
                 <Link to="/projects" className="footer-nav__viewall">
-                  All case studies →
+                  All case studies
                 </Link>
               </li>
             </ul>

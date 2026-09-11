@@ -133,42 +133,7 @@ $hero-pad-y: 1.5rem;
       }
     }
 
-    &__cta {
-      display: inline-flex;
-      align-items: center;
-      margin-top: 0.75rem;
-      padding: 0.6rem 1.25rem;
-      border-radius: 100px;
-      background: $g6;
-      color: #000;
-      font-family: $font-text;
-      font-size: clamp(0.95rem, 1.1vw, 1.05rem);
-      font-weight: 600;
-      text-decoration: none;
-      transition: background $dur-fast $ease-out, transform 160ms $ease-out;
-
-      span {
-        display: inline-block;
-        margin-left: 0.25rem;
-        transition: transform $dur-fast $ease-out;
-      }
-
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          background: #fff;
-        }
-        &:hover span {
-          transform: translateX(3px);
-        }
-      }
-
-      &:active {
-        transform: scale(0.97);
-      }
-    }
-
-    &__link:focus-visible,
-    &__cta:focus-visible {
+    &__link:focus-visible {
       outline: 2px solid $g6;
       outline-offset: 4px;
     }
@@ -215,6 +180,16 @@ $hero-pad-y: 1.5rem;
     &--right {
       right: $hero-pad-x;
       text-align: right;
+    }
+
+    // "Every case study" → /projects; the underline says it's a link.
+    &__link {
+      color: inherit;
+      text-underline-offset: 0.2em;
+
+      &:hover {
+        color: $g6;
+      }
     }
   }
 
@@ -358,10 +333,6 @@ $hero-pad-y: 1.5rem;
 
       &__link {
         font-size: 1rem;
-      }
-
-      &__cta {
-        margin-top: 0;
       }
     }
   }

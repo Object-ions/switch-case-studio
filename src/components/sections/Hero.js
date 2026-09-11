@@ -165,9 +165,7 @@ const Hero = () => {
               </li>
             ))}
             <li>
-              <BookCallCta className="hero-nav__cta">
-                <span aria-hidden="true"> &rarr;</span>
-              </BookCallCta>
+              <BookCallCta className="hero-nav__link" />
             </li>
           </ul>
         </nav>
@@ -215,8 +213,11 @@ const Hero = () => {
         </HashLink>
 
         <p className="hero-note hero-note--right">
-          Don't take our word for it. Every case study below puts the old site
-          next to ours, with page weight and load time measured on the live
+          Don't take our word for it.{" "}
+          <Link to="/projects" className="hero-note__link">
+            <u>Every case study</u>
+          </Link>{" "}
+          below puts the old site next to ours, with page weight and load time measured on the live
           pages.
         </p>
       </div>

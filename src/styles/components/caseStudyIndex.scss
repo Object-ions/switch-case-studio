@@ -51,8 +51,11 @@
     letter-spacing: 0.08em;
     color: $g6;
     text-decoration: none;
-    @include underline-sweep;
-    @include arrow-nudge('.cta-arrow');
+    transition: color $dur-fast $ease-out;
+
+    &:hover {
+      color: $g7;
+    }
 
     &:focus-visible {
       outline: 2px solid $g6;

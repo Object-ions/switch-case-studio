@@ -132,9 +132,6 @@ function ServiceItem({ service, index, delay = 0 }) {
           <span className="services__item-cta">{service.cta}</span>
           <span className="services__item-rule" aria-hidden="true" />
         </span>
-        {/* The open middle zone holds the service's live poster; the card
-            element is its hover area. */}
-        <ServicePoster slug={service.slug} cardRef={itemRef} />
         {/* Inner parallax layer (name + line). The entrance build animates
             the children; the parallax moves only this wrapper, so the two
             never write the same property on the same element. */}
@@ -144,6 +141,9 @@ function ServiceItem({ service, index, delay = 0 }) {
           </span>
           <span className="services__item-subtitle">{service.subTitle}</span>
         </span>
+        {/* The live poster sits last, under the name and line (owner,
+            2026-09-11); the card element is still its hover area. */}
+        <ServicePoster slug={service.slug} cardRef={itemRef} />
       </Link>
     </div>
   );

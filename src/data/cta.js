@@ -17,4 +17,4 @@
  * book_call_click on ANY calendar.app.google href.
  */
 export const BOOK_CALL_URL = 'https://calendar.app.google/83UCJjis2FHUrr1s6';
-export const BOOK_CALL_LABEL = 'Book a Free Strategy Call';
+export const BOOK_CALL_LABEL = 'Book a strategy call';

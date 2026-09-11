@@ -129,7 +129,6 @@ const CaseStudyIndex = () => {
         <p className="csi__intro-meta">{featured.length} projects</p>
         <Link to="/projects" className="csi__viewall">
           All case studies
-          <span className="cta-arrow" aria-hidden="true">&rarr;</span>
         </Link>
 
         {/* Every preview is in the DOM, stacked, so a hover crossfades instead
