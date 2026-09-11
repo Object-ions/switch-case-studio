@@ -208,7 +208,10 @@ const JournalReader = ({ post, isIndex = false }) => {
         </dl>
       </aside>
 
-      <article className="journal__article" aria-labelledby="journal-article-title">
+      <article
+        key={post.slug}
+        className="journal__article"
+        aria-labelledby="journal-article-title">
         <figure className="journal__cover">
           {coverImage ? (
             <img src={coverImage} alt="" width="1200" height="675" />

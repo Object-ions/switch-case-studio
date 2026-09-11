@@ -136,29 +136,19 @@ export default function useJournalMotion(rootRef, slug, page) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reduced]);
 
-  // Opening another post: the cover wipes down (clip-path), then the title
-  // and lede un-blur into place. Reduced motion keeps a short fade only.
+  // Opening another post: the <article> is keyed on the slug, so it
+  // remounts and the CSS entrance (journal.scss, journal-enter) replays for
+  // the title, lede and intro. JS adds only the cover wipe here.
   useEffect(() => {
     if (seenSlug.current === slug) return;
     seenSlug.current = slug;
-    const root = rootRef.current;
-    if (!root) return;
-    const cover = root.querySelector('.journal__cover');
-    const head = root.querySelectorAll('.journal__head > *');
-    const all = [cover, ...head].filter(Boolean);
-    if (reduced) {
-      gsap.fromTo(all, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2, ease: 'none', immediateRender: true, clearProps: 'opacity,visibility' });
-      return;
-    }
-    const tl = gsap.timeline({
-      onComplete: () => gsap.set(all, { clearProps: 'opacity,visibility,transform,filter,clipPath' }),
-    });
-    if (cover) {
-      gsap.set(cover, { clipPath: 'inset(0% 0% 100% 0%)' });
-      tl.to(cover, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.6, ease: 'expo.inOut' });
-    }
-    gsap.set(head, { autoAlpha: 0, y: 12, filter: 'blur(4px)' });
-    tl.to(head, { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: DUR_MED, ease: EASE_OUT, stagger: 0.06 }, cover ? 0.25 : 0);
+    const cover = rootRef.current?.querySelector('.journal__cover');
+    if (!cover || reduced) return;
+    gsap.fromTo(
+      cover,
+      { clipPath: 'inset(0% 0% 100% 0%)' },
+      { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.8, ease: 'expo.inOut', clearProps: 'clipPath' },
+    );
   }, [rootRef, slug, reduced]);
 
   // Changing list page: the new rows stagger in.

@@ -331,6 +331,32 @@
     margin-bottom: 2.5rem;
   }
 
+  // Article entrance, CSS so it runs from FIRST PAINT: no JS, no hydration
+  // flash, and it replays on post change because <article> is keyed on the
+  // slug. Starts at opacity .01, not 0, so Chrome still counts the title as
+  // the LCP paint. Transform/opacity/filter only; nothing here is GSAP-owned.
+  &__title,
+  &__lede,
+  &__body > .journal__section:first-child {
+    animation: journal-enter 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  &__lede {
+    animation-delay: 0.12s;
+  }
+
+  &__body > .journal__section:first-child {
+    animation-delay: 0.24s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__title,
+    &__lede,
+    &__body > .journal__section:first-child {
+      animation: journal-fade 0.3s ease both;
+    }
+  }
+
   &__section + &__section {
     margin-top: 1rem;
   }
@@ -454,5 +480,27 @@
     &__cols.is-two {
       column-count: 1;
     }
+  }
+}
+
+@keyframes journal-enter {
+  from {
+    opacity: 0.01;
+    transform: translateY(1.5rem);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes journal-fade {
+  from {
+    opacity: 0.01;
+  }
+  to {
+    opacity: 1;
   }
 }
