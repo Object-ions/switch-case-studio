@@ -409,6 +409,10 @@
       gap: 1.5rem;
       grid-template-columns: none;
       will-change: transform;
+      // The row starts in slot 3 (owner, 2026-09-10): two empty card slots
+      // lead, so the first card enters at the right of the screen, fully
+      // inside it. scrollWidth includes this, so the pan grows to match.
+      padding-left: calc(2 * (var(--card-h) * 0.75 + 1.5rem));
     }
 
     &__item,
