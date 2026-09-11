@@ -122,9 +122,6 @@
     border-radius: 12px;
   }
 
-  // The overlay wipe needs room around the text; the negative inline margin
-  // keeps the TEXT flush with the section's edge while the lilac field still
-  // bleeds 1.25rem past it on hover.
   &__link {
     flex: 1;
     // The cursor wraps THIS element and copies its radius; inherit the
@@ -199,8 +196,7 @@
     gap: 0.9rem;
   }
 
-  &__item-title,
-  &__overlay-title {
+  &__item-title {
     font-family: $font-text;
     // Hierarchy (owner: "3 texts and no hierarchy"): the title leads by size
     // AND weight, title case, not light uppercase. Subtitle is regular at 80%,
@@ -231,51 +227,9 @@
     color: rgba(255, 255, 255, 0.55);
   }
 
-  &__overlay-main {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  &__overlay {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    background: #efd7ff;
-    color: #000;
-  }
-
-  &__overlay-inner {
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    gap: 2rem;
-    padding-inline: 1.25rem;
-  }
-
-  &__overlay-title {
-    color: #000;
-  }
-
-  &__overlay-subtitle {
-    max-width: 620px;
-    font-size: clamp(0.9rem, 1.2vw, 1rem);
-    font-weight: 400;
-    line-height: 1.5;
-    color: rgba(0, 0, 0, 0.65);
-  }
-
-  &__overlay-char {
+  // Hover letter bounce (kept when the overlay wipe left, 2026-09-11).
+  &__title-char {
     display: inline-block;
-  }
-
-  &__icon {
-    width: 2.5rem;
-    height: 2.5rem;
-    color: #000;
-    flex-shrink: 0;
   }
 }
 
@@ -312,11 +266,9 @@
   }
 }
 
-// Touch press state (mobile audit M10): the desktop overlay wipe is
-// pointer-only, so taps had zero feedback. A quick lilac flash + dim echoes
-// the overlay's color language. Opacity/background only — GSAP owns this
-// row's reveal transform, and the overlay's translateY is GSAP-inline
-// (house rule: no CSS transitions on JS-owned properties).
+// Touch press state (mobile audit M10): hover is pointer-only, so taps
+// need their own feedback. Opacity/background only: GSAP owns the reveal
+// transforms (house rule: no CSS transitions on JS-owned properties).
 @media (hover: none) and (pointer: coarse) {
   .services__link {
     transition: opacity 80ms ease, background-color 80ms ease;
@@ -347,20 +299,11 @@
       margin-inline: 0;
     }
 
-    &__item-title,
-    &__overlay-title {
+    &__item-title {
       // Dominant on phones too: ~33px at 390, "Web Development" still one line
       font-size: clamp(1.75rem, 8.5vw, 2.4rem);
     }
 
-    &__overlay-subtitle {
-      display: none;
-    }
-
-    &__icon {
-      width: 2rem;
-      height: 2rem;
-    }
   }
 }
 
@@ -475,4 +418,9 @@
       line-height: 1;
     }
   }
+}
+
+// Built entries release the title mask so the hover hop isn't clipped.
+.services__item.is-built .services__item-title-mask {
+  overflow: visible;
 }

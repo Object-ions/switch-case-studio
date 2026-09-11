@@ -1,0 +1,53 @@
+@import '../_variables.scss';
+
+// Live service posters (2026-09-11). The SVG fills the card's open middle
+// zone; its own background colour fills the letterbox around the square.
+// Fills live here as classes so the poster palette stays on tokens.
+$poster-palette: (
+  'cream': $white-color,
+  'pink': $g4,
+  'terra': $promo-terra,
+  'mint': $promo-mint,
+  'ink': $promo-ink,
+);
+
+.service-poster {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 8px;
+
+  @media (min-width: 768px) {
+    flex: 1 1 auto;
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  // Static grain, never animated.
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: $grain-url;
+    opacity: $poster-grain-opacity;
+  }
+}
+
+@each $name, $color in $poster-palette {
+  .sp-bg-#{$name} { background: $color; }
+  .sp-f-#{$name} { fill: $color; }
+  .sp-s-#{$name} { stroke: $color; }
+}
+
+.sp-multiply {
+  mix-blend-mode: multiply;
+}

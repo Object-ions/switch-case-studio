@@ -5,16 +5,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import servicesData from "../../data/services.json";
 import armSafetyNet from "../../animation/armSafetyNet";
+import ServicePoster from "../servicePoster/ServicePoster";
 import "../../styles/components/services.scss";
 
 
 function ServiceItem({ service, index, delay = 0 }) {
   const itemRef = useRef(null);
-  const overlayRef = useRef(null);
-  const overlayInnerRef = useRef(null);
   const charsRef = useRef([]);
-
-  const animationDefaults = { duration: 0.6, ease: "expo" };
 
   useEffect(() => {
     const el = itemRef.current;
@@ -45,12 +42,15 @@ function ServiceItem({ service, index, delay = 0 }) {
       gsap.set(body, { autoAlpha: 0, y: 16 });
 
       let played = false;
+      // Once built, the title mask stops clipping so the hover letter
+      // bounce can rise above it.
+      const built = () => el.classList.add("is-built");
       const reveal = () => {
         if (played) return;
         played = true;
         el.dataset.revealed = "1";
         gsap
-          .timeline({ delay, defaults: { overwrite: "auto" } })
+          .timeline({ delay, defaults: { overwrite: "auto" }, onComplete: built })
           .to(rule, { scaleX: 1, duration: 0.7, ease: "power3.out" }, 0)
           .to(title, { yPercent: 0, duration: 0.8, ease: "power4.out" }, 0.1)
           .to(meta, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.15)
@@ -75,6 +75,7 @@ function ServiceItem({ service, index, delay = 0 }) {
           gsap.set(rule, { scaleX: 1 });
           gsap.set(title, { yPercent: 0 });
           gsap.set([...meta, ...body], { autoAlpha: 1, y: 0 });
+          built();
         },
       );
       return () => disarm();
@@ -83,78 +84,22 @@ function ServiceItem({ service, index, delay = 0 }) {
     return () => ctx.revert();
   }, [index, delay]);
 
-  const findClosestEdge = (mouseX, mouseY, width, height) => {
-    const topEdgeDist = Math.pow(mouseX - width / 2, 2) + Math.pow(mouseY, 2);
-    const bottomEdgeDist =
-      Math.pow(mouseX - width / 2, 2) + Math.pow(mouseY - height, 2);
-
-    return topEdgeDist < bottomEdgeDist ? "top" : "bottom";
-  };
-
-  const handleMouseEnter = (ev) => {
-    if (!itemRef.current || !overlayRef.current || !overlayInnerRef.current) {
-      return;
-    }
-
-    const rect = itemRef.current.getBoundingClientRect();
-
-    const edge = findClosestEdge(
-      ev.clientX - rect.left,
-      ev.clientY - rect.top,
-      rect.width,
-      rect.height,
-    );
-
-    const tl = gsap.timeline({ defaults: animationDefaults });
-
-    tl.set(overlayRef.current, { y: edge === "top" ? "-101%" : "101%" }, 0)
-      .set(overlayInnerRef.current, { y: edge === "top" ? "101%" : "-101%" }, 0)
-      .to([overlayRef.current, overlayInnerRef.current], { y: "0%" }, 0);
-
-    if (charsRef.current.length > 0) {
-      tl.fromTo(
+  // Hover: the title's letters hop in sequence (the lilac overlay wipe
+  // left with the posters, 2026-09-11: the poster is the hover response).
+  const handleMouseEnter = () => {
+    if (!itemRef.current?.classList.contains("is-built")) return;
+    gsap
+      .timeline()
+      .fromTo(
         charsRef.current,
         { y: 0 },
-        {
-          y: -32,
-          duration: 0.15,
-          ease: "sine.out",
-          stagger: { each: 0.01, from: "start" },
-        },
-        0,
-      ).to(
+        { y: -12, duration: 0.15, ease: "sine.out", stagger: { each: 0.01 } },
+      )
+      .to(
         charsRef.current,
-        {
-          y: 0,
-          duration: 0.2,
-          ease: "sine.inOut",
-          stagger: { each: 0.01, from: "start" },
-        },
+        { y: 0, duration: 0.2, ease: "sine.inOut", stagger: { each: 0.01 } },
         0.15,
       );
-    }
-  };
-
-  const handleMouseLeave = (ev) => {
-    if (!itemRef.current || !overlayRef.current || !overlayInnerRef.current) {
-      return;
-    }
-
-    const rect = itemRef.current.getBoundingClientRect();
-
-    const edge = findClosestEdge(
-      ev.clientX - rect.left,
-      ev.clientY - rect.top,
-      rect.width,
-      rect.height,
-    );
-
-    gsap.set(charsRef.current, { y: 0 });
-
-    gsap
-      .timeline({ defaults: animationDefaults })
-      .to(overlayRef.current, { y: edge === "top" ? "-101%" : "101%" }, 0)
-      .to(overlayInnerRef.current, { y: edge === "top" ? "101%" : "-101%" }, 0);
   };
 
   const chars = service.title.split("").map((char, i) => (
@@ -163,7 +108,7 @@ function ServiceItem({ service, index, delay = 0 }) {
       ref={(el) => {
         if (el) charsRef.current[i] = el;
       }}
-      className="services__overlay-char"
+      className="services__title-char"
       style={{ whiteSpace: char === " " ? "pre" : undefined }}
     >
       {char}
@@ -177,7 +122,6 @@ function ServiceItem({ service, index, delay = 0 }) {
         className="services__link cursor-black"
         aria-label={`${service.title} pricing`}
         onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
       >
         {/* Kicker row, then the service name as the dominant element and one
             line under it. The included-items line was cut (owner, 2026-09-10:
@@ -188,51 +132,19 @@ function ServiceItem({ service, index, delay = 0 }) {
           <span className="services__item-cta">{service.cta}</span>
           <span className="services__item-rule" aria-hidden="true" />
         </span>
+        {/* The open middle zone holds the service's live poster; the card
+            element is its hover area. */}
+        <ServicePoster slug={service.slug} cardRef={itemRef} />
         {/* Inner parallax layer (name + line). The entrance build animates
             the children; the parallax moves only this wrapper, so the two
-            never write the same property on the same element. The empty
-            space above it is the sticker slot. */}
+            never write the same property on the same element. */}
         <span className="services__item-body">
           <span className="services__item-title-mask">
-            <span className="services__item-title">{service.title}</span>
+            <span className="services__item-title">{chars}</span>
           </span>
           <span className="services__item-subtitle">{service.subTitle}</span>
         </span>
       </Link>
-
-      <div
-        ref={overlayRef}
-        className="services__overlay"
-        style={{ transform: "translateY(101%)" }}
-      >
-        <div
-          ref={overlayInnerRef}
-          className="services__overlay-inner"
-          style={{ transform: "translateY(-101%)" }}
-        >
-          <span className="services__overlay-main">
-            <span className="services__overlay-title">{chars}</span>
-            <span className="services__overlay-subtitle">
-              {service.description}
-            </span>
-          </span>
-
-          <svg
-            className="services__icon"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={1.5}
-              d="M7 17L17 7M17 7H7M17 7V17"
-            />
-          </svg>
-        </div>
-      </div>
     </div>
   );
 }

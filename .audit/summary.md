@@ -1948,3 +1948,10 @@ column edge; the list paginates at 11 per page (12 posts → page 1 holds 11, pa
 with a pager at the bottom of the left third that opens on the page holding the open post, in the
 static HTML too; the article's 44rem (~70ch) reading cap is removed by owner request, so it spans the
 full two-thirds (864px at 1440, ~110 characters a line).
+
+## LIVE SERVICE POSTERS — BUILT 2026-09-11, branch `feat/service-poster-live`, NOT PUSHED
+Four live SVG posters in the home service cards (`src/components/servicePoster/`): 01 "In register." (Brand Identity), 02 "Every page is a door." (Web Development), 03 "Always on." (AI & Automation), 04 "Be the answer." (SEO & AI Search). Owner decisions at Gate 0: existing tokens only (terra/pink $g4/mint/ink/cream), site fonts only (Inter; SCS Display for the face swap; system mono for labels, zero new font bytes), lilac hover wipe removed (the poster is the hover response, title letter-hop kept), phones get a square poster above the text.
+- Modes: static (SSR / no JS / reduced motion / error), pointer (fine pointer), ambient (touch). One shared gsap.ticker; a poster runs only at >= 15% visible.
+- Verified (headless, built site): SSR HTML carries all 4 full posters, no `style=""`, nothing at opacity 0; reduced motion leaves every poster at its SSR attributes, no ring element, no listeners; an off-screen poster writes nothing; a forced throw in Poster 01 remounted it as the untouched hero frame while 02-04 kept running; pointer events opened the door to ~0.93 and faded the drawn cursor; pointerenter replay dropped your bar to slot 4 (y 264 = 3 × 88).
+- Size: entry chunk 261,555 → 266,055 B gzip (+4.5 KB, target < 8 KB). Route count unchanged at 40.
+- OPEN (owner's visible-window pass): perf trace at 6× throttle (headless runs rAF at ~3 fps, so tween timing and ms/frame can't be measured here, see the headless rule in CLAUDE.md); Safari mix-blend + transform check; Firefox. Desktop pan cards leave the poster a wide, short zone (about 250 × 130 at 1440×900), so the square art letterboxes on its own background colour. If it reads too small, the lever is card proportions, not the SVG.
