@@ -1,7 +1,7 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
-/* The custom square replaces the native cursor ENTIRELY on capable pointer
+/* The custom cursor replaces the native cursor ENTIRELY on capable pointer
    devices. Gated by a body class the component adds on mount — so touch
    devices and machines that never mount the custom cursor keep the native
    one as the fallback (and pre-hydration there's still a cursor). */
@@ -10,7 +10,8 @@ body.has-custom-cursor * {
   cursor: none !important;
 }
 
-/* default: solid square in difference mode.
+/* default: solid circle in difference mode (owner, 2026-09-10: the circle
+   reads better than the old square; JS resets to 50% after every wrap).
    GEOMETRY (width/height/transform) IS OWNED BY JS — CursorComponent drives
    position and size with GSAP quickTo, including the element-wrap morph and
    the VE-12 press tighten. Do not add width/height rules or transitions here:
@@ -19,6 +20,7 @@ body.has-custom-cursor * {
 #cursor-dot {
   width: 25px;
   height: 25px;
+  border-radius: 50%;
   background-color: #fff;
   position: fixed;
   top: 0;

@@ -9,11 +9,12 @@ const INTERACTIVE_SELECTOR =
   "a, button, [role='button'], input[type='button'], input[type='submit'], summary, [data-cursor-color], [data-cursor-morph]";
 
 // Zones where wrapping looks wrong (logo art, accordion rows): the cursor
-// falls back to the classic hollow 35px square there instead of morphing.
+// falls back to a hollow 35px circle there instead of morphing.
 const NO_MORPH_ZONES = '.site-header, .faq';
 const HOVER_SIZE = 35;
 
-const BASE = 25; // resting square
+const BASE = 25; // resting circle (owner, 2026-09-10: circle everywhere)
+const ROUND = '50%'; // the resting / no-morph shape
 const PRESSED = 17; // VE-12 press tighten
 const MORPH_PAD = 10; // breathing room around a wrapped element
 
@@ -42,6 +43,7 @@ const CursorComponent = () => {
     const dot = dotRef.current;
     let parked = true; // VE-12: hidden until the first real mousemove
     let morphTarget = null; // element the cursor is currently wrapped around
+    let hoverTarget = null; // element behind a no-morph (hollow circle) hover
     let pressed = false;
     let lastX = 0;
     let lastY = 0;
@@ -59,9 +61,42 @@ const CursorComponent = () => {
 
     // While wrapped, stay glued to the element every frame — survives
     // scrolling, magnetic-button drift, and hover-lift transforms.
+    // Release the wrap without an exit event. pointerout is MISSED when the
+    // wrapped element vanishes under the pointer (header hiding over the hero,
+    // a closing dropdown, the services pin re-parenting the row); the cursor
+    // then stayed glued to a zero-size box at 0,0 (it "disappeared") or kept
+    // a pill's huge radius at 25px (the accidental circle).
+    const release = () => {
+      morphTarget = null;
+      gsap.ticker.remove(morphTick);
+      dot.classList.remove('is-hovering', 'is-morphed');
+      dot.style.removeProperty('--cursor-color');
+      gsap.to(dot, { borderRadius: ROUND, duration: 0.2, ease: 'power2.out', overwrite: 'auto' });
+      if (wTo) {
+        const size = pressed ? PRESSED : BASE;
+        wTo(size);
+        hTo(size);
+        xTo(lastX);
+        yTo(lastY);
+      }
+    };
+
     const morphTick = () => {
       if (!morphTarget) return;
       const r = morphTarget.getBoundingClientRect();
+      const pad = MORPH_PAD;
+      if (
+        !morphTarget.isConnected ||
+        r.width === 0 ||
+        r.height === 0 ||
+        lastX < r.left - pad ||
+        lastX > r.right + pad ||
+        lastY < r.top - pad ||
+        lastY > r.bottom + pad
+      ) {
+        release();
+        return;
+      }
       xTo(r.left + r.width / 2);
       yTo(r.top + r.height / 2);
       wTo(r.width + MORPH_PAD);
@@ -84,12 +119,33 @@ const CursorComponent = () => {
           yPercent: -50,
           width: BASE,
           height: BASE,
+          borderRadius: ROUND,
         });
         makeSetters();
         dot.classList.remove('is-parked');
         return;
       }
       if (morphTarget) return; // wrapped: morphTick owns position
+      // Same missed-exit guard as release(), for the hollow-circle hover:
+      // drop it if its element vanished or the pointer left its box.
+      if (hoverTarget) {
+        const r = hoverTarget.getBoundingClientRect();
+        if (
+          !hoverTarget.isConnected ||
+          r.width === 0 ||
+          e.clientX < r.left || e.clientX > r.right ||
+          e.clientY < r.top || e.clientY > r.bottom
+        ) {
+          hoverTarget = null;
+          dot.classList.remove('is-hovering');
+          dot.style.removeProperty('--cursor-color');
+          if (wTo) {
+            const size = pressed ? PRESSED : BASE;
+            wTo(size);
+            hTo(size);
+          }
+        }
+      }
       xTo(e.clientX);
       yTo(e.clientY);
     };
@@ -129,12 +185,13 @@ const CursorComponent = () => {
         if (morphTarget) {
           morphTarget = null;
           gsap.ticker.remove(morphTick);
-          gsap.to(dot, { borderRadius: 0, duration: 0.2, ease: 'power2.out' });
         }
+        gsap.to(dot, { borderRadius: ROUND, duration: 0.2, ease: 'power2.out', overwrite: 'auto' });
         if (wTo) {
           wTo(HOVER_SIZE);
           hTo(HOVER_SIZE);
         }
+        hoverTarget = target;
         dot.classList.add('is-hovering');
         dot.classList.remove('is-morphed');
         return;
@@ -143,6 +200,7 @@ const CursorComponent = () => {
       // Become the element's border: wrap the hovered element, matching its
       // rounded corners (square elements get a hair of rounding so the
       // cursor never looks broken against them).
+      hoverTarget = null;
       if (morphTarget !== target) {
         morphTarget = target;
         // Concentric corners: the ring sits MORPH_PAD/2 outside the element,
@@ -154,6 +212,7 @@ const CursorComponent = () => {
           borderRadius: `${radius > 0 ? radius + MORPH_PAD / 2 : 3}px`,
           duration: 0.25,
           ease: 'power2.out',
+          overwrite: 'auto',
         });
         gsap.ticker.add(morphTick);
       }
@@ -167,21 +226,14 @@ const CursorComponent = () => {
       // Still inside the wrapped element (moved onto a child)? Not a real exit.
       if (e.relatedTarget && target.contains(e.relatedTarget)) return;
 
+      if (morphTarget) {
+        release();
+        return;
+      }
+      hoverTarget = null;
       dot.classList.remove('is-hovering', 'is-morphed');
       dot.style.removeProperty('--cursor-color');
-
-      if (morphTarget) {
-        morphTarget = null;
-        gsap.ticker.remove(morphTick);
-        gsap.to(dot, { borderRadius: 0, duration: 0.2, ease: 'power2.out' });
-        if (wTo) {
-          const size = pressed ? PRESSED : BASE;
-          wTo(size);
-          hTo(size);
-          xTo(lastX);
-          yTo(lastY);
-        }
-      } else if (wTo) {
+      if (wTo) {
         // leaving a no-morph hover: shrink the hollow square back down
         const size = pressed ? PRESSED : BASE;
         wTo(size);

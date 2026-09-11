@@ -1896,3 +1896,17 @@ card to /pricing. (4) /services deleted (route, ServicesPage.js, its copy varian
 kicker too. Routes 41 → 40. (5) Pricing pages: the dotted `.pg-sep` rule and its styles are gone,
 the disclaimer is quiet grey body text, and the two actions are pill buttons (lavender "Book a Free
 Strategy Call", outline "Email the studio"), both 48px tall.
+
+## Cursor: a circle everywhere, and the "disappearing" bug — 2026-09-10 (late)
+
+Owner noticed the cursor was sometimes a circle (and preferred it) and sometimes vanished. Both were
+one bug: a missed `pointerout`. When the wrapped element vanished under the pointer (header hiding
+over the hero, a dropdown closing, the services pin re-parenting the row) no exit event fired, so the
+cursor either kept a pill button's ~105px radius at its 25px rest size (the accidental circle) or
+stayed glued to a zero-size box at 0,0 (it "disappeared"). Now: the rest shape is a circle (CSS
+`border-radius: 50%`, every reset tweens to 50%, the header/FAQ no-morph hover is a hollow circle),
+and both hover kinds release on their own when their element is detached, collapses to zero size, or
+the pointer leaves its box, with no exit event needed. Probed: rest 25px circle; header hover 35px
+hollow circle; wrap on a 30px-radius element gives a concentric 35px ring; deleting the wrapped
+element mid-hover returns a 25px circle at the pointer; leaving a no-morph hover with no exit event,
+and hiding the header mid-hover, both return a 25px circle.
