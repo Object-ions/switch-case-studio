@@ -55,10 +55,13 @@
     padding: 0;
   }
 
+  // Title, then its date right beside it (owner, 2026-09-11: dates kept
+  // close to the articles, not pushed to the column's far edge).
   &__item {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    column-gap: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.75rem;
+    row-gap: 0.1rem;
     align-items: baseline;
     padding: 0.3rem 0;
     color: rgba(255, 255, 255, 0.85);
@@ -119,10 +122,56 @@
     }
   }
 
+  // ── Pagination, bottom of the left third ──
+  &__pager {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  &__pager-num,
+  &__pager-step {
+    min-width: 2.25rem;
+    height: 2.25rem;
+    padding: 0 0.5rem;
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: $font-text;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background $dur-fast $ease-out, color $dur-fast $ease-out,
+      border-color $dur-fast $ease-out;
+
+    &:hover:not(:disabled) {
+      border-color: #fff;
+      color: #fff;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 3px;
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+  }
+
+  &__pager-num.is-current {
+    background: $g6;
+    border-color: $g6;
+    color: #000;
+  }
+
   // ── Right two-thirds: the article ──
+  // The article spans its full two-thirds (owner, 2026-09-11). The earlier
+  // 44rem (~70ch) reading cap is gone by request; at 1440 a line now runs
+  // ~110 characters.
   &__article {
     min-width: 0;
-    max-width: 44rem; // ~70ch reading measure inside the 2/3 column
   }
 
   &__head {
@@ -229,7 +278,6 @@
 
     &__article {
       order: 1;
-      max-width: none;
     }
   }
 }

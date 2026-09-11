@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import postsData from '../../data/posts.json';
 import BookCallCta from '../ui/BookCallCta';
@@ -24,8 +25,19 @@ const shortDate = (iso) => {
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 };
 
+// Posts per list page. 11 so the current 12 posts paginate (owner,
+// 2026-09-11): page 1 holds 11, page 2 the oldest.
+const PAGE_SIZE = 11;
+const pageCount = Math.ceil(sortedPosts.length / PAGE_SIZE);
+
 const JournalReader = ({ post, isIndex = false }) => {
   const idx = sortedPosts.findIndex((p) => p.slug === post.slug);
+  // The list opens on the page that holds the open post. Derived from the
+  // route (not the viewport), so the static HTML and hydration agree.
+  const postPage = Math.max(0, Math.floor(idx / PAGE_SIZE));
+  const [page, setPage] = useState(postPage);
+  useEffect(() => setPage(postPage), [postPage]);
+  const pagePosts = sortedPosts.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
   const nextPost = sortedPosts[(idx + 1) % sortedPosts.length];
   const TitleTag = isIndex ? 'h2' : 'h1';
   const JournalTag = isIndex ? 'h1' : 'p';
@@ -49,7 +61,7 @@ const JournalReader = ({ post, isIndex = false }) => {
         </JournalTag>
 
         <ol className="journal__list" aria-label="All articles">
-          {sortedPosts.map((p) => {
+          {pagePosts.map((p) => {
             const active = p.slug === post.slug;
             return (
               <li key={p.slug}>
@@ -101,6 +113,41 @@ const JournalReader = ({ post, isIndex = false }) => {
             </div>
           )}
         </dl>
+
+        {pageCount > 1 && (
+          <nav className="journal__pager" aria-label="Article list pages">
+            <button
+              type="button"
+              className="journal__pager-step"
+              onClick={() => setPage((n) => Math.max(0, n - 1))}
+              disabled={page === 0}
+              aria-label="Previous page"
+            >
+              &larr;
+            </button>
+            {Array.from({ length: pageCount }, (_, n) => (
+              <button
+                key={n}
+                type="button"
+                className={`journal__pager-num${n === page ? ' is-current' : ''}`}
+                onClick={() => setPage(n)}
+                aria-current={n === page ? 'page' : undefined}
+                aria-label={`Page ${n + 1}`}
+              >
+                {n + 1}
+              </button>
+            ))}
+            <button
+              type="button"
+              className="journal__pager-step"
+              onClick={() => setPage((n) => Math.min(pageCount - 1, n + 1))}
+              disabled={page === pageCount - 1}
+              aria-label="Next page"
+            >
+              &rarr;
+            </button>
+          </nav>
+        )}
       </aside>
 
       <article className="journal__article" aria-labelledby="journal-article-title">

@@ -1942,3 +1942,9 @@ the article first, the list and details after. The body-block renderer moved ver
 `blogPage.scss` deleted (dead). Both pages keep their `<Seo>` and JSON-LD; routes 40. Tradeoff to
 watch: /blog now shows the newest post's full text, which duplicates /blog/<newest>; the canonical
 tags are unchanged.
+
+Journal follow-up (2026-09-11): dates sit right beside each title (12px gap), not pushed to the
+column edge; the list paginates at 11 per page (12 posts → page 1 holds 11, page 2 the oldest),
+with a pager at the bottom of the left third that opens on the page holding the open post, in the
+static HTML too; the article's 44rem (~70ch) reading cap is removed by owner request, so it spans the
+full two-thirds (864px at 1440, ~110 characters a line).

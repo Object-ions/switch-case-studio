@@ -24,6 +24,9 @@ the article. `/blog` opens the newest post (journal title = h1, article title = 
 opens that post (article title = h1). The body-block renderer and date formatter live in
 `src/components/blog/blogBlocks.js` (block styles still in `blogPostPage.scss`). `BlogPage.js` and
 `BlogPostPage.js` now own only their `<Seo>` and route handling.
+The list paginates at `PAGE_SIZE = 11` in JournalReader.js and opens on the page holding the open post
+(derived from the route, so static HTML and hydration agree). The article spans its full two-thirds
+by owner request (no ~70ch cap): at 1440 a line runs ~110 characters.
 
 - **A post is a flat object** with a `body` array of blocks; block `type` ∈ `paragraph` |
   `heading` | `list` (items[]) | `quote` (text, cite?) | `video` (url, caption?/title?) |
