@@ -257,7 +257,9 @@
 
   // Cover: 16:9 across the full two-thirds. Posts without a coverImage get
   // a typographic plate (category word) so the grid holds.
+  // Pointer light: the hook writes --mx/--my on hover (fine pointers only).
   &__cover {
+    position: relative;
     margin: 0 0 2.5rem;
     aspect-ratio: 16 / 9;
     max-width: 100%;
@@ -271,6 +273,49 @@
       height: 100%;
       object-fit: cover;
     }
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(
+        600px circle at var(--mx, 50%) var(--my, 50%),
+        rgba(200, 162, 255, 0.18),
+        transparent 60%
+      );
+      opacity: 0;
+      transition: opacity $dur-med $ease-out;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  // Subheadings get a lavender hairline that draws when their section is
+  // revealed. Drawn by default; undrawn only once JS has marked the root.
+  &__section .blog-post__h2 {
+    position: relative;
+    padding-bottom: 0.5rem;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 3rem;
+      height: 2px;
+      background: $g6;
+      transform-origin: 0 50%;
+      transition: transform 0.9s $ease-out 0.15s;
+    }
+  }
+
+  &.has-motion &__section:not(.is-in) .blog-post__h2::after {
+    transform: scaleX(0);
   }
 
   &__cover-mark {
