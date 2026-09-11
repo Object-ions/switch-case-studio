@@ -117,7 +117,51 @@ const JournalReader = ({ post, isIndex = false }) => {
               </li>
             );
           })}
+          {/* A short last page keeps its full height (owner, 2026-09-11): empty
+              rows with the same markup, so the pager and details never jump. */}
+          {Array.from({ length: pageCount > 1 ? PAGE_SIZE - pagePosts.length : 0 }, (_, n) => (
+            <li key={`pad-${n}`} aria-hidden="true">
+              <span className="journal__item">
+                <span className="journal__item-title">&nbsp;</span>
+              </span>
+            </li>
+          ))}
         </ol>
+
+        {pageCount > 1 && (
+          <nav className="journal__pager" aria-label="Article list pages">
+            <button
+              type="button"
+              className="journal__pager-step"
+              onClick={() => setPage((n) => Math.max(0, n - 1))}
+              disabled={page === 0}
+              aria-label="Previous page"
+            >
+              &larr;
+            </button>
+            {Array.from({ length: pageCount }, (_, n) => (
+              <button
+                key={n}
+                type="button"
+                className={`journal__pager-num${n === page ? ' is-current' : ''}`}
+                onClick={() => setPage(n)}
+                aria-current={n === page ? 'page' : undefined}
+                aria-label={`Page ${n + 1}`}
+              >
+                {n + 1}
+              </button>
+            ))}
+            <button
+              type="button"
+              className="journal__pager-step"
+              onClick={() => setPage((n) => Math.min(pageCount - 1, n + 1))}
+              disabled={page === pageCount - 1}
+              aria-label="Next page"
+            >
+              &rarr;
+            </button>
+          </nav>
+        )}
 
         <dl className="journal__details" aria-label="About this article">
           {category && (
@@ -154,41 +198,6 @@ const JournalReader = ({ post, isIndex = false }) => {
             </div>
           )}
         </dl>
-
-        {pageCount > 1 && (
-          <nav className="journal__pager" aria-label="Article list pages">
-            <button
-              type="button"
-              className="journal__pager-step"
-              onClick={() => setPage((n) => Math.max(0, n - 1))}
-              disabled={page === 0}
-              aria-label="Previous page"
-            >
-              &larr;
-            </button>
-            {Array.from({ length: pageCount }, (_, n) => (
-              <button
-                key={n}
-                type="button"
-                className={`journal__pager-num${n === page ? ' is-current' : ''}`}
-                onClick={() => setPage(n)}
-                aria-current={n === page ? 'page' : undefined}
-                aria-label={`Page ${n + 1}`}
-              >
-                {n + 1}
-              </button>
-            ))}
-            <button
-              type="button"
-              className="journal__pager-step"
-              onClick={() => setPage((n) => Math.min(pageCount - 1, n + 1))}
-              disabled={page === pageCount - 1}
-              aria-label="Next page"
-            >
-              &rarr;
-            </button>
-          </nav>
-        )}
       </aside>
 
       <article className="journal__article" aria-labelledby="journal-article-title">
