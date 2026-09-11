@@ -1928,3 +1928,17 @@ and hiding the header mid-hover, both return a 25px circle.
    to 1.83MB, the figure already published in its case study, linked).
 7. Header: three columns, nav on the true centre (720 of 1440), "Book a Free Strategy Call" alone
    on the right, the logo still fixed left; ≤960px the menu button is pinned to the right column.
+
+## The Studio Journal becomes a split reader — 2026-09-11
+
+After the owner's "selected works" index reference: /blog and every /blog/:slug render one layout,
+`JournalReader`. Left third (sticky under the fixed header): the journal name, the post list (title +
+short date, the open post in lavender) and the open post's details as label/value rows (category,
+published, reading time, author, topics). Right two-thirds: the article itself, capped at a ~70ch
+measure, then a booking prompt and "Next article". /blog opens the newest post (journal name = h1,
+article title = h2); a post page makes the article title the h1; heading-skip scan 0. Phones stack
+the article first, the list and details after. The body-block renderer moved verbatim into
+`src/components/blog/blogBlocks.js` (the `download` attribute survives: the n8n post still emits it);
+`blogPage.scss` deleted (dead). Both pages keep their `<Seo>` and JSON-LD; routes 40. Tradeoff to
+watch: /blog now shows the newest post's full text, which duplicates /blog/<newest>; the canonical
+tags are unchanged.

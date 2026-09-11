@@ -17,9 +17,13 @@ Running audit + status doc: `.audit/summary.md` — keep it current with git, no
 
 The blog is data-driven from `src/data/posts.json` and pre-rendered per post via `getStaticPaths`
 in `routes.js`. It's the publish target for the **Studio Journal Factory** (Beau writes weekly,
-commits `posts.json`, pushes → Netlify deploys). Pages: `BlogPage.js` (list) + `BlogPostPage.js`
-(article), styles `blogPage.scss` / `blogPostPage.scss` (dark, reuse the existing tokens; list is
-`projectsPage` parity, article is a 760px reading column).
+commits `posts.json`, pushes → Netlify deploys). Since 2026-09-11 both pages render ONE split reader,
+`src/components/blog/JournalReader.js` (styles `journal.scss`): the left third is the post list (title
++ date, the open post in lavender) with the open post's details under it; the right two-thirds is
+the article. `/blog` opens the newest post (journal title = h1, article title = h2); `/blog/:slug`
+opens that post (article title = h1). The body-block renderer and date formatter live in
+`src/components/blog/blogBlocks.js` (block styles still in `blogPostPage.scss`). `BlogPage.js` and
+`BlogPostPage.js` now own only their `<Seo>` and route handling.
 
 - **A post is a flat object** with a `body` array of blocks; block `type` ∈ `paragraph` |
   `heading` | `list` (items[]) | `quote` (text, cite?) | `video` (url, caption?/title?) |
@@ -34,9 +38,9 @@ commits `posts.json`, pushes → Netlify deploys). Pages: `BlogPage.js` (list) +
 - **Never hand-edit `posts.json` from an automation** — insert via `node scripts/add-post.mjs
   <post.json>` (validates schema + unique slug, fills date/readingTime/author, inserts newest-first,
   rejects malformed posts). Adding a block type means updating BOTH `add-post.mjs`'s `BLOCK_TYPES`
-  and `BlogPostPage.js`'s `Block` switch, or posts using it silently render blank.
-- `coverImage` is optional — the list card shows a branded gradient stand-in when it's empty (so
-  automation posts with no art don't read as broken). The article omits the cover figure entirely.
+  and `blogBlocks.js`'s `Block` switch, or posts using it silently render blank.
+- `coverImage` is optional and currently unused by the reader (it still feeds `og:image` and the
+  BlogPosting JSON-LD); the split reader shows no cover, by design.
 - The sitemap generator (`generate-sitemap.mjs`) already emits `/blog` + every post; it derives
   from `posts.json`, so new posts appear automatically. Both pages render `<Seo>` (Blog /
   BlogPosting + breadcrumb JSON-LD) — keep that.
