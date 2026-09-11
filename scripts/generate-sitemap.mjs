@@ -50,7 +50,6 @@ const siteMod = lastmodOf('src'); // any source change touches the static pages
 const urls = [
   { loc: '/', lastmod: siteMod, priority: '1.0' },
   { loc: '/about', lastmod: siteMod, priority: '0.8' },
-  { loc: '/services', lastmod: siteMod, priority: '0.8' },
   { loc: '/projects', lastmod: projectsMod, priority: '0.8' },
   { loc: '/pricing', lastmod: servicesMod, priority: '0.8' },
   { loc: '/testimonials', lastmod: siteMod, priority: '0.7' },

@@ -355,16 +355,6 @@ const StaggeredMenu = ({
           <ul className="sm-panel-list">
             <li className="sm-panel-itemWrap">
               <Link
-                to="/services"
-                className="sm-panel-item"
-                onClick={handleNavClick('/services')}
-              >
-                <span className="sm-panel-itemLabel">Services</span>
-              </Link>
-            </li>
-
-            <li className="sm-panel-itemWrap">
-              <Link
                 to="/about"
                 className="sm-panel-item"
                 onClick={handleNavClick('/about')}
@@ -374,7 +364,7 @@ const StaggeredMenu = ({
             </li>
 
             <MenuAccordion
-              label="Pricing"
+              label="Services & Pricing"
               labelTo="/pricing"
               items={PRICING_LINKS}
               isOpen={openAccordion === 'pricing'}

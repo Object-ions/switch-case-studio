@@ -1881,3 +1881,18 @@ crosses the screen (`containerAnimation`). The per-card vertical parallax was re
 pin). Measured: pinned at top 0 throughout; travel 753px at 1440×900 (cards 405×540), 378px at
 1440×800 (330×440), card always fits under the heading; the block releases into the next section.
 Reduced motion at 1440 and phones keep the static grid with no pin and no end card.
+
+## Services slide, cursor ring, /services retired, pricing footer — 2026-09-10 (late)
+
+Owner's batch. (1) The pan now ends with "All services & pricing" in the second-from-right slot: a
+trailing empty slot (`::after`, one card width) after the end card; measured 443px from the end
+card to the right edge at 1440 (one slot + gap + gutter), travel 1860px. (2) Cursor ring: it copied
+the hovered element's raw radius while sitting MORPH_PAD/2 outside it, and the services card's
+inner link had no radius at all (3px fallback). Now the ring radius is element radius + MORPH_PAD/2
+(concentric) and `.services__link` inherits the panel's 12px. Probe: { "pointerDevice": true, "card": { "radius": "12px", "w": 380 }, "ring": { "radius": "17px", "hovering": true, "w": 390 }}. (3) Card links verified in
+the built HTML: /pricing/design-branding, /web-development, /ai-development, /marketing-ads; the end
+card to /pricing. (4) /services deleted (route, ServicesPage.js, its copy variant, sitemap entry);
+301 /services → /pricing; the header dropdown and phone menu read "Services & Pricing", the /pricing
+kicker too. Routes 41 → 40. (5) Pricing pages: the dotted `.pg-sep` rule and its styles are gone,
+the disclaimer is quiet grey body text, and the two actions are pill buttons (lavender "Book a Free
+Strategy Call", outline "Email the studio"), both 48px tall.

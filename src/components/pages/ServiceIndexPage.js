@@ -12,29 +12,16 @@ import {
 import BookCallCta from '../ui/BookCallCta';
 import '../../styles/components/serviceIndexPage.scss';
 
-// Per-route copy + SEO. The page body below is identical for both — only
-// these strings change with the route (see ServicesPage / PricingOverviewPage).
+// Page copy + SEO. /services was retired 2026-09-10 (it duplicated this page;
+// it 301s here), so only the Services & Pricing copy remains.
 const COPY = {
-  services: {
-    seoTitle: 'Services | Switch Case Studio',
-    seoDescription:
-      'AI development, automation, web development, e-commerce, branding, and growth: design, code, and AI systems by Switch Case Studio, priced in the open.',
-    path: '/services',
-    ariaLabel: 'Services',
-    kicker: 'What we do',
-    titleTop: 'Design. Code. AI.',
-    titleAccent: 'One studio.',
-    lede: 'Websites, apps, brand systems, and the AI and automation behind them: we handle the full stack of what a growing business needs to run online.',
-    bottomHeading: 'Not sure what you need?',
-    bottomBody: "Book a free call and we'll figure it out together.",
-  },
   pricing: {
     seoTitle: 'Services & Pricing | Switch Case Studio',
     seoDescription:
       "Explore Switch Case Studio's services: AI development, automation, web development, e-commerce, branding, and growth. Transparent pricing, fast delivery.",
     path: '/pricing',
     ariaLabel: 'Services and pricing',
-    kicker: 'Pricing',
+    kicker: 'Services & Pricing',
     titleTop: 'What we do,',
     titleAccent: 'and what it costs.',
     lede: 'Pick a service to see what is included and what it costs. AI and automation included, hype not.',
@@ -84,7 +71,7 @@ const fromPrice = (slug) => {
   return `$${Math.min(...prices).toLocaleString('en-US')}`;
 };
 
-const ServiceIndexPage = ({ variant }) => {
+const ServiceIndexPage = ({ variant = 'pricing' }) => {
   const reduced = useReducedMotion();
   const v = (motionVariant) => (reduced ? undefined : motionVariant);
   /* LC-26e: header is GSAP-revealed (static HTML ships visible) — see

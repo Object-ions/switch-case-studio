@@ -97,6 +97,13 @@
 # Services consolidated 7 → 4 on 2026-09-10 (owner decision). The three
 # retired pricing pages were live and in the sitemap: 301 each to the
 # service that absorbed it. Remove a block only if that slug comes back.
+# /services duplicated /pricing and was retired 2026-09-10; /pricing is now
+# "Services & Pricing". The old page was live and in the sitemap.
+[[redirects]]
+  from = "/services"
+  to = "/pricing"
+  status = 301
+
 [[redirects]]
   from = "/pricing/automation-integrations"
   to = "/pricing/ai-development"

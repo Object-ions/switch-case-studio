@@ -1,61 +1,42 @@
-import { Suspense, useRef, useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
-import MainLayout from "./components/layout/MainLayout";
+import { Suspense, useRef, useEffect } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
+import MainLayout from './components/layout/MainLayout';
 
 // Home sections — synchronous (must be ready on first paint)
-import Hero from "./components/sections/Hero";
-import ClientStrip from "./components/sections/ClientStrip";
-import LandingPageProof from "./components/sections/LandingPageProof";
-import Services from "./components/sections/Services";
-import Squares from "./components/ui/Squares";
-import About from "./components/sections/About";
-import Reviews from "./components/sections/Reviews";
-import CaseStudies from "./components/sections/CaseStudies";
-import Contact from "./components/sections/Contact";
-import Faq from "./components/sections/Faq";
-import GradientStripe from "./components/sections/StripeSection";
-import ScrollToTop from "./components/util/ScrollToTop";
-import Seo from "./components/util/Seo";
-import RouteAnalytics from "./analytics/RouteAnalytics";
-import ConsentBanner from "./analytics/ConsentBanner";
-import Orb from "./assets/images/orb.avif";
-import projects from "./data/projects.json";
-import services from "./data/services.json";
-import posts from "./data/posts.json";
-import "./styles/app.scss";
+import Hero from './components/sections/Hero';
+import ClientStrip from './components/sections/ClientStrip';
+import LandingPageProof from './components/sections/LandingPageProof';
+import Services from './components/sections/Services';
+import Squares from './components/ui/Squares';
+import About from './components/sections/About';
+import Reviews from './components/sections/Reviews';
+import CaseStudies from './components/sections/CaseStudies';
+import Contact from './components/sections/Contact';
+import Faq from './components/sections/Faq';
+import GradientStripe from './components/sections/StripeSection';
+import ScrollToTop from './components/util/ScrollToTop';
+import Seo from './components/util/Seo';
+import RouteAnalytics from './analytics/RouteAnalytics';
+import ConsentBanner from './analytics/ConsentBanner';
+import Orb from './assets/images/orb.avif';
+import projects from './data/projects.json';
+import services from './data/services.json';
+import posts from './data/posts.json';
+import './styles/app.scss';
 
 // Route-only pages — lazy route records: vite-react-ssg resolves them during
 // the static build (full content in the HTML) and React Router code-splits
 // them on the client, same chunks as the old React.lazy setup.
-const page = (loader) => () =>
-  loader().then((m) => ({ Component: m.default }));
+const page = (loader) => () => loader().then((m) => ({ Component: m.default }));
 
 const HomeContent = () => (
   <>
     <Seo
-      title="Switch Case Studio | AI-First Web Design, Development & Automation"
+      title="Switch Case Studio | Web Design, Development, AI & Automation"
       description="Websites, apps, and AI systems built from scratch: web design, development, chatbots, agents, and n8n automation from one engineer-led studio. White-label work for agencies too."
       path="/"
     />
     <Hero />
-    {/* Services block (owner, 2026-09-10): intro + menu share one full-screen
-        stage over the interactive grid About uses, faded to black at the top
-        and bottom so it joins the hero and the stripe without a seam. */}
-    <div className="services-block">
-      <div className="services-block__grid" aria-hidden="true">
-        <Squares
-          speed={0.1}
-          squareSize={50}
-          direction="down"
-          // Dimmer than About's #7f7f7f: this block carries dense small copy
-          // (the muted "includes" lines), which bright lines cut through.
-          borderColor="#3d3d3d"
-          hoverFillColor="#dab8ff"
-        />
-      </div>
-      <LandingPageProof />
-      <Services />
-    </div>
     {/* M7: min height 120px (was 160) — on phones the band is a divider
         accent, not a content section; desktop sizing is unchanged (30vw
         still governs above ~400px viewports). */}
@@ -65,8 +46,23 @@ const HomeContent = () => (
       travel={60}
       orbSrc={Orb}
     />
-    {/* "Trusted by" marquee sits right above the case-study title (owner,
-        2026-09-09); it used to follow the hero. */}
+    {/* Services block (owner, 2026-09-10): intro + menu share one full-screen
+        stage over the interactive grid About uses, faded to black at the top
+        and bottom so it joins the hero and the stripe without a seam. */}
+    <div className="services-block">
+      <div className="services-block__grid" aria-hidden="true">
+        <Squares
+          speed={0.1}
+          squareSize={50}
+          direction="down"
+          // Dimmer than About's #7f7f7f so the lines stay behind the cards.
+          borderColor="#3d3d3d"
+          hoverFillColor="#dab8ff"
+        />
+      </div>
+      <LandingPageProof />
+      <Services />
+    </div>
     <ClientStrip />
     <CaseStudies />
     <About />
@@ -106,7 +102,7 @@ const LIGHT_ROUTES = /^\/(privacy|terms|accessibility)(\/|$)/;
  */
 const Layout = () => {
   const { pathname } = useLocation();
-  const theme = LIGHT_ROUTES.test(pathname) ? "is-light" : "is-dark";
+  const theme = LIGHT_ROUTES.test(pathname) ? 'is-light' : 'is-dark';
 
   // The page fade is a route-transition touch — but it animates from opacity:0,
   // and the hero (LCP element) lives inside it. Running it on first paint gates
@@ -126,8 +122,10 @@ const Layout = () => {
       <RouteAnalytics />
       <ConsentBanner />
       <div className={`route-backdrop ${theme}`}>
-        <Suspense fallback={<div className="route-fallback" aria-hidden="true" />}>
-          <div key={pathname} className={isInitial ? undefined : "page-fade"}>
+        <Suspense
+          fallback={<div className="route-fallback" aria-hidden="true" />}
+        >
+          <div key={pathname} className={isInitial ? undefined : 'page-fade'}>
             <Outlet />
           </div>
         </Suspense>
@@ -138,34 +136,46 @@ const Layout = () => {
 
 export const routes = [
   {
-    path: "/",
+    path: '/',
     element: <Layout />,
     children: [
       // Landing
       { index: true, element: <HomeContent /> },
 
       // About
-      { path: "about", lazy: page(() => import("./components/pages/AboutPage")) },
+      {
+        path: 'about',
+        lazy: page(() => import('./components/pages/AboutPage')),
+      },
 
       // Case studies
-      { path: "projects", lazy: page(() => import("./components/pages/CaseStudiesPage")) },
       {
-        path: "projects/:slug",
-        lazy: page(() => import("./components/pages/CaseStudyPage")),
+        path: 'projects',
+        lazy: page(() => import('./components/pages/CaseStudiesPage')),
+      },
+      {
+        path: 'projects/:slug',
+        lazy: page(() => import('./components/pages/CaseStudyPage')),
         getStaticPaths: () => projects.map((p) => `/projects/${p.slug}`),
       },
 
       // Pricing
-      { path: "pricing", lazy: page(() => import("./components/pages/PricingOverviewPage")) },
       {
-        path: "pricing/:serviceSlug",
-        lazy: page(() => import("./components/pages/PricingPage")),
+        path: 'pricing',
+        lazy: page(() => import('./components/pages/PricingOverviewPage')),
+      },
+      {
+        path: 'pricing/:serviceSlug',
+        lazy: page(() => import('./components/pages/PricingPage')),
         getStaticPaths: () => services.map((s) => `/pricing/${s.slug}`),
       },
 
       // Promo landing — noindex (PROMO_INDEXABLE), intentionally absent from
       // the sitemap. Lazy so it never enters the other pages' bundles.
-      { path: "30-off", lazy: page(() => import("./components/pages/PromoPage")) },
+      {
+        path: '30-off',
+        lazy: page(() => import('./components/pages/PromoPage')),
+      },
 
       // Agency-partner wholesale offer — behind a password gate at /partners.
       // The pre-rendered /partners.html ships ONLY the lock screen; PartnersGate
@@ -175,32 +185,52 @@ export const routes = [
       // X-Robots-Tag header in netlify.toml), NOT linked anywhere, absent from
       // the sitemap. Hand partners the URL + password. Lazy so the offer never
       // enters the other pages' bundles.
-      { path: "partners", lazy: page(() => import("./components/pages/PartnersGate")) },
+      {
+        path: 'partners',
+        lazy: page(() => import('./components/pages/PartnersGate')),
+      },
 
       // Blog
-      { path: "blog", lazy: page(() => import("./components/pages/BlogPage")) },
+      { path: 'blog', lazy: page(() => import('./components/pages/BlogPage')) },
       {
-        path: "blog/:slug",
-        lazy: page(() => import("./components/pages/BlogPostPage")),
+        path: 'blog/:slug',
+        lazy: page(() => import('./components/pages/BlogPostPage')),
         getStaticPaths: () => posts.map((p) => `/blog/${p.slug}`),
       },
 
       // Standalone section pages
-      { path: "services", lazy: page(() => import("./components/pages/ServicesPage")) },
-      { path: "testimonials", lazy: page(() => import("./components/pages/ReviewsPage")) },
-      { path: "contact", lazy: page(() => import("./components/pages/ContactPage")) },
+      {
+        path: 'testimonials',
+        lazy: page(() => import('./components/pages/ReviewsPage')),
+      },
+      {
+        path: 'contact',
+        lazy: page(() => import('./components/pages/ContactPage')),
+      },
 
       // Legal
-      { path: "privacy", lazy: page(() => import("./components/pages/Privacy")) },
-      { path: "terms", lazy: page(() => import("./components/pages/Terms")) },
-      { path: "accessibility", lazy: page(() => import("./components/pages/Accessibility")) },
+      {
+        path: 'privacy',
+        lazy: page(() => import('./components/pages/Privacy')),
+      },
+      { path: 'terms', lazy: page(() => import('./components/pages/Terms')) },
+      {
+        path: 'accessibility',
+        lazy: page(() => import('./components/pages/Accessibility')),
+      },
 
       // 404 — emitted as build/404.html, which Netlify serves (with a real
       // 404 status) for any URL that has no static file. The "*" catch-all
       // below renders the same page for unknown in-app navigations (it used
       // to silently redirect home, masking broken links).
-      { path: "404", lazy: page(() => import("./components/pages/NotFoundPage")) },
-      { path: "*", lazy: page(() => import("./components/pages/NotFoundPage")) },
+      {
+        path: '404',
+        lazy: page(() => import('./components/pages/NotFoundPage')),
+      },
+      {
+        path: '*',
+        lazy: page(() => import('./components/pages/NotFoundPage')),
+      },
     ],
   },
 ];

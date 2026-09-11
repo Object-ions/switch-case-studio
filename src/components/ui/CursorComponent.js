@@ -145,9 +145,13 @@ const CursorComponent = () => {
       // cursor never looks broken against them).
       if (morphTarget !== target) {
         morphTarget = target;
-        const radius = getComputedStyle(target).borderRadius;
+        // Concentric corners: the ring sits MORPH_PAD/2 outside the element,
+        // so its radius is the element's radius PLUS that offset. Copying the
+        // raw radius left a visibly tighter corner on rounded cards (owner,
+        // 2026-09-10: the services-card border didn't follow the panel).
+        const radius = parseFloat(getComputedStyle(target).borderTopLeftRadius) || 0;
         gsap.to(dot, {
-          borderRadius: radius === '0px' ? '3px' : radius,
+          borderRadius: `${radius > 0 ? radius + MORPH_PAD / 2 : 3}px`,
           duration: 0.25,
           ease: 'power2.out',
         });

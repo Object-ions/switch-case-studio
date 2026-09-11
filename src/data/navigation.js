@@ -23,7 +23,7 @@ export const EXPLORE_LINKS = [
   { label: 'Services', hash: '#services' },
   { label: 'About', to: '/about' },
   { label: 'Case Studies', to: '/projects' },
-  { label: 'Pricing', to: '/pricing' },
+  { label: 'Services & Pricing', to: '/pricing' },
   { label: 'Blog', to: '/blog' },
   { label: 'Contact', hash: '#contact' },
 ];

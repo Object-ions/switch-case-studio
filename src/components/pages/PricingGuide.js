@@ -216,17 +216,13 @@ export const PricingGuide = ({ serviceId }) => {
         </p>
       </div>
 
-      <hr className="pg-sep pg-sep--wide" />
-
       <footer className="pg-footer pg-animate" aria-label="Contact">
-        <BookCallCta className="pg-link" />
+        <BookCallCta className="pg-btn pg-btn--primary" />
         <a
-          className="pg-link"
+          className="pg-btn pg-btn--secondary"
           href="mailto:hello@switchcasestudio.com"
-          target="_blank"
-          rel="noreferrer"
         >
-          hello@switchcasestudio.com
+          Email the studio
         </a>
       </footer>
     </section>

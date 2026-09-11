@@ -123,6 +123,9 @@
   // bleeds 1.25rem past it on hover.
   &__link {
     flex: 1;
+    // The cursor wraps THIS element and copies its radius; inherit the
+    // panel's 12px so the ring follows the card's corners.
+    border-radius: inherit;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -413,6 +416,13 @@
       // lead, so the first card enters at the right of the screen, fully
       // inside it. scrollWidth includes this, so the pan grows to match.
       padding-left: calc(2 * (var(--card-h) * 0.75 + 1.5rem));
+
+      // One empty slot AFTER the end card, so the pan finishes with "All
+      // services & pricing" in the second-from-right slot, not flush right.
+      &::after {
+        content: '';
+        flex: 0 0 calc(var(--card-h) * 0.75);
+      }
     }
 
     &__item,

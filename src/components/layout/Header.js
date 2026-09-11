@@ -294,15 +294,6 @@ const Header = () => {
                   About
                 </Link>
               </li>
-              <li className="nav_item">
-                <Link
-                  to="/services"
-                  className={`nav_link ${isActive("/services") ? "is-active" : ""}`}
-                  aria-current={isActive("/services") ? "page" : undefined}
-                >
-                  Services
-                </Link>
-              </li>
               {/* Pricing — disclosure submenu (button, not link).
                   .is-open ONLY reflects activeSubmenu state.
                   Route-match highlights the trigger via .is-active below. */}
@@ -325,7 +316,7 @@ const Header = () => {
                   onFocus={handleTriggerFocus("pricing")}
                   onClick={() => setActiveSubmenu(null)}
                 >
-                  Pricing
+                  Services &amp; Pricing
                   <span className="nav_caret" aria-hidden="true" />
                 </Link>
                 {renderSubmenu("pricing", PRICING_LINKS)}
