@@ -398,10 +398,12 @@
     }
 
     &__list {
-      // Taller cards = a longer, more felt pan (528px of travel at 900 tall
-      // with the first sizing; ~750px now) while the block still fits one
+      // Taller cards = a longer, more felt pan; the block still fits one
       // screen: 142px top + heading ~176px + card + 32px bottom <= 100vh.
-      --card-h: clamp(380px, calc(100vh - 360px), 680px);
+      // Measured against #services' CLIP (it ends at the block's 32px bottom
+      // padding), not the viewport: 100vh - 360px put the card bottom 12px
+      // past the clip and sliced its rounded corners at 1440x900.
+      --card-h: clamp(300px, calc(100vh - 390px), 680px);
       display: flex;
       flex-wrap: nowrap;
       gap: 1.5rem;
