@@ -3,7 +3,11 @@
    Moved here verbatim from BlogPostPage. The `download` block's `download`
    attribute is load-bearing: ga.js's delegated listener matches on it to
    fire file_download. Adding a block type means updating BOTH this switch
-   and scripts/add-post.mjs's BLOCK_TYPES (see CLAUDE.md, blog contract). */
+   and scripts/add-post.mjs's BLOCK_TYPES (see CLAUDE.md, blog contract).
+   The block styles are imported HERE, not by a page: /blog is its own route
+   chunk, and when only BlogPostPage imported them, /blog rendered unstyled,
+   run-together paragraphs. */
+import '../../styles/components/blogPostPage.scss';
 
 export const formatDate = (iso) => {
   if (!iso) return '';

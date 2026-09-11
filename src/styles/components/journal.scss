@@ -10,7 +10,9 @@
   margin-right: calc(50% - 50vw);
   box-sizing: border-box;
   min-height: 100vh;
-  padding: calc(110px + 3rem) $edge-pad 6rem; // clears the fixed header
+  // Off the home page the header is in the flow (sticky), so it already
+  // reserves its own height; this is breathing room only.
+  padding: 3rem $edge-pad 6rem;
   background: #000;
   color: #fff;
   font-family: $font-text;
@@ -211,7 +213,7 @@
   @media (max-width: 900px) {
     grid-template-columns: minmax(0, 1fr);
     row-gap: 4rem;
-    padding-top: calc(81px + 2rem);
+    padding-top: 2rem;
 
     &__side {
       position: static;

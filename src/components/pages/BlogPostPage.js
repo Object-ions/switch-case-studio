@@ -3,7 +3,6 @@ import { Navigate, useParams } from 'react-router-dom';
 import Seo from '../util/Seo';
 import postsData from '../../data/posts.json';
 import JournalReader from '../blog/JournalReader';
-import '../../styles/components/blogPostPage.scss'; // body-block styles
 
 const BlogPostPage = () => {
   const { slug } = useParams();
