@@ -27,6 +27,14 @@ opens that post (article title = h1). The body-block renderer and date formatter
 The list paginates at `PAGE_SIZE = 11` in JournalReader.js and opens on the page holding the open post
 (derived from the route, so static HTML and hydration agree). The article spans its full two-thirds
 by owner request (no ~70ch cap): at 1440 a line runs ~110 characters.
+Grid pass (2026-09-11, `feat/blog-grid`): list rows are one line (title ellipsis, dates in a fixed
+6.5rem column); the pager sits under the list and a short last page is padded with `aria-hidden`
+rows so nothing below it moves; details lead with Title. The article is cover (16:9; a lavender
+category-word plate while no post has `coverImage`) → title + lede → body cut into sections at each
+heading, each set in 1 or 2 CSS columns by `sectionize()`: intro always 2; media or < 110 words → 1;
+> 200 words → 2; in between a stable slug hash; never 3 in a row. Motion lives in
+`useJournalMotion.js` (scroll reveals with `armSafetyNet`, progress bar, cover drift/light, list
+cascade) plus a CSS `journal-enter` keyframe for title/lede/intro — see the rule below.
 
 - **A post is a flat object** with a `body` array of blocks; block `type` ∈ `paragraph` |
   `heading` | `list` (items[]) | `quote` (text, cite?) | `video` (url, caption?/title?) |
@@ -49,6 +57,7 @@ by owner request (no ~70ch cap): at 1440 a line runs ~110 characters.
   BlogPosting + breadcrumb JSON-LD) — keep that.
 
 ## Review fixes → rules
+- **An entrance for first-screen content on an SSG route is a CSS keyframe from first paint, not a JS reveal — and "the animations don't run" usually means everything was already in view.** (Blog, 2026-09-11, owner: "I don't see transitions".) Every JS reveal on the journal skipped the first screen by design (static HTML must stand), so on load NOTHING moved and the below-fold reveals (24px, no blur) read as none. A CSS `animation: … both` on the title/lede/intro runs without JS, can't flash the SSG paint out at hydration, and replays on client navigation when the container is keyed on the route (`<article key={slug}>`). Start at `opacity: .01`, not 0, so Chrome still counts the LCP paint. Verify with `el.getAnimations()` on load AND after a client nav (new node, `running`); the automation window's animation clock only advances on screenshots, so mid-values there are not a bug.
 - **Blog posts carry the same sourcing law as case-study metrics: an industry statistic with no source gets deleted, not softened.** (AI-writing pass, 2026-09-02.) The Core Web Vitals post shipped "a 1-second delay can lead to a 7% reduction in conversions" and "every 100ms improvement increases conversion rates by 1%" with no source, plus a metric (First Input Delay) that Google retired in 2024, under the studio's own byline, on a site whose pitch is "numbers you can check". Rewritten around the studio's OWN measured figures from `projects.json` (Florida Green, Prodani, Zahav), which are already sourced. When a post needs a number, it comes from a case study on this site or a named, linked source; "studies consistently show" is the tell that neither exists.
 - **`python3 scripts/ai-writing-scan.py` after a build is a standing check for new copy** (Wikipedia:Signs_of_AI_writing patterns over the BUILT pages, site vs blog). Baselines 2026-09-02: site 1.7 AI-vocabulary hits per 1k words (all inside client quotes, legal register or pricing bullets), 0 negative-parallelism "not only/it's not…it's", 0 participial "…, ensuring" tails, 0 vague attribution, 0 chat-style phrasing, 0 heading-level skips; blog 0.7/1k. Rule-of-three sits at ~14/1k on the site and is mostly the service menu, FAQ lists and price bullets (enumerations, legitimate); the RHYTHM triads on marketing prose were thinned to five signature beats. A new page or post that moves any zero off zero, or pushes vocabulary past ~3/1k, gets read before it ships.
 - **Titled cards rendered under a page `<h1>` must not skip heading levels.** Pricing-tier cards were `<h3>` (+ `<h4>` "What's included") directly under the page `<h1>`, and the home testimonial name was an `<h4>` under an `<h2>`: 8 h1→h3 / h2→h4 skips across the site, an accessibility defect (screen-reader outline) that also reads as machine-assembled structure. Styling here rides on classes, never tag names, so the fix is the tag alone; the scan above reports skips per page.
