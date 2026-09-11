@@ -3,6 +3,7 @@ import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useReducedMotion from '../../hooks/useReducedMotion';
+import armSafetyNet from '../../animation/armSafetyNet';
 
 import '../../styles/components/landingPageProof.scss';
 
@@ -23,7 +24,10 @@ const LandingPageProof = () => {
       // onEnter → in-view fallback → safety net.
       gsap.set(targets, { autoAlpha: 0, y: 28 });
 
-      const reveal = () =>
+      let played = false;
+      const reveal = () => {
+        if (played) return;
+        played = true;
         gsap.to(targets, {
           autoAlpha: 1,
           y: 0,
@@ -32,6 +36,7 @@ const LandingPageProof = () => {
           stagger: 0.1,
           overwrite: 'auto',
         });
+      };
 
       const st = ScrollTrigger.create({
         trigger: sectionRef.current,
@@ -41,7 +46,32 @@ const LandingPageProof = () => {
       });
       if (st.progress > 0) reveal();
 
-      gsap.delayedCall(3, () => gsap.set(targets, { autoAlpha: 1, y: 0 }));
+      // Viewport-aware net (see armSafetyNet): the mount-timed net fired
+      // during the hero's 4.5s ident, so this heading never animated.
+      armSafetyNet(
+        sectionRef.current,
+        () => played || targets.some((t) => gsap.isTweening(t)),
+        () => {
+          played = true;
+          gsap.set(targets, { autoAlpha: 1, y: 0 });
+        },
+      );
+
+      // Word-by-word brightness scrub on the heading (the About-heading
+      // pattern, monochrome): words sit at 35% white and reach full white
+      // as the heading crosses the viewport. Colour on the word spans, never
+      // on the h2 the reveal owns, so the two never share a property.
+      const words = gsap.utils.toArray('.lpp__word', sectionRef.current);
+      gsap.set(words, { color: 'rgba(255,255,255,0.35)' });
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 85%',
+          end: 'top 30%',
+          scrub: true,
+        },
+      });
+      words.forEach((w, i) => tl.to(w, { color: '#ffffff', duration: 1 }, i * 0.4));
     }, sectionRef);
 
     return () => ctx.revert();
@@ -63,14 +93,18 @@ const LandingPageProof = () => {
       <div className="lpp__inner">
         <div className="lpp__header">
           <h2 className="lpp__heading lpp-animate">
-            One studio.<br />Design, code &amp; AI.
+            {['One', 'studio.'].map((w) => (
+              <span className="lpp__word" key={w}>{w}{' '}</span>
+            ))}
+            <br />
+            {['Design,', 'code', '&', 'AI.'].map((w) => (
+              <span className="lpp__word" key={w}>{w}{' '}</span>
+            ))}
           </h2>
           <p className="lpp__body lpp-animate">
-            Store, marketing site, web app, or the automation behind it,
-            every build starts with the same question: what needs to happen
-            for a visitor to become a customer? We design and engineer it,
-            then wire in AI where it moves that number. White-label delivery
-            for agencies included.
+            Every build starts with one question: what turns a visitor into a
+            customer? We design it, engineer it, and wire in AI where it moves
+            that number.
           </p>
         </div>
       </div>

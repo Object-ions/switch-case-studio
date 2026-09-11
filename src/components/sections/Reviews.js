@@ -9,6 +9,7 @@ import {
 
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import armSafetyNet from '../../animation/armSafetyNet';
 
 import TestimonialHeading from './TestimonialHeading';
 import BookCallCta from '../ui/BookCallCta';
@@ -107,13 +108,17 @@ const Reviews = () => {
         reveal();
       }
 
-      const safety = gsap.delayedCall(REVEAL_SAFETY_DELAY, () => {
-        if (gsap.getProperty(el, 'opacity') < 1) reveal();
-      });
+      // Viewport-aware net (armSafetyNet): forces only an on-screen card.
+      const disarm = armSafetyNet(
+        el,
+        () => gsap.getProperty(el, 'opacity') >= 1 || gsap.isTweening(el),
+        reveal,
+        { delay: REVEAL_SAFETY_DELAY },
+      );
 
       return () => {
         trigger.kill();
-        safety.kill();
+        disarm();
       };
     }, el);
 

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import armSafetyNet from "../../animation/armSafetyNet";
 import "../../styles/components/faq.scss";
 
 
@@ -132,11 +133,20 @@ const Faq = () => {
       if (stTitle.progress > 0) revealTitle();
       if (stItems.progress > 0) revealItems();
 
-      // Whatever happens, the FAQ ends fully visible.
-      gsap.delayedCall(3, () => {
-        gsap.set(title, { autoAlpha: 1, y: 0 });
-        gsap.set(items, { autoAlpha: 1, y: 0 });
-      });
+      // Whatever happens, the FAQ ends fully visible: viewport-aware nets
+      // (armSafetyNet), one per trigger, so a long stay on the hero cannot
+      // pre-empt the reveal.
+      armSafetyNet(
+        sectionRef.current,
+        () => gsap.getProperty(title, "opacity") >= 1 || gsap.isTweening(title),
+        () => gsap.set(title, { autoAlpha: 1, y: 0 }),
+      );
+      const list = sectionRef.current.querySelector(".faq__list") || sectionRef.current;
+      armSafetyNet(
+        list,
+        () => items.every((i) => gsap.getProperty(i, "opacity") >= 1) || items.some((i) => gsap.isTweening(i)),
+        () => gsap.set(items, { autoAlpha: 1, y: 0 }),
+      );
     }, sectionRef);
 
     return () => ctx.revert();

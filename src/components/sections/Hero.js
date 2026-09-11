@@ -1,129 +1,179 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { HashLink } from "react-router-hash-link";
-import WelcomeTyped from "./WelcomeTyped";
-import CursorWave from "../ui/CursorWave";
-import BookCallCta from "../ui/BookCallCta";
-import MagneticButton from "../ui/MagneticButton";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import useReducedMotion from "../../hooks/useReducedMotion";
+import {
+  DUR_SLOW,
+  EASE_OUT_SOFT,
+  REVEAL_STAGGER,
+  REVEAL_SAFETY_DELAY,
+} from "../../animation/motionTokens";
+
+gsap.registerPlugin(ScrollTrigger);
+
+
 
 import "../../styles/components/hero.scss";
 
-/* Brand shape + color config for the Hero background.
-   Repeating shapes in the array biases the random distribution —
-   square and asterisk are the textural backbone, the SCS star is the
-   brand mark and gets a slight boost over circle (the accent). */
-const HERO_SHAPES = [
-  "square",
-  "star",
-  "asterisk",
-  "square",
-  "asterisk",
-  "star",
-  "circle",
-];
-const HERO_COLORS = [
-  "#dab8ff",
-  "#ff834a",
-  "#d99cff",
-  "#ff8f63",
-  "#f0d7ff",
-  "#FEF7ED",
-];
+/* The studio ident: 4.5s of hard-cut plates that settle on the wordmark.
+   Rendered from ~/Desktop/scs-ident (Remotion, private: licensed fonts);
+   only the encoded video ships here (public/ident/, limited-range BT.709:
+   full-range VP9 fails in Chrome's decoder mid-stream). The poster IS the
+   final frame, so a paused or blocked video shows what the video ends on.
+   It loops: 2s on the wordmark, then the plates run again. */
 
 const Hero = () => {
   const reducedMotion = useReducedMotion();
-  // `revealed` controls staggered fade-in for sub + CTAs.
-  // Reduced-motion users skip the stagger and see everything immediately.
-  const [revealed, setRevealed] = useState(reducedMotion);
+  const identRef = useRef(null);
+  const rootRef = useRef(null);
+
+  /* Copy motion. Static HTML ships visible; the hide happens at runtime only
+     (never-invisible rule), then the four corner blocks rise in a stagger
+     half a second after mount so the ident's first plates lead. On scroll-out
+     the blocks drift apart, scrubbed. The entrance owns `yPercent`, the
+     scrub owns `y`: separate transform components, so one tween per
+     property holds. The video is never touched. */
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return undefined;
+    const items = gsap.utils.toArray(".hero-top, .hero-note, .hero-scroll", root);
+    if (reducedMotion) {
+      gsap.set(items, { clearProps: "all" });
+      return undefined;
+    }
+    const ctx = gsap.context(() => {
+      gsap.set(items, { autoAlpha: 0, yPercent: 6 });
+      gsap.to(items, {
+        autoAlpha: 1,
+        yPercent: 0,
+        duration: DUR_SLOW,
+        stagger: REVEAL_STAGGER,
+        ease: EASE_OUT_SOFT,
+        delay: 0.5,
+        overwrite: "auto",
+      });
+      const safety = gsap.delayedCall(REVEAL_SAFETY_DELAY, () => {
+        if (
+          !items.some((el) => gsap.isTweening(el)) &&
+          items.some((el) => gsap.getProperty(el, "opacity") < 1)
+        ) {
+          gsap.set(items, { autoAlpha: 1, yPercent: 0 });
+        }
+      });
+
+      const scrub = { trigger: root, start: "top top", end: "bottom top", scrub: true };
+      gsap.to(root.querySelector(".hero-top"), { y: -60, ease: "none", scrollTrigger: scrub });
+      gsap.to(gsap.utils.toArray(".hero-note, .hero-scroll", root), {
+        y: 60,
+        ease: "none",
+        scrollTrigger: { ...scrub },
+      });
+
+      // "Scroll" is an instruction for the top of the page only: hide it once
+      // the visitor has scrolled (via [hidden], so the entrance tween's inline
+      // opacity/visibility can't override it), bring it back at the top.
+      const cue = root.querySelector(".hero-scroll");
+      const cueST = cue
+        ? ScrollTrigger.create({
+            start: 40,
+            end: "max",
+            onToggle: (self) => {
+              cue.hidden = self.isActive;
+            },
+          })
+        : null;
+
+      return () => {
+        safety.kill();
+        if (cueST) cueST.kill();
+      };
+    }, root);
+    return () => ctx.revert();
+  }, [reducedMotion]);
 
   useEffect(() => {
-    if (reducedMotion) {
-      setRevealed(true);
-      return;
+    const video = identRef.current?.querySelector("video");
+    if (!video) return undefined;
+    video.muted = true;
+    // The poster attribute can't vary by media query; match the portrait cut.
+    if (window.matchMedia("(max-aspect-ratio: 4/5)").matches) {
+      video.poster = "/ident/ident-9x16-poster.webp";
     }
-    const t = setTimeout(() => setRevealed(true), 1200);
-    return () => clearTimeout(t);
+    if (reducedMotion) {
+      // No motion: park on the end card (the wordmark) instead of playing.
+      const toEnd = () => {
+        video.pause();
+        if (Number.isFinite(video.duration)) {
+          video.currentTime = Math.max(0, video.duration - 0.05);
+        }
+      };
+      if (video.readyState >= 1) toEnd();
+      else video.addEventListener("loadedmetadata", toEnd, { once: true });
+      return () => video.removeEventListener("loadedmetadata", toEnd);
+    }
+    const p = video.play();
+    if (p && typeof p.catch === "function") p.catch(() => {});
+    return undefined;
   }, [reducedMotion]);
 
   return (
-    <section id="hero" aria-label="Switch Case Studio introduction">
-      <div className="hero-inner">
-        {!reducedMotion && (
-          <div className="cursorwave-bg" aria-hidden="true">
-            <CursorWave
-              shapes={HERO_SHAPES}
-              colors={HERO_COLORS}
-              backgroundColor="#000000"
-              cellSize={48}
-              influenceRadiusVmin={28}
-              minPeakScale={1.2}
-              maxPeakScale={2.8}
-              burstSpeed={1400}
-              burstThickness={220}
-            />
-          </div>
-        )}
-
-        <div className="hero-content">
-          <h1 className="hero-headline" data-cursor-wave-mask>
-            <span className="hero-line">
-              {"We "}
-              <WelcomeTyped />
-            </span>
-            <span className="hero-line">
-              websites, apps &amp; <span className="caps-trim">AI</span>
-            </span>
-            <span className="hero-line hero-line--accent">
-              that actually perform.
-            </span>
+    <section id="hero" aria-label="Switch Case Studio introduction" ref={rootRef}>
+      <div className="hero-frame">
+        <div className="hero-top">
+          {/* Spine lockup (owner picked option 3, 2026-09-10): "DESIGN" is one
+              heavy word turned to run up the left edge like a book spine;
+              "DEVELOPMENT" is its light counterpart across the top. Words set
+              as words, never spelled letter by letter. Single h1. */}
+          <h1 className="hero-headline">
+            <span className="hero-spine">Design</span>{" "}
+            <span className="hero-across">Development</span>
           </h1>
-
-          <p
-            className={`hero-sub ${revealed ? "is-visible" : ""}`}
-            data-cursor-wave-mask
-          >
-            <span className="hero-sub__desktop">
-              Websites, stores, apps, and the AI systems behind them,
-              engineered from scratch by a design-led studio that writes real
-              code and puts AI to work where it pays.
-            </span>
-            <span className="hero-sub__mobile">
-              Design. Code. AI. Built to convert.
-            </span>
-          </p>
-
-          <div
-            className={`hero-ctas ${revealed ? "is-visible" : ""}`}
-            data-cursor-wave-mask
-          >
-            {/* Booking is the business goal, so it gets the solid primary
-                treatment (2026-07 design refresh, DESIGN_AUDIT P0-1). This
-                deliberately REVERSES the 2026-06 pre-pitch decision (S3 in
-                .audit/summary.md) that made "See Our Work" primary for a
-                portfolio-first pitch — the goal is now booked calls. */}
-            {/* Magnetic pull on the booking pill only (VE-2) — subtle
-                distance; inert on touch + reduced-motion (MagneticButton
-                handles both). */}
-            <MagneticButton distance={0.35}>
-              <BookCallCta className="hero-cta hero-cta--primary">
-                <span className="cta-arrow" aria-hidden="true">
-                  &rarr;
-                </span>
-              </BookCallCta>
-            </MagneticButton>
-
-            <HashLink
-              to="/#projects"
-              smooth
-              className="hero-cta hero-cta--secondary"
-            >
-              See Our Work
-              <span className="cta-arrow cta-arrow--down" aria-hidden="true">
-                &darr;
-              </span>
-            </HashLink>
-          </div>
         </div>
+
+        <div className="hero-ident" ref={identRef}>
+          {/* Static HTML must carry autoplay+muted+playsinline so phones start
+              the ident before hydration; the effect above only re-asserts
+              muted and handles reduced motion. */}
+          <video
+            className="hero-ident__video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster="/ident/ident-16x9-poster.webp"
+            aria-hidden="true"
+            tabIndex={-1}
+          >
+            {/* Portrait screens get the 9:16 cut so the ident covers the full
+                width without cropping the wordmark; near-square gets 1:1. */}
+            <source src="/ident/ident-9x16.webm" type="video/webm" media="(max-aspect-ratio: 4/5)" />
+            <source src="/ident/ident-9x16.mp4" type="video/mp4" media="(max-aspect-ratio: 4/5)" />
+            <source src="/ident/ident-1x1.webm" type="video/webm" media="(max-width: 768px)" />
+            <source src="/ident/ident-1x1.mp4" type="video/mp4" media="(max-width: 768px)" />
+            <source src="/ident/ident-16x9.webm" type="video/webm" />
+            <source src="/ident/ident-16x9.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        <p className="hero-note hero-note--left">
+          Websites, online stores and <span className="caps-trim">AI</span>{" "}
+          assistants for businesses that need them to bring in work. We design
+          it, build it and keep it running after launch.
+        </p>
+
+        <HashLink to="/#projects" smooth className="hero-scroll">
+          Scroll
+          <span className="hero-scroll__arrow" aria-hidden="true">
+            &darr;
+          </span>
+        </HashLink>
+
+        <p className="hero-note hero-note--right">
+          Each case study below puts the old site beside ours, with page weight
+          and load time measured on the live pages.
+        </p>
       </div>
     </section>
   );

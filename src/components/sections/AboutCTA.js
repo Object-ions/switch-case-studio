@@ -5,6 +5,8 @@ import BookCallCta from '../ui/BookCallCta';
 import MagneticButton from '../ui/MagneticButton';
 import useReducedMotion from '../../hooks/useReducedMotion';
 
+import armSafetyNet from '../../animation/armSafetyNet';
+
 gsap.registerPlugin(ScrollTrigger);
 
 /* ------------------------------------------------------------------ *
@@ -57,8 +59,14 @@ const AboutCTA = () => {
       // a `once` trigger won't fire onEnter — reveal immediately.
       if (st.progress > 0) reveal();
 
-      // Safety net: whatever happens, the conversion moment ends visible.
-      gsap.delayedCall(3, () => gsap.set(el, { autoAlpha: 1, y: 0 }));
+      // Safety net, viewport-aware (armSafetyNet): the conversion moment
+      // ends visible, but only once it is on screen, so the reveal survives
+      // a long stay on the hero.
+      armSafetyNet(
+        el,
+        () => gsap.getProperty(el, 'opacity') >= 1 || gsap.isTweening(el),
+        () => gsap.set(el, { autoAlpha: 1, y: 0 }),
+      );
     }, el);
 
     return () => ctx.revert();

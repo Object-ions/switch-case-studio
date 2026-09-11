@@ -1,151 +1,274 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
+// Service menu (2026-09-09, owner's reference): two independent columns of
+// borderless entries. Each entry is a kicker row with its own hairline
+// (kicker left, "See pricing" right), the title, a strong one-liner, and a
+// light line listing what the pricing page includes. No cell borders, no
+// vertical divider, no bottom rule: the hairline under each kicker is the
+// only chrome. Full page width with the shared $edge-pad gutter; two equal
+// grid columns (every cell the same size, rows are 1fr) filled column-first
+// so entries read down the left column and continue in the right one, like
+// the reference. Services.js sets --rows = ceil(count / 2).
+
+// Services block: the intro + menu stage over the interactive grid.
+.services-block {
+  position: relative;
+  isolation: isolate;
+  // One screen PLUS the fixed header (110px desktop, 81px phone), so the
+  // content still gets a full screen once the header overlays its top.
+  // Generous padding top and bottom; content centred in whatever is left.
+  min-height: calc(100dvh + 110px);
+  // Top clears the fixed header (110px) and THEN breathes; bottom breathes
+  // on its own. Owner asked for "serious" room on both ends.
+  padding-top: calc(110px + clamp(4rem, 8vh, 7rem));
+  padding-bottom: clamp(6rem, 12vh, 10rem);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #000;
+
+  @media (max-width: 768px) {
+    min-height: calc(100dvh + 81px);
+    padding-top: calc(81px + 3rem);
+    padding-bottom: 5rem;
+  }
+
+  // The grid canvas fills the block and takes pointer moves wherever no
+  // content sits above it (between cards, in the gutters).
+  &__grid {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  // Black fades over the grid, top and bottom, so the block meets the hero
+  // and the stripe on pure black. Above the canvas, below the content.
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 28vh;
+    z-index: 1;
+    pointer-events: none;
+  }
+  &::before {
+    top: 0;
+    background: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0) 100%);
+  }
+  &::after {
+    bottom: 0;
+    background: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0) 100%);
+  }
+
+  // Content rides above the fades; empty areas let the pointer reach the grid.
+  > section {
+    position: relative;
+    z-index: 2;
+    pointer-events: none;
+  }
+  // Everything the visitor can click must re-enable the pointer. The end
+  // card was missing here, so clicks passed through it to the grid and it
+  // never navigated (and the cursor never wrapped it).
+  .lpp__header,
+  .services__item,
+  .services__end {
+    pointer-events: auto;
+  }
+}
+
 #services.services {
   position: relative;
   overflow: hidden;
-  background: #000;
+  background: transparent;
+  // No own min-height: a 100vh menu left a screen-tall gap under the intro.
+  // The whole .services-block is the full-screen unit.
   color: $white-color;
   font-family: $font-text;
 }
 
 .services {
+  // Same gutter as .lpp__inner (landingPageProof.scss) so the left column
+  // sits under "One studio." and the right one under its body copy.
   &__menu {
     width: 100%;
-    max-width: $max-width;
-    margin-inline: auto;
-    padding-bottom: 6rem;
+    // 2rem top: the desktop column parallax lifts the left column up to 24px,
+    // and #services clips (overflow: hidden); without room the first card
+    // lost its top edge and corners.
+    // 5rem (80px) on BOTH ends: the layered parallax moves a card up to 60px
+    // either way and #services clips (overflow: hidden). Padding > travel.
+    padding: 5rem $edge-pad;
+    box-sizing: border-box;
   }
 
   &__list {
     width: 100%;
   }
 
-  &__list-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
+  // Each service sits on a near-solid black panel so the grid behind never
+  // competes with the copy (owner, 2026-09-10). Radius 12px, hairline edge;
+  // no blur: legibility comes from the fill, not a glass effect.
   &__item {
     position: relative;
     overflow: hidden;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    background: rgba(8, 8, 8, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
   }
 
   &__link {
-    min-height: 150px;
+    flex: 1;
+    // The cursor wraps THIS element and copies its radius; inherit the
+    // panel's 12px so the ring follows the card's corners.
+    border-radius: inherit;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.9rem;
+    padding: 2rem;
     cursor: pointer;
-    padding: 2rem 1.5rem;
     text-decoration: none;
     color: inherit;
   }
 
-  &__item-main,
-  &__overlay-main {
+  &__item-meta {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.4rem;
   }
 
-  &__item-title,
-  &__overlay-title {
-    font-family: $font-text;
-    font-size: clamp(1rem, 4vw, 2.5rem);
-    font-weight: 300;
-    line-height: 0.95;
-    letter-spacing: -0.05em;
+  // The hairline is an element, not a border, so the entry build can draw it
+  // (scaleX from the left). Static HTML shows it in full.
+  &__item-rule {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.18);
+  }
+
+  // Title rises out of this mask. A hair of padding keeps round glyphs
+  // (O, C, &) from clipping at line-height 1.
+  &__item-title-mask {
+    display: block;
+    overflow: hidden;
+    padding: 0.06em 0;
+    margin: -0.06em 0;
+  }
+
+  &__item-kicker,
+  &__item-cta {
+    font-size: 0.8rem;
+    font-weight: 400;
     text-transform: uppercase;
+    letter-spacing: 0.08em;
+    line-height: 1;
   }
 
-  &__item-subtitle {
-    max-width: 520px;
-    font-size: clamp(0.95rem, 1.4vw, 1.15rem);
-    font-weight: 300;
-    line-height: 1.5;
-    color: rgba(255, 255, 255, 0.65);
+  &__item-kicker {
+    color: rgba(255, 255, 255, 0.75);
   }
 
   &__item-cta {
     flex-shrink: 0;
-    font-size: 0.875rem;
-    font-weight: 300; // was 100 — never loaded, always rendered as 300
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
     color: $g6;
   }
 
-  &__overlay {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    background: #efd7ff;
-    color: #000;
+  &__item-title {
+    display: block;
   }
 
-  &__overlay-inner {
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    align-items: center;
-    gap: 2rem;
-    padding-inline: 1.5rem;
+  // Name + line: its own layer for the inner parallax.
+  &__item-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
   }
 
-  &__overlay-title {
-    color: #000;
+  &__item-title {
+    font-family: $font-text;
+    // Hierarchy (owner: "3 texts and no hierarchy"): the title leads by size
+    // AND weight, title case, not light uppercase. Subtitle is regular at 80%,
+    // the includes line quietest. Steps: ~2rem / 1.05rem / 0.9rem.
+    // The service name dominates the card (owner, 2026-09-10): ~3rem at
+    // 1440, one line in a 672px card for the longest name.
+    // Portrait cards are ~324px wide at 1440: ~2.4rem lets two-word names
+    // sit on two balanced lines ("Web / Development") and stay dominant.
+    font-size: clamp(2rem, 2.6vw, 2.75rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+    text-transform: none;
   }
 
-  &__overlay-subtitle {
-    max-width: 620px;
-    font-size: clamp(0.9rem, 1.2vw, 1rem);
+  &__item-subtitle {
+    font-size: clamp(0.95rem, 1.2vw, 1.05rem);
     font-weight: 400;
     line-height: 1.5;
-    color: rgba(0, 0, 0, 0.65);
+    color: rgba(255, 255, 255, 0.8);
   }
 
-  &__overlay-char {
+  &__item-includes {
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  // Hover letter bounce (kept when the overlay wipe left, 2026-09-11).
+  &__title-char {
     display: inline-block;
   }
-
-  &__icon {
-    width: 2rem;
-    height: 2rem;
-    color: #000;
-    flex-shrink: 0;
-  }
 }
 
-@media (min-width: 640px) {
-  .services {
-    &__link,
-    &__overlay-inner {
-      padding-inline: 2rem;
-    }
-  }
-}
-
+// Portrait cards (owner, 2026-09-10): four in a row from 1024px, two from
+// 768px, one column on phones. Each card is 3:4; the kicker row sits at the
+// top, the name + line at the bottom, the middle is left open for stickers.
 @media (min-width: 768px) {
   .services {
-    &__link {
-      padding-block: 2.5rem;
+    &__list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
     }
 
-    &__icon {
-      width: 3rem;
-      height: 3rem;
+    &__item {
+      margin-bottom: 0;
+      aspect-ratio: 3 / 4;
+    }
+
+    &__link {
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    &__item-body {
+      margin-top: auto;
     }
   }
 }
 
-// Touch press state (mobile audit M10): the desktop overlay wipe is
-// pointer-only, so taps had zero feedback. A quick lilac flash + dim echoes
-// the overlay's color language. Opacity/background only — GSAP owns this
-// row's reveal transform, and the overlay's translateY is GSAP-inline
-// (house rule: no CSS transitions on JS-owned properties).
+@media (min-width: 1024px) {
+  .services__list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+// Touch press state (mobile audit M10): hover is pointer-only, so taps
+// need their own feedback. Opacity/background only: GSAP owns the reveal
+// transforms (house rule: no CSS transitions on JS-owned properties).
 @media (hover: none) and (pointer: coarse) {
   .services__link {
     transition: opacity 80ms ease, background-color 80ms ease;
@@ -162,39 +285,142 @@
     &__menu {
       // M7: the gap between the last row and the gradient stripe read as a
       // dead half-viewport on phones (4rem here + the stripe's own bulk).
-      padding-bottom: 2.5rem;
+      padding: 0 $edge-pad 2.5rem;
+    }
+
+    &__item {
+      margin-bottom: 2rem;
     }
 
     &__link {
-      min-height: 120px;
-      align-items: flex-start;
-      flex-direction: column;
-      gap: 1rem;
+      // Inside a panel now: no outward bleed (the old -1.25rem margin put
+      // the text flush against the panel edge under overflow: hidden).
       padding: 1.5rem 1.25rem;
+      margin-inline: 0;
     }
 
-    &__item-title,
-    &__overlay-title {
-      font-size: clamp(1.5rem, 4vw, 2rem);
+    &__item-title {
+      // Dominant on phones too: ~33px at 390, "Web Development" still one line
+      font-size: clamp(1.75rem, 8.5vw, 2.4rem);
     }
 
-    &__item-subtitle {
-      font-size: 0.9rem;
+  }
+}
+
+// In-page jumps (nav "Services", /#projects, etc.) stop below the fixed
+// header instead of under it (owner: the header was cutting the titles).
+#what-we-build,
+#services,
+#projects,
+#about,
+#reviews,
+#contact,
+#faq {
+  scroll-margin-top: 120px;
+}
+
+// ── End card: hidden except in the desktop pan ──
+.services__end {
+  display: none;
+}
+
+// ── Desktop pan layout (same gate as the JS: ≥1024px, motion allowed) ──
+// The block is exactly one screen (it pins), the card row is a single
+// non-wrapping flex line that overflows to the right; #services clips it.
+// Cards are sized from the viewport height so a whole card always fits
+// under the heading: --card-h drives height, width is 3:4 of it.
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .services-block {
+    height: 100vh;
+    min-height: 0;
+    padding-top: calc(110px + 2rem);
+    padding-bottom: 2rem;
+    justify-content: flex-start;
+  }
+
+  #services.services {
+    flex: 1;
+  }
+
+  .services {
+    &__menu {
+      padding: 0 $edge-pad;
     }
 
-    &__overlay-inner {
-      grid-template-columns: 1fr auto;
+    &__list {
+      // Taller cards = a longer, more felt pan; the block still fits one
+      // screen: 142px top + heading ~176px + card + 32px bottom <= 100vh.
+      // Measured against #services' CLIP (it ends at the block's 32px bottom
+      // padding), not the viewport: 100vh - 360px put the card bottom 12px
+      // past the clip and sliced its rounded corners at 1440x900.
+      --card-h: clamp(300px, calc(100vh - 390px), 680px);
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 1.5rem;
+      grid-template-columns: none;
+      will-change: transform;
+      // The row starts in slot 3 (owner, 2026-09-10): two empty card slots
+      // lead, so the first card enters at the right of the screen, fully
+      // inside it. scrollWidth includes this, so the pan grows to match.
+      padding-left: calc(2 * (var(--card-h) * 0.75 + 1.5rem));
+
+      // One empty slot AFTER the end card, so the pan finishes with "All
+      // services & pricing" in the second-from-right slot, not flush right.
+      &::after {
+        content: '';
+        flex: 0 0 calc(var(--card-h) * 0.75);
+      }
+    }
+
+    &__item,
+    &__end {
+      flex: 0 0 auto;
+      width: calc(var(--card-h) * 0.75);
+      height: var(--card-h);
+      aspect-ratio: auto;
+    }
+
+    &__end {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
       gap: 1rem;
-      padding-inline: 1.25rem;
+      padding: 2rem;
+      box-sizing: border-box;
+      border-radius: 12px;
+      background: $g6;
+      color: #000;
+      text-decoration: none;
+      transition: background $dur-fast $ease-out;
+
+      &:hover,
+      &:focus-visible {
+        background: $g7;
+      }
+
+      &:focus-visible {
+        outline: 2px solid #fff;
+        outline-offset: 4px;
+      }
     }
 
-    &__overlay-subtitle {
-      display: none;
+    &__end-label {
+      font-family: $font-text;
+      font-size: clamp(1.75rem, 2.4vw, 2.5rem);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
     }
 
-    &__icon {
-      width: 2rem;
-      height: 2rem;
+    &__end-arrow {
+      font-size: 2rem;
+      line-height: 1;
     }
   }
+}
+
+// Built entries release the title mask so the hover hop isn't clipped.
+.services__item.is-built .services__item-title-mask {
+  overflow: visible;
 }

@@ -1,107 +1,65 @@
 [
   {
-    "icon": "faRobot",
-    "title": "AI Development",
-    "slug": "ai-development",
-    "subTitle": "Chatbots, agents, and AI features that ship and stay running.",
+    "icon": "faPenNib",
+    "title": "Brand Identity",
+    "slug": "design-branding",
+    "kicker": "Design",
+    "subTitle": "A visual system that makes your business unmistakable.",
     "cta": "See pricing →",
-    "description": "AI assistants trained on your business, custom agents that do real work, and AI features inside your product, built on Claude and OpenAI APIs, self-hosted on your infrastructure when it matters, and monitored like the production software it is.",
+    "description": "Logo, color system, typography, and guidelines: a complete visual identity drawn by a designer. Made to work across web, print, and packaging.",
     "items": [
-      "AI chatbots trained on your docs, site, and FAQs",
-      "Custom AI agents for lead handling, follow-ups, and ops",
-      "Claude & OpenAI API integration in web apps",
-      "Self-hosted agent deployments on VPS: your data stays yours",
-      "AI roadmap: find where AI actually pays off in your business"
-    ]
-  },
-  {
-    "icon": "faWandMagicSparkles",
-    "title": "Automation & AI Workflows",
-    "slug": "automation-integrations",
-    "subTitle": "Connect your tools. Eliminate busywork. Let the systems run.",
-    "cta": "See pricing →",
-    "description": "Workflows that run your operations without you, built with n8n, Zapier, Make, and GoHighLevel, wired into the tools you already use, with AI steps where they earn their keep.",
-    "items": [
-      "n8n, Zapier & Make workflow builds",
-      "GoHighLevel CRM & pipeline automations",
-      "AI steps inside workflows: triage, drafting, enrichment",
-      "Integration with Acuity, Stripe, Mailchimp, and more",
-      "Form logic and data routing between apps"
+      "Logo Design",
+      "Brand guidelines (color palettes, typography)",
+      "Visual assets for digital marketing"
     ]
   },
   {
     "icon": "faCode",
     "title": "Web Development",
     "slug": "web-development",
-    "subTitle": "Websites, stores, and apps built to perform.",
+    "kicker": "Code",
+    "subTitle": "Landing pages, sites, and stores built to convert, then kept running.",
     "cta": "See pricing →",
-    "description": "Custom websites, e-commerce stores, and web apps written by engineers who ship real code, AI-accelerated where it speeds us up, hand-built where it counts. Including white-label builds for agencies.",
+    "description": "Custom websites, e-commerce stores, and web apps written by engineers who ship real code, then hosted and maintained by the same team: managed hosting, your own VPS, SSL, DNS, and uptime. Including white-label builds for agencies.",
     "items": [
       "Landing page design & development",
-      "React & Next.js",
-      "Node.js Backend",
-      "API & AI integration",
-      "WordPress & WooCommerce stores"
+      "React & Next.js, Node.js backends",
+      "WordPress & WooCommerce stores",
+      "Managed hosting, care plans, and your own VPS",
+      "SSL, DNS, and SPF/DKIM/DMARC setup"
+    ]
+  },
+  {
+    "icon": "faRobot",
+    "title": "AI & Automation",
+    "slug": "ai-development",
+    "kicker": "AI",
+    "subTitle": "Assistants, agents, and workflows that run your operations.",
+    "cta": "See pricing →",
+    "description": "AI assistants trained on your business, custom agents that do real work, and workflows built in n8n, Zapier, Make, and GoHighLevel, wired into the tools you already use. Self-hosted on your infrastructure when it matters, monitored like the production software it is.",
+    "items": [
+      "AI roadmap: find where AI actually pays off",
+      "AI chatbots trained on your docs, site, and FAQs",
+      "Custom AI agents for lead handling, follow-ups, and ops",
+      "n8n, Zapier, Make & GoHighLevel workflows",
+      "Email & lifecycle automation",
+      "Self-hosted n8n and agents on your own VPS"
     ]
   },
   {
     "icon": "faSearchengin",
-    "title": "Growth & Performance",
+    "title": "SEO & AI Search",
     "slug": "marketing-ads",
-    "subTitle": "Ads, SEO, and AI-search visibility that bring in actual revenue.",
+    "kicker": "Growth",
+    "subTitle": "Found on Google and in AI answers, then turned into revenue.",
     "cta": "See pricing →",
-    "description": "SEO, GEO (AI-search optimization), paid ads, and content, structured around what drives leads and revenue. Built for a world where customers ask ChatGPT before they ask Google.",
+    "description": "Technical SEO and GEO (AI-search optimization) with every fix shipped on the site, plus ongoing ads, SEO, and conversion work for businesses ready to grow. Built for a world where customers ask ChatGPT before they ask Google.",
     "items": [
-      "SEO Optimization",
+      "Technical SEO audit + every fix implemented",
       "GEO / AI-search readiness (llms.txt, structured data)",
-      "Google Ads",
-      "Meta Ads",
-      "Content Strategy",
-      "Blog development"
-    ]
-  },
-  {
-    "icon": "faPenNib",
-    "title": "Brand Identity",
-    "slug": "design-branding",
-    "subTitle": "A visual system that makes your business unmistakable.",
-    "cta": "See pricing →",
-    "description": "Logo, color system, typography, and guidelines: a complete visual identity drawn by a designer. Made to work across web, print, and packaging.",
-    "items": [
-      "Logo Design",
-      "Wireframing",
-      "Brand guidelines (color palettes, typography)",
-      "Infographics",
-      "Visual assets for digital marketing"
-    ]
-  },
-  {
-    "icon": "faServer",
-    "title": "Hosting & Infrastructure",
-    "slug": "hosting-maintenance",
-    "subTitle": "Fast, secure, always running, from web hosting to your own VPS.",
-    "cta": "See pricing →",
-    "description": "Managed hosting, VPS setup, and hands-off maintenance. We run servers for a living: SSL, DNS, uptime, and self-hosted apps like n8n and AI agents included.",
-    "items": [
-      "Managed hosting setup",
-      "VPS setup & self-hosted apps (n8n, AI agents)",
-      "SSL & CDN configuration",
-      "Domain setup & DNS management",
-      "SPF, DKIM, and DMARC configuration"
-    ]
-  },
-  {
-    "icon": "faLightbulb",
-    "title": "Email & Retention",
-    "slug": "email-marketing",
-    "subTitle": "Set it up once. Let it sell for you.",
-    "cta": "See pricing →",
-    "description": "Welcome flows, promotions, abandoned carts, and newsletters: set up once, keep converting on autopilot, with AI-assisted segmentation and copy where it moves the numbers.",
-    "items": [
-      "Welcome flows",
-      "Promotional campaigns",
-      "Abandoned cart reminders",
-      "Monthly newsletters"
+      "Core Web Vitals to 89+ at handoff",
+      "Google & Meta ad management",
+      "Conversion-rate optimization"
     ]
   }
 ]

@@ -1,0 +1,283 @@
+@import '../_variables.scss';
+@import '../_mixins.scss';
+
+// The Studio Journal, split reader: list + details in a sticky left third,
+// the article in the right two-thirds (owner's reference, 2026-09-11).
+// Black field, Inter, lavender marks the open post.
+.journal {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  box-sizing: border-box;
+  min-height: 100vh;
+  // Off the home page the header is in the flow (sticky), so it already
+  // reserves its own height; this is breathing room only.
+  padding: 3rem $edge-pad 6rem;
+  background: #000;
+  color: #fff;
+  font-family: $font-text;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  column-gap: clamp(2rem, 5vw, 6rem);
+  align-items: start;
+
+  // ── Left third ──
+  &__side {
+    position: sticky;
+    top: calc(110px + 2rem);
+    max-height: calc(100vh - 110px - 4rem);
+    overflow-y: auto;
+    scrollbar-width: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__name {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  // Title, then its date right beside it (owner, 2026-09-11: dates kept
+  // close to the articles, not pushed to the column's far edge).
+  &__item {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.75rem;
+    row-gap: 0.1rem;
+    align-items: baseline;
+    padding: 0.3rem 0;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    transition: color $dur-fast $ease-out;
+
+    &:hover,
+    &:focus-visible {
+      color: #fff;
+    }
+
+    &.is-active {
+      color: $g6;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 4px;
+    }
+  }
+
+  &__item-title {
+    font-size: 0.95rem;
+    line-height: 1.35;
+  }
+
+  &__item-date {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+
+    .is-active & {
+      color: $g6;
+    }
+  }
+
+  &__details {
+    margin: 0;
+    display: grid;
+    gap: 0.9rem;
+    font-size: 0.875rem;
+
+    div {
+      display: grid;
+      grid-template-columns: 6.5rem minmax(0, 1fr);
+      column-gap: 1rem;
+    }
+
+    dt {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    dd {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.45;
+    }
+  }
+
+  // ── Pagination, bottom of the left third ──
+  &__pager {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  &__pager-num,
+  &__pager-step {
+    min-width: 2.25rem;
+    height: 2.25rem;
+    padding: 0 0.5rem;
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: $font-text;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background $dur-fast $ease-out, color $dur-fast $ease-out,
+      border-color $dur-fast $ease-out;
+
+    &:hover:not(:disabled) {
+      border-color: #fff;
+      color: #fff;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 3px;
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+  }
+
+  &__pager-num.is-current {
+    background: $g6;
+    border-color: $g6;
+    color: #000;
+  }
+
+  // ── Right two-thirds: the article ──
+  // The article spans its full two-thirds (owner, 2026-09-11). The earlier
+  // 44rem (~70ch) reading cap is gone by request; at 1440 a line now runs
+  // ~110 characters.
+  &__article {
+    min-width: 0;
+  }
+
+  &__head {
+    margin-bottom: 2.5rem;
+  }
+
+  &__title {
+    margin: 0 0 1.25rem;
+    font-size: clamp(2rem, 3.4vw, 3.25rem);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  &__lede {
+    margin: 0;
+    font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  // Reading rhythm lives here: the old post page set it on its .blog-post
+  // wrapper, which the reader doesn't use, so paragraphs fell back to
+  // line-height: normal (~1.2), cramped for long-form reading.
+  &__body {
+    color: rgba(255, 255, 255, 0.88);
+    font-size: clamp(1rem, 1.1vw, 1.0625rem);
+    line-height: 1.75;
+  }
+
+  &__foot {
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    display: grid;
+    gap: 1.25rem;
+    justify-items: start;
+  }
+
+  &__cta-line {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0.5rem 1.5rem;
+    border-radius: 100px;
+    background: $g6;
+    color: #000;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background $dur-fast $ease-out;
+
+    &:hover {
+      background: $g7;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 4px;
+    }
+  }
+
+  &__next {
+    display: grid;
+    gap: 0.25rem;
+    margin-top: 1rem;
+    color: #fff;
+    text-decoration: none;
+
+    &:hover .journal__next-title {
+      color: $g6;
+    }
+  }
+
+  &__next-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  &__next-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: color $dur-fast $ease-out;
+  }
+
+  // ── Tablet / phone: one column, the article FIRST (nobody should scroll
+  // past twelve titles to start reading); list + details follow. ──
+  @media (max-width: 900px) {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 4rem;
+    padding-top: 2rem;
+
+    &__side {
+      position: static;
+      max-height: none;
+      overflow: visible;
+      order: 2;
+    }
+
+    &__article {
+      order: 1;
+    }
+  }
+}

@@ -12,29 +12,16 @@ import {
 import BookCallCta from '../ui/BookCallCta';
 import '../../styles/components/serviceIndexPage.scss';
 
-// Per-route copy + SEO. The page body below is identical for both — only
-// these strings change with the route (see ServicesPage / PricingOverviewPage).
+// Page copy + SEO. /services was retired 2026-09-10 (it duplicated this page;
+// it 301s here), so only the Services & Pricing copy remains.
 const COPY = {
-  services: {
-    seoTitle: 'Services | Switch Case Studio',
-    seoDescription:
-      'AI development, automation, web development, e-commerce, branding, and growth: design, code, and AI systems by Switch Case Studio, priced in the open.',
-    path: '/services',
-    ariaLabel: 'Services',
-    kicker: 'What we do',
-    titleTop: 'Design. Code. AI.',
-    titleAccent: 'One studio.',
-    lede: 'Websites, apps, brand systems, and the AI and automation behind them: we handle the full stack of what a growing business needs to run online.',
-    bottomHeading: 'Not sure what you need?',
-    bottomBody: "Book a free call and we'll figure it out together.",
-  },
   pricing: {
     seoTitle: 'Services & Pricing | Switch Case Studio',
     seoDescription:
       "Explore Switch Case Studio's services: AI development, automation, web development, e-commerce, branding, and growth. Transparent pricing, fast delivery.",
     path: '/pricing',
     ariaLabel: 'Services and pricing',
-    kicker: 'Pricing',
+    kicker: 'Services & Pricing',
     titleTop: 'What we do,',
     titleAccent: 'and what it costs.',
     lede: 'Pick a service to see what is included and what it costs. AI and automation included, hype not.',
@@ -47,13 +34,10 @@ const COPY = {
 // derived from pricingData (same slug→id map as PricingPage) so the index
 // stays in sync with real pricing instead of a duplicated hardcoded number.
 const SLUG_TO_ID = {
-  'ai-development': 'ai-development',
-  'automation-integrations': 'automation-integrations',
-  'web-development': 'web-development',
-  'marketing-ads': 'marketing-advertisement',
-  'hosting-maintenance': 'web-hosting-maintenance',
   'design-branding': 'design-branding',
-  'email-marketing': 'email-marketing',
+  'web-development': 'web-development',
+  'ai-development': 'ai-development',
+  'marketing-ads': 'marketing-advertisement',
 };
 
 // /pricing rows preview what the ENTRY tier includes instead of repeating
@@ -62,7 +46,11 @@ const SLUG_TO_ID = {
 // is cut at its first clause break to stay scannable.
 const includesPreview = (slug) => {
   const svc = pricingData.services.find((s) => s.id === SLUG_TO_ID[slug]);
-  const tiers = (svc?.tiers || []).filter((t) => typeof t.price === 'number');
+  // Care plans are add-ons, not the way in: the entry tier is the cheapest
+  // BUILD (or ungrouped) tier, so Web Development doesn't read "from $75".
+  const tiers = (svc?.tiers || []).filter(
+    (t) => typeof t.price === 'number' && t.group !== 'Care',
+  );
   if (!tiers.length) return null;
   const entry = tiers.reduce((a, b) => (b.price < a.price ? b : a));
   const items = (entry.includes || [])
@@ -76,13 +64,14 @@ const includesPreview = (slug) => {
 const fromPrice = (slug) => {
   const svc = pricingData.services.find((s) => s.id === SLUG_TO_ID[slug]);
   const prices = (svc?.tiers || [])
+    .filter((t) => t.group !== 'Care') // care plans are add-ons, see above
     .map((t) => t.price)
     .filter((p) => typeof p === 'number');
   if (!prices.length) return null;
   return `$${Math.min(...prices).toLocaleString('en-US')}`;
 };
 
-const ServiceIndexPage = ({ variant }) => {
+const ServiceIndexPage = ({ variant = 'pricing' }) => {
   const reduced = useReducedMotion();
   const v = (motionVariant) => (reduced ? undefined : motionVariant);
   /* LC-26e: header is GSAP-revealed (static HTML ships visible) — see

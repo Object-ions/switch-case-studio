@@ -102,7 +102,7 @@ const Squares = ({
       }
 
       drawGrid();
-      requestRef.current = requestAnimationFrame(updateAnimation);
+      if (running) requestRef.current = requestAnimationFrame(updateAnimation);
     };
 
     const handleMouseMove = (event) => {
@@ -145,11 +145,37 @@ const Squares = ({
     canvas.addEventListener('mousemove', handleMouseMove);
     canvas.addEventListener('mouseleave', handleMouseLeave);
 
-    requestRef.current = requestAnimationFrame(updateAnimation);
+    // Run the drift loop ONLY while the canvas is on screen (house rule:
+    // gate animation loops by visibility). Ungated, every instance stroked
+    // its full canvas every frame for the life of the page; with two
+    // instances (About + the services block, 2026-09-10) that starved the
+    // main thread enough to hang headless probes at 1440.
+    let running = false;
+    const start = () => {
+      if (running) return;
+      running = true;
+      requestRef.current = requestAnimationFrame(updateAnimation);
+    };
+    const stop = () => {
+      running = false;
+      cancelAnimationFrame(requestRef.current);
+    };
+    let io = null;
+    if (typeof IntersectionObserver !== 'undefined') {
+      io = new IntersectionObserver(
+        ([entry]) => (entry.isIntersecting ? start() : stop()),
+        { rootMargin: '100px' },
+      );
+      io.observe(canvas);
+      drawGrid(); // first frame even before the observer reports
+    } else {
+      start();
+    }
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
-      cancelAnimationFrame(requestRef.current);
+      if (io) io.disconnect();
+      stop();
       canvas.removeEventListener('mousemove', handleMouseMove);
       canvas.removeEventListener('mouseleave', handleMouseLeave);
     };

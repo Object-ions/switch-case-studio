@@ -4,7 +4,7 @@ import AboutText from './AboutText';
 import AboutCTA from './AboutCTA';
 import AboutMarquee from './AboutMarquee';
 
-import Squares from '../ui/Squares';
+import DecorativeBoundary from '../util/DecorativeBoundary';
 import '../../styles/components/work.scss';
 
 // The Three.js stack (three + fiber + drei + Draco ≈ 990KB chunk) must not
@@ -15,6 +15,17 @@ import '../../styles/components/work.scss';
 // slot scrolls within ~200px of the viewport.
 const Moon = lazy(() => import('../ui/Moon'));
 
+// Can this browser create a WebGL context at all? If not, the 990KB Three.js
+// chunk is never fetched and the slot stays an empty, correctly-sized box.
+const hasWebGL = () => {
+  try {
+    const c = document.createElement('canvas');
+    return !!(c.getContext('webgl2') || c.getContext('webgl'));
+  } catch {
+    return false;
+  }
+};
+
 const MoonSlot = () => {
   const ref = useRef(null);
   const [near, setNear] = useState(false);
@@ -22,6 +33,7 @@ const MoonSlot = () => {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    if (!hasWebGL()) return; // decorative: no WebGL, no moon, no error
     if (typeof IntersectionObserver === 'undefined') {
       setNear(true); // ancient browser: load it, same as before
       return;
@@ -44,9 +56,11 @@ const MoonSlot = () => {
   return (
     <div ref={ref} className="work-moon">
       {near && (
-        <Suspense fallback={null}>
-          <Moon />
-        </Suspense>
+        <DecorativeBoundary>
+          <Suspense fallback={null}>
+            <Moon />
+          </Suspense>
+        </DecorativeBoundary>
       )}
     </div>
   );
@@ -55,16 +69,6 @@ const MoonSlot = () => {
 const About = () => {
   return (
     <div id="about">
-      {/* Animated grid background */}
-      <div className="squares-bg">
-        <Squares
-          speed={0.1}
-          squareSize={50}
-          direction="down"
-          borderColor="#7f7f7f"
-          hoverFillColor="#dab8ff"
-        />
-      </div>
 
       <div className="work-wrapper">
         <AboutHeading />

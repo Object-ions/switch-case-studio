@@ -14,6 +14,27 @@
     backdrop-filter 0.25s ease,
     border-color 0.25s ease;
 
+  // Home: the hero owns the first viewport (hero.scss, 100svh). Header.js adds
+  // `is-home` on "/" and `is-hero` while #hero intersects the viewport: hidden
+  // over the hero, then FIXED (out of flow, so its return shifts nothing) for
+  // the rest of the page. Other routes keep the sticky in-flow header.
+  &.is-home {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+  &.is-home.is-hero {
+    display: none;
+  }
+  // display:none → block restarts a CSS animation, so the return after the
+  // hero slides in instead of popping. `both` leaves transform: none, so the
+  // bar is not a containing block for anything afterwards (the menu panel is
+  // a sibling anyway). CSS-owned: no GSAP touches the header's transform.
+  &.is-home:not(.is-hero) {
+    animation: header-return $dur-med $ease-out both;
+  }
+
   // Scrolled state — translucent + blurred for depth (audit §04)
   &.is-scrolled {
     background: rgba(0, 0, 0, 0.65);
@@ -22,43 +43,33 @@
     border-bottom-color: rgba(255, 255, 255, 0.08);
   }
 
+  // One row (owner, 2026-09-09): nav links, then the booking pill right
+  // next to them, right-aligned. min-height keeps the bar as tall as the
+  // fixed logo so the row centres on it; the logo itself is .site-brand.
+  // Three columns (owner, 2026-09-11): an empty left column (the fixed logo
+  // floats there), the nav centred, the booking button alone on the right.
+  // Equal 1fr sides keep the nav on the true centre of the bar.
   &_inner {
-    max-width: $max-width;
+    max-width: none;
     margin: 0 auto;
+    padding-inline: 32px;
+    min-height: 85px;
     display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto auto;
-    column-gap: 24px;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
+    column-gap: 28px;
   }
 
-  &_brand {
-    grid-column: 1;
-    grid-row: 1 / 3;
-    justify-self: start;
-    align-self: center;
-
-    .brand_link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-      color: inherit;
-    }
-
-    // Sizes the inline-SVG SCSLogo. Square aspect ratio (matches the
-    // 571.68×571.68 viewBox) so it locks to the same visual footprint
-    // as the previous PNG.
-    .header_logo {
-      width: 85px;
-      height: 85px;
-    }
+  &_nav {
+    grid-column: 2;
   }
 
   .headingCTA {
-    grid-column: 2;
-    grid-row: 1;
+    grid-column: 3;
     justify-self: end;
+  }
+
+  .headingCTA {
     font-weight: 400;
     background: $g6;
     padding: 10px 16px;
@@ -75,10 +86,6 @@
   }
 
   &_nav {
-    grid-column: 2;
-    grid-row: 2;
-    justify-self: end;
-
     .nav_list {
       display: flex;
       align-items: center;
@@ -262,23 +269,16 @@
   // ── Tablet / mobile ─────────────────────────
   @media (max-width: 960px) {
     .site-header_inner {
-      grid-template-columns: 1fr auto;
-      grid-template-rows: auto;
-      grid-auto-rows: 0; // collapse any phantom third row
-      column-gap: 16px;
       padding: 0 16px;
-    }
-
-    .site-header_brand {
-      grid-column: 1;
-      grid-row: 1;
-      align-self: center;
     }
 
     .site-header_menuBtn {
       display: inline-flex;
-      grid-column: 2;
-      grid-row: 1;
+      // The inner row is a 3-column grid; nav + CTA are hidden here, so pin
+      // the menu button to the right column (auto-placement put it left,
+      // under the fixed logo).
+      grid-column: 3;
+      justify-self: end;
     }
 
     // Hide desktop nav + CTA on mobile
@@ -289,9 +289,80 @@
   }
 
   @media (max-width: 768px) {
-    .site-header_brand .header_logo {
+    .site-header_inner {
+      min-height: 60px;
+    }
+  }
+}
+
+// The detached logo: fixed top-left on every route, above the header, the
+// mobile menu panel (998/1000) and the hero. Only the custom cursor
+// (2147483647) sits higher, on purpose: it is the pointer.
+.site-brand {
+  position: fixed;
+  top: 10px;
+  left: 16px;
+  z-index: 100000;
+
+  .brand_link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  // Inline-SVG SCSLogo, square (571.68×571.68 viewBox).
+  .header_logo {
+    display: block;
+    width: 85px;
+    height: 85px;
+  }
+
+  @media (max-width: 768px) {
+    .header_logo {
       width: 56px;
       height: 56px;
     }
+  }
+
+  // Home: hidden while the hero is on screen (owner, 2026-09-10: the hero
+  // shows nothing but its own copy and the ident), fades in with the header.
+  &.is-home.is-hero {
+    display: none;
+  }
+  &.is-home:not(.is-hero) {
+    animation: brand-return $dur-med $ease-out both;
+  }
+}
+
+@keyframes brand-return {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-brand.is-home:not(.is-hero) {
+    animation: none;
+  }
+}
+
+@keyframes header-return {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header.is-home:not(.is-hero) {
+    animation: none;
   }
 }

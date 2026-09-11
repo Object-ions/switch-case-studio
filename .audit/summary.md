@@ -1655,3 +1655,303 @@ Two things did NOT come for free:
 
 Build: 44 routes (43 + this case study), entry-chunk marker pinned, 1 em dash (clamp regex),
 every `coverTile`/`imageSrc`/`longWeb`/`comparisons[].src` path resolved against `public/`.
+
+## Video hero: the ident replaces the cursor field — 2026-09-09 (branch `feat/video-hero`)
+
+The home hero is now the studio ident: 4.5s of hard-cut plates (leet alternates like `$w1tcH (as3`,
+`Sw!c# Cq$e`, width-glitch cuts of the wordmark, a lavender inverted band, `default:`) settling on
+`switch case`. Built in Remotion at `~/Desktop/scs-ident` (private: licensed SCS Display + Pangram
+Pangram faces), reference analysis in `~/Downloads/monstro-ident-analysis/`. Only the encodes ship:
+`public/ident/` carries 16:9 and 1:1 in WebM (VP9) + MP4 (H.264, faststart) and WebP posters cut
+from the final frame, 160–190KB each. Layout follows the reference's four-corner structure: the h1
+runs "we build" up the left edge (vertical-rl, rotated) and "websites, stores, apps & AI" along the
+top, intro under it, two notes and a Scroll cue at the bottom, the video full-bleed behind. The
+header's own booking pill is the top-right slot on desktop; phones get a pill in the hero. Removed
+with it: `CursorWave.js`, `WelcomeTyped.js`, the typed.js dependency (no other consumers).
+
+Three things measured, not assumed, and now rules in CLAUDE.md: the VP9 encodes inherited the
+master's full-range tags and failed in Chrome's decoder at 0.9s (fixed by normalising to limited
+BT.709, verified by 136/136 decoded frames on each source); Chrome's 500px minimum window width faked
+a phone overflow (verified at a real 390 via iframe: no overflow, 1:1 source chosen); the header is
+110px not 5rem, so the hero overshot the fold by 30px (now `--header-h`, hero bottom = viewport
+bottom at 1440×900). Standing checks: 44 routes, entry-chunk marker pinned, 1 em dash (clamp regex),
+AI-writing scan site 1.6/1k vocabulary, all zero counters still zero.
+
+Same day, second pass on the owner's notes: the video loops (2s on the wordmark, then the plates
+again), and on "/" the header is `display:none` while `#hero` is on screen, returning fixed once it
+has scrolled past, so the hero is a plain `100svh` and the `--header-h` token from the first pass
+is gone. The hero carries the booking link top-right again (the only nav on the first screen).
+
+## Service menu after the owner's reference: borderless two-column entries — 2026-09-09 (late)
+
+The home service menu dropped its cell borders, divider and bottom rule. Each entry is now the
+reference's four-part structure: a kicker row (studio taxonomy `AI · Code · Design · Growth`, new
+`kicker` field in `services.json`, "See pricing" on the right) over its own hairline, the light
+uppercase title, the subtitle at 500, and a muted line of the pricing page's included items joined
+with the house `·`. `columns: 2` (not grid) from 1024px so entries flow down the left column and
+continue in the right, the way the reference reads; the menu's side padding now mirrors
+`.lpp__inner` so the columns sit flush with "One studio." (heading x = first title x at 1920, 1440,
+1024 and 390, measured). Title clamp trimmed to 1.9vw so the 25-character titles hold one line in
+the 456px columns at 1440. `scripts/headless-probe.mjs` gained `--size WxH` and a 60s hard stop.
+
+## Case studies: tile grid → typed index with a hover preview — 2026-09-09 (late)
+
+The home case-study grid (badge + logo tiles) is now `CaseStudyIndex`: an intro column ("Selected
+work", count + year range, the "View all" pill) and three headed columns grouped by `type`,
+Rebuilds + SEO (2) · Business websites (5) · Products + stores (3), every entry a link with
+`title` over `type · year`. A preview slot under the two right-hand columns shows the hovered
+project's `imageSrc` (the 1150×1000 house-frame site screenshot), starting on the newest project
+(first in `projects.json`); all ten previews are stacked in the DOM and crossfade on CSS opacity.
+Unmapped types fall into a trailing "More work" column rather than vanishing. Phones drop the slot
+(no hover) and stack the columns. The "CASE STUDIES" TextPressure heading is untouched;
+`CaseStudyTiles` stays for LandingPageProof. Verified headless at 1440 / 1024 / 390: 10 entries,
+hover swaps the active preview, gutters 36 / 26 / 24, no horizontal overflow.
+
+Follow-up on the owner's note: the preview moved into the intro column under the "View all" pill,
+column width (299×187 at 1440; 300px beside the intro at 1024; hidden on phones). Found while
+probing, NOT fixed (out of scope, pre-existing): headless Chrome without a GPU cannot create a
+WebGL context, the About moon (`MoonSlot`, Three.js) throws on mount, and the route error boundary
+replaces the ENTIRE home page with "Unexpected Application Error". A visitor whose browser blocks
+WebGL gets the same. Candidate ticket: wrap MoonSlot in its own error boundary (or probe
+`canvas.getContext('webgl2')` before mounting) so a decorative failure stays decorative. The probe
+script now runs WebGL on SwiftShader so it can scroll past that section.
+
+## Header: one row + detached fixed logo; marquee above the case-study title — 2026-09-09 (late)
+
+Owner's notes, all on `feat/video-hero`: (1) the header is one row, nav links then the booking pill
+beside them, right-aligned; (2) the logo left the header and is `.site-brand`, `position: fixed`
+top-left on every route at z-index 100000 (only the cursor is higher), 85px / 56px on phones; the
+hero headline block starts at 7rem so it clears it; (3) the "Trusted by" marquee moved from after
+the hero to right above the "CASE STUDIES" title; (4) the case-study index lists ALL projects (11,
+Birth of Venus included, group renamed "Products + experiments"; the `featured` flag was why it was
+missing, it still governs the strip and tiles) and the "View all" pill is now a small tracked text
+link in the services-CTA register. Measured at 1440: header 106px, one nav row (y=40), pill at
+x=1074 right after the last link (1046), logo fixed at (16,10), hero headline y=112; marquee y=2806
+above the title at 2966; /about header identical; phone logo 56px, headline clears it.
+
+## Motion pass: reveals + scroll effects on the new home — 2026-09-10 (branch `feat/video-hero`)
+
+Added, all GSAP/ScrollTrigger in the house pattern (runtime-only hide, idempotent reveal, in-view
+fallback + timed net, reduced motion gets the end state, one tween per property): hero copy
+entrance (four corner blocks, stagger, 0.5s after mount, `yPercent`) and a scroll-out drift
+(`y`, scrubbed) that never touches the video; fixed logo scales 1 → 0.78 across the hero,
+scrubbed; the header's return after the hero slides in (CSS keyframes, `both`, so no transform
+lingers on the bar); "One studio." words brighten 35% → 100% white on a scrub; case-study index
+reveals intro → entries (grid stagger) → preview slot, one trigger on the index; preview swaps
+settle from 98% (scale is GSAP's, the crossfade stays CSS); the right service column trails the
+left by 0.12s. Verified headless: end states in normal AND reduced-motion modes, scrub values at
+half-hero (`hero-top` y −30, notes +30, logo scale 0.89), header `animationName: header-return`,
+index revealed exactly once. NOT machine-verified: tween timing at a real frame rate (headless
+rAF ran at 3 fps; the fast-flag and visible-tab routes both stall, documented in CLAUDE.md).
+Owner's visible pass is the timing check.
+
+## Services: typographic build; the safety nets were killing every reveal — 2026-09-10
+
+Owner: "I don't feel much of change. We must animate the services section." Two things shipped.
+(1) The service entries got a real build, each on its own trigger: the hairline draws left → right
+(now an element, not a border), the title rises out of an overflow mask, kicker + pricing link fade
+in, subtitle and includes follow; rows and the right column stagger; on desktop the two columns
+drift at different speeds (parallax on the item's `y`, scrubbed). (2) The root cause of "feel
+nothing": every section's safety net was a 3s timer from MOUNT, and the ident holds visitors on the
+hero for 4.5s, so all nets had fired before the first scroll and nothing below ever animated. New
+`armSafetyNet` forces visibility only for on-screen elements; wired into Services, the case-study
+index, "One studio.", About text, the About CTA, Reviews, Contact and the FAQ. Linger probe (5.5s
+idle, then scroll): every section still hidden before, revealed on arrival, at 1440 and 390, normal
+and reduced motion. Headless caveat unchanged: rAF at 3 fps (≈1 fps past the software moon), so
+timing is the owner's visible pass.
+
+## Hero: three words, nothing else over it — 2026-09-10
+
+Owner's edit. The hero shows only its own copy and the ident: the fixed logo and the booking link
+are hidden while `#hero` is on screen (logo carries `is-home is-hero` like the header and fades in
+with it after the hero; the hero's own link is gone). The top-left corner is now the h1
+"Creative, / Design, / Development", one word per line, Inter 800 at display size (137px at 1440,
+47px at 390, each word one line at both), replacing the vertical "we build" lockup and the intro
+paragraph. The logo's scroll-scale scrub went with it (nothing visible to shrink). Verified
+headless at 1440 and 390: logo `display: none` over the hero, `block` with `brand-return` after.
+
+Revised the same hour: the headline is a crossword lockup. "DESIGN & CREATIVE" runs across the
+top and "DEVELOPMENT" runs down from the shared D, every letter in a square cell of
+`--cell: clamp(2.25rem, min(7vh, 5.2vw), 5rem)` (grid-auto-columns = grid-auto-rows, so the
+horizontal and vertical steps are identical: 63px at 1440×900, 51px at 1440×723, 48px at
+1280×680, measured). The h1 carries `aria-label="Design and creative development"` and the letter
+cells are aria-hidden. The column clears the bottom-left note at every size probed. Phones drop the
+crossword for three tracked lines of 30px cells ("DESIGN &", "CREATIVE", "DEVELOPMENT"), which
+needs a second D cell shown only there.
+
+Second revision of the lockup (owner's DevTools mock): "DEVELOPMENT" across, "DESIGN" down from
+the shared D, Inter 300 at 8.75vh (79px at 1440×900). Equal gaps, properly this time: square cells
+gave equal STEPS, but glyph widths differ, so the ink gaps did not match (24–30px across vs 20 down
+at 63px). Now letters sit at natural widths, each box trimmed to Inter's cap height (line-height
+0.73em, so the box bounds the ink), the column hangs off the D itself (centred, no measuring), and
+Hero.js ink-fits the row after `document.fonts.ready`: canvas `measureText` gives each glyph's side
+bearings and a per-letter em margin makes every ink gap exactly `--gap`. Measured: horizontal
+25.2px ×10, vertical 24.4–25.4 (round-glyph overshoot) at 1440×900; 20.2 / 19.6–20.4 at 723; 8.3 /
+8.0–8.4 on the phone. Column clears the bottom note everywhere. Weight 300 because 100 is not
+shipped (the DevTools mock's 100 was already rendering as 300).
+
+Third revision, owner picked the "spine" from three impeccable-guided options: the crossword read as
+tracked label type scaled up, with no lead between the words. Now "DESIGN" is ONE word in Inter 800,
+rotated to read bottom-to-top up the left edge, sized so it spans gutter to gutter
+(`(100svh - 2 gutters) / 3.6`, its measured length 3.56em); "DEVELOPMENT" is Inter 300 across the
+top, flush right of the spine. The bottom-left note moved right of the spine. The ink-fit script is
+gone (words set as words need no per-letter spacing). Measured spine 24→866 at 1440×900, 24→648 at
+1280×680. Phones stack DESIGN (800) over DEVELOPMENT (300). Known clash: the ident's "edge tail"
+plate (a giant clipped letter at the left edge, frames 61–66) overlaps the spine for 0.2s per loop.
+
+Hero copy + colour + phone video (2026-09-10): notes rewritten with the copywriting skill, both now
+concrete: left says who it's for and what they get ("Websites, online stores and AI assistants for
+businesses that need them to bring in work. We design it, build it and keep it running after
+launch."), right points at the proof below ("Each case study below puts the old site beside ours,
+with page weight and load time measured on the live pages."). All hero text #fff. The phone video
+was a 300px square; portrait screens now get a 9:16 web cut (limited-range BT.709, 266KB WebM /
+209KB MP4, poster swapped to the 9:16 end frame by media query) full-bleed behind the copy.
+Measured: video 390×848 = hero at 390, 1440×900 = hero at 1440; headline back on the 20px gutter.
+Two positioning traps on the way: a `position: relative` frame boxed the absolute video inside the
+hero padding, and a relative `.hero-top` inherited the desktop top/left as an offset.
+
+## Services 7 → 4, tiers 26 → 17; moon error boundary; hero stage on wide screens — 2026-09-10
+
+Owner's consolidation, so the service cards match the hero (Design, Code, AI, Growth; one kicker
+each). Brand Identity unchanged apart from items (Wireframing and Infographics dropped: that left 3
+items, the brief said "trim to 4"; flagged). Web Development absorbed hosting: Build (Landing Page,
+Simple Website, Business Bundle, Growth Suite) and Care (Starter Care, Growth Care, VPS &
+Self-Hosted), Enterprise Care cut. AI & Automation: AI Roadmap Sprint, AI Assistant, Custom AI
+Agent, Automation Retainer (was Growth Integrator), AI Partner (now includes self-hosted n8n);
+Workflow Starter and Automation Suite cut; email lifecycle flows became an item. SEO & AI Search:
+SEO + GEO Sprint (flagship, first) and Growth Retainer (was Momentum Builder, rewritten
+standalone); all social-media and email-retention tiers cut. Redirects (301): automation-integrations
+→ ai-development, email-marketing → marketing-ads, hosting-maintenance → web-development. Routes
+44 → 41. /pricing entry prices read Brand $750, Web $800, AI $500, SEO $3,000 (the monthly
+retainer undercuts the one-time Sprint; the owner may want the Sprint as the displayed entry).
+
+The About moon now has `DecorativeBoundary` plus a WebGL pre-check: with WebGL disabled the home
+page renders in full (moon slot stays empty at 500px, FAQ present); with WebGL the moon mounts.
+Previously a context failure blanked the whole page. Hero on wider screens: the ident plays on the
+stage right of the spine with `object-fit: contain`, the spine caps at 16vw; phones keep full-bleed
+cover. Measured at 975×950: spine 115px wide, stage from x=179, wordmark whole.
+
+## Services block: full-screen stage over the interactive grid — 2026-09-10
+
+Owner: the services section read "too clustered". "One studio." and the service menu now share one
+`.services-block` over the same `Squares` grid About uses, with black linear fades (28vh) at the top
+and bottom so it meets the hero and the stripe on pure black; both sections are transparent and the
+pointer reaches the grid through empty wrappers. The menu is `min-height: 100vh` with its cards
+centred (padding equalised: measured 177px above / 178px below at 1440×900) and 5rem between rows.
+Grid lines dimmed to #3d3d3d in this block so they don't cut through the muted "includes" copy.
+`Squares` is now visibility-gated (it ran full-canvas strokes every frame forever, even off screen;
+a second instance made that visible as probe stalls). Routes 41, entry marker pinned.
+
+## Services block: panels, hierarchy, spacing, header offset — 2026-09-10 (design pass)
+
+Owner: the header cut the titles, the gap between intro and cards was odd, cards needed a backing
+against the grid, and the three card texts had no hierarchy. Applied with impeccable + taste
+guidance (hierarchy by size AND weight, ≥1.25 steps; fill not glass for legibility): each service
+sits on an 88%-black panel with a hairline border and 12px radius; title is Inter 600 title case
+(28.8px at 1440), subtitle Inter 400 at 80% (16.8px), includes line 300 (14.4px), kicker unchanged.
+The 100vh moved from the menu to the whole block (`min-height: 100dvh`), so the intro flows into
+the cards (65px gap, was about a screen). Section anchors get `scroll-margin-top: 120px` so nav jumps
+stop below the fixed header. Two follow-on fixes: the phone link rule still bled 1.25rem outward
+(text flush to the panel edge under overflow: hidden), and the column parallax sliced the first
+card's top edge against `#services`' clip (menu top padding 2rem; clearance ≥8px measured).
+
+Services cards trimmed (owner: "too much text; the services are the main thing"): the included-items
+line is gone from the home cards (the detail lives on each pricing page), the service name is the
+dominant element (Inter 600, 49px at 1440, 33px at 390, one line everywhere), and the "One studio."
+paragraph went from four sentences to two. Cards dropped from ~280-350px to 200px tall at 1440. The
+menu keeps 2rem padding on both ends so the ±24px column parallax stays inside `#services`' clip (the
+last right-column card had lost its bottom edge once the block took over the bottom padding).
+
+Service cards go portrait with layered parallax (owner, 2026-09-10, stickers to follow): four 3:4
+cards in one row from 1024px (324×432 at 1440), two from 768px, one column on phones. Kicker row at
+the top, name + line at the bottom, the middle left open as the sticker slot. Desktop parallax: each
+card travels upward at its own speed (34 / 60 / 22 / 48px either side of rest) and its name block a
+further 40% inside the card, one tween owner per element per property (card `y`, body-wrapper `y`,
+the entrance build on the children). Menu padding raised to 5rem so no card edge reaches the clip:
+min clearance 30px measured across three scroll offsets. Tablet and phone run no parallax.
+
+## Services: pinned horizontal pan, after the owner's reference recording — 2026-09-10
+
+The reference (a Readymag gallery section) pins its heading band and slides a card row sideways as
+the visitor scrolls down, ending on a solid "Explore more" card. Rebuilt in the house theme: on
+desktop (≥1024px, motion allowed) the whole `.services-block` pins (heading, grid, fades), vertical
+scroll slides the four portrait cards left under "One studio.", and the row ends on a lavender "All
+services & pricing →" card linking /pricing. Layer: each card's name block drifts on x as the card
+crosses the screen (`containerAnimation`). The per-card vertical parallax was removed (it fought the
+pin). Measured: pinned at top 0 throughout; travel 753px at 1440×900 (cards 405×540), 378px at
+1440×800 (330×440), card always fits under the heading; the block releases into the next section.
+Reduced motion at 1440 and phones keep the static grid with no pin and no end card.
+
+## Services slide, cursor ring, /services retired, pricing footer — 2026-09-10 (late)
+
+Owner's batch. (1) The pan now ends with "All services & pricing" in the second-from-right slot: a
+trailing empty slot (`::after`, one card width) after the end card; measured 443px from the end
+card to the right edge at 1440 (one slot + gap + gutter), travel 1860px. (2) Cursor ring: it copied
+the hovered element's raw radius while sitting MORPH_PAD/2 outside it, and the services card's
+inner link had no radius at all (3px fallback). Now the ring radius is element radius + MORPH_PAD/2
+(concentric) and `.services__link` inherits the panel's 12px. Probe: { "pointerDevice": true, "card": { "radius": "12px", "w": 380 }, "ring": { "radius": "17px", "hovering": true, "w": 390 }}. (3) Card links verified in
+the built HTML: /pricing/design-branding, /web-development, /ai-development, /marketing-ads; the end
+card to /pricing. (4) /services deleted (route, ServicesPage.js, its copy variant, sitemap entry);
+301 /services → /pricing; the header dropdown and phone menu read "Services & Pricing", the /pricing
+kicker too. Routes 41 → 40. (5) Pricing pages: the dotted `.pg-sep` rule and its styles are gone,
+the disclaimer is quiet grey body text, and the two actions are pill buttons (lavender "Book a Free
+Strategy Call", outline "Email the studio"), both 48px tall.
+
+## Cursor: a circle everywhere, and the "disappearing" bug — 2026-09-10 (late)
+
+Owner noticed the cursor was sometimes a circle (and preferred it) and sometimes vanished. Both were
+one bug: a missed `pointerout`. When the wrapped element vanished under the pointer (header hiding
+over the hero, a dropdown closing, the services pin re-parenting the row) no exit event fired, so the
+cursor either kept a pill button's ~105px radius at its 25px rest size (the accidental circle) or
+stayed glued to a zero-size box at 0,0 (it "disappeared"). Now: the rest shape is a circle (CSS
+`border-radius: 50%`, every reset tweens to 50%, the header/FAQ no-morph hover is a hollow circle),
+and both hover kinds release on their own when their element is detached, collapses to zero size, or
+the pointer leaves its box, with no exit event needed. Probed: rest 25px circle; header hover 35px
+hollow circle; wrap on a 30px-radius element gives a concentric 35px ring; deleting the wrapped
+element mid-hover returns a 25px circle at the pointer; leaving a no-morph hover with no exit event,
+and hiding the header mid-hover, both return a 25px circle.
+
+## Owner batch — 2026-09-11: end card, hero tail, header grid, cursor everywhere, index, About, metric
+
+1. "All services & pricing" never navigated: `.services-block > section` is `pointer-events: none`
+   (so the grid gets the pointer in the gaps) and only `.lpp__header` / `.services__item` were
+   re-enabled; the end card was missing, so clicks and hovers fell through to the canvas. Added.
+   Probed: hit-test lands on the card, the cursor wraps it (17px ring), a click goes to /pricing.
+2. Hero: one screen plus a 5rem black tail before the next section (bottom row lifted by the same
+   amount, so it still sits at the bottom of the first screen); "Scroll" hides via `[hidden]` once
+   the page scrolls past 40px and returns at the top.
+3. Case-study index: years removed from every entry and from the intro count.
+4. About on the home page: the Squares grid removed, plain black.
+5. Cursor: NO_MORPH_ZONES emptied, so the wrap works in the header and the FAQ (probed: header link,
+   FAQ row 695px ring around a 685px row).
+6. Testimonials: Prodani's quote now carries a metric like Zahav's (−74% homepage weight, 6.95MB
+   to 1.83MB, the figure already published in its case study, linked).
+7. Header: three columns, nav on the true centre (720 of 1440), "Book a Free Strategy Call" alone
+   on the right, the logo still fixed left; ≤960px the menu button is pinned to the right column.
+
+## The Studio Journal becomes a split reader — 2026-09-11
+
+After the owner's "selected works" index reference: /blog and every /blog/:slug render one layout,
+`JournalReader`. Left third (sticky under the fixed header): the journal name, the post list (title +
+short date, the open post in lavender) and the open post's details as label/value rows (category,
+published, reading time, author, topics). Right two-thirds: the article itself, capped at a ~70ch
+measure, then a booking prompt and "Next article". /blog opens the newest post (journal name = h1,
+article title = h2); a post page makes the article title the h1; heading-skip scan 0. Phones stack
+the article first, the list and details after. The body-block renderer moved verbatim into
+`src/components/blog/blogBlocks.js` (the `download` attribute survives: the n8n post still emits it);
+`blogPage.scss` deleted (dead). Both pages keep their `<Seo>` and JSON-LD; routes 40. Tradeoff to
+watch: /blog now shows the newest post's full text, which duplicates /blog/<newest>; the canonical
+tags are unchanged.
+
+Journal follow-up (2026-09-11): dates sit right beside each title (12px gap), not pushed to the
+column edge; the list paginates at 11 per page (12 posts → page 1 holds 11, page 2 the oldest),
+with a pager at the bottom of the left third that opens on the page holding the open post, in the
+static HTML too; the article's 44rem (~70ch) reading cap is removed by owner request, so it spans the
+full two-thirds (864px at 1440, ~110 characters a line).
+
+## LIVE SERVICE POSTERS — BUILT 2026-09-11, branch `feat/service-poster-live`, NOT PUSHED
+Four live SVG posters in the home service cards (`src/components/servicePoster/`): 01 "In register." (Brand Identity), 02 "Every page is a door." (Web Development), 03 "Always on." (AI & Automation), 04 "Be the answer." (SEO & AI Search). Owner decisions at Gate 0: existing tokens only (terra/pink $g4/mint/ink/cream), site fonts only (Inter; SCS Display for the face swap; system mono for labels, zero new font bytes), lilac hover wipe removed (the poster is the hover response, title letter-hop kept), phones get a square poster above the text.
+- Modes: static (SSR / no JS / reduced motion / error), pointer (fine pointer), ambient (touch). One shared gsap.ticker; a poster runs only at >= 15% visible.
+- Verified (headless, built site): SSR HTML carries all 4 full posters, no `style=""`, nothing at opacity 0; reduced motion leaves every poster at its SSR attributes, no ring element, no listeners; an off-screen poster writes nothing; a forced throw in Poster 01 remounted it as the untouched hero frame while 02-04 kept running; pointer events opened the door to ~0.93 and faded the drawn cursor; pointerenter replay dropped your bar to slot 4 (y 264 = 3 × 88).
+- Size: entry chunk 261,555 → 266,055 B gzip (+4.5 KB, target < 8 KB). Route count unchanged at 40.
+- OPEN (owner's visible-window pass): perf trace at 6× throttle (headless runs rAF at ~3 fps, so tween timing and ms/frame can't be measured here, see the headless rule in CLAUDE.md); Safari mix-blend + transform check; Firefox. Desktop pan cards leave the poster a wide, short zone (about 250 × 130 at 1440×900), so the square art letterboxes on its own background colour. If it reads too small, the lever is card proportions, not the SVG.

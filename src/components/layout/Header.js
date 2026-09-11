@@ -1,6 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 import HeaderCTA from "./HeaderCTA";
 import StaggeredMenu from "./StaggeredMenu";
 import SCSLogo from "../ui/SCSLogo";
@@ -17,6 +20,12 @@ const Header = () => {
   const [textLines, setTextLines] = useState(["Menu", "Close"]);
   const [scrolled, setScrolled] = useState(false);
   const { pathname, hash } = useLocation();
+  // Home: the hero owns the first viewport, so the header is display:none
+  // while #hero is on screen and returns (fixed) once it has scrolled past.
+  // The initial value comes from the ROUTE, not the viewport, so the static
+  // HTML and the first client render agree (no hydration mismatch).
+  const isHome = pathname === "/";
+  const [heroInView, setHeroInView] = useState(isHome);
   const reducedMotion = useReducedMotion();
 
   const openRef = useRef(false);
@@ -40,10 +49,16 @@ const Header = () => {
     const textInner = textInnerRef.current;
     if (!plusH || !plusV || !icon || !textInner) return;
 
-    gsap.set(plusH, { transformOrigin: "50% 50%", rotate: 0 });
-    gsap.set(plusV, { transformOrigin: "50% 50%", rotate: 90 });
-    gsap.set(icon, { rotate: 0, transformOrigin: "50% 50%" });
-    gsap.set(textInner, { yPercent: 0 });
+    // The icon lines are centred by a CSS translate(-50%, -50%). GSAP must
+    // claim the FULL transform (percent + px + rotate) here, not just rotate:
+    // on the home route this effect runs while the header is display:none,
+    // and a partial set makes GSAP parse the centring from a box that does
+    // not exist (it came back as translate(-195px, -1px): -50% of the
+    // viewport, the icon sat 190px left of its label after the hero).
+    gsap.set(plusH, { transformOrigin: "50% 50%", xPercent: -50, yPercent: -50, x: 0, y: 0, rotate: 0 });
+    gsap.set(plusV, { transformOrigin: "50% 50%", xPercent: -50, yPercent: -50, x: 0, y: 0, rotate: 90 });
+    gsap.set(icon, { x: 0, y: 0, rotate: 0, transformOrigin: "50% 50%" });
+    gsap.set(textInner, { x: 0, y: 0, yPercent: 0 });
   }, []);
 
   /* ── Scroll-state listener ──────────────────── */
@@ -53,6 +68,26 @@ const Header = () => {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  /* ── Home hero watcher ──────────────────────── */
+  useEffect(() => {
+    if (!isHome || typeof IntersectionObserver === "undefined") {
+      setHeroInView(false);
+      return undefined;
+    }
+    const hero = document.getElementById("hero");
+    if (!hero) {
+      setHeroInView(false);
+      return undefined;
+    }
+    setHeroInView(true);
+    const io = new IntersectionObserver(
+      ([entry]) => setHeroInView(entry.isIntersecting),
+      { threshold: 0 },
+    );
+    io.observe(hero);
+    return () => io.disconnect();
+  }, [isHome]);
 
   /* ── Icon spin animation ────────────────────── */
   const animateIcon = useCallback(
@@ -211,8 +246,16 @@ const Header = () => {
 
   return (
     <>
+      {/* The logo is detached from the header: fixed to the top-left on every
+          route and stacked above everything but the cursor, so it stays put
+          while the header hides over the home hero or turns translucent. */}
+      <div className={`site-brand ${isHome ? "is-home" : ""} ${heroInView ? "is-hero" : ""}`}>
+        <Link to="/" className="brand_link" aria-label="Switch Case Studio home">
+          <SCSLogo className="header_logo" />
+        </Link>
+      </div>
       <header
-        className={`site-header ${scrolled ? "is-scrolled" : ""}`}
+        className={`site-header ${scrolled ? "is-scrolled" : ""} ${isHome ? "is-home" : ""} ${heroInView ? "is-hero" : ""}`}
         role="banner"
       >
         <div className="site-header_inner">
@@ -240,18 +283,6 @@ const Header = () => {
             </span>
           </button>
 
-          <div className="site-header_brand">
-            <Link
-              to="/"
-              className="brand_link"
-              aria-label="Switch Case Studio home"
-            >
-              <SCSLogo className="header_logo" />
-            </Link>
-          </div>
-
-          <HeaderCTA />
-
           <nav className="site-header_nav" aria-label="Primary">
             <ul className="nav_list">
               <li className="nav_item">
@@ -261,15 +292,6 @@ const Header = () => {
                   aria-current={isActive("/about") ? "page" : undefined}
                 >
                   About
-                </Link>
-              </li>
-              <li className="nav_item">
-                <Link
-                  to="/services"
-                  className={`nav_link ${isActive("/services") ? "is-active" : ""}`}
-                  aria-current={isActive("/services") ? "page" : undefined}
-                >
-                  Services
                 </Link>
               </li>
               {/* Pricing — disclosure submenu (button, not link).
@@ -294,7 +316,7 @@ const Header = () => {
                   onFocus={handleTriggerFocus("pricing")}
                   onClick={() => setActiveSubmenu(null)}
                 >
-                  Pricing
+                  Services &amp; Pricing
                   <span className="nav_caret" aria-hidden="true" />
                 </Link>
                 {renderSubmenu("pricing", PRICING_LINKS)}
@@ -355,6 +377,8 @@ const Header = () => {
               </li>
             </ul>
           </nav>
+
+          <HeaderCTA />
         </div>
       </header>
 
