@@ -10,9 +10,10 @@ const INTERACTIVE_SELECTOR =
 
 // Zones where wrapping looks wrong (logo art, accordion rows): the cursor
 // falls back to a hollow 35px circle there instead of morphing.
-// Empty since 2026-09-11: the owner wants the wrap in the header and FAQ
-// too. Add a selector here only for art that genuinely can't be wrapped.
-const NO_MORPH_ZONES = '';
+// The owner wants the wrap in the header and FAQ too (2026-09-11), but NOT
+// on the service cards: their live posters are the hover response there.
+// Add a selector here only for zones where the wrap genuinely competes.
+const NO_MORPH_ZONES = '#services';
 const HOVER_SIZE = 35;
 
 const BASE = 25; // resting circle (owner, 2026-09-10: circle everywhere)
