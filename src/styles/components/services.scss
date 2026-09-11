@@ -70,8 +70,12 @@
     z-index: 2;
     pointer-events: none;
   }
+  // Everything the visitor can click must re-enable the pointer. The end
+  // card was missing here, so clicks passed through it to the grid and it
+  // never navigated (and the cursor never wrapped it).
   .lpp__header,
-  .services__item {
+  .services__item,
+  .services__end {
     pointer-events: auto;
   }
 }

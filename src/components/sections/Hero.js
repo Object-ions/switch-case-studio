@@ -70,7 +70,24 @@ const Hero = () => {
         scrollTrigger: { ...scrub },
       });
 
-      return () => safety.kill();
+      // "Scroll" is an instruction for the top of the page only: hide it once
+      // the visitor has scrolled (via [hidden], so the entrance tween's inline
+      // opacity/visibility can't override it), bring it back at the top.
+      const cue = root.querySelector(".hero-scroll");
+      const cueST = cue
+        ? ScrollTrigger.create({
+            start: 40,
+            end: "max",
+            onToggle: (self) => {
+              cue.hidden = self.isActive;
+            },
+          })
+        : null;
+
+      return () => {
+        safety.kill();
+        if (cueST) cueST.kill();
+      };
     }, root);
     return () => ctx.revert();
   }, [reducedMotion]);

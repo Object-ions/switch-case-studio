@@ -46,14 +46,27 @@
   // One row (owner, 2026-09-09): nav links, then the booking pill right
   // next to them, right-aligned. min-height keeps the bar as tall as the
   // fixed logo so the row centres on it; the logo itself is .site-brand.
+  // Three columns (owner, 2026-09-11): an empty left column (the fixed logo
+  // floats there), the nav centred, the booking button alone on the right.
+  // Equal 1fr sides keep the nav on the true centre of the bar.
   &_inner {
-    max-width: $max-width;
+    max-width: none;
     margin: 0 auto;
+    padding-inline: 32px;
     min-height: 85px;
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
-    justify-content: flex-end;
-    gap: 28px;
+    column-gap: 28px;
+  }
+
+  &_nav {
+    grid-column: 2;
+  }
+
+  .headingCTA {
+    grid-column: 3;
+    justify-self: end;
   }
 
   .headingCTA {
@@ -261,6 +274,11 @@
 
     .site-header_menuBtn {
       display: inline-flex;
+      // The inner row is a 3-column grid; nav + CTA are hidden here, so pin
+      // the menu button to the right column (auto-placement put it left,
+      // under the fixed logo).
+      grid-column: 3;
+      justify-self: end;
     }
 
     // Hide desktop nav + CTA on mobile

@@ -13,7 +13,11 @@ $hero-pad-y: 1.5rem;
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  height: 100svh;
+  // One screen plus 5rem of black before the next section (owner,
+  // 2026-09-11). The bottom row is lifted by the same 5rem, so on load it
+  // still sits at the bottom of the first screen.
+  --hero-tail: 5rem;
+  height: calc(100svh + var(--hero-tail));
   position: relative;
   overflow: hidden;
   background: #000;
@@ -105,7 +109,7 @@ $hero-pad-y: 1.5rem;
   // ── Bottom corners ──
   .hero-note {
     position: absolute;
-    bottom: $hero-pad-y;
+    bottom: calc(#{$hero-pad-y} + var(--hero-tail));
     z-index: 1;
     margin: 0;
     font-family: $font-text;
@@ -126,7 +130,7 @@ $hero-pad-y: 1.5rem;
 
   .hero-scroll {
     position: absolute;
-    bottom: $hero-pad-y;
+    bottom: calc(#{$hero-pad-y} + var(--hero-tail));
     z-index: 1;
     left: 50%;
     translate: -50% 0;
@@ -162,6 +166,7 @@ $hero-pad-y: 1.5rem;
   @media (max-width: 768px) {
     height: auto;
     min-height: 100svh;
+    --hero-tail: 0rem;
     padding: 1.5rem 1.25rem 1.5rem;
     box-sizing: border-box;
 

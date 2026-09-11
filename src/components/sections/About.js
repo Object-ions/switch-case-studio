@@ -4,7 +4,6 @@ import AboutText from './AboutText';
 import AboutCTA from './AboutCTA';
 import AboutMarquee from './AboutMarquee';
 
-import Squares from '../ui/Squares';
 import DecorativeBoundary from '../util/DecorativeBoundary';
 import '../../styles/components/work.scss';
 
@@ -70,16 +69,6 @@ const MoonSlot = () => {
 const About = () => {
   return (
     <div id="about">
-      {/* Animated grid background */}
-      <div className="squares-bg">
-        <Squares
-          speed={0.1}
-          squareSize={50}
-          direction="down"
-          borderColor="#7f7f7f"
-          hoverFillColor="#dab8ff"
-        />
-      </div>
 
       <div className="work-wrapper">
         <AboutHeading />

@@ -54,11 +54,6 @@ if (leftovers.length) {
   grouped.push({ heading: 'More work', types: [], projects: leftovers });
 }
 
-const years = featured.map((p) => p.year).filter(Boolean);
-const yearRange =
-  years.length > 0
-    ? `${Math.min(...years)}–${Math.max(...years)}`
-    : '';
 
 const CaseStudyIndex = () => {
   const [active, setActive] = useState(featured[0]?.slug);
@@ -131,10 +126,7 @@ const CaseStudyIndex = () => {
     <div className="csi" ref={rootRef}>
       <div className="csi__intro">
         <p className="csi__intro-title">Selected work</p>
-        <p className="csi__intro-meta">
-          {featured.length} projects
-          {yearRange ? ` · ${yearRange}` : ''}
-        </p>
+        <p className="csi__intro-meta">{featured.length} projects</p>
         <Link to="/projects" className="csi__viewall">
           All case studies
           <span className="cta-arrow" aria-hidden="true">&rarr;</span>
@@ -171,10 +163,7 @@ const CaseStudyIndex = () => {
               onFocus={() => setActive(p.slug)}
             >
               <span className="csi__entry-title">{p.title}</span>
-              <span className="csi__entry-meta">
-                {p.type}
-                {p.year ? ` · ${p.year}` : ''}
-              </span>
+              <span className="csi__entry-meta">{p.type}</span>
             </Link>
           ))}
         </div>

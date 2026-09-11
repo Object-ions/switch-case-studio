@@ -1910,3 +1910,21 @@ the pointer leaves its box, with no exit event needed. Probed: rest 25px circle;
 hollow circle; wrap on a 30px-radius element gives a concentric 35px ring; deleting the wrapped
 element mid-hover returns a 25px circle at the pointer; leaving a no-morph hover with no exit event,
 and hiding the header mid-hover, both return a 25px circle.
+
+## Owner batch — 2026-09-11: end card, hero tail, header grid, cursor everywhere, index, About, metric
+
+1. "All services & pricing" never navigated: `.services-block > section` is `pointer-events: none`
+   (so the grid gets the pointer in the gaps) and only `.lpp__header` / `.services__item` were
+   re-enabled; the end card was missing, so clicks and hovers fell through to the canvas. Added.
+   Probed: hit-test lands on the card, the cursor wraps it (17px ring), a click goes to /pricing.
+2. Hero: one screen plus a 5rem black tail before the next section (bottom row lifted by the same
+   amount, so it still sits at the bottom of the first screen); "Scroll" hides via `[hidden]` once
+   the page scrolls past 40px and returns at the top.
+3. Case-study index: years removed from every entry and from the intro count.
+4. About on the home page: the Squares grid removed, plain black.
+5. Cursor: NO_MORPH_ZONES emptied, so the wrap works in the header and the FAQ (probed: header link,
+   FAQ row 695px ring around a 685px row).
+6. Testimonials: Prodani's quote now carries a metric like Zahav's (−74% homepage weight, 6.95MB
+   to 1.83MB, the figure already published in its case study, linked).
+7. Header: three columns, nav on the true centre (720 of 1440), "Book a Free Strategy Call" alone
+   on the right, the logo still fixed left; ≤960px the menu button is pinned to the right column.

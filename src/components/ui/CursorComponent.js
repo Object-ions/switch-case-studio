@@ -10,7 +10,9 @@ const INTERACTIVE_SELECTOR =
 
 // Zones where wrapping looks wrong (logo art, accordion rows): the cursor
 // falls back to a hollow 35px circle there instead of morphing.
-const NO_MORPH_ZONES = '.site-header, .faq';
+// Empty since 2026-09-11: the owner wants the wrap in the header and FAQ
+// too. Add a selector here only for art that genuinely can't be wrapped.
+const NO_MORPH_ZONES = '';
 const HOVER_SIZE = 35;
 
 const BASE = 25; // resting circle (owner, 2026-09-10: circle everywhere)
@@ -181,7 +183,7 @@ const CursorComponent = () => {
       }
 
       // No-morph zones: classic hollow square, no wrapping.
-      if (target.closest(NO_MORPH_ZONES)) {
+      if (NO_MORPH_ZONES && target.closest(NO_MORPH_ZONES)) {
         if (morphTarget) {
           morphTarget = null;
           gsap.ticker.remove(morphTick);
