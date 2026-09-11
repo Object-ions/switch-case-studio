@@ -29,11 +29,13 @@ const GROUPS = [
   { heading: 'Rebuilds + SEO', types: ['Rebuild + Local SEO', 'Rebuild + SEO'] },
   {
     heading: 'Business websites',
-    types: ['Business Website', 'Portfolio Site', 'Landing Page'],
+    types: ['Business Website', 'Portfolio Site'],
   },
   {
     heading: 'Products + experiments',
-    types: ['SaaS Product', 'E-Commerce', 'Full-Stack + API', 'Interactive Experience'],
+    // Landing Page moved here (owner, 2026-09-11) so the Rebuilds column
+    // stays short and the preview can sit under it, across columns 1-2.
+    types: ['SaaS Product', 'E-Commerce', 'Full-Stack + API', 'Interactive Experience', 'Landing Page'],
   },
 ];
 
@@ -130,8 +132,9 @@ const CaseStudyIndex = () => {
         <Link to="/projects" className="csi__viewall">
           All case studies
         </Link>
+      </div>
 
-        {/* Every preview is in the DOM, stacked, so a hover crossfades instead
+      {/* Every preview is in the DOM, stacked, so a hover crossfades instead
             of waiting on a fetch; they lazy-load together when the slot scrolls
             into view (~60KB each). Opacity is CSS-owned: no GSAP touches it. */}
         <div className="csi__slot" aria-hidden="true">
@@ -148,10 +151,9 @@ const CaseStudyIndex = () => {
             />
           ))}
         </div>
-      </div>
 
-      {grouped.map((g) => (
-        <div className="csi__group" key={g.heading}>
+      {grouped.map((g, i) => (
+        <div className={`csi__group${i === 0 ? ' csi__group--lead' : ''}`} key={g.heading}>
           <p className="csi__heading">{g.heading}</p>
           {g.projects.map((p) => (
             <Link

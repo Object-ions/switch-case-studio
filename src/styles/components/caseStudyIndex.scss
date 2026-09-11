@@ -21,8 +21,12 @@
   color: $white-color;
   text-align: left;
 
+  // Desktop grid: row 1 = intro + three heading columns; the preview spans
+  // columns 1-2 in row 2, under the intro and the (short) Rebuilds column,
+  // while columns 3-4 run down both rows (owner, 2026-09-11).
   &__intro {
     grid-column: 1;
+    grid-row: 1;
     min-width: 0;
     padding-top: 1rem;
     border-top: 1px solid rgba(255, 255, 255, 0.14);
@@ -69,6 +73,14 @@
 
   &__group {
     min-width: 0;
+    grid-row: 1 / span 2;
+
+    // The first (short) column stops at row 1 so the preview can sit
+    // under it. A class, not :nth-of-type: the slot is a div sibling too.
+    &--lead {
+      grid-column: 2;
+      grid-row: 1;
+    }
   }
 
   // A hairline over each column heading gives the four columns one top
@@ -126,8 +138,10 @@
   // anchored to the top so the site's header is what shows.
   &__slot {
     position: relative;
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    align-self: start;
     width: 100%;
-    margin-top: 3rem;
     aspect-ratio: 16 / 10;
     overflow: hidden;
     background: #0a0a0a;
@@ -166,10 +180,15 @@
     &__viewall {
       grid-column: 1;
     }
+    &__group,
+    &__group--lead {
+      grid-column: auto;
+      grid-row: auto;
+    }
     &__slot {
-      grid-column: 2;
-      grid-row: 1 / 4;
-      margin-top: 0;
+      grid-column: 1 / -1;
+      grid-row: auto;
+      max-width: 640px;
     }
   }
 }

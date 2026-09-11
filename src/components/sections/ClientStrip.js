@@ -27,8 +27,11 @@ import '../../styles/components/clientStrip.scss';
  * refactor. Before adding a logo, verify its provenance/permission
  * (CLAUDE.md rule).
  * ------------------------------------------------------------------ */
+// Studio products join the strip only when they carry a cut mark (owner,
+// 2026-09-11: Scout and Birth of Venus in the marquee). Their marks are cut
+// by hand, not by scripts/cut-client-logos.py, which skips studio projects.
 const CLIENTS = projects
-  .filter((p) => p.featured && !p.studioProject)
+  .filter((p) => (p.featured && !p.studioProject) || (p.studioProject && p.clientLogo))
   .map((p) => ({
     name: p.title,
     logo: p.clientLogo || null,

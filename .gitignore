@@ -55,3 +55,6 @@ lh/
 *-medians.json
 metrics.csv
 METHOD.md
+
+# local Pillow venv for scripts/cut-client-logos.py
+.venv/
