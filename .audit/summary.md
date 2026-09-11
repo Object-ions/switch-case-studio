@@ -1869,3 +1869,15 @@ card travels upward at its own speed (34 / 60 / 22 / 48px either side of rest) a
 further 40% inside the card, one tween owner per element per property (card `y`, body-wrapper `y`,
 the entrance build on the children). Menu padding raised to 5rem so no card edge reaches the clip:
 min clearance 30px measured across three scroll offsets. Tablet and phone run no parallax.
+
+## Services: pinned horizontal pan, after the owner's reference recording — 2026-09-10
+
+The reference (a Readymag gallery section) pins its heading band and slides a card row sideways as
+the visitor scrolls down, ending on a solid "Explore more" card. Rebuilt in the house theme: on
+desktop (≥1024px, motion allowed) the whole `.services-block` pins (heading, grid, fades), vertical
+scroll slides the four portrait cards left under "One studio.", and the row ends on a lavender "All
+services & pricing →" card linking /pricing. Layer: each card's name block drifts on x as the card
+crosses the screen (`containerAnimation`). The per-card vertical parallax was removed (it fought the
+pin). Measured: pinned at top 0 throughout; travel 753px at 1440×900 (cards 405×540), 378px at
+1440×800 (330×440), card always fits under the heading; the block releases into the next section.
+Reduced motion at 1440 and phones keep the static grid with no pin and no end card.

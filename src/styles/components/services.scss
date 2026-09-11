@@ -368,3 +368,91 @@
 #faq {
   scroll-margin-top: 120px;
 }
+
+// ── End card: hidden except in the desktop pan ──
+.services__end {
+  display: none;
+}
+
+// ── Desktop pan layout (same gate as the JS: ≥1024px, motion allowed) ──
+// The block is exactly one screen (it pins), the card row is a single
+// non-wrapping flex line that overflows to the right; #services clips it.
+// Cards are sized from the viewport height so a whole card always fits
+// under the heading: --card-h drives height, width is 3:4 of it.
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .services-block {
+    height: 100vh;
+    min-height: 0;
+    padding-top: calc(110px + 2rem);
+    padding-bottom: 2rem;
+    justify-content: flex-start;
+  }
+
+  #services.services {
+    flex: 1;
+  }
+
+  .services {
+    &__menu {
+      padding: 0 $edge-pad;
+    }
+
+    &__list {
+      // Taller cards = a longer, more felt pan (528px of travel at 900 tall
+      // with the first sizing; ~750px now) while the block still fits one
+      // screen: 142px top + heading ~176px + card + 32px bottom <= 100vh.
+      --card-h: clamp(380px, calc(100vh - 360px), 680px);
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 1.5rem;
+      grid-template-columns: none;
+      will-change: transform;
+    }
+
+    &__item,
+    &__end {
+      flex: 0 0 auto;
+      width: calc(var(--card-h) * 0.75);
+      height: var(--card-h);
+      aspect-ratio: auto;
+    }
+
+    &__end {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 1rem;
+      padding: 2rem;
+      box-sizing: border-box;
+      border-radius: 12px;
+      background: $g6;
+      color: #000;
+      text-decoration: none;
+      transition: background $dur-fast $ease-out;
+
+      &:hover,
+      &:focus-visible {
+        background: $g7;
+      }
+
+      &:focus-visible {
+        outline: 2px solid #fff;
+        outline-offset: 4px;
+      }
+    }
+
+    &__end-label {
+      font-family: $font-text;
+      font-size: clamp(1.75rem, 2.4vw, 2.5rem);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+
+    &__end-arrow {
+      font-size: 2rem;
+      line-height: 1;
+    }
+  }
+}

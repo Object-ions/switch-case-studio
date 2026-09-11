@@ -240,28 +240,51 @@ function ServiceItem({ service, index, delay = 0 }) {
 const Services = () => {
   const listRef = useRef(null);
 
-  /* Layered parallax (desktop only), see the matchMedia block. `y` on the
-     ITEM and `y` on `.services__item-body` belong to these tweens alone; the
-     entry build animates the item's other children. Reduced motion: none. */
+  /* Pinned horizontal pan (owner's reference recording, 2026-09-10): on
+     desktop the whole services block pins, and vertical scroll slides the
+     card row left under the "One studio." heading until the end card, then
+     releases. The pan tween uses ease "none" so scroll maps 1:1 to travel.
+     Layer: each card's name block drifts on x as that card crosses the
+     screen (containerAnimation). Owners: the pan owns the LIST's x; the
+     depth tween owns each `.services__item-body`'s x; the entrance build
+     owns the children's y/opacity. Below 1024px or with reduced motion:
+     no pin, no pan, the static grid (CSS gates the row layout the same way). */
   useEffect(() => {
     const list = listRef.current;
     if (!list) return undefined;
     const mm = gsap.matchMedia();
     mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
-      const items = gsap.utils.toArray(".services__item", list);
-      // Layered parallax (owner, 2026-09-10): every card travels upward at
-      // its own speed as the section scrolls through, and its name block
-      // travels a further 40% of that inside the card. Max card travel is
-      // 60px either side; #services' padding must stay above that (it clips).
-      const SPEEDS = [34, 60, 22, 48];
-      items.forEach((item, i) => {
-        const s = SPEEDS[i % SPEEDS.length];
-        const scrollTrigger = { trigger: list, start: "top bottom", end: "bottom top", scrub: true };
-        gsap.fromTo(item, { y: s }, { y: -s, ease: "none", scrollTrigger: { ...scrollTrigger } });
-        const body = item.querySelector(".services__item-body");
-        if (body) {
-          gsap.fromTo(body, { y: s * 0.4 }, { y: -s * 0.4, ease: "none", scrollTrigger: { ...scrollTrigger } });
-        }
+      const block = list.closest(".services-block") || list;
+      const distance = () => Math.max(0, list.scrollWidth - list.clientWidth);
+      const pan = gsap.to(list, {
+        x: () => -distance(),
+        ease: "none",
+        scrollTrigger: {
+          trigger: block,
+          start: "top top",
+          end: () => `+=${distance()}`,
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+        },
+      });
+      gsap.utils.toArray(".services__item-body", list).forEach((body) => {
+        gsap.fromTo(
+          body,
+          { x: 36 },
+          {
+            x: -36,
+            ease: "none",
+            scrollTrigger: {
+              containerAnimation: pan,
+              trigger: body.closest(".services__item"),
+              start: "left right",
+              end: "right left",
+              scrub: true,
+            },
+          },
+        );
       });
     });
     return () => mm.revert();
@@ -283,6 +306,12 @@ const Services = () => {
               delay={index * 0.08}
             />
           ))}
+          {/* Row end (the reference's "Explore more"): only in the desktop
+              pan; the static grid hides it (CSS). */}
+          <Link to="/pricing" className="services__end">
+            <span className="services__end-label">All services &amp; pricing</span>
+            <span className="services__end-arrow" aria-hidden="true">&rarr;</span>
+          </Link>
         </div>
       </div>
     </section>
