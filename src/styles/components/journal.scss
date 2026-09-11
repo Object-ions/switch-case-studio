@@ -21,6 +21,21 @@
   column-gap: clamp(2rem, 5vw, 6rem);
   align-items: start;
 
+  // Reading progress: GSAP scrubs scaleX 0 → 1 (useJournalMotion). CSS
+  // starts it at 0 so no-JS and reduced motion show nothing, not a full bar.
+  &__progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 99999;
+    background: $g6;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    pointer-events: none;
+  }
+
   // ── Left third ──
   &__side {
     position: sticky;
@@ -84,12 +99,46 @@
     }
   }
 
+  // Hover: a lavender dash draws in and the title steps right to make room.
+  // Opacity/width + transform on the TITLE only (GSAP owns the <li> when a
+  // page changes, never these spans).
   &__item-title {
+    position: relative;
     font-size: 0.95rem;
     line-height: 1.35;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    transition: padding-left $dur-med $ease-out;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 0;
+      height: 1px;
+      background: $g6;
+      transition: width $dur-med $ease-out;
+    }
+
+    a.journal__item:hover &,
+    a.journal__item:focus-visible &,
+    .is-active & {
+      padding-left: 1.4rem;
+
+      &::before {
+        width: 0.9rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+
+      &::before {
+        transition: none;
+      }
+    }
   }
 
   &__item-date {
@@ -162,6 +211,15 @@
       opacity: 0.35;
       cursor: default;
     }
+
+    &:active:not(:disabled) {
+      transform: scale(0.92);
+    }
+  }
+
+  &__pager-step:hover:not(:disabled) {
+    background: #fff;
+    color: #000;
   }
 
   &__pager-num.is-current {

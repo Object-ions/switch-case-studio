@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import postsData from '../../data/posts.json';
 import BookCallCta from '../ui/BookCallCta';
 import { Block, formatDate } from './blogBlocks';
+import useJournalMotion from './useJournalMotion';
 import '../../styles/components/journal.scss';
 
 /* The Studio Journal as a split reader (owner, 2026-09-11, after a
@@ -75,6 +76,8 @@ const JournalReader = ({ post, isIndex = false }) => {
   const postPage = Math.max(0, Math.floor(idx / PAGE_SIZE));
   const [page, setPage] = useState(postPage);
   useEffect(() => setPage(postPage), [postPage]);
+  const rootRef = useRef(null);
+  useJournalMotion(rootRef, post.slug, page);
   const pagePosts = sortedPosts.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
   const nextPost = sortedPosts[(idx + 1) % sortedPosts.length];
   const TitleTag = isIndex ? 'h2' : 'h1';
@@ -93,7 +96,8 @@ const JournalReader = ({ post, isIndex = false }) => {
   } = post;
 
   return (
-    <div className="journal">
+    <div className="journal" ref={rootRef}>
+      <div className="journal__progress" aria-hidden="true" />
       <aside className="journal__side" aria-label="The Studio Journal">
         <JournalTag className="journal__name">
           <Link to="/blog">The Studio Journal</Link>
@@ -164,6 +168,10 @@ const JournalReader = ({ post, isIndex = false }) => {
         )}
 
         <dl className="journal__details" aria-label="About this article">
+          <div>
+            <dt>Title</dt>
+            <dd>{title}</dd>
+          </div>
           {category && (
             <div>
               <dt>Category</dt>
