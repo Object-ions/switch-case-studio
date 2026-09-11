@@ -1,0 +1,55 @@
+@import '../_variables.scss';
+
+// Polaroid strip between the About statement and the marquee (2026-09-11).
+// Prints sit at fixed "random" spots (Polaroids.js PRINTS); the clips carry
+// their own white frame, so the card adds only a soft shadow. Static HTML:
+// posters visible, base tilt from --rot, so no-JS still reads as a spread.
+.polaroids {
+  position: relative;
+  width: 100%;
+  max-width: $max-width;
+  margin: clamp(2rem, 5vw, 5rem) auto;
+  height: clamp(380px, 46vw, 640px);
+}
+
+.polaroid {
+  position: absolute;
+  width: clamp(150px, 21vw, 290px);
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+
+  &.is-dragging {
+    cursor: grabbing;
+  }
+
+  &__drag {
+    // Base tilt for the static render; GSAP claims the whole transform at
+    // mount (rotate set from the same table), so the two never disagree.
+    transform: rotate(var(--rot, 0deg));
+  }
+
+  &__tilt {
+    transform-style: preserve-3d;
+    filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.55));
+  }
+
+  &__video {
+    display: block;
+    width: 100%;
+    height: auto; // width/height attrs give each clip its own ratio
+    pointer-events: none; // the card, not the video, takes the pointer
+  }
+}
+
+// Phones: smaller prints, a shorter table.
+@media (max-width: 768px) {
+  .polaroids {
+    height: clamp(260px, 80vw, 380px);
+  }
+
+  .polaroid {
+    width: clamp(110px, 32vw, 170px);
+    cursor: default;
+  }
+}

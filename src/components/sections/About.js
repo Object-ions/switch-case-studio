@@ -3,6 +3,7 @@ import AboutHeading from './AboutHeading';
 import AboutText from './AboutText';
 import AboutCTA from './AboutCTA';
 import AboutMarquee from './AboutMarquee';
+import Polaroids from './Polaroids';
 
 import DecorativeBoundary from '../util/DecorativeBoundary';
 import '../../styles/components/work.scss';
@@ -72,6 +73,7 @@ const About = () => {
 
       <div className="work-wrapper">
         <AboutHeading />
+        <Polaroids />
         <AboutMarquee />
 
         <div className="work-content">
