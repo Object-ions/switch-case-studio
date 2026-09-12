@@ -24,10 +24,23 @@ gsap.registerPlugin(ScrollTrigger);
    - .polaroid__tilt  pointer tilt (rotationX/Y) and hover lift (scale)
    Videos play only while on screen; reduced motion shows posters, no
    parallax, no tilt, no drag. */
+/* `tag`: the crew name sticker glued to its print (owner, 2026-09-11). It
+   renders INSIDE .polaroid__tilt, so it drags, tilts, parallaxes and pops
+   with the photo; left/top/w are % of the print, rot is extra on top of the
+   print's own tilt. */
 const PRINTS = [
-  { name: 'polaroid', h: 882, left: '8%', top: '14%', rotate: -7, speed: -40, z: 1 },
-  { name: 'polaroid-dump', h: 878, left: '40%', top: '2%', rotate: 4, speed: 30, z: 3 },
-  { name: 'polaroid-cap', h: 882, left: '69%', top: '20%', rotate: -3, speed: -60, z: 2 },
+  {
+    name: 'polaroid', h: 882, left: '8%', top: '14%', rotate: -7, speed: -40, z: 1,
+    tag: { name: '16-name-adi', alt: 'Adi', left: '6%', top: '4%', w: 26, rot: 4 },
+  },
+  {
+    name: 'polaroid-dump', h: 878, left: '40%', top: '2%', rotate: 4, speed: 30, z: 3,
+    tag: { name: '15-name-moses', alt: 'Moses', left: '-14%', top: '-12%', w: 46, rot: -6 },
+  },
+  {
+    name: 'polaroid-cap', h: 882, left: '69%', top: '20%', rotate: -3, speed: -60, z: 2,
+    tag: { name: '17-name-christian', alt: 'Christian', left: '58%', top: '6%', w: 54, rot: 3 },
+  },
 ];
 
 /* Stickers (owner, 2026-09-11), slapped around the prints. Files are the
@@ -55,22 +68,18 @@ const STICKERS = [
   { name: '05-code-spiral', left: '86%', top: '32%', w: 11, rot: 0 },
   { name: '07-woocommerce', left: '47%', top: '86%', w: 12, rot: -3 },
   { name: '03-label', left: '73%', top: '88%', w: 13, rot: 3 },
-  // Crew names (owner, 2026-09-11). Kept in open table space, not pinned to
-  // a print: which name belongs to which photo is the owner's call.
-  { name: '15-name-moses', left: '4%', top: '86%', w: 12, rot: -5 },
-  { name: '16-name-adi', left: '20%', top: '80%', w: 8, rot: 6 },
-  { name: '17-name-christian', left: '40%', top: '64%', w: 14, rot: 3 },
+  // Crew names moved onto their prints (PRINTS[].tag), 2026-09-11.
 ];
 
-/* Pop-in (owner, 2026-09-11): when the table scrolls in, the 20 pieces
-   (3 prints, then 17 stickers, in DOM order) pop one after another in a
+/* Pop-in (owner, 2026-09-11): when the table scrolls in, the 17 pieces
+   (3 prints with their name tags, then 14 stickers, in DOM order) pop one after another in a
    shuffled order. The order is a FIXED permutation, so SSG and hydration
    agree and it reads random without reshuffling per load. CSS does the
    motion with the individual `scale` + `opacity` properties, which compose
    with the transforms GSAP (prints) and the rAF loop (stickers) write, so
    no property has two owners. Static HTML is visible; `has-pop` (runtime
    only) hides, `is-in` reveals, and armSafetyNet forces it on screen. */
-const POP_ORDER = [5, 0, 8, 2, 10, 3, 7, 1, 9, 4, 6, 14, 11, 16, 12, 15, 13, 18, 17, 19];
+const POP_ORDER = [5, 0, 8, 2, 10, 3, 7, 1, 9, 4, 6, 14, 11, 16, 12, 15, 13];
 
 const usePopIn = (rootRef, reduced) => {
   useEffect(() => {
@@ -381,6 +390,22 @@ const Polaroids = () => {
                 <source src={`/polaroids/${p.name}.webm`} type="video/webm" />
                 <source src={`/polaroids/${p.name}.mp4`} type="video/mp4" />
               </video>
+              {p.tag && (
+                <img
+                  className="polaroid__tag"
+                  src={`/stickers/${p.tag.name}.svg`}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  draggable="false"
+                  style={{
+                    left: p.tag.left,
+                    top: p.tag.top,
+                    width: `${p.tag.w}%`,
+                    '--tag-rot': `${p.tag.rot}deg`,
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>

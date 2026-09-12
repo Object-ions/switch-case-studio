@@ -42,8 +42,21 @@
   }
 
   &__tilt {
+    position: relative; // anchors the name tag
     transform-style: preserve-3d;
     filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.55));
+  }
+
+  // Crew name sticker glued to the print: a child of the tilt layer, so it
+  // inherits drag, tilt, parallax and the pop. Decorative (aria-hidden
+  // table); the pointer passes through to the print.
+  &__tag {
+    position: absolute;
+    z-index: 1;
+    height: auto;
+    transform: rotate(var(--tag-rot, 0deg));
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
+    pointer-events: none;
   }
 
   &__video {
