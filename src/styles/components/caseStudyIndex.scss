@@ -16,7 +16,8 @@
   // Columns centred with equal side padding; the preview rises into the
   // title row on the right (owner, 2026-09-12).
   --slot-w: clamp(260px, 19vw, 380px);
-  padding: clamp(3rem, 6vw, 6rem) max($edge-pad, 10vw) clamp(2.5rem, 4vw, 4rem);
+  // No bottom padding: the logos strip follows closely (owner, 2026-09-12).
+  padding: clamp(3rem, 6vw, 6rem) max($edge-pad, 10vw) 0;
   box-sizing: border-box;
   position: relative;
   display: grid;

@@ -9,7 +9,9 @@
   justify-content: center;
   width: 100%;
   gap: 1.5rem;
-  padding: 0 1.5rem 4rem;
+  // Bottom trimmed to 1rem (owner, 2026-09-12): the logos strip follows
+  // the case-study index closely.
+  padding: 0 1.5rem 1rem;
   box-sizing: border-box;
   background: #000;
 
