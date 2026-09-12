@@ -35,7 +35,9 @@ const PRINTS = [
   },
   {
     name: 'polaroid-dump', h: 878, left: '40%', top: '2%', rotate: 4, speed: 30, z: 3,
-    tag: { name: '15-name-moses', alt: 'Moses', left: '-14%', top: '-12%', w: 46, rot: -6 },
+    // Round ring sticker since 2026-09-11 (was a wide name tag parked above
+    // the print's top edge, where the round one hid under the fixed header).
+    tag: { name: '15-name-moses', alt: 'Moses', left: '66%', top: '60%', w: 36, rot: -6 },
   },
   {
     name: 'polaroid-cap', h: 882, left: '69%', top: '20%', rotate: -3, speed: -60, z: 2,
