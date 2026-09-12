@@ -14,7 +14,9 @@ import '../../styles/components/work.scss';
 // parsing during the hero's LCP window with no scroll. The import itself is
 // gated behind an IntersectionObserver: nothing downloads until the moon's
 // slot scrolls within ~200px of the viewport.
-const Moon = lazy(() => import('../ui/Moon'));
+// Since 2026-09-12 the slot holds DepthImage (a relit photo, three + fiber,
+// no drei, no model); the gate and its reasoning are unchanged.
+const DepthImage = lazy(() => import('../ui/DepthImage'));
 
 // Can this browser create a WebGL context at all? If not, the 990KB Three.js
 // chunk is never fetched and the slot stays an empty, correctly-sized box.
@@ -59,7 +61,11 @@ const MoonSlot = () => {
       {near && (
         <DecorativeBoundary>
           <Suspense fallback={null}>
-            <Moon />
+            <DepthImage
+              image="/photos/about-depth.webp"
+              lightColor="#f3e6ff"
+              lightIntensity={5}
+            />
           </Suspense>
         </DecorativeBoundary>
       )}
