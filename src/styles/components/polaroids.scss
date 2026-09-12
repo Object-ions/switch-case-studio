@@ -136,15 +136,15 @@
 
 // Pop-in: runtime-only hidden state (has-pop), revealed by is-in with a
 // per-piece delay from --pop. `scale`/`opacity` only (individual property,
-// composes with the JS-owned `transform`). Overshoot curve, 90ms apart.
+// composes with the JS-owned `transform`). Overshoot curve, 200ms apart (slowed 2026-09-11).
 .polaroids.has-pop {
   .polaroid__tilt,
   .sticker {
     opacity: 0;
     scale: 0.7;
     transition:
-      opacity 0.3s ease-out calc(var(--pop, 0) * 90ms),
-      scale 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--pop, 0) * 90ms);
+      opacity 0.45s ease-out calc(var(--pop, 0) * 200ms),
+      scale 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--pop, 0) * 200ms);
   }
 
   &.is-in {

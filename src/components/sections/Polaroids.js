@@ -69,34 +69,24 @@ const PRINTS = [
    Ownership: JS writes the OUTER .sticker transform (translate only); CSS
    owns the inner .sticker__img (base --rot, hover lift, slap). */
 const STICKERS = [
-  // Re-spread 2026-09-11 (owner: "spread the rest randomly around"): fixed
-  // spots, mostly in the gaps and margins so the prints stay readable.
+  // 11 stickers in total (owner, 2026-09-11): the 6 crew name/title tags on
+  // the prints plus these 5 loose ones, one per open corner of the table.
   { name: '09-star-2026', left: '1%', top: '6%', w: 10, rot: -8 },
-  // Kept left of the middle print: at 29% it covered Moses's title.
-  { name: '01-hashtag', left: '13%', top: '0%', w: 14, rot: -6 },
-  { name: '04-case-you-ring', left: '62%', top: '3%', w: 9, rot: 10 },
   { name: '06-design-code-ai', left: '91%', top: '2%', w: 8, rot: 8 },
-  { name: '10-burst-ga4-gbp', left: '0%', top: '44%', w: 10, rot: 10 },
-  { name: '12-case-card', left: '91%', top: '38%', w: 8, rot: -8 },
-  { name: '13-braces-flower', left: '32%', top: '58%', w: 8, rot: 4 },
-  { name: '14-switch-case-arch', left: '92%', top: '70%', w: 7, rot: 6 },
   { name: '08-numbers-ellipse', left: '3%', top: '88%', w: 15, rot: -4 },
-  { name: '02-shopify-pill', left: '20%', top: '86%', w: 10, rot: -6 },
-  { name: '05-code-spiral', left: '44%', top: '79%', w: 10, rot: 0 },
-  { name: '03-label', left: '57%', top: '93%', w: 12, rot: 3 },
-  { name: '11-stack-ring', left: '65%', top: '82%', w: 9, rot: -12 },
-  { name: '07-woocommerce', left: '79%', top: '90%', w: 11, rot: -3 },
+  { name: '11-stack-ring', left: '52%', top: '84%', w: 9, rot: -12 },
+  { name: '14-switch-case-arch', left: '92%', top: '70%', w: 7, rot: 6 },
 ];
 
-/* Pop-in (owner, 2026-09-11): when the table scrolls in, the 17 pieces
-   (3 prints with their name tags, then 14 stickers, in DOM order) pop one after another in a
+/* Pop-in (owner, 2026-09-11): when the table scrolls in, the 8 pieces
+   (3 prints with their name + title tags, then 5 stickers, in DOM order) pop one after another in a
    shuffled order. The order is a FIXED permutation, so SSG and hydration
    agree and it reads random without reshuffling per load. CSS does the
    motion with the individual `scale` + `opacity` properties, which compose
    with the transforms GSAP (prints) and the rAF loop (stickers) write, so
    no property has two owners. Static HTML is visible; `has-pop` (runtime
    only) hides, `is-in` reveals, and armSafetyNet forces it on screen. */
-const POP_ORDER = [5, 0, 8, 2, 10, 3, 7, 1, 9, 4, 6, 14, 11, 16, 12, 15, 13];
+const POP_ORDER = [5, 0, 3, 7, 1, 6, 2, 4];
 
 const usePopIn = (rootRef, reduced) => {
   useEffect(() => {
