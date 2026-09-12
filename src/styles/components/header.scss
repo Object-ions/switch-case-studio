@@ -70,18 +70,22 @@
   }
 
   .headingCTA {
+    // Square, border-only on black (owner, 2026-09-12); fills on hover.
     font-weight: 400;
-    background: $g6;
+    background: #000;
     padding: 10px 16px;
-    border-radius: 20px;
-    border: 2px solid transparent;
+    border-radius: 0;
+    border: 2px solid $g6;
+    transition:
+      background-color $dur-fast $ease-out,
+      color $dur-fast $ease-out;
 
     @include arrow-nudge('svg'); // VE-5 site link grammar (FA arrow icon)
 
     &:hover,
     &:focus-visible {
-      border-color: $g6;
-      background: #000;
+      background: $g6;
+      color: #000;
     }
   }
 

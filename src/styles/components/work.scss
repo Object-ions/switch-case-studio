@@ -134,6 +134,26 @@
         pointer-events: auto;
       }
 
+      // Kicker + title mirror the journal column (owner: "missing a title").
+      &__kicker {
+        margin: 0 0 1rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: $g6;
+      }
+
+      &__title {
+        margin: 0 0 1.5rem;
+        font-family: $font-text;
+        font-size: clamp(1.25rem, 1.8vw, 1.6rem);
+        font-weight: 600;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+        color: $white-color;
+      }
+
       // Left-aligned, outlined phrases flow INLINE (2026-09-12: centred
       // text + inline-block phrases forced each phrase onto its own line
       // and ragged the paragraph, which read as distorted).
@@ -261,6 +281,18 @@
       inset: 0;
       z-index: 0;
 
+      // Black fade on the top edge so the photo does not start on a hard line
+      // under the marquee (owner, 2026-09-12).
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0 0 auto;
+        height: clamp(4rem, 12vh, 8rem);
+        background: linear-gradient(to bottom, #000, transparent);
+        z-index: 1;
+        pointer-events: none;
+      }
+
       &::after {
         content: '';
         position: absolute;
@@ -373,7 +405,7 @@
       background: $white-color;
       color: $black-color;
       border: 1px solid $white-color;
-      border-radius: 999px;
+      border-radius: 0; // square (owner, 2026-09-12)
       transition:
         background-color 0.2s ease,
         border-color 0.2s ease;

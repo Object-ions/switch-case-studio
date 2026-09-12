@@ -65,6 +65,8 @@ const AboutText = () => {
 
   return (
     <div className="work-text" ref={rootRef}>
+      <p className="work-text__kicker">About the studio</p>
+      <h3 className="work-text__title">Designed, built and run in-house</h3>
       {/* Two paragraphs, not three (REFRESH-1): the old third one restated
           "small studio / personal attention", and the first restated the
           AboutHeading claim one viewport up. Each paragraph now adds a fact
@@ -87,7 +89,8 @@ const AboutText = () => {
         <span className="highlight-block">
           the same systems we build for clients
         </span>
-        : n8n workflows, CRM pipelines, and assistants on Claude and OpenAI.
+        : n8n workflows, CRM pipelines, agents on Hermes and OpenClaw, and
+        assistants on Claude and OpenAI.
         When we say AI, we mean software that ships, not a buzzword on a deck.
       </p>
     </div>
