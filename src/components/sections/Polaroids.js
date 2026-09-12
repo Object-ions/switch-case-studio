@@ -24,24 +24,37 @@ gsap.registerPlugin(ScrollTrigger);
    - .polaroid__tilt  pointer tilt (rotationX/Y) and hover lift (scale)
    Videos play only while on screen; reduced motion shows posters, no
    parallax, no tilt, no drag. */
-/* `tag`: the crew name sticker glued to its print (owner, 2026-09-11). It
-   renders INSIDE .polaroid__tilt, so it drags, tilts, parallaxes and pops
-   with the photo; left/top/w are % of the print, rot is extra on top of the
-   print's own tilt. */
+/* `tags`: stickers glued to a print (owner, 2026-09-11): each crew member's
+   NAME and TITLE. They render INSIDE .polaroid__tilt, so they drag, tilt,
+   parallax and pop with the photo; left/top/w are % of the print, rot is
+   extra on top of the print's own tilt. Name and title must stay on the
+   same print: Adi = Social Media Director (left), Moses = Brand
+   Strategist (middle), Christian = Content Manager (right). */
 const PRINTS = [
   {
     name: 'polaroid', h: 882, left: '8%', top: '14%', rotate: -7, speed: -40, z: 1,
-    tag: { name: '16-name-adi', alt: 'Adi', left: '6%', top: '4%', w: 26, rot: 4 },
+    tags: [
+      { name: '16-name-adi', left: '6%', top: '4%', w: 26, rot: 4 },
+      { name: '20-title-social-media-director', left: '68%', top: '62%', w: 40, rot: 8 },
+    ],
   },
   {
     name: 'polaroid-dump', h: 878, left: '40%', top: '2%', rotate: 4, speed: 30, z: 3,
     // Round ring sticker since 2026-09-11 (was a wide name tag parked above
     // the print's top edge, where the round one hid under the fixed header).
-    tag: { name: '15-name-moses', alt: 'Moses', left: '66%', top: '60%', w: 36, rot: -6 },
+    tags: [
+      { name: '15-name-moses', left: '66%', top: '60%', w: 36, rot: -6 },
+      // Lower-left, opposite the round name: above the top edge it hid under
+      // the fixed header and a loose sticker.
+      { name: '18-title-brand-strategist', left: '-14%', top: '66%', w: 48, rot: -7 },
+    ],
   },
   {
     name: 'polaroid-cap', h: 882, left: '69%', top: '20%', rotate: -3, speed: -60, z: 2,
-    tag: { name: '17-name-christian', alt: 'Christian', left: '58%', top: '6%', w: 54, rot: 3 },
+    tags: [
+      { name: '17-name-christian', left: '58%', top: '6%', w: 54, rot: 3 },
+      { name: '19-title-content-manager', left: '-18%', top: '74%', w: 60, rot: -4 },
+    ],
   },
 ];
 
@@ -56,21 +69,23 @@ const PRINTS = [
    Ownership: JS writes the OUTER .sticker transform (translate only); CSS
    owns the inner .sticker__img (base --rot, hover lift, slap). */
 const STICKERS = [
-  { name: '09-star-2026', left: '2%', top: '2%', w: 11, rot: -8 },
-  { name: '01-hashtag', left: '26%', top: '4%', w: 15, rot: -6 },
-  { name: '04-case-you-ring', left: '60%', top: '0%', w: 10, rot: 10 },
-  { name: '06-design-code-ai', left: '88%', top: '6%', w: 10, rot: 8 },
-  { name: '13-braces-flower', left: '0%', top: '66%', w: 10, rot: 4 },
-  { name: '08-numbers-ellipse', left: '30%', top: '84%', w: 16, rot: -4 },
-  { name: '11-stack-ring', left: '58%', top: '70%', w: 10, rot: -12 },
-  { name: '14-switch-case-arch', left: '89%', top: '62%', w: 9, rot: 6 },
-  { name: '10-burst-ga4-gbp', left: '1%', top: '34%', w: 11, rot: 10 },
-  { name: '02-shopify-pill', left: '19%', top: '60%', w: 11, rot: -6 },
-  { name: '12-case-card', left: '32%', top: '40%', w: 9, rot: -8 },
-  { name: '05-code-spiral', left: '86%', top: '32%', w: 11, rot: 0 },
-  { name: '07-woocommerce', left: '47%', top: '86%', w: 12, rot: -3 },
-  { name: '03-label', left: '73%', top: '88%', w: 13, rot: 3 },
-  // Crew names moved onto their prints (PRINTS[].tag), 2026-09-11.
+  // Re-spread 2026-09-11 (owner: "spread the rest randomly around"): fixed
+  // spots, mostly in the gaps and margins so the prints stay readable.
+  { name: '09-star-2026', left: '1%', top: '6%', w: 10, rot: -8 },
+  // Kept left of the middle print: at 29% it covered Moses's title.
+  { name: '01-hashtag', left: '13%', top: '0%', w: 14, rot: -6 },
+  { name: '04-case-you-ring', left: '62%', top: '3%', w: 9, rot: 10 },
+  { name: '06-design-code-ai', left: '91%', top: '2%', w: 8, rot: 8 },
+  { name: '10-burst-ga4-gbp', left: '0%', top: '44%', w: 10, rot: 10 },
+  { name: '12-case-card', left: '91%', top: '38%', w: 8, rot: -8 },
+  { name: '13-braces-flower', left: '32%', top: '58%', w: 8, rot: 4 },
+  { name: '14-switch-case-arch', left: '92%', top: '70%', w: 7, rot: 6 },
+  { name: '08-numbers-ellipse', left: '3%', top: '88%', w: 15, rot: -4 },
+  { name: '02-shopify-pill', left: '20%', top: '86%', w: 10, rot: -6 },
+  { name: '05-code-spiral', left: '44%', top: '79%', w: 10, rot: 0 },
+  { name: '03-label', left: '57%', top: '93%', w: 12, rot: 3 },
+  { name: '11-stack-ring', left: '65%', top: '82%', w: 9, rot: -12 },
+  { name: '07-woocommerce', left: '79%', top: '90%', w: 11, rot: -3 },
 ];
 
 /* Pop-in (owner, 2026-09-11): when the table scrolls in, the 17 pieces
@@ -392,22 +407,23 @@ const Polaroids = () => {
                 <source src={`/polaroids/${p.name}.webm`} type="video/webm" />
                 <source src={`/polaroids/${p.name}.mp4`} type="video/mp4" />
               </video>
-              {p.tag && (
+              {(p.tags || []).map((t) => (
                 <img
+                  key={t.name}
                   className="polaroid__tag"
-                  src={`/stickers/${p.tag.name}.svg`}
+                  src={`/stickers/${t.name}.svg`}
                   alt=""
                   loading="lazy"
                   decoding="async"
                   draggable="false"
                   style={{
-                    left: p.tag.left,
-                    top: p.tag.top,
-                    width: `${p.tag.w}%`,
-                    '--tag-rot': `${p.tag.rot}deg`,
+                    left: t.left,
+                    top: t.top,
+                    width: `${t.w}%`,
+                    '--tag-rot': `${t.rot}deg`,
                   }}
                 />
-              )}
+              ))}
             </div>
           </div>
         </div>

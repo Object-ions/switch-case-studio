@@ -8,7 +8,8 @@
   position: relative;
   width: 100%;
   max-width: $max-width;
-  margin: clamp(2rem, 5vw, 5rem) auto;
+  // More room above the table: the statement's air now lives here.
+  margin: clamp(5rem, 9vw, 9rem) auto clamp(2rem, 5vw, 5rem);
   height: clamp(380px, 46vw, 640px);
   // Own stacking context: the z-index ladder below (prints 1-99, stickers
   // 100+) stays local and can't climb over the About heading or gradient.

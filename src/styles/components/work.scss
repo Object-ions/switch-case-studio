@@ -73,7 +73,7 @@
   // back clean. This is a scrub-animated display moment, not body text.
   .work-heading {
     margin: 0 auto;
-    padding: 5rem 0 0;
+    padding: 1.5rem 0 0; // lifted (owner, 2026-09-11); the air moved below
     font-size: 3rem;
     font-family: $font-special;
     line-height: 1.15;
@@ -92,13 +92,13 @@
     }
 
     @media (max-width: 1024px) and (min-width: 769px) {
-      padding: 4rem 0 0;
+      padding: 1.5rem 0 0;
       font-size: 2.5rem;
       width: 80%;
     }
 
     @media (max-width: 768px) {
-      padding: 3rem 0 0;
+      padding: 1rem 0 0;
       font-size: 2rem;
       width: 90%;
     }

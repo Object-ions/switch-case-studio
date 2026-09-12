@@ -11,7 +11,9 @@
   margin-right: calc(50% - 50vw);
   // Breathing room (owner, 2026-09-11: "too dense"): space under the giant
   // heading, and a full rest before the statement section that follows.
-  padding: clamp(3rem, 6vw, 6rem) $edge-pad clamp(6rem, 11vw, 11rem);
+  // Bottom trimmed 2026-09-11 (owner): the About statement below sat under
+  // a band of dead black; it now starts closer and keeps its air BELOW it.
+  padding: clamp(3rem, 6vw, 6rem) $edge-pad clamp(2.5rem, 4vw, 4rem);
   box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
