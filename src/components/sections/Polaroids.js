@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useReducedMotion from '../../hooks/useReducedMotion';
+import armSafetyNet from '../../animation/armSafetyNet';
 import '../../styles/components/polaroids.scss';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -49,6 +50,33 @@ const STICKERS = [
   { name: '11-stack-ring', left: '58%', top: '70%', w: 10, rot: -12 },
   { name: '14-switch-case-arch', left: '89%', top: '62%', w: 9, rot: 6 },
 ];
+
+/* Pop-in (owner, 2026-09-11): when the table scrolls in, the 11 pieces
+   (3 prints, then 8 stickers, in DOM order) pop one after another in a
+   shuffled order. The order is a FIXED permutation, so SSG and hydration
+   agree and it reads random without reshuffling per load. CSS does the
+   motion with the individual `scale` + `opacity` properties, which compose
+   with the transforms GSAP (prints) and the rAF loop (stickers) write, so
+   no property has two owners. Static HTML is visible; `has-pop` (runtime
+   only) hides, `is-in` reveals, and armSafetyNet forces it on screen. */
+const POP_ORDER = [5, 0, 8, 2, 10, 3, 7, 1, 9, 4, 6];
+
+const usePopIn = (rootRef, reduced) => {
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root || reduced) return undefined;
+    if (ScrollTrigger.isInViewport(root, 0.2)) return undefined; // already here: stand
+    root.classList.add('has-pop');
+    const reveal = () => root.classList.add('is-in');
+    const st = ScrollTrigger.create({ trigger: root, start: 'top 75%', once: true, onEnter: reveal });
+    const disarm = armSafetyNet(root, () => root.classList.contains('is-in'), reveal);
+    return () => {
+      st.kill();
+      disarm();
+      root.classList.remove('has-pop', 'is-in');
+    };
+  }, [rootRef, reduced]);
+};
 
 const useStickers = (rootRef, reduced) => {
   useEffect(() => {
@@ -181,6 +209,7 @@ const Polaroids = () => {
   const rootRef = useRef(null);
   const reduced = useReducedMotion();
   useStickers(rootRef, reduced);
+  usePopIn(rootRef, reduced);
 
   // Play on screen, pause off screen (and never under reduced motion).
   useEffect(() => {
@@ -310,11 +339,17 @@ const Polaroids = () => {
 
   return (
     <div className="polaroids" ref={rootRef} aria-hidden="true">
-      {PRINTS.map((p) => (
+      {PRINTS.map((p, i) => (
         <div
           key={p.name}
           className="polaroid"
-          style={{ left: p.left, top: p.top, zIndex: p.z, '--rot': `${p.rotate}deg` }}
+          style={{
+            left: p.left,
+            top: p.top,
+            zIndex: p.z,
+            '--rot': `${p.rotate}deg`,
+            '--pop': POP_ORDER[i],
+          }}
         >
           <div className="polaroid__drag">
             <div className="polaroid__tilt">
@@ -336,11 +371,17 @@ const Polaroids = () => {
           </div>
         </div>
       ))}
-      {STICKERS.map((s) => (
+      {STICKERS.map((s, i) => (
         <div
           key={s.name}
           className="sticker"
-          style={{ left: s.left, top: s.top, width: `${s.w}%`, '--rot': `${s.rot}deg` }}
+          style={{
+            left: s.left,
+            top: s.top,
+            width: `${s.w}%`,
+            '--rot': `${s.rot}deg`,
+            '--pop': POP_ORDER[PRINTS.length + i],
+          }}
         >
           <img
             className="sticker__img"
