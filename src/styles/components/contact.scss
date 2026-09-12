@@ -33,47 +33,8 @@
     padding: 8rem 3rem;
   }
 
-  /* ---------- Background video + scrim ----------
-   * Decorative layer under the form (z 0), black scrim above it (::after,
-   * z 1), all content in __inner above both (z 2). The scrim's 0.72 alpha
-   * keeps the white-on-black form text ≥4.5:1 even over the video's
-   * brightest orange regions — don't lower it without re-checking contrast.
-   */
-  &__bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.72);
-    }
-
-    // Top "mast": solid black fading into the video, so the #000 section
-    // above blends in instead of ending on a hard edge. Sits above the
-    // scrim (z 2 > implicit) — at the very top it must resolve to full
-    // black, and scrim-over-gradient would cap it at 0.72.
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 12rem;
-      background: linear-gradient(to bottom, #000, rgba(0, 0, 0, 0));
-      z-index: 2;
-    }
-  }
-
-  &__bg-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
+  // (The background video + scrim were removed 2026-09-12, owner: the
+  // section is plain black again.)
   &__inner {
     position: relative;
     z-index: 2;
@@ -90,25 +51,20 @@
  * ================================================================== */
 
 .contact-grid {
-  // Form-forward single column at EVERY width (2026-07-05). The form is the
-  // conversion priority and should read as one full, balanced column with
-  // the contact info + brand card as a signature band beneath it.
-  //
-  // This replaces the ≥1024 two-column (form 736px left + 288px card
-  // top-aligned right): because the card column is short and the form is
-  // tall, it stranded a large empty void down the bottom-right beside the
-  // message/submit rows — the imbalance the owner flagged. Single-column,
-  // centered, removes the void and matches the balanced full-form look.
+  // Phones: two rows, form first, then info + animated card.
+  // >= 769px (owner, 2026-09-12): ONE row, form left, the info + card
+  // column right, vertically centred against the form so the short column
+  // doesn't strand a void at the bottom (the 2026-07 objection to the old
+  // top-aligned two-column).
   display: flex;
   flex-direction: column;
   gap: 3.5rem;
 
-  // Center the column on wider screens so the form isn't stranded against
-  // the left edge. Both children cap at the same max-width (46rem), so the
-  // heading, fields, and the signature band below all share one left edge.
   @media (min-width: 769px) {
+    flex-direction: row;
     align-items: center;
-    gap: 4rem;
+    justify-content: space-between;
+    gap: clamp(2.5rem, 6vw, 6rem);
   }
 }
 
@@ -127,16 +83,11 @@
   // misalignment the owner flagged).
   align-items: flex-start;
 
-  // ≥769: the info + brand card become a "signature" band under the form —
-  // info left, card right — capped to the form's width so the info's left
-  // edge lines up with the form fields, the card sits at the form's right
-  // edge. (Was tablet-only; now the single-column layout at every width.)
+  // >= 769: the right-hand column of the row, card on top, info below.
   @media (min-width: 769px) {
-    max-width: 46rem;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 3rem;
+    flex: 0 1 22rem;
+    flex-direction: column-reverse;
+    gap: 2rem;
   }
 
   /* ---------- Brand video ----------
@@ -282,6 +233,11 @@
   // ≥769; its left edge lines up with the signature band below.
   width: 100%;
   max-width: 46rem;
+
+  @media (min-width: 769px) {
+    flex: 1 1 0;
+    min-width: 0;
+  }
 
   &__heading {
     // Text face by default (renders as an h2 in the home section).
