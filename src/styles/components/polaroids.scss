@@ -42,14 +42,85 @@
   }
 }
 
+// Stickers: above the prints (z 5+), their own animated SVGs. JS owns the
+// outer transform (translate); the inner image owns rotation, hover lift
+// and the drop "slap", so the two never write the same property.
+.sticker {
+  position: absolute;
+  z-index: 5;
+  min-width: 64px;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  will-change: transform;
+
+  &.is-dragging {
+    cursor: grabbing;
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transform: rotate(var(--rot, 0deg));
+    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.45));
+    transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+    pointer-events: none;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover .sticker__img {
+      transform: rotate(calc(var(--rot, 0deg) * 0.4)) scale(1.08);
+    }
+  }
+
+  &.is-dragging .sticker__img {
+    transform: rotate(calc(var(--rot, 0deg) * 0.4)) scale(1.12);
+    filter: drop-shadow(0 16px 22px rgba(0, 0, 0, 0.5));
+  }
+
+  &.is-slap .sticker__img {
+    animation: sticker-slap 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__img {
+      transition: none;
+    }
+    &.is-slap .sticker__img {
+      animation: none;
+    }
+  }
+}
+
+// Dropped: a quick squash to the table, then settle at the base tilt.
+@keyframes sticker-slap {
+  0% {
+    transform: rotate(calc(var(--rot, 0deg) * 0.4)) scale(1.12);
+  }
+  45% {
+    transform: rotate(var(--rot, 0deg)) scale(0.94);
+  }
+  100% {
+    transform: rotate(var(--rot, 0deg)) scale(1);
+  }
+}
+
 // Phones: smaller prints, a shorter table.
 @media (max-width: 768px) {
   .polaroids {
     height: clamp(260px, 80vw, 380px);
   }
 
+  // 28vw so the right print (left: 69%) still ends inside the screen;
+  // at 32vw it ran ~20px past a 390px phone and was clipped.
   .polaroid {
-    width: clamp(110px, 32vw, 170px);
+    width: clamp(96px, 28vw, 170px);
+    cursor: default;
+  }
+
+  .sticker {
+    min-width: 48px;
     cursor: default;
   }
 }
