@@ -163,6 +163,28 @@
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
   }
 
+  // The seal ring, centred on the slot's top-left corner. Same row-1 trick
+  // as the slot: negative margins pull it up/left onto the corner without
+  // growing the row. Motion owns the ring's transform, so placement is
+  // margins only.
+  &__seal {
+    --seal: 112px;
+    grid-column: 1 / -1;
+    grid-row: 1;
+    justify-self: end;
+    position: relative; // so z-index lifts it over the (positioned) slot
+    z-index: 3;
+    width: var(--seal);
+    height: var(--seal);
+    margin-top: calc(var(--slot-w) * -0.625 - var(--seal) / 2);
+    margin-right: calc(var(--slot-w) - var(--seal) / 2);
+
+    .circular-text {
+      --ct-size: var(--seal);
+      color: $g6;
+    }
+  }
+
   &__preview {
     position: absolute;
     inset: 0;
@@ -184,6 +206,10 @@
     padding-inline: $edge-pad;
     column-gap: 2rem;
     row-gap: 2.5rem;
+
+    &__seal {
+      display: none; // the slot drops into the flow here; no corner to stamp
+    }
 
     &__slot {
       grid-row: 4;

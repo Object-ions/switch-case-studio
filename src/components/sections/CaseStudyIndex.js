@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import projectsData from '../../data/projects.json';
 import useReducedMotion from '../../hooks/useReducedMotion';
 import armSafetyNet from '../../animation/armSafetyNet';
+import CircularText from '../ui/CircularText';
 import {
   DUR_MED,
   DUR_SLOW,
@@ -151,6 +152,12 @@ const CaseStudyIndex = () => {
             />
           ))}
         </div>
+
+      {/* Stamp on the preview's top-left corner. A sibling, not a child: the
+          slot clips (overflow) and ignores the pointer, the ring needs both. */}
+      <div className="csi__seal">
+        <CircularText text="seal*of*quality*" onHover="speedUp" spinDuration={20} />
+      </div>
 
       {grouped.map((g, i) => (
         <div className={`csi__group${i === 0 ? ' csi__group--lead' : ''}`} key={g.heading}>

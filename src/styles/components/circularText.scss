@@ -1,0 +1,28 @@
+@import '../_variables.scss';
+
+// CircularText ring. Size via --ct-size on the element or a parent; letters
+// sit on the ring by their inline rotateZ, glyph size scales with the ring.
+.circular-text {
+  --ct-size: 200px;
+  position: relative;
+  width: var(--ct-size);
+  height: var(--ct-size);
+  margin: 0 auto;
+  border-radius: 50%;
+  font-family: $font-text;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: $white-color;
+  text-align: center;
+  cursor: pointer;
+  transform-origin: 50% 50%;
+  pointer-events: auto; // may sit inside a pointer-events:none wrapper
+
+  span {
+    position: absolute;
+    inset: 0;
+    display: inline-block;
+    font-size: calc(var(--ct-size) * 0.12);
+    transition: all 0.5s cubic-bezier(0, 0, 0, 1);
+  }
+}
