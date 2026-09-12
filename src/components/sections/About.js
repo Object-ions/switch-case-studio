@@ -110,9 +110,10 @@ const About = () => {
           <AboutText />
           <AboutJournal />
           <MoonSlot />
+          {/* Inside the statue since 2026-09-12 (owner): bottom-centre over
+              the photo on desktop, last in the stack on phones. */}
+          <AboutCTA />
         </div>
-
-        <AboutCTA />
       </div>
     </div>
   );

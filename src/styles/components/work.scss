@@ -149,6 +149,23 @@
       }
     }
 
+    // The booking CTA sits INSIDE the statue (owner, 2026-09-12): pinned
+    // bottom-centre over the photo on desktop; in flow, last, on phones
+    // (see the 768px block) so it can never overlap the stacked columns.
+    .work-cta {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: clamp(2.5rem, 7vh, 5rem);
+      z-index: 12;
+      padding: 0 1.5rem;
+      pointer-events: none;
+
+      a {
+        pointer-events: auto;
+      }
+    }
+
     // Second column: the newest journal post. Pointer passes through like
     // the text column (light follows); only the links take it.
     .work-journal {
@@ -291,6 +308,12 @@
         flex: none;
         padding: 1.5rem 0.5rem 0;
         border-top: 1px solid rgba(255, 255, 255, 0.14);
+      }
+
+      .work-cta {
+        position: relative;
+        bottom: auto;
+        padding: 2.5rem 0.5rem 1rem;
       }
 
       .work-moon::after {
