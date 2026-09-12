@@ -13,12 +13,15 @@
   // heading, and a full rest before the statement section that follows.
   // Bottom trimmed 2026-09-11 (owner): the About statement below sat under
   // a band of dead black; it now starts closer and keeps its air BELOW it.
-  padding: clamp(3rem, 6vw, 6rem) $edge-pad clamp(2.5rem, 4vw, 4rem);
+  // Owner reference 2026-09-12: a 3-column grid inset from the edges, with
+  // the preview floating over columns 1-2 as a deliberate interruption.
+  padding: clamp(3rem, 6vw, 6rem) max($edge-pad, 15vw) clamp(2.5rem, 4vw, 4rem);
   box-sizing: border-box;
+  position: relative;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: clamp(2rem, 4vw, 5rem);
-  row-gap: 4rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: clamp(3rem, 7vw, 9rem);
+  row-gap: 3rem;
   font-family: $font-text;
   color: $white-color;
   text-align: left;
@@ -26,12 +29,15 @@
   // Desktop grid: row 1 = intro + three heading columns; the preview spans
   // columns 1-2 in row 2, under the intro and the (short) Rebuilds column,
   // while columns 3-4 run down both rows (owner, 2026-09-11).
+  // Intro is one line across the top of the grid: title, count, link.
   &__intro {
-    grid-column: 1;
+    grid-column: 1 / -1;
     grid-row: 1;
     min-width: 0;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 1.5rem;
   }
 
   &__intro-title {
@@ -43,7 +49,8 @@
   }
 
   &__intro-meta {
-    margin: 0.5rem 0 2.25rem;
+    margin: 0;
+    margin-right: auto;
     font-size: 0.95rem;
     font-weight: 300;
     color: rgba(255, 255, 255, 0.55);
@@ -75,14 +82,7 @@
 
   &__group {
     min-width: 0;
-    grid-row: 1 / span 2;
-
-    // The first (short) column stops at row 1 so the preview can sit
-    // under it. A class, not :nth-of-type: the slot is a div sibling too.
-    &--lead {
-      grid-column: 2;
-      grid-row: 1;
-    }
+    grid-row: 2;
   }
 
   // A hairline over each column heading gives the four columns one top
@@ -135,18 +135,20 @@
     }
   }
 
-  // The preview slot: column-width, under the "View all" pill, in the space
-  // the intro column leaves empty. 16:10 crop of the 1150×1000 house frame,
-  // anchored to the top so the site's header is what shows.
+  // The preview floats OVER the lower half of columns 1-2 (owner's red box):
+  // out of the grid flow, pointer-events off so the entries under it still
+  // take hover. 16:10 crop of the 1150×1000 house frame, top-anchored.
   &__slot {
-    position: relative;
-    grid-column: 1 / span 2;
-    grid-row: 2;
-    align-self: start;
-    width: 100%;
+    position: absolute;
+    z-index: 2;
+    left: 36%;
+    top: 52%;
+    width: clamp(260px, 19vw, 380px);
     aspect-ratio: 16 / 10;
     overflow: hidden;
+    pointer-events: none;
     background: #0a0a0a;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
   }
 
   &__preview {
@@ -167,30 +169,19 @@
 
 @media (max-width: 1024px) {
   .csi {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding-inline: $edge-pad;
+    column-gap: 2rem;
     row-gap: 2.5rem;
 
-    &__intro {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 300px;
-      column-gap: 2rem;
-      align-items: start;
-    }
-    &__intro-title,
-    &__intro-meta,
-    &__viewall {
-      grid-column: 1;
-    }
-    &__group,
-    &__group--lead {
-      grid-column: auto;
-      grid-row: auto;
-    }
     &__slot {
+      position: relative;
+      left: auto;
+      top: auto;
       grid-column: 1 / -1;
-      grid-row: auto;
+      grid-row: 3;
+      width: 100%;
       max-width: 640px;
+      box-shadow: none;
     }
   }
 }

@@ -12,14 +12,15 @@
   display: flex;
   flex-direction: row;
   gap: 1rem;
-  width: 100%;
-  max-width: $max-width;
-  margin: 5rem auto 0;
-  // Reserve height so the IO-gated wordmark can't shift the tiles below when
-  // it lazy-mounts. Row layout tracks the warp's container-derived font-size
-  // (~23.5vw) and plateaus at the 1200px max-width cap (~296px). Column
-  // (mobile) reserved separately below.
-  min-height: min(23.5vw, 300px);
+  // Its own row, top-left, ~40% wide (owner reference, 2026-09-12): the
+  // wordmark heads the index instead of spanning the page.
+  width: clamp(320px, 40vw, 640px);
+  margin: 5rem 0 0 $edge-pad;
+  align-self: flex-start; // .projects centres its children
+  // Reserve height so the IO-gated wordmark can't shift the index below when
+  // it lazy-mounts: the warp's font-size tracks container width (~0.247 of
+  // it), so 40vw wide reserves ~9.9vw. Column (mobile) reserved below.
+  min-height: clamp(80px, 9.9vw, 160px);
 
   &__word {
     flex: 1;
@@ -32,6 +33,8 @@
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 0.25rem;
+    width: auto;
+    align-self: stretch;
     margin: 3rem auto 0;
     padding: 0 1rem;
     // Stacked column runs ~71vw tall (two words); reserve a hair more.
