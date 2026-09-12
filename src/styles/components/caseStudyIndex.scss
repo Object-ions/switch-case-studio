@@ -13,14 +13,15 @@
   // heading, and a full rest before the statement section that follows.
   // Bottom trimmed 2026-09-11 (owner): the About statement below sat under
   // a band of dead black; it now starts closer and keeps its air BELOW it.
-  // Owner reference 2026-09-12: a 3-column grid inset from the edges, with
-  // the preview floating over columns 1-2 as a deliberate interruption.
-  padding: clamp(3rem, 6vw, 6rem) max($edge-pad, 15vw) clamp(2.5rem, 4vw, 4rem);
+  // Right padding is the preview lane (slot width + gutters), so the preview
+  // never covers a title (owner, 2026-09-12).
+  --slot-w: clamp(260px, 19vw, 380px);
+  padding: clamp(3rem, 6vw, 6rem) calc(var(--slot-w) + max($edge-pad, 8vw) + 3rem) clamp(2.5rem, 4vw, 4rem) max($edge-pad, 8vw);
   box-sizing: border-box;
   position: relative;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: clamp(3rem, 7vw, 9rem);
+  column-gap: clamp(2rem, 4vw, 5rem);
   row-gap: 3rem;
   font-family: $font-text;
   color: $white-color;
@@ -135,15 +136,14 @@
     }
   }
 
-  // The preview floats OVER the lower half of columns 1-2 (owner's red box):
-  // out of the grid flow, pointer-events off so the entries under it still
-  // take hover. 16:10 crop of the 1150×1000 house frame, top-anchored.
+  // The preview sits in its own lane right of column 3, level with the
+  // headings: out of the grid flow, pointer-events off. 16:10 crop of the 1150×1000 house frame, top-anchored.
   &__slot {
     position: absolute;
     z-index: 2;
-    left: 36%;
-    top: 52%;
-    width: clamp(260px, 19vw, 380px);
+    right: max($edge-pad, 8vw);
+    top: calc(clamp(3rem, 6vw, 6rem) + 4.5rem);
+    width: var(--slot-w);
     aspect-ratio: 16 / 10;
     overflow: hidden;
     pointer-events: none;
@@ -175,7 +175,7 @@
 
     &__slot {
       position: relative;
-      left: auto;
+      right: auto;
       top: auto;
       grid-column: 1 / -1;
       grid-row: 3;
