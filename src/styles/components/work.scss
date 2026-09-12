@@ -104,20 +104,34 @@
     }
   }
 
-  // ─── Text + Moon side-by-side ───
+  // ─── Text over the relit statue ───
+  // Since 2026-09-12 the DepthImage is the section's BACKGROUND (owner):
+  // full-bleed, min 80vh, the text sits above it in a left column.
   .work-content {
-    max-width: $max-width;
+    position: relative;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    min-height: 80vh;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin: 0 auto;
+    justify-content: flex-start;
+    margin-right: calc(50% - 50vw);
     gap: 2rem;
     padding: 4rem 1.5rem;
 
     .work-text {
-      flex: 1;
+      position: relative;
+      flex: 0 1 36rem;
       z-index: 12;
-      padding: 0 1.5rem;
+      padding: 0 1.5rem 0 max(1.5rem, 8vw);
+      // The pointer passes through to the statue so the light follows it
+      // over the text too; the highlighted phrases keep their hover.
+      pointer-events: none;
+
+      .highlight-block {
+        pointer-events: auto;
+      }
 
       p {
         line-height: 1.6;
@@ -125,22 +139,26 @@
       }
     }
 
+    // The background slot: fills .work-content at every width (the IO gate
+    // in About.js still decides when the canvas mounts). A left-to-right
+    // shade keeps the text readable over the photo.
     .work-moon {
-      flex: 1;
-      height: 500px;
-      min-width: 300px;
-      // Holds the DepthImage canvas (photo fills the slot; the moon's halo
-      // went with the moon, 2026-09-12).
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.2) 55%, transparent);
+        pointer-events: none;
+      }
     }
 
     @media (max-width: 1024px) and (min-width: 769px) {
       gap: 1.5rem;
       padding: 3rem 1.5rem;
-
-      .work-moon {
-        height: 400px;
-        min-width: 250px;
-      }
     }
 
     @media (max-width: 768px) {
@@ -160,18 +178,14 @@
         display: inline;
       }
 
-      .work-moon {
-        width: 100%;
-        // `flex: 1` is inherited from the desktop rule, where this container
-        // is a ROW and the shorthand governs WIDTH — harmless. At this
-        // breakpoint the container flips to `column`, so `flex-basis: 0%`
-        // starts governing HEIGHT and silently overrode the 300px below:
-        // the slot resolved to ~150px and the moon rendered as a small
-        // sphere marooned in a wide empty strip. Reset the flex so the
-        // declared height is authoritative.
+      // Phones: the text covers the full width, so shade the whole photo.
+      .work-text {
         flex: none;
-        height: 300px;
-        min-width: auto;
+        padding: 0 0.5rem;
+      }
+
+      .work-moon::after {
+        background: rgba(0, 0, 0, 0.55);
       }
     }
   }

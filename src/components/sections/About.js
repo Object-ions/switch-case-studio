@@ -61,10 +61,33 @@ const MoonSlot = () => {
       {near && (
         <DecorativeBoundary>
           <Suspense fallback={null}>
+            {/* Values tuned by the owner in the component's Customize panel
+                (2026-09-12); anything unlisted is the component default. */}
             <DepthImage
               image="/photos/about-depth.webp"
-              lightColor="#f3e6ff"
-              lightIntensity={5}
+              fit="cover"
+              view="lit"
+              depthFromLight={0.5}
+              depthSmoothing={7}
+              depthContrast={1.4}
+              invertDepth={false}
+              displacement={1.5}
+              normalStrength={1.6}
+              detail={1.1}
+              shadowIntensity={0.76}
+              shadowSoftness={0.1}
+              lightColor="#de9eff"
+              lightIntensity={7.9}
+              falloff={2.1}
+              elevation={0.65}
+              ambient={0.02}
+              ambientColor="#ffffff"
+              backgroundColor="#0a0a0a"
+              colorPreserve={0}
+              follow={0.12}
+              autoOrbit
+              orbitRadius={0.5}
+              orbitDuration={10}
             />
           </Suspense>
         </DecorativeBoundary>
