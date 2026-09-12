@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import AboutHeading from './AboutHeading';
 import AboutText from './AboutText';
+import AboutJournal from './AboutJournal';
 import AboutCTA from './AboutCTA';
 import AboutMarquee from './AboutMarquee';
 import Polaroids from './Polaroids';
@@ -107,6 +108,7 @@ const About = () => {
 
         <div className="work-content">
           <AboutText />
+          <AboutJournal />
           <MoonSlot />
         </div>
 

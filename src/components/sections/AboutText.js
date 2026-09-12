@@ -70,21 +70,20 @@ const AboutText = () => {
           AboutHeading claim one viewport up. Each paragraph now adds a fact
           the heading didn't: who does the work, and what we run ourselves. */}
       <p>
-        Switch Case Studio delivers
+        Switch Case Studio delivers{" "}
         <span className="highlight-block">
           websites, web apps, brand systems, and AI automation
-        </span>
+        </span>{" "}
         for businesses that take their digital presence seriously. Every project,
-        from a campaign page to a custom AI agent, is
+        from a campaign page to a custom AI agent, is{" "}
         <span className="highlight-block">
           built and measured by the same people,
-        </span>
+        </span>{" "}
         so you work directly with whoever is writing the code.
       </p>
-      <br />
       <p>
         We&rsquo;re engineers as much as designers: we run our own servers,
-        self-host our own AI agents, and automate our own studio with
+        self-host our own AI agents, and automate our own studio with{" "}
         <span className="highlight-block">
           the same systems we build for clients
         </span>

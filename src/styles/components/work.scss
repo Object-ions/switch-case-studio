@@ -106,25 +106,26 @@
 
   // ─── Text over the relit statue ───
   // Since 2026-09-12 the DepthImage is the section's BACKGROUND (owner):
-  // full-bleed, min 80vh, the text sits above it in a left column.
+  // full-bleed, 100vh, two text columns above it: the studio text left, the
+  // newest journal post right (AboutJournal).
   .work-content {
     position: relative;
     width: 100vw;
     margin-left: calc(50% - 50vw);
-    min-height: 80vh;
+    min-height: 100vh;
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     margin-right: calc(50% - 50vw);
     gap: 2rem;
     padding: 4rem 1.5rem;
 
     .work-text {
       position: relative;
-      flex: 0 1 36rem;
+      flex: 0 1 34rem;
       z-index: 12;
-      padding: 0 1.5rem 0 max(1.5rem, 8vw);
+      padding: 0 0 0 max(1.5rem, 8vw);
       // The pointer passes through to the statue so the light follows it
       // over the text too; the highlighted phrases keep their hover.
       pointer-events: none;
@@ -133,15 +134,111 @@
         pointer-events: auto;
       }
 
+      // Left-aligned, outlined phrases flow INLINE (2026-09-12: centred
+      // text + inline-block phrases forced each phrase onto its own line
+      // and ragged the paragraph, which read as distorted).
       p {
+        margin: 0 0 1.25em;
+        line-height: 1.65;
+        text-align: left;
+      }
+
+      .highlight-block {
+        display: inline;
+        padding: 0.05em 0.2em;
+      }
+    }
+
+    // Second column: the newest journal post. Pointer passes through like
+    // the text column (light follows); only the links take it.
+    .work-journal {
+      position: relative;
+      z-index: 12;
+      flex: 0 1 22rem;
+      padding-right: max(1.5rem, 8vw);
+      pointer-events: none;
+
+      a {
+        pointer-events: auto;
+      }
+
+      &__kicker {
+        margin: 0 0 1rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: $g6;
+      }
+
+      &__title {
+        margin: 0 0 1rem;
+        font-family: $font-text;
+        font-size: clamp(1.25rem, 1.8vw, 1.6rem);
+        font-weight: 600;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+
+        a {
+          color: $white-color;
+          text-decoration: none;
+          transition: color $dur-fast $ease-out;
+
+          &:hover {
+            color: $g7;
+          }
+        }
+      }
+
+      &__excerpt {
+        margin: 0 0 1.75rem;
+        font-size: 0.95rem;
+        font-weight: 300;
         line-height: 1.6;
-        text-align: center;
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      &__links {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.75rem 1.5rem;
+      }
+
+      &__read,
+      &__all {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        transition: color $dur-fast $ease-out;
+      }
+
+      &__read {
+        color: $g6;
+
+        &:hover {
+          color: $g7;
+        }
+      }
+
+      &__all {
+        color: rgba(255, 255, 255, 0.55);
+
+        &:hover {
+          color: $white-color;
+        }
+      }
+
+      a:focus-visible {
+        outline: 2px solid $g6;
+        outline-offset: 4px;
       }
     }
 
     // The background slot: fills .work-content at every width (the IO gate
-    // in About.js still decides when the canvas mounts). A left-to-right
-    // shade keeps the text readable over the photo.
+    // in About.js still decides when the canvas mounts). The shade darkens
+    // both edges, where the two text columns sit, and leaves the middle lit.
     .work-moon {
       position: absolute;
       inset: 0;
@@ -151,7 +248,13 @@
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(to right, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.2) 55%, transparent);
+        background: linear-gradient(
+          to right,
+          rgba(0, 0, 0, 0.75),
+          rgba(0, 0, 0, 0.15) 45%,
+          rgba(0, 0, 0, 0.15) 60%,
+          rgba(0, 0, 0, 0.75)
+        );
         pointer-events: none;
       }
     }
@@ -182,6 +285,12 @@
       .work-text {
         flex: none;
         padding: 0 0.5rem;
+      }
+
+      .work-journal {
+        flex: none;
+        padding: 1.5rem 0.5rem 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
       }
 
       .work-moon::after {
