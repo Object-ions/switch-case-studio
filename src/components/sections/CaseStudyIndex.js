@@ -164,6 +164,7 @@ const CaseStudyIndex = () => {
               onFocus={() => setActive(p.slug)}
             >
               <span className="csi__entry-title">{p.title}</span>
+              {p.indexLine && <span className="csi__entry-line">{p.indexLine}</span>}
               <span className="csi__entry-meta">{p.type}</span>
             </Link>
           ))}

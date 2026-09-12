@@ -13,10 +13,10 @@
   // heading, and a full rest before the statement section that follows.
   // Bottom trimmed 2026-09-11 (owner): the About statement below sat under
   // a band of dead black; it now starts closer and keeps its air BELOW it.
-  // Right padding is the preview lane (slot width + gutters), so the preview
-  // never covers a title (owner, 2026-09-12).
+  // Columns centred with equal side padding; the preview rises into the
+  // title row on the right (owner, 2026-09-12).
   --slot-w: clamp(260px, 19vw, 380px);
-  padding: clamp(3rem, 6vw, 6rem) calc(var(--slot-w) + max($edge-pad, 8vw) + 3rem) clamp(2.5rem, 4vw, 4rem) max($edge-pad, 8vw);
+  padding: clamp(3rem, 6vw, 6rem) max($edge-pad, 10vw) clamp(2.5rem, 4vw, 4rem);
   box-sizing: border-box;
   position: relative;
   display: grid;
@@ -27,13 +27,12 @@
   color: $white-color;
   text-align: left;
 
-  // Desktop grid: row 1 = intro + three heading columns; the preview spans
-  // columns 1-2 in row 2, under the intro and the (short) Rebuilds column,
-  // while columns 3-4 run down both rows (owner, 2026-09-11).
+  // Desktop grid: row 1 = the preview (rises into the title row), row 2 =
+  // intro line, row 3 = the three headed columns.
   // Intro is one line across the top of the grid: title, count, link.
   &__intro {
     grid-column: 1 / -1;
-    grid-row: 1;
+    grid-row: 2;
     min-width: 0;
     display: flex;
     flex-wrap: wrap;
@@ -83,7 +82,7 @@
 
   &__group {
     min-width: 0;
-    grid-row: 2;
+    grid-row: 3;
   }
 
   // A hairline over each column heading gives the four columns one top
@@ -115,9 +114,18 @@
       transition: color $dur-fast $ease-out;
     }
 
-    &-meta {
+    &-line {
       display: block;
       margin-top: 0.35rem;
+      font-size: 0.85rem;
+      font-weight: 400;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    &-meta {
+      display: block;
+      margin-top: 0.1rem;
       font-size: 0.85rem;
       font-weight: 300;
       line-height: 1.4;
@@ -136,14 +144,18 @@
     }
   }
 
-  // The preview sits in its own lane right of column 3, level with the
-  // headings: out of the grid flow, pointer-events off. 16:10 crop of the 1150×1000 house frame, top-anchored.
+  // The preview rises into the title row, right-aligned with column 3: it
+  // is alone in grid row 1, and a negative top margin equal to its own
+  // height (16:10, so 0.625 × width) keeps that row ~0 tall, so it sits
+  // ABOVE the intro and never covers an entry. Pointer-events off.
   &__slot {
-    position: absolute;
+    position: relative;
     z-index: 2;
-    right: max($edge-pad, 8vw);
-    top: calc(clamp(3rem, 6vw, 6rem) + 4.5rem);
+    grid-column: 1 / -1;
+    grid-row: 1;
+    justify-self: end;
     width: var(--slot-w);
+    margin-top: calc(var(--slot-w) * -0.625);
     aspect-ratio: 16 / 10;
     overflow: hidden;
     pointer-events: none;
@@ -174,11 +186,9 @@
     row-gap: 2.5rem;
 
     &__slot {
-      position: relative;
-      right: auto;
-      top: auto;
-      grid-column: 1 / -1;
-      grid-row: 3;
+      grid-row: 4;
+      justify-self: start;
+      margin-top: 0;
       width: 100%;
       max-width: 640px;
       box-shadow: none;

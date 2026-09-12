@@ -1,7 +1,7 @@
 [
   {
     "id": 10,
-    "slug": "renewed-bodyworks",
+    "slug": "renewed-bodyworks", "indexLine": "Next.js · Massage therapy",
     "type": "Rebuild + Local SEO",
     "badge": "Rebuild + Local SEO",
     "featured": true,
@@ -80,7 +80,7 @@
   },
   {
     "id": 8,
-    "slug": "florida-green-improvements",
+    "slug": "florida-green-improvements", "indexLine": "Next.js · General contractor",
     "type": "Rebuild + SEO",
     "badge": "Rebuild + SEO",
     "featured": true,
@@ -161,7 +161,7 @@
   },
   {
     "id": 3,
-    "slug": "zahav-medspa",
+    "slug": "zahav-medspa", "indexLine": "Medical spa · Brand + ads",
     "type": "Business Website",
     "badge": "Business Website",
     "featured": true,
@@ -227,7 +227,7 @@
   },
   {
     "id": 9,
-    "slug": "scout",
+    "slug": "scout", "indexLine": "Self-hosted · Lease listings",
     "studioProject": true,
     "type": "SaaS Product",
     "badge": "SaaS Product",
@@ -292,7 +292,7 @@
   },
   {
     "id": 2,
-    "slug": "jo-marketing-11",
+    "slug": "jo-marketing-11", "indexLine": "Marketing company",
     "featured": true,
     "type": "Business Website",
     "badge": "Business Website",
@@ -351,7 +351,7 @@
   },
   {
     "id": 4,
-    "slug": "crimson-equities",
+    "slug": "crimson-equities", "indexLine": "Real estate investment",
     "type": "Business Website",
     "badge": "Business Website",
     "featured": true,
@@ -405,7 +405,7 @@
   },
   {
     "id": 5,
-    "slug": "prodani-miami",
+    "slug": "prodani-miami", "indexLine": "Shopify · Dessert brand",
     "type": "E-Commerce",
     "badge": "E-Commerce",
     "featured": true,
@@ -480,7 +480,7 @@
   },
   {
     "id": 6,
-    "slug": "sha-design-studio",
+    "slug": "sha-design-studio", "indexLine": "Toy design studio",
     "featured": true,
     "type": "Portfolio Site",
     "badge": "Portfolio Site",
@@ -536,7 +536,7 @@
   },
   {
     "id": 7,
-    "slug": "jelly-belly-wiki",
+    "slug": "jelly-belly-wiki", "indexLine": "Python → .NET → React",
     "studioProject": true,
     "type": "Full-Stack + API",
     "badge": "Full-Stack + API",
@@ -612,7 +612,7 @@
   },
   {
     "id": 7,
-    "slug": "birth-of-venus",
+    "slug": "birth-of-venus", "indexLine": "React · Art history",
     "studioProject": true,
     "type": "Interactive Experience",
     "badge": "Interactive Experience",
@@ -672,7 +672,7 @@
   },
   {
     "id": 1,
-    "slug": "florida-energy-assistance",
+    "slug": "florida-energy-assistance", "indexLine": "Home energy programs",
     "type": "Landing Page",
     "badge": "Landing Page",
     "featured": true,
