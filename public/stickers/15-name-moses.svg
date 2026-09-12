@@ -12,6 +12,6 @@
 @keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-8px) rotate(1.5deg)}}
 @keyframes wobble{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
 @keyframes spin{to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion:reduce){.m{animation:none!important}}</style><g class="s" data-x="320" data-y="830" data-w="200" data-h="200"><g class="lift"><g class="m spin-slow" style="animation-delay:-9.8s"><g transform="translate(100 100)"><defs><path id="rm" d="M0,-80 a80,80 0 1,1 -0.1,0"/></defs><circle r="98" fill="#ff834a"/><circle r="64" fill="#dbaae2"/><circle r="64" fill="none" stroke="#141414" stroke-width="1.2"/>
+@media (prefers-reduced-motion:reduce){.m{animation:none!important}}</style><g class="s" data-x="320" data-y="830" data-w="200" data-h="200"><g class="lift"><g class="m float" style="animation-delay:-9.8s"><g transform="translate(100 100)"><defs><path id="rm" d="M0,-80 a80,80 0 1,1 -0.1,0"/></defs><circle r="98" fill="#ff834a"/><circle r="64" fill="#dbaae2"/><circle r="64" fill="none" stroke="#141414" stroke-width="1.2"/>
 <text class="b" font-size="14" fill="#fef7ed"><textPath href="#rm" textLength="498" lengthAdjust="spacing">SWITCH CASE STUDIO · CREW · SWITCH CASE STUDIO · CREW ·</textPath></text>
 <text y="11" text-anchor="middle" class="d" font-size="32" fill="#1748ef" transform="rotate(-10)">Moses</text></g></g></g></g></svg>
