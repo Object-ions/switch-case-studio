@@ -49,17 +49,23 @@ const STICKERS = [
   { name: '08-numbers-ellipse', left: '30%', top: '84%', w: 16, rot: -4 },
   { name: '11-stack-ring', left: '58%', top: '70%', w: 10, rot: -12 },
   { name: '14-switch-case-arch', left: '89%', top: '62%', w: 9, rot: 6 },
+  { name: '10-burst-ga4-gbp', left: '1%', top: '34%', w: 11, rot: 10 },
+  { name: '02-shopify-pill', left: '19%', top: '60%', w: 11, rot: -6 },
+  { name: '12-case-card', left: '32%', top: '40%', w: 9, rot: -8 },
+  { name: '05-code-spiral', left: '86%', top: '32%', w: 11, rot: 0 },
+  { name: '07-woocommerce', left: '47%', top: '86%', w: 12, rot: -3 },
+  { name: '03-label', left: '73%', top: '88%', w: 13, rot: 3 },
 ];
 
-/* Pop-in (owner, 2026-09-11): when the table scrolls in, the 11 pieces
-   (3 prints, then 8 stickers, in DOM order) pop one after another in a
+/* Pop-in (owner, 2026-09-11): when the table scrolls in, the 17 pieces
+   (3 prints, then 14 stickers, in DOM order) pop one after another in a
    shuffled order. The order is a FIXED permutation, so SSG and hydration
    agree and it reads random without reshuffling per load. CSS does the
    motion with the individual `scale` + `opacity` properties, which compose
    with the transforms GSAP (prints) and the rAF loop (stickers) write, so
    no property has two owners. Static HTML is visible; `has-pop` (runtime
    only) hides, `is-in` reveals, and armSafetyNet forces it on screen. */
-const POP_ORDER = [5, 0, 8, 2, 10, 3, 7, 1, 9, 4, 6];
+const POP_ORDER = [5, 0, 8, 2, 10, 3, 7, 1, 9, 4, 6, 14, 11, 16, 12, 15, 13];
 
 const usePopIn = (rootRef, reduced) => {
   useEffect(() => {
@@ -95,7 +101,7 @@ const useStickers = (rootRef, reduced) => {
     let drag = null;
     let visible = false;
     let raf = 0;
-    let topZ = 20;
+    let topZ = 100; // stickers live at 100+, above any print (capped at 99)
 
     const tick = () => {
       raf = 0;
@@ -277,7 +283,10 @@ const Polaroids = () => {
           rx(-py * 16);
         };
         const onEnter = () => {
-          card.style.zIndex = String(++topZ);
+          // Capped below the stickers' floor (100): a hovered print comes to
+          // the front of the PRINTS, never over a sticker.
+          topZ = Math.min(topZ + 1, 99);
+          card.style.zIndex = String(topZ);
           gsap.to(tilt, { scale: 1.05, duration: 0.35, ease: 'power3.out', overwrite: 'auto' });
           gsap.to(drag, { rotate: rotate * 0.3, duration: 0.45, ease: 'power3.out', overwrite: 'auto' });
         };
