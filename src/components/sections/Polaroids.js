@@ -55,17 +55,22 @@ const STICKERS = [
   { name: '05-code-spiral', left: '86%', top: '32%', w: 11, rot: 0 },
   { name: '07-woocommerce', left: '47%', top: '86%', w: 12, rot: -3 },
   { name: '03-label', left: '73%', top: '88%', w: 13, rot: 3 },
+  // Crew names (owner, 2026-09-11). Kept in open table space, not pinned to
+  // a print: which name belongs to which photo is the owner's call.
+  { name: '15-name-moses', left: '4%', top: '86%', w: 12, rot: -5 },
+  { name: '16-name-adi', left: '20%', top: '80%', w: 8, rot: 6 },
+  { name: '17-name-christian', left: '40%', top: '64%', w: 14, rot: 3 },
 ];
 
-/* Pop-in (owner, 2026-09-11): when the table scrolls in, the 17 pieces
-   (3 prints, then 14 stickers, in DOM order) pop one after another in a
+/* Pop-in (owner, 2026-09-11): when the table scrolls in, the 20 pieces
+   (3 prints, then 17 stickers, in DOM order) pop one after another in a
    shuffled order. The order is a FIXED permutation, so SSG and hydration
    agree and it reads random without reshuffling per load. CSS does the
    motion with the individual `scale` + `opacity` properties, which compose
    with the transforms GSAP (prints) and the rAF loop (stickers) write, so
    no property has two owners. Static HTML is visible; `has-pop` (runtime
    only) hides, `is-in` reveals, and armSafetyNet forces it on screen. */
-const POP_ORDER = [5, 0, 8, 2, 10, 3, 7, 1, 9, 4, 6, 14, 11, 16, 12, 15, 13];
+const POP_ORDER = [5, 0, 8, 2, 10, 3, 7, 1, 9, 4, 6, 14, 11, 16, 12, 15, 13, 18, 17, 19];
 
 const usePopIn = (rootRef, reduced) => {
   useEffect(() => {
