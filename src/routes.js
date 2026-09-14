@@ -63,8 +63,8 @@ const HomeContent = () => (
       <LandingPageProof />
       <Services />
     </div>
-    <ClientStrip />
     <CaseStudies />
+    <ClientStrip />
     <About />
     <Reviews />
     <Contact />
