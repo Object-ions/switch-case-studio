@@ -10,6 +10,7 @@ import Services from './components/sections/Services';
 import Squares from './components/ui/Squares';
 import About from './components/sections/About';
 import Reviews from './components/sections/Reviews';
+import TextLoop from './components/ui/TextLoop';
 import CaseStudies from './components/sections/CaseStudies';
 import Contact from './components/sections/Contact';
 import Faq from './components/sections/Faq';
@@ -66,6 +67,28 @@ const HomeContent = () => (
     <CaseStudies />
     <ClientStrip />
     <About />
+    {/* TextLoop band (owner, 2026-09-13): the disciplines on a wave-shaped
+        ribbon, between About and the reviews. Settings are the owner's from
+        the component's Customize panel. */}
+    <div className="text-loop-band">
+      <TextLoop
+        text="Design ✦ Development ✦ Marketing ✦ AI"
+        shape="wave"
+        speed={90}
+        direction="forward"
+        separator="✦"
+        curviness={114}
+        fontSize={46}
+        fontWeight={400}
+        letterSpacing={2}
+        uppercase
+        color="#ffffff"
+        ribbon
+        ribbonColor="#5227FF"
+        ribbonWidth={86}
+        pauseOnHover
+      />
+    </div>
     <Reviews />
     <Contact />
     <Faq />

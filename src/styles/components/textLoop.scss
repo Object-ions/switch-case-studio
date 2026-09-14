@@ -1,0 +1,39 @@
+@import '../_variables.scss';
+
+// TextLoop (React Bits), local styles in place of the stock TextLoop.css.
+.text-loop {
+  position: relative;
+  width: 100%;
+  user-select: none;
+
+  &__svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible; // the wave runs past the viewBox on both sides
+  }
+
+  &__text,
+  &__measure {
+    font-family: $font-text;
+  }
+
+  // Measured for its width, never seen. Opacity (not display:none) so
+  // getComputedTextLength() still returns a real value.
+  &__measure {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+// Home band after the About section (owner, 2026-09-13). Full-bleed on
+// black; overflow clipped so the wave's off-canvas ends never widen the page.
+.text-loop-band {
+  background: #000;
+  overflow: hidden;
+  padding-block: 2rem;
+
+  @media (max-width: 768px) {
+    padding-block: 1rem;
+  }
+}
