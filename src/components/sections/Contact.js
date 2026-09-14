@@ -5,6 +5,12 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import armSafetyNet from '../../animation/armSafetyNet';
 import bannerVideo from '../../assets/videos/switch-case-studio-banner.webm';
+import inkWideWebm from '../../assets/videos/contact-ink-wide.webm';
+import inkWideMp4 from '../../assets/videos/contact-ink-wide.mp4';
+import inkTallWebm from '../../assets/videos/contact-ink-tall.webm';
+import inkTallMp4 from '../../assets/videos/contact-ink-tall.mp4';
+import inkPoster from '../../assets/videos/contact-ink-poster.jpg';
+import useReducedMotion from '../../hooks/useReducedMotion';
 import BookCallCta from '../ui/BookCallCta';
 import { trackEvent } from '../../analytics/ga';
 import '../../styles/components/contact.scss';
@@ -35,6 +41,8 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
   const sectionRef = useRef(null);
   const formRef = useRef(null);
   const videoRef = useRef(null);
+  const [bgOn, setBgOn] = useState(false);
+  const reducedMotion = useReducedMotion();
 
   const consentRef = useRef(null);
 
@@ -177,6 +185,33 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
     }
   }, []);
 
+  /* ------------------------------------------------------------------ *
+   * Background video (owner, 2026-09-13: the InkFill ident). IO-gated so
+   * nothing downloads until the section nears the viewport; SSR and the
+   * first client render are the same plain black section, so there is no
+   * hydration divergence. Reduced motion gets the poster (the finished
+   * logo) and never plays.
+   * ------------------------------------------------------------------ */
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return undefined;
+    if (typeof IntersectionObserver === 'undefined') {
+      setBgOn(true);
+      return undefined;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setBgOn(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: '300px' },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   // Only an in-flight send disables the button. Consent is enforced in
   // handleSubmit with a visible explanation — a permanently disabled-looking
   // primary button read as dead and suppressed attempts (DESIGN_AUDIT P0-3).
@@ -184,6 +219,30 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
 
   return (
     <section id="contact" ref={sectionRef} className="contact-section">
+      {/* InkFill background: desktop gets the 16:9 re-frame (logo centred,
+          ~40% of the frame, cover); <=768px gets the vertical cut shown
+          whole (contain) on the video's own #141414 field, so the logo is
+          never cropped on a tall phone section. Scrim + edge fades live in
+          contact.scss. */}
+      {bgOn && (
+        <div className="contact-section__bg" aria-hidden="true">
+          <video
+            className="contact-section__bg-video"
+            autoPlay={!reducedMotion}
+            muted
+            loop
+            playsInline
+            preload={reducedMotion ? 'none' : 'auto'}
+            poster={inkPoster}
+            tabIndex={-1}
+          >
+            <source media="(max-width: 768px)" src={inkTallWebm} type="video/webm" />
+            <source media="(max-width: 768px)" src={inkTallMp4} type="video/mp4" />
+            <source src={inkWideWebm} type="video/webm" />
+            <source src={inkWideMp4} type="video/mp4" />
+          </video>
+        </div>
+      )}
       <div className="contact-section__inner">
         {/* Phones: form first, then info + animated card. >= 769px: one row,
             form left, card + info right (owner, 2026-09-12). The form stays
