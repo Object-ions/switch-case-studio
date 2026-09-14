@@ -22,8 +22,11 @@ import '../../styles/components/caseStudyIndex.scss';
 /* Case-study index (2026-09-09, owner's reference: a CV-style typed index).
    Featured projects are grouped by `type` into three headed columns; every
    entry is a link, and hovering (or focusing) one swaps the preview slot to
-   that project's website screenshot (`imageSrc`, the same 1150×1000 house
-   frame the /projects cards peek). The slot lives in the intro column under
+   that project's `preview` (2026-09-13, owner: raw screenshots were cut off
+   at random and Zahav's showed its promo popup): a designed 1200×750 (16:10,
+   the slot's ratio) poster, desktop in a browser frame plus the phone view,
+   on black; desktop-only for Scout (private app) and Jelly Belly (not
+   responsive). Falls back to `imageSrc`. The slot lives in the intro column under
    the "View all" pill, at column width, and starts on the newest project,
    which is whatever sits FIRST in projects.json. */
 const GROUPS = [
@@ -143,12 +146,12 @@ const CaseStudyIndex = () => {
             <img
               key={p.slug}
               className={`csi__preview${p.slug === active ? ' is-active' : ''}`}
-              src={p.imageSrc}
+              src={p.preview || p.imageSrc}
               alt=""
               loading="lazy"
               decoding="async"
-              width="1150"
-              height="1000"
+              width="1200"
+              height="750"
             />
           ))}
         </div>
