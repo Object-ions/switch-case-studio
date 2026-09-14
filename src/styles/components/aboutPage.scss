@@ -1,384 +1,506 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
+// About page, redesigned 2026-09-13. Editorial black: lavender kickers,
+// hairlines instead of card boxes, square buttons. Only the h1 uses the
+// display face (CLAUDE.md); every text grid track is minmax(0, 1fr).
+
+$ap-line: rgba(255, 255, 255, 0.1);
+$ap-muted: rgba(255, 255, 255, 0.62);
+
 .about-page {
   background: #000;
   color: #fff;
   font-family: $font-text;
+  overflow-x: clip; // the polaroid table's stickers may poke past the edge
+}
 
-  // ── Shared section wrapper ──
-  &__section-wrap {
-    max-width: $max-width;
-    margin: 0 auto;
-    padding: 6rem 6rem;
+.ap-wrap {
+  max-width: $max-width;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
 
-    @media (max-width: 1024px) { padding: 5rem 3rem; }
-    @media (max-width: 768px)  { padding: 4rem 1.5rem; }
+  @media (max-width: 768px) {
+    padding-inline: 1rem;
   }
+}
 
-  &__section-label {
-    font-size: 0.75rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    color: rgba(255, 255, 255, 0.35);
-    margin: 0 0 2.5rem;
+.ap-section {
+  padding-block: 7rem;
+  border-top: 1px solid $ap-line;
+
+  @media (max-width: 768px) {
+    padding-block: 4.5rem;
   }
+}
 
-  // ── Hero ──
-  &__hero {
-    max-width: $max-width;
-    margin: 0 auto;
-    padding: 8rem 6rem 7rem;
+// ── Section heads ──
+.ap-head {
+  margin-bottom: 3.5rem;
 
-    @media (max-width: 1024px) { padding: 6rem 3rem 5rem; }
-    @media (max-width: 768px)  { padding: 5rem 1.5rem 4rem; }
+  @media (max-width: 768px) {
+    margin-bottom: 2.5rem;
   }
 
   &__kicker {
     font-size: 0.75rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: $orange-color;
-    margin: 0 0 1.5rem;
+    letter-spacing: 0.16em;
+    color: $g6;
+    margin: 0 0 1rem;
   }
 
   &__title {
-    font-family: $font-special;
-    font-size: clamp(3rem, 7vw, 6rem);
-    font-weight: 800;
-    line-height: 1.0;
-    // SCS Display collides under negative tracking — keep it positive (see hero).
-    letter-spacing: 0.02em;
-    margin: 0 0 2rem;
-    color: #fff;
+    font-family: $font-text;
+    font-size: clamp(2rem, 4.2vw, 3.5rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    max-width: 18ch;
+    margin: 0;
+    text-wrap: balance;
+  }
+}
 
-    &--accent {
-      color: $g6;
+// ── Crew: the page opens here, so the top clears the header + fixed logo ──
+.ap-crew {
+  border-top: 0;
+  padding-top: 9rem;
+
+  @media (max-width: 768px) {
+    padding-top: 7rem;
+  }
+
+  &__table {
+    position: relative;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  &__list {
+    list-style: none;
+    margin-top: 3.5rem;
+    margin-bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 2rem;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (max-width: 600px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+}
+
+.ap-person {
+  border-top: 1px solid $ap-line;
+  padding-block: 1.75rem 1rem;
+
+  &__photo {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 1.25rem;
+    filter: grayscale(1); // one voice with the black-and-white prints above
+  }
+
+  &__name {
+    font-family: $font-text;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0 0 0.35rem;
+  }
+
+  &__role {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: $g6;
+    margin: 0 0 0.9rem;
+  }
+
+  &__bio {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: $ap-muted;
+    margin: 0 0 1rem;
+  }
+
+  &__links {
+    display: flex;
+    gap: 1.25rem;
+    margin: 0;
+
+    a {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.75);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(255, 255, 255, 0.3);
+
+      &:hover {
+        color: #fff;
+        text-decoration-color: #fff;
+      }
+    }
+  }
+}
+
+// ── Principles: numbered editorial list ──
+.ap-rules {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 4rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ap-rule {
+  border-top: 1px solid $ap-line;
+  padding-block: 2rem 2.5rem;
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  align-content: start; // cards stretch to the row; keep the rows tight
+  column-gap: 1rem;
+
+  &__n {
+    grid-row: span 2;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: $g6;
+    font-variant-numeric: tabular-nums;
+    padding-top: 0.45rem;
+  }
+
+  &__title {
+    font-family: $font-text;
+    font-size: clamp(1.35rem, 2vw, 1.75rem);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.75rem;
+  }
+
+  &__body {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: $ap-muted;
+    max-width: 40ch;
+    margin: 0;
+  }
+}
+
+// ── Process ──
+.ap-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1.5rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 2.5rem;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  &__timing {
+    margin: 3.5rem 0 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: $ap-muted;
+
+    a {
+      color: #fff;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(255, 255, 255, 0.3);
+
+      &:hover {
+        color: $g6;
+      }
+    }
+  }
+}
+
+.ap-step {
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
+  padding-top: 1.5rem;
+
+  &__n {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: $g6;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-family: $font-text;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0 0 0.6rem;
+  }
+
+  &__body {
+    font-size: 0.93rem;
+    line-height: 1.6;
+    color: $ap-muted;
+    margin: 0;
+  }
+}
+
+// ── Stack ──
+.ap-stack {
+  &__cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 3rem;
     }
   }
 
-  &__lede {
-    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.6);
-    max-width: 640px;
+  &__label {
+    font-family: $font-text;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0 0 1.5rem;
+  }
+
+  &__chips {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+
+    li {
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      padding: 0.6rem 1.1rem;
+      font-size: 1rem;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      border-top: 1px solid $ap-line;
+      padding-block: 0.9rem;
+      font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+      font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+  }
+
+  &__note {
+    margin: 1.5rem 0 0;
+    font-size: 0.95rem;
+    color: $ap-muted;
+  }
+}
+
+// ── Proof ──
+.ap-metrics {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 2.5rem;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.ap-metric a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
+  padding-top: 1.75rem;
+  color: inherit;
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 6px;
+  }
+}
+
+.ap-metric {
+  &__value {
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.2s ease;
+  }
+
+  &__label {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: $ap-muted;
+  }
+
+  &__who {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: $g6;
+  }
+
+  a:hover &__value {
+    color: $g6;
+  }
+}
+
+// ── Journal + CTA ──
+.ap-end__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4rem;
+  align-items: end;
+
+  @media (max-width: 768px) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3.5rem;
+  }
+}
+
+.ap-journal {
+  &__title {
+    font-family: $font-text;
+    font-size: clamp(1.35rem, 2vw, 1.75rem);
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0 0 0.9rem;
+
+    a {
+      color: #fff;
+      text-decoration: none;
+
+      &:hover {
+        color: $g6;
+      }
+    }
+  }
+
+  &__excerpt {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: $ap-muted;
+    max-width: 42ch;
+    margin: 0 0 1.25rem;
+  }
+
+  &__all {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: $g6;
+    text-decoration: none;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+.ap-cta {
+  &__title {
+    font-family: $font-text;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
     margin: 0;
   }
 
-  // ── Story ──
-  &__story {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-
-    &-inner {
-      max-width: $max-width;
-      margin: 0 auto;
-      padding: 6rem 6rem;
-      display: grid;
-      grid-template-columns: 1fr 280px;
-      gap: 5rem;
-      align-items: start;
-
-      @media (max-width: 1024px) {
-        padding: 5rem 3rem;
-        gap: 4rem;
-      }
-
-      @media (max-width: 768px) {
-        padding: 4rem 1.5rem;
-        grid-template-columns: 1fr;
-        gap: 3rem;
-      }
-    }
-
-    &-text {
-      p {
-        font-size: clamp(0.95rem, 1.2vw, 1.1rem);
-        line-height: 1.8;
-        color: rgba(255, 255, 255, 0.65);
-        margin: 0 0 1.5rem;
-
-        &:last-child { margin-bottom: 0; }
-      }
-    }
-  }
-
-  // ── Stats ──
-  &__stat-col {
+  &__actions {
     display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    padding-left: 3rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+}
 
-    @media (max-width: 768px) {
-      flex-direction: row;
-      flex-wrap: wrap;
-      border-left: none;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-left: 0;
-      padding-top: 2rem;
-      gap: 2.5rem;
+// Square, like every CTA since 2026-09-12.
+.ap-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.875rem 1.75rem;
+  font-family: $font-text;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  background: #fff;
+  color: #000;
+  border: 1px solid #fff;
+  border-radius: 0;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(255, 255, 255, 0.85);
+  }
+
+  &--ghost {
+    background: transparent;
+    color: #fff;
+
+    &:hover {
+      background: #fff;
+      border-color: #fff;
+      color: #000;
     }
   }
 
-  &__stat {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-
-    &-value {
-      font-family: $font-text;
-      font-size: clamp(2rem, 3.5vw, 2.75rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: $orange-color;
-      line-height: 1;
-    }
-
-    &-label {
-      font-size: 0.78rem;
-      color: rgba(255, 255, 255, 0.35);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
+  &:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 4px;
   }
 
-  // ── Capabilities ──
-  &__capabilities {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  &__caps-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-
-    @media (max-width: 900px)  { grid-template-columns: 1fr 1fr; }
-    @media (max-width: 580px)  { grid-template-columns: 1fr; }
-  }
-
-  &__cap {
-    padding: 2.5rem 2rem;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    transition: background 0.25s ease;
-
-    &:hover { background: rgba(255, 255, 255, 0.03); }
-
-    &-title {
-      font-family: $font-text;
-      font-size: 1.2rem;
-      font-weight: 800;
-      margin: 0 0 0.875rem;
-      color: #fff;
-      letter-spacing: -0.01em;
-    }
-
-    &-body {
-      font-size: 0.9rem;
-      line-height: 1.65;
-      color: rgba(255, 255, 255, 0.5);
-      margin: 0;
-    }
-  }
-
-  // ── Team ──
-  &__team {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  &__team-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-
-    @media (max-width: 580px)  { grid-template-columns: 1fr; }
-  }
-
-  &__person {
-    padding: 2.5rem 2rem;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    transition: background 0.25s ease;
-
-    &:hover { background: rgba(255, 255, 255, 0.03); }
-
-    &-photo,
-    &-monogram {
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-      margin-bottom: 1.25rem;
-    }
-
-    &-photo { object-fit: cover; display: block; }
-
-    &-monogram {
-      display: grid;
-      place-items: center;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      font-family: $font-text;
-      font-size: 2rem;
-      font-weight: 800;
-      color: rgba(255, 255, 255, 0.55);
-    }
-
-    &-name {
-      font-family: $font-text;
-      font-size: 1.2rem;
-      font-weight: 800;
-      margin: 0 0 0.375rem;
-      color: #fff;
-      letter-spacing: -0.01em;
-    }
-
-    &-role {
-      font-size: 0.78rem;
-      color: rgba(255, 255, 255, 0.35);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin: 0 0 0.875rem;
-    }
-
-    &-bio {
-      font-size: 0.9rem;
-      line-height: 1.65;
-      color: rgba(255, 255, 255, 0.5);
-      margin: 0 0 1rem;
-    }
-
-    &-links {
-      margin: 0;
-      display: flex;
-      gap: 1.25rem;
-
-      a {
-        font-size: 0.82rem;
-        color: rgba(255, 255, 255, 0.55);
-        text-decoration: none;
-        transition: color 0.2s ease;
-
-        &:hover { color: #fff; }
-      }
-    }
-  }
-
-  // ── Values ──
-  &__values {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  &__values-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-
-    @media (max-width: 580px) { grid-template-columns: 1fr; }
-  }
-
-  &__value {
-    padding: 2.5rem 2.5rem;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
-    transition: background 0.25s ease;
-
-    &:hover { background: rgba(255, 255, 255, 0.03); }
-
-    &-label {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #fff;
-    }
-
-    &-desc {
-      font-size: 0.9rem;
-      line-height: 1.6;
-      color: rgba(255, 255, 255, 0.5);
-      margin: 0;
-    }
-  }
-
-  // ── CTA ──
-  &__cta {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    max-width: $max-width;
-    margin: 0 auto;
-    padding: 7rem 6rem 8rem;
-    text-align: center;
-
-    @media (max-width: 1024px) { padding: 6rem 3rem; }
-    @media (max-width: 768px)  { padding: 5rem 1.5rem; }
-
-    &-heading {
-      font-family: $font-text;
-      font-size: clamp(2rem, 4.5vw, 3.5rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin: 0 0 1rem;
-      color: #fff;
-    }
-
-    &-body {
-      font-size: clamp(0.95rem, 1.2vw, 1.1rem);
-      color: rgba(255, 255, 255, 0.5);
-      margin: 0 0 2.5rem;
-    }
-
-    &-actions {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    &-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.875rem 2rem;
-      border-radius: 100px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      min-height: 48px;
-      cursor: pointer;
-
-      @media (max-width: 480px) {
-        width: 100%;
-        justify-content: center;
-      }
-
-      &--primary {
-        background: #fff;
-        color: #000;
-        border: 2px solid #fff;
-
-        &:hover {
-          border-color: $g6;
-          box-shadow: 0 0 32px rgba($g6, 0.4);
-        }
-      }
-
-      &--secondary {
-        background: transparent;
-        color: #fff;
-        border: 2px solid rgba(255, 255, 255, 0.3);
-
-        &:hover { border-color: rgba(255, 255, 255, 0.8); }
-      }
-    }
+  @media (max-width: 480px) {
+    width: 100%;
   }
 }

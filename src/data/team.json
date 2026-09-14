@@ -1,7 +1,7 @@
 [
   {
     "name": "Moses Atia Poston",
-    "role": "Founder · Design & Development",
+    "role": "Brand Strategist · Design & Development",
     "bio": "Founder of Switch Case Studio. Builds every project by hand and measures the result after launch.",
     "photo": "/images/team/moses.avif",
     "photoAlt": "Moses Atia Poston, founder of Switch Case Studio",
@@ -11,7 +11,7 @@
   },
   {
     "name": "Adi Silvera",
-    "role": "Social Media",
+    "role": "Social Media Director",
     "bio": "Runs the studio's social presence, keeping the work visible and the brand consistent across channels.",
     "photo": "/images/team/adi.avif",
     "photoAlt": "Adi Silvera",
@@ -20,11 +20,11 @@
     "website": ""
   },
   {
-    "name": "Xtian Gillespie",
-    "role": "Content",
+    "name": "Christian Gillespie",
+    "role": "Content Manager",
     "bio": "Shapes the words behind the work: clear, on-brand copy across the studio's sites and projects.",
     "photo": "/images/team/xtian.avif",
-    "photoAlt": "Xtian Gillespie, content at Switch Case Studio",
+    "photoAlt": "Christian Gillespie, Content Manager at Switch Case Studio",
     "linkedin": "https://www.linkedin.com/in/christiangillespie/",
     "github": "",
     "website": ""
