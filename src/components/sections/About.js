@@ -3,11 +3,23 @@ import AboutHeading from './AboutHeading';
 import AboutText from './AboutText';
 import AboutJournal from './AboutJournal';
 import AboutCTA from './AboutCTA';
-import AboutMarquee from './AboutMarquee';
+import TextLoop from '../ui/TextLoop';
 import Polaroids from './Polaroids';
+import { Link } from 'react-router-dom';
 
 import DecorativeBoundary from '../util/DecorativeBoundary';
 import '../../styles/components/work.scss';
+import '../../styles/components/aboutJumps.scss';
+
+// Doors into the About page (owner, 2026-09-13): quiet links floating on the
+// polaroid table, one per /about section. x/y are % of the table box, picked
+// for its empty patches; at <=768px they drop into a row under the table.
+const JUMPS = [
+  { label: 'Four rules we don’t bend', to: '/about#ap-principles', x: '14%', y: '76%', d: '0s' },
+  { label: 'From first call to measured results', to: '/about#ap-process', x: '38%', y: '64%', d: '-1.5s' },
+  { label: 'We run what we sell', to: '/about#ap-stack', x: '64%', y: '84%', d: '-3s' },
+  { label: 'Measured, sourced, linked', to: '/about#ap-proof', x: '66%', y: '5%', d: '-4.5s' },
+];
 
 // The Three.js stack (three + fiber + drei + Draco ≈ 990KB chunk) must not
 // touch the initial load. React.lazy alone is NOT enough: rendering <Moon/>
@@ -103,8 +115,45 @@ const About = () => {
 
       <div className="work-wrapper">
         <AboutHeading />
-        <Polaroids />
-        <AboutMarquee />
+        <Polaroids>
+          <nav className="about-jumps" aria-label="More about the studio">
+            {JUMPS.map((j) => (
+              <Link
+                key={j.to}
+                to={j.to}
+                className="about-jumps__link"
+                style={{ '--x': j.x, '--y': j.y, '--d': j.d }}
+              >
+                {j.label}
+                <span className="about-jumps__arrow" aria-hidden="true">
+                  →
+                </span>
+              </Link>
+            ))}
+          </nav>
+        </Polaroids>
+        {/* TextLoop ribbon (owner, 2026-09-13): swapped in for the "Switch
+            Case Studio" marquee, which now sits after this section. */}
+        <div className="text-loop-band">
+          <TextLoop
+            text="Design ✦ Development ✦ Marketing ✦ AI"
+            shape="wave"
+            speed={90}
+            direction="forward"
+            separator="✦"
+            curviness={114}
+            fontSize={46}
+            fontWeight={400}
+            letterSpacing={2}
+            uppercase
+            color="#ffffff"
+            ribbon
+            ribbonColor="#5227FF"
+            ribbonWidth={86}
+            pauseOnHover={false}
+            trim
+          />
+        </div>
 
         <div className="work-content">
           <AboutText />

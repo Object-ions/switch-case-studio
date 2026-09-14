@@ -282,7 +282,8 @@
       z-index: 0;
 
       // Black fade on the top edge so the photo does not start on a hard line
-      // under the marquee (owner, 2026-09-12).
+      // under the band above it (owner, 2026-09-12; the band is the TextLoop
+      // ribbon since the 2026-09-13 swap, the marquee before that).
       &::before {
         content: '';
         position: absolute;

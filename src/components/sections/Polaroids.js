@@ -232,7 +232,10 @@ const useStickers = (rootRef, reduced) => {
   }, [rootRef, reduced]);
 };
 
-const Polaroids = () => {
+// `children` render inside the table's own box (above the stickers), so a
+// caller can float things over it in the table's coordinates: the home page
+// passes its links into /about; the /about page passes nothing.
+const Polaroids = ({ children }) => {
   const rootRef = useRef(null);
   const reduced = useReducedMotion();
   useStickers(rootRef, reduced);
@@ -368,11 +371,14 @@ const Polaroids = () => {
   }, [reduced]);
 
   return (
-    <div className="polaroids" ref={rootRef} aria-hidden="true">
+    // aria-hidden sits on each print and sticker, not the table: real links
+    // passed in as children must stay in the accessibility tree.
+    <div className="polaroids" ref={rootRef}>
       {PRINTS.map((p, i) => (
         <div
           key={p.name}
           className="polaroid"
+          aria-hidden="true"
           style={{
             left: p.left,
             top: p.top,
@@ -422,6 +428,7 @@ const Polaroids = () => {
         <div
           key={s.name}
           className="sticker"
+          aria-hidden="true"
           style={{
             left: s.left,
             top: s.top,
@@ -440,6 +447,7 @@ const Polaroids = () => {
           />
         </div>
       ))}
+      {children}
     </div>
   );
 };

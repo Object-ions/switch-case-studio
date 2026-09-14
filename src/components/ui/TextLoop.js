@@ -72,6 +72,10 @@ const TextLoop = ({
   ribbonColor = '#5227FF',
   ribbonWidth = 86,
   pauseOnHover = true,
+  // House addition: crop the viewBox to the wave's own height (wave/line
+  // only). Computed from the same numbers as the path, so SSR and client
+  // agree; the stock 1200×520 box left ~40% of the band empty.
+  trim = false,
   className = '',
   style = {},
 }) => {
@@ -87,6 +91,15 @@ const TextLoop = ({
   const pathId = `text-loop-${rawId.replace(/:/g, '')}`;
 
   const d = useMemo(() => path || buildPath(shape, curviness, ribbonWidth), [path, shape, curviness, ribbonWidth]);
+
+  const viewBox = useMemo(() => {
+    if (!trim || path || (shape !== 'wave' && shape !== 'line')) return `0 0 ${VIEW_W} ${VIEW_H}`;
+    const room = Math.max(20, CY - Math.max(0, ribbonWidth) / 2 - EDGE_PAD);
+    // A quadratic segment peaks at half its control offset.
+    const peak = shape === 'wave' ? Math.min(Math.max(0, curviness) * 2.2, room * 2) / 2 : 0;
+    const half = peak + Math.max(ribbonWidth, fontSize) / 2 + EDGE_PAD;
+    return `0 ${CY - half} ${VIEW_W} ${half * 2}`;
+  }, [trim, path, shape, curviness, ribbonWidth, fontSize]);
 
   const unit = useMemo(() => {
     const base = uppercase ? String(text).toUpperCase() : String(text);
@@ -203,7 +216,7 @@ const TextLoop = ({
     <div ref={rootRef} className={`text-loop ${className}`.trim()} style={style}>
       <svg
         className="text-loop__svg"
-        viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+        viewBox={viewBox}
         preserveAspectRatio="xMidYMid meet"
         role="img"
         aria-label={text}

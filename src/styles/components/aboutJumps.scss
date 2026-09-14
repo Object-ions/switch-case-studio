@@ -1,0 +1,93 @@
+@import '../_variables.scss';
+
+// Quiet links on the home polaroid table into the /about sections (owner,
+// 2026-09-13: "it doesn't have to be very bold"). The layer ignores the
+// pointer so prints, stickers and the squares canvas still get it; each link
+// claims it back, because #about .work-wrapper sets pointer-events: none and
+// that inherits (CLAUDE.md rule).
+.about-jumps {
+  position: absolute;
+  inset: 0;
+  z-index: 150; // above the stickers (100+), inside the table's own stacking context
+  pointer-events: none;
+
+  &__link {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.8rem;
+    font-family: $font-text;
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 0; // square, like every CTA since 2026-09-12
+    backdrop-filter: blur(6px);
+    pointer-events: auto;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease;
+    // The float uses `translate`, not `transform`, so it composes with
+    // anything that ever writes a transform here (CLAUDE.md rule).
+    animation: about-jumps-float 6s ease-in-out var(--d, 0s) infinite alternate;
+
+    &:hover,
+    &:focus-visible {
+      color: #fff;
+      border-color: $g6;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 3px;
+    }
+  }
+
+  &__arrow {
+    color: $g6;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__link {
+      animation: none;
+    }
+  }
+
+  // Phones: the table is small and busy, so the links sit in a row under it.
+  @media (max-width: 768px) {
+    inset: auto 0 auto 0;
+    top: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1rem 1rem 0; // side gutter: the table itself runs edge to edge
+
+    &__link {
+      position: static;
+      animation: none;
+    }
+  }
+}
+
+@keyframes about-jumps-float {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 -6px;
+  }
+}
+
+// Room for that row under the table on phones.
+@media (max-width: 768px) {
+  #about .polaroids {
+    margin-bottom: 11rem;
+  }
+}

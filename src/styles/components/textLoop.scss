@@ -31,9 +31,12 @@
 .text-loop-band {
   background: #000;
   overflow: hidden;
-  padding-block: 2rem;
+  padding-block: 0.5rem;
+}
 
-  @media (max-width: 768px) {
-    padding-block: 1rem;
-  }
+// Inside the home About block since the 2026-09-13 swap: #about .work-wrapper
+// sets pointer-events: none (so the squares canvas gets hover), and that
+// inherits, so the ribbon claims the pointer back or pause-on-hover is dead.
+#about .text-loop {
+  pointer-events: auto;
 }
