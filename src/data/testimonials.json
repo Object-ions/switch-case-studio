@@ -1,5 +1,14 @@
 [
   {
+    "id": 7,
+    "name": "Shay Asaraf",
+    "title": "Owner at Florida Green Improvements",
+    "url": "https://www.floridagreenimprovements.com",
+    "highlight": "We’re now seeing a lot more inquiries coming directly through the website.",
+    "testimonial": "Amazing service, fast, top quality, and they always overdeliver! They completely redesigned my website, improved the SEO, and installed Google Analytics. We’re now seeing a lot more inquiries coming directly through the website. I’m extremely happy with the results and highly recommend them!",
+    "image": "/images/shay.avif"
+  },
+  {
     "id": 1,
     "name": "Ori Argaman",
     "title": "Owner at Crimson Equities",

@@ -74,7 +74,15 @@ const ReviewsPage = () => {
                 />
                 <div className="testimonials-page__card-meta">
                   <p className="testimonials-page__card-name">{review.name}</p>
-                  <p className="testimonials-page__card-title">{review.title}</p>
+                  <p className="testimonials-page__card-title">
+                    {review.url ? (
+                      <a href={review.url} target="_blank" rel="noopener noreferrer">
+                        {review.title}
+                      </a>
+                    ) : (
+                      review.title
+                    )}
+                  </p>
                 </div>
               </div>
 

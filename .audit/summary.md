@@ -1964,3 +1964,12 @@ Owner-directed layout session, one commit per change, each built and measured he
 - **Chrome:** header "Book a strategy call" is square, border on black, fills on hover (every route); statue CTA square.
 - **Spacing:** logos strip 214 → 46 px above, 0 → 115 px below at 1440.
 - **OPEN:** visible-window pass for motion (DepthImage light follow, seal spin, reveals); statue CTA vs text column clearance on short laptops (~40 px at 1440×813, may overlap at 1366×768); phone scrollWidth 404-410 comes from the off-screen mobile menu panel, pre-existing. Route count unchanged at 41.
+
+## TESTIMONIALS PASS — 2026-09-13, on `main` (fd99e8f → next)
+- **Git housekeeping:** the logos-strip move (`routes.js`, strip below case studies) sat uncommitted under the two 09-12 spacing commits that assumed it; committed as fd99e8f.
+- **Title:** "They trusted us. Here's what happened." → "Our clients, on the record."
+- **Blink on entry, fixed:** the global cursor wrapped the carousel (it is `role="button"`), flashed a carousel-sized ring, then faded; `CursorComponent.js` now skips `OWN_CURSOR_ZONES` (`.testimonial-carousel`). The pill also stays mounted and its springs `jump()` to the entry point instead of flying in from a stale position.
+- **Prev/Next:** pointer half decides label and click (left = Previous, right = Next); arrow keys both ways.
+- **CTAs:** "Read all reviews" (ghost, → /testimonials) + "Book a strategy call" (solid), square, no arrow.
+- **Shay Asaraf (Florida Green Improvements) added, first in order:** `shay.avif` 800², greyscale, head-and-shoulders crop matched to the set; new optional `url` on testimonials links the role line (carousel + /testimonials).
+- **OPEN:** visible-window hover check; the pill still shows over the role link (link works); dependency alerts (5) deferred to the React upgrade + cleanup pass. Route count unchanged at 41.

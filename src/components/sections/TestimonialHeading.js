@@ -7,7 +7,7 @@ const TestimonialHeading = ({ id }) => {
           gradient fill read as decoration, and the kicker above it
           restated the heading. */}
       <h2 id={id} className="testimonial-head__title">
-        They trusted us. Here's what happened.
+        Our clients, on the record.
       </h2>
     </div>
   );

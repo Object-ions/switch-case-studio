@@ -216,6 +216,22 @@
     margin: 0;
   }
 
+  // Client site link on the role line. A real link inside the click-to-
+  // advance carousel: stopPropagation in JS, native cursor back here.
+  .testimonial-role-link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+
+    &:hover {
+      color: $white-color;
+      text-decoration-color: $white-color;
+    }
+  }
+
   // --------------------------------------------------------------------
   // PROGRESS BARS — clickable, fill over AUTO_ADVANCE_MS for current item
   // --------------------------------------------------------------------
@@ -290,6 +306,14 @@
     }
   }
 
+  .testimonials-cta-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
   .testimonials-cta-text {
     font-family: $font-text;
     font-size: clamp(1.25rem, 2vw, 1.75rem);
@@ -313,22 +337,26 @@
     background: $white-color;
     color: $black-color;
     border: 1px solid $white-color;
-    border-radius: 999px;
+    border-radius: 0; // square, like the About CTA (owner, 2026-09-13)
     transition:
       background-color 0.2s ease,
       border-color 0.2s ease,
-      transform 0.2s ease;
-
-    .cta-arrow {
-      transition: transform 0.2s ease;
-    }
+      color 0.2s ease;
 
     &:hover {
       background: rgba(255, 255, 255, 0.85);
       border-color: rgba(255, 255, 255, 0.85);
+    }
 
-      .cta-arrow {
-        transform: translateX(4px);
+    // Secondary: border on black, fills on hover.
+    &--ghost {
+      background: transparent;
+      color: $white-color;
+
+      &:hover {
+        background: $white-color;
+        border-color: $white-color;
+        color: $black-color;
       }
     }
 

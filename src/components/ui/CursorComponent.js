@@ -16,6 +16,12 @@ const INTERACTIVE_SELECTOR =
 const NO_MORPH_ZONES = '#services';
 const HOVER_SIZE = 35;
 
+// Zones that draw their OWN cursor (the testimonial carousel's Prev/Next
+// pill). The dot ignores them entirely: wrapping the carousel (it is a
+// role="button") flashed a carousel-sized ring for a frame before the dot
+// faded out, the "blink" on entry (owner, 2026-09-13).
+const OWN_CURSOR_ZONES = '.testimonial-carousel';
+
 const BASE = 25; // resting circle (owner, 2026-09-10: circle everywhere)
 const ROUND = '50%'; // the resting / no-morph shape
 const PRESSED = 17; // VE-12 press tighten
@@ -178,7 +184,7 @@ const CursorComponent = () => {
 
     const onOver = (e) => {
       const target = e.target.closest(INTERACTIVE_SELECTOR);
-      if (!target || parked) return;
+      if (!target || parked || target.closest(OWN_CURSOR_ZONES)) return;
 
       const custom = target.getAttribute('data-cursor-color');
       if (custom) {
@@ -232,7 +238,7 @@ const CursorComponent = () => {
 
     const onOut = (e) => {
       const target = e.target.closest(INTERACTIVE_SELECTOR);
-      if (!target) return;
+      if (!target || target.closest(OWN_CURSOR_ZONES)) return;
       // Still inside the wrapped element (moved onto a child)? Not a real exit.
       // With a WRAP_BOX the wrapped element is the card, not the control.
       if (e.relatedTarget && (morphTarget || target).contains(e.relatedTarget)) return;

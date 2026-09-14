@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import {
   motion,
   AnimatePresence,
@@ -44,13 +45,28 @@ const Reviews = () => {
   const cursorX = useSpring(mouseX, springConfig);
   const cursorY = useSpring(mouseY, springConfig);
 
-  const handleMouseMove = (e) => {
-    if (containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect();
-      mouseX.set(e.clientX - rect.left);
-      mouseY.set(e.clientY - rect.top);
+  /* Which half the pointer is over decides the pill label AND the click:
+     left half = previous, right half = next. */
+  const [side, setSide] = useState('next');
+
+  const trackPointer = (e, jump = false) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    mouseX.set(x);
+    mouseY.set(y);
+    // On entry, snap the springs to the pointer: without this the pill
+    // springs in from wherever it last was (0,0 on first hover) while the
+    // global cursor has already faded out, which read as a blink.
+    if (jump) {
+      cursorX.jump(x);
+      cursorY.jump(y);
     }
+    setSide(x < rect.width / 2 ? 'prev' : 'next');
   };
+
+  const handleMouseMove = (e) => trackPointer(e);
 
   /* ── Navigation ── */
   const goTo = useCallback(
@@ -62,6 +78,10 @@ const Reviews = () => {
 
   const next = useCallback(() => {
     setCurrent((prev) => (prev + 1) % total);
+  }, [total]);
+
+  const prev = useCallback(() => {
+    setCurrent((c) => (c - 1 + total) % total);
   }, [total]);
 
   /* ── Auto-advance every 10s. Pauses on hover. ── */
@@ -126,7 +146,8 @@ const Reviews = () => {
   }, [prefersReducedMotion]);
 
   /* ── Hide global cursor while hovering the carousel ── */
-  const handleMouseEnter = () => {
+  const handleMouseEnter = (e) => {
+    trackPointer(e, true);
     setIsHovering(true);
     document.body.classList.add(CURSOR_HIDE_CLASS);
   };
@@ -156,41 +177,44 @@ const Reviews = () => {
         <div
           ref={containerRef}
           className="testimonial-carousel"
-          onClick={next}
+          onClick={side === 'prev' ? prev : next}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onMouseMove={handleMouseMove}
           role="button"
           tabIndex={0}
           aria-roledescription="carousel"
-          aria-label="Client testimonials. Click or press Enter to advance."
+          aria-label="Client testimonials. Press Enter or the right arrow for the next one, the left arrow for the previous one."
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
               next();
             }
             if (e.key === 'ArrowRight') next();
-            if (e.key === 'ArrowLeft') goTo(current - 1);
+            if (e.key === 'ArrowLeft') prev();
           }}
         >
-          {/* Floating "Next" pill cursor */}
-          <AnimatePresence>
-            {isHovering && (
-              <motion.div
-                className="next-pill"
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0 }}
-                transition={{ duration: 0.15 }}
-                style={{
-                  translateX: cursorX,
-                  translateY: cursorY,
-                }}
-              >
-                <span className="next-pill-label">Next</span>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Floating Prev/Next cursor. Always mounted (no remount flash);
+              visibility is animated, position is snapped on entry. */}
+          <motion.div
+            className="next-pill"
+            aria-hidden="true"
+            initial={false}
+            animate={
+              isHovering
+                ? { opacity: 1, scale: 1 }
+                : { opacity: 0, scale: 0.6 }
+            }
+            transition={{ duration: 0.18, ease: 'easeOut' }}
+            style={{
+              translateX: cursorX,
+              translateY: cursorY,
+            }}
+          >
+            <span className="next-pill-label">
+              {side === 'prev' ? 'Previous' : 'Next'}
+            </span>
+          </motion.div>
 
           <div className="testimonial-row">
             {/* Image column */}
@@ -261,7 +285,21 @@ const Reviews = () => {
                     transition={{ duration: prefersReducedMotion ? 0 : 0.4 }}
                   >
                     <h3 className="testimonial-name">{item.name}</h3>
-                    <p className="testimonial-role">{item.title}</p>
+                    <p className="testimonial-role">
+                      {item.url ? (
+                        <a
+                          href={item.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="testimonial-role-link"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {item.title}
+                        </a>
+                      ) : (
+                        item.title
+                      )}
+                    </p>
                   </motion.div>
                 </AnimatePresence>
 
@@ -300,16 +338,19 @@ const Reviews = () => {
         </div>
       </div>
 
-      {/* Section CTA — unchanged */}
       <div className="testimonials-cta">
         <p className="testimonials-cta-text">Ready to be next?</p>
-        <MagneticButton distance={0.35}>
-          <BookCallCta className="testimonials-cta-button">
-            <span className="cta-arrow" aria-hidden="true">
-              &rarr;
-            </span>
-          </BookCallCta>
-        </MagneticButton>
+        <div className="testimonials-cta-actions">
+          <Link
+            to="/testimonials"
+            className="testimonials-cta-button testimonials-cta-button--ghost"
+          >
+            Read all reviews
+          </Link>
+          <MagneticButton distance={0.35}>
+            <BookCallCta className="testimonials-cta-button" />
+          </MagneticButton>
+        </div>
       </div>
     </section>
   );
