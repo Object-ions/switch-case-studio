@@ -52,18 +52,166 @@
     margin: 0;
   }
 
-  // ── Service index list (single column of ServiceRows) ──
-  // Match the header width ($max-width) and drop horizontal padding: each
-  // .svc-row carries the header-matching inset (6/3/1.5rem) so its text lines
-  // up with the heading while the pale-lilac hover fill spans the full width.
-  // Row borders replace the old list border-top.
-  &__list {
-    max-width: $max-width;
-    margin: 0 auto;
-    padding: 2.5rem 0 8rem;
+  // ── Service index grid (2026-09-14, matches Home Services teaser) ──
+  // Same panel + hairline + live-poster look as `.services__item`
+  // (services.scss), reused here as `.svi-card` — this page adds a price
+  // line the home teaser doesn't carry. Full width with the shared
+  // $edge-pad gutter (not $max-width): the home teaser's cards are ~324px
+  // wide at 1440 for that reason — a narrower, $max-width-capped column
+  // wrapped card text onto extra lines and starved the poster of height.
+  // One column on phones, two from 768px, four from 1024px (home's breaks).
+  &__grid {
+    padding: 2.5rem $edge-pad 8rem;
+    list-style: none;
 
-    @media (max-width: 1024px) { padding: 2rem 0 6.5rem; }
-    @media (max-width: 640px)  { padding: 1.5rem 0 5rem; }
+    @media (max-width: 768px) { padding: 1.5rem $edge-pad 5rem; }
+
+    @media (min-width: 768px) {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  // ── svi-card: the illustrated poster cards. Kicker row (kicker left,
+  // "See pricing" right lavender, hairline under it) → title → subtitle →
+  // price → live poster art last. ──
+  .svi-card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    background: rgba(8, 8, 8, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    transition: border-color $dur-fast $ease-out;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        border-color: $orange-color;
+      }
+    }
+
+    @media (min-width: 768px) {
+      margin-bottom: 0;
+      aspect-ratio: 3 / 4;
+    }
+
+    &__link {
+      flex: 1;
+      border-radius: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.9rem;
+      padding: 2rem;
+      text-decoration: none;
+      color: inherit;
+
+      @media (min-width: 768px) {
+        height: 100%;
+        box-sizing: border-box;
+      }
+    }
+
+    &__meta {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      padding-bottom: 0.6rem;
+      margin-bottom: 0.4rem;
+    }
+
+    &__rule {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    &__kicker {
+      font-size: 0.8rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      color: rgba(255, 255, 255, 0.75);
+      margin: 0;
+    }
+
+    &__cta {
+      flex-shrink: 0;
+      font-size: 0.8rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      color: $g6;
+    }
+
+    &__body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+
+      @media (min-width: 768px) {
+        margin-top: auto;
+      }
+    }
+
+    &__title-mask {
+      display: block;
+      overflow: hidden;
+      padding: 0.06em 0;
+      margin: -0.06em 0;
+    }
+
+    &__title {
+      display: block;
+      font-family: $font-text;
+      font-size: clamp(2rem, 2.6vw, 2.75rem);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      text-wrap: balance;
+    }
+
+    &__subtitle {
+      display: block;
+      font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+      font-weight: 400;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    &__price {
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      font-variant-numeric: tabular-nums;
+    }
+
+    &__price-from {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .service-poster {
+      margin-top: 0.3rem;
+    }
   }
 
   // ── Bottom CTA ──
@@ -96,24 +244,36 @@
       margin: 0 0 0.5rem;
     }
 
+    // Square, like every CTA since 2026-09-12 (see aboutPage.scss `.ap-btn`) —
+    // was a pill with a lilac glow on hover, the one CTA on this page still
+    // out of step with the nav "Book a strategy call" button above it.
     &-btn {
       display: inline-flex;
       align-items: center;
-      padding: 0.875rem 2rem;
-      border-radius: 100px;
-      font-size: 0.95rem;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0.875rem 1.75rem;
+      font-family: $font-text;
+      font-size: 0.875rem;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
       background: #fff;
       color: #000;
       text-decoration: none;
-      border: 2px solid #fff;
-      transition: box-shadow 0.3s ease, border-color 0.3s ease;
-      min-height: 48px;
+      border: 1px solid #fff;
+      border-radius: 0;
       margin-top: 0.75rem;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
 
       &:hover {
-        border-color: $g6;
-        box-shadow: 0 0 32px rgba($g6, 0.35);
+        background: rgba(255, 255, 255, 0.85);
+        border-color: rgba(255, 255, 255, 0.85);
+      }
+
+      &:focus-visible {
+        outline: 2px solid #fff;
+        outline-offset: 4px;
       }
     }
   }

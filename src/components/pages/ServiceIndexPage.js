@@ -1,9 +1,10 @@
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import Seo from '../util/Seo';
 import { motion, useReducedMotion } from 'motion/react';
 import servicesData from '../../data/services.json';
 import pricingData from '../../data/pricingData.json';
-import ServiceRow from '../ui/ServiceRow';
+import ServicePoster from '../servicePoster/ServicePoster';
 import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
 import {
   containerVariants,
@@ -40,27 +41,6 @@ const SLUG_TO_ID = {
   'marketing-ads': 'marketing-advertisement',
 };
 
-// /pricing rows preview what the ENTRY tier includes instead of repeating
-// the one-liner already read on Home and /services (REFRESH-1): the page's
-// job is "what do I get at this price", so the row answers it. Each include
-// is cut at its first clause break to stay scannable.
-const includesPreview = (slug) => {
-  const svc = pricingData.services.find((s) => s.id === SLUG_TO_ID[slug]);
-  // Care plans are add-ons, not the way in: the entry tier is the cheapest
-  // BUILD (or ungrouped) tier, so Web Development doesn't read "from $75".
-  const tiers = (svc?.tiers || []).filter(
-    (t) => typeof t.price === 'number' && t.group !== 'Care',
-  );
-  if (!tiers.length) return null;
-  const entry = tiers.reduce((a, b) => (b.price < a.price ? b : a));
-  const items = (entry.includes || [])
-    .filter((line) => !/^(perfect|ideal|best|great|designed) for/i.test(line)) // framing, not a deliverable
-    .slice(0, 3)
-    .map((line) => line.split(/[:(,;]/)[0].trim())
-    .filter(Boolean);
-  return items.length ? `${entry.name} includes ${items.join(' · ')}` : null;
-};
-
 const fromPrice = (slug) => {
   const svc = pricingData.services.find((s) => s.id === SLUG_TO_ID[slug]);
   const prices = (svc?.tiers || [])
@@ -70,6 +50,42 @@ const fromPrice = (slug) => {
   if (!prices.length) return null;
   return `$${Math.min(...prices).toLocaleString('en-US')}`;
 };
+
+/* Card grid (2026-09-14): matches the Home Services teaser — same live
+   ServicePoster art, panel + hairline treatment, Inter title (services.scss
+   `.services__item`, reused here as `.svi-card` since this page adds the
+   "from $X" price line the home teaser doesn't carry). The flat text list
+   this replaced (ServiceRow) didn't match the illustrated cards a visitor
+   arrives from when they click "See pricing" on the home page. Entrance
+   stays on the page's existing motion/react variants (reveal on MOUNT, not
+   scroll — REFRESH-1: a scroll `amount` threshold on a tall grid can strand
+   rows on mobile), so no new motion system is introduced for this page. */
+function PricingCard({ service, description, price, priced, variants }) {
+  const itemRef = useRef(null);
+  return (
+    <motion.li ref={itemRef} className="svi-card" variants={variants}>
+      <Link to={`/pricing/${service.slug}`} className="svi-card__link">
+        <span className="svi-card__meta">
+          <span className="svi-card__kicker">{service.kicker}</span>
+          <span className="svi-card__cta">See pricing</span>
+          <span className="svi-card__rule" aria-hidden="true" />
+        </span>
+        <span className="svi-card__body">
+          <span className="svi-card__title-mask">
+            <span className="svi-card__title">{service.title}</span>
+          </span>
+          {description && <span className="svi-card__subtitle">{description}</span>}
+          {priced && price && (
+            <span className="svi-card__price">
+              <span className="svi-card__price-from">from</span> {price}
+            </span>
+          )}
+        </span>
+        <ServicePoster slug={service.slug} cardRef={itemRef} />
+      </Link>
+    </motion.li>
+  );
+}
 
 const ServiceIndexPage = ({ variant = 'pricing' }) => {
   const reduced = useReducedMotion();
@@ -106,29 +122,24 @@ const ServiceIndexPage = ({ variant = 'pricing' }) => {
         {/* Reveal on MOUNT (animate), not on scroll: a scroll `amount`
             threshold on this tall single-column list can be missed on mobile,
             stranding rows invisible (the /projects + /testimonials bug). */}
-        <motion.section
-          className="service-index__list"
+        <motion.ul
+          className="service-index__grid"
           aria-label="Service list"
           variants={v(containerVariants)}
           initial="hidden"
           animate="visible"
         >
           {servicesData.map((service) => (
-            <ServiceRow
+            <PricingCard
               key={service.slug}
-              to={`/pricing/${service.slug}`}
-              title={service.title}
-              description={
-                variant === 'pricing'
-                  ? includesPreview(service.slug) || service.subTitle
-                  : service.subTitle
-              }
+              service={service}
+              description={service.subTitle}
               price={variant === 'pricing' ? fromPrice(service.slug) : undefined}
               priced={variant === 'pricing'}
               variants={v(cardVariants)}
             />
           ))}
-        </motion.section>
+        </motion.ul>
 
         {/* ── Bottom CTA ── */}
         <motion.div
