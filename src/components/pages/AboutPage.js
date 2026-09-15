@@ -5,9 +5,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Seo from '../util/Seo';
 import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
 import useReducedMotion from '../../hooks/useReducedMotion';
+import useBuildReveal from '../../hooks/useBuildReveal';
 import armSafetyNet from '../../animation/armSafetyNet';
 import Polaroids from '../sections/Polaroids';
 import BookCallCta from '../ui/BookCallCta';
+import MagneticButton from '../ui/MagneticButton';
 import teamData from '../../data/team.json';
 import posts from '../../data/posts.json';
 import projects from '../../data/projects.json';
@@ -19,7 +21,18 @@ gsap.registerPlugin(ScrollTrigger);
    boring"). Opens on the crew (the polaroid table); the statue hero,
    services, places and client strip were cut on review (owner, same day).
    Every number on this page is DERIVED from projects.json metrics, which
-   are sourced in their case studies; nothing is typed here. */
+   are sourced in their case studies; nothing is typed here.
+
+   Motion pass 2026-09-14 (owner: "besides the first section everything
+   else is very static"). Crew already carries the page's interactive
+   weight (Polaroids: drag, tilt, stickers); every section below it now
+   gets its own signature build instead of the same flat fade:
+   Principles/Process/Proof reuse the Services.js typographic-build hairline
+   + masked-title pattern (useBuildReveal, generalized from ServiceItem);
+   Process additionally pins and pans its row on desktop (Services.js pin
+   pattern, reused verbatim: one parent effect owns pin+pan+parallax, each
+   item owns its own build independently); Stack chips and the closing CTA
+   get MagneticButton (already proven on AboutCTA/Reviews/CaseStudyPage). */
 
 const PRINCIPLES = [
   {
@@ -101,7 +114,8 @@ const teamJsonLd = TEAM.length
 /* Scroll reveals, house safe-reveal pattern: static HTML ships visible, the
    hidden state is set at runtime only, anything already on screen stands,
    and armSafetyNet forces an on-screen element visible if its trigger never
-   fires. Reduced motion never hides anything. */
+   fires. Reduced motion never hides anything. Left for the sections that
+   don't get a bespoke build (person cards, journal card, section heads). */
 const useReveals = (rootRef, reduced) => {
   useEffect(() => {
     const root = rootRef.current;
@@ -138,6 +152,197 @@ const SectionHead = ({ id, kicker, title }) => (
     </h2>
   </header>
 );
+
+/* ── Principles: hairline draw + masked title rise, one build per rule
+   (useBuildReveal, the Services.js ServiceItem pattern generalized). ── */
+function PrincipleItem({ rule, index }) {
+  const itemRef = useRef(null);
+  useBuildReveal(
+    itemRef,
+    { rule: '.ap-rule__line', meta: '.ap-rule__n', title: '.ap-rule__title', body: '.ap-rule__body' },
+    { delay: index * 0.06 },
+  );
+  return (
+    <li ref={itemRef} className="ap-rule">
+      <span className="ap-rule__line" aria-hidden="true" />
+      <span className="ap-rule__n" aria-hidden="true">
+        {String(index + 1).padStart(2, '0')}
+      </span>
+      <span className="ap-rule__title-mask">
+        <h3 className="ap-rule__title">{rule.title}</h3>
+      </span>
+      <p className="ap-rule__body">{rule.body}</p>
+    </li>
+  );
+}
+
+/* ── Process: each step owns its own build (independent of the pan); the
+   pin/pan/parallax below is owned entirely by ProcessTrack's own effect,
+   same division as Services.js (parent owns containerAnimation, children
+   never touch it). ── */
+function StepItem({ step, index }) {
+  const itemRef = useRef(null);
+  useBuildReveal(
+    itemRef,
+    { rule: '.ap-step__line', meta: '.ap-step__n', title: '.ap-step__title', body: '.ap-step__body' },
+    { delay: index * 0.07 },
+  );
+  return (
+    <li ref={itemRef} className="ap-step">
+      <span className="ap-step__line" aria-hidden="true" />
+      <span className="ap-step__n" aria-hidden="true">
+        {String(index + 1).padStart(2, '0')}
+      </span>
+      <h3 className="ap-step__title">{step.title}</h3>
+      <p className="ap-step__body">{step.body}</p>
+    </li>
+  );
+}
+
+function ProcessTrack({ heading, steps }) {
+  const pinRef = useRef(null);
+  const listRef = useRef(null);
+  const fillRef = useRef(null);
+
+  useEffect(() => {
+    const pin = pinRef.current;
+    const list = listRef.current;
+    if (!pin || !list) return undefined;
+
+    const mm = gsap.matchMedia();
+    // Same gate as the CSS flex-row layout below: desktop, motion allowed.
+    mm.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
+      const distance = () => Math.max(0, list.scrollWidth - list.clientWidth);
+      const panTween = gsap.to(list, {
+        x: () => -distance(),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: pin,
+          start: 'top top+=110',
+          end: () => `+=${distance()}`,
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+        },
+      });
+
+      if (fillRef.current) {
+        gsap.fromTo(
+          fillRef.current,
+          { scaleX: 0 },
+          {
+            scaleX: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: pin,
+              start: 'top top+=110',
+              end: () => `+=${distance()}`,
+              scrub: true,
+            },
+          },
+        );
+      }
+
+      // Depth parallax while panning: each step drifts opposite the pan
+      // direction as it crosses the screen (Services' `__item-body` tween).
+      gsap.utils.toArray('.ap-step', list).forEach((step) => {
+        gsap.fromTo(
+          step,
+          { x: 24 },
+          {
+            x: -24,
+            ease: 'none',
+            scrollTrigger: {
+              containerAnimation: panTween,
+              trigger: step,
+              start: 'left right',
+              end: 'right left',
+              scrub: true,
+            },
+          },
+        );
+      });
+
+      return () => {
+        panTween.scrollTrigger?.kill();
+        panTween.kill();
+      };
+    });
+
+    return () => mm.revert();
+  }, []);
+
+  return (
+    <div className="ap-process__pin" ref={pinRef}>
+      <div className="ap-wrap">
+        {heading}
+        <div className="ap-process__progress" aria-hidden="true">
+          <span className="ap-process__progress-fill" ref={fillRef} />
+        </div>
+      </div>
+      <div className="ap-process__viewport">
+        <ol className="ap-steps" ref={listRef}>
+          {steps.map((s, i) => (
+            <StepItem key={s.title} step={s} index={i} />
+          ))}
+        </ol>
+      </div>
+    </div>
+  );
+}
+
+/* ── Proof: masked value reveal + hairline draw (useBuildReveal), lift on
+   hover. The value strings are heterogeneous ("−94%", "61 → 100", "1 in
+   13") — a digit count-up would have to reformat them, which risks
+   misrepresenting a sourced figure (CLAUDE.md: metrics are a published
+   claim). The mask reveal gets the same typographic weight without ever
+   touching the string. ── */
+function MetricTile({ metric, index }) {
+  const itemRef = useRef(null);
+  useBuildReveal(
+    itemRef,
+    { rule: '.ap-metric__line', title: '.ap-metric__value', body: '.ap-metric__label, .ap-metric__who' },
+    { delay: index * 0.06 },
+  );
+  return (
+    <li ref={itemRef} className="ap-metric">
+      <Link to={`/projects/${metric.slug}`}>
+        <span className="ap-metric__line" aria-hidden="true" />
+        <span className="ap-metric__value-mask">
+          <span className="ap-metric__value">{metric.value}</span>
+        </span>
+        <span className="ap-metric__label">{metric.label}</span>
+        <span className="ap-metric__who">{metric.title}</span>
+      </Link>
+    </li>
+  );
+}
+
+/* ── Closing CTA: masked title rise + magnetic buttons (AboutCTA pattern). ── */
+function CtaBlock() {
+  const ctaRef = useRef(null);
+  useBuildReveal(ctaRef, { title: '.ap-cta__title' });
+  return (
+    <div className="ap-cta" ref={ctaRef}>
+      <span className="ap-cta__title-mask">
+        <h2 id="ap-cta" className="ap-cta__title">
+          Let’s bring your idea to life.
+        </h2>
+      </span>
+      <div className="ap-cta__actions">
+        <MagneticButton distance={0.35}>
+          <BookCallCta className="ap-btn" />
+        </MagneticButton>
+        <MagneticButton distance={0.35}>
+          <Link to="/projects" className="ap-btn ap-btn--ghost">
+            See the work
+          </Link>
+        </MagneticButton>
+      </div>
+    </div>
+  );
+}
 
 const AboutPage = () => {
   const reduced = useReducedMotion();
@@ -221,34 +426,20 @@ const AboutPage = () => {
             <SectionHead id="ap-principles" kicker="How we work" title="Four rules we don’t bend." />
             <ol className="ap-rules">
               {PRINCIPLES.map((r, i) => (
-                <li key={r.title} className="ap-rule ap-reveal">
-                  <span className="ap-rule__n" aria-hidden="true">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <h3 className="ap-rule__title">{r.title}</h3>
-                  <p className="ap-rule__body">{r.body}</p>
-                </li>
+                <PrincipleItem key={r.title} rule={r} index={i} />
               ))}
             </ol>
           </div>
         </section>
 
         {/* ── Process ── */}
-        <section className="ap-section" aria-labelledby="ap-process">
-          <div className="ap-wrap">
-            <SectionHead id="ap-process" kicker="The process" title="From first call to measured results." />
-            <ol className="ap-steps">
-              {STEPS.map((s, i) => (
-                <li key={s.title} className="ap-step ap-reveal">
-                  <span className="ap-step__n" aria-hidden="true">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <h3 className="ap-step__title">{s.title}</h3>
-                  <p className="ap-step__body">{s.body}</p>
-                </li>
-              ))}
-            </ol>
-            {TIMINGS.length > 0 && (
+        <section className="ap-section ap-process" aria-labelledby="ap-process">
+          <ProcessTrack
+            heading={<SectionHead id="ap-process" kicker="The process" title="From first call to measured results." />}
+            steps={STEPS}
+          />
+          {TIMINGS.length > 0 && (
+            <div className="ap-wrap">
               <p className="ap-steps__timing ap-reveal">
                 How long it takes, from our own case studies:{' '}
                 {TIMINGS.map((t, i) => (
@@ -258,8 +449,8 @@ const AboutPage = () => {
                   </span>
                 ))}
               </p>
-            )}
-          </div>
+            </div>
+          )}
         </section>
 
         {/* ── Stack ── */}
@@ -271,7 +462,11 @@ const AboutPage = () => {
                 <h3 className="ap-stack__label">We build with</h3>
                 <ul className="ap-stack__chips">
                   {BUILD_WITH.map((t) => (
-                    <li key={t}>{t}</li>
+                    <li key={t} className="ap-stack__chip">
+                      <MagneticButton distance={0.4} className="ap-stack__chip-pull">
+                        {t}
+                      </MagneticButton>
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -295,14 +490,8 @@ const AboutPage = () => {
           <div className="ap-wrap">
             <SectionHead id="ap-proof" kicker="Numbers you can check" title="Measured, sourced, linked." />
             <ul className="ap-metrics">
-              {PROOF.map((m) => (
-                <li key={m.slug} className="ap-metric ap-reveal">
-                  <Link to={`/projects/${m.slug}`}>
-                    <span className="ap-metric__value">{m.value}</span>
-                    <span className="ap-metric__label">{m.label}</span>
-                    <span className="ap-metric__who">{m.title}</span>
-                  </Link>
-                </li>
+              {PROOF.map((m, i) => (
+                <MetricTile key={m.slug} metric={m} index={i} />
               ))}
             </ul>
           </div>
@@ -323,17 +512,7 @@ const AboutPage = () => {
                 </Link>
               </aside>
             )}
-            <div className="ap-cta ap-reveal">
-              <h2 id="ap-cta" className="ap-cta__title">
-                Let’s bring your idea to life.
-              </h2>
-              <div className="ap-cta__actions">
-                <BookCallCta className="ap-btn" />
-                <Link to="/projects" className="ap-btn ap-btn--ghost">
-                  See the work
-                </Link>
-              </div>
-            </div>
+            <CtaBlock />
           </div>
         </section>
       </article>

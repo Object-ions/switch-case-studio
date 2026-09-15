@@ -167,12 +167,24 @@ $ap-muted: rgba(255, 255, 255, 0.62);
 }
 
 .ap-rule {
-  border-top: 1px solid $ap-line;
+  position: relative; // hosts the drawn hairline (__line)
   padding-block: 2rem 2.5rem;
   display: grid;
   grid-template-columns: 3.5rem minmax(0, 1fr);
   align-content: start; // cards stretch to the row; keep the rows tight
   column-gap: 1rem;
+
+  // The hairline is an element, not a border, so the build can draw it
+  // (scaleX from the left, useBuildReveal). Static HTML shows it in full.
+  &__line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: $ap-line;
+    transform-origin: left center;
+  }
 
   &__n {
     grid-row: span 2;
@@ -183,7 +195,17 @@ $ap-muted: rgba(255, 255, 255, 0.62);
     padding-top: 0.45rem;
   }
 
+  // Title rises out of this mask on its build (a hair of padding keeps
+  // round/descending glyphs from clipping at line-height 1).
+  &__title-mask {
+    display: block;
+    overflow: hidden;
+    padding: 0.06em 0;
+    margin: -0.06em 0;
+  }
+
   &__title {
+    display: block;
     font-family: $font-text;
     font-size: clamp(1.35rem, 2vw, 1.75rem);
     font-weight: 500;
@@ -201,6 +223,38 @@ $ap-muted: rgba(255, 255, 255, 0.62);
 }
 
 // ── Process ──
+// Below 1024px or with reduced motion: a static grid, no pin (see
+// ProcessTrack's matchMedia gate in AboutPage.js — same breakpoint).
+.ap-process {
+  &__viewport {
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+      padding-inline: 1rem;
+    }
+  }
+
+  // Fill only shown in the desktop pin, where it tracks pan progress.
+  &__progress {
+    display: none;
+    position: relative;
+    height: 2px;
+    background: $ap-line;
+    margin: -1rem 0 3rem;
+  }
+
+  &__progress-fill {
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    transform-origin: left center;
+    transform: scaleX(0);
+  }
+}
+
 .ap-steps {
   list-style: none;
   margin: 0;
@@ -238,8 +292,18 @@ $ap-muted: rgba(255, 255, 255, 0.62);
 }
 
 .ap-step {
-  border-top: 1px solid rgba(255, 255, 255, 0.28);
+  position: relative; // hosts the drawn hairline (__line)
   padding-top: 1.5rem;
+
+  &__line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.28);
+    transform-origin: left center;
+  }
 
   &__n {
     display: block;
@@ -262,6 +326,28 @@ $ap-muted: rgba(255, 255, 255, 0.62);
     line-height: 1.6;
     color: $ap-muted;
     margin: 0;
+  }
+}
+
+// ── Desktop pin + pan (same gate as the JS in ProcessTrack: ≥1024px,
+// motion allowed). The row becomes a single non-wrapping flex line wider
+// than its viewport, which clips it; ProcessTrack pins .ap-process__pin
+// and scrubs .ap-steps left while the progress fill tracks it. ──
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .ap-process__progress {
+    display: block;
+  }
+
+  .ap-steps {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 2.5rem;
+    will-change: transform;
+  }
+
+  .ap-step {
+    flex: 0 0 300px;
+    padding-top: 1.75rem;
   }
 }
 
@@ -295,11 +381,21 @@ $ap-muted: rgba(255, 255, 255, 0.62);
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem;
+  }
 
-    li {
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      padding: 0.6rem 1.1rem;
-      font-size: 1rem;
+  // The chip itself renders inside MagneticButton's wrapper div (a li can't
+  // be the magnetic element and stay a valid list child at the same time).
+  &__chip-pull {
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    padding: 0.6rem 1.1rem;
+    font-size: 1rem;
+    cursor: default;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+      background: #fff;
+      color: #000;
+      border-color: #fff;
     }
   }
 
@@ -345,13 +441,18 @@ $ap-muted: rgba(255, 255, 255, 0.62);
 }
 
 .ap-metric a {
+  position: relative; // hosts the drawn hairline (__line)
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.28);
   padding-top: 1.75rem;
   color: inherit;
   text-decoration: none;
+  transition: transform 0.25s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
 
   &:focus-visible {
     outline: 2px solid #fff;
@@ -360,7 +461,28 @@ $ap-muted: rgba(255, 255, 255, 0.62);
 }
 
 .ap-metric {
+  // The hairline is an element, not a border, so the build can draw it
+  // (scaleX from the left, useBuildReveal). Static HTML shows it in full.
+  &__line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.28);
+    transform-origin: left center;
+  }
+
+  // Value rises out of this mask on its build.
+  &__value-mask {
+    display: block;
+    overflow: hidden;
+    padding: 0.06em 0;
+    margin: -0.06em 0;
+  }
+
   &__value {
+    display: block;
     font-size: clamp(2.4rem, 4vw, 3.4rem);
     font-weight: 600;
     line-height: 1;
@@ -440,7 +562,16 @@ $ap-muted: rgba(255, 255, 255, 0.62);
 }
 
 .ap-cta {
+  // Title rises out of this mask on its build.
+  &__title-mask {
+    display: block;
+    overflow: hidden;
+    padding: 0.06em 0;
+    margin: -0.06em 0;
+  }
+
   &__title {
+    display: block;
     font-family: $font-text;
     font-size: clamp(2rem, 4vw, 3.25rem);
     font-weight: 500;
@@ -454,6 +585,15 @@ $ap-muted: rgba(255, 255, 255, 0.62);
     flex-wrap: wrap;
     gap: 0.75rem;
     margin-top: 2rem;
+
+    // MagneticButton's wrapper is inline-flex, so it hugs the button's own
+    // width by default — full width on phones needs the wrapper to stretch
+    // too, or .ap-btn's width: 100% below has nothing to expand into.
+    @media (max-width: 480px) {
+      .magnetic-button {
+        width: 100%;
+      }
+    }
   }
 }
 
