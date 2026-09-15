@@ -1,13 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCheck,
-  faStar,
-  faArrowRight,
-  faArrowUpRightFromSquare,
-} from '@fortawesome/free-solid-svg-icons';
 
 import '../../styles/components/singlePricingCard.scss';
 
@@ -16,7 +9,10 @@ import '../../styles/components/singlePricingCard.scss';
  * left, included features + a rotating testimonial on the right.
  *
  * Adapted from a Next.js/TS/Tailwind/framer-motion + shadcn snippet to this
- * project's stack: motion/react, plain JS, SCSS, Font Awesome, react-router.
+ * project's stack: motion/react, plain JS, SCSS, react-router. Facelift
+ * 2026-09-14 dropped the FontAwesome check/star icons for the site's plain
+ * "→" arrow convention (Services.js, About) and a hairline list — no icon
+ * chips or star-rating graphic anywhere else on the site used them either.
  * Entrance uses whileInView (can't get stuck hidden); reduced-motion safe.
  */
 
@@ -80,7 +76,7 @@ const SinglePricingCard = ({
       <div className="spc__inner">
         {/* ── Left: offer ── */}
         <div className="spc__offer">
-          {badge && <span className="spc__badge">{badge}</span>}
+          {badge && <span className="spc__kicker">{badge}</span>}
 
           <h2 className="spc__title">{title}</h2>
           {subtitle && <p className="spc__subtitle">{subtitle}</p>}
@@ -97,12 +93,7 @@ const SinglePricingCard = ({
             <ul className="spc__benefits">
               {benefits.map((b) => (
                 <li key={b.text} className="spc__benefit">
-                  <FontAwesomeIcon
-                    icon={b.icon || faCheck}
-                    className="spc__benefit-icon"
-                    aria-hidden="true"
-                  />
-                  <span>{b.text}</span>
+                  {b.text}
                 </li>
               ))}
             </ul>
@@ -116,11 +107,7 @@ const SinglePricingCard = ({
                 className="spc__btn spc__btn--primary"
               >
                 <span>{primaryButton.text}</span>
-                <FontAwesomeIcon
-                  icon={faArrowRight}
-                  className="spc__btn-chevron"
-                  aria-hidden="true"
-                />
+                <span className="spc__btn-arrow" aria-hidden="true">→</span>
               </Cta>
             )}
             {secondaryButton && (
@@ -129,14 +116,9 @@ const SinglePricingCard = ({
                 className="spc__btn spc__btn--secondary"
               >
                 <span>{secondaryButton.text}</span>
-                <FontAwesomeIcon
-                  icon={
-                    secondaryButton.external
-                      ? faArrowUpRightFromSquare
-                      : faArrowRight
-                  }
-                  aria-hidden="true"
-                />
+                <span className="spc__btn-arrow" aria-hidden="true">
+                  {secondaryButton.external ? '↗' : '→'}
+                </span>
               </Cta>
             )}
           </div>
@@ -156,10 +138,7 @@ const SinglePricingCard = ({
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ delay: i * 0.05, duration: 0.45 }}
               >
-                <span className="spc__feature-chip" aria-hidden="true">
-                  <FontAwesomeIcon icon={faCheck} />
-                </span>
-                <span>{feat}</span>
+                {feat}
               </motion.li>
             ))}
           </ul>
@@ -195,11 +174,6 @@ const SinglePricingCard = ({
                               {t.role && (
                                 <span className="spc__quote-role">{t.role}</span>
                               )}
-                            </span>
-                            <span className="spc__quote-stars" aria-hidden="true">
-                              {[...Array(t.rating || 5)].map((_, s) => (
-                                <FontAwesomeIcon key={s} icon={faStar} />
-                              ))}
                             </span>
                           </figcaption>
                           <blockquote className="spc__quote-text">

@@ -1,23 +1,22 @@
 @import '../_variables.scss';
 
-// Adapted "single pricing card": price + benefits + CTA (left), included
-// features + a rotating testimonial (right).
-// LIGHT theme — /pricing/:slug sits on the grey pricing-guide surface, so the
-// card is a warm-white panel with dark text and lilac accents (matching the
-// app's lilac theme — logo, nav CTA, tile glow, LIVE badge).
+// Facelift 2026-09-14 (owner: "need some serious facelift"). Was a light
+// cream rounded card (pill badge, circular check icons, star ratings, pill
+// CTAs) floating on the dark pricing-guide surface — a generic SaaS-template
+// look with no match anywhere else on the site. Now a dark hairline panel,
+// same family as the /pricing overview cards (serviceIndexPage.scss
+// `.svi-card`) and About's hairline lists: no rounded corners, no card
+// shadow, no icon chips, no star graphic. CTAs match the nav's own primary
+// button exactly (black bg, 2px lavender border, fills lavender on hover)
+// rather than inventing a third button style.
 .spc {
   position: relative;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 18px;
-  // Cool, faintly-lavender white — no warm/peach undertone, so it sits in the
-  // same family as the lilac accents rather than reading orange-y.
-  background: #f7f4fc;
-  box-shadow: 0 12px 44px -24px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(8, 8, 8, 0.88);
   overflow: hidden;
 
   &--highlighted {
-    border-color: rgba($g6, 0.6);
-    box-shadow: 0 18px 60px -28px rgba($g6, 0.45);
+    border-color: rgba($g6, 0.45);
   }
 
   &__inner {
@@ -42,37 +41,35 @@
 
   &__detail {
     padding: 2rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 
     @media (min-width: 820px) {
       width: 50%;
       padding: 2.5rem;
       border-top: none;
-      border-left: 1px solid rgba(0, 0, 0, 0.08);
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
     }
   }
 
   // ── Offer (left) ──
-  &__badge {
-    align-self: flex-start;
-    padding: 0.3rem 0.7rem;
-    margin-bottom: 1.25rem;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 999px;
+  &__kicker {
+    display: block;
     font-family: $font-text;
-    font-size: 0.6875rem;
-    font-weight: 700;
+    font-size: 0.75rem;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: rgba(0, 0, 0, 0.6);
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0 0 1.25rem;
   }
 
   &__title {
     font-family: $font-text;
     font-size: clamp(1.6rem, 2.4vw, 2.1rem);
-    font-weight: 800;
+    font-weight: 600;
     line-height: 1.1;
-    color: $black-color;
+    letter-spacing: -0.01em;
+    color: #fff;
     margin: 0 0 0.5rem;
   }
 
@@ -80,7 +77,7 @@
     font-family: $font-text;
     font-size: 0.95rem;
     line-height: 1.5;
-    color: rgba(0, 0, 0, 0.55);
+    color: rgba(255, 255, 255, 0.6);
     margin: 0 0 1.5rem;
   }
 
@@ -95,14 +92,16 @@
   &__price-current {
     font-family: $font-text;
     font-size: clamp(2.25rem, 4vw, 3rem);
-    font-weight: 800;
+    font-weight: 600;
     line-height: 1;
-    color: $black-color;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    color: #fff;
   }
 
   &__price-original {
     font-size: 1.1rem;
-    color: rgba(0, 0, 0, 0.35);
+    color: rgba(255, 255, 255, 0.35);
     text-decoration: line-through;
   }
 
@@ -111,30 +110,29 @@
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: rgba(0, 0, 0, 0.45);
+    color: rgba(255, 255, 255, 0.45);
   }
 
+  // Plain hairline list, no icon chips (owner: "serious facelift" — the
+  // circular check icons + pill badge read as a generic template).
   &__benefits {
     list-style: none;
     margin: 0 0 2rem;
     padding: 0;
-    display: grid;
-    gap: 0.85rem;
   }
 
   &__benefit {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
     font-family: $font-text;
     font-size: 0.875rem;
-    color: rgba(0, 0, 0, 0.78);
-  }
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 0.65rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 
-  &__benefit-icon {
-    color: $g6;
-    font-size: 0.85rem;
-    flex-shrink: 0;
+    &:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
   }
 
   &__actions {
@@ -144,60 +142,61 @@
     gap: 0.7rem;
   }
 
+  // Matches the nav's own primary CTA (header.scss `.headingCTA`) rather
+  // than a third button style: square, black + lavender border, fills
+  // lavender on hover. Secondary is the site's ghost square (`.ap-btn`).
   &__btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.6rem;
     min-height: 48px;
-    padding: 0.85rem 1.4rem;
+    padding: 0.85rem 1.5rem;
     font-family: $font-text;
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     text-decoration: none;
-    border-radius: 999px;
-    transition: background-color 0.2s ease, color 0.2s ease,
-      border-color 0.2s ease;
+    border-radius: 0;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 
     &:focus-visible {
-      outline: 2px solid $g6;
+      outline: 2px solid #fff;
       outline-offset: 3px;
     }
 
-    // Mirrors the nav "Book a Free Call": lilac fill, inverts to black on hover.
     &--primary {
-      background: $g6;
-      color: $black-color;
-      border: 1px solid $g6;
+      background: #000;
+      color: #fff;
+      border: 2px solid $g6;
 
       &:hover {
-        background: #000;
-        border-color: $g6;
-        color: $g6;
-
-        .spc__btn-chevron {
-          transform: translateX(4px);
-        }
+        background: $g6;
+        color: #000;
       }
     }
 
     &--secondary {
       background: transparent;
-      color: $black-color;
-      border: 1px solid rgba(0, 0, 0, 0.25);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.35);
 
       &:hover {
-        border-color: $black-color;
-        background: rgba(0, 0, 0, 0.04);
+        border-color: #fff;
+        background: rgba(255, 255, 255, 0.06);
       }
+    }
+
+    &:hover .spc__btn-arrow {
+      transform: translateX(4px);
     }
   }
 
-  &__btn-chevron {
+  &__btn-arrow {
+    display: inline-block;
     transition: transform 0.2s ease;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 
   // ── Detail (right) ──
@@ -215,41 +214,31 @@
     list-style: none;
     margin: 0 0 1.75rem;
     padding: 0;
-    display: grid;
-    gap: 0.85rem;
   }
 
   &__feature {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
     font-family: $font-text;
     font-size: 0.875rem;
-    color: rgba(0, 0, 0, 0.8);
-  }
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.78);
+    padding: 0.7rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 
-  &__feature-chip {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background: rgba($g6, 0.14);
-    color: $g6;
-    font-size: 0.6rem;
+    &:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
   }
 
   // ── Proof (rotating testimonial) ──
   &__proof {
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     padding-top: 1.5rem;
   }
 
   &__proof-stage {
     position: relative;
-    min-height: 132px;
+    min-height: 116px;
   }
 
   &__quote {
@@ -271,6 +260,7 @@
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
+    filter: grayscale(1); // one voice with the crew photos on About
   }
 
   &__quote-meta {
@@ -283,20 +273,12 @@
     font-family: $font-text;
     font-size: 0.8125rem;
     font-weight: 600;
-    color: $black-color;
+    color: #fff;
   }
 
   &__quote-role {
     font-size: 0.7rem;
-    color: rgba(0, 0, 0, 0.5);
-  }
-
-  &__quote-stars {
-    margin-left: auto;
-    display: inline-flex;
-    gap: 1px;
-    color: $g6;
-    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.5);
   }
 
   &__quote-text {
@@ -305,7 +287,7 @@
     font-size: 0.875rem;
     font-style: italic;
     line-height: 1.55;
-    color: rgba(0, 0, 0, 0.72);
+    color: rgba(255, 255, 255, 0.75);
   }
 
   &__dots {

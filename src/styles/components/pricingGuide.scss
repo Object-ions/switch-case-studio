@@ -101,16 +101,21 @@
   margin: 1.75rem 0 1rem;
 }
 
+// Square, matching the nav's own primary CTA (header.scss `.headingCTA`) and
+// the SinglePricingCard buttons above — was a lavender-filled pill, the one
+// pair of buttons on the page still out of step (facelift, 2026-09-14).
 .pg-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 48px;
-  padding: 0.5rem 1.5rem;
-  border-radius: 100px;
+  padding: 0.75rem 1.75rem;
+  border-radius: 0;
   font-family: $font-text;
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   text-decoration: none;
   white-space: nowrap;
   transition: background $dur-fast $ease-out, color $dur-fast $ease-out,
@@ -122,24 +127,24 @@
   }
 
   &--primary {
-    background: $g6;
-    color: #000;
+    background: #000;
+    color: #fff;
     border: 2px solid $g6;
 
     &:hover {
-      background: $g7;
-      border-color: $g7;
+      background: $g6;
+      color: #000;
     }
   }
 
   &--secondary {
     background: transparent;
     color: #fff;
-    border: 2px solid rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.35);
 
     &:hover {
       border-color: #fff;
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.06);
     }
   }
 }

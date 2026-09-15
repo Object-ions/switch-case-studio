@@ -1,14 +1,6 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import {
-  faBolt,
-  faClock,
-  faGaugeHigh,
-  faHeart,
-  faRobot,
-  faWrench,
-} from '@fortawesome/free-solid-svg-icons';
 
 import pricingData from '../../data/pricingData.json';
 import testimonialsData from '../../data/testimonials.json';
@@ -28,31 +20,17 @@ import '../../styles/components/pricingGuide.scss';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Shared studio reassurances shown on every tier.
+// Shared studio reassurances shown on every tier. A tier may override these
+// with its own bullets in pricingData.json ({ text, icon }); the icon key
+// is unused since the 2026-09-14 facelift (plain hairline list, no chips)
+// but stays in the data as it's still a meaningful category tag per bullet.
 const BENEFITS = [
-  { text: 'Custom build, no templates', icon: faBolt },
-  { text: 'Most builds ship in under 2 weeks', icon: faClock },
-  { text: 'Work directly with the people building it', icon: faHeart },
+  { text: 'Custom build, no templates' },
+  { text: 'Most builds ship in under 2 weeks' },
+  { text: 'Work directly with the people building it' },
 ];
 
-// A tier may carry its own bullets in pricingData.json as
-// { text, icon: <key> }; unknown keys fall back to faBolt.
-const BENEFIT_ICONS = {
-  bolt: faBolt,
-  clock: faClock,
-  gauge: faGaugeHigh,
-  heart: faHeart,
-  robot: faRobot,
-  wrench: faWrench,
-};
-
-const tierBenefits = (tier) =>
-  tier.benefits
-    ? tier.benefits.map((b) => ({
-        text: b.text,
-        icon: BENEFIT_ICONS[b.icon] || faBolt,
-      }))
-    : BENEFITS;
+const tierBenefits = (tier) => (tier.benefits?.length ? tier.benefits : BENEFITS);
 
 // Rotating social proof, mapped from the testimonials data.
 // Split tiers into their `group`s, preserving first-seen order. No group
@@ -76,7 +54,6 @@ const TESTIMONIALS = testimonialsData.map((t) => ({
   name: t.name,
   role: t.title,
   content: t.highlight,
-  rating: 5,
   avatar: t.image,
 }));
 
