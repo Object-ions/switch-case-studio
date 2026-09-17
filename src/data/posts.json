@@ -1,5 +1,131 @@
 [
   {
+    "slug": "brand-guidelines-small-teams-actually-use",
+    "title": "Brand Guidelines Small Teams Actually Use",
+    "excerpt": "A useful brand guide settles recurring decisions about logos, color, type, imagery, and voice. Small teams need a working reference, not a polished document nobody opens.",
+    "kicker": "Brand Identity",
+    "category": "Brand Identity",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-09-17",
+    "readingTime": "5 min read",
+    "coverImage": "",
+    "imageAlt": "",
+    "tags": [
+      "Brand Guidelines",
+      "Brand Systems",
+      "Small Business"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "Small businesses rarely struggle because nobody made a brand guide. They struggle because the guide they have cannot answer an ordinary Tuesday question. Which logo goes on a dark background? What typeface should the proposal use? Does the website say “customers,” “clients,” or “members”? The answers end up scattered across old files, design tools, and one person's memory."
+      },
+      {
+        "type": "paragraph",
+        "text": "A useful brand guide is a decision system. It gives employees, contractors, and partners enough direction to make consistent choices without asking for permission every time. It does not need to be a hundred pages. For a small team, a focused guide that gets opened is more valuable than a beautiful document that becomes archival material on arrival."
+      },
+      {
+        "type": "heading",
+        "text": "Start with the decisions that repeat"
+      },
+      {
+        "type": "paragraph",
+        "text": "Before choosing sections, look at where inconsistency already appears. Compare the website, social profiles, proposals, email signatures, signage, and sales materials. The goal is not to collect every asset. It is to find the decisions people keep remaking."
+      },
+      {
+        "type": "paragraph",
+        "text": "If five versions of the logo are circulating, document logo use first. If every page sounds as though it came from a different company, prioritize voice and messaging. If staff members keep choosing almost, but not quite, the same blue, define the color system and make the correct values easy to copy. The guide should follow operational friction, not a generic table of contents."
+      },
+      {
+        "type": "quote",
+        "text": "A brand guide earns its keep when it prevents the same decision from being made badly twice.",
+        "cite": "Switch Case Studio"
+      },
+      {
+        "type": "heading",
+        "text": "Cover the visual minimum"
+      },
+      {
+        "type": "paragraph",
+        "text": "Most small teams need a compact visual foundation. Show the approved logo versions, when to use each one, minimum size, clear space, and a few examples of misuse. Include downloadable files in practical formats rather than embedding the only usable copy inside the guide. A contractor should not have to crop a logo from a PDF."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Logo versions for light, dark, horizontal, and compact placements.",
+          "Primary and supporting colors with HEX, RGB, CMYK, and Pantone values where relevant.",
+          "Primary and fallback typefaces, plus a simple heading and body hierarchy.",
+          "Photography or illustration direction with examples that show what fits and what does not.",
+          "Basic layout rules for spacing, borders, corner radius, icons, or other recurring elements."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "Color values deserve more care than a row of swatches. Digital and print production use different color models, and screens are not calibrated equally. Define the intended values for each medium and test important combinations for readable contrast. A brand color is not useful if body copy becomes difficult to read whenever someone applies it."
+      },
+      {
+        "type": "heading",
+        "text": "Write down how the brand speaks"
+      },
+      {
+        "type": "paragraph",
+        "text": "Visual consistency gets attention because it is easy to spot. Verbal inconsistency is just as damaging. A polished website can still feel uncertain if one page sounds formal, another sounds playful, and the contact form suddenly speaks like a software error message."
+      },
+      {
+        "type": "paragraph",
+        "text": "Voice guidance should describe observable choices. “Friendly and professional” is too vague to help. Explain sentence length, vocabulary, point of view, level of formality, and words the company uses or avoids. Pair each principle with a short before and after example. Examples turn taste into something another person can apply."
+      },
+      {
+        "type": "list",
+        "items": [
+          "A one-sentence positioning statement that says who the business helps and how.",
+          "Three to five voice traits, each translated into a writing behavior.",
+          "Approved names for services, products, audiences, and internal programs.",
+          "Sample headlines, calls to action, short descriptions, and error messages.",
+          "A short list of phrases, claims, and tones the brand should avoid."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Show application, not just ingredients"
+      },
+      {
+        "type": "paragraph",
+        "text": "A palette, font list, and logo page describe ingredients. They do not show how those ingredients work together. Include a few common applications such as a homepage section, social graphic, proposal cover, email banner, or storefront sign. These examples expose missing rules and make the system faster to use."
+      },
+      {
+        "type": "paragraph",
+        "text": "The examples should reflect the business's real output. A neighborhood clinic needs guidance for appointment communications and service pages. A consultant may need slide decks and proposals. A retailer may need product photography, packaging, and promotional signage. Do not fill the guide with mockups for objects the company will never produce."
+      },
+      {
+        "type": "heading",
+        "text": "Keep the guide where work happens"
+      },
+      {
+        "type": "paragraph",
+        "text": "Brand guidelines fail when access is awkward. Give the guide one obvious home, keep asset links beside the rules, and make ownership clear. A lightweight web page, shared workspace, or well-organized document can all work. The format matters less than discoverability and maintenance."
+      },
+      {
+        "type": "paragraph",
+        "text": "Treat the guide as a maintained reference. When the team adds a service, changes a typeface, or learns that a rule creates problems in production, update the source instead of circulating another exception by email. Add a revision date so people can tell whether they have the current version."
+      },
+      {
+        "type": "heading",
+        "text": "Test it with a real assignment"
+      },
+      {
+        "type": "paragraph",
+        "text": "The cleanest test is to give the guide and source assets to someone who did not help create them. Ask that person to build one common item without verbal coaching. Watch where they hesitate. If they cannot find the correct logo, distinguish the primary typeface from the fallback, or write an on-brand call to action, the guide is incomplete in a useful, fixable way."
+      },
+      {
+        "type": "paragraph",
+        "text": "Consistency does not mean making every touchpoint identical. It means the choices feel related because they come from the same set of principles. A good guide creates enough structure to protect recognition and enough room to handle new situations. For a small team, that is the standard: fewer repeated debates, fewer improvised assets, and a brand that still feels like itself when the founder is not in the room."
+      }
+    ]
+  },
+  {
     "slug": "website-navigation-labels-that-reduce-friction",
     "title": "Website Navigation Labels That Reduce Friction",
     "excerpt": "Clever navigation labels make visitors decode your site before they can use it. Clear labels improve orientation, accessibility, and the path to a useful next step.",
