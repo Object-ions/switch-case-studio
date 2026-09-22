@@ -2018,3 +2018,9 @@ Owner-directed layout session, one commit per change, each built and measured he
 - Header bar slimmed to the logo: 106 → 78px desktop, 81 → 59px phone (`.site-header_inner` min-height = logo height).
 - Logo is now inline (`src/components/ui/HeaderLogo.js`): hover / tap plays a left-to-right jelly wave over its 16 letter shapes (GSAP, one run at a time, off under reduced motion). Each letter sits in an outer `<g>` in viewBox units because the potrace paths live in a flipped 0.1 space.
 - Checks: build green; headless probe confirms letters transform on pointerover (a synthetic `pointerenter` does NOT reach React's `onPointerEnter`, which listens to `pointerover`). Feel is the owner's visible-window pass. Footer still carries the old `SCSLogo`.
+
+## MOBILE FIXES FROM THE OWNER'S iPHONE — 2026-09-22, on `main` (268c9fb)
+- **White bars top/bottom + white sideways gap:** iOS Safari tints its status-bar and home-indicator strips, and paints every overscroll, from the html/body background, which was `$grey-color`. html + body are `#000` now (`<main>` and `.route-backdrop` unchanged, legal pages still light). Two Polaroid stickers widened home to 407px on a 390 phone; html + body carry `overflow-x: clip` (iOS ignores `hidden` on html alone). Home now 390.
+- **Play button on the hero / contact videos:** the phone was in Low Power Mode, which blocks even muted autoplay. `src/utils/playMuted.js` retries on the first tap; app.scss hides the native start button so the poster stands. Used by Hero, Contact (both videos), Polaroids.
+- **Statue (DepthImage) trapped the scroll:** `touch-action: none` → `pan-y`, plus `pointercancel` handling.
+- Checks: build green, 42 HTML files, landing marker in the entry chunk, `--phone` probe scrollWidth 390 on /, /projects, /about, /privacy. Owed: owner's iPhone pass with Low Power Mode on and off.
