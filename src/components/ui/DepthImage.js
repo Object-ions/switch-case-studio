@@ -652,6 +652,9 @@ const DepthImage = ({
       onPointerLeave={() => {
         pointer.current.inside = false;
       }}
+      onPointerCancel={() => {
+        pointer.current.inside = false;
+      }}
     >
       <div className="depth-image__canvas">
         <Canvas

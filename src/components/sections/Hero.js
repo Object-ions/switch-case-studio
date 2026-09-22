@@ -18,6 +18,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 import "../../styles/components/hero.scss";
+import playMuted from "../../utils/playMuted";
 
 // Hero nav (owner, 2026-09-11): the header is hidden over the hero, so the
 // hero carries its own way in. Labels come from navigation.js, in this order.
@@ -130,9 +131,7 @@ const Hero = () => {
       else video.addEventListener("loadedmetadata", toEnd, { once: true });
       return () => video.removeEventListener("loadedmetadata", toEnd);
     }
-    const p = video.play();
-    if (p && typeof p.catch === "function") p.catch(() => {});
-    return undefined;
+    return playMuted(video);
   }, [reducedMotion]);
 
   return (

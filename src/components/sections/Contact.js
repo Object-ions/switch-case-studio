@@ -11,6 +11,7 @@ import inkTallWebm from '../../assets/videos/contact-ink-tall.webm';
 import inkTallMp4 from '../../assets/videos/contact-ink-tall.mp4';
 import inkPoster from '../../assets/videos/contact-ink-poster.jpg';
 import useReducedMotion from '../../hooks/useReducedMotion';
+import playMuted from '../../utils/playMuted';
 import BookCallCta from '../ui/BookCallCta';
 import { trackEvent } from '../../analytics/ga';
 import '../../styles/components/contact.scss';
@@ -41,6 +42,7 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
   const sectionRef = useRef(null);
   const formRef = useRef(null);
   const videoRef = useRef(null);
+  const bgVideoRef = useRef(null);
   const [bgOn, setBgOn] = useState(false);
   const reducedMotion = useReducedMotion();
 
@@ -182,8 +184,16 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (mq.matches && videoRef.current) {
       videoRef.current.pause();
+      return undefined;
     }
+    return playMuted(videoRef.current);
   }, []);
+
+  // Low Power Mode refuses autoplay; playMuted retries on the first tap.
+  useEffect(() => {
+    if (!bgOn || reducedMotion) return undefined;
+    return playMuted(bgVideoRef.current);
+  }, [bgOn, reducedMotion]);
 
   /* ------------------------------------------------------------------ *
    * Background video (owner, 2026-09-13: the InkFill ident). IO-gated so
@@ -227,6 +237,7 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
       {bgOn && (
         <div className="contact-section__bg" aria-hidden="true">
           <video
+            ref={bgVideoRef}
             className="contact-section__bg-video"
             autoPlay={!reducedMotion}
             muted

@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import useReducedMotion from '../../hooks/useReducedMotion';
 import armSafetyNet from '../../animation/armSafetyNet';
 import '../../styles/components/polaroids.scss';
+import playMuted from '../../utils/playMuted';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -256,8 +257,7 @@ const Polaroids = ({ children }) => {
           const v = e.target;
           if (e.isIntersecting) {
             v.muted = true;
-            const p = v.play();
-            if (p && typeof p.catch === 'function') p.catch(() => {});
+            playMuted(v);
           } else {
             v.pause();
           }

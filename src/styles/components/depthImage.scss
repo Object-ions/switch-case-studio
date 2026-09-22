@@ -5,7 +5,9 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  touch-action: none; // pointer drives the light on touch too
+  // pan-y: a vertical swipe scrolls the page (none trapped it); a tap or a
+  // sideways drag still moves the light, and pointercancel ends the track.
+  touch-action: pan-y;
   pointer-events: auto; // #about .work-wrapper disables the pointer
 
   &__canvas {

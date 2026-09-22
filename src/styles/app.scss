@@ -114,20 +114,40 @@
   font-size: 0.92em;
 }
 
+// Black canvas: iOS Safari tints its status bar and home-indicator strips,
+// and paints every overscroll (pull-down, sideways bounce), from the
+// html/body background. Grey here showed as white bars on a black site.
+// <main> keeps its own grey, and .route-backdrop themes each page.
+// overflow-x: clip on BOTH: iOS ignores hidden on <html> alone and lets a
+// wider child (a Polaroid sticker) drag the page sideways; clip, unlike
+// hidden, makes no scroll container, so sticky/pinned sections still work.
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  overflow-x: clip;
+  background: #000;
 }
 
 body {
   width: 100%;
-  background: $grey-color;
+  overflow-x: clip;
+  background: #000;
   font-family: $font-text;
   cursor: none; // global cursor hide — CursorComponent renders the visual
 }
 
 ul {
   list-style: none;
+}
+
+// No native play button over a muted background video. iOS Low Power Mode
+// refuses autoplay and paints one; the poster shows instead and
+// utils/playMuted.js starts the video on the visitor's first tap.
+video::-webkit-media-controls,
+video::-webkit-media-controls-start-playback-button,
+video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
 }
 
 a {
