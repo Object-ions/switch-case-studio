@@ -254,8 +254,8 @@ const Header = () => {
             src="/brand/switch-case-studio-logo-square-lilac.svg"
             alt=""
             className="header_logo"
-            width="85"
-            height="85"
+            width="99"
+            height="57"
           />
         </Link>
       </div>

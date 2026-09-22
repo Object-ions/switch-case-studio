@@ -315,17 +315,17 @@
     color: inherit;
   }
 
-  // Lilac square mark (public/brand, 2048×2048 viewBox).
+  // Lilac mark, viewBox cropped to the ink (1726×990).
   .header_logo {
     display: block;
-    width: 85px;
-    height: 85px;
+    width: auto;
+    height: 57px;
   }
 
   @media (max-width: 768px) {
     .header_logo {
-      width: 56px;
-      height: 56px;
+      width: auto;
+      height: 38px;
     }
   }
 
