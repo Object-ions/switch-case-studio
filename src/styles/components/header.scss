@@ -53,7 +53,7 @@
     max-width: none;
     margin: 0 auto;
     padding-inline: 32px;
-    min-height: 85px;
+    min-height: 57px; // = logo height, so the 10px padding centres it
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
@@ -294,7 +294,7 @@
 
   @media (max-width: 768px) {
     .site-header_inner {
-      min-height: 60px;
+      min-height: 38px;
     }
   }
 }
