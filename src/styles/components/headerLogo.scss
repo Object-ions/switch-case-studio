@@ -1,0 +1,8 @@
+// HeaderLogo: fill is the brand lilac; overflow visible so a hopping letter
+// is not clipped at the viewBox edge. GSAP owns every letter's transform.
+.headerLogo {
+  display: block;
+  overflow: visible;
+  fill: #daa9e0;
+  cursor: pointer;
+}
