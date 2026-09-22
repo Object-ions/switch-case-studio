@@ -6,7 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 import HeaderCTA from "./HeaderCTA";
 import StaggeredMenu from "./StaggeredMenu";
-import SCSLogo from "../ui/SCSLogo";
 import { PRICING_LINKS, PROJECT_LINKS } from "../../data/navigation";
 import useReducedMotion from "../../hooks/useReducedMotion";
 import "../../styles/components/header.scss";
@@ -251,7 +250,13 @@ const Header = () => {
           while the header hides over the home hero or turns translucent. */}
       <div className={`site-brand ${isHome ? "is-home" : ""} ${heroInView ? "is-hero" : ""}`}>
         <Link to="/" className="brand_link" aria-label="Switch Case Studio home">
-          <SCSLogo className="header_logo" />
+          <img
+            src="/brand/switch-case-studio-logo-square-lilac.svg"
+            alt=""
+            className="header_logo"
+            width="85"
+            height="85"
+          />
         </Link>
       </div>
       <header
