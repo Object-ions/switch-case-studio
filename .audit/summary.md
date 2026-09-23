@@ -2024,3 +2024,8 @@ Owner-directed layout session, one commit per change, each built and measured he
 - **Play button on the hero / contact videos:** the phone was in Low Power Mode, which blocks even muted autoplay. `src/utils/playMuted.js` retries on the first tap; app.scss hides the native start button so the poster stands. Used by Hero, Contact (both videos), Polaroids.
 - **Statue (DepthImage) trapped the scroll:** `touch-action: none` → `pan-y`, plus `pointercancel` handling.
 - Checks: build green, 42 HTML files, landing marker in the entry chunk, `--phone` probe scrollWidth 390 on /, /projects, /about, /privacy. Owed: owner's iPhone pass with Low Power Mode on and off.
+
+## LOCAL-ONLY WORKSPACES IGNORED — 2026-09-22, on `main`
+- `ADS/` (ad/commercial production: a standalone Remotion project, storyboard frames, VO + music renders) and `linkedin-posts/` are local only; both in `.gitignore`. Nothing under either path is tracked (`git ls-files ADS` empty).
+- `.env` is now ignored repo-wide. Before this only `.env.example` existed and no rule covered a real `.env`; API keys for the ad tooling live in `ADS/.env` (covered twice).
+- `public/sitemap.xml` regenerated to include the 2026-09-17 post (`brand-guidelines-small-teams-actually-use`), which had shipped without its committed sitemap entry (the generator runs on `prebuild`, so production was already correct).

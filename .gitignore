@@ -58,3 +58,10 @@ METHOD.md
 
 # local Pillow venv for scripts/cut-client-logos.py
 .venv/
+
+# LinkedIn post drafts + upload images — local only
+linkedin-posts/
+
+# Ad/commercial production (Remotion project, renders) — local only
+ADS/
+.env
