@@ -1,5 +1,109 @@
 [
   {
+    "slug": "how-to-read-google-search-console-without-chasing-noise",
+    "title": "How to Read Search Console Without Chasing Noise",
+    "excerpt": "Google Search Console can show where search demand meets your website, but only if you read the metrics in context. Here is a practical review process for small business sites.",
+    "kicker": "SEO & Growth",
+    "category": "SEO & Growth",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-09-24",
+    "readingTime": "5 min read",
+    "coverImage": "",
+    "imageAlt": "",
+    "tags": [
+      "Google Search Console",
+      "SEO",
+      "Analytics"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "Google Search Console gives small businesses a useful view of how their websites appear in Google Search. It can also produce a weekly ritual of staring at small changes and inventing explanations for them. A few more impressions feel encouraging. A lower average position feels alarming. Neither number means much until you connect it to a page, a query, and a business goal."
+      },
+      {
+        "type": "paragraph",
+        "text": "The point of a Search Console review is not to make every chart go up every week. It is to find evidence for a better decision. That might mean improving a page that already earns visibility, correcting content that attracts the wrong search intent, or noticing a technical problem before it becomes expensive."
+      },
+      {
+        "type": "heading",
+        "text": "Start with what each metric can actually tell you"
+      },
+      {
+        "type": "paragraph",
+        "text": "The Performance report centers on clicks, impressions, click-through rate, and average position. An impression generally means a link to your site appeared in a Google search result under Google's counting rules. A click means someone used that result to leave Google for your site. Click-through rate is clicks divided by impressions. Average position describes the average position of the topmost result from your site, not a permanent ranking assigned to the entire business."
+      },
+      {
+        "type": "paragraph",
+        "text": "Each metric answers a different question. Impressions indicate visibility. Clicks indicate visits from search. Click-through rate can reveal whether a result earns attention when it appears. Position helps describe where that visibility occurred. None of them, alone, tells you whether the visitor became a qualified lead or customer. Search Console should sit beside your site analytics, form records, call tracking, and sales notes, not replace them."
+      },
+      {
+        "type": "quote",
+        "text": "A metric is useful when it changes a decision, not when it merely gives the week a score.",
+        "cite": "Switch Case Studio"
+      },
+      {
+        "type": "heading",
+        "text": "Review trends before daily movement"
+      },
+      {
+        "type": "paragraph",
+        "text": "Small sites often have modest search volume. A handful of searches can make a daily percentage look dramatic, while weekends, seasonality, news, and local demand can change the mix without anything being wrong. Start with a longer range, such as the last three months, then compare it with the preceding period or the same season when that comparison is meaningful."
+      },
+      {
+        "type": "paragraph",
+        "text": "Look for sustained changes rather than isolated peaks. If clicks fall, check whether impressions also fell. If impressions are steady but click-through rate declined, the page may be appearing for broader queries, competing against a changed results page, or presenting a title and description that no longer fit the search. That is a prompt to investigate, not proof of a single cause."
+      },
+      {
+        "type": "heading",
+        "text": "Move from the site view to pages and queries"
+      },
+      {
+        "type": "paragraph",
+        "text": "A sitewide total hides the part you can improve. Open the Pages view and identify which URLs gained or lost meaningful clicks and impressions. Then filter to one page and inspect the Queries view. This sequence turns a vague change into a specific question: which searches caused this service page to appear, and did the page deserve the click?"
+      },
+      {
+        "type": "paragraph",
+        "text": "Query data is especially useful for checking intent. A Portland contractor may get impressions for research questions, employment searches, do-it-yourself instructions, or services outside the area. More visibility is not automatically better if it comes from people the business cannot help. Conversely, a page with modest traffic may be valuable when its queries show strong local or service intent."
+      },
+      {
+        "type": "list",
+        "items": [
+          "High impressions and useful intent, but few clicks: review the title, description, and whether the page clearly matches the query.",
+          "Growing clicks from relevant queries: protect what works, then strengthen the page with clearer answers and next steps.",
+          "Visibility for the wrong intent: revise the copy so the audience, service, and location are harder to misunderstand.",
+          "Several pages appearing for the same query: check whether their roles are distinct or whether they compete through duplication.",
+          "A sudden sitewide drop: check indexing, manual actions, security issues, recent releases, and measurement context before rewriting content."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Treat average position as context, not a finish line"
+      },
+      {
+        "type": "paragraph",
+        "text": "Average position is easy to obsess over because it resembles a leaderboard. In practice, it combines different queries, locations, devices, and result appearances. A page can gain impressions for new searches and report a worse average position while still reaching more potential customers. It can also hold a strong average position for a query nobody valuable uses."
+      },
+      {
+        "type": "paragraph",
+        "text": "Use position to support a narrower analysis. Filter to a relevant page and query, compare a sensible period, and look at clicks and impressions beside it. Google itself recommends focusing more on trends in impressions and clicks than on position alone. The useful question is not “What is our ranking?” It is “Are the right pages becoming more visible for searches that matter?”"
+      },
+      {
+        "type": "heading",
+        "text": "Turn the review into a short action list"
+      },
+      {
+        "type": "paragraph",
+        "text": "A monthly review is enough for many small businesses. Record the date range, the few changes that matter, and the action each one supports. One page may need a clearer title. Another may need better service details, internal links, or a stronger contact path. A third may simply need more time. Avoid changing ten variables at once, because you will lose the ability to learn from the result."
+      },
+      {
+        "type": "paragraph",
+        "text": "Search Console is strongest as a diagnostic tool. It shows how Google Search connects queries to pages and where users choose to click. It does not know which phone call became a project, which inquiry was unqualified, or which customer returned three months later. Pair search data with business evidence, make one defensible improvement, and review the trend again. That is slower than chasing a dashboard. It is also how the dashboard becomes useful."
+      }
+    ]
+  },
+  {
     "slug": "brand-guidelines-small-teams-actually-use",
     "title": "Brand Guidelines Small Teams Actually Use",
     "excerpt": "A useful brand guide settles recurring decisions about logos, color, type, imagery, and voice. Small teams need a working reference, not a polished document nobody opens.",
