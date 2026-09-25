@@ -55,6 +55,8 @@ const urls = [
   { loc: '/testimonials', lastmod: siteMod, priority: '0.7' },
   { loc: '/contact', lastmod: siteMod, priority: '0.7' },
   { loc: '/blog', lastmod: postsMod, priority: '0.7' },
+  { loc: '/shop', lastmod: siteMod, priority: '0.7' },
+  { loc: '/unhurried-pro/', lastmod: siteMod, priority: '0.6' },
   ...posts.map((p) => ({
     loc: `/blog/${p.slug}`,
     lastmod: p.date || postsMod,

@@ -2,6 +2,11 @@
 
 User-facing changes only; process detail lives in `.audit/summary.md`. Newest first.
 
+## 2026-09-25 · Shop
+
+- **New `/shop` page and a Shop item in the header and mobile menu** (between Blog and Contact). Two groups, data in `src/data/shop.json`: **Themes** (Unhurried, free; Unhurried Pro, $49, linking to the static `/unhurried-pro/` page with a plain `<a>` so the router does a full load) and **Office hours** (a $95 one-to-one hour on SEO, design, code or WordPress, and a free student hour, two a month). Booking URLs are placeholders pointing to `/contact` until the Google Calendar appointment schedules exist.
+- Sitemap now lists `/shop` and `/unhurried-pro/`.
+
 ## 2026-09-25 · Unhurried Pro sales page and paid download
 
 - **New page `/unhurried-pro/`**: static sales page for Unhurried Pro (a $49 WooCommerce child theme for the free Unhurried WordPress theme). Buy buttons go to the Stripe Payment Link `buy.stripe.com/7sYcN57oi4EM9gb1et33W03`. Self-hosted fonts (the CSP allows `font-src 'self'` only), WebP/AVIF mockups with `<picture>`, SVG icons. Source and build script live in the private `Object-ions/unhurried-pro` repo (`marketing/build/site.py`).

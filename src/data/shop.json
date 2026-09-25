@@ -1,0 +1,48 @@
+{
+  "_note": "Shop items for /shop. Booking URLs come from Google Calendar appointment schedules; replace the placeholders once the schedules exist.",
+  "items": [
+    {
+      "slug": "unhurried",
+      "kind": "WordPress theme",
+      "name": "Unhurried",
+      "price": "Free",
+      "blurb": "A calm, editorial block theme for studios, spas and makers. Full-page patterns, a blog and two style variations, all edited in the Site Editor.",
+      "cta": "Get it on GitHub",
+      "url": "https://github.com/Object-ions/unhurried",
+      "external": true,
+      "image": "/unhurried-pro/img/hero.webp"
+    },
+    {
+      "slug": "unhurried-pro",
+      "kind": "WordPress theme",
+      "name": "Unhurried Pro",
+      "price": "$49",
+      "blurb": "Adds a styled WooCommerce shop to Unhurried: shop, product, cart and a quiet checkout, plus a lead-story blog layout. One payment.",
+      "cta": "See Unhurried Pro",
+      "url": "/unhurried-pro/",
+      "external": false,
+      "static": true,
+      "image": "/unhurried-pro/img/product.webp"
+    },
+    {
+      "slug": "office-hour",
+      "kind": "Office hours",
+      "name": "Office hour",
+      "price": "$95",
+      "blurb": "One hour, one to one, on SEO, design, code or WordPress. You bring the questions and we work through them together. A short recap follows by email.",
+      "cta": "Book an office hour",
+      "url": "/contact",
+      "external": false
+    },
+    {
+      "slug": "student-hour",
+      "kind": "Office hours",
+      "name": "Student hour",
+      "price": "Free",
+      "blurb": "Two free hours a month for students learning design, SEO or code. Tell us your course and your question when you book.",
+      "cta": "Apply for a student hour",
+      "url": "/contact",
+      "external": false
+    }
+  ]
+}
