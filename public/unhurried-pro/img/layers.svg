@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 360" width="660" height="360" role="img" aria-label="Unhurried Pro sits on top of the free Unhurried theme; WooCommerce is optional">
+  <style>.t{font:500 22px 'Hanken Grotesk',Helvetica,Arial,sans-serif;fill:#16140F}.s{font:400 15px Inter,Helvetica,Arial,sans-serif;fill:#5A564E}.i{font:italic 400 22px Fraunces,Georgia,serif}.lb{font:600 11px 'Hanken Grotesk',Helvetica,Arial,sans-serif;letter-spacing:.16em;fill:#5A564E}</style>
+  <rect x="40" y="224" width="420" height="96" rx="24" fill="#E6E1D5"/>
+  <text x="68" y="262" class="t">Unhurried <tspan class="i">free</tspan></text>
+  <text x="68" y="290" class="s">Design, blog, 27 patterns, style variations</text>
+  <rect x="64" y="116" width="420" height="96" rx="24" fill="#F6F4EF" stroke="#16140F" stroke-width="1.5"/>
+  <text x="92" y="154" class="t">Unhurried <tspan class="i" fill="#D44B19">Pro</tspan></text>
+  <text x="92" y="182" class="s">Shop, product, cart, checkout, stories</text>
+  <rect x="500" y="126" width="140" height="76" rx="38" fill="none" stroke="#16140F" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <text x="570" y="160" class="s" text-anchor="middle">WooCommerce</text>
+  <text x="570" y="180" class="s" text-anchor="middle">optional</text>
+  <path d="M484 164h14" stroke="#16140F" stroke-width="1.5"/>
+  <text x="40" y="64" class="lb">HOW IT FITS TOGETHER</text>
+  <text x="40" y="94" class="s">Pro is a child theme. Updates to the free theme keep flowing underneath it.</text>
+</svg>
