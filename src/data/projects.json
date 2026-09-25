@@ -3,7 +3,7 @@
     "id": 11,
     "slug": "my-challah-dealer", "indexLine": "React · Challah bakery",
     "type": "Business Website",
-    "badge": "Brand + Website",
+    "badge": "Brand + Website + Automation",
     "featured": true,
     "panelClass": "panel-hero",
     "coverTile": "/projects/my-challah-dealer/my-challah-dealer-cover-tile.webp",
@@ -15,12 +15,6 @@
     "mediaMobile": "/projects/my-challah-dealer/mobile.webp", "mediaMobileAlt": "The My Challah Dealer homepage on a phone, with the next pickup date and order cutoff in the top bar",
     "mediaCopy": "/projects/my-challah-dealer/lineup.webp", "mediaCopyAlt": "The lineup: five loaves with their prices, Nigella tagged +$1",
     "mediaCta": "/projects/my-challah-dealer/order.webp", "mediaCtaAlt": "Step one of the three-step order form: loaf counts, the first-order offer and the egg wash choice",
-    "comparisonsLabel": "First build and brand build",
-    "comparisonsNote": "Both sides are our work. Left, the first build, made before the brand kit existed. Right, the live site, rebuilt to the kit. Desktop at 1440 × 900, phone at 390 px; the first build was captured on 21 September 2026, the live site on 24 September.",
-    "comparisons": [
-      { "src": "/projects/my-challah-dealer/compare-home.webp", "caption": "Homepage", "note": "Rounded amber type and a typed wordmark became Anton, Safety Orange and the supplied badge. The next pickup and the order cutoff moved into the top bar.", "alt": "The My Challah Dealer homepage as first built and as rebuilt to the brand kit, both at 1440 pixels wide" },
-      { "src": "/projects/my-challah-dealer/compare-mobile.webp", "caption": "Homepage on a phone", "note": "The order button sits in the header on every screen, beside the menu.", "alt": "The My Challah Dealer homepage as first built and as rebuilt to the brand kit, both on a phone" }
-    ],
     "backLabel": "Back to Projects",
     "title": "My Challah Dealer",
     "subtitle": "Home Bakery · Portland, Oregon",
@@ -32,24 +26,24 @@
       { "value": "0", "label": "layout shift, every run, both form factors" },
       { "value": "18", "label": "requests to load the whole homepage, analytics included" }
     ],
-    "description": "One baker, one product: challah for Shabbat, braided by hand each week in Portland. Kosher ingredients, home kitchen. Orders close Thursday at 6pm, pickup is downtown on Friday, and payment happens at pickup. The site is a single React page that sells that routine and nothing else: five loaves, three ordering steps, one pickup spot. Orders land in a Google Sheet and the baker's inbox, and the baker confirms each one by text. The first build went up before the brand existed; when the brand kit arrived, the site was rebuilt to it. Live on mychallahdealer.com since September 2026.",
-    "tileVersion": "A one-product home bakery in Portland. One React page, a three-step order form into a sheet and an inbox, rebuilt to the brand kit: Lighthouse 100 on accessibility and SEO.",
+    "description": "My Challah Dealer is a one-person home bakery in Portland that sells one thing: challah for Shabbat, picked up on Fridays. We designed the brand and built the business around it. The identity is a full logo system: badge, braid mark, two lockups, wordmark, die-cut sticker, a bread-clip secondary mark and a six-shape sticker set, with print files for a clip-shaped business card and a bag stamp. The website is one React page set in that identity, with a three-step order form. Every order lands in a Google Sheet and sends two emails: a confirmation to the customer and an alert to the owner. Live on mychallahdealer.com since September 2026.",
+    "tileVersion": "A one-product home bakery in Portland. Logo system, print, a React site and an order automation that emails the customer and the owner: Lighthouse 100 on accessibility and SEO.",
     "services": [
-      { "label": "#Brand Application" },
+      { "label": "#Brand Identity" },
+      { "label": "#Logo Design" },
+      { "label": "#Print Design" },
       { "label": "#Web Design" },
       { "label": "#React Build" },
       { "label": "#Order Automation" },
-      { "label": "#Accessibility" },
-      { "label": "#Analytics" },
-      { "label": "#Content & Copy" }
+      { "label": "#Analytics" }
     ],
     "highlights": [
-      { "title": "One Product, One Page", "summary": "Hero, lineup, how to order, pickup, about, order form. Five loaves at $9, Nigella at $10. Nothing on the page that is not the Friday drop." },
-      { "title": "Rebuilt To The Brand Kit", "summary": "Anton and Archivo, three colours plus kraft, 2px corners, supplied logo files only. Every rule in the guidelines checked against the build, one by one." },
-      { "title": "A Clock In Portland Time", "summary": "Orders close Thursday 6pm Pacific whatever the visitor's timezone. The pickup picker opens on the Friday still taking orders, so no one books a closed drop." },
-      { "title": "Orders Without A Backend", "summary": "The three-step form posts to an n8n webhook: a row in a Google Sheet and an email to the baker. Text is stored raw, so a formula typed into the form never runs." },
-      { "title": "No Card, On Purpose", "summary": "The baker texts every order to confirm and takes payment at pickup. Every step of the form says so, and the thank-you screen gives an order number." },
-      { "title": "Kosher, Said Exactly", "summary": "\"kosher ingredients, home kitchen\", verbatim, wherever the site mentions it. No seal, no badge, nothing that implies agency certification." }
+      { "title": "A Logo System, Not A Logo", "summary": "Badge, braid mark, horizontal and stacked lockups, wordmark and die-cut sticker, each in five colour variants, delivered as outlined SVG and PNG." },
+      { "title": "The Bread Clip", "summary": "A secondary mark drawn from the plastic clip that seals grocery bread, printed with the loaf's data. It doubles as a die-cut business card that closes every bag." },
+      { "title": "Ready For The Printer", "summary": "Die lines on their own path, Pantone and CMYK specs, minimum sizes, a rubber-stamp file for kraft bags and a six-sticker sheet ready for a kiss-cut run." },
+      { "title": "Designed From The Kit", "summary": "The site follows the identity's own rules: Anton and Archivo, three colours plus kraft, 2px corners, hard offset shadows, supplied logo files only." },
+      { "title": "Three Steps To Order", "summary": "Loaves and egg wash, contact details, then a printed-receipt review. A live total, the first-order offer applied on the spot, and an order number at the end." },
+      { "title": "Two Emails Per Order", "summary": "The form posts to an n8n workflow: a row in a Google Sheet, a confirmation to the customer and an alert to the owner. No server to host, no card taken online." }
     ],
     "result": "Five Lighthouse runs on the live site, three desktop and two phone: accessibility, best practices and SEO scored 100 on every one, with zero layout shift. A real order, MCD-0922-WN3, went from mychallahdealer.com to the sheet on the day the domain went live.",
     "kicker": "In depth on",
