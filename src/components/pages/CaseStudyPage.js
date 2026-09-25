@@ -19,6 +19,7 @@ import useReducedMotion from '../../hooks/useReducedMotion';
 import ScrollingShot from '../ui/ScrollingShot';
 import ZoomLightbox from '../ui/ZoomLightbox';
 import MagneticButton from '../ui/MagneticButton';
+import MotionReel from '../ui/MotionReel';
 
 import '../../styles/components/projectPage.scss';
 
@@ -191,6 +192,12 @@ const CaseStudyPage = () => {
     comparisons = [],
     comparisonsLabel,
     comparisonsNote,
+    // Optional brand kit: a stack of full-width boards, Behance style, each
+    // shown whole at its own ratio (never a cropped tile). Absent → no section.
+    brandKit = [],
+    brandKitNote,
+    // Optional motion piece: { mp4, webm?, poster, alt, caption?, note? }.
+    motion,
     imageAlt,
     // ── Optional bento media. Each tile renders ONLY if its field exists. ──
     mediaMobile,
@@ -582,6 +589,63 @@ const CaseStudyPage = () => {
           </section>
         )}
 
+        {/* ── Brand kit — the identity, board by board ── */}
+        {brandKit.length > 0 && (
+          <section
+            className="project-page__kit reveal"
+            aria-label="Brand kit"
+          >
+            <h2 className="project-page__section-label">Brand kit</h2>
+            {brandKitNote && (
+              <p className="project-page__compare-note">{brandKitNote}</p>
+            )}
+            <div className="project-page__kit-stack">
+              {brandKit.map((board) => (
+                <button
+                  key={board.src}
+                  type="button"
+                  className="project-page__kit-board"
+                  onClick={() => setZoomSrc(board.src)}
+                  aria-label={`Zoom into ${board.alt}`}
+                >
+                  <img
+                    src={board.src}
+                    alt={board.alt}
+                    width={board.width || 2000}
+                    height={board.height || 1250}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ── Motion — a video piece made for the brand ── */}
+        {motion?.mp4 && (
+          <section
+            className="project-page__motion reveal"
+            aria-label="Motion"
+          >
+            <div className="project-page__motion-text">
+              <h2 className="project-page__section-label">Motion</h2>
+              {motion.caption && (
+                <p className="project-page__motion-caption">{motion.caption}</p>
+              )}
+              {motion.note && (
+                <p className="project-page__compare-note">{motion.note}</p>
+              )}
+            </div>
+            <MotionReel
+              mp4={motion.mp4}
+              webm={motion.webm}
+              poster={motion.poster}
+              label={motion.alt || `${title}: motion piece`}
+            />
+          </section>
+        )}
+
         {/* ── Before/after band — last, after the reader has the context ──
             Sits below the live view and the overview/scope/results so the
             comparison lands on someone who already knows what changed and why.
@@ -646,6 +710,7 @@ const CaseStudyPage = () => {
               zoomSrc === diagram
                 ? diagramAlt || `${title}: architecture diagram`
                 : comparisons.find((c) => c.src === zoomSrc)?.alt ||
+                  brandKit.find((b) => b.src === zoomSrc)?.alt ||
                   imageAlt ||
                   title
             }

@@ -1,0 +1,51 @@
+@import '../_variables.scss';
+
+// MotionReel: a 9:16 video in a phone-weight frame, sound toggle below.
+.motion-reel {
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.875rem;
+
+  &__video {
+    display: block;
+    height: min(78vh, 760px);
+    aspect-ratio: 9 / 16;
+    width: auto;
+    max-width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    background: #000;
+    object-fit: cover;
+
+    @media (max-width: 760px) {
+      height: auto;
+      width: min(100%, 420px);
+    }
+  }
+
+  &__sound {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.95rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: $font-text;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &:hover { border-color: rgba(255, 255, 255, 0.45); }
+
+    &:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.8);
+      outline-offset: 3px;
+    }
+  }
+}
