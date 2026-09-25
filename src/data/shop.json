@@ -1,5 +1,5 @@
 {
-  "_note": "Shop items for /shop. Booking URLs come from Google Calendar appointment schedules; replace the placeholders once the schedules exist.",
+  "_note": "Shop items for /shop. Office and student hours link to Google Calendar appointment schedules (owner account).",
   "items": [
     {
       "slug": "unhurried",
@@ -31,18 +31,18 @@
       "price": "$95",
       "blurb": "One hour, one to one, on SEO, design, code or WordPress. You bring the questions and we work through them together. A short recap follows by email.",
       "cta": "Book an office hour",
-      "url": "/contact",
-      "external": false
+      "url": "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1sYH7CXDsQ5oJgrTzvrT7skvhGKbWQEek4HX9UDFkj2T54dpIA6LqDHr_916qreUtKf-dUoXR6",
+      "external": true
     },
     {
       "slug": "student-hour",
       "kind": "Office hours",
       "name": "Student hour",
       "price": "Free",
-      "blurb": "Two free hours a month for students learning design, SEO or code. Tell us your course and your question when you book.",
-      "cta": "Apply for a student hour",
-      "url": "/contact",
-      "external": false
+      "blurb": "A few free hours a month for students learning design, SEO or code, on Fridays. Tell us your course and your question when you book.",
+      "cta": "Book a student hour",
+      "url": "https://calendar.google.com/calendar/appointments/schedules/AcZssZ03wCgkSUWHy1ju862RpL_ks-bYscYeoRAx0jmfgqZ-d8tcwR2q932O7Dq6nt0-XedXppkRTZKh",
+      "external": true
     }
   ]
 }
