@@ -8,6 +8,7 @@ User-facing changes only; process detail lives in `.audit/summary.md`. Newest fi
 - **Queued**: Unhurried free theme (Tue 9/29), Office hours and free student hours (Fri 10/2), How we sell a WordPress theme with a Stripe Payment Link (Tue 10/6). Held until WordPress.org approval: "Unhurried is now in the WordPress theme directory".
 - **New `link` blog block** (a button link to a root-absolute path or https URL), added to BOTH `add-post.mjs` and `blogBlocks.js`, and to the contract in CLAUDE.md.
 - **Share images** in `public/social/` (1200×630 and 1080×1350) in the studio brand, used as each post's `coverImage` for og:image.
+- Unhurried pages use the canonical name **Moses Atia Poston**; the paid download now serves Pro **v1.1.1**.
 - **`content/SOCIAL-KIT.md` + `content/promo/`**: Beau's brief and one social-engine promo packet per post (injected on publish day, approval-gated).
 
 ## 2026-09-25 · Unhurried Pro 1.1.0
