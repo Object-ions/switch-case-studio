@@ -1,0 +1,21 @@
+{
+  "inject": {
+    "slug": "unhurried-is-in-the-wordpress-theme-directory",
+    "title": "Unhurried Is Now in the WordPress Theme Directory",
+    "core_topic": "Our free block theme Unhurried passed the WordPress.org review and can now be installed from inside WordPress.",
+    "pillar": "Studio News",
+    "intent": "authority",
+    "x": [
+      "Unhurried, our free WordPress block theme, is now in the official WordPress.org theme directory.\n\nSearch \"Unhurried\" under Appearance, Themes, Add New.\n\nhttps://switchcasestudio.com/blog/unhurried-is-in-the-wordpress-theme-directory"
+    ],
+    "ig_caption": "Unhurried, our free WordPress block theme, passed the WordPress.org review. You can now install it from inside WordPress: Appearance, Themes, Add New, search Unhurried. Thank you to the volunteer Themes Team for the careful read.",
+    "ig_slides": [
+      "Unhurried is in the WordPress theme directory",
+      "Search Unhurried inside WordPress",
+      "Free. Calm. Editorial.",
+      "Thank you, WordPress Themes Team"
+    ],
+    "visual": "Use https://switchcasestudio.com/unhurried-pro/img/og.jpg",
+    "url": "https://switchcasestudio.com/blog/unhurried-is-in-the-wordpress-theme-directory"
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "slug": "unhurried-free-wordpress-theme",
+  "title": "Unhurried: A Free WordPress Theme for Businesses That Sell Care",
+  "excerpt": "We released Unhurried, a free, calm, editorial block theme for studios, spas and makers, and Unhurried Pro, which adds a WooCommerce shop. Here is what is inside and how to install it.",
+  "category": "Web Design",
+  "date": "2026-09-29",
+  "tags": [
+    "WordPress",
+    "Block Theme",
+    "WooCommerce",
+    "Open Source"
+  ],
+  "body": [
+    {
+      "type": "paragraph",
+      "text": "Most WordPress themes are built to sell speed: countdown timers, sticky banners, five calls to action above the fold. That works for some businesses. It works badly for the ones whose whole promise is the opposite, like a skincare studio, a massage room, a small maker or a practice where the client is meant to slow down."
+    },
+    {
+      "type": "paragraph",
+      "text": "So we built a theme for them and released it for free. It is called Unhurried."
+    },
+    {
+      "type": "heading",
+      "text": "What Unhurried looks like"
+    },
+    {
+      "type": "paragraph",
+      "text": "Warm bone and ink surfaces, a floating header that sits on the page like a capsule, oversized headlines with one italic accent word, and panels that rise over the section above them. Images can run in a gallery-style monochrome so a mix of photos still looks like one set. The goal is a site that reads like a printed lookbook instead of a landing page."
+    },
+    {
+      "type": "heading",
+      "text": "What is inside the free theme"
+    },
+    {
+      "type": "list",
+      "items": [
+        "27 patterns, including complete Homepage, About, Services and Contact pages you can drop into a new page and edit.",
+        "A blog with a staggered stories grid, category and tag archives, and single posts with comments.",
+        "Section styles for any group (Panel, Card, Ink, Ground and Glass) and small touches like an eyebrow label, a statement paragraph and an arched image style.",
+        "Two extra colour schemes: Nocturne (dark) and Linen (warm, with a sage accent).",
+        "A gentle scroll reveal you switch on per block, which stays still for visitors who prefer reduced motion."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Everything is edited in the WordPress Site Editor. There is no page builder and no settings panel to learn. Italic words in a heading turn into the accent face on their own."
+    },
+    {
+      "type": "heading",
+      "text": "Install it in two minutes"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Download unhurried.zip from the link below.",
+        "In WordPress, go to Appearance, Themes, Add New, Upload Theme, choose the zip and activate it.",
+        "Create a page, pick the Ground artboard template, and choose the Homepage pattern when WordPress offers page patterns.",
+        "Set that page as your homepage under Settings, Reading."
+      ]
+    },
+    {
+      "type": "link",
+      "url": "https://github.com/Object-ions/unhurried/releases/latest/download/unhurried.zip",
+      "label": "Download Unhurried (free)",
+      "note": "unhurried.zip, WordPress 6.6 or newer"
+    },
+    {
+      "type": "paragraph",
+      "text": "We have also submitted Unhurried to the official WordPress.org theme directory. Once it is approved you will be able to install it by searching for Unhurried inside WordPress."
+    },
+    {
+      "type": "heading",
+      "text": "Unhurried Pro, for when you open a shop"
+    },
+    {
+      "type": "paragraph",
+      "text": "If you sell products, Unhurried Pro adds the pages a small shop needs, drawn in the same hand. It installs on top of the free theme, so your content and settings carry over and the free theme keeps updating underneath it."
+    },
+    {
+      "type": "list",
+      "items": [
+        "WooCommerce shop, category, tag and search pages with tall product photos and quiet Add to cart buttons.",
+        "A product page whose summary panel stays in view as the reader scrolls.",
+        "A styled cart and a checkout with a minimal header, so nothing pulls a buyer away.",
+        "A Coming soon page that works with WooCommerce's own Coming soon switch, for the whole site or only the shop.",
+        "A Shop shelf pattern and a lead-story blog layout."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Pro is a one-time payment of 49 US dollars. WooCommerce is optional; without it, Pro still adds the story layout."
+    },
+    {
+      "type": "link",
+      "url": "/unhurried-pro/",
+      "label": "See Unhurried Pro",
+      "note": "49 US dollars, one payment"
+    },
+    {
+      "type": "heading",
+      "text": "Why a design studio gives a theme away"
+    },
+    {
+      "type": "paragraph",
+      "text": "We build custom sites for clients, and the work that goes into a good one does not all have to stay locked inside one project. A free theme lets a small business start with a site that already feels considered, and it gives us a public, working example of how we think about type, spacing and pace. If you want Unhurried set up with your own content, photos and colours, we can do that for you."
+    },
+    {
+      "type": "link",
+      "url": "/contact",
+      "label": "Talk to us about a setup"
+    }
+  ],
+  "coverImage": "/unhurried-pro/img/og.jpg",
+  "imageAlt": "Unhurried Pro WordPress theme: a product page with a large photo and a floating summary panel"
+}

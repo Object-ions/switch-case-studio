@@ -1,0 +1,83 @@
+{
+  "slug": "office-hours-and-free-student-hours",
+  "title": "Office Hours With the Studio, and Free Hours for Students",
+  "excerpt": "You can now book one-to-one time with Switch Case Studio for questions on SEO, design, code or WordPress. Students get free hours every week.",
+  "category": "Studio News",
+  "date": "2026-10-02",
+  "tags": [
+    "Office Hours",
+    "Mentoring",
+    "SEO",
+    "Web Design",
+    "Students"
+  ],
+  "body": [
+    {
+      "type": "paragraph",
+      "text": "A lot of the questions we get are not project requests. Someone has built their own site and cannot work out why Google ignores it. A designer wants a second opinion on a layout. A developer is stuck on a WordPress theme. None of those need a full engagement. They need an hour with someone who has done it before."
+    },
+    {
+      "type": "paragraph",
+      "text": "So we opened office hours."
+    },
+    {
+      "type": "heading",
+      "text": "How an office hour works"
+    },
+    {
+      "type": "paragraph",
+      "text": "You book one hour, one to one, over Google Meet. You bring the questions; we work through them together, on your screen or ours. The rule is simple: we teach, you do the work. You leave knowing how to fix the thing, not just with the thing fixed. A short recap follows by email so you do not have to take notes while we talk."
+    },
+    {
+      "type": "list",
+      "items": [
+        "SEO: search visibility, Search Console, site structure, local pages.",
+        "Design: layout, type, hierarchy, a second pair of eyes on something you made.",
+        "Code: front end, WordPress themes and blocks, small automations.",
+        "WordPress: setup, themes, WooCommerce, and what is worth a plugin."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "An office hour is 95 US dollars. You pay first, then pick a time on the booking page that opens right after payment."
+    },
+    {
+      "type": "link",
+      "url": "/shop",
+      "label": "Book an office hour",
+      "note": "95 US dollars, one hour, one to one"
+    },
+    {
+      "type": "heading",
+      "text": "Free hours for students"
+    },
+    {
+      "type": "paragraph",
+      "text": "Learning this work is easier with someone to ask. So we keep student hours open every week, at no cost, for people learning design, SEO or code. They run on Wednesday and Friday evenings, Pacific time."
+    },
+    {
+      "type": "paragraph",
+      "text": "When you book, tell us your school or course and the question you want to work on. Spots are limited, so if a week fills up we may suggest another date."
+    },
+    {
+      "type": "link",
+      "url": "/shop",
+      "label": "Book a free student hour",
+      "note": "Wednesday and Friday evenings, Pacific time"
+    },
+    {
+      "type": "heading",
+      "text": "What an office hour is not"
+    },
+    {
+      "type": "paragraph",
+      "text": "It is not a sales call, and we will not spend the hour pitching a project. If your question turns out to need more than an hour of help, we will say so plainly and you can decide what to do with that. Most questions do not."
+    },
+    {
+      "type": "paragraph",
+      "text": "Bring the question you have been putting off. We will take our time with it."
+    }
+  ],
+  "coverImage": "/social/office-hours-og.jpg",
+  "imageAlt": "Office hours with Switch Case Studio: one-to-one hours for 95 dollars, free for students"
+}
