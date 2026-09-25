@@ -608,8 +608,17 @@ const CaseStudyPage = () => {
                   onClick={() => setZoomSrc(board.src)}
                   aria-label={`Zoom into ${board.alt}`}
                 >
+                  {/* `srcSmall` (1200w) is optional and explicit, never a
+                      derived filename: a guessed sibling that 404s inside a
+                      srcSet fails silently (CLAUDE.md, coverTile rule). */}
                   <img
                     src={board.src}
+                    srcSet={
+                      board.srcSmall
+                        ? `${board.srcSmall} 1200w, ${board.src} ${board.width || 2000}w`
+                        : undefined
+                    }
+                    sizes="(max-width: 1248px) calc(100vw - 2.5rem), 1200px"
                     alt={board.alt}
                     width={board.width || 2000}
                     height={board.height || 1250}
