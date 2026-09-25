@@ -2,6 +2,11 @@
 
 User-facing changes only; process detail lives in `.audit/summary.md`. Newest first.
 
+## 2026-09-25 · Unhurried Pro 1.1.0
+
+- Sales page adds the new **Coming soon page** (feature card, screenshot row, Free vs Pro row); Cart and Checkout merge into one feature card so the grid stays 3 × 2.
+- The download function now serves release `v1.1.0` (`unhurried-pro-1.1.0.zip`) from the private repo; the thank-you button says 1.1.0.
+
 ## 2026-09-25 · Shop
 
 - **New `/shop` page and a Shop item in the header and mobile menu** (between Blog and Contact). Two groups, data in `src/data/shop.json`: **Themes** (Unhurried, free; Unhurried Pro, $49, linking to the static `/unhurried-pro/` page with a plain `<a>` so the router does a full load) and **Office hours** (a $95 one-to-one hour on SEO, design, code or WordPress, and a free student hour, two a month). The Office hour button goes to a $95 Stripe Payment Link (`buy.stripe.com/cNifZh9wq7QYboj2ix33W04`) that redirects to the Google Calendar **Office Hour** booking page after payment; the Student hour button goes straight to the free **Student Hour** booking page (Wed and Fri 18:00 to 19:00 PT). The free theme links download the release zip (`releases/latest/download/unhurried.zip`) so the folder is named `unhurried`.

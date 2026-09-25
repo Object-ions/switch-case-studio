@@ -5,7 +5,7 @@
   <text x="68" y="290" class="s">Design, blog, 27 patterns, style variations</text>
   <rect x="64" y="116" width="420" height="96" rx="24" fill="#F6F4EF" stroke="#16140F" stroke-width="1.5"/>
   <text x="92" y="154" class="t">Unhurried <tspan class="i" fill="#D44B19">Pro</tspan></text>
-  <text x="92" y="182" class="s">Shop, product, cart, checkout, stories</text>
+  <text x="92" y="182" class="s">Shop, checkout, coming soon, stories</text>
   <rect x="500" y="126" width="140" height="76" rx="38" fill="none" stroke="#16140F" stroke-width="1.5" stroke-dasharray="5 5"/>
   <text x="570" y="160" class="s" text-anchor="middle">WooCommerce</text>
   <text x="570" y="180" class="s" text-anchor="middle">optional</text>
