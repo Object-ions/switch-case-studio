@@ -202,6 +202,9 @@ export const routes = [
         getStaticPaths: () => posts.map((p) => `/blog/${p.slug}`),
       },
 
+      // Shop: themes + office hours (items in src/data/shop.json)
+      { path: 'shop', lazy: page(() => import('./components/pages/ShopPage')) },
+
       // Standalone section pages
       {
         path: 'testimonials',

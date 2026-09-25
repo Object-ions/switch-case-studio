@@ -368,6 +368,15 @@ const Header = () => {
               </li>
               <li className="nav_item">
                 <Link
+                  to="/shop"
+                  className={`nav_link ${isActive("/shop") ? "is-active" : ""}`}
+                  aria-current={isActive("/shop") ? "page" : undefined}
+                >
+                  Shop
+                </Link>
+              </li>
+              <li className="nav_item">
+                <Link
                   to="/contact"
                   className={`nav_link ${isActive("/contact") ? "is-active" : ""}`}
                   aria-current={isActive("/contact") ? "page" : undefined}

@@ -403,6 +403,16 @@ const StaggeredMenu = ({
 
             <li className="sm-panel-itemWrap">
               <Link
+                to="/shop"
+                className="sm-panel-item"
+                onClick={handleNavClick('/shop')}
+              >
+                <span className="sm-panel-itemLabel">Shop</span>
+              </Link>
+            </li>
+
+            <li className="sm-panel-itemWrap">
+              <Link
                 to="/contact"
                 className="sm-panel-item"
                 onClick={handleNavClick('/contact')}

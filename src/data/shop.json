@@ -1,0 +1,48 @@
+{
+  "_note": "Shop items for /shop. Office and student hours link to Google Calendar appointment schedules (owner account).",
+  "items": [
+    {
+      "slug": "unhurried",
+      "kind": "WordPress theme",
+      "name": "Unhurried",
+      "price": "Free",
+      "blurb": "A calm, editorial WordPress block theme for studios, spas and makers. Full-page patterns, a blog and two style variations, all edited in the Site Editor.",
+      "cta": "Download free (.zip)",
+      "url": "https://github.com/Object-ions/unhurried/releases/latest/download/unhurried.zip",
+      "external": true,
+      "image": "/unhurried-pro/img/free.webp"
+    },
+    {
+      "slug": "unhurried-pro",
+      "kind": "WordPress theme",
+      "name": "Unhurried Pro",
+      "price": "$49",
+      "blurb": "Adds a styled WooCommerce shop to Unhurried: shop, product, cart and a quiet checkout, plus a lead-story blog layout. One payment.",
+      "cta": "See Unhurried Pro",
+      "url": "/unhurried-pro/",
+      "external": false,
+      "static": true,
+      "image": "/unhurried-pro/img/product.webp"
+    },
+    {
+      "slug": "office-hour",
+      "kind": "Office hours",
+      "name": "Office hour",
+      "price": "$95",
+      "blurb": "One hour, one to one, on SEO, design, code or WordPress. Pay, then pick a time that suits you. You bring the questions and we work through them together; a short recap follows by email.",
+      "cta": "Book an office hour, $95",
+      "url": "https://buy.stripe.com/cNifZh9wq7QYboj2ix33W04",
+      "external": true
+    },
+    {
+      "slug": "student-hour",
+      "kind": "Office hours",
+      "name": "Student hour",
+      "price": "Free",
+      "blurb": "Free hours for students learning design, SEO or code, Wednesday and Friday evenings (Pacific time). Tell us your course and your question when you book.",
+      "cta": "Book a student hour",
+      "url": "https://calendar.google.com/calendar/appointments/schedules/AcZssZ03wCgkSUWHy1ju862RpL_ks-bYscYeoRAx0jmfgqZ-d8tcwR2q932O7Dq6nt0-XedXppkRTZKh",
+      "external": true
+    }
+  ]
+}
