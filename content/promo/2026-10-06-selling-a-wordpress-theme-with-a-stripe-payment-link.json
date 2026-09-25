@@ -1,0 +1,24 @@
+{
+  "inject": {
+    "slug": "selling-a-wordpress-theme-with-a-stripe-payment-link",
+    "title": "How We Sell a WordPress Theme With a Stripe Payment Link",
+    "core_topic": "We sell a paid WordPress theme with a Stripe Payment Link, a static thank-you page and one serverless function that verifies the payment before serving the zip, with no store plugin.",
+    "pillar": "Build Notes",
+    "intent": "authority",
+    "x": [
+      "We sell a WordPress theme without a store plugin or a licence server.\n\nA Stripe Payment Link, a static thank-you page, and one small serverless function.",
+      "The function asks Stripe two things: is this session paid, and did it come from our payment link? Only then does it stream the zip from a private GitHub release.",
+      "The mistake it avoids: our site's code is in a public repo. A paid zip at a secret path there would have been free to anyone who looked.\n\nhttps://switchcasestudio.com/blog/selling-a-wordpress-theme-with-a-stripe-payment-link"
+    ],
+    "ig_caption": "How we sell a WordPress theme with no store plugin: a Stripe Payment Link, a static thank-you page, and one serverless function that checks the payment before handing over the zip. Plus the one mistake the setup was built to avoid. Full write-up: https://switchcasestudio.com/blog/selling-a-wordpress-theme-with-a-stripe-payment-link",
+    "ig_slides": [
+      "Selling a theme with one Stripe link",
+      "Stripe hosts checkout and tax",
+      "A function checks the payment",
+      "The zip lives in a private release",
+      "Read the build notes: link in bio"
+    ],
+    "visual": "Use https://switchcasestudio.com/social/selling-a-theme-portrait.jpg (IG) and https://switchcasestudio.com/social/selling-a-theme-og.jpg (landscape)",
+    "url": "https://switchcasestudio.com/blog/selling-a-wordpress-theme-with-a-stripe-payment-link"
+  }
+}

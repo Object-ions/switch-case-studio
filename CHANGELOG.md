@@ -2,6 +2,14 @@
 
 User-facing changes only; process detail lives in `.audit/summary.md`. Newest first.
 
+## 2026-09-25 · Scheduled launch posts
+
+- **Scheduled blog publishing**: `.github/workflows/scheduled-posts.yml` runs daily at 07:00 Pacific and publishes any `content/scheduled/YYYY-MM-DD-*.json` whose date has arrived, through `scripts/add-post.mjs`, then pushes `main` (Netlify deploys). `content/held/` waits for an outside event. See `content/README.md`.
+- **Queued**: Unhurried free theme (Tue 9/29), Office hours and free student hours (Fri 10/2), How we sell a WordPress theme with a Stripe Payment Link (Tue 10/6). Held until WordPress.org approval: "Unhurried is now in the WordPress theme directory".
+- **New `link` blog block** (a button link to a root-absolute path or https URL), added to BOTH `add-post.mjs` and `blogBlocks.js`, and to the contract in CLAUDE.md.
+- **Share images** in `public/social/` (1200×630 and 1080×1350) in the studio brand, used as each post's `coverImage` for og:image.
+- **`content/SOCIAL-KIT.md` + `content/promo/`**: Beau's brief and one social-engine promo packet per post (injected on publish day, approval-gated).
+
 ## 2026-09-25 · Unhurried Pro 1.1.0
 
 - Sales page adds the new **Coming soon page** (feature card, screenshot row, Free vs Pro row); Cart and Checkout merge into one feature card so the grid stays 3 × 2.

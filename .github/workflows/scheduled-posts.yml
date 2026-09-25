@@ -1,0 +1,56 @@
+# Scheduled blog posts (2026-09-25).
+# A post waiting in content/scheduled/ is named YYYY-MM-DD-<slug>.json. Every
+# morning this job publishes any whose date has arrived (Pacific time): it runs
+# scripts/add-post.mjs (the same validated insert Beau uses), moves the file to
+# content/published/, commits and pushes to main. Netlify deploys the push.
+# Posts that must wait for an outside event live in content/held/ and are
+# never touched here.
+name: Publish scheduled posts
+
+on:
+  schedule:
+    - cron: '0 14 * * *'   # 14:00 UTC = 07:00 PDT / 06:00 PST
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scheduled-posts
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Publish due posts
+        run: |
+          set -euo pipefail
+          today=$(TZ=America/Los_Angeles date +%F)
+          published=0
+          shopt -s nullglob
+          mkdir -p content/published
+          for f in content/scheduled/*.json; do
+            d=$(basename "$f" | cut -c1-10)
+            if [[ "$d" < "$today" || "$d" == "$today" ]]; then
+              echo "Publishing $f (date $d, today $today)"
+              node scripts/add-post.mjs "$f"
+              git mv "$f" content/published/
+              published=$((published+1))
+            fi
+          done
+          echo "published=$published" >> "$GITHUB_ENV"
+      - name: Commit and push
+        if: env.published != '0'
+        run: |
+          git config user.name "scs-scheduler"
+          git config user.email "hello@switchcasestudio.com"
+          git add src/data/posts.json content/
+          git commit -m "Publish scheduled post(s) for $(TZ=America/Los_Angeles date +%F)"
+          git push origin HEAD:main

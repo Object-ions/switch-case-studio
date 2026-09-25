@@ -38,7 +38,7 @@ cascade) plus a CSS `journal-enter` keyframe for title/lede/intro — see the ru
 
 - **A post is a flat object** with a `body` array of blocks; block `type` ∈ `paragraph` |
   `heading` | `list` (items[]) | `quote` (text, cite?) | `video` (url, caption?/title?) |
-  `download` (url, label, note?).
+  `download` (url, label, note?) | `link` (url, label, note?; added 2026-09-25, a button link to a root-absolute path or an https URL, no `download` attribute).
   `video` embeds a YouTube URL (watch/share/shorts/embed all accepted) as a lazy, responsive
   16:9 `youtube-nocookie` iframe — embedding only, no video files hosted. `download` (added
   2026-08-05 for the n8n giveaway) renders an anchor with a root-absolute `url` into `public/`

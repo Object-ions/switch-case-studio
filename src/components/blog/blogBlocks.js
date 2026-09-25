@@ -80,6 +80,23 @@ export const Block = ({ block }) => {
         </a>
       );
     }
+    case 'link': {
+      // A button-style link (added 2026-09-25): root-absolute paths stay on
+      // the site, https URLs open in a new tab. No download attribute, so it
+      // does not fire file_download; use the download block for files in public/.
+      if (!block.url || !block.label) return null;
+      const external = block.url.startsWith('https://');
+      return (
+        <a
+          className="blog-post__download blog-post__link"
+          href={block.url}
+          {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        >
+          <span className="blog-post__download-label">{block.label}</span>
+          {block.note && <span className="blog-post__download-note">{block.note}</span>}
+        </a>
+      );
+    }
     case 'quote':
       return (
         <blockquote className="blog-post__quote">

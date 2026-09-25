@@ -1,0 +1,24 @@
+{
+  "inject": {
+    "slug": "office-hours-and-free-student-hours",
+    "title": "Office Hours With the Studio, and Free Hours for Students",
+    "core_topic": "Book a one-to-one hour with Switch Case Studio on SEO, design, code or WordPress for $95; students get free hours every Wednesday and Friday evening.",
+    "pillar": "Studio News",
+    "intent": "sales_enablement",
+    "x": [
+      "Not every question needs a project. Some need one hour with someone who has done it before.\n\nWe opened office hours.",
+      "One hour, one to one, on SEO, design, code or WordPress. You bring the questions. We teach, you do the work. $95, with a short recap by email.",
+      "Students learning design, SEO or code: free hours every Wednesday and Friday evening, Pacific time.\n\nhttps://switchcasestudio.com/blog/office-hours-and-free-student-hours"
+    ],
+    "ig_caption": "Not every question needs a project. Sometimes you need one hour with someone who has done it before. We opened office hours: one to one on SEO, design, code or WordPress, $95. And free hours for students every Wednesday and Friday evening, Pacific time. You bring the questions; we teach, you do the work. Book at switchcasestudio.com/shop",
+    "ig_slides": [
+      "Office hours are open",
+      "One hour. Your questions. SEO, design, code, WordPress.",
+      "We teach, you do the work",
+      "Free hours for students, Wed + Fri evenings",
+      "Book: switchcasestudio.com/shop"
+    ],
+    "visual": "Use https://switchcasestudio.com/social/office-hours-portrait.jpg (IG) and https://switchcasestudio.com/social/office-hours-og.jpg (landscape)",
+    "url": "https://switchcasestudio.com/blog/office-hours-and-free-student-hours"
+  }
+}

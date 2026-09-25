@@ -1,0 +1,24 @@
+{
+  "inject": {
+    "slug": "unhurried-free-wordpress-theme",
+    "title": "Unhurried: A Free WordPress Theme for Businesses That Sell Care",
+    "core_topic": "We released Unhurried, a free, calm, editorial WordPress block theme for studios, spas and makers, plus Unhurried Pro for WooCommerce shops.",
+    "pillar": "Build Notes",
+    "intent": "sales_enablement",
+    "x": [
+      "Most WordPress themes are built to sell speed. Countdown timers, sticky banners, five buttons above the fold.\n\nWe made one for businesses whose whole promise is the opposite. It is free. It is called Unhurried.",
+      "27 patterns, full Homepage/About/Services/Contact pages, a blog, two extra colour schemes. Everything edits in the Site Editor. No page builder.",
+      "Selling products? Unhurried Pro adds a calm WooCommerce shop, a quiet checkout and a Coming soon page. $49, one payment.\n\nFree download and install steps: https://switchcasestudio.com/blog/unhurried-free-wordpress-theme"
+    ],
+    "ig_caption": "We made a WordPress theme for businesses that sell care, not speed: studios, spas, makers. It is free. Unhurried has full-page patterns, a blog and two colour schemes, all edited in the Site Editor. Unhurried Pro adds a calm WooCommerce shop for $49. Download and install steps: https://switchcasestudio.com/blog/unhurried-free-wordpress-theme",
+    "ig_slides": [
+      "A free WordPress theme for businesses that sell care",
+      "27 patterns. Full pages. A blog. No page builder.",
+      "Install in two minutes",
+      "Pro adds a calm WooCommerce shop, $49",
+      "Free download: link in bio"
+    ],
+    "visual": "Use the existing mockup image https://switchcasestudio.com/unhurried-pro/img/hero.webp (desktop product page + phone). Portrait crop: https://switchcasestudio.com/social/unhurried-portrait.jpg",
+    "url": "https://switchcasestudio.com/blog/unhurried-free-wordpress-theme"
+  }
+}
