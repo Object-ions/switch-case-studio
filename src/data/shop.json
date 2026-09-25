@@ -29,9 +29,9 @@
       "kind": "Office hours",
       "name": "Office hour",
       "price": "$95",
-      "blurb": "One hour, one to one, on SEO, design, code or WordPress. You bring the questions and we work through them together. A short recap follows by email.",
-      "cta": "Book an office hour",
-      "url": "https://calendar.google.com/calendar/appointments/schedules/AcZssZ1sYH7CXDsQ5oJgrTzvrT7skvhGKbWQEek4HX9UDFkj2T54dpIA6LqDHr_916qreUtKf-dUoXR6",
+      "blurb": "One hour, one to one, on SEO, design, code or WordPress. Pay, then pick a time that suits you. You bring the questions and we work through them together; a short recap follows by email.",
+      "cta": "Book an office hour, $95",
+      "url": "https://buy.stripe.com/cNifZh9wq7QYboj2ix33W04",
       "external": true
     },
     {
@@ -39,7 +39,7 @@
       "kind": "Office hours",
       "name": "Student hour",
       "price": "Free",
-      "blurb": "A few free hours a month for students learning design, SEO or code, on Fridays. Tell us your course and your question when you book.",
+      "blurb": "Free hours for students learning design, SEO or code, Wednesday and Friday evenings (Pacific time). Tell us your course and your question when you book.",
       "cta": "Book a student hour",
       "url": "https://calendar.google.com/calendar/appointments/schedules/AcZssZ03wCgkSUWHy1ju862RpL_ks-bYscYeoRAx0jmfgqZ-d8tcwR2q932O7Dq6nt0-XedXppkRTZKh",
       "external": true
