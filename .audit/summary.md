@@ -2029,3 +2029,10 @@ Owner-directed layout session, one commit per change, each built and measured he
 - `ADS/` (ad/commercial production: a standalone Remotion project, storyboard frames, VO + music renders) and `linkedin-posts/` are local only; both in `.gitignore`. Nothing under either path is tracked (`git ls-files ADS` empty).
 - `.env` is now ignored repo-wide. Before this only `.env.example` existed and no rule covered a real `.env`; API keys for the ad tooling live in `ADS/.env` (covered twice).
 - `public/sitemap.xml` regenerated to include the 2026-09-17 post (`brand-guidelines-small-teams-actually-use`), which had shipped without its committed sitemap entry (the generator runs on `prebuild`, so production was already correct).
+
+## MY CHALLAH DEALER CASE STUDY — 2026-09-24, on `main`
+- New `projects.json` entry (id 11, first in the array, so it leads the index preview and the next-project chain). Type `Business Website`. Featured, so it joins the Trusted-by strip; logo cut by `scripts/cut-client-logos.py` from a greyscaled cover tile (the kit's 1-color badge PNG renders solid, so the tile is built from `badge-on-black`). The other seven logos came back byte-identical.
+- Every figure is from Lighthouse 12.8.2 on the live site, 2026-09-24: A11y/BP/SEO 100 on all five runs, CLS 0, 18 requests; desktop Performance 99 (median of 3). Mobile Performance is NOT published: this machine read 44 and 99 on two runs (TBT 3.8s vs 0.1s), and one run errored. PSI quota was exhausted.
+- Comparisons pair OUR first build (redesign-audit captures, 21 Sep) with the live site; the note says both sides are ours.
+- Kosher wording follows the client's guideline: "kosher ingredients, home kitchen" exactly, no certification implied.
+- Checks: build green, 43 HTML files, landing marker in the entry chunk, every asset path resolves, 0 em dashes, rendered case page and home index eyeballed at 1440 with no console errors or failed requests.
