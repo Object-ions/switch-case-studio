@@ -1,6 +1,6 @@
 # Launch posts: brief for Beau (2026-09-25)
 
-Moses asked for four blog posts about new studio products, published on a schedule, with social promotion through the SCS Social Engine to X, Instagram, Threads and Bluesky (and Facebook if the engine supports it).
+Moses asked for four blog posts about new studio products, published on a schedule, with social promotion through the SCS Social Engine to X, Instagram, Threads, Bluesky and the Facebook Page.
 
 **The blog side is automatic.** A GitHub Action (`.github/workflows/scheduled-posts.yml`) publishes each file in `content/scheduled/` at **07:00 Pacific** on its date, through `scripts/add-post.mjs`, and pushes `main`. Netlify deploys a few minutes later. You do not write or publish these posts.
 
@@ -27,7 +27,7 @@ Moses asked for four blog posts about new studio products, published on a schedu
    Set up one-off crons for the three dates if that is easier. If the URL is not live yet, wait and retry; do not inject before the post exists.
 4. If `pillar` "Studio News" is not one of the engine's pillars, change it to the closest valid one before injecting. You may sharpen the wording; keep every fact exactly as in "Facts you can use" below.
 5. **The held post:** when Moses says Unhurried is approved on WordPress.org, move `content/held/wordpress-org-unhurried-approved.json` to `content/scheduled/<YYYY-MM-DD>-unhurried-is-in-the-wordpress-theme-directory.json` (the next day's date), set its `"date"` to that day, commit, push, and inject the held packet after it is live.
-6. **Facebook:** the engine's promo packets cover X, Instagram, Threads and Bluesky. If Facebook is not included, tell Moses rather than posting it by hand.
+6. **Facebook:** added to the engine on 2026-09-25. Every packet (weekly and promo injects) now includes a Facebook Page post automatically: the IG caption body plus a clickable link to the article. Nothing extra to do.
 7. Report each injection in the SCS Telegram group, and log it in the SCS WORKLOG.
 8. **Git:** the scheduler pushes to `main` at 07:00 PT on those dates. Always `git pull --rebase` before your own Thursday push.
 
