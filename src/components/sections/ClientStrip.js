@@ -30,13 +30,33 @@ import '../../styles/components/clientStrip.scss';
 // Studio products join the strip only when they carry a cut mark (owner,
 // 2026-09-11: Scout and Birth of Venus in the marquee). Their marks are cut
 // by hand, not by scripts/cut-client-logos.py, which skips studio projects.
-const CLIENTS = projects
+const LISTED = projects
   .filter((p) => (p.featured && !p.studioProject) || (p.studioProject && p.clientLogo))
   .map((p) => ({
     name: p.title,
     logo: p.clientLogo || null,
     logoAlt: p.clientLogoAlt,
+    round: !!p.clientLogoRound,
   }));
+
+/* Round badges spread evenly (owner, 2026-09-24: two badges side by side
+   "looks like a mistake"). Projects flag a circular mark with
+   `clientLogoRound`; those take evenly spaced slots around the LOOP (the
+   gap across the wrap counts too), the wordmarks fill the rest in
+   projects.json order. Deterministic, so SSG and hydration agree. */
+const spreadRound = (list) => {
+  const round = list.filter((c) => c.round);
+  const rest = list.filter((c) => !c.round);
+  if (round.length < 2) return list;
+  const slots = new Set(round.map((_, i) => Math.round((i * list.length) / round.length)));
+  const out = [];
+  for (let i = 0, r = 0, w = 0; i < list.length; i++) {
+    out.push(slots.has(i) && r < round.length ? round[r++] : rest[w++] ?? round[r++]);
+  }
+  return out;
+};
+
+const CLIENTS = spreadRound(LISTED);
 
 /* One rendered cell — text wordmark now, image later when `logo` lands.
  * Each mark is followed by the brand's eight-point star (VE-2026-07

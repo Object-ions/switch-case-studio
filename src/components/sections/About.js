@@ -117,12 +117,12 @@ const About = () => {
         <AboutHeading />
         <Polaroids>
           <nav className="about-jumps" aria-label="More about the studio">
-            {JUMPS.map((j) => (
+            {JUMPS.map((j, i) => (
               <Link
                 key={j.to}
                 to={j.to}
                 className="about-jumps__link"
-                style={{ '--x': j.x, '--y': j.y, '--d': j.d }}
+                style={{ '--x': j.x, '--y': j.y, '--d': j.d, '--i': i }}
               >
                 {j.label}
                 <span className="about-jumps__arrow" aria-hidden="true">

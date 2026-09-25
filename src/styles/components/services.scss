@@ -344,11 +344,15 @@
     min-height: 0;
     padding-top: calc(110px + 2rem);
     padding-bottom: 2rem;
-    justify-content: flex-start;
+    // Heading + card row centred as one group in the screen below the
+    // header (owner, 2026-09-24). Cards cap at 680px, so on tall screens the
+    // spare height used to pile up under the row; now it splits above and
+    // below. At 1440x900 the group already fills the screen: no change there.
+    justify-content: center;
   }
 
   #services.services {
-    flex: 1;
+    flex: 0 0 auto;
   }
 
   .services {

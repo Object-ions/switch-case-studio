@@ -76,6 +76,27 @@
   }
 }
 
+// Entrance (owner, 2026-09-24: the links "are just there"). They ride the
+// table's own pop-in switch: Polaroids adds `has-pop` at runtime only and
+// `is-in` on scroll (armSafetyNet forces it on screen), so static HTML and
+// reduced motion keep them visible. A left-to-right wipe plus fade, one after
+// another, starting as the last stickers land (pieces pop 200ms apart, 0-7).
+// clip-path + opacity only: `translate` belongs to the float.
+.polaroids.has-pop .about-jumps__link {
+  opacity: 0;
+  clip-path: inset(-8px 100% -8px -8px);
+  transition:
+    opacity 0.4s ease-out calc(1.1s + var(--i, 0) * 180ms),
+    clip-path 0.6s cubic-bezier(0.22, 1, 0.36, 1) calc(1.1s + var(--i, 0) * 180ms),
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.polaroids.has-pop.is-in .about-jumps__link {
+  opacity: 1;
+  clip-path: inset(-8px -8px -8px -8px); // room for the 3px-offset focus ring
+}
+
 @keyframes about-jumps-float {
   from {
     translate: 0 0;
