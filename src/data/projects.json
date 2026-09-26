@@ -1,5 +1,57 @@
 [
   {
+    "id": 12,
+    "slug": "unhurried", "indexLine": "WordPress · Block theme",
+    "studioProject": true,
+    "type": "WordPress Theme",
+    "badge": "Free + Pro Theme",
+    "featured": true,
+    "panelClass": "panel-hero",
+    "coverTile": "/projects/unhurried/unhurried-cover-tile.webp",
+    "imageSrc": "/projects/unhurried/hero.webp", "preview": "/projects/unhurried/preview.webp",
+    "longWeb": "/projects/unhurried/long.webp",
+    "imageAlt": "The Unhurried homepage: a staggered headline, \"Good work takes its time and care.\", on a warm stone background.",
+    "mediaMobile": "/projects/unhurried/mobile.webp", "mediaMobileAlt": "Unhurried Pro's shop page on a phone: breadcrumb, Shop heading and rounded product cards.",
+    "mediaCopy": "/projects/unhurried/shop.webp", "mediaCopyAlt": "Unhurried Pro's WooCommerce shop grid: still-life product photos with hairline Add to cart pills.",
+    "mediaCta": "/projects/unhurried/soon.webp", "mediaCtaAlt": "Unhurried Pro's Coming soon page: \"Something good is on its way\" beside an arched image.",
+    "backLabel": "Back to Projects",
+    "title": "Unhurried",
+    "subtitle": "A free WordPress block theme for studios, spas and makers, and a $49 Pro add-on that styles the shop.",
+    "outcome": "",
+    "year": "2026",
+    "metrics": [
+      { "value": "27", "label": "block patterns in the free theme" },
+      { "value": "3", "label": "style variations: default, Nocturne, Linen" },
+      { "value": "8", "label": "shop and store templates in Pro" },
+      { "value": "320–1440", "label": "px tested with no sideways scroll" }
+    ],
+    "description": "Unhurried is a calm, editorial WordPress block theme for studios, spas, clinics and makers, made for the web-builder community. The free theme has full-page patterns, a blog and three style variations, all edited in the Site Editor. It is GPL and submitted to WordPress.org. Unhurried Pro is a $49 child theme on top of it that styles the WooCommerce shop, from shelf to checkout. Buyers pay through Stripe, download through a verified link and get updates with a licence key.",
+    "tileVersion": "A free WordPress block theme for studios and makers, and a $49 Pro child theme that styles the WooCommerce shop.",
+    "services": [
+      { "label": "#Theme Design" },
+      { "label": "#WordPress Block Theme (Site Editor)" },
+      { "label": "#WooCommerce Templates" },
+      { "label": "#Stripe Sales + Licensed Updates" },
+      { "label": "#Sales Page" },
+      { "label": "#WordPress.org Submission" }
+    ],
+    "highlights": [
+      { "title": "Built for builders", "summary": "Made for the web-builder community: install it, set up a homepage in about two minutes and edit every page in the Site Editor." },
+      { "title": "Patterns, no page builder", "summary": "27 patterns: full pages, heroes, an accordion, price list, membership tiers and FAQ. Plain WordPress blocks, nothing proprietary to get locked into." },
+      { "title": "Three moods, one theme", "summary": "Default, Nocturne (dark) and Linen (warm) variations, plus section styles like Panel, Ink and Glass that any Group block can wear." },
+      { "title": "Checked before shipping", "summary": "Theme Check clean, every pattern and template block-valid on WordPress 7.1.2, no sideways scroll from 320 to 1440 px. Submitted to WordPress.org." },
+      { "title": "Pro styles the shop", "summary": "A child theme adding WooCommerce shop, product, cart and checkout templates, a Coming soon page, a Shop shelf and a lead-story blog layout." },
+      { "title": "Sold without a storefront", "summary": "A Stripe link, a server check that the payment is real before the zip streams from a private release, and updates keyed to the purchase." }
+    ],
+    "result": "Two products from one design: a free theme anyone can use, and a paid add-on for the sites that need a shop.",
+    "kicker": "In depth on",
+    "productName": "Our Work",
+    "ctaLabel": "Get it in the Shop",
+    "ctaUrl": "/shop",
+    "links": [{ "label": "See Unhurried Pro", "url": "/unhurried-pro/" }],
+    "repos": [{ "label": "Free theme", "url": "https://github.com/Object-ions/unhurried" }]
+  },
+  {
     "id": 11,
     "slug": "my-challah-dealer", "indexLine": "React · Challah bakery",
     "type": "Business Website",
@@ -471,7 +523,7 @@
   {
     "id": 5,
     "slug": "prodani-miami", "indexLine": "Shopify · Dessert brand",
-    "type": "E-Commerce",
+    "type": "Rebuild + SEO",
     "badge": "E-Commerce",
     "featured": true,
     "panelClass": "panel-hero",
