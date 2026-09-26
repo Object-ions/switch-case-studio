@@ -39,7 +39,7 @@ const GROUPS = [
     heading: 'Products + experiments',
     // Landing Page moved here (owner, 2026-09-11) so the Rebuilds column
     // stays short and the preview can sit under it, across columns 1-2.
-    types: ['SaaS Product', 'E-Commerce', 'Full-Stack + API', 'Interactive Experience', 'Landing Page'],
+    types: ['WordPress Theme', 'SaaS Product', 'E-Commerce', 'Full-Stack + API', 'Interactive Experience', 'Landing Page'],
   },
 ];
 
