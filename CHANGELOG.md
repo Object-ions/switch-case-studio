@@ -2,6 +2,13 @@
 
 User-facing changes only; process detail lives in `.audit/summary.md`. Newest first.
 
+## 2026-09-25 · Security patches, Pro updates, refund policy
+
+- **Security**: `npm audit fix` patched browserslist (high), baseline-browser-mapping and react-router-dom (6.30.4 → 6.30.6). Two React Router alerts remain with no fix on the v6 line (fixed only in 7.18, and `vite-react-ssg` requires react-router-dom ^6); both are unreachable here (navigation only uses fixed internal paths; hydration data comes from our own build) and are dismissed on GitHub with that rationale.
+- **Unhurried Pro 1.2.0 automatic updates**: new `public/unhurried-pro/update.json` (version, package_url). The thank-you page now shows the buyer's licence key (their Checkout Session ID) with a Copy button; pasted into Appearance > Unhurried Pro, WordPress updates through the verified download. The download serves release v1.2.0.
+- **Refund policy**: 14-day money-back guarantee on the Pro sales page (price card + FAQ) and thank-you page; FAQ also explains updates.
+- Release routine: bump `TAG`/`ASSET` in the download function AND `version` in `update.json` together.
+
 ## 2026-09-25 · Scheduled launch posts
 
 - **Scheduled blog publishing**: `.github/workflows/scheduled-posts.yml` runs daily at 07:00 Pacific and publishes any `content/scheduled/YYYY-MM-DD-*.json` whose date has arrived, through `scripts/add-post.mjs`, then pushes `main` (Netlify deploys). `content/held/` waits for an outside event. See `content/README.md`.

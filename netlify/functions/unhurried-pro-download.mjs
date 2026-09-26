@@ -7,8 +7,8 @@
 //   GITHUB_TOKEN       fine-grained token, repo Object-ions/unhurried-pro, Contents = Read
 const PAYMENT_LINK = 'plink_1UJTLbI7JsbjSmdg8ssdGIN3';
 const REPO = 'Object-ions/unhurried-pro';
-const TAG = 'v1.1.1';
-const ASSET = 'unhurried-pro-1.1.1.zip';
+const TAG = 'v1.2.0';
+const ASSET = 'unhurried-pro-1.2.0.zip';
 
 const fail = (status, message) =>
   new Response(message, { status, headers: { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store' } });

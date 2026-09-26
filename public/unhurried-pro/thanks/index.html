@@ -165,12 +165,26 @@ footer .btn-ink:hover{background:var(--terra);color:var(--bone)}
       <h1>Thank you. Take your <em>time.</em></h1>
       <div class="hero-foot">
         <p id="dl-note">Your copy of Unhurried Pro is ready. Bookmark this page: the download link here keeps working.</p>
-        <div class="cta"><a class="btn btn-ink" id="dl" href="mailto:hello@switchcasestudio.com" download>Download Unhurried Pro 1.1.1 (.zip)</a></div>
+        <div class="cta"><a class="btn btn-ink" id="dl" href="mailto:hello@switchcasestudio.com" download>Download Unhurried Pro (.zip)</a></div>
+        <div id="lic" hidden style="margin-top:2rem;max-width:40rem">
+          <p class="eyebrow" style="margin-bottom:.6rem">Your licence key, for automatic updates</p>
+          <div style="display:flex;flex-wrap:wrap;gap:.75rem;align-items:center"><code id="lic-key" style="font-size:14px;background:var(--bone);border-radius:12px;padding:.7rem 1rem;word-break:break-all;user-select:all"></code><button type="button" id="lic-copy" class="btn btn-line" style="background:transparent;cursor:pointer">Copy key</button></div>
+          <p style="margin-top:.8rem;color:var(--muted);font-size:15px">In WordPress, go to Appearance, Unhurried Pro, paste the key and save. New versions then arrive under Dashboard, Updates. Changed your mind? Write to hello@switchcasestudio.com within 14 days for a full refund.</p>
+        </div>
         <script>
         (function () {
           var id = new URLSearchParams(location.search).get('session_id');
           var a = document.getElementById('dl');
-          if (id) { a.href = '/unhurried-pro/download?session_id=' + encodeURIComponent(id); }
+          if (id) {
+            a.href = '/unhurried-pro/download?session_id=' + encodeURIComponent(id);
+            var k = document.getElementById('lic'); k.hidden = false;
+            document.getElementById('lic-key').textContent = id;
+            document.getElementById('lic-copy').addEventListener('click', function () {
+              var b = this;
+              function done() { b.textContent = 'Copied'; }
+              if (navigator.clipboard) { navigator.clipboard.writeText(id).then(done, function () {}); }
+            });
+          }
           else {
             a.removeAttribute('download');
             a.textContent = 'Email us for your download';
