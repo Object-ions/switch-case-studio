@@ -1,7 +1,21 @@
 # Open tickets
 
 Live list. Close a ticket by deleting its block and logging the outcome in `summary.md`.
-Last reviewed: 2026-09-02.
+Last reviewed: 2026-09-25.
+
+## LAUNCH-UNHURRIED — themes, shop and office hours follow-through
+**Logged 2026-09-25.** Everything below is live; these are the checks and waits that remain. System handoff: `Object-ions/unhurried-pro` → `HANDOFF.md`.
+
+**Owner:**
+1. **Mon 2026-09-28 10:00 PT: end-to-end purchase test** (Google Calendar reminder). Buy Pro ($49): thank-you page loads, Download returns `unhurried-pro-1.2.0.zip`, copy the licence key into a WordPress site (Appearance > Unhurried Pro) and confirm it saves. Buy an office hour ($95): lands on the Office Hour booking page, book then cancel. Refund both in Stripe. No real purchase has happened yet, so this is the only end-to-end proof.
+2. **Approve social drafts** in the SCS Telegram group on 9/29, 10/2, 10/6 after 09:00 PT (Beau injects them). On 10/2 every platform posts ~2 min after approval (the engine's slot times are already past on a Friday inject).
+
+**Waiting on others:**
+3. **WordPress.org review, ticket #292908.** When feedback arrives: apply fixes, upload Unhurried **1.0.1+** (1.0.0 in review still says "Moshe"). When approved: move `content/held/wordpress-org-unhurried-approved.json` to `content/scheduled/<date>-unhurried-is-in-the-wordpress-theme-directory.json`, set its date, push, tell Beau (kit step 5), and switch the Shop and README links from the GitHub zip to wordpress.org/themes/unhurried.
+
+**Accepted gaps (revisit if they bite):**
+4. The Office Hour booking page URL is public, so someone could book without paying. Cancel and send the Stripe link if it happens.
+5. Two react-router v6 Dependabot alerts dismissed (fixed only in v7). Revisit when vite-react-ssg supports react-router 7.
 
 ## REFRESH-1 — Triple-lens refresh audit (impeccable + mkt-copywriting + gsap-scrolltrigger)
 **Logged 2026-09-02. Bugs 1–4 resolved the same evening (see each item); the rest is open. Full writeup in `summary.md`.**
