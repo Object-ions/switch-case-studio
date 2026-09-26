@@ -2055,3 +2055,12 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - **Social.** Beau (OpenClaw, VPS) injects `content/promo/*.json` into the n8n SCS Social Engine at 09:00 PT on each date (one-off crons, verified). The engine now drafts **X, Instagram, Threads, Bluesky and Facebook** (Facebook added 2026-09-25); nothing posts without Moses's `/approve`. Brief: `content/SOCIAL-KIT.md`.
 - **Security.** npm audit fix (browserslist high, baseline-browser-mapping, react-router-dom 6.30.6). Two react-router v6 alerts dismissed as tolerable risk (fix only in v7; vite-react-ssg needs ^6; not reachable here). 0 open alerts.
 - Open items: `open-tickets.md` → LAUNCH-UNHURRIED.
+
+## UNHURRIED CASE STUDY — 2026-09-26, on `main`
+
+- `/projects/unhurried` added as the FIRST entry in `projects.json` (id 12, `studioProject: true`, `featured: true`, no `clientLogo` so it stays out of "Trusted by"). Free theme + Pro in one page; CTA `/shop`, link `/unhurried-pro/`, repo `Object-ions/unhurried` (verified public, unauthenticated 200).
+- Images in `public/projects/unhurried/`: long/hero captured from the free theme's Playground demo (`dev/serve.sh free`), preview/gallery cut from the Pro sales mockups, monochrome cover tile + `-256`/`-512`.
+- Metrics sourced from the theme repos only; no sales figures (no purchase yet; the owner's test buy is 2026-09-28).
+- `CaseStudyIndex.js` GROUPS: `WordPress Theme` → Products + experiments (it had fallen into a lone "More work" column). Prodani Miami `type` E-Commerce → Rebuild + SEO (owner request).
+- Checks: build green, 48 HTML files, meta description clean, AI-writing scan no hits on the page, em-dash gate only the known regex, entry-chunk marker present, no overflow at 1440/390.
+

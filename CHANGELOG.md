@@ -2,6 +2,11 @@
 
 User-facing changes only; process detail lives in `.audit/summary.md`. Newest first.
 
+## 2026-09-26 · Unhurried case study
+
+- **New case study `/projects/unhurried`**: the free Unhurried WordPress theme and the $49 Pro add-on as one studio project, first on the home index and `/projects`. Metrics come from the theme repos (27 patterns, 3 style variations, 8 Pro templates, no sideways scroll 320–1440 px). Buttons: Shop, Unhurried Pro sales page, free-theme repo.
+- **Home index**: new `WordPress Theme` type joins "Products + experiments"; **Prodani Miami** moves to "Rebuilds + SEO" (`type` now `Rebuild + SEO`, badge still E-Commerce).
+
 ## 2026-09-25 · Security patches, Pro updates, refund policy
 
 - **Security**: `npm audit fix` patched browserslist (high), baseline-browser-mapping and react-router-dom (6.30.4 → 6.30.6). Two React Router alerts remain with no fix on the v6 line (fixed only in 7.18, and `vite-react-ssg` requires react-router-dom ^6); both are unreachable here (navigation only uses fixed internal paths; hydration data comes from our own build) and are dismissed on GitHub with that rationale.
