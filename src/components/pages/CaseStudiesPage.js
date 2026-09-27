@@ -7,15 +7,15 @@ import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
 import BookCallCta from '../ui/BookCallCta';
 import '../../styles/components/projectsPage.scss';
 
-/* /projects (2026-09-27, third pass, owner: "let's try something else"):
- * every project is a POSTER TILE, in the service posters' frame. The card
- * carries the group as its kicker, the title and the index line; the
- * square plate below wears the group's colour and the poster grain, corner
- * meta (number, type), the real site shot on a cream mount, and the
- * project's one measured figure (`indexMetric`, value verbatim from its
- * `metrics[]`) as the poster headline. A project with no figure headlines
- * its type. Groups stay as sections (projectGroups.js, shared with the home
- * index), three tiles across. Static HTML is complete; hover is CSS. */
+/* /projects (2026-09-27, fourth pass, owner: "it looks weird"): every
+ * project is ONE poster tile, the plate itself. Corner meta (type, year),
+ * the title and index line in a fixed top band so rows align, the project's
+ * one measured figure (`indexMetric`, value verbatim from its `metrics[]`)
+ * bottom-left, the real site bleeding off the bottom-right corner like the
+ * poster art. No outer card, no numbering, no repeated group kicker: the
+ * section heading carries the group. Groups from projectGroups.js (shared
+ * with the home index), three across. Static HTML is complete; hover is
+ * CSS. */
 const grouped = groupProjects(projectsData);
 
 // The 600w sibling serves tiles up to ~2x of their width; the 1200w covers
@@ -27,8 +27,6 @@ const CaseStudiesPage = () => {
   /* One call per page (module-level latches): head and groups in one
    * stagger on client navigation; a direct load keeps the static HTML. */
   usePageHeaderReveal(rootRef, '.page-head-animate, .pt__group');
-  let n = 0;
-
   return (
     <>
       <Seo
@@ -53,37 +51,38 @@ const CaseStudiesPage = () => {
               <h2 className="pt__heading">{g.heading}</h2>
               <div className="pt__grid">
                 {g.projects.map((p) => {
-                  n += 1;
-                  const num = String(n).padStart(2, '0');
                   const src = p.preview || p.imageSrc;
                   const line = [p.indexLine, p.studioProject && 'Studio project'].filter(Boolean).join(' · ');
                   return (
                     <Link key={p.slug} to={`/projects/${p.slug}`} className="pt__card">
+                      {/* Poster corner meta: type left, year right. */}
                       <span className="pt__meta">
-                        <span className="pt__meta-kicker">{g.heading}</span>
+                        <span className="pt__meta-type">{p.type}</span>
                         {p.year && <span className="pt__meta-year">{p.year}</span>}
                       </span>
-                      <span className="pt__title">{p.title}</span>
-                      {line && <span className="pt__line">{line}</span>}
-                      <span className="pt__plate">
-                        <span className="pt__corner pt__corner--tl">{num}</span>
-                        <span className="pt__corner pt__corner--tr">{p.type}</span>
-                        <img
-                          className="pt__shot"
-                          src={small(src)}
-                          srcSet={`${small(src)} 600w, ${src} 1200w`}
-                          sizes="(max-width: 768px) 86vw, (max-width: 1024px) 40vw, 30vw"
-                          alt=""
-                          loading="lazy"
-                          decoding="async"
-                          width="600"
-                          height="375"
-                        />
-                        <span className={`pt__headline${p.indexMetric ? '' : ' pt__headline--type'}`}>
-                          {p.indexMetric ? p.indexMetric.value : p.type}
-                        </span>
-                        {p.indexMetric && <span className="pt__label">{p.indexMetric.label}</span>}
+                      <span className="pt__top">
+                        <span className="pt__title">{p.title}</span>
+                        {line && <span className="pt__line">{line}</span>}
                       </span>
+                      {p.indexMetric && (
+                        <span className="pt__figure">
+                          <span className="pt__value">{p.indexMetric.value}</span>
+                          <span className="pt__label">{p.indexMetric.label}</span>
+                        </span>
+                      )}
+                      {/* The site, bleeding off the bottom-right corner like
+                          the poster art, never boxed. */}
+                      <img
+                        className="pt__shot"
+                        src={small(src)}
+                        srcSet={`${small(src)} 600w, ${src} 1200w`}
+                        sizes="(max-width: 640px) 70vw, (max-width: 1024px) 34vw, 24vw"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        width="600"
+                        height="375"
+                      />
                     </Link>
                   );
                 })}

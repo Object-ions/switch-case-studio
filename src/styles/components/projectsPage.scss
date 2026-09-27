@@ -89,11 +89,10 @@
   }
 }
 
-// ── Poster tiles (third pass, 2026-09-27) ──
-// Groups from projectGroups.js, three tiles across. A tile is the home
-// services card (near-black panel, hairline, 12px radius) with a square
-// poster plate in the group's colour: corner meta, the site shot on a cream
-// mount, the project's figure as the headline.
+// ── Poster tiles (fourth pass, 2026-09-27) ──
+// Groups from projectGroups.js, three tiles across. A tile IS the plate: the
+// group colour with the poster grain, corner meta, title band, the figure
+// bottom-left, the site shot bleeding off the bottom-right corner.
 .pt {
   max-width: $max-width;
   margin: 0 auto;
@@ -135,26 +134,29 @@
     @media (max-width: 640px) { grid-template-columns: minmax(0, 1fr); }
   }
 
+  // The tile: square, the group colour, grained, clipped so the shot bleeds.
   &__card {
+    position: relative;
     display: flex;
     flex-direction: column;
     min-width: 0;
-    padding: 1.25rem 1.25rem 1.25rem;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    aspect-ratio: 1;
+    padding: 7%;
     border-radius: 12px;
-    background: rgba(8, 8, 8, 0.88);
-    color: #fff;
+    overflow: hidden;
+    background-color: var(--gc);
+    background-image: $grain-url;
+    color: $promo-ink;
     text-decoration: none;
-    transition: border-color $dur-fast $ease-out, translate $dur-fast $ease-out;
+    transition: translate $dur-fast $ease-out;
 
     &:hover,
     &:focus-visible {
-      border-color: rgba(255, 255, 255, 0.22);
       translate: 0 -4px;
     }
 
     &:focus-visible {
-      outline: 2px solid var(--gc);
+      outline: 2px solid #fff;
       outline-offset: 4px;
     }
 
@@ -165,79 +167,97 @@
     }
   }
 
-  // Kicker row over a hairline, like the services card.
+  // Corner meta, the posters' register.
   &__meta {
     display: flex;
     justify-content: space-between;
     gap: 1rem;
-    padding-bottom: 0.7rem;
-    margin-bottom: 0.9rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.6);
-
-    &-year {
-      color: var(--gc);
-    }
-  }
-
-  &__title {
-    font-size: clamp(1.15rem, 1.5vw, 1.45rem);
-    font-weight: 600;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    color: #fff;
-  }
-
-  &__line {
-    margin-top: 0.3rem;
-    font-size: 0.85rem;
-    font-weight: 300;
-    line-height: 1.4;
-    color: rgba(255, 255, 255, 0.6);
-  }
-
-  // The poster plate: square, the group colour, the poster grain.
-  &__plate {
-    position: relative;
-    display: block;
-    margin-top: 1.1rem;
-    aspect-ratio: 1;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: var(--gc);
-    background-image: $grain-url;
-    color: $promo-ink;
-  }
-
-  &__corner {
-    position: absolute;
-    top: 7%;
     font-size: 0.66rem;
     font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    white-space: nowrap;
 
-    &--tl { left: 7%; }
-    &--tr { right: 7%; max-width: 60%; overflow: hidden; text-overflow: ellipsis; }
+    &-type {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
-  // The site shot: a cream mount, a real shadow, centred in the middle band.
+  // Title band: fixed height, so a two-line title and a one-line title
+  // leave the figure and the shot in the same place across a row.
+  &__top {
+    display: block;
+    min-height: 5.2rem;
+    margin-top: 1.1rem;
+  }
+
+  &__title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+  }
+
+  &__line {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.35;
+    opacity: 0.75;
+  }
+
+  // The figure, bottom-left, in the column the shot leaves free.
+  &__figure {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 45%;
+    margin-top: auto;
+  }
+
+  &__value {
+    display: block;
+    font-size: clamp(1.35rem, 1.8vw, 1.6rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.035em;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  &__label {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-top: 0.45rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    line-height: 1.3;
+    opacity: 0.8;
+  }
+
+  // The site shot: anchored to the bottom-right, running off both edges,
+  // a cream mount and a real shadow. Lifts on hover.
+  // Taller than its 16:10 so it fills the tile's middle band; cropped
+  // from the page's top-left, the part that says what the site is.
   &__shot {
     position: absolute;
-    left: 9%;
-    top: 17%;
-    width: 82%;
-    height: auto;
-    aspect-ratio: 16 / 10;
+    right: -6%;
+    bottom: -6%;
+    width: 58%;
+    height: 52%;
     object-fit: cover;
-    object-position: top;
-    border-radius: 3px;
-    box-shadow: 0 0 0 4px $white-color, 0 16px 30px rgba(0, 0, 0, 0.28);
+    object-position: top left;
+    border-radius: 4px;
+    box-shadow: 0 0 0 4px $white-color, 0 18px 34px rgba(0, 0, 0, 0.3);
     background: #0a0a0a;
     transition: translate 0.35s $ease-out;
 
@@ -246,44 +266,6 @@
 
   &__card:hover &__shot,
   &__card:focus-visible &__shot {
-    translate: 0 -3%;
-  }
-
-  // The figure as the poster headline, bottom-left; label under it.
-  &__headline {
-    position: absolute;
-    left: 7%;
-    bottom: 18%;
-    font-size: clamp(1.5rem, 2.1vw, 1.9rem);
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.03em;
-    font-variant-numeric: tabular-nums;
-
-    // No figure: the type stands in, one line, smaller.
-    &--type {
-      right: 7%;
-      bottom: 9%;
-      font-size: clamp(1.05rem, 1.4vw, 1.3rem);
-      letter-spacing: -0.02em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
-
-  &__label {
-    position: absolute;
-    left: 7%;
-    right: 7%;
-    bottom: 5%;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    font-size: 0.68rem;
-    font-weight: 500;
-    line-height: 1.3;
-    opacity: 0.75;
+    translate: -2% -3%;
   }
 }
