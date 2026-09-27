@@ -180,6 +180,34 @@
     background: rgba($g6, 0.16);
   }
 
+  // Deep-linked package (#brand-starter-kit): the column lights up. Declared
+  // after .is-best so it wins on the best-value column too. The column head
+  // is the anchor; scroll-margin keeps it out from under the fixed header.
+  &__head {
+    scroll-margin-top: 130px;
+
+    @media (max-width: 768px) {
+      scroll-margin-top: 100px;
+    }
+  }
+
+  .is-target {
+    background: rgba($g6, 0.34);
+  }
+
+  &__example {
+    color: $promo-ink;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba($promo-ink, 0.35);
+
+    &:hover,
+    &:focus-visible {
+      text-decoration-color: $promo-ink;
+    }
+  }
+
   // ── Text rows (process, full list) ──
   &__row--text th,
   &__row--text td {

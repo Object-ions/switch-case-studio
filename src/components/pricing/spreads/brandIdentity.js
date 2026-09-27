@@ -345,5 +345,8 @@ export const TIERS = {
     tiles: ["system", "patterns", "deck", "home"],
     notes: { palette: "Custom", type: "Type system", social: "Plus marketing collateral", guide: "15+ pages" },
     process: ["In-depth discovery and positioning workshop", "Competitive and visual audit"],
+    // "Seen in": a shipped case study whose brand scope matches this package
+    // (owner's call, 2026-09-26). The other two packages have none yet.
+    example: { slug: "my-challah-dealer", label: "My Challah Dealer" },
   },
 };

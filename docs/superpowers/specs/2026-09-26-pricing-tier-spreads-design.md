@@ -33,6 +33,12 @@ Tile art: `src/components/pricing/spreads/brandIdentity.js`, 400×300 SVGs in th
 - `src/styles/components/packageBoard.scss`: table styles, the `.is-best` column tint, the `tsp-f-*` extra fills, phone sizes (≤720 px: the matrix stays a matrix, one notch smaller).
 - `PricingGuide` renders the board + one proof when `hasPackageBoard`, else the cards.
 
+## Deep links and proof (added the same day, after "should each package have its own page?": no)
+
+- Each column head carries `id` = the package name slugified (`#logo-style-guide`, `#brand-starter-kit`, `#brand-system-launch`). The static HTML has the id, so the browser lands on it without JS; `ScrollToTop` handles hash navigation in-app. After hydration the column's cells take `is-target` (stronger lavender) and that package's full list opens.
+- A "Seen in" foot row links a shipped case study whose brand scope matches the package (`example` in `TIERS`). Brand System & Launch → My Challah Dealer; the other two have none yet (owner's call). The row renders only when at least one package has an example.
+- Per-package pages are not built: thin near-duplicates, 17 of them to keep in sync, and the visitor's next step is a call. Revisit when a tier has 2+ shipped examples.
+
 ## Rules honoured
 
 - Static HTML is the finished picture: no JS, no hidden state, no motion. `<details>` is native.

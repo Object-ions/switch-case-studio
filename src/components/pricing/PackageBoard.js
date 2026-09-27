@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import * as brandIdentity from "./spreads/brandIdentity";
 import "../../styles/components/servicePoster.scss";
 import "../../styles/components/packageBoard.scss";
@@ -34,14 +36,41 @@ const Thumb = ({ Art }) => (
   </span>
 );
 
+// Package anchor: "Brand Starter Kit" -> "brand-starter-kit".
+const slug = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
 export default function PackageBoard({ serviceId, tiers, formatPrice }) {
   const board = BOARDS[serviceId];
+  const rootRef = useRef(null);
+
+  /* Deep links: /pricing/<service>#<package>. The column head carries the
+     id in the static HTML, so the browser lands on it with no JS; after
+     hydration the whole column lights up (`is-target` on every cell that
+     shares the `data-tier`) and that package's full list opens. */
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return undefined;
+    const apply = () => {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      root.querySelectorAll(".is-target").forEach((el) => el.classList.remove("is-target"));
+      if (!id) return;
+      const cells = root.querySelectorAll(`[data-tier="${id}"]`);
+      cells.forEach((el) => el.classList.add("is-target"));
+      const full = root.querySelector(`details[data-tier="${id}"]`);
+      if (full) full.open = true;
+    };
+    apply();
+    window.addEventListener("hashchange", apply);
+    return () => window.removeEventListener("hashchange", apply);
+  }, [serviceId]);
+
   if (!board) return null;
   const spec = tiers.map((t) => ({ ...t, ...(board.TIERS[t.name] || {}) }));
   const best = (t) => (t.badge ? " is-best" : "");
+  const anyExample = spec.some((t) => t.example);
 
   return (
-    <div className="pb pg-animate">
+    <div className="pb pg-animate" ref={rootRef}>
       {/* The page's h2 (the tier cards' h2 titles left with them); the table
           is named by it, so it needs no caption. */}
       <h2 id="pb-title" className="pb__caption">
@@ -52,7 +81,7 @@ export default function PackageBoard({ serviceId, tiers, formatPrice }) {
           <tr>
             <td className="pb__corner" />
             {spec.map((t) => (
-              <th key={t.name} scope="col" className={`pb__head${best(t)}`}>
+              <th key={t.name} id={slug(t.name)} data-tier={slug(t.name)} scope="col" className={`pb__head${best(t)}`}>
                 {t.badge && <span className="pb__badge">{t.badge}</span>}
                 <span className="pb__name">{t.name}</span>
                 <span className="pb__price">
@@ -85,7 +114,7 @@ export default function PackageBoard({ serviceId, tiers, formatPrice }) {
                     const included = tilesOf(board, t.name).includes(id);
                     const note = included && t.notes && t.notes[id];
                     return (
-                      <td key={t.name} className={`pb__cell${best(t)}`}>
+                      <td key={t.name} data-tier={slug(t.name)} className={`pb__cell${best(t)}`}>
                         {included && (
                           <span className="pb__dot">
                             <span className="pb__sr">Included</span>
@@ -106,7 +135,7 @@ export default function PackageBoard({ serviceId, tiers, formatPrice }) {
               How we get there
             </th>
             {spec.map((t) => (
-              <td key={t.name} className={`pb__cell pb__cell--text${best(t)}`}>
+              <td key={t.name} data-tier={slug(t.name)} className={`pb__cell pb__cell--text${best(t)}`}>
                 {(t.process || []).map((line) => (
                   <span key={line} className="pb__line">
                     {line}
@@ -115,13 +144,32 @@ export default function PackageBoard({ serviceId, tiers, formatPrice }) {
               </td>
             ))}
           </tr>
+          {/* A shipped case study whose brand scope matches the package: the
+              proof a per-package page would exist for, without the page. */}
+          {anyExample && (
+            <tr className="pb__row pb__row--text">
+              <th scope="row" className="pb__item pb__item--text">
+                Seen in
+              </th>
+              {spec.map((t) => (
+                <td key={t.name} data-tier={slug(t.name)} className={`pb__cell pb__cell--text${best(t)}`}>
+                  {t.example && (
+                    <Link to={`/projects/${t.example.slug}`} className="pb__example">
+                      {t.example.label}
+                      <span aria-hidden="true"> →</span>
+                    </Link>
+                  )}
+                </td>
+              ))}
+            </tr>
+          )}
           <tr className="pb__row pb__row--text">
             <th scope="row" className="pb__item pb__item--text">
               In full
             </th>
             {spec.map((t) => (
-              <td key={t.name} className={`pb__cell pb__cell--text${best(t)}`}>
-                <details className="pb__full">
+              <td key={t.name} data-tier={slug(t.name)} className={`pb__cell pb__cell--text${best(t)}`}>
+                <details className="pb__full" data-tier={slug(t.name)}>
                   <summary>Full list</summary>
                   <ul>
                     {t.includes.map((line) => (
