@@ -399,6 +399,7 @@
       justify-content: flex-end;
       gap: 1rem;
       padding: 2rem;
+      overflow: hidden;
       box-sizing: border-box;
       border-radius: 12px;
       background: $g6;
@@ -416,6 +417,54 @@
         outline-offset: 4px;
       }
     }
+
+    // The index: all four posters as a loose contact sheet (2 x 2, each
+    // print slightly off-square). Hover/focus squares them up and lifts
+    // them. Individual properties (rotate/translate), never `transform`.
+    &__end-deck {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-content: center;
+      gap: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    &__end-thumb {
+      --r: 0deg;
+      display: block;
+      aspect-ratio: 1;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+      rotate: var(--r);
+      transition: rotate 0.5s $ease-out, translate 0.5s $ease-out;
+
+      svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      &:nth-child(1) { --r: -4deg; }
+      &:nth-child(2) { --r: 3deg; }
+      &:nth-child(3) { --r: 2.5deg; }
+      &:nth-child(4) { --r: -3deg; }
+    }
+
+    &__end:hover &__end-thumb,
+    &__end:focus-visible &__end-thumb {
+      rotate: 0deg;
+      translate: 0 -6px;
+    }
+
+    &__end:hover &__end-thumb:nth-child(2),
+    &__end:focus-visible &__end-thumb:nth-child(2) { transition-delay: 40ms; }
+    &__end:hover &__end-thumb:nth-child(3),
+    &__end:focus-visible &__end-thumb:nth-child(3) { transition-delay: 80ms; }
+    &__end:hover &__end-thumb:nth-child(4),
+    &__end:focus-visible &__end-thumb:nth-child(4) { transition-delay: 120ms; }
 
     &__end-label {
       font-family: $font-text;

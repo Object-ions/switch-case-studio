@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import servicesData from "../../data/services.json";
 import armSafetyNet from "../../animation/armSafetyNet";
 import ServicePoster from "../servicePoster/ServicePoster";
+import "../../styles/components/servicePoster.scss";
 import "../../styles/components/services.scss";
 
 
@@ -149,6 +150,58 @@ function ServiceItem({ service, index, delay = 0 }) {
   );
 }
 
+/* The end card's art is the whole set, not a fifth service: the four
+   posters as a contact sheet of thumbnails. Pure CSS hover (the prints
+   square up), decorative, SSR-complete. */
+const DECK = [
+  { n: 1, bg: "cream", art: (
+    <>
+      <text x="50" y="66" textAnchor="middle" fontSize="54" fontWeight="600" letterSpacing="-3" className="sp-f-pink" transform="translate(-3 -2)">Aa</text>
+      <text x="50" y="66" textAnchor="middle" fontSize="54" fontWeight="600" letterSpacing="-3" className="sp-f-terra sp-multiply" transform="translate(3 2)">Aa</text>
+    </>
+  ) },
+  { n: 2, bg: "mint", art: (
+    <>
+      <rect x="20" y="26" width="60" height="50" rx="3" className="sp-f-cream" />
+      <rect x="20" y="26" width="60" height="9" rx="3" className="sp-f-ink" />
+      <rect x="27" y="42" width="26" height="6" rx="2" className="sp-f-ink" />
+      <rect x="27" y="54" width="18" height="7" rx="3.5" className="sp-f-terra" />
+      <rect x="58" y="42" width="15" height="19" rx="2" className="sp-f-pink" />
+    </>
+  ) },
+  { n: 3, bg: "ink", art: (
+    <>
+      <path d="M30 50H50M50 50C60 50 58 34 70 34M50 50H70M50 50C60 50 58 66 70 66" fill="none" className="sp-s-cream" strokeOpacity="0.4" strokeWidth="2.5" />
+      <rect x="20" y="42" width="16" height="16" rx="4" className="sp-f-cream" />
+      <rect x="40" y="38" width="24" height="24" rx="6" className="sp-f-pink" />
+      <rect x="68" y="28" width="12" height="12" rx="3" className="sp-f-terra" />
+      <rect x="68" y="44" width="12" height="12" rx="3" className="sp-f-mint" />
+      <rect x="68" y="60" width="12" height="12" rx="3" className="sp-f-cream" />
+    </>
+  ) },
+  { n: 4, bg: "terra", art: (
+    <>
+      <rect x="20" y="28" width="52" height="9" rx="2" className="sp-f-cream" />
+      <rect x="20" y="42" width="44" height="9" rx="2" className="sp-f-ink" />
+      <rect x="20" y="56" width="56" height="9" rx="2" className="sp-f-ink" />
+      <rect x="20" y="70" width="38" height="9" rx="2" className="sp-f-ink" />
+    </>
+  ) },
+];
+
+const EndDeck = () => (
+  <span className="services__end-deck" aria-hidden="true">
+    {DECK.map((c) => (
+      <span key={c.n} className={`services__end-thumb sp-bg-${c.bg}`}>
+        <svg viewBox="0 0 100 100" focusable="false" fontFamily="Inter, 'Inter Fallback', sans-serif">
+          <text x="10" y="15" fontSize="7" fontWeight="500" letterSpacing="0.6" className={c.bg === "ink" ? "sp-f-cream" : "sp-f-ink"}>{`SCS·0${c.n}`}</text>
+          {c.art}
+        </svg>
+      </span>
+    ))}
+  </span>
+);
+
 const Services = () => {
   const listRef = useRef(null);
 
@@ -221,6 +274,7 @@ const Services = () => {
           {/* Row end (the reference's "Explore more"): only in the desktop
               pan; the static grid hides it (CSS). */}
           <Link to="/pricing" className="services__end">
+            <EndDeck />
             <span className="services__end-label">All services &amp; pricing</span>
             <span className="services__end-arrow" aria-hidden="true">&rarr;</span>
           </Link>
