@@ -8,6 +8,7 @@ import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
 import useReducedMotion from '../../hooks/useReducedMotion';
 import BookCallCta from '../ui/BookCallCta';
 import { DUR_MED, EASE_OUT } from '../../animation/motionTokens';
+import { starPoints } from '../pricing/spreads/artKit';
 import '../../styles/components/projectsPage.scss';
 
 /* /projects (redesign 2026-09-27, owner: "re-design and update"): the home
@@ -24,6 +25,9 @@ const grouped = groupProjects(projectsData);
 // so the highlighted entry is on screen with its preview; the home index
 // opens on the newest project instead, because its columns sit side by side.
 const first = grouped[0]?.projects[0] || projectsData[0];
+// Each project's group colour, for the stage plate (owner, 2026-09-27:
+// "a little depressing, not as fun as the rest of the website").
+const colorOf = Object.fromEntries(grouped.flatMap((g) => g.projects.map((p) => [p.slug, g.color])));
 
 const meta = (p) =>
   [p.indexLine, p.year, p.studioProject && 'Studio project'].filter(Boolean).join(' · ');
@@ -80,7 +84,7 @@ const CaseStudiesPage = () => {
         <div className="pi">
           <div className="pi__list">
             {grouped.map((g) => (
-              <section className="pi__group" key={g.heading} aria-label={g.heading}>
+              <section className={`pi__group pi__group--${g.color}`} key={g.heading} aria-label={g.heading}>
                 <h2 className="pi__heading">{g.heading}</h2>
                 {g.projects.map((p) => {
                   n += 1;
@@ -131,22 +135,39 @@ const CaseStudiesPage = () => {
               decorative, the caption is the link's text. */}
           <Link
             to={`/projects/${current.slug}`}
-            className="pi__stage"
+            className={`pi__stage pi__stage--${colorOf[current.slug] || 'lilac'}`}
             tabIndex={-1}
           >
-            <span className="pi__slot">
-              {projectsData.map((p) => (
-                <img
-                  key={p.slug}
-                  className={`pi__preview${p.slug === active ? ' is-active' : ''}`}
-                  src={p.preview || p.imageSrc}
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                  width="1200"
-                  height="750"
-                />
-              ))}
+            {/* The plate takes the group's colour; on it, a tilted Polaroid
+                print of the site, a sticker with the project type and a
+                year burst, the About crew table's vocabulary. */}
+            <span className="pi__plate">
+              <span className="pi__print">
+                <span className="pi__slot">
+                  {projectsData.map((p) => (
+                    <img
+                      key={p.slug}
+                      className={`pi__preview${p.slug === active ? ' is-active' : ''}`}
+                      src={p.preview || p.imageSrc}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      width="1200"
+                      height="750"
+                    />
+                  ))}
+                </span>
+                <span className="pi__print-caption">{current.title}</span>
+              </span>
+              <span className="pi__sticker">{current.type}</span>
+              {current.year && (
+                <span className="pi__burst" aria-hidden="true">
+                  <svg viewBox="-60 -60 120 120" focusable="false">
+                    <polygon points={starPoints(58, 38)} />
+                    <text y="8" textAnchor="middle">{current.year}</text>
+                  </svg>
+                </span>
+              )}
             </span>
             <span className="pi__caption">
               <span className="pi__caption-title">{current.title}</span>

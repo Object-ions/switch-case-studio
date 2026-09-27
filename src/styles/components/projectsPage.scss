@@ -128,7 +128,7 @@
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.14em;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--gc);
   }
 
   // One row: number | title + line | figure. Hairline between rows; the
@@ -193,7 +193,7 @@
       letter-spacing: -0.02em;
       font-variant-numeric: tabular-nums;
       white-space: nowrap;
-      color: $g6;
+      color: var(--gc);
       transition: color $dur-fast $ease-out;
     }
 
@@ -208,13 +208,7 @@
     &:hover &-title,
     &:focus-visible &-title,
     &.is-active &-title {
-      color: $g7;
-    }
-
-    &:hover &-value,
-    &:focus-visible &-value,
-    &.is-active &-value {
-      color: $g7;
+      color: var(--gc);
     }
   }
 
@@ -230,7 +224,7 @@
 
   &__entry:hover &__num,
   &__entry.is-active &__num {
-    color: $g6;
+    color: var(--gc);
   }
 
   // Row thumbnail: phones and tablets only (see the media query).
@@ -249,13 +243,116 @@
     color: inherit;
   }
 
+  // ── Colour (owner, 2026-09-27: "not as fun as the rest of the website") ──
+  // A group owns one poster colour; its heading, its figures and the stage
+  // plate wear it. Lavender is the default so an unmapped group still reads.
+  &__group,
+  &__stage {
+    --gc: #{$g6};
+
+    &--terra { --gc: #{$promo-terra}; }
+    &--lilac { --gc: #{$g6}; }
+    &--mint { --gc: #{$promo-mint}; }
+  }
+
+  // The plate: the group colour with the poster grain, rounded like the
+  // posters. Stickers hang over its edge, so it never clips.
+  &__plate {
+    display: block;
+    position: relative;
+    padding: clamp(1.75rem, 3.5vw, 3rem) clamp(2rem, 4vw, 3.5rem) clamp(2.5rem, 4.5vw, 3.75rem);
+    border-radius: 12px;
+    background-color: var(--gc);
+    background-image: $grain-url;
+    transition: background-color 0.45s $ease-out;
+  }
+
+  // The print: a Polaroid, cream frame, deep bottom lip for the caption,
+  // a slight tilt that squares up on hover (individual `rotate`, so the
+  // GSAP scale on the image inside never fights it).
+  &__print {
+    display: block;
+    position: relative;
+    padding: 10px 10px 46px;
+    background: $white-color;
+    box-shadow: 0 22px 44px rgba(0, 0, 0, 0.35);
+    rotate: -2.5deg;
+    transition: rotate 0.45s $ease-out;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
+  &__stage:hover &__print,
+  &__stage:focus-visible &__print {
+    rotate: 0deg;
+  }
+
+  &__print-caption {
+    position: absolute;
+    left: 14px;
+    bottom: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: $promo-ink;
+  }
+
+  // Sticker with the project type: ink pill, cream die-cut edge, hung on
+  // the plate's bottom-left edge.
+  &__sticker {
+    position: absolute;
+    left: 8%;
+    bottom: -0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    background: $promo-ink;
+    color: $white-color;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    box-shadow: 0 0 0 3px $white-color, 0 8px 18px rgba(0, 0, 0, 0.3);
+    rotate: -5deg;
+  }
+
+  // Year burst, the sticker sheet's 8-point star, top-right corner.
+  &__burst {
+    position: absolute;
+    top: -1.4rem;
+    right: 6%;
+    width: clamp(64px, 7vw, 88px);
+    aspect-ratio: 1;
+    rotate: 12deg;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3));
+
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    polygon {
+      fill: $white-color;
+    }
+
+    text {
+      font-family: $font-text;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      fill: $promo-ink;
+    }
+  }
+
   &__slot {
     display: block;
     position: relative;
     aspect-ratio: 16 / 10;
     overflow: hidden;
     background: #0a0a0a;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
   }
 
   // Every preview stacked; opacity is CSS-owned (GSAP settles the scale).
