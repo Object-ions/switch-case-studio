@@ -35,8 +35,12 @@ export default function ScrollToTop() {
 
       if (el) {
         const offset = getHeaderOffset() + 20; // +20px breathing room
-        const top =
-          el.getBoundingClientRect().top + window.pageYOffset - offset;
+        // Layout position (offsetTop chain), not the rect: a page reveal
+        // holds its targets on a translateY while this measures (the
+        // pricing boards sit 24px low at hydration), and a rect-based
+        // target then lands the element under the fixed header.
+        let top = -offset;
+        for (let n = el; n; n = n.offsetParent) top += n.offsetTop;
 
         window.scrollTo({ top, behavior: 'smooth' });
         clearInterval(interval);
