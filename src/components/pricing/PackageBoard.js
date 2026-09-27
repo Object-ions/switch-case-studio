@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import * as brandIdentity from "./spreads/brandIdentity";
 import * as webDevelopment from "./spreads/webDevelopment";
 import * as aiAutomation from "./spreads/aiAutomation";
+import * as seoSearch from "./spreads/seoSearch";
 import "../../styles/components/servicePoster.scss";
 import "../../styles/components/packageBoard.scss";
 
@@ -28,6 +29,7 @@ const BOARDS = {
   "design-branding": brandIdentity,
   "web-development": webDevelopment,
   "ai-development": aiAutomation,
+  "marketing-advertisement": seoSearch,
 };
 
 export const hasPackageBoard = (serviceId) => Boolean(BOARDS[serviceId]);
@@ -36,8 +38,9 @@ export const hasPackageBoard = (serviceId) => Boolean(BOARDS[serviceId]);
 const slug = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
 /* Rows fall into groups by the tiers that have them: every tier reads
-   "In every <unit>"; a tier and everything above it "From <tier>"; one tier
-   alone "Only in <tier>"; any other mix names the tiers. A stable sort keeps
+   "In every <unit>"; one tier alone "Only in <tier>" (the top of a ladder
+   included: nothing is above it); a tier and everything above it
+   "From <tier>"; any other mix names the tiers. A stable sort keeps
    the author's order inside a group; a row no tier lists is dropped. */
 function groupRows({ tiers, rows, unit }) {
   const keyed = rows
@@ -54,8 +57,8 @@ function groupRows({ tiers, rows, unit }) {
   keyed.forEach((k) => {
     let label;
     if (k.all) label = `In every ${unit}`;
-    else if (k.suffix) label = `From ${tiers[k.first]}`;
     else if (k.has.filter(Boolean).length === 1) label = `Only in ${tiers[k.first]}`;
+    else if (k.suffix) label = `From ${tiers[k.first]}`;
     else label = tiers.filter((t, i) => k.has[i]).join(" and ");
     const last = groups[groups.length - 1];
     if (last && last.label === label) last.rows.push(k.row);

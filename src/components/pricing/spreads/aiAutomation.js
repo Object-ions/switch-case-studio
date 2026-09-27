@@ -22,7 +22,7 @@ const BuildArt = () => (
     <path d="M120 150H140M260 150H280" className="sp-s-cream" strokeWidth="6" strokeLinecap="round" />
   </>
 );
-const DiscoveryArt = () => (
+export const DiscoveryArt = () => (
   <>
     {[0, 1, 2].map((i) => (
       <g key={i}>
@@ -121,7 +121,7 @@ const ShipsArt = () => (
     <Lines x={54} y={60} widths={[120, 80]} h={10} opacity="0.3" />
   </>
 );
-const ReviewArt = () => (
+export const ReviewArt = () => (
   <>
     <Sheet x={80} y={40} w={240} h={220} lines={[]} />
     {[0, 1, 2, 3].map((i) => (

@@ -27,7 +27,7 @@ const PagesArt = () => (
     <Chip x={252} y={232} w={92} label="pages" fill="sp-f-terra" />
   </>
 );
-const SeoArt = () => (
+export const SeoArt = () => (
   <>
     <rect x="40" y="46" width="320" height="58" rx="29" className="sp-f-cream" stroke="#141414" strokeWidth="4" />
     <circle cx="82" cy="75" r="13" {...stroke} strokeWidth="5" />

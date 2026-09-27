@@ -62,6 +62,10 @@ Two boards on one page: "What's in each build" (Landing Page, Simple Website, Bu
 
 Two boards: "What's in each project" (three one-time tiers) and "Month to month" (two plans). The tiers are alternatives, not steps, so the group labels gained "Only in <tier>" (one tier) and a named mix; rows describe what each tier is. "Seen in": Custom AI Agent → Scout, Automation Retainer → My Challah Dealer.
 
+## SEO & AI Search (same day)
+
+One board: SEO + GEO Optimization Sprint ($3,500, one-time) against Growth Retainer ($3,000 a month). Two shared rows (strategy calls, measurement), five Sprint-only, five Retainer-only. "Seen in": Sprint → Renewed Bodyworks, Florida Green Improvements; Retainer → Zahav Medspa. With this, every service on `/pricing/:slug` has a board.
+
 ## Out of scope
 
-A board for SEO & AI Search: same component, its own tile art and `SECTIONS`, a later pass.
+Nothing on the pricing pages; the stacked tier cards remain in the code for a future service that ships without a board.
