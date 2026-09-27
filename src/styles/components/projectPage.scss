@@ -1,5 +1,6 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
+@import '../_page-head.scss';
 
 // NOTE: .reveal initial state is owned by GSAP (see ProjectPage.js).
 // No CSS opacity/transform here — single source of truth.
@@ -72,24 +73,15 @@ $pp-tile-bg: rgba(255, 255, 255, 0.02);
     }
   }
 
+  // Page-head pattern (_page-head.scss, 2026-09-26); the lede below keeps
+  // its own brighter colour, it carries the outcome line.
   &__kicker {
-    font-family: $font-text;
-    font-size: 0.75rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: $g6;
-    margin: 0 0 1.5rem;
+    @include page-kicker;
   }
 
   &__title {
-    font-family: $font-special;
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -0.01em;
-    color: $white-color;
-    margin: 0 0 1.5rem;
+    @include page-title;
+    margin-bottom: 1.5rem;
   }
 
   &__lede {

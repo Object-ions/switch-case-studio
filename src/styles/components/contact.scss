@@ -277,8 +277,8 @@
   }
 
   &__heading {
-    // Text face by default (renders as an h2 in the home section).
-    // Only the /contact page, where this is the page h1, uses SCS Display (below).
+    // Text face on the home section (h2) AND on /contact (h1): since
+    // 2026-09-26 no page h1 uses SCS Display (see _page-head.scss).
     font-family: $font-text;
     font-size: clamp(3rem, 8vw, 5rem);
     font-weight: 800;
@@ -286,12 +286,6 @@
     color: $white-color;
     line-height: 1;
     margin: 0 0 3rem;
-
-    // App rule: only h1 uses the display face. On /contact this heading is the
-    // page h1; the home section renders it as an h2 (keeps the text face above).
-    @at-root h1#{&} {
-      font-family: $font-special;
-    }
 
     @media (min-width: 1024px) {
       margin-bottom: 4rem;

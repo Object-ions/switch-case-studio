@@ -1,0 +1,39 @@
+@import './_variables.scss';
+
+// Page hero header, ONE definition (owner, 2026-09-26: "I love this header,
+// let's normalise the rest"). The pattern is the About page's own head
+// (.ap-head): a lavender uppercase kicker, an Inter title, a quiet lede.
+// Every page hero @includes these; SCS Display no longer sets any page h1
+// (it stays on the brand marks only: footer wordmark, About marquee and
+// scrub heading). Per-page files may follow an include with their own
+// margins, never their own face, size or colour.
+@mixin page-kicker {
+  font-family: $font-text;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: $g6;
+  margin: 0 0 1rem;
+}
+
+@mixin page-title {
+  font-family: $font-text;
+  font-size: clamp(2rem, 4.2vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #fff;
+  max-width: 18ch;
+  margin: 0;
+  text-wrap: balance;
+}
+
+@mixin page-lede {
+  font-family: $font-text;
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 52ch;
+  margin: 0;
+}

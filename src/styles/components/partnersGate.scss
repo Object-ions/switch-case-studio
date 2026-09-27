@@ -1,5 +1,6 @@
 @use '../variables' as *;
 @use '../mixins' as *;
+@import '../_page-head.scss';
 
 /* ==================================================================
  * /partners password gate — the lock screen shown before a partner
@@ -29,24 +30,13 @@
   }
 
   &__eyebrow {
-    margin: 0 0 1rem;
-    font-family: $font-text;
-    font-weight: 700;
-    font-size: 0.72rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: $orange-color;
+    @include page-kicker;
   }
 
   &__title {
-    margin: 0 0 1rem;
-    font-family: $font-special;
-    // SCS Display collides under tight tracking — keep it positive (see hero).
-    letter-spacing: 0.02em;
-    font-weight: 800;
-    line-height: 1.05;
-    font-size: clamp(1.9rem, 5vw, 2.75rem);
-    color: $white-color;
+    @include page-title;
+    font-size: clamp(1.9rem, 5vw, 2.75rem); // the gate card is narrow
+    margin-bottom: 1rem;
   }
 
   &__lede {

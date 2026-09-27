@@ -35,7 +35,7 @@ const ReviewsPage = () => {
           <h1 className="testimonials-page__title page-head-animate">
             Real words.
             <br />
-            <span className="testimonials-page__title--accent">Real results.</span>
+            Real results.
           </h1>
           <p className="testimonials-page__lede page-head-animate">
             Every project is built around one goal: making our clients' businesses
