@@ -31,127 +31,6 @@
     @include page-lede;
   }
 
-  // ── Grid ──
-  &__grid {
-    max-width: $max-width;
-    margin: 0 auto;
-    padding: 0 6rem 5rem;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-
-    @media (max-width: 1024px) { padding: 0 3rem 4rem; }
-    @media (max-width: 900px)  { grid-template-columns: 1fr; }
-    @media (max-width: 768px)  { padding: 0 1.5rem 3rem; }
-  }
-
-  // ── Card ──
-  &__card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    will-change: transform;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(255, 255, 255, 0.18);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.06);
-    }
-
-    @media (max-width: 580px) { padding: 2rem 1.5rem; }
-  }
-
-  &__card-top {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  &__card-img {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    object-fit: cover;
-    flex-shrink: 0;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-  }
-
-  &__card-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-  }
-
-  &__card-name {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #fff;
-    margin: 0;
-  }
-
-  &__card-title {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.4);
-    margin: 0;
-  }
-
-  &__card-highlight {
-    // Regular text face — the display face is hard to read at quote length.
-    font-family: $font-text;
-    font-size: clamp(1rem, 1.6vw, 1.2rem);
-    font-weight: 600;
-    line-height: 1.45;
-    letter-spacing: -0.01em;
-    color: #fff;
-    margin: 0;
-    border-left: 3px solid $orange-color;
-    padding-left: 1.125rem;
-  }
-
-  &__card-body {
-    font-size: 0.9rem;
-    line-height: 1.75;
-    color: rgba(255, 255, 255, 0.5);
-    margin: 0;
-  }
-
-  // Sourced metric row (optional per review)
-  &__card-metric {
-    margin: 0.25rem 0 0;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: rgba(255, 255, 255, 0.75);
-
-    strong {
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: $orange-color;
-      margin-right: 0.35rem;
-      letter-spacing: -0.01em;
-    }
-  }
-
-  &__card-metric-source {
-    display: block;
-    margin-top: 0.2rem;
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.4);
-
-    a {
-      color: $g6;
-      text-decoration: none;
-
-      &:hover { color: #fff; }
-    }
-  }
-
   // ── Bottom CTA ──
   &__bottom {
     max-width: $max-width;
@@ -199,4 +78,265 @@
       }
     }
   }
+}
+
+// ── The stage (2026-09-27): one review at a time on wide screens ──
+// Static HTML stacks all seven; `.is-live` (set after hydration) collapses
+// them to the pressed one from 900px up. Phones keep the stack.
+.rv {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 6rem 5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  column-gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: start;
+
+  @media (max-width: 1024px) { padding: 0 3rem 4rem; }
+  @media (max-width: 900px) {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0 1.5rem 3rem;
+  }
+
+  // ── Names ──
+  &__list {
+    grid-column: 2;
+    grid-row: 1;
+    position: sticky;
+    top: 7rem;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+
+    @media (max-width: 900px) {
+      display: none; // phones read the stack; nothing to switch
+    }
+  }
+
+  &__pick {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    width: 100%;
+    padding: 0.95rem 0;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: none;
+    color: rgba(255, 255, 255, 0.55);
+    font-family: $font-text;
+    text-align: left;
+    cursor: pointer;
+    transition: color $dur-fast $ease-out;
+
+    &-name {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: inherit;
+      transition: color $dur-fast $ease-out;
+    }
+
+    &-company {
+      font-size: 0.78rem;
+      font-weight: 300;
+      text-align: right;
+    }
+
+    &:hover,
+    &.is-active {
+      color: rgba(255, 255, 255, 0.75);
+
+      .rv__pick-name {
+        color: $g7;
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: -2px;
+    }
+  }
+
+  // ── Stage ──
+  &__stage {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+  }
+
+  &__panel {
+    margin: 0 0 4rem;
+
+    &:last-child { margin-bottom: 0; }
+  }
+
+  // Live and wide: one panel at a time, the incoming one rises in.
+  @media (min-width: 901px) {
+    &.is-live &__panel {
+      display: none;
+
+      &.is-active {
+        display: block;
+        margin: 0;
+        animation: rv-in 0.4s $ease-out both;
+      }
+    }
+  }
+
+  &__quote {
+    margin: 0;
+  }
+
+  &__pull {
+    margin: 0 0 1.5rem;
+    font-size: clamp(1.5rem, 2.6vw, 2.35rem);
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+    color: #fff;
+    text-wrap: balance;
+  }
+
+  &__full {
+    margin: 0;
+    max-width: 62ch;
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  &__who {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin: 1.75rem 0 0;
+  }
+
+  &__avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    filter: grayscale(1); // one voice with the crew photos on About
+    flex-shrink: 0;
+  }
+
+  &__who-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  &__name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  &__role {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.6);
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: rgba(255, 255, 255, 0.3);
+
+      &:hover { color: #fff; }
+    }
+  }
+
+  // ── Proof: the site and the number, under the words ──
+  &__proof {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 2rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+    @media (max-width: 560px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  &__shot {
+    display: block;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #0a0a0a;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      object-position: top;
+      transition: scale 0.5s $ease-out;
+
+      @media (prefers-reduced-motion: reduce) { transition: none; }
+    }
+
+    &:hover img,
+    &:focus-visible img {
+      scale: 1.03;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 3px;
+    }
+  }
+
+  &__metric {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+
+    &-value {
+      font-size: clamp(1.6rem, 2.2vw, 2rem);
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+      color: $g6;
+    }
+
+    &-label {
+      font-size: 0.95rem;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    &-source {
+      margin-top: 0.35rem;
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.5);
+
+      a {
+        color: $g6;
+        text-decoration: none;
+
+        &:hover,
+        &:focus-visible { color: $g7; text-decoration: underline; }
+      }
+    }
+  }
+}
+
+@keyframes rv-in {
+  from { opacity: 0; translate: 0 10px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv.is-live .rv__panel.is-active { animation: none; }
 }

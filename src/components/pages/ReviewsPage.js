@@ -1,23 +1,30 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Seo from '../util/Seo';
-import { motion, useReducedMotion } from 'motion/react';
 import testimonialsData from '../../data/testimonials.json';
+import projectsData from '../../data/projects.json';
 import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
-import {
-  containerVariants,
-  cardVariants,
-} from '../../utils/motionVariants';
 import BookCallCta from '../ui/BookCallCta';
 import '../../styles/components/testimonialsPage.scss';
 
+/* /testimonials (2026-09-27, owner: "update the presentation"): one voice at
+ * a time. The pull-quote set large, the person, the full review at reading
+ * size, and, where the review has a case study on this site, the client's
+ * site shot and a sourced figure with a link. The seven names run down the
+ * side and switch the stage (hover or click). The static HTML carries all
+ * seven reviews stacked; hydration adds `is-live`, which collapses them to
+ * one at a time on wide screens only. Phones read all seven in order. No
+ * motion library: the switch is a CSS keyframe. */
+const projectOf = (t) => (t.project ? projectsData.find((p) => p.slug === t.project) : null);
+const company = (title = '') => title.replace(/^(Owner at|Founder of|Owner of)\s+/i, '');
+const small = (src) => src.replace(/\.webp$/, '-600.webp');
+
 const ReviewsPage = () => {
-  const reducedMotion = useReducedMotion();
-  /* LC-26b: header is GSAP-revealed (static HTML ships visible) — see
-   * usePageHeaderReveal. This also supersedes the LC-34 v() guard, which
-   * existed only for the motion header removed here. */
-  const headerRef = useRef(null);
-  usePageHeaderReveal(headerRef);
+  const [active, setActive] = useState(testimonialsData[0].id);
+  const [live, setLive] = useState(false);
+  const rootRef = useRef(null);
+  usePageHeaderReveal(rootRef, '.page-head-animate, .rv');
+  useEffect(() => setLive(true), []);
 
   return (
     <>
@@ -27,107 +34,119 @@ const ReviewsPage = () => {
         path="/testimonials"
       />
 
-      <article className="testimonials-page" aria-label="Client reviews">
-        <header className="testimonials-page__header" ref={headerRef}>
-          <p className="testimonials-page__kicker page-head-animate">
-            What clients say
-          </p>
+      <article className="testimonials-page" aria-label="Client reviews" ref={rootRef}>
+        <header className="testimonials-page__header">
+          <p className="testimonials-page__kicker page-head-animate">What clients say</p>
           <h1 className="testimonials-page__title page-head-animate">
             Real words.
             <br />
             Real results.
           </h1>
           <p className="testimonials-page__lede page-head-animate">
-            Every project is built around one goal: making our clients' businesses
-            grow. Here's what they had to say.
+            Seven clients in their own words. Where the work is on this site, the number
+            they saw sits next to the words.
           </p>
         </header>
 
-        {/* Reveal on MOUNT — the grid is the primary content in the first
-            viewport under a short header; a scroll `amount` threshold on this
-            tall (single-column on mobile) section is never met on load and
-            strands every card at opacity:0 until you scroll. See
-            CaseStudiesPage grid for the full note. */}
-        <motion.section
-          className="testimonials-page__grid"
-          aria-label="Client testimonials"
-          variants={reducedMotion ? undefined : containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {testimonialsData.map((review) => (
-            <motion.article
-              key={review.id}
-              className="testimonials-page__card"
-              variants={reducedMotion ? undefined : cardVariants}
-              whileHover={reducedMotion ? undefined : { y: -4, transition: { duration: 0.25 } }}
-              aria-label={`Review by ${review.name}`}
-            >
-              <div className="testimonials-page__card-top">
-                <img
-                  src={review.image}
-                  alt={review.name}
-                  className="testimonials-page__card-img"
-                  loading="lazy"
-                  width="56"
-                  height="56"
-                />
-                <div className="testimonials-page__card-meta">
-                  <p className="testimonials-page__card-name">{review.name}</p>
-                  <p className="testimonials-page__card-title">
-                    {review.url ? (
-                      <a href={review.url} target="_blank" rel="noopener noreferrer">
-                        {review.title}
-                      </a>
-                    ) : (
-                      review.title
-                    )}
-                  </p>
-                </div>
-              </div>
+        <div className={`rv${live ? ' is-live' : ''}`}>
+          {/* The switcher: one button per client; the pressed one is on stage. */}
+          <nav className="rv__list" aria-label="Choose a review">
+            {testimonialsData.map((t) => (
+              <button
+                key={t.id}
+                type="button"
+                className={`rv__pick${t.id === active ? ' is-active' : ''}`}
+                aria-pressed={t.id === active}
+                onClick={() => setActive(t.id)}
+                onMouseEnter={() => setActive(t.id)}
+                onFocus={() => setActive(t.id)}
+              >
+                <span className="rv__pick-name">{t.name}</span>
+                <span className="rv__pick-company">{company(t.title)}</span>
+              </button>
+            ))}
+          </nav>
 
-              <blockquote className="testimonials-page__card-highlight">
-                &ldquo;{review.highlight}&rdquo;
-              </blockquote>
+          <div className="rv__stage">
+            {testimonialsData.map((t) => {
+              const project = projectOf(t);
+              const metric = t.metric || (project && project.indexMetric
+                ? { ...project.indexMetric, href: `/projects/${project.slug}` }
+                : null);
+              const shot = project && (project.preview || project.imageSrc);
+              return (
+                <figure
+                  key={t.id}
+                  className={`rv__panel${t.id === active ? ' is-active' : ''}`}
+                  aria-label={`Review by ${t.name}`}
+                >
+                  <blockquote className="rv__quote">
+                    <p className="rv__pull">&ldquo;{t.highlight}&rdquo;</p>
+                    <p className="rv__full">{t.testimonial}</p>
+                  </blockquote>
+                  <figcaption className="rv__who">
+                    <img src={t.image} alt="" className="rv__avatar" loading="lazy" width="56" height="56" />
+                    <span className="rv__who-text">
+                      <span className="rv__name">{t.name}</span>
+                      <span className="rv__role">
+                        {t.url ? (
+                          <a href={t.url} target="_blank" rel="noopener noreferrer">
+                            {t.title}
+                          </a>
+                        ) : (
+                          t.title
+                        )}
+                      </span>
+                    </span>
+                  </figcaption>
+                  {(shot || metric) && (
+                    <div className="rv__proof">
+                      {shot && (
+                        <Link to={`/projects/${project.slug}`} className="rv__shot" aria-label={`${project.title} case study`}>
+                          <img
+                            src={small(shot)}
+                            srcSet={`${small(shot)} 600w, ${shot} 1200w`}
+                            sizes="(max-width: 900px) 90vw, 30vw"
+                            alt=""
+                            loading="lazy"
+                            decoding="async"
+                            width="600"
+                            height="375"
+                          />
+                        </Link>
+                      )}
+                      {metric && (
+                        <p className="rv__metric">
+                          <strong className="rv__metric-value">{metric.value}</strong>
+                          <span className="rv__metric-label">{metric.label}</span>
+                          {(metric.source || metric.href) && (
+                            <span className="rv__metric-source">
+                              {metric.source}
+                              {metric.href && (
+                                <>
+                                  {metric.source ? ' · ' : ''}
+                                  <Link to={metric.href}>Case study →</Link>
+                                </>
+                              )}
+                            </span>
+                          )}
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </figure>
+              );
+            })}
+          </div>
+        </div>
 
-              <p className="testimonials-page__card-body">{review.testimonial}</p>
-
-              {/* A sourced number next to the words, where one exists (REFRESH-1:
-                  the headline says "real results" — this is the one that can be
-                  checked). Optional per review; renders nothing otherwise. */}
-              {review.metric && (
-                <p className="testimonials-page__card-metric">
-                  <strong>{review.metric.value}</strong> {review.metric.label}
-                  <span className="testimonials-page__card-metric-source">
-                    {review.metric.source}
-                    {review.metric.href && (
-                      <>
-                        {' · '}
-                        <Link to={review.metric.href}>See the case study</Link>
-                      </>
-                    )}
-                  </span>
-                </p>
-              )}
-            </motion.article>
-          ))}
-        </motion.section>
-
-        <motion.div
-          className="testimonials-page__bottom"
-          initial={reducedMotion ? undefined : { opacity: 0, y: 24 }}
-          whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
-          <h2 className="testimonials-page__bottom-heading">
-            Ready to be next?
-          </h2>
+        <div className="testimonials-page__bottom">
+          <h2 className="testimonials-page__bottom-heading">Ready to be next?</h2>
           <p className="testimonials-page__bottom-body">
-            Book a free call and let's talk about your project.
+            Book a free call and let&apos;s talk about your project.
           </p>
           <BookCallCta className="testimonials-page__bottom-btn" />
-        </motion.div>
+        </div>
       </article>
     </>
   );
