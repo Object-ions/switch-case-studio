@@ -2,6 +2,10 @@
 @import '../_mixins.scss';
 @import '../_page-head.scss';
 
+// /projects (2026-09-27): a typed index, not a card grid. Left, the groups
+// from projectGroups.js as hairline tables (number, title + line, one
+// measured figure); right, a sticky stage that shows the hovered project's
+// site. Under 1024px the stage goes and each row carries a thumbnail.
 .projects-page {
   background: #000;
   color: #fff;
@@ -11,10 +15,10 @@
   &__header {
     max-width: $max-width;
     margin: 0 auto;
-    padding: 8rem 6rem 5rem;
+    padding: 8rem 6rem 4rem;
 
-    @media (max-width: 1024px) { padding: 6rem 3rem 4rem; }
-    @media (max-width: 768px)  { padding: 5rem 1.5rem 3.5rem; }
+    @media (max-width: 1024px) { padding: 6rem 3rem 3.5rem; }
+    @media (max-width: 768px)  { padding: 5rem 1.5rem 3rem; }
   }
 
   // Page-head pattern (_page-head.scss, 2026-09-26).
@@ -29,183 +33,6 @@
 
   &__lede {
     @include page-lede;
-  }
-
-  // ── Grid ──
-  &__grid {
-    max-width: $max-width;
-    margin: 0 auto;
-    padding: 0 6rem 6rem;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-
-    @media (max-width: 1024px) { padding: 0 3rem 5rem; }
-    @media (max-width: 900px)  { grid-template-columns: 1fr; }
-    @media (max-width: 768px)  { padding: 0 1.5rem 4rem; }
-  }
-
-  // ── Card ──
-  &__card {
-    display: flex;
-    flex-direction: column;
-    background: #0a0a0a;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    overflow: hidden;
-    text-decoration: none;
-    color: #fff;
-    transition:
-      border-color 0.3s ease,
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
-
-    &:hover {
-      border-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-
-      .projects-page__card-cta {
-        color: $orange-color;
-      }
-
-      .projects-page__card-img img {
-        transform: scale(1.04);
-      }
-
-      .projects-page__card-peek.is-loaded {
-        opacity: 1;
-      }
-    }
-
-    &-img {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      overflow: hidden;
-      flex-shrink: 0;
-
-      // In-card website preview (see ProjectCard): absolutely positioned
-      // over the cover, so it can never shift layout; fades in only once
-      // the screenshot has painted (.is-loaded), top of the page showing.
-      .projects-page__card-peek {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: top;
-        opacity: 0;
-        transition: opacity 0.35s ease;
-      }
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-      }
-    }
-
-    &-badge {
-      position: absolute;
-      top: 0.875rem;
-      left: 0.875rem;
-      z-index: 2;
-      padding: 0.3rem 0.6rem;
-      background: $orange-color;
-      color: #fff;
-      font-size: 0.66rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      border-radius: 4px;
-      line-height: 1;
-      pointer-events: none;
-    }
-
-    &-body {
-      padding: 1.75rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.625rem;
-      flex: 1;
-    }
-
-    &-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    &-year {
-      font-size: 0.72rem;
-      color: rgba(255, 255, 255, 0.3);
-      letter-spacing: 0.08em;
-    }
-
-    &-kicker {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: $orange-color;
-    }
-
-    // Self-initiated disclosure. Deliberately quieter than the kicker: it is
-    // an honesty marker, not a selling point, and it must not compete with
-    // the title. In flow inside &-meta, so it can never overlap anything.
-    &-studio {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(255, 255, 255, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 999px;
-      padding: 0.15em 0.6em;
-      white-space: nowrap;
-    }
-
-    &-title {
-      font-family: $font-text;
-      font-size: clamp(1.1rem, 2vw, 1.4rem);
-      font-weight: 800;
-      letter-spacing: -0.01em;
-      margin: 0;
-      color: #fff;
-    }
-
-    &-sub {
-      font-size: 0.875rem;
-      line-height: 1.5;
-      color: rgba(255, 255, 255, 0.5);
-      margin: 0;
-    }
-
-    &-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      list-style: none;
-      padding: 0;
-      margin: 0.25rem 0 0;
-    }
-
-    &-tag {
-      font-size: 0.7rem;
-      padding: 0.2rem 0.6rem;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 100px;
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    &-cta {
-      margin-top: auto;
-      padding-top: 0.75rem;
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.4);
-      transition: color 0.3s ease;
-    }
   }
 
   // ── Bottom CTA ──
@@ -229,25 +56,322 @@
       margin: 0;
     }
 
+    // The nav's own primary button (header.scss .headingCTA): square,
+    // border-only on black, fills lavender on hover. No pill.
     &-btn {
       display: inline-flex;
       align-items: center;
-      padding: 0.875rem 2rem;
-      border-radius: 100px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      background: #fff;
-      color: #000;
-      text-decoration: none;
-      transition: box-shadow 0.3s ease, border-color 0.3s ease;
-      border: 2px solid #fff;
-      min-height: 48px;
       margin-top: 0.5rem;
+      padding: 0.8rem 1.6rem;
+      min-height: 48px;
+      border: 2px solid $g6;
+      border-radius: 0;
+      background: #000;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 400;
+      text-decoration: none;
+      transition:
+        background-color $dur-fast $ease-out,
+        color $dur-fast $ease-out;
 
-      &:hover {
-        border-color: $g6;
-        box-shadow: 0 0 32px rgba($g6, 0.35);
+      &:hover,
+      &:focus-visible {
+        background: $g6;
+        color: #000;
+      }
+
+      &:focus-visible {
+        outline: 2px solid $g6;
+        outline-offset: 4px;
       }
     }
+  }
+}
+
+// ── The index ──
+.pi {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 6rem 6rem;
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  column-gap: clamp(2.5rem, 4vw, 4rem);
+  align-items: start;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0 3rem 5rem;
+  }
+  @media (max-width: 768px) { padding: 0 1.5rem 4rem; }
+
+  &__list {
+    min-width: 0;
+  }
+
+  &__group {
+    min-width: 0;
+    margin-bottom: 3.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // Same register as the home index's column headings: a hairline over an
+  // uppercase label, so each group reads as one table.
+  &__heading {
+    margin: 0;
+    padding: 1rem 0 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  // One row: number | title + line | figure. Hairline between rows; the
+  // group's last row closes the table.
+  &__entry {
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+    column-gap: 1rem;
+    align-items: start;
+    padding: 1.1rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    text-decoration: none;
+    color: inherit;
+
+    &:last-child {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 4px;
+    }
+
+    &-text {
+      display: block;
+      min-width: 0;
+    }
+
+    &-title {
+      display: block;
+      font-size: clamp(1.05rem, 1.3vw, 1.3rem);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: #fff;
+      transition: color $dur-fast $ease-out;
+    }
+
+    &-meta {
+      display: block;
+      margin-top: 0.3rem;
+      font-size: 0.85rem;
+      font-weight: 300;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    // The figure: value on top, label under it, right-aligned in a narrow
+    // column so the values line up down the page.
+    &-metric {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      max-width: 10rem;
+      text-align: right;
+    }
+
+    &-value {
+      font-size: clamp(1.05rem, 1.3vw, 1.3rem);
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+      color: $g6;
+      transition: color $dur-fast $ease-out;
+    }
+
+    &-label {
+      margin-top: 0.3rem;
+      font-size: 0.75rem;
+      font-weight: 300;
+      line-height: 1.35;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:hover &-title,
+    &:focus-visible &-title,
+    &.is-active &-title {
+      color: $g7;
+    }
+
+    &:hover &-value,
+    &:focus-visible &-value,
+    &.is-active &-value {
+      color: $g7;
+    }
+  }
+
+  &__num {
+    padding-top: 0.3em;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    font-variant-numeric: tabular-nums;
+    color: rgba(255, 255, 255, 0.35);
+    transition: color $dur-fast $ease-out;
+  }
+
+  &__entry:hover &__num,
+  &__entry.is-active &__num {
+    color: $g6;
+  }
+
+  // Row thumbnail: phones and tablets only (see the media query).
+  &__thumb {
+    display: none;
+  }
+
+  // ── Stage ──
+  // Sticky under the site header; a link to the shown case study.
+  &__stage {
+    position: sticky;
+    top: 6.5rem;
+    display: block;
+    min-width: 0;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &__slot {
+    display: block;
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: #0a0a0a;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  }
+
+  // Every preview stacked; opacity is CSS-owned (GSAP settles the scale).
+  &__preview {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    opacity: 0;
+    transition: opacity 0.35s $ease-out;
+
+    &.is-active {
+      opacity: 1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
+  &__caption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem 0.75rem;
+    padding-top: 1rem;
+
+    &-title {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #fff;
+    }
+
+    &-meta {
+      margin-right: auto;
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    &-cta {
+      font-size: 0.75rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: $g6;
+      transition: color $dur-fast $ease-out;
+    }
+  }
+
+  &__stage:hover &__caption-cta,
+  &__stage:focus-visible &__caption-cta {
+    color: $g7;
+  }
+}
+
+// Tablets and phones: no hover, so the stage goes; every row carries its
+// own thumbnail (the 600w sibling), figure under the text.
+@media (max-width: 1024px) {
+  .pi {
+    &__stage {
+      display: none;
+    }
+
+    &__num {
+      display: none;
+    }
+
+    &__entry {
+      grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
+      grid-template-rows: auto auto;
+      column-gap: 1rem;
+      row-gap: 0.6rem;
+      padding: 1rem 0;
+    }
+
+    &__thumb {
+      display: block;
+      grid-row: 1 / 3;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      object-position: top;
+      background: #0a0a0a;
+    }
+
+    &__entry-text {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    &__entry-metric {
+      grid-column: 2;
+      grid-row: 2;
+      flex-direction: row;
+      align-items: baseline;
+      gap: 0.5rem;
+      max-width: none;
+      text-align: left;
+      align-self: end;
+    }
+
+    &__entry-label {
+      margin-top: 0;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .pi__entry-metric {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
   }
 }

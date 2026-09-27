@@ -1,105 +1,63 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import gsap from 'gsap';
 import Seo from '../util/Seo';
-import { motion, useReducedMotion } from 'motion/react';
 import projectsData from '../../data/projects.json';
+import { groupProjects } from '../../data/projectGroups';
 import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
-import {
-  containerVariants,
-  cardVariants,
-} from '../../utils/motionVariants';
+import useReducedMotion from '../../hooks/useReducedMotion';
 import BookCallCta from '../ui/BookCallCta';
+import { DUR_MED, EASE_OUT } from '../../animation/motionTokens';
 import '../../styles/components/projectsPage.scss';
 
-const MotionLink = motion.create(Link);
+/* /projects (redesign 2026-09-27, owner: "re-design and update"): the home
+ * case-study index grown into a page. Left, every project in the same typed
+ * groups as the home (src/data/projectGroups.js), numbered, each with ONE
+ * measured figure (`indexMetric`: its value is one of the case study's own
+ * `metrics[]` values, verbatim; the label is shortened) and its index line.
+ * Right, a sticky stage showing the real site of the hovered or focused
+ * project, a link to that case study; on phones the stage folds into a
+ * thumbnail on each row. No badges, tags or card chrome: the list is the
+ * page. Static HTML is complete; the crossfade is CSS. */
+const grouped = groupProjects(projectsData);
+// The stage opens on the first row as RENDERED (the top of the first group),
+// so the highlighted entry is on screen with its preview; the home index
+// opens on the newest project instead, because its columns sit side by side.
+const first = grouped[0]?.projects[0] || projectsData[0];
 
-/* One card. The website preview (the tall long.webp) shows IN the card on
- * hover, the same behaviour as the home grid tiles (2026-09-03, owner call:
- * the floating HoverPeek window next to the card is gone). Mounted on FIRST
- * hover, never eagerly: ten screenshots would be ~5MB on page load. `loaded`
- * gates the fade so the cover never swaps to a half-painted screenshot. */
-const ProjectCard = ({ project, reduced, variants }) => {
-  const [warm, setWarm] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-  const hasPeek = !!project.longWeb;
+const meta = (p) =>
+  [p.indexLine, p.year, p.studioProject && 'Studio project'].filter(Boolean).join(' · ');
 
-  return (
-    <MotionLink
-      to={`/projects/${project.slug}`}
-      className={`projects-page__card${hasPeek ? ' has-peek' : ''}`}
-      aria-label={`View case study: ${project.title}`}
-      variants={variants}
-      onMouseEnter={hasPeek ? () => setWarm(true) : undefined}
-      whileHover={reduced ? undefined : { y: -4, transition: { duration: 0.25 } }}
-      whileTap={reduced ? undefined : { scale: 0.97, transition: { duration: 0.15 } }}
-    >
-      <div className="projects-page__card-img">
-        {project.badge && (
-          <span className="projects-page__card-badge">{project.badge}</span>
-        )}
-        <img
-          src={project.coverTile}
-          alt={project.imageAlt || project.title}
-          loading="lazy"
-        />
-        {hasPeek && warm && (
-          <img
-            className={`projects-page__card-peek${loaded ? ' is-loaded' : ''}`}
-            src={project.longWeb}
-            alt=""
-            decoding="async"
-            onLoad={() => setLoaded(true)}
-          />
-        )}
-      </div>
-      <div className="projects-page__card-body">
-        <div className="projects-page__card-meta">
-          {project.year && (
-            <span className="projects-page__card-year">{project.year}</span>
-          )}
-          {project.kicker && (
-            <span className="projects-page__card-kicker">{project.kicker}</span>
-          )}
-          {/* Disclosure: self-initiated work sitting in a grid of paid
-              client projects reads as client work unless it says
-              otherwise. In flow, never a corner chip — the absolutely
-              positioned tile badge already broke once at the mobile
-              breakpoint. */}
-          {project.studioProject && (
-            <span className="projects-page__card-studio">
-              Studio project
-            </span>
-          )}
-        </div>
-        <h2 className="projects-page__card-title">{project.title}</h2>
-        {project.subtitle && (
-          <p className="projects-page__card-sub">{project.subtitle}</p>
-        )}
-        {project.services?.length > 0 && (
-          <ul className="projects-page__card-tags" aria-label="Services">
-            {project.services.slice(0, 3).map((s) => (
-              <li key={s.label} className="projects-page__card-tag">
-                {s.label.replace(/^#/, '')}
-              </li>
-            ))}
-          </ul>
-        )}
-        <span className="projects-page__card-cta" aria-hidden="true">
-          View case study →
-        </span>
-      </div>
-
-    </MotionLink>
-  );
-};
+// The 600w sibling serves the phone thumbnail; the stage takes the 1200w.
+const small = (src) => src.replace(/\.webp$/, '-600.webp');
 
 const CaseStudiesPage = () => {
+  const [active, setActive] = useState(first?.slug);
+  const rootRef = useRef(null);
   const reduced = useReducedMotion();
-  const v = (variant) => (reduced ? undefined : variant);
-  /* LC-26c: header is GSAP-revealed (static HTML ships visible) — see
-   * usePageHeaderReveal. motion still owns the grid + CTA below. */
-  const headerRef = useRef(null);
-  usePageHeaderReveal(headerRef);
+  /* One call per page (module-level latches). The selector covers the
+   * head, the groups and the stage, so a client navigation reveals the
+   * whole page in one stagger; a direct load keeps the static HTML as is. */
+  usePageHeaderReveal(rootRef, '.page-head-animate, .pi__group, .pi__stage');
+  const current = projectsData.find((p) => p.slug === active) || first;
+
+  /* Preview swap: the incoming image settles from 98% while the CSS
+     crossfade runs (same as the home index). Scale is GSAP's, opacity is
+     the stylesheet's. */
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root || reduced) return undefined;
+    const img = root.querySelector('.pi__preview.is-active');
+    if (!img) return undefined;
+    const tween = gsap.fromTo(
+      img,
+      { scale: 0.98 },
+      { scale: 1, duration: DUR_MED, ease: EASE_OUT, overwrite: 'auto' },
+    );
+    return () => tween.kill();
+  }, [active, reduced]);
+
+  let n = 0;
 
   return (
     <>
@@ -109,57 +67,99 @@ const CaseStudiesPage = () => {
         path="/projects"
       />
 
-      <article className="projects-page" aria-label="Case studies">
-        {/* ── Header ── */}
-        <header className="projects-page__header" ref={headerRef}>
-          <p className="projects-page__kicker page-head-animate">
-            Portfolio
-          </p>
-          <h1 className="projects-page__title page-head-animate">
-            Selected Work
-          </h1>
+      <article className="projects-page" aria-label="Case studies" ref={rootRef}>
+        <header className="projects-page__header">
+          <p className="projects-page__kicker page-head-animate">Portfolio</p>
+          <h1 className="projects-page__title page-head-animate">Selected work</h1>
           <p className="projects-page__lede page-head-animate">
-            {projectsData.length} projects. All built from scratch.
+            {projectsData.length} projects, every one built from scratch, most with a
+            number you can check.
           </p>
         </header>
 
-        {/* ── Grid ──
-            Reveal on MOUNT (animate), not on scroll (whileInView). The grid
-            is the page's primary content and sits in the first viewport under
-            a short header — but it's a very tall section, so a scroll-based
-            `amount` threshold is never met on load (esp. single-column
-            mobile), stranding every card at opacity:0 until you scroll. The
-            staggered cascade still plays on load; cards keep their hover. */}
-        <motion.section
-          className="projects-page__grid"
-          aria-label="Project list"
-          variants={v(containerVariants)}
-          initial="hidden"
-          animate="visible"
-        >
-          {projectsData.map((project) => (
-            <ProjectCard
-              key={project.slug}
-              project={project}
-              reduced={reduced}
-              variants={v(cardVariants)}
-            />
-          ))}
-        </motion.section>
+        <div className="pi">
+          <div className="pi__list">
+            {grouped.map((g) => (
+              <section className="pi__group" key={g.heading} aria-label={g.heading}>
+                <h2 className="pi__heading">{g.heading}</h2>
+                {g.projects.map((p) => {
+                  n += 1;
+                  const src = p.preview || p.imageSrc;
+                  return (
+                    <Link
+                      key={p.slug}
+                      to={`/projects/${p.slug}`}
+                      className={`pi__entry${p.slug === active ? ' is-active' : ''}`}
+                      onMouseEnter={() => setActive(p.slug)}
+                      onFocus={() => setActive(p.slug)}
+                    >
+                      <span className="pi__num" aria-hidden="true">
+                        {String(n).padStart(2, '0')}
+                      </span>
+                      {/* Phone only (CSS): the preview sits on the row. A
+                          display:none image never loads, so desktop pays
+                          nothing for it. */}
+                      <img
+                        className="pi__thumb"
+                        src={small(src)}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        width="600"
+                        height="375"
+                      />
+                      <span className="pi__entry-text">
+                        <span className="pi__entry-title">{p.title}</span>
+                        <span className="pi__entry-meta">{meta(p)}</span>
+                      </span>
+                      {p.indexMetric && (
+                        <span className="pi__entry-metric">
+                          <b className="pi__entry-value">{p.indexMetric.value}</b>
+                          <span className="pi__entry-label">{p.indexMetric.label}</span>
+                        </span>
+                      )}
+                    </Link>
+                  );
+                })}
+              </section>
+            ))}
+          </div>
 
-        {/* ── Bottom CTA ── */}
-        <motion.div
-          className="projects-page__bottom"
-          variants={v(cardVariants)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <p className="projects-page__bottom-text">
-            Want to see what we can build for you?
-          </p>
+          {/* Every preview stays in the DOM, stacked, so a hover crossfades
+              instead of waiting on a fetch (same as the home index). The
+              stage is itself a link to the shown case study; the images are
+              decorative, the caption is the link's text. */}
+          <Link
+            to={`/projects/${current.slug}`}
+            className="pi__stage"
+            tabIndex={-1}
+          >
+            <span className="pi__slot">
+              {projectsData.map((p) => (
+                <img
+                  key={p.slug}
+                  className={`pi__preview${p.slug === active ? ' is-active' : ''}`}
+                  src={p.preview || p.imageSrc}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  width="1200"
+                  height="750"
+                />
+              ))}
+            </span>
+            <span className="pi__caption">
+              <span className="pi__caption-title">{current.title}</span>
+              <span className="pi__caption-meta">{current.indexLine || current.type}</span>
+              <span className="pi__caption-cta">Open case study →</span>
+            </span>
+          </Link>
+        </div>
+
+        <div className="projects-page__bottom">
+          <p className="projects-page__bottom-text">Want to see what we can build for you?</p>
           <BookCallCta className="projects-page__bottom-btn" />
-        </motion.div>
+        </div>
       </article>
     </>
   );

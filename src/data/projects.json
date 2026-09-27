@@ -2,6 +2,7 @@
   {
     "id": 12,
     "slug": "unhurried", "indexLine": "WordPress · Block theme",
+    "indexMetric": { "value": "27", "label": "block patterns in the free theme" },
     "studioProject": true,
     "type": "WordPress Theme",
     "badge": "Free + Pro Theme",
@@ -54,6 +55,7 @@
   {
     "id": 11,
     "slug": "my-challah-dealer", "indexLine": "React · Challah bakery",
+    "indexMetric": { "value": "100", "label": "Lighthouse accessibility, best practices and SEO" },
     "type": "Business Website",
     "badge": "Brand + Website + Automation",
     "featured": true,
@@ -119,6 +121,7 @@
   {
     "id": 10,
     "slug": "renewed-bodyworks", "indexLine": "Next.js · Massage therapy",
+    "indexMetric": { "value": "−79%", "label": "homepage weight on mobile" },
     "type": "Rebuild + Local SEO",
     "badge": "Rebuild + Local SEO",
     "featured": true,
@@ -198,6 +201,7 @@
   {
     "id": 8,
     "slug": "florida-green-improvements", "indexLine": "Next.js · General contractor",
+    "indexMetric": { "value": "−94%", "label": "homepage weight on mobile" },
     "type": "Rebuild + SEO",
     "badge": "Rebuild + SEO",
     "featured": true,
@@ -279,6 +283,7 @@
   {
     "id": 3,
     "slug": "zahav-medspa", "indexLine": "Medical spa · Brand + ads",
+    "indexMetric": { "value": "+37%", "label": "Google Business Profile calls, Jun to Aug 2026" },
     "type": "Business Website",
     "badge": "Business Website",
     "featured": true,
@@ -345,6 +350,7 @@
   {
     "id": 9,
     "slug": "scout", "indexLine": "Self-hosted · Lease listings",
+    "indexMetric": { "value": "6", "label": "listing sources polled four times a day" },
     "studioProject": true,
     "type": "SaaS Product",
     "badge": "SaaS Product",
@@ -410,6 +416,7 @@
   {
     "id": 2,
     "slug": "jo-marketing-11", "indexLine": "Marketing company",
+    "indexMetric": { "value": "< 2 weeks", "label": "design to live" },
     "featured": true,
     "type": "Business Website",
     "badge": "Business Website",
@@ -469,6 +476,7 @@
   {
     "id": 4,
     "slug": "crimson-equities", "indexLine": "Real estate investment",
+    "indexMetric": { "value": "< 7 days", "label": "concept to live" },
     "type": "Business Website",
     "badge": "Business Website",
     "featured": true,
@@ -523,6 +531,7 @@
   {
     "id": 5,
     "slug": "prodani-miami", "indexLine": "Shopify · Dessert brand",
+    "indexMetric": { "value": "−74%", "label": "homepage weight" },
     "type": "Rebuild + SEO",
     "badge": "E-Commerce",
     "featured": true,
@@ -654,6 +663,7 @@
   {
     "id": 7,
     "slug": "jelly-belly-wiki", "indexLine": "Python → .NET → React",
+    "indexMetric": { "value": "317", "label": "records served across 5 resources" },
     "studioProject": true,
     "type": "Full-Stack + API",
     "badge": "Full-Stack + API",
@@ -790,6 +800,7 @@
   {
     "id": 1,
     "slug": "florida-energy-assistance", "indexLine": "Home energy programs",
+    "indexMetric": { "value": "< 2 weeks", "label": "design to live" },
     "type": "Landing Page",
     "badge": "Landing Page",
     "featured": true,

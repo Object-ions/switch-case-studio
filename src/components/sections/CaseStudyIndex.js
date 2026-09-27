@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import projectsData from '../../data/projects.json';
+import { groupProjects } from '../../data/projectGroups';
 import useReducedMotion from '../../hooks/useReducedMotion';
 import armSafetyNet from '../../animation/armSafetyNet';
 import CircularText from '../ui/CircularText';
@@ -29,36 +30,15 @@ import '../../styles/components/caseStudyIndex.scss';
    responsive). Falls back to `imageSrc`. The slot lives in the intro column under
    the "View all" pill, at column width, and starts on the newest project,
    which is whatever sits FIRST in projects.json. */
-const GROUPS = [
-  { heading: 'Rebuilds + SEO', types: ['Rebuild + Local SEO', 'Rebuild + SEO'] },
-  {
-    heading: 'Business websites',
-    types: ['Business Website', 'Portfolio Site'],
-  },
-  {
-    heading: 'Products + experiments',
-    // Landing Page moved here (owner, 2026-09-11) so the Rebuilds column
-    // stays short and the preview can sit under it, across columns 1-2.
-    types: ['WordPress Theme', 'SaaS Product', 'E-Commerce', 'Full-Stack + API', 'Interactive Experience', 'Landing Page'],
-  },
-];
-
 // Every project, not only `featured`: the index is a complete list (the
 // owner asked why Birth of Venus, featured: false, was missing). The
 // `featured` flag still governs the "Trusted by" strip and the tiles.
 const featured = projectsData;
 
-// A project whose `type` matches no group still renders, in a trailing
-// "More work" column, so a new type can never drop a case study silently.
-const grouped = GROUPS.map((g) => ({
-  ...g,
-  projects: featured.filter((p) => g.types.includes(p.type)),
-}));
-const known = new Set(GROUPS.flatMap((g) => g.types));
-const leftovers = featured.filter((p) => !known.has(p.type));
-if (leftovers.length) {
-  grouped.push({ heading: 'More work', types: [], projects: leftovers });
-}
+// The typed groups live in src/data/projectGroups.js, shared with /projects
+// (2026-09-27), so the home index and the page can never disagree on where
+// a case study sits. Unknown types land in a trailing "More work" group.
+const grouped = groupProjects(featured);
 
 
 const CaseStudyIndex = () => {
