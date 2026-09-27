@@ -21,7 +21,7 @@ import "../../styles/components/packageBoard.scss";
    A service module exports
      SECTIONS  [{ id, title, unit, tiers: [names], rows: [{ id, label, Art,
                cells: { [tier]: true | "note" } }] }]
-     TIERS     { [tier]: { for, process, example } }
+     TIERS     { [tier]: { for, process, examples: [{ slug, label }] } }
      NOTE      an optional line under the last board. */
 const BOARDS = {
   "design-branding": brandIdentity,
@@ -68,7 +68,7 @@ function Board({ section, spec, formatPrice, note }) {
   const best = (t) => (t.badge ? " is-best" : "");
   const titleId = `pb-title-${section.id}`;
   const anyProcess = spec.some((t) => t.process && t.process.length);
-  const anyExample = spec.some((t) => t.example);
+  const anyExample = spec.some((t) => t.examples && t.examples.length);
   const groups = groupRows(section);
 
   return (
@@ -152,12 +152,12 @@ function Board({ section, spec, formatPrice, note }) {
               </th>
               {spec.map((t) => (
                 <td key={t.name} data-tier={slug(t.name)} className={`pb__cell pb__cell--text${best(t)}`}>
-                  {t.example && (
-                    <Link to={`/projects/${t.example.slug}`} className="pb__example">
-                      {t.example.label}
+                  {(t.examples || []).map((ex) => (
+                    <Link key={ex.slug} to={`/projects/${ex.slug}`} className="pb__example">
+                      {ex.label}
                       <span aria-hidden="true"> →</span>
                     </Link>
-                  )}
+                  ))}
                 </td>
               ))}
             </tr>

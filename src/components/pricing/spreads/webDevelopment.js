@@ -247,13 +247,19 @@ const SC = "Starter Care";
 const GC = "Growth Care";
 const VP = "VPS & Self-Hosted";
 
-// "Seen in": shipped case studies whose scope matches a build (owner's call,
-// 2026-09-26). Simple Website has none yet.
+// "Seen in": shipped case studies whose scope matches a build (owner's
+// calls, 2026-09-26).
 export const TIERS = {
-  [LP]: { for: "Campaigns, launches, lead capture", example: { slug: "my-challah-dealer", label: "My Challah Dealer" } },
-  [SW]: { for: "Small businesses and portfolios" },
-  [BB]: { for: "A full business site, run by you", example: { slug: "renewed-bodyworks", label: "Renewed Bodyworks" } },
-  [GS]: { for: "E-commerce, web apps, complex builds", example: { slug: "prodani-miami", label: "Prodani Miami" } },
+  [LP]: { for: "Campaigns, launches, lead capture", examples: [{ slug: "my-challah-dealer", label: "My Challah Dealer" }] },
+  [SW]: { for: "Small businesses and portfolios", examples: [{ slug: "jo-marketing-11", label: "Jo Marketing 11" }] },
+  [BB]: { for: "A full business site, run by you", examples: [{ slug: "renewed-bodyworks", label: "Renewed Bodyworks" }] },
+  [GS]: {
+    for: "E-commerce, web apps, complex builds",
+    examples: [
+      { slug: "prodani-miami", label: "Prodani Miami" },
+      { slug: "zahav-medspa", label: "Zahav Medspa" },
+    ],
+  },
   [SC]: { for: "Personal sites, artists, micro-businesses" },
   [GC]: { for: "Growing traffic, regular updates" },
   [VP]: { for: "Self-hosting n8n, AI agents or custom apps" },

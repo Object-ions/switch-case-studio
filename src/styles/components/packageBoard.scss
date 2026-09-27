@@ -195,7 +195,10 @@
     background: rgba($g6, 0.34);
   }
 
+  // One case study per line when a package has several.
   &__example {
+    display: block;
+    width: fit-content;
     color: $promo-ink;
     font-weight: 600;
     text-decoration: underline;
@@ -205,6 +208,10 @@
     &:hover,
     &:focus-visible {
       text-decoration-color: $promo-ink;
+    }
+
+    & + & {
+      margin-top: 0.35rem;
     }
   }
 
