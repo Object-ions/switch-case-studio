@@ -1,47 +1,53 @@
-# Pricing tier spreads (pilot: Brand Identity)
+# Pricing package board (pilot: Brand Identity)
 
 Owner brief, 2026-09-26: a regular visitor reading `/pricing/design-branding` cannot picture what a tier buys. Show it, on the studio's own brand.
 
+Round one (a cream "what you walk away with" band of big tiles on top of each stacked tier card) was built and rejected on sight: "I love it BUT it's very not clear, too much going on, we need a different way to compare the packages." The art stayed; the structure became a comparison board.
+
 ## What ships
 
-Each tier card on a pricing page gets a **full-width band at the top**, above the offer and included columns: a cream "brand-book page" with labelled tiles, one tile per deliverable. Language is the studio's own brand-book (My Challah Dealer pages: cream sheet, hard-shadow tiles, diamond labels), drawn with the site tokens.
+One cream brand-book sheet per service, replacing the three stacked tier cards:
 
-Tiles show Switch Case Studio's real brand: the lavender wordmark (`/brand/switch-case-studio-logo-square-lilac.svg`), the star mark (`SCSLogo`), the site palette (cream, lilac, terra, mint, ink), the type pairing (SCS Display + Inter), sticker shapes drawn in the same vocabulary. Caption on every band: "Shown on our own brand. Yours is built from scratch."
+- **Rows** are the deliverables: a thumbnail of the tile art (72 px, ink rule, hard shadow) and a short name.
+- **Columns** are the packages: name, price, one line for whom (in the tier description's own words). The `badge` tier ("Best value") gets a lavender column tint and chip.
+- **Cells** carry a terra dot when the package includes the row. Rows are grouped by the package that introduces them, in package order, so the dots form a staircase. Where the data grades a deliverable, the cell carries the grade ("Basic / Expanded / Custom", "5–7 posts and stories", "Basic, PDF / 15+ pages").
+- **Foot rows:** "How we get there" (the process steps per package, which are not deliverables) and "In full", a native `<details>` "Full list" per package holding that tier's `includes` verbatim. `pricingData.json` stays the source of truth; nothing is deleted.
+- **Caption on every board:** "Shown on our own brand. Yours is built from scratch."
+- **Proof** appears once under the board (`RotatingProof`, extracted from `SinglePricingCard`), then the page's existing outro and CTAs. No CTA row on the board: three identical buttons were noise, and the outro already has them.
 
-Tiles are deliverables, never process steps (no "discovery call" tile).
+Tile art: `src/components/pricing/spreads/brandIdentity.js`, 400×300 SVGs in the brand-book language (cream page, ink lines, site palette, wordmark image, star mark, sticker shapes).
 
-### Brand Identity tiers
+### Brand Identity rows
 
-| Tier | Tiles |
+| Group | Rows |
 | --- | --- |
-| Logo & Style Guide | Logo (with AI SVG PNG JPG chips), Colour palette (5 swatches + hex), Type pairing, 1-page brand sheet |
-| Brand Starter Kit | "Everything in Logo & Style Guide" contact sheet (the four tiles above, small), Mood board, Social templates (3 phone frames), Business card, Brand guide PDF (page stack) |
-| Brand System & Launch | "Everything in Brand Starter Kit" contact sheet, Logo system (wordmark / mark / lockup), Design patterns (grid, grain, stickers), Guidelines 15+ pages (fanned stack), Presentation template, Homepage direction (browser frame) |
-
-The contact-sheet tile is how "this tier includes the one below" is shown: the same idea as the home pan's end card, so it reads as one family.
+| In every package | Logo files (AI, SVG, PNG, JPG), Colour palette, Type, 1-page brand sheet |
+| From Brand Starter Kit | Mood board, Social templates, Business card, Brand guide |
+| From Brand System & Launch | Logo system, Design patterns, Presentation template, Homepage direction |
 
 ## Structure
 
-- `src/components/pricing/TierSpread.js`: `<TierSpread serviceId tierName />`. Looks up `SPREADS[serviceId][tierName]`; renders `<figure class="tsp">` with the tile grid and the caption, or `null` when no spread exists (the other three services, until they get theirs).
-- `src/components/pricing/spreads/brandIdentity.js`: the tile art for `design-branding` (`TILES` map: id, label, `Art` SVG) and the per-tier tile lists.
-- `SinglePricingCard` gains a `spread` prop, rendered as `.spc__spread` before `.spc__inner`.
-- `PricingGuide` passes `<TierSpread serviceId={serviceId} tierName={tier.name} />`.
-- Styles: `src/styles/components/tierSpread.scss`. Tile grid `repeat(auto-fit, minmax(150px, 1fr))`, 4:3 tiles, label under each; ≤480px two columns.
+- `src/components/pricing/PackageBoard.js`: `<PackageBoard serviceId tiers formatPrice />`, a real `<table>` named by the page's h2 (`aria-labelledby`; the tier cards' h2 titles left with the cards, so the board carries the page's h2), `scope` on every header, `<tbody>` per group, `<tfoot>` for the text rows. `hasPackageBoard(serviceId)` gates it; services without a board keep the stacked cards.
+- `src/components/pricing/spreads/brandIdentity.js`: `TILES` (id, label, Art) and `TIERS` keyed by tier name (`tiles`, `inherits`, `notes`, `for`, `process`).
+- `src/components/ui/RotatingProof.js` + `rotatingProof.scss`: the rotating quote, used by the board page and by `SinglePricingCard`.
+- `src/styles/components/packageBoard.scss`: table styles, the `.is-best` column tint, the `tsp-f-*` extra fills, phone sizes (≤720 px: the matrix stays a matrix, one notch smaller).
+- `PricingGuide` renders the board + one proof when `hasPackageBoard`, else the cards.
 
 ## Rules honoured
 
-- Static HTML is the finished picture: no JS, no hidden state, no motion (the card's existing hover lift stays).
-- No headings inside the band (figure + figcaption + spans), so the page keeps h1 → h2 → h3.
-- SCS Display appears only as a type *specimen* inside tiles, never as a heading.
-- No em dashes; no unsourced numbers (the "15+ pages" label repeats the tier's own copy).
-- Every asset referenced is ours: the wordmark SVG, the star mark component, the tokens. Sticker shapes are redrawn, not the 13–46 KB font-embedding SVGs in `public/stickers/`.
+- Static HTML is the finished picture: no JS, no hidden state, no motion. `<details>` is native.
+- One heading on the board, the page's h2; the page keeps h1 → h2 → h3.
+- SCS Display appears only as a type specimen inside tiles.
+- No em dashes; every number on the board repeats a tier's own copy.
+- Every asset referenced is ours.
 
 ## Verification
 
-- `npm run build`; route count still 48; em-dash grep returns the one known hit; `__SCS_LANDING_PATHNAME__` in the entry chunk.
-- Headless shots of `/pricing/design-branding` at 1440 and 390: every tile visible, band width equals card width, no horizontal page scroll at 390.
-- `python3 scripts/ai-writing-scan.py` unchanged on the zero counters.
+- `npm run build`; 48 routes; the em-dash gate returns the one known hit; `__SCS_LANDING_PATHNAME__` in the entry chunk.
+- Shots of `/pricing/design-branding` at 1440 and 390: 12 rows, 3 `<details>`, one `.rp` quote; no horizontal scroll at 390.
+- `/pricing/web-development` still renders its quote inside each card (the RotatingProof extraction changed no pixels).
+- `python3 scripts/ai-writing-scan.py`: site zeros hold.
 
 ## Out of scope
 
-Spreads for Web Development, AI & Automation, SEO & AI Search: same component, their own tile art, a later pass once the pilot is approved live.
+Boards for Web Development, AI & Automation, SEO & AI Search: same component, their own tile art and `TIERS`, a later pass once this one is approved live.

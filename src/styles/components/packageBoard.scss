@@ -1,0 +1,332 @@
+@import '../_variables.scss';
+
+// Package board (PackageBoard.js, 2026-09-26): one cream brand-book sheet
+// per pricing page. A real table: first column = deliverable (thumbnail +
+// name), one column per package. The "best value" package's column is
+// tinted lavender top to bottom (every cell carries .is-best, because a
+// column background can't be set on <col> with borders in play).
+.pb {
+  max-width: 1100px;
+  margin: clamp(24px, 4vw, 48px) auto 0;
+  padding: clamp(1rem, 2.5vw, 2.5rem);
+  background-color: $white-color;
+  background-image: $grain-url;
+  color: $promo-ink;
+  font-family: $font-text;
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  // The board's title is the page's h2, styled as the sheet's small label
+  // (styling rides on the class, never the tag).
+  &__caption {
+    margin: 0 0 1.25rem;
+    font-family: $font-text;
+    font-size: 0.7rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: $promo-ink;
+  }
+
+  // ── Column heads ──
+  thead th,
+  thead td {
+    vertical-align: bottom;
+    padding: 0.75rem 0.75rem 1rem;
+    border-bottom: 2px solid $promo-ink;
+  }
+
+  &__corner {
+    width: 34%;
+  }
+
+  &__head {
+    text-align: left;
+    font-weight: 400;
+  }
+
+  &__badge {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: $g6;
+    color: $promo-ink;
+    padding: 0.28rem 0.55rem;
+    border-radius: 999px;
+    margin-bottom: 0.55rem;
+  }
+
+  &__name {
+    display: block;
+    font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  &__price {
+    display: block;
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    margin-top: 0.45rem;
+  }
+
+  &__price-note {
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-left: 0.45rem;
+    opacity: 0.6;
+  }
+
+  &__for {
+    display: block;
+    font-size: 0.78rem;
+    line-height: 1.35;
+    opacity: 0.7;
+    margin-top: 0.4rem;
+  }
+
+  // ── Groups and rows ──
+  &__group-row th {
+    text-align: left;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    padding: 1.2rem 0 0.35rem;
+  }
+
+  &__row th,
+  &__row td {
+    border-top: 1px solid rgba($promo-ink, 0.14);
+    padding: 0.55rem 0.75rem;
+    vertical-align: middle;
+  }
+
+  &__item {
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1.3;
+    padding-left: 0 !important;
+  }
+
+  &__item-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  &__thumb {
+    flex: 0 0 auto;
+    width: 72px;
+    aspect-ratio: 4 / 3;
+    background: $white-color;
+    border: 1.5px solid $promo-ink;
+    box-shadow: 3px 3px 0 $promo-ink;
+    overflow: hidden;
+
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__cell {
+    text-align: center;
+  }
+
+  &__dot {
+    display: inline-block;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background: $promo-terra;
+    vertical-align: middle;
+  }
+
+  &__note {
+    display: block;
+    font-size: 0.72rem;
+    line-height: 1.3;
+    margin-top: 0.3rem;
+    opacity: 0.75;
+  }
+
+  &__sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .is-best {
+    background: rgba($g6, 0.16);
+  }
+
+  // ── Text rows (process, full list) ──
+  &__row--text th,
+  &__row--text td {
+    vertical-align: top;
+    font-size: 0.8rem;
+    line-height: 1.45;
+    padding: 0.9rem 0.75rem;
+  }
+
+  tfoot &__row--text:first-child th,
+  tfoot &__row--text:first-child td {
+    border-top: 2px solid $promo-ink;
+  }
+
+  &__item--text {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    padding-top: 1.05rem !important;
+  }
+
+  &__cell--text {
+    text-align: left;
+  }
+
+  &__line {
+    display: block;
+
+    & + & {
+      margin-top: 0.35rem;
+    }
+  }
+
+  &__full {
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      list-style: none;
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+
+      &::after {
+        content: ' \25BE';
+      }
+    }
+
+    &[open] summary::after {
+      content: ' \25B4';
+    }
+
+    ul {
+      margin: 0.6rem 0 0;
+      padding-left: 1rem;
+    }
+
+    li {
+      margin: 0.3rem 0;
+    }
+  }
+
+  &__foot {
+    margin: 1.1rem 0 0;
+    font-size: 0.78rem;
+    font-weight: 500;
+    opacity: 0.65;
+  }
+
+  // ── Phone: the matrix stays a matrix, everything one notch smaller ──
+  @media (max-width: 720px) {
+    padding: 1rem 0.75rem;
+
+    &__corner {
+      width: 40%;
+    }
+
+    thead th,
+    thead td {
+      padding: 0.5rem 0.3rem 0.75rem;
+    }
+
+    &__row th,
+    &__row td {
+      padding: 0.5rem 0.3rem;
+    }
+
+    &__name {
+      font-size: 0.78rem;
+    }
+
+    &__price {
+      font-size: 1.05rem;
+    }
+
+    &__price-note {
+      display: block;
+      margin: 0.2rem 0 0;
+      font-size: 0.55rem;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    &__badge {
+      font-size: 0.52rem;
+      padding: 0.2rem 0.4rem;
+    }
+
+    &__for {
+      display: none;
+    }
+
+    &__thumb {
+      width: 52px;
+    }
+
+    &__item {
+      font-size: 0.78rem;
+    }
+
+    &__item-inner {
+      gap: 0.6rem;
+    }
+
+    &__note {
+      font-size: 0.6rem;
+    }
+
+    &__row--text th,
+    &__row--text td {
+      font-size: 0.68rem;
+      padding: 0.7rem 0.3rem;
+    }
+  }
+}
+
+// Fills the brand-book tile art needs beyond the poster palette (sp-f-*).
+.tsp-f-lilac { fill: $promo-lilac; }
+.tsp-f-lav { fill: $g6; }
+.tsp-s-lav { stroke: $g6; }
+.tsp-f-blue { fill: $blue-color; }
+
+// The one quote under the board (RotatingProof), on the page's black.
+.pb-proof {
+  max-width: 1100px;
+  margin: clamp(20px, 3vw, 32px) auto 0;
+  padding: 0 clamp(1rem, 2.5vw, 2.5rem);
+}

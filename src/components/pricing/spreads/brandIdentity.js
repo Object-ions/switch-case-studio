@@ -1,8 +1,9 @@
-/* Brand Identity tier spreads (2026-09-26): what each tier buys, drawn on
-   the studio's own brand. Every tile is a 400x300 SVG in the brand-book
-   language (cream page, ink lines, the site palette). Deliverables only,
-   never process steps. Fill classes come from servicePoster.scss (sp-f-*)
-   plus the lilac/lavender/blue extras in tierSpread.scss (tsp-f-*). */
+/* Brand Identity package board art (2026-09-26): what each tier buys, drawn
+   on the studio's own brand. Every tile is a 400x300 SVG in the brand-book
+   language (cream page, ink lines, the site palette), shown as a row
+   thumbnail on the board (PackageBoard.js). Deliverables only, never
+   process steps. Fill classes come from servicePoster.scss (sp-f-*) plus
+   the lilac/lavender/blue extras in packageBoard.scss (tsp-f-*). */
 const SANS = "Inter, 'Inter Fallback', sans-serif";
 const DISPLAY = "'SCS Display', 'SCS Display Fallback', sans-serif";
 const WORDMARK = "/brand/switch-case-studio-logo-square-lilac.svg";
@@ -270,35 +271,6 @@ const PatternsArt = () => (
     </g>
   </>
 );
-const GuidelinesArt = () => (
-  <>
-    {[14, 9, 4, -1, -6].map((deg, i) => (
-      <rect
-        key={deg}
-        x="120"
-        y="44"
-        width="160"
-        height="212"
-        className="sp-f-cream"
-        stroke="#141414"
-        strokeWidth="3"
-        transform={`rotate(${deg} 200 260) translate(${i * 4} 0)`}
-      />
-    ))}
-    <g transform="rotate(-11 200 260)">
-      <rect x="120" y="44" width="160" height="212" className="sp-f-ink" />
-      <text x="136" y="92" fontFamily={SANS} fontSize="19" fontWeight="700" className="sp-f-cream">
-        Brand
-      </text>
-      <text x="136" y="116" fontFamily={SANS} fontSize="19" fontWeight="700" className="sp-f-cream">
-        guidelines
-      </text>
-      <Lines x={136} y={140} widths={[110, 80, 96, 60]} h={6} gap={14} className="sp-f-cream" opacity="0.45" />
-      <Mark x={230} y={222} r={26} />
-    </g>
-    <Chip x={276} y={236} w={94} label="15+ pages" />
-  </>
-);
 const DeckArt = () => (
   <>
     <rect x="66" y="52" width="320" height="180" rx="6" className="tsp-f-lilac" stroke="#141414" strokeWidth="3" />
@@ -332,25 +304,46 @@ const HomeArt = () => (
 );
 
 export const TILES = {
-  logo: { label: "Logo, every file format", Art: LogoArt },
+  logo: { label: "Logo files", Art: LogoArt },
   palette: { label: "Colour palette", Art: PaletteArt },
-  type: { label: "Type pairing", Art: TypeArt },
+  type: { label: "Type", Art: TypeArt },
   sheet: { label: "1-page brand sheet", Art: SheetArt },
   mood: { label: "Mood board", Art: MoodArt },
   social: { label: "Social templates", Art: SocialArt },
   card: { label: "Business card", Art: CardArt },
-  guide: { label: "Brand guide, PDF", Art: GuideArt },
+  guide: { label: "Brand guide", Art: GuideArt },
   system: { label: "Logo system", Art: SystemArt },
   patterns: { label: "Design patterns", Art: PatternsArt },
-  guidelines: { label: "Guidelines, 15+ pages", Art: GuidelinesArt },
   deck: { label: "Presentation template", Art: DeckArt },
   home: { label: "Homepage direction", Art: HomeArt },
 };
 
-// Per tier: `tiles` are new at this tier; `inherits` names the tier whose
-// whole spread is folded into one contact-sheet tile.
+/* Per tier (keys are the tier names in pricingData.json):
+   `tiles`     deliverables this tier introduces (one board row each);
+   `inherits`  the tier whose tiles it also carries;
+   `notes`     where the data grades a deliverable, the grade shown in the
+               cell (every note paraphrases that tier's own `includes`);
+   `for`       who it is for, in the tier description's own words;
+   `process`   how we get there, the steps that are not deliverables. */
 export const TIERS = {
-  "Logo & Style Guide": { tiles: ["logo", "palette", "type", "sheet"] },
-  "Brand Starter Kit": { inherits: "Logo & Style Guide", tiles: ["mood", "social", "card", "guide"] },
-  "Brand System & Launch": { inherits: "Brand Starter Kit", tiles: ["system", "patterns", "guidelines", "deck", "home"] },
+  "Logo & Style Guide": {
+    for: "Solo entrepreneurs and micro-businesses",
+    tiles: ["logo", "palette", "type", "sheet"],
+    notes: { logo: "AI, SVG, PNG, JPG", palette: "Basic", type: "Pairing" },
+    process: ["Discovery call and creative brief", "2–3 logo concepts, 1 round of refinements"],
+  },
+  "Brand Starter Kit": {
+    inherits: "Logo & Style Guide",
+    for: "Small businesses defining their voice",
+    tiles: ["mood", "social", "card", "guide"],
+    notes: { palette: "Expanded", type: "Type system", social: "5–7 posts and stories", guide: "Basic, PDF" },
+    process: ["Brand questionnaire and strategy mini-workshop", "Logo design, multiple directions", "Naming and tagline support, optional"],
+  },
+  "Brand System & Launch": {
+    inherits: "Brand Starter Kit",
+    for: "Growing or rebranding businesses",
+    tiles: ["system", "patterns", "deck", "home"],
+    notes: { palette: "Custom", type: "Type system", social: "Plus marketing collateral", guide: "15+ pages" },
+    process: ["In-depth discovery and positioning workshop", "Competitive and visual audit"],
+  },
 };

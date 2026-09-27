@@ -19,11 +19,6 @@
     border-color: rgba($g6, 0.45);
   }
 
-  // The tier spread band sits above the two columns, flush to the panel.
-  &__spread {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
   &__inner {
     display: flex;
     flex-direction: column;
@@ -235,86 +230,5 @@
     }
   }
 
-  // ── Proof (rotating testimonial) ──
-  &__proof {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    padding-top: 1.5rem;
-  }
-
-  &__proof-stage {
-    position: relative;
-    min-height: 116px;
-  }
-
-  &__quote {
-    position: absolute;
-    inset: 0;
-    margin: 0;
-  }
-
-  &__quote-head {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-bottom: 0.7rem;
-  }
-
-  &__quote-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    flex-shrink: 0;
-    filter: grayscale(1); // one voice with the crew photos on About
-  }
-
-  &__quote-meta {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.2;
-  }
-
-  &__quote-name {
-    font-family: $font-text;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: #fff;
-  }
-
-  &__quote-role {
-    font-size: 0.7rem;
-    color: rgba(255, 255, 255, 0.5);
-  }
-
-  &__quote-text {
-    margin: 0;
-    font-family: $font-text;
-    font-size: 0.875rem;
-    font-style: italic;
-    line-height: 1.55;
-    color: rgba(255, 255, 255, 0.75);
-  }
-
-  &__dots {
-    display: flex;
-    justify-content: center;
-    gap: 0.4rem;
-    margin-top: 1rem;
-  }
-
-  &__dot {
-    width: 6px;
-    height: 6px;
-    padding: 0;
-    border: none;
-    border-radius: 999px;
-    background: rgba($g6, 0.3);
-    cursor: pointer;
-    transition: width 0.25s ease, background-color 0.25s ease;
-
-    &.is-active {
-      width: 18px;
-      background: $g6;
-    }
-  }
+  // The rotating quote: rotatingProof.scss (RotatingProof.js), since 2026-09-26.
 }
