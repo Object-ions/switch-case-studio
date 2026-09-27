@@ -7,15 +7,14 @@ import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
 import BookCallCta from '../ui/BookCallCta';
 import '../../styles/components/projectsPage.scss';
 
-/* /projects (2026-09-27, fourth pass, owner: "it looks weird"): every
- * project is ONE poster tile, the plate itself. Corner meta (type, year),
- * the title and index line in a fixed top band so rows align, the project's
- * one measured figure (`indexMetric`, value verbatim from its `metrics[]`)
- * bottom-left, the real site bleeding off the bottom-right corner like the
- * poster art. No outer card, no numbering, no repeated group kicker: the
- * section heading carries the group. Groups from projectGroups.js (shared
- * with the home index), three across. Static HTML is complete; hover is
- * CSS. */
+/* /projects (2026-09-27, fifth pass, owner: "something is not working
+ * for me with the colors"): SITE-FIRST tiles, black, in the site's own
+ * register. The real site shot is the tile's top, full bleed; under it the
+ * type and year, the title, the index line and the project's one measured
+ * figure (`indexMetric`, value verbatim from its `metrics[]`) in lavender.
+ * The sites bring their own colour; the page adds none. Groups from
+ * projectGroups.js (shared with the home index), three across. Static HTML
+ * is complete; hover is CSS. */
 const grouped = groupProjects(projectsData);
 
 // The 600w sibling serves tiles up to ~2x of their width; the 1200w covers
@@ -55,34 +54,32 @@ const CaseStudiesPage = () => {
                   const line = [p.indexLine, p.studioProject && 'Studio project'].filter(Boolean).join(' · ');
                   return (
                     <Link key={p.slug} to={`/projects/${p.slug}`} className="pt__card">
-                      {/* Poster corner meta: type left, year right. */}
-                      <span className="pt__meta">
-                        <span className="pt__meta-type">{p.type}</span>
-                        {p.year && <span className="pt__meta-year">{p.year}</span>}
-                      </span>
-                      <span className="pt__top">
-                        <span className="pt__title">{p.title}</span>
-                        {line && <span className="pt__line">{line}</span>}
-                      </span>
-                      {p.indexMetric && (
-                        <span className="pt__figure">
-                          <span className="pt__value">{p.indexMetric.value}</span>
-                          <span className="pt__label">{p.indexMetric.label}</span>
-                        </span>
-                      )}
-                      {/* The site, bleeding off the bottom-right corner like
-                          the poster art, never boxed. */}
+                      {/* The site itself is the tile's top two-thirds. */}
                       <img
                         className="pt__shot"
                         src={small(src)}
                         srcSet={`${small(src)} 600w, ${src} 1200w`}
-                        sizes="(max-width: 640px) 70vw, (max-width: 1024px) 34vw, 24vw"
+                        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 44vw, 30vw"
                         alt=""
                         loading="lazy"
                         decoding="async"
                         width="600"
                         height="375"
                       />
+                      <span className="pt__body">
+                        <span className="pt__meta">
+                          <span className="pt__meta-type">{p.type}</span>
+                          {p.year && <span className="pt__meta-year">{p.year}</span>}
+                        </span>
+                        <span className="pt__title">{p.title}</span>
+                        {line && <span className="pt__line">{line}</span>}
+                        {p.indexMetric && (
+                          <span className="pt__figure">
+                            <span className="pt__value">{p.indexMetric.value}</span>
+                            <span className="pt__label">{p.indexMetric.label}</span>
+                          </span>
+                        )}
+                      </span>
                     </Link>
                   );
                 })}
