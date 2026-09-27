@@ -346,6 +346,59 @@
   }
 }
 
+// Two boards on one page (Web Development: builds, then care plans).
+.pb + .pb {
+  margin-top: clamp(24px, 4vw, 48px);
+}
+
+// Four packages across: a narrower label column, and one notch smaller
+// still on phones so the matrix stays a matrix at 390.
+.pb--wide {
+  .pb__corner {
+    width: 28%;
+  }
+
+  // Four heads across leave no room beside the price for "one-time".
+  .pb__price-note {
+    display: block;
+    margin: 0.25rem 0 0;
+  }
+
+  @media (max-width: 720px) {
+    .pb__corner {
+      width: 30%;
+    }
+
+    .pb__thumb {
+      width: 42px;
+    }
+
+    .pb__item {
+      font-size: 0.7rem;
+    }
+
+    .pb__name {
+      font-size: 0.66rem;
+    }
+
+    .pb__price {
+      font-size: 0.85rem;
+    }
+
+    .pb__note {
+      font-size: 0.55rem;
+    }
+
+    thead th,
+    thead td,
+    .pb__row th,
+    .pb__row td {
+      padding-left: 0.2rem;
+      padding-right: 0.2rem;
+    }
+  }
+}
+
 // Fills the brand-book tile art needs beyond the poster palette (sp-f-*).
 .tsp-f-lilac { fill: $promo-lilac; }
 .tsp-f-lav { fill: $g6; }

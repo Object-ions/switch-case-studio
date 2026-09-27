@@ -4,59 +4,7 @@
    thumbnail on the board (PackageBoard.js). Deliverables only, never
    process steps. Fill classes come from servicePoster.scss (sp-f-*) plus
    the lilac/lavender/blue extras in packageBoard.scss (tsp-f-*). */
-const SANS = "Inter, 'Inter Fallback', sans-serif";
-const DISPLAY = "'SCS Display', 'SCS Display Fallback', sans-serif";
-const WORDMARK = "/brand/switch-case-studio-logo-square-lilac.svg";
-
-const Wordmark = (p) => <image href={WORDMARK} preserveAspectRatio="xMidYMid meet" {...p} />;
-
-// 8-point star (the sticker burst), centred on 0,0.
-const starPoints = (outer, inner, n = 8) => {
-  const pts = [];
-  for (let i = 0; i < n * 2; i++) {
-    const r = i % 2 ? inner : outer;
-    const a = (Math.PI * i) / n - Math.PI / 2;
-    pts.push(`${(r * Math.cos(a)).toFixed(1)},${(r * Math.sin(a)).toFixed(1)}`);
-  }
-  return pts.join(" ");
-};
-const Burst = ({ x, y, r, className, children }) => (
-  <g transform={`translate(${x} ${y})`}>
-    <polygon points={starPoints(r, r * 0.62)} className={className} />
-    {children}
-  </g>
-);
-// The star mark, simplified: lilac burst, terra spark, cream "switch case".
-const Mark = ({ x, y, r }) => (
-  <Burst x={x} y={y} r={r} className="tsp-f-lilac">
-    <polygon points={starPoints(r * 0.14, r * 0.06, 4)} className="sp-f-terra" transform={`translate(${r * 0.5} ${r * 0.08})`} />
-    <text x={-r * 0.08} y={-r * 0.06} textAnchor="middle" fontFamily={SANS} fontSize={r * 0.2} fontWeight="800" className="sp-f-cream">
-      SWITCH
-    </text>
-    <text x={-r * 0.08} y={r * 0.3} textAnchor="middle" fontFamily={SANS} fontSize={r * 0.2} fontWeight="800" className="sp-f-cream">
-      CASE
-    </text>
-  </Burst>
-);
-// Ruled grid on ink, the site's own background.
-const gridPath = (x, y, w, h, step) => {
-  let d = "";
-  for (let i = x + step; i < x + w; i += step) d += `M${i} ${y}V${y + h}`;
-  for (let j = y + step; j < y + h; j += step) d += `M${x} ${j}H${x + w}`;
-  return d;
-};
-const Chip = ({ x, y, w, label }) => (
-  <g transform={`translate(${x} ${y})`}>
-    <rect width={w} height="34" rx="17" className="sp-f-ink" />
-    <text x={w / 2} y="23" textAnchor="middle" fontFamily={SANS} fontSize="17" fontWeight="700" className="sp-f-cream">
-      {label}
-    </text>
-  </g>
-);
-const Lines = ({ x, y, widths, gap = 16, h = 8, className = "sp-f-ink", opacity }) =>
-  widths.map((w, i) => (
-    <rect key={i} x={x} y={y + i * gap} width={w} height={h} rx={h / 2} className={className} fillOpacity={opacity} />
-  ));
+import { SANS, DISPLAY, Wordmark, Burst, Mark, gridPath, Chip, Lines } from "./artKit";
 
 export const SWATCHES = [
   { name: "Cream", hex: "#fef7ed", cls: "sp-f-cream", stroke: true },
@@ -305,7 +253,7 @@ const HomeArt = () => (
 
 export const TILES = {
   logo: { label: "Logo files", Art: LogoArt },
-  palette: { label: "Colour palette", Art: PaletteArt },
+  palette: { label: "Color palette", Art: PaletteArt },
   type: { label: "Type", Art: TypeArt },
   sheet: { label: "1-page brand sheet", Art: SheetArt },
   mood: { label: "Mood board", Art: MoodArt },
@@ -350,3 +298,26 @@ export const TIERS = {
     example: { slug: "my-challah-dealer", label: "My Challah Dealer" },
   },
 };
+
+/* Board sections (PackageBoard.js): rows derived from the tiles and the
+   inherits chain above, so this module keeps its authoring as "what each
+   tier adds". A cell is the tier's note for that tile, or true. */
+const NAMES = Object.keys(TIERS);
+const tilesOf = (name) => [...(TIERS[name].inherits ? tilesOf(TIERS[name].inherits) : []), ...TIERS[name].tiles];
+export const SECTIONS = [
+  {
+    id: "packages",
+    title: "What's in each package",
+    unit: "package",
+    tiers: NAMES,
+    rows: NAMES.flatMap((name) => TIERS[name].tiles).map((id) => ({
+      id,
+      label: TILES[id].label,
+      Art: TILES[id].Art,
+      cells: Object.fromEntries(
+        NAMES.filter((n) => tilesOf(n).includes(id)).map((n) => [n, (TIERS[n].notes && TIERS[n].notes[id]) || true]),
+      ),
+    })),
+  },
+];
+export const NOTE = "Shown on our own brand. Yours is built from scratch.";

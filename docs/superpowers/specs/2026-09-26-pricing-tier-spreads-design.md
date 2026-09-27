@@ -54,6 +54,10 @@ Tile art: `src/components/pricing/spreads/brandIdentity.js`, 400×300 SVGs in th
 - `/pricing/web-development` still renders its quote inside each card (the RotatingProof extraction changed no pixels).
 - `python3 scripts/ai-writing-scan.py`: site zeros hold.
 
+## Web Development (same day)
+
+Two boards on one page: "What's in each build" (Landing Page, Simple Website, Business Bundle, Growth Suite) and "Keep it running" (Starter Care, Growth Care, VPS & Self-Hosted, monthly). A service module now exports `SECTIONS` with explicit per-tier `cells`; `PackageBoard` derives the row groups from the first tier that has a row. Brand Identity's module builds its `SECTIONS` from its tiles + inherits chain, so its authoring did not change. Data gaps the board exposed (a higher tier not listing what a cheaper one has) were fixed in `pricingData.json` with the owner's OK rather than painted over.
+
 ## Out of scope
 
-Boards for Web Development, AI & Automation, SEO & AI Search: same component, their own tile art and `TIERS`, a later pass once this one is approved live.
+Boards for AI & Automation and SEO & AI Search: same component, their own tile art and `SECTIONS`, a later pass.
