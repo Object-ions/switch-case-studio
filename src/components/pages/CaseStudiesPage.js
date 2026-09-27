@@ -21,6 +21,25 @@ const grouped = groupProjects(projectsData);
 // wide single-column phones.
 const small = (src) => src.replace(/\.webp$/, '-600.webp');
 
+// First sentence of the case-study description, for the feature tile.
+const firstSentence = (text = '') => {
+  const m = text.match(/^.*?[.!?](?=\s|$)/);
+  return (m ? m[0] : text).trim();
+};
+
+/* Grid roles inside a group (12 columns): the newest project is the
+ * feature (8 wide, 2 rows), the next two stack beside it, the rest run in
+ * thirds; a leftover pair goes half and half, a single leftover half. */
+const role = (i, n) => {
+  if (i === 0) return ' pt__card--feature';
+  if (i < 3) return '';
+  const rest = n - 3;
+  const ri = i - 3;
+  const rem = rest % 3;
+  if ((rem === 2 && ri >= rest - 2) || (rem === 1 && ri === rest - 1)) return ' pt__card--half';
+  return '';
+};
+
 const CaseStudiesPage = () => {
   const rootRef = useRef(null);
   /* One call per page (module-level latches): head and groups in one
@@ -49,17 +68,18 @@ const CaseStudiesPage = () => {
             <section className={`pt__group pt__group--${g.color}`} key={g.heading} aria-label={g.heading}>
               <h2 className="pt__heading">{g.heading}</h2>
               <div className="pt__grid">
-                {g.projects.map((p) => {
+                {g.projects.map((p, i) => {
                   const src = p.preview || p.imageSrc;
                   const line = [p.indexLine, p.studioProject && 'Studio project'].filter(Boolean).join(' · ');
+                  const feature = i === 0;
                   return (
-                    <Link key={p.slug} to={`/projects/${p.slug}`} className="pt__card">
+                    <Link key={p.slug} to={`/projects/${p.slug}`} className={`pt__card${role(i, g.projects.length)}`}>
                       {/* The site itself is the tile's top two-thirds. */}
                       <img
                         className="pt__shot"
                         src={small(src)}
                         srcSet={`${small(src)} 600w, ${src} 1200w`}
-                        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 44vw, 30vw"
+                        sizes={feature ? '(max-width: 1024px) 90vw, 62vw' : '(max-width: 640px) 90vw, (max-width: 1024px) 44vw, 30vw'}
                         alt=""
                         loading="lazy"
                         decoding="async"
@@ -73,6 +93,9 @@ const CaseStudiesPage = () => {
                         </span>
                         <span className="pt__title">{p.title}</span>
                         {line && <span className="pt__line">{line}</span>}
+                        {feature && p.description && (
+                          <span className="pt__blurb">{firstSentence(p.description)}</span>
+                        )}
                         {p.indexMetric && (
                           <span className="pt__figure">
                             <span className="pt__value">{p.indexMetric.value}</span>

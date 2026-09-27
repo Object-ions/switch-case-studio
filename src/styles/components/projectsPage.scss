@@ -120,13 +120,78 @@
     color: rgba(255, 255, 255, 0.6);
   }
 
+  // 12 columns: a tile spans 4 (thirds); the group's feature spans 8 and
+  // two rows, so the next two tiles stack beside it; a leftover pair or
+  // single spans 6. Two across on tablets, one on phones, every tile the
+  // same shape there.
   &__grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(12, minmax(0, 1fr));
     gap: 1.5rem;
 
-    @media (max-width: 1024px) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    @media (max-width: 640px) { grid-template-columns: minmax(0, 1fr); }
+    @media (max-width: 768px) { gap: 1.25rem; }
+  }
+
+  &__card {
+    grid-column: span 4;
+
+    &--half {
+      grid-column: span 6;
+    }
+
+    &--feature {
+      grid-column: span 8;
+      grid-row: span 2;
+    }
+
+    @media (max-width: 1024px) {
+      grid-column: span 6;
+
+      &--feature {
+        grid-column: span 12;
+        grid-row: auto;
+      }
+    }
+
+    @media (max-width: 640px) {
+      grid-column: span 12;
+
+      &--feature { grid-column: span 12; }
+    }
+  }
+
+  // The feature: the shot fills whatever height the stacked pair sets
+  // (about 4:3 on desktop), a bigger title and a one-sentence blurb.
+  &__card--feature {
+    @media (min-width: 1025px) {
+      .pt__shot {
+        flex: 1 1 auto;
+        min-height: 0;
+        height: auto;
+        aspect-ratio: auto;
+      }
+    }
+
+    .pt__title {
+      font-size: clamp(1.4rem, 2vw, 1.9rem);
+    }
+
+    .pt__body {
+      padding: 1.25rem 1.5rem 1.5rem;
+    }
+  }
+
+  &__blurb {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-top: 0.7rem;
+    max-width: 60ch;
+    font-size: 0.92rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.72);
   }
 
   &__card {
