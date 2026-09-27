@@ -58,6 +58,10 @@ Tile art: `src/components/pricing/spreads/brandIdentity.js`, 400×300 SVGs in th
 
 Two boards on one page: "What's in each build" (Landing Page, Simple Website, Business Bundle, Growth Suite) and "Keep it running" (Starter Care, Growth Care, VPS & Self-Hosted, monthly). A service module now exports `SECTIONS` with explicit per-tier `cells`; `PackageBoard` derives the row groups from the first tier that has a row. Brand Identity's module builds its `SECTIONS` from its tiles + inherits chain, so its authoring did not change. Data gaps the board exposed (a higher tier not listing what a cheaper one has) were fixed in `pricingData.json` with the owner's OK rather than painted over.
 
+## AI & Automation (same day)
+
+Two boards: "What's in each project" (three one-time tiers) and "Month to month" (two plans). The tiers are alternatives, not steps, so the group labels gained "Only in <tier>" (one tier) and a named mix; rows describe what each tier is. "Seen in": Custom AI Agent → Scout, Automation Retainer → My Challah Dealer.
+
 ## Out of scope
 
-Boards for AI & Automation and SEO & AI Search: same component, their own tile art and `SECTIONS`, a later pass.
+A board for SEO & AI Search: same component, its own tile art and `SECTIONS`, a later pass.

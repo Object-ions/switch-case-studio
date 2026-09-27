@@ -40,7 +40,7 @@ const SeoArt = () => (
     <Lines x={40} y={200} widths={[320, 260]} gap={34} h={18} opacity="0.18" />
   </>
 );
-const HostingArt = () => (
+export const HostingArt = () => (
   <>
     {[0, 1, 2].map((i) => (
       <g key={i} transform={`translate(70 ${64 + i * 62})`}>
@@ -66,7 +66,7 @@ const CmsArt = () => (
     </text>
   </>
 );
-const FormsArt = () => (
+export const FormsArt = () => (
   <>
     {[0, 1, 2].map((i) => (
       <g key={i} transform={`translate(60 ${52 + i * 60})`}>
@@ -112,7 +112,7 @@ const AiArt = () => (
     <Spark x={84} y={222} r={12} className="sp-f-mint" />
   </>
 );
-const SupportArt = () => (
+export const SupportArt = () => (
   <>
     <circle cx="200" cy="150" r="96" className="sp-f-mint" />
     <path d="M150 200L232 118M232 118L214 100A34 34 0 0 1 264 88L246 106L258 118L276 100A34 34 0 0 1 250 136L232 118" {...stroke} strokeWidth="9" />
@@ -151,7 +151,7 @@ const GalleryArt = () => (
     })}
   </>
 );
-const AnalyticsArt = () => (
+export const AnalyticsArt = () => (
   <>
     <rect x="30" y="40" width="340" height="220" rx="10" className="sp-f-cream" stroke="#141414" strokeWidth="3" />
     {[70, 110, 90, 150, 130, 190].map((h, i) => (
@@ -194,7 +194,7 @@ const BackupsArt = () => (
     <path d="M300 170V202L322 216" {...stroke} strokeWidth="7" />
   </>
 );
-const MonitoringArt = () => (
+export const MonitoringArt = () => (
   <>
     <rect x="30" y="50" width="340" height="200" rx="10" className="sp-f-ink" />
     <path d="M50 160H120L150 90L190 220L230 130L260 160H350" fill="none" className="sp-s-mint" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
@@ -219,7 +219,7 @@ const EditsArt = () => (
     </g>
   </>
 );
-const ReportsArt = () => (
+export const ReportsArt = () => (
   <>
     <Sheet x={100} y={40} w={200} h={220} lines={[120, 90]} />
     {[60, 100, 80, 130].map((h, i) => (
@@ -227,7 +227,7 @@ const ReportsArt = () => (
     ))}
   </>
 );
-const AppsArt = () => (
+export const AppsArt = () => (
   <>
     <path d="M110 150H190M210 150H290M200 140V90M200 160V210" {...stroke} strokeWidth="6" strokeOpacity="0.4" />
     <rect x="50" y="120" width="60" height="60" rx="14" className="sp-f-terra" />

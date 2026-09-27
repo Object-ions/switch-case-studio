@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import * as brandIdentity from "./spreads/brandIdentity";
 import * as webDevelopment from "./spreads/webDevelopment";
+import * as aiAutomation from "./spreads/aiAutomation";
 import "../../styles/components/servicePoster.scss";
 import "../../styles/components/packageBoard.scss";
 
@@ -26,6 +27,7 @@ import "../../styles/components/packageBoard.scss";
 const BOARDS = {
   "design-branding": brandIdentity,
   "web-development": webDevelopment,
+  "ai-development": aiAutomation,
 };
 
 export const hasPackageBoard = (serviceId) => Boolean(BOARDS[serviceId]);
@@ -33,22 +35,28 @@ export const hasPackageBoard = (serviceId) => Boolean(BOARDS[serviceId]);
 // Package anchor: "Brand Starter Kit" -> "brand-starter-kit".
 const slug = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
-/* Rows fall into groups by the first tier that has them: a row every tier
-   has reads "In every <unit>", the rest "From <tier>". A stable sort keeps
+/* Rows fall into groups by the tiers that have them: every tier reads
+   "In every <unit>"; a tier and everything above it "From <tier>"; one tier
+   alone "Only in <tier>"; any other mix names the tiers. A stable sort keeps
    the author's order inside a group; a row no tier lists is dropped. */
 function groupRows({ tiers, rows, unit }) {
   const keyed = rows
-    .map((row, i) => ({
-      row,
-      i,
-      first: tiers.findIndex((t) => row.cells[t]),
-      all: tiers.every((t) => row.cells[t]),
-    }))
+    .map((row, i) => {
+      const has = tiers.map((t) => Boolean(row.cells[t]));
+      const first = has.indexOf(true);
+      const count = has.filter(Boolean).length;
+      const suffix = count === tiers.length - first;
+      return { row, i, first, all: count === tiers.length, suffix, has };
+    })
     .filter((k) => k.first !== -1)
     .sort((a, b) => a.first - b.first || Number(b.all) - Number(a.all) || a.i - b.i);
   const groups = [];
   keyed.forEach((k) => {
-    const label = k.all ? `In every ${unit}` : `From ${tiers[k.first]}`;
+    let label;
+    if (k.all) label = `In every ${unit}`;
+    else if (k.suffix) label = `From ${tiers[k.first]}`;
+    else if (k.has.filter(Boolean).length === 1) label = `Only in ${tiers[k.first]}`;
+    else label = tiers.filter((t, i) => k.has[i]).join(" and ");
     const last = groups[groups.length - 1];
     if (last && last.label === label) last.rows.push(k.row);
     else groups.push({ label, rows: [k.row] });
