@@ -2064,3 +2064,10 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - `CaseStudyIndex.js` GROUPS: `WordPress Theme` → Products + experiments (it had fallen into a lone "More work" column). Prodani Miami `type` E-Commerce → Rebuild + SEO (owner request).
 - Checks: build green, 48 HTML files, meta description clean, AI-writing scan no hits on the page, em-dash gate only the known regex, entry-chunk marker present, no overflow at 1440/390.
 
+
+## SERVICE POSTERS + PRICING TIER SPREADS — 2026-09-26
+
+- On `main` (7a5661c, deployed): Poster 02 is now "Built to convert." (landing page rebuilds, CTA click, Booked toast) and Poster 03 a workflow graph (trigger → AI → three outcomes, packets always in flight); the home pan's end card carries all four posters as a CSS-only contact sheet (`EndDeck`, Services.js).
+- On `feat/pricing-tier-spreads`: every Brand Identity tier card opens with a "What you walk away with" band (`src/components/pricing/TierSpread.js`, art in `spreads/brandIdentity.js`, styles `tierSpread.scss`; `SinglePricingCard` takes a `spread` prop). Deliverable tiles on the studio's own brand; the higher tiers fold the lower one into a contact-sheet tile; caption "Shown on our own brand. Yours is built from scratch." Spec: `docs/superpowers/specs/2026-09-26-pricing-tier-spreads-design.md`.
+- Checks: build green, 48 HTML files, em-dash gate only the known regex, entry-chunk marker present, site AI-writing zeros hold, no horizontal scroll at 390, tiles 241/189/155 px wide per tier at 1440.
+- Open: `/pricing` overview posters render 258×100 (thin strips); `about.html` reports one h1→h3 skip in the scan (pre-existing, not touched here). Other three services still have no spread.

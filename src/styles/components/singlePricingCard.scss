@@ -19,6 +19,11 @@
     border-color: rgba($g6, 0.45);
   }
 
+  // The tier spread band sits above the two columns, flush to the panel.
+  &__spread {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
   &__inner {
     display: flex;
     flex-direction: column;

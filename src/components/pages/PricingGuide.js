@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import pricingData from '../../data/pricingData.json';
 import testimonialsData from '../../data/testimonials.json';
 import SinglePricingCard from '../ui/SinglePricingCard';
+import TierSpread, { hasTierSpread } from '../pricing/TierSpread';
 import BookCallCta from '../ui/BookCallCta';
 import { BOOK_CALL_URL, BOOK_CALL_LABEL } from '../../data/cta';
 import useReducedMotion from '../../hooks/useReducedMotion';
@@ -178,6 +179,11 @@ export const PricingGuide = ({ serviceId }) => {
                   secondaryButton={{ text: 'See our work', href: '/projects' }}
                   testimonials={TESTIMONIALS}
                   rotationSpeed={5000 + idx * 600}
+                  spread={
+                    hasTierSpread(serviceId, tier.name) ? (
+                      <TierSpread serviceId={serviceId} tierName={tier.name} />
+                    ) : null
+                  }
                 />
               </div>
             ))}
