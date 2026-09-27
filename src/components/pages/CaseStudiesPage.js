@@ -1,66 +1,32 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
 import Seo from '../util/Seo';
 import projectsData from '../../data/projects.json';
 import { groupProjects } from '../../data/projectGroups';
 import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
-import useReducedMotion from '../../hooks/useReducedMotion';
 import BookCallCta from '../ui/BookCallCta';
-import { DUR_MED, EASE_OUT } from '../../animation/motionTokens';
-import { starPoints } from '../pricing/spreads/artKit';
 import '../../styles/components/projectsPage.scss';
 
-/* /projects (redesign 2026-09-27, owner: "re-design and update"): the home
- * case-study index grown into a page. Left, every project in the same typed
- * groups as the home (src/data/projectGroups.js), numbered, each with ONE
- * measured figure (`indexMetric`: its value is one of the case study's own
- * `metrics[]` values, verbatim; the label is shortened) and its index line.
- * Right, a sticky stage showing the real site of the hovered or focused
- * project, a link to that case study; on phones the stage folds into a
- * thumbnail on each row. No badges, tags or card chrome: the list is the
- * page. Static HTML is complete; the crossfade is CSS. */
+/* /projects (2026-09-27, third pass, owner: "let's try something else"):
+ * every project is a POSTER TILE, in the service posters' frame. The card
+ * carries the group as its kicker, the title and the index line; the
+ * square plate below wears the group's colour and the poster grain, corner
+ * meta (number, type), the real site shot on a cream mount, and the
+ * project's one measured figure (`indexMetric`, value verbatim from its
+ * `metrics[]`) as the poster headline. A project with no figure headlines
+ * its type. Groups stay as sections (projectGroups.js, shared with the home
+ * index), three tiles across. Static HTML is complete; hover is CSS. */
 const grouped = groupProjects(projectsData);
-// The stage opens on the first row as RENDERED (the top of the first group),
-// so the highlighted entry is on screen with its preview; the home index
-// opens on the newest project instead, because its columns sit side by side.
-const first = grouped[0]?.projects[0] || projectsData[0];
-// Each project's group colour, for the stage plate (owner, 2026-09-27:
-// "a little depressing, not as fun as the rest of the website").
-const colorOf = Object.fromEntries(grouped.flatMap((g) => g.projects.map((p) => [p.slug, g.color])));
 
-const meta = (p) =>
-  [p.indexLine, p.year, p.studioProject && 'Studio project'].filter(Boolean).join(' · ');
-
-// The 600w sibling serves the phone thumbnail; the stage takes the 1200w.
+// The 600w sibling serves tiles up to ~2x of their width; the 1200w covers
+// wide single-column phones.
 const small = (src) => src.replace(/\.webp$/, '-600.webp');
 
 const CaseStudiesPage = () => {
-  const [active, setActive] = useState(first?.slug);
   const rootRef = useRef(null);
-  const reduced = useReducedMotion();
-  /* One call per page (module-level latches). The selector covers the
-   * head, the groups and the stage, so a client navigation reveals the
-   * whole page in one stagger; a direct load keeps the static HTML as is. */
-  usePageHeaderReveal(rootRef, '.page-head-animate, .pi__group, .pi__stage');
-  const current = projectsData.find((p) => p.slug === active) || first;
-
-  /* Preview swap: the incoming image settles from 98% while the CSS
-     crossfade runs (same as the home index). Scale is GSAP's, opacity is
-     the stylesheet's. */
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root || reduced) return undefined;
-    const img = root.querySelector('.pi__preview.is-active');
-    if (!img) return undefined;
-    const tween = gsap.fromTo(
-      img,
-      { scale: 0.98 },
-      { scale: 1, duration: DUR_MED, ease: EASE_OUT, overwrite: 'auto' },
-    );
-    return () => tween.kill();
-  }, [active, reduced]);
-
+  /* One call per page (module-level latches): head and groups in one
+   * stagger on client navigation; a direct load keeps the static HTML. */
+  usePageHeaderReveal(rootRef, '.page-head-animate, .pt__group');
   let n = 0;
 
   return (
@@ -81,100 +47,49 @@ const CaseStudiesPage = () => {
           </p>
         </header>
 
-        <div className="pi">
-          <div className="pi__list">
-            {grouped.map((g) => (
-              <section className={`pi__group pi__group--${g.color}`} key={g.heading} aria-label={g.heading}>
-                <h2 className="pi__heading">{g.heading}</h2>
+        <div className="pt">
+          {grouped.map((g) => (
+            <section className={`pt__group pt__group--${g.color}`} key={g.heading} aria-label={g.heading}>
+              <h2 className="pt__heading">{g.heading}</h2>
+              <div className="pt__grid">
                 {g.projects.map((p) => {
                   n += 1;
+                  const num = String(n).padStart(2, '0');
                   const src = p.preview || p.imageSrc;
+                  const line = [p.indexLine, p.studioProject && 'Studio project'].filter(Boolean).join(' · ');
                   return (
-                    <Link
-                      key={p.slug}
-                      to={`/projects/${p.slug}`}
-                      className={`pi__entry${p.slug === active ? ' is-active' : ''}`}
-                      onMouseEnter={() => setActive(p.slug)}
-                      onFocus={() => setActive(p.slug)}
-                    >
-                      <span className="pi__num" aria-hidden="true">
-                        {String(n).padStart(2, '0')}
+                    <Link key={p.slug} to={`/projects/${p.slug}`} className="pt__card">
+                      <span className="pt__meta">
+                        <span className="pt__meta-kicker">{g.heading}</span>
+                        {p.year && <span className="pt__meta-year">{p.year}</span>}
                       </span>
-                      {/* Phone only (CSS): the preview sits on the row. A
-                          display:none image never loads, so desktop pays
-                          nothing for it. */}
-                      <img
-                        className="pi__thumb"
-                        src={small(src)}
-                        alt=""
-                        loading="lazy"
-                        decoding="async"
-                        width="600"
-                        height="375"
-                      />
-                      <span className="pi__entry-text">
-                        <span className="pi__entry-title">{p.title}</span>
-                        <span className="pi__entry-meta">{meta(p)}</span>
-                      </span>
-                      {p.indexMetric && (
-                        <span className="pi__entry-metric">
-                          <b className="pi__entry-value">{p.indexMetric.value}</b>
-                          <span className="pi__entry-label">{p.indexMetric.label}</span>
+                      <span className="pt__title">{p.title}</span>
+                      {line && <span className="pt__line">{line}</span>}
+                      <span className="pt__plate">
+                        <span className="pt__corner pt__corner--tl">{num}</span>
+                        <span className="pt__corner pt__corner--tr">{p.type}</span>
+                        <img
+                          className="pt__shot"
+                          src={small(src)}
+                          srcSet={`${small(src)} 600w, ${src} 1200w`}
+                          sizes="(max-width: 768px) 86vw, (max-width: 1024px) 40vw, 30vw"
+                          alt=""
+                          loading="lazy"
+                          decoding="async"
+                          width="600"
+                          height="375"
+                        />
+                        <span className={`pt__headline${p.indexMetric ? '' : ' pt__headline--type'}`}>
+                          {p.indexMetric ? p.indexMetric.value : p.type}
                         </span>
-                      )}
+                        {p.indexMetric && <span className="pt__label">{p.indexMetric.label}</span>}
+                      </span>
                     </Link>
                   );
                 })}
-              </section>
-            ))}
-          </div>
-
-          {/* Every preview stays in the DOM, stacked, so a hover crossfades
-              instead of waiting on a fetch (same as the home index). The
-              stage is itself a link to the shown case study; the images are
-              decorative, the caption is the link's text. */}
-          <Link
-            to={`/projects/${current.slug}`}
-            className={`pi__stage pi__stage--${colorOf[current.slug] || 'lilac'}`}
-            tabIndex={-1}
-          >
-            {/* The plate takes the group's colour; on it, a tilted Polaroid
-                print of the site, a sticker with the project type and a
-                year burst, the About crew table's vocabulary. */}
-            <span className="pi__plate">
-              <span className="pi__print">
-                <span className="pi__slot">
-                  {projectsData.map((p) => (
-                    <img
-                      key={p.slug}
-                      className={`pi__preview${p.slug === active ? ' is-active' : ''}`}
-                      src={p.preview || p.imageSrc}
-                      alt=""
-                      loading="lazy"
-                      decoding="async"
-                      width="1200"
-                      height="750"
-                    />
-                  ))}
-                </span>
-                <span className="pi__print-caption">{current.title}</span>
-              </span>
-              <span className="pi__sticker">{current.type}</span>
-              {current.year && (
-                <span className="pi__burst" aria-hidden="true">
-                  <svg viewBox="-60 -60 120 120" focusable="false">
-                    <polygon points={starPoints(58, 38)} />
-                    <text y="8" textAnchor="middle">{current.year}</text>
-                  </svg>
-                </span>
-              )}
-            </span>
-            <span className="pi__caption">
-              <span className="pi__caption-title">{current.title}</span>
-              <span className="pi__caption-meta">{current.indexLine || current.type}</span>
-              <span className="pi__caption-cta">Open case study →</span>
-            </span>
-          </Link>
+              </div>
+            </section>
+          ))}
         </div>
 
         <div className="projects-page__bottom">
