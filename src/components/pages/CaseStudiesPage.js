@@ -65,15 +65,27 @@ const CaseStudiesPage = () => {
 
         <div className="pt">
           {grouped.map((g) => (
-            <section className={`pt__group pt__group--${g.color}`} key={g.heading} aria-label={g.heading}>
-              <h2 className="pt__heading">{g.heading}</h2>
+            <section className="pt__group" key={g.heading} aria-labelledby={`pt-${g.color}`}>
+              <h2 className="pt__heading" id={`pt-${g.color}`}>{g.heading}</h2>
               <div className="pt__grid">
                 {g.projects.map((p, i) => {
                   const src = p.preview || p.imageSrc;
                   const line = [p.indexLine, p.studioProject && 'Studio project'].filter(Boolean).join(' · ');
                   const feature = i === 0;
                   return (
-                    <Link key={p.slug} to={`/projects/${p.slug}`} className={`pt__card${role(i, g.projects.length)}`}>
+                    <Link
+                      key={p.slug}
+                      to={`/projects/${p.slug}`}
+                      className={`pt__card${role(i, g.projects.length)}`}
+                      /* The card's visible text runs together for a screen
+                         reader (meta, title, blurb, figure with no spaces),
+                         so the link's name is spelled out. */
+                      aria-label={[
+                        `${p.title}, ${p.type}`,
+                        p.indexMetric && `${p.indexMetric.value} ${p.indexMetric.label}`,
+                        'case study',
+                      ].filter(Boolean).join(', ')}
+                    >
                       {/* The site itself is the tile's top two-thirds. */}
                       <img
                         className="pt__shot"

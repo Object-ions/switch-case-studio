@@ -109,15 +109,18 @@
     }
   }
 
+  // A real heading, not a third tracked eyebrow: the page already has the
+  // kicker and each card's meta in that register. Size puts it between the
+  // h1 and the card titles.
   &__heading {
     margin: 0 0 1.5rem;
-    padding-top: 1rem;
+    padding-top: 1.25rem;
     border-top: 1px solid rgba(255, 255, 255, 0.14);
-    font-size: 0.75rem;
+    font-size: clamp(1.15rem, 1.5vw, 1.4rem);
     font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: rgba(255, 255, 255, 0.85);
   }
 
   // 12 columns: a tile spans 4 (thirds); the group's feature spans 8 and
@@ -257,11 +260,11 @@
     justify-content: space-between;
     gap: 1rem;
     margin-bottom: 0.7rem;
-    font-size: 0.66rem;
+    font-size: 0.75rem; // 12px: the floor for any text
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.55);
 
     &-type {
       min-width: 0;
