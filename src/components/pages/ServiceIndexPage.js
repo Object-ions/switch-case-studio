@@ -24,7 +24,7 @@ const COPY = {
     ariaLabel: 'Services and pricing',
     kicker: 'Services & Pricing',
     titleTop: 'What we do,',
-    titleAccent: 'and what it costs.',
+    titleBottom: 'and what it costs.',
     lede: 'Pick a service to see what is included and what it costs. AI and automation included, hype not.',
     bottomHeading: 'Not sure which service you need?',
     bottomBody: "Book a free call; we'll figure it out together.",
@@ -111,7 +111,7 @@ const ServiceIndexPage = ({ variant = 'pricing' }) => {
           <h1 className="service-index__title page-head-animate">
             {c.titleTop}
             <br />
-            <span className="service-index__title--accent">{c.titleAccent}</span>
+            {c.titleBottom}
           </h1>
           <p className="service-index__lede page-head-animate">
             {c.lede}

@@ -1,5 +1,6 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
+@import '../_page-head.scss';
 
 .testimonials-page {
   background: #000;
@@ -16,34 +17,18 @@
     @media (max-width: 768px)  { padding: 5rem 1.5rem 4rem; }
   }
 
+  // Page-head pattern (_page-head.scss, 2026-09-26).
   &__kicker {
-    font-size: 0.75rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: $orange-color;
-    margin: 0 0 1.5rem;
+    @include page-kicker;
   }
 
   &__title {
-    font-family: $font-special;
-    font-size: clamp(3rem, 7vw, 6rem);
-    font-weight: 800;
-    line-height: 1.0;
-    // SCS Display collides under negative tracking — keep it positive (see hero).
-    letter-spacing: 0.02em;
-    margin: 0 0 2rem;
-    color: #fff;
-
-    &--accent { color: $g6; }
+    @include page-title;
+    margin-bottom: 2rem;
   }
 
   &__lede {
-    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.6);
-    max-width: 580px;
-    margin: 0;
+    @include page-lede;
   }
 
   // ── Grid ──

@@ -1,5 +1,6 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
+@import '../_page-head.scss';
 
 .legal-page {
   padding: 120px 24px 80px; // Top padding accounts for fixed header
@@ -10,10 +11,9 @@
   font-family: $font-text;
 
   h1 {
-    font-family: $font-special;
-    font-size: clamp(32px, 5vw, 48px);
+    @include page-title;
+    color: #111; // light legal pages
     margin-bottom: 16px;
-    letter-spacing: -0.02em;
   }
 
   .last-updated {

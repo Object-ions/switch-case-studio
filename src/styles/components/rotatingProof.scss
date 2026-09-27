@@ -1,0 +1,87 @@
+@import '../_variables.scss';
+
+// Rotating client quote (RotatingProof.js). These rules moved out of
+// singlePricingCard.scss (`.spc__proof*`, `.spc__quote*`, `.spc__dots`) on
+// 2026-09-26, values unchanged: white-on-dark, one voice with the About crew
+// photos (greyscale avatars).
+.rp {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1.5rem;
+
+  &__stage {
+    position: relative;
+    min-height: 116px;
+  }
+
+  &__quote {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.7rem;
+  }
+
+  &__avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    filter: grayscale(1);
+  }
+
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+
+  &__name {
+    font-family: $font-text;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  &__role {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  &__text {
+    margin: 0;
+    font-family: $font-text;
+    font-size: 0.875rem;
+    font-style: italic;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  &__dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
+
+  &__dot {
+    width: 6px;
+    height: 6px;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: rgba($g6, 0.3);
+    cursor: pointer;
+    transition: width 0.25s ease, background-color 0.25s ease;
+
+    &.is-active {
+      width: 18px;
+      background: $g6;
+    }
+  }
+}

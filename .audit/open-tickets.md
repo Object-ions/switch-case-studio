@@ -357,6 +357,16 @@ action-plan item 1.4 applies to it too.
   sessions. Do not re-open it, do not re-ask. The OTHER half of 1.4 (labelling Jelly Belly Wiki
   and Birth of Venus "Studio project") shipped 2026-08-04 and is unaffected.
 
+- **No per-package pricing pages (Moses, 2026-09-26).** Asked whether each package (tier)
+  should get its own URL under `/pricing/<service>/`. Decided no: a package page would be the
+  board's column plus its full list, i.e. 17 thin near-duplicate pages to keep in sync with
+  `pricingData.json`, and the visitor's next step is a call, not more reading. Instead the
+  board carries an anchor per package (`/pricing/design-branding#brand-starter-kit`, column
+  lights up, its full list opens) and a "Seen in" row linking a shipped case study whose scope
+  matches (Brand System & Launch → My Challah Dealer; the other two have none yet, by the
+  owner's call). Revisit only when a tier has 2+ shipped examples and its own questions;
+  Unhurried Pro already has a page because it is a product with real content.
+
 ## Notes that will bite the next person
 - **Canonical personal name is "Moses Atia Poston"** (decided 2026-08-04). It is the byline on
   every blog post (`posts.json` + the `add-post.mjs` default), the rule in Beau's

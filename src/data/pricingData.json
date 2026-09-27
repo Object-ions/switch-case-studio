@@ -85,7 +85,8 @@
             "Image gallery or project showcase",
             "1 year of hosting and domain registration",
             "Basic SEO setup for search ranking",
-            "Fully responsive across all devices"
+            "Fully responsive across all devices",
+            "Optimized for fast load times"
           ],
           "group": "Build"
         },
@@ -101,7 +102,9 @@
             "Interactive contact form",
             "1 year of hosting and domain registration",
             "Basic SEO to enhance online presence",
-            "Google Analytics integration for visitor insights"
+            "Google Analytics integration for visitor insights",
+            "Image gallery or project showcase",
+            "Fully responsive and optimized for fast load times"
           ],
           "badge": "Popular",
           "group": "Build"
@@ -121,6 +124,9 @@
             "AI features on request: chat, smart search, content tools",
             "1 year of hosting and domain registration",
             "Advanced SEO practices for superior web presence",
+            "Google Analytics integration for visitor insights",
+            "Image gallery or project showcase",
+            "Fully responsive and optimized for fast load times",
             "Ongoing technical support"
           ],
           "group": "Build"
@@ -147,6 +153,7 @@
           "includes": [
             "VPS or cloud hosting with staging environment (15 GB storage, 50 GB monthly bandwidth)",
             "Daily backups + uptime/performance monitoring",
+            "Domain renewal and SSL (billed annually at cost)",
             "CMS and plugin updates",
             "Priority security patching",
             "Up to 3 hours of content or graphic edits per month",

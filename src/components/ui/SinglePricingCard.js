@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 
+import RotatingProof from './RotatingProof';
 import '../../styles/components/singlePricingCard.scss';
 
 /**
@@ -14,6 +14,8 @@ import '../../styles/components/singlePricingCard.scss';
  * "→" arrow convention (Services.js, About) and a hairline list — no icon
  * chips or star-rating graphic anywhere else on the site used them either.
  * Entrance uses whileInView (can't get stuck hidden); reduced-motion safe.
+ * The rotating quote lives in RotatingProof since 2026-09-26 (shared with
+ * the package board on pricing pages that have one).
  */
 
 // Internal link → react-router; external/anchor → plain <a>.
@@ -53,17 +55,6 @@ const SinglePricingCard = ({
   highlighted = false,
 }) => {
   const reduced = useReducedMotion();
-  const [tIndex, setTIndex] = useState(0);
-
-  // Auto-rotate the testimonial.
-  useEffect(() => {
-    if (testimonials.length <= 1) return;
-    const id = setInterval(
-      () => setTIndex((p) => (p + 1) % testimonials.length),
-      rotationSpeed
-    );
-    return () => clearInterval(id);
-  }, [testimonials.length, rotationSpeed]);
 
   return (
     <motion.div
@@ -143,63 +134,7 @@ const SinglePricingCard = ({
             ))}
           </ul>
 
-          {testimonials.length > 0 && (
-            <div className="spc__proof">
-              <div className="spc__proof-stage">
-                <AnimatePresence mode="wait">
-                  {testimonials.map(
-                    (t, i) =>
-                      i === tIndex && (
-                        <motion.figure
-                          key={t.id ?? i}
-                          className="spc__quote"
-                          initial={reduced ? { opacity: 0 } : { opacity: 0, y: 16 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={reduced ? { opacity: 0 } : { opacity: 0, y: -16 }}
-                          transition={{ duration: 0.45 }}
-                        >
-                          <figcaption className="spc__quote-head">
-                            {t.avatar && (
-                              <img
-                                src={t.avatar}
-                                alt=""
-                                className="spc__quote-avatar"
-                                loading="lazy"
-                                width="32"
-                                height="32"
-                              />
-                            )}
-                            <span className="spc__quote-meta">
-                              <span className="spc__quote-name">{t.name}</span>
-                              {t.role && (
-                                <span className="spc__quote-role">{t.role}</span>
-                              )}
-                            </span>
-                          </figcaption>
-                          <blockquote className="spc__quote-text">
-                            “{t.content}”
-                          </blockquote>
-                        </motion.figure>
-                      )
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {testimonials.length > 1 && (
-                <div className="spc__dots">
-                  {testimonials.map((t, i) => (
-                    <button
-                      key={t.id ?? i}
-                      type="button"
-                      className={`spc__dot${i === tIndex ? ' is-active' : ''}`}
-                      onClick={() => setTIndex(i)}
-                      aria-label={`View testimonial ${i + 1}`}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
+          <RotatingProof testimonials={testimonials} rotationSpeed={rotationSpeed} />
         </div>
       </div>
     </motion.div>

@@ -5,6 +5,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import pricingData from '../../data/pricingData.json';
 import testimonialsData from '../../data/testimonials.json';
 import SinglePricingCard from '../ui/SinglePricingCard';
+import RotatingProof from '../ui/RotatingProof';
+import PackageBoard, { hasPackageBoard } from '../pricing/PackageBoard';
 import BookCallCta from '../ui/BookCallCta';
 import { BOOK_CALL_URL, BOOK_CALL_LABEL } from '../../data/cta';
 import useReducedMotion from '../../hooks/useReducedMotion';
@@ -154,10 +156,20 @@ export const PricingGuide = ({ serviceId }) => {
         <p className="pg-sub pg-animate">{service.subtitle}</p>
       </header>
 
-      {/* Tiers may carry a `group` (Web Development: Build / Care). Grouped
-          services render one headed block per group, in data order; the rest
-          render a single ungrouped list, as before. */}
-      {tierGroups(service.tiers).map(({ group, tiers }) => (
+      {/* A service with a package board (PackageBoard.js) compares its tiers
+          on one sheet, with the proof once under it. The rest keep the
+          stacked tier cards: tiers may carry a `group` (Web Development:
+          Build / Care); grouped services render one headed block per group,
+          in data order, the others a single ungrouped list. */}
+      {hasPackageBoard(serviceId) && (
+        <>
+          <PackageBoard serviceId={serviceId} tiers={service.tiers} formatPrice={formatMoney} />
+          <div className="pb-proof pg-animate">
+            <RotatingProof testimonials={TESTIMONIALS} />
+          </div>
+        </>
+      )}
+      {!hasPackageBoard(serviceId) && tierGroups(service.tiers).map(({ group, tiers }) => (
         <div className="pg-group" key={group || 'all'}>
           {group && <h2 className="pg-group__title pg-animate">{group}</h2>}
           <div className="pg-cards">

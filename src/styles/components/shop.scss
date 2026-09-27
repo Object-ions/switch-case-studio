@@ -1,7 +1,8 @@
 @import '../_variables.scss';
+@import '../_page-head.scss';
 
-/* /shop: dark page on the site's black/orange system. Only the h1 uses the
-   display face; everything else is $font-text (house rule). */
+/* /shop: dark page on the site's black system. Head = the page-head
+   pattern (_page-head.scss, 2026-09-26); everything is $font-text. */
 .shop {
   max-width: $max-width;
   margin-inline: auto;
@@ -14,19 +15,13 @@
     margin-bottom: clamp(56px, 8vw, 96px);
 
     h1 {
-      font-family: $font-special;
-      font-size: clamp(40px, 6vw, 72px);
-      line-height: 1;
-      margin: 0 0 0.35em;
+      @include page-title;
+      margin-bottom: 0.35em;
     }
   }
 
   &__kicker {
-    color: $orange-color;
-    font-size: 14px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    margin: 0 0 1.25em;
+    @include page-kicker;
   }
 
   &__lede {

@@ -1,5 +1,6 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
+@import '../_page-head.scss';
 
 // Shared by /services and /pricing (ServiceIndexPage). Copy differs per
 // route; layout is identical.
@@ -18,38 +19,19 @@
     @media (max-width: 768px)  { padding: 5rem 1.5rem 4rem; }
   }
 
+  // Page-head pattern (_page-head.scss, 2026-09-26): lavender kicker, Inter
+  // title, quiet lede. The lavender second line and SCS Display left with it.
   &__kicker {
-    font-size: 0.75rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: $orange-color;
-    margin: 0 0 1.25rem;
+    @include page-kicker;
   }
 
   &__title {
-    // SCS Display — the brand display face, consistent with the About and
-    // Reviews page hero titles. Positive letter-spacing: SCS Display is a tight
-    // display face and negative tracking collides its glyphs (see hero.scss).
-    font-family: $font-special;
-    font-size: clamp(2.5rem, 5.5vw, 4.5rem);
-    font-weight: 800;
-    line-height: 1.08;
-    letter-spacing: 0.02em;
-    margin: 0 0 1.75rem;
-    color: #fff;
-
-    &--accent {
-      color: $g6;
-    }
+    @include page-title;
+    margin-bottom: 1.75rem;
   }
 
   &__lede {
-    font-size: clamp(1rem, 1.4vw, 1.2rem);
-    line-height: 1.65;
-    color: rgba(255, 255, 255, 0.55);
-    max-width: 560px;
-    margin: 0;
+    @include page-lede;
   }
 
   // ── Service index grid (2026-09-14, matches Home Services teaser) ──
