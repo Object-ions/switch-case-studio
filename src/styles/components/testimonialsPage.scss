@@ -158,6 +158,28 @@
     }
   }
 
+  // Auto-advance: the active name carries a 20s progress line, paused with
+  // the pointer, gone once the visitor picks (`.is-auto` drops).
+  &.is-auto &__pick.is-active {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      height: 1px;
+      width: 100%;
+      background: $g6;
+      transform-origin: left center;
+      animation: rv-progress 20s linear both;
+    }
+  }
+
+  &.is-auto.is-paused &__pick.is-active::after {
+    animation-play-state: paused;
+  }
+
   // ── Stage ──
   &__stage {
     grid-column: 1;
@@ -339,4 +361,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .rv.is-live .rv__panel.is-active { animation: none; }
+}
+
+@keyframes rv-progress {
+  from { scale: 0 1; }
+  to { scale: 1 1; }
 }

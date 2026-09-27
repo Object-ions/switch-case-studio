@@ -19,12 +19,39 @@ const projectOf = (t) => (t.project ? projectsData.find((p) => p.slug === t.proj
 const company = (title = '') => title.replace(/^(Owner at|Founder of|Owner of)\s+/i, '');
 const small = (src) => src.replace(/\.webp$/, '-600.webp');
 
+const AUTO_MS = 20000;
+const nextId = (id) => {
+  const i = testimonialsData.findIndex((t) => t.id === id);
+  return testimonialsData[(i + 1) % testimonialsData.length].id;
+};
+
 const ReviewsPage = () => {
   const [active, setActive] = useState(testimonialsData[0].id);
   const [live, setLive] = useState(false);
+  /* Auto-advance (owner, 2026-09-27: "like a carousel, every 20 sec"):
+   * on wide screens only, never under reduced motion, paused while the
+   * pointer or focus is on the stage or the list, skipped while the tab is
+   * hidden, and OFF for good once the visitor picks a name: a person who
+   * chose a review is reading it. The active name shows a 20s progress
+   * line while it runs. */
+  const [auto, setAuto] = useState(true);
+  const [paused, setPaused] = useState(false);
   const rootRef = useRef(null);
   usePageHeaderReveal(rootRef, '.page-head-animate, .rv');
   useEffect(() => setLive(true), []);
+  useEffect(() => {
+    if (!live || !auto || paused) return undefined;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    if (!window.matchMedia('(min-width: 901px)').matches) return undefined;
+    const id = setInterval(() => {
+      if (document.visibilityState === 'visible') setActive((a) => nextId(a));
+    }, AUTO_MS);
+    return () => clearInterval(id);
+  }, [live, auto, paused]);
+  const pick = (id) => {
+    setActive(id);
+    setAuto(false);
+  };
 
   return (
     <>
@@ -48,7 +75,13 @@ const ReviewsPage = () => {
           </p>
         </header>
 
-        <div className={`rv${live ? ' is-live' : ''}`}>
+        <div
+          className={`rv${live ? ' is-live' : ''}${auto ? ' is-auto' : ''}${paused ? ' is-paused' : ''}`}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocus={() => setPaused(true)}
+          onBlur={() => setPaused(false)}
+        >
           {/* The switcher: one button per client; the pressed one is on stage. */}
           <nav className="rv__list" aria-label="Choose a review">
             {testimonialsData.map((t) => (
@@ -57,9 +90,9 @@ const ReviewsPage = () => {
                 type="button"
                 className={`rv__pick${t.id === active ? ' is-active' : ''}`}
                 aria-pressed={t.id === active}
-                onClick={() => setActive(t.id)}
-                onMouseEnter={() => setActive(t.id)}
-                onFocus={() => setActive(t.id)}
+                onClick={() => pick(t.id)}
+                onMouseEnter={() => pick(t.id)}
+                onFocus={() => pick(t.id)}
               >
                 <span className="rv__pick-name">{t.name}</span>
                 <span className="rv__pick-company">{company(t.title)}</span>

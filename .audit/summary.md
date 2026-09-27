@@ -2092,4 +2092,5 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 ## /TESTIMONIALS REDESIGN — 2026-09-27
 
 - One voice at a time: stage (pull-quote large, person, full review, site shot + sourced figure where a case study exists) plus a sticky name list (`<button aria-pressed>`) that switches it; static HTML stacks all seven, `is-live` collapses them from 900px up; phones read the stack. `project` slugs added to five testimonials. Old cards, side-stripe quote and `motion/react` gone from the page. Verified in a visible browser (Shay, Sean, Lior), phone 390 (7 panels, no overflow), contrast lowest 5.3:1, h1 → h2; build green, 48 routes. Also restored the SEC-1 rule's opening sentence in CLAUDE.md, severed by an earlier docs edit.
+- Auto-advance added (owner: "like a carousel, every 20 sec"): 20s interval, wide screens only, off under reduced motion, paused on hover/focus, skipped when the tab is hidden, stops for good on a pick; progress line under the active name. Verified headless: Shay → Ori → Shiran at 20s steps; in the browser a pick drops `is-auto`.
 
