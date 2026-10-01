@@ -2095,3 +2095,9 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - Auto-advance added (owner: "like a carousel, every 20 sec"): 20s interval, wide screens only, off under reduced motion, paused on hover/focus, skipped when the tab is hidden, stops for good on a pick; progress line under the active name. Verified headless: Shay → Ori → Shiran at 20s steps; in the browser a pick drops `is-auto`.
 - Session close (2026-09-27, midday): pushed `main` (projects grid + a11y pass, testimonials stage + auto-advance). Route baseline unchanged at 48. Open: `/pricing` overview posters as thin strips; `/about` h1→h3 scan note; tier-page head spacing; "Seen in" gaps (AI Assistant, AI Partner, Simple Website).
 
+
+## JOURNAL COVERS + SCHEDULER SYNC — 2026-09-30
+
+- Local `main` rebased onto the scheduler's 2026-09-29 commit (Unhurried theme post, `scs-scheduler`); no conflicts, the local star-mark SVG commit sits on top. Route baseline 48 → 49.
+- The two posts the scheduler shipped without a cover (09-17 brand guidelines, 09-24 Search Console) now carry 1600×900 Unsplash covers (an illuminated tachometer by Chris Liverani; Pantone chips on dry grass by Taylor Heery) plus `imageAlt`. Verified on the build: `<img>` in `.journal__cover`, `og:image` + `og:image:alt`, BlogPosting `image`; headless screenshots at 1440 and 390, no horizontal overflow; em-dash gate 1 (the known regex), entry-chunk marker present, SCS Display in the app bundle only. No post is without a cover now.
+- Not pushed: `main` is 2 commits ahead of `origin/main` (star-mark SVG + covers).
