@@ -32,10 +32,10 @@ export const EXPLORE_LINKS = [
 // section hashes (owner, 2026-09-30): a hero link lands on a page, so Services
 // goes to /pricing, not to the home services section. Order is display order.
 export const HERO_LINKS = [
+  { label: 'Shop', to: '/shop' },
   { label: 'About', to: '/about' },
   { label: 'Services', to: '/pricing' },
   { label: 'Case Studies', to: '/projects' },
-  { label: 'Shop', to: '/shop' },
 ];
 
 export const LEGAL_LINKS = [
