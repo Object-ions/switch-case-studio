@@ -1,5 +1,120 @@
 [
   {
+    "slug": "website-redesign-seo-keep-what-works",
+    "title": "Website Redesign SEO: Keep What Already Works",
+    "excerpt": "A redesign should improve the site without erasing the search visibility it already earned. Preserve useful URLs, map necessary changes, and test the launch as carefully as the new design.",
+    "kicker": "SEO & Growth",
+    "category": "SEO & Growth",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-10-01",
+    "readingTime": "5 min read",
+    "coverImage": "",
+    "imageAlt": "",
+    "tags": [
+      "Website Redesign",
+      "SEO",
+      "Site Migration"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "A website redesign usually begins with what people can see: a dated layout, unclear messaging, awkward mobile pages, or a visual identity that no longer fits the business. Search visibility is less visible, so it is easy to treat the existing site as a blank canvas. That is how a cleaner website launches with missing pages, broken links, and fewer useful visits from search."
+      },
+      {
+        "type": "paragraph",
+        "text": "The safer approach is not to freeze the old site. It is to understand what the old site already does well before changing it. A redesign should preserve valuable routes, content, and signals while improving the experience around them. The work starts with an inventory, not a mood board."
+      },
+      {
+        "type": "heading",
+        "text": "Inventory the site before deciding what disappears"
+      },
+      {
+        "type": "paragraph",
+        "text": "Build a list of current URLs using the sitemap, content management system, analytics, Search Console, and a site crawl when one is available. No single source tells the whole story. Analytics can miss pages with little recent traffic. A sitemap can omit old URLs that still receive links. Search Console can reveal pages that appear in search even when they are not prominent in the navigation."
+      },
+      {
+        "type": "paragraph",
+        "text": "For each important page, note its purpose, target audience, current traffic, useful search queries, backlinks, internal links, and whether it generates inquiries or supports a sale. This separates weak pages from quiet pages that still do a specific job. A service page with modest traffic may be worth protecting if those visits come from people looking for exactly that service."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Keep pages that answer a distinct customer need, earn relevant search visibility, or support a conversion path.",
+          "Improve pages whose topic is useful but whose copy, layout, or next step is weak.",
+          "Combine pages only when they genuinely serve the same intent and the new page covers the useful material.",
+          "Remove pages with no continuing purpose, then return a real 404 or 410 when there is no relevant replacement."
+        ]
+      },
+      {
+        "type": "quote",
+        "text": "A redesign is not a clean slate. It is a renovation of an asset that already has history.",
+        "cite": "Switch Case Studio"
+      },
+      {
+        "type": "heading",
+        "text": "Keep URLs stable unless a change earns its cost"
+      },
+      {
+        "type": "paragraph",
+        "text": "A new design does not require a new URL structure. If a page still serves the same purpose, keeping its address removes an unnecessary migration step. Shorter or prettier URLs are not automatically better when the existing versions are already indexed, linked, and familiar to customers."
+      },
+      {
+        "type": "paragraph",
+        "text": "When a URL must change, create a one-to-one map from the old address to the closest relevant new address. Use a server-side permanent redirect, such as a 301 or 308, and point it directly to the final destination. Avoid sending every retired page to the home page. That is unhelpful to visitors and may be interpreted by Google as a soft 404 when the destination does not replace the old content."
+      },
+      {
+        "type": "heading",
+        "text": "Carry the page's meaning into the new design"
+      },
+      {
+        "type": "paragraph",
+        "text": "A page can keep the same URL and still lose its purpose. Redesigns often shorten copy to make a layout feel cleaner, rename headings to sound more branded, or move important details into interactions that are harder to find. The result may look more polished while answering fewer customer questions."
+      },
+      {
+        "type": "paragraph",
+        "text": "Preserve the substance that made an important page useful: the service description, location context, evidence, frequently asked questions, and a clear next step. Review the title element, main heading, meta description, image text alternatives, canonical URL, and structured data where applicable. These should describe the page that actually launched, not the page that existed in the design file."
+      },
+      {
+        "type": "heading",
+        "text": "Rebuild internal links as part of the architecture"
+      },
+      {
+        "type": "paragraph",
+        "text": "Internal links tell visitors what is related and give search engines paths through the site. A redesign can quietly remove them when navigation changes, old articles are not migrated, or calls to action are replaced with generic buttons. Update links so they point directly to final URLs rather than passing through redirects. Keep important service and location pages reachable through clear navigation or contextual links."
+      },
+      {
+        "type": "paragraph",
+        "text": "This is also the moment to check link language. “Learn more” repeated across a page reveals little about the destination. A descriptive link such as “review our web development services” makes the next step easier to predict. Clarity helps people first, which is a good standard for the architecture as a whole."
+      },
+      {
+        "type": "heading",
+        "text": "Treat staging controls as launch risks"
+      },
+      {
+        "type": "paragraph",
+        "text": "Development sites are often protected with a password, blocked in robots.txt, or marked noindex. Those controls are useful while the site is private and costly when they reach production by mistake. Add crawl and indexing checks to the launch list. Confirm that public pages return successful status codes, canonical tags use the live domain, and the production robots rules do not block sections that should appear in search."
+      },
+      {
+        "type": "paragraph",
+        "text": "Generate a sitemap with the final public URLs and submit it in Search Console. Keep the existing verification method intact. Test forms, phone links, downloads, analytics, consent settings, and key events on the live site. Search traffic is not useful if the redesigned contact form never delivers the inquiry."
+      },
+      {
+        "type": "heading",
+        "text": "Monitor the launch by page, not by panic"
+      },
+      {
+        "type": "paragraph",
+        "text": "Google notes that search visibility can fluctuate while a site move is crawled and processed. That does not make every decline harmless. Record a pre-launch baseline, then watch important pages, queries, indexed URLs, crawl errors, form submissions, and server logs after launch. Check redirects in batches, not only the five pages someone remembers to open manually."
+      },
+      {
+        "type": "paragraph",
+        "text": "Separate expected transition from preventable damage. A temporary wobble while changed URLs are processed is different from a service section returning 404 errors or carrying a noindex tag. The first needs observation. The second needs a fix. A redesign succeeds when the new site is clearer, faster, and easier to use without making existing demand start from zero."
+      }
+    ]
+  },
+  {
     "slug": "unhurried-free-wordpress-theme",
     "title": "Unhurried: A Free WordPress Theme for Businesses That Sell Care",
     "excerpt": "We released Unhurried, a free, calm, editorial block theme for studios, spas and makers, and Unhurried Pro, which adds a WooCommerce shop. Here is what is inside and how to install it.",
