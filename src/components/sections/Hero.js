@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import BookCallCta from "../ui/BookCallCta";
-import { EXPLORE_LINKS } from "../../data/navigation";
+import { HERO_LINKS } from "../../data/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import useReducedMotion from "../../hooks/useReducedMotion";
@@ -21,10 +21,8 @@ import "../../styles/components/hero.scss";
 import playMuted from "../../utils/playMuted";
 
 // Hero nav (owner, 2026-09-11): the header is hidden over the hero, so the
-// hero carries its own way in. Labels come from navigation.js, in this order.
-const HERO_LINKS = ["About", "Services", "Case Studies"].map((label) =>
-  EXPLORE_LINKS.find((l) => l.label === label),
-);
+// hero carries its own way in. Links and order live in navigation.js
+// (HERO_LINKS): pages only, no section hashes.
 
 /* The studio ident: 4.5s of hard-cut plates that settle on the wordmark.
    Rendered from ~/Desktop/scs-ident (Remotion, private: licensed fonts);
@@ -152,15 +150,9 @@ const Hero = () => {
           <ul>
             {HERO_LINKS.map((l) => (
               <li key={l.label}>
-                {l.hash ? (
-                  <HashLink to={`/${l.hash}`} smooth className="hero-nav__link">
-                    {l.label}
-                  </HashLink>
-                ) : (
-                  <Link to={l.to} className="hero-nav__link">
-                    {l.label}
-                  </Link>
-                )}
+                <Link to={l.to} className="hero-nav__link">
+                  {l.label}
+                </Link>
               </li>
             ))}
             <li>

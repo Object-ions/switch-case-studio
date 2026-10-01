@@ -28,6 +28,16 @@ export const EXPLORE_LINKS = [
   { label: 'Contact', hash: '#contact' },
 ];
 
+// The hero's own nav (the header is hidden over the hero). Routes ONLY, never
+// section hashes (owner, 2026-09-30): a hero link lands on a page, so Services
+// goes to /pricing, not to the home services section. Order is display order.
+export const HERO_LINKS = [
+  { label: 'About', to: '/about' },
+  { label: 'Services', to: '/pricing' },
+  { label: 'Case Studies', to: '/projects' },
+  { label: 'Shop', to: '/shop' },
+];
+
 export const LEGAL_LINKS = [
   { label: 'Privacy Policy', to: '/privacy' },
   { label: 'Terms of Use', to: '/terms' },
